@@ -1,0 +1,105 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework01 - MATH 758}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix,enumerate}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Problem.1} 
+Let $(X,\mathcal{B},\mu,T)$ be a m.p.s. A sub-$\sigma$-algebra $\mathcal{A}$ of $\mathcal{B}$ with $T^{-1}\mathcal{A} = \mathcal{A}$ module $\mu$ is called a $T$-invariant sub-$\sigma$-algebra. Show the system $(\tilde{X},\tilde{\mathcal{B}},\tilde{T},\tilde{\mu})$ defined by\par
+a. $\tilde{X} = \{x\in X^{\Z}, x_{k+1} = T(x_k), k\in\Z\}$.\par
+b. $\tilde{T}(x)_k = x_{k+1}, k\in\Z,x\in\tilde{X}$.\par
+c. $\tilde{\mu}(\{x,x_0 \in A\}) = \mu(A)$ and $\tilde{\mu}$ is $\tilde{T}$-invariant.\par
+d. $\tilde{B}$ is the smallest $\tilde{T}$-invariant $\sigma$-algebra for which the map $\pi:\tilde{X}\to X, x\mapsto x_0$ is mrb.\\
+is an invertible m.p.s and $\pi$ is a factor map. $\tilde{X}$ is an invertible extension of $X$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It is easy to check $T^{-1}A = \{x, x_1 \in A\}$. Since $\pi$ is mrb, then we define $\tilde{A} = \{x,x_0\in A\}$ and we know $\tilde{A}$ is mrb. Then for any $A \in \mathcal{B}$, we know $\tilde{T}^{-1}(A) = \{x,T(x_0)\in A\} = \tilde{T^{-1}A}$ and notice $\{\tilde{A}, A\in\mathcal{B}\}$ is a $\tilde{T}$-mrb $\sigma$-algebra where $\pi$ is measurable and hence it is $\tilde{B}$.\par
+Now we may define $G:\tilde{X} \to \tilde{X}, G(x)_k = x_{k-1}$ and we know $GT = TG = id_{\tilde{X}}$. And for any $A\in \mathcal{B}$,
+\[G^{-1}(\tilde{A}) = \{x, x_{-1} \in A\}\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Problem.3}
+Let $V$ be a real Hilbert space and $A$ a unitary map, $V^A$ is the invariant subspace of $A$.\par
+a. Consider $B\in L(V,V)$ where $B(v) = v-Av$ with kernel $V^A$. Show that $V = V^A \oplus Im(B)$.\par
+b. 
+\textbf{Sol.} \par
+a. It suffices to show that $Im(B) = (V^A)^{\perp}$ since $V^A = Ker(B)$ is a closed subspace. For any $v\in V$,
+\[\langle Bv, w\rangle = \langle v,w\rangle - \langle Av, Aw\rangle = 0\]
+for any $w\in V^A$ if
+\[\langle s,w \rangle\] 
+\prvd
+\vspace{0.5em}
+
+\subsection*{Problem.4}
+Show that the measure on $X = (0,1)$ defined by $\mu((a,b))=\int_a^b \tfrac{dx}{1+x}$ is invariant under the map $T:X\to X$ that send $x\to \tfrac{1}{x}(mod\ 1)$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Since $\tfrac{1}{x+1}$ is Riemann-integrable on $(a,b)$ for any $a,b\in(0,1),a<b$, where $\int_{\mathcal{R}_((a,b))} \tfrac{dx}{1+x} = \ln (\tfrac{b+1}{a+1})$, the we know $\mu((a,b))= \ln \tfrac{b+1}{a+1}$ for any $a,b\in(0,1),a<b$.\par
+Then consider $A=\{S, \mu(T^{-1}(S)) = \mu(S),S\subset (0,1)\}$, then we know
+\[
+\begin{aligned}
+\mu(T^{-1}(P-S)) &= \mu(T^{-1}P - T^{-1}S) = \mu(T^{-1}P)-\mu(T^{-1}S) = \mu(P)-\mu(S) = \mu(P-S) \\
+\mu(T^{-1}(\bigcup_{n\geq 0}S_n)) &= \mu(\bigcup_{n\geq 0}T^{-1}S_n) = \lim_{n\to\infty}\mu(T^{-1}S_n) = \lim_{n\to \infty}\mu(S_n) = \mu(\bigcup_{n\geq 0} S_n) \\
+\end{aligned}
+\]
+for any $S\subset P, S,P\subset (0,1)$ and $S_n$ subsets of $(0,1)$ increasing. Then notice that for any $a<b,a,b\in(0,1)$, we know
+\[T^{-1}(a,b) = \{x\in(0,1), \dfrac{1}{x}\in(a+k,b+k)\text{for some integer }k\} = \bigcup_{k\geq 1}(\dfrac{1}{b+k},\dfrac{1}{a+k})\]
+and hence
+\[\mu(T^{-1}(0,b)) = \sum\limits_{k\geq 1}\ln\dfrac{\tfrac{1}{k}+1}{\tfrac{1}{b+k}+1} = \sum\limits_{k\geq 1} (\ln(1+\dfrac{1}{k})-\ln(1+dfrac{1}{b+k})) = \lim_{n\to\infty}\ln n-\ln\dfrac{b+n}{b+1} = \ln (b+1),\]
+which means$\mu(T^{-1}(0,b)) = \mu((0,b))$ for any $b\in(0,1)$ Therefore, by the $\pi$-$\lambda$ theorem, we know $T:x\to\tfrac{1}{x}$ is $\mu$-invariant.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Problem.5}
+Worksheet 1.\par
+\vspace{0.5em}
+\textbf{Sol.} \par
+Problem.1.\par
+Consider $(X,f,P)$ is a p.m.p.s. and then we know for any $\epsilon > 0$, $x\in B_{0,\epsilon}^c$ recurs to it a.s., but for any $x\in B_{0,\epsilon}^c$, $\lim_{n\to\infty} |f^{(n)}(x)| \to 0$ and hence $P(B_{0,\epsilon})^c$ has to be 0 for any $\epsilon > 0$, and hence $P = \delta_{\{0\}}$ since $P(X) = 1$.\par
+Problem.2.\par
+We onlt need to show the conclusion when $\alpha$ is irrational. For any open set in $[0,1)$, there exists an open ball in it with length $\epsilon > 0$, then we consider $N = [\tfrac{1}{\epsilon}]+1$ and $I_k = [\tfrac{k}{N}, \tfrac{k+1}{N}), 0 \leq N-1$ is a partition of $[0,1)$, consider $\{m\alpha\}_{1\leq m \leq N+1}$ is pairwise distinct module $1$ since $\alpha$ irrational, and there has to be an $I_k$ containiing two elements in $\{m\alpha\}_{1\leq m \leq N+1}$ module $1$ and we may assume $p\alpha,q\alpha \in I_k,p<q$ module $1$ for some $k$, then we know $(q-p)\alpha \in [0,\tfrac{1}{N})$ or $[1-\tfrac{1}{N},1)$ and hence there always exists an integer $M$ such that $M(q_p)$ is the open set module $1$.\par
+Problem.3.\par
+We know if there exists a finte $f$-invariant measure $\mu$, then we may use Poincare recurrence on it and we know for any $[n,n+1), n\in\Z$, the points in it recur to it a.e. and hence $\mu([n,n+1)) = 0$, which implies that $\mu(\R) = 0$ which is a contradiction.\par
+For the second part of the problem, we know $S_1$ is homeomorphic to $\R\cup\{\infty\}$ and we denote the homeomorphism as $\phi$, then $\mu(\phi^{-1}(A))$ will induce a $f$-invariant measure on $\R\cap\{\infty\}$, which satisfies that $\mu = \mu(\{\infty\})\delta_{\infty} + \sum\limits_{n\in\Z} \nu_k$, where $\nu_k(A) = \mu((A-k)\cap[0,1))$.\par
+Problem.4.\par
+Assume $A = S^{-1}PS$ where
+\[P=\left(\begin{array}{c|c} 1 & t \\ 0 & 1\end{array}\right)\text{ or }\left(\begin{array}{c|c} a & 0 \\ 0 & a^{-1}\end{array}\right)
+\]
+and we consider $\phi$ is a homeomorphic from $\R^2$ to itself by $x\mapsto $, then the induced pushforward measure $\nu$ on $\R^2$ will be a $g$-invariant measure, where $g: S\partial D \to S\partial D$ is similarly induced by $P$, and it is easy to show that $\nu$ has to be $a\delta_{x_r}+b\delta_{x_y}$ for some $a,b>0$ and $x_l,x_r$ are the most left, right points of $S\partial D$ when $P = \left(\begin{array}{c|c} 1 & t \\ 0 & 1\end{array}\right)$ or $P = \left(\begin{array}{c|c} a & 0 \\ 0 & a^{-1}\end{array}\right)$ if $|a|>1$. If $|a|<1$, then $\nu = a\delta_{y_h}+b\delta_{y_l}$ for some $a,b>0$ and $y_h,y_l$ are the most high and low points of $S\partial D$. It is trivial when $P \in \{I,-I\}$ and we know $\mu$ is a sum of two same measures defined on an h-half arc.\par
+For the condition $P$ is a rotation matrix, we may use the conclusion in Problem.3. and treat $S\partial D$ as $S_1$ since it is always homeomorphic to $\R\cup{\{\infty\}}$, when the rotation angle is $\alpha/2\pi$ where $\alpha$ is an irrational number, we will know $\mu$ should be invariant for any rotation and hence the induced pushforward measure will be the Lebesgue measure on $\R\cup\{\infty\}$. If $\alpha$ is rational, then similarly it will be a finite sum of several same measures defined on a segment of $S_1$.\par
+\prvd
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

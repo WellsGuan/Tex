@@ -1,0 +1,416 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Greene CA}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+\newcommand{\ParbZ}{\dfrac{\partial}{\partial \bar{z}}}
+\newcommand{\ParX}{\dfrac{\partial}{\partial x}}
+\newcommand{\ParY}{\dfrac{\partial}{\partial y}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\section*{Fundamental Concepts}
+
+\begin{definition}
+If $U\subset \R^2$ is open and $f:U\to\R$ is a continuous function, then $f$ is called $C^1$ on $U$ if $\partial f/\partial x, \partial f/\partial y$ exist and are continous on $U$.
+\end{definition}
+
+\begin{definition}
+    We define for $f = u+iv:U\to \C$ a $C_1$ function
+    \[
+    \begin{aligned}
+    \dfrac{\partial}{\partial z}f &:=\dfrac{1}{2}(\dfrac{\partial}{\partial x} - i\dfrac{\partial}{\partial y})f \\
+    \dfrac{\partial}{\partial \bar{z}}f &:=\dfrac{1}{2}(\dfrac{\partial}{\partial x} + i\dfrac{\partial}{\partial y})f
+    \end{aligned}
+    \]
+    which is easy to be checked linear and the chain rules.
+\end{definition}
+where we may check let $z = x+iy, \bar{z} = x-iy$, we have
+\[
+\begin{aligned}
+    &\dfrac{\partial}{\partial z} z = 1,\quad \dfrac{\partial}{\partial z}\bar{z} = 0 \\
+    &\dfrac{\partial}{\partial \bar{z}} z = 0,\quad \dfrac{\partial}{\partial \bar{z}}\bar{z} = 1
+\end{aligned}
+\]
+
+\begin{proposition}
+(The Leibniz Rules) We have for any $F,G \in C^1$
+\[
+\begin{aligned}
+\dfrac{\partial}{\partial z}(F\cdot G) &= \dfrac{\partial F}{\partial z}\cdot G + F\cdot \dfrac{\partial G}{\partial z} \\ 
+\dfrac{\partial}{\partial \bar{z}}(F\cdot G) &= \dfrac{\partial F}{\partial \bar{z}}\cdot G + F\cdot \dfrac{\partial G}{\partial \bar{z}} \\ 
+\end{aligned}
+\]
+\end{proposition}
+
+\begin{proposition}
+    We have for $l\leq j, m\leq k$ nonnegative integers and then
+    \[
+    \begin{aligned}
+    (\dfrac{\partial^l}{\partial z^l})(\dfrac{\partial^m}{\partial \bar{z}^m})(z^j\bar{z}^k) = \dfrac{j!}{l!}\dfrac{k!}{m!}z^{j-l}\bar{z}^{k-m}
+    \end{aligned}
+    \]
+\end{proposition}
+
+\begin{proposition}
+    If $p(z,\bar{z}) = \sum a_{lm} z^l\bar{z}^m$ is a polynomaial, then $p$ contains no term with $m>0$ iff $\dfrac{\partial p}{\partial \bar{z}} \equiv 0$. 
+\end{proposition}
+
+\begin{corollary}
+    If $p(z,\bar{z}) = q{z,\bar{z}}$ are polynomials, then they have same coefficients.
+\end{corollary}
+
+\begin{definition}
+    A $C_1$ function $f:U\mapsto \C$ is said to be $holomorphic$ if
+    \[\dfrac{\partial f}{\partial \bar{z}} = 0\]
+    at every point of $U$.
+\end{definition}
+
+\begin{definition}
+    A $C^1$ function $f = u(x,y)+iv(x,y): U \to \C$ is holomorphic if
+    \[
+    \begin{cases}\dfrac{\partial u}{\partial x} = \dfrac{\partial v}{\partial y} \\
+    \dfrac{\partial u}{\partial y} = -\dfrac{\partial v}{\partial x}
+    \end{cases}\]
+    at every point of $U$, which is called the $Cauchy$-$Riemann$ equations.
+\end{definition}
+
+\begin{proposition}
+    If $f:U\to\C$ is $C^1$ and if $f$ satisfies the C-R equations, then
+    \[\ParZ f = \ParX f = -i\ParY f \]
+    on $U$.
+\end{proposition}
+\begin{proof}\par
+    We have
+    \[
+    \begin{aligned}
+    \ParX f &= \ParX u + i\ParX v = (\ParX -i\ParY) u = 2\ParZ u \\
+    \ParX f &= \ParX u + i\ParX v = i(\ParX - i\ParY) v = 2\ParZ iv \\
+    -i\ParY f &= -i\ParY u + \ParY v = (\ParX -i\ParY) u = 2\ParZ u \\
+    -i\ParY f &= -i\ParY u + \ParY v = i(\ParX - i\ParY) v = 2\ParZ iv \\
+    \end{aligned}
+    \]
+    on $U$.
+\end{proof}
+
+\begin{definition}
+If $U\subset \C$ is open and $u\in C^2(U)$, then $u$ is called $harmonic$ if
+\[\dfrac{\partial^2 u}{\partial x^2}+\dfrac{\partial^2 u}{\partial y^2} = 0\]
+where we also denote it as
+\[\Delta u = \dfrac{\partial^2 u}{\partial x^2}+\dfrac{\partial^2 u}{\partial y^2}\]
+where the operator is called the $Laplace\ operator$.
+\end{definition}
+Here we have
+\[4\ParbZ\ParZ u = 4 \ParZ\ParbZ = \Delta u\]
+
+\begin{proposition}
+    The real and imaginary parts of a holomorphic $C^2$ function are harmonic.
+\end{proposition}
+\begin{proof}\par
+    Assume $f = u + iv$ and then according to C-R equations, we have
+    \[\dfrac{\partial^2}{\partial x^2} u = \dfrac{\partial^2}{\partial x\partial y} v = \dfrac{\partial^2}{\partial y\partial x} v = -\dfrac{\partial^2}{\partial y^2} u
+    \]
+    and
+    \[\dfrac{\partial^2}{\partial x^2} v = -\dfrac{\partial^2}{\partial x\partial y} u = -\dfrac{\partial^2}{\partial y\partial x} u = -\dfrac{\partial^2}{\partial y^2} v
+    \]
+\end{proof}
+
+\begin{lemma}
+It $u(x,y)$ is a real-valued polynomial with $\Delta u = 0$, then there exists a (holomorphic) $Q(z)$ such that $Re Q= u$.
+\end{lemma}
+\begin{proof}\par
+    Consider $u(x,y) = u(\dfrac{z+\bar{z}}{2},\dfrac{z-\bar{z}}{2}) = P(z,\bar{z}) = \sum a_{lm}z^l\bar{z}^m$, we know $\Delta u = 0$ and hence
+    \[P(z,\bar{z}) = a_00 + \sum^m a_k z^k + \sum^n b_k \bar{z}^k\]
+    $P$ is real-valued and we know
+    \[a_00 + \sum^m a_k z^k + \sum^n b_k \bar{z}^k = \bar{a_00} + \sum^m \bar{a_k} \bar{z}^k + \sum^n \bar{b_k} z^k\]
+    and hence $a_00\in \R, a_k = \bar{b_k}$ and hence
+    \[
+    u(z) = c + \sum^n a_{k}z^k + \sum^n \bar{a_{k}}\bar{z}^k = Re(c+2\sum^n a_k z^k) = Re(Q)
+    \]
+    where $Q$ is obviously holomorphic.
+\end{proof}
+
+\begin{theorem}
+    If $f,g$ are $C^1$ functions on the rectangle
+    \[\mathcal{R} = \{(x,y)\in \R^2: |x-a|<\delta, |y-b|<\epsilon\}\]
+    and if 
+    \[
+    \dfrac{\partial f}{\partial y} = \dfrac{\partial g}{\partial x}\text{ on }\mathcal{R}
+    \]
+    then there is a function $h\in C^(\mathcal{R})$ such that
+    \[\ParX h =f, \ParY h = g\]
+    on $\mathcal{R}$. If $f,g$ are real-valuedd, the nwe may take $h$ to be real-valued also.
+\end{theorem}
+\begin{proof}\par
+    For $(x,y) \in \mathcal{R}$, define
+    \[h(x,y) = \int_a^x f(t,b) dt + \int_b^y g(x,s)ds\]
+    and we know
+    \[
+    \ParY h(x,y) = g(x,y)
+    \]
+    and 
+    \[\ParX h(x,y) = f(x,b) + \ParX \int_b^y g(x,s) ds = f(x,b) + \int_b^y \ParY f(x,s) = f(x,b) + f(x,y)-f(x,b) = f(x,y)\]
+    and hence $h \in C^2(\mathcal{R})$ and real-valued if $f,g$ are.
+\end{proof}
+
+\begin{corollary}
+    If $\mathcal{R}$ is an open rectangle (or open disc) and if $u$ is a real-valued harmonic function on $\R$, then there is a holomorphic function $F$ on $\R$ such that $Re F = u$.
+\end{corollary}
+\begin{proof}\par
+    We know 
+    \[\dfrac{\partial^2}{\partial x^2} u + \dfrac{\partial^2}{\partial y^2} u =0\]
+    and hence there exists $v$ real-valued such taht
+    \[\ParX v = - \ParY u, \ParY v = \ParX u\]
+    and hence $F = u+iv$ is a holomorphic function with $Re(F) = u$.
+\end{proof}
+
+\begin{theorem}
+    If $U\subset \C$ is either an open rectangle or an open disc and if $F$ is holomorphic on $U$, then there is a holomorphic function $H$ on $U$ such that $\partial H/\partial z = F$ on $U$. 
+\end{theorem}
+\begin{proof}\par
+    Consider $H = h_1 + ih_2$ and 
+    we have $F = u(z) + iv(z)$, then we let $f= u ,g = -v$ and we will have
+    \[\ParY f = \ParX g\]
+    and hence we have a real $C^2$ function $h_1$ such that
+    \[\ParX h_1 = u, \ParY h_1 = -v\]
+    and $h_2 \in C^2$ with
+    \[\ParX h_2 = v, \ParY h_2 = u\]
+    Then
+    \[\ParZ H = \dfrac{1}{2}(\ParX h_1 + \ParY h_2)+\dfrac{i}{2}(\ParX h_2 - \ParY h_1) = u+iv = F\]
+\end{proof}
+
+\begin{definition}
+    A function $\phi:[a,b]\to\R$ is called $continuously\ differentiable$ and we write $\phi\in C^1([]a,b)$ if\par
+    (a) $\phi$ is continous on $[a,b]$\par
+    (b) $\phi'$ exists on $(a,b)$\par
+    (c) $\phi'$ has a continuous extension to $[a,b]$, i.e.
+    \[\lim_{t\to a^+} \phi'(t)\text{ and }\lim_{t\to b^-} \phi'(t)\]
+    both exists. Then $\phi(b)-\phi(a) = \int_a^b \phi'(t)dt$.
+\end{definition}
+\begin{proof}\par
+    Here notice that $\phi$ is absolutely continuous on $[a,b]$ respect to $m$, then we know $\phi(b-\epsilon) - \phi(a+\epsilon) = \int_{a+\epsilon}^{b-\epsilon} \phi'(t)dt$ for any $epsilon > 0$, and hence
+    \[\phi(b)-\phi(a) = \int_a^b \phi'(t) dt\]    
+\end{proof}
+
+\begin{definition}
+    A curve $\gamma:[a,b]\to \C$ is said to be $continuous$ on $[a,b]$ if both $\gamma_1$ and $\gamma_2$ are, $\gamma = \gamma_1 + i\gamma_2$. The curve is $C_1$ on $[a,b]$ if $\gamma_1,\gamma_2$ are $C_1$ on $[a,b]$ and then we may denote
+    \[\dfrac{d\gamma}{dt} = \dfrac{d\gamma_1}{dt} + i\dfrac{d\gamma_2}{dt}\]
+\end{definition}
+
+\begin{definition}
+    Let $\varphi:[a,b] \to \C$ be continuous on $[a,b]$. Write $\varphi(t) = \varphi_1(t) + i\varphi_2(t)$. Then we define
+    \[\int_a^b \varphi(t) dt = \int_a^b \varphi_1(t)dt + i\int_a^b \varphi_2(t) dt\]
+\end{definition}
+
+\begin{proposition}
+    Let $U\subset \C$ be open and let $\gamma:[a,b]\to U$ be a $C_1$ curve. If $f:U\to\R$ and $f\in C^1(U)$, then
+    \[f(\gamma(b))-f(\gamma(a)) = \int_a^b\Big(\ParX f(\gamma(t))\dfrac{d\gamma_1}{dt}+\ParY f(\gamma(t))\dfrac{d\gamma_2}{dt}\Big)dt\]
+\end{proposition}
+This is due to the chain rule.
+
+\begin{proposition}
+    Repalce $f$ above as complex-valued and holomorphic, then we have
+    \[f(\gamma(b))-f(\gamma(a)) = \int_a^b \ParZ f(\gamma(t))\cdot \dfrac{d\gamma}{dt}(t)dt\]
+\end{proposition}
+\begin{proof}\par
+    Notice
+    \[
+    \begin{aligned}
+    f(\gamma(b)) - f(\gamma(a))
+    &= \int_a^b \Big(\ParX u(\gamma(t))\dfrac{d\gamma_1}{dt}(t)+ \ParY u(\gamma(t))\dfrac{d\gamma_2}{dt}(t)\Big) +i \Big(\ParX v(\gamma(t))\dfrac{d\gamma_1}{dt}(t)+ \ParY v(\gamma(t))\dfrac{d\gamma_2}{dt}(t)\Big) dt \\ &= \ParX f(\gamma(t))\dfrac{d\gamma}{dt}(t) = \int_a^b\ParZ f(\gamma(t)) \dfrac{d\gamma}{dt}(t) dt
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}
+    If $U\subset \C$ open and $F:U\to\C$ is continuous on $U$ and $\gamma:[a,b]\to U$ is a $C_1$ curve, then we define the $complex\ line\ integral$
+    \[\int_{\gamma} F(z)dz = \int_a^b F(\gamma(t))\dfrac{d\gamma}{dt}dt\]
+\end{definition}
+
+\begin{proposition}
+    Let $U\subset \C$ be open and let $\gamma:[a,b]\to U$ be a $C^1$ curve. If $f$ is a holomorphic function on $U$, then
+    \[f(\gamma(b)) - f(\gamma(a)) = \int_{\gamma} \ParZ f(z)dz\]
+\end{proposition}
+
+\begin{proposition}
+If $\phi:[a,b] \to \C$ is continuous, then
+\[|\int_a^b \phi(t)dt|\leq \int_a^b |\phi(t)|dt\]
+\end{proposition}
+
+\begin{proposition}
+Let $U \subset \C$ be open and $f\in C^0(U)$. If $\gamma:[a,b]\to U$ is a $C^1$ curve, then
+\[|\int_{\gamma} f(z)dz| \leq (\sup_{t\in[a,b]} |f(\gamma(t))|)\cdot l(\gamma)\]
+where
+\[l(\gamma) = \int_a^b |\dfrac{d\gamma}{dt}(t)|dt\]
+\end{proposition}
+
+\begin{proposition}
+    Let $U\subset \C$ be an open set and $F:U\to\C$ a continuous function. Let $\gamma:[a,b]\to U$ be a $C^1$ curve. Suppose that $\theta: [c,d]\to[a,b]$ is a one-to-one, onto, increasing $C^1$ function with a $C^1$ inverse. Let $\tilde{\gamma} = \gamma \circ \phi$. Then
+    \[\int_{\tilde{\gamma}} fdz = \int_{\gamma} fdz\]
+\end{proposition}
+\begin{proof}\par
+    We have
+    \[
+    \begin{aligned}
+        \int_{\tilde{\gamma}} fdz = \int_c^d f(\gamma(\phi(t))) \dfrac{d\gamma(\phi(t))}{dt} dt = \int_a^b f(\gamma(s)) \dfrac{\gamma(s)}{ds} \phi'(\phi^{-1}(s)) (\phi^{-1})'(s)ds = \int_{\gamma} fdz
+    \end{aligned}
+    \]
+    since $\phi'(\phi^{-1}(s))(\phi^{-1})' = 1$.
+\end{proof}
+
+\begin{definition}
+    Let $f$ be a function on the open set $U$ in $\C$ and consider if 
+    \[\lim_{z\to z_0} \dfrac{f(z)-f(z_0)}{z-z_0}\]
+    exists then we say that $f$ has a $complex\ derivative$ at $z_0$. We denote the complex derivative by $f'(z_0)$. 
+\end{definition}
+
+\begin{theorem}
+    Let $U\subset \C$ be an open set and let $f$ be holomorphic on $U$. Then $f'$ exists at each point of $U$ and
+    \[f'(z) = \ParZ f\]
+    for all $z\in U$.
+\end{theorem}
+\begin{proof}\par
+    Consider
+    \[\gamma(t) = (1-t)z_0 + tz\]
+    and then we know
+    \[f(z)-f(z_0) = f(\gamma(1)) - f(\gamma_0) = \int_{\gamma} \ParZ fdz = (z-z_0) \int_0^1 \ParZ f(\gamma(t)) dt = \ParZ f(z_0) + \int_0^1(\ParZ f (\gamma(t))- \ParZ f(z_0))dt\]
+    and hence
+    \[|\dfrac{f(z)-f(z_0)}{z-z_0}- \ParZ f(z_0)| \leq \int |\ParZ(\gamma(t))- \ParZ f(z_0)|dt \to 0\]
+    when $z\to z_0$.
+\end{proof}
+
+\begin{theorem}
+    If $f\in C^1(U)$ and $f$ has a complex derivative at each point of $U$, then $f$ is holomorphic on $U$. In particular, if a continuous, complex-valued function $f$ on $U$ has a complex derivative at each point and if $f'$ is continuous on $U$, then $f$ is holomorphic on $U$.
+\end{theorem}
+\begin{proof}\par
+    It is easy to check
+    \[\lim_{h\to 0, h\in\R} \dfrac{f(z_0+h)-f(z_0)}{h} = \ParX u (x_0, y_0) + i\ParX v(x_0,y_0)\]
+    and
+    \[
+    \lim_{h\to 0, h\in \R}\dfrac{f(z_0+h)-f(z_0)}{h} =  - i\ParY u(x_0,y_0) + \ParY v(x_0,y_0)
+    \]
+    and hence $f$ satisfies the C-R equations so holomorphic.\par
+    Notice the continuity of $f'$ may implies that $f\in C^1(U)$ and hence the problem goes.
+\end{proof}
+
+\begin{theorem}
+    Let $f$ be holomorphic in a neighborhood of $P\in\C$. Let $\omega_1,\omega_2$ be complex numbers of unit modulus. Consider the directional derivatives
+    \[D_{\omega_1}f(P) = \lim_{t\to 0}\dfrac{f(P+t\omega_1)-f(P)}{t}\]
+    and
+    \[D_{\omega_2}f(P) = \lim_{t\to 0}\dfrac{f(P+t\omega_2)-f(P)}{t}\]
+    then\par
+    a. $|D_{\omega_1} f(P)| = |D_{\omega_2}f(P)|$\par
+    b. If $f'(P) \neq 0$, then the directed angle from $\omega_1$ to $\omega_2$ equals the directed angle from $D_{\omega_1}f(P)$ to $D_{\omega_2} f(P)$. 
+\end{theorem}
+\begin{proof}\par
+    Notice that
+    \[D_{\omega_j} = f'(P)\omega_j, j= 1,2\]
+    and then the conclusions go.
+\end{proof}
+
+\begin{lemma}
+    Let $(\alpha,\beta)\subset\R$ be an open interval and let $H:(\alpha,\beta)\to\R, F:(\alpha,\beta)\to\R$ be continuous functions. Let $p\in(\alpha,\beta)$ and suppose that $dH/dx$ exists and equals $F(x)$ for all $x\in(\alpha,\beta)\{p\}$. Then $(dH/dx)(p)$ exists and $(dH/dx)(x) = F(x)$ for all $x\in(\alpha,\beta)$.
+\end{lemma}
+\begin{proof}\par
+    Assume $[a,b]\subset (\alpha,\beta)$ and then $K(x) = H(a) + \int_a^x F(t)dt$ on $[a,b]$, so we know $K-H$ is continuous on $[a,b]$ and constant on $[a,p)\cup(p,b]$, which means $K=H$ on $[a,b]$.
+\end{proof}
+
+\begin{theorem}
+    Let $U\subset \C$ be either an open rectangle or an open disc and let $P\in U$. Let $f$ and $g$ be continuous, real-valued functions on $U$ which are continuously differentiable on $U-\{P\}$. Suppose further that
+    \[\ParY f = \ParX g\text{ on }U=\{P\}\]
+    Then there exists a $C^1$ function $h:U\to\R$ such that
+    \[\ParX = f, \ParY = g\]
+    at every point of $U$.
+\end{theorem}
+\begin{proof}\par
+    Consider a closed rectangle containing $p$ inside in $U$ and define $h(x,y) = \int_a^x f(t,b)dt + \int_b^y g(x,s)ds$ and we know that $\ParY h = g(x,y)$ and $\ParX h = f(x,y)$ for any $x\neq P_x$, then for a fixed $y$, we know $dh(x,y)/dx= f(x,y)$ exists for all points in $U$ except for $(p_x,y)$ and hence $dh(x,y)/dx = f(x,y)$ at $(p_x,y)$. Then we know $\ParX h = f, \ParY h = g$ on $U$.
+\end{proof}
+
+\begin{theorem}
+    Let $U\subset\C$ be either an open rectangle or an open disc. Let $P\in U$ be fixed. Suppose that $F$ is continuous on $U$ and holomorphic on $U-\{P\}$. Then there is a holomorphic $H$ on $U$ such that $U$ such that $\ParZ H = F$.    
+\end{theorem}
+\begin{proof}\par
+    Consider $F = u+iv$, then we have
+    \[\ParY v = \ParX u\text{ and } \ParY u = \ParX (-v)\]
+    on $U-\{P\}$, then we know there exists $h_1,h_2$ on $U$ such that $\ParX h_1 = u, \ParY h_1 = (-v), \ParX h_2 = v, \ParY h_2 = u$
+    and let $H = h_1 + ih_2$, we have
+    \[
+    \ParZ H = \dfrac{1}{2}(\ParX - i\ParY)(h_1+ih_2) = (u+u) + i(v+v) = F
+    \]
+\end{proof}
+
+\begin{definition}
+    The boundary $\partial D(P,r)$ of the disc $D(P,r)$ can be parametrized as a simple closed curve $\gamma:[0,1]\to \C$ by setting
+    \[\gamma(t) = P+re^{2\pi it}\]
+    we call it $counterclockwise$ orientation.
+\end{definition}
+
+\begin{lemma}
+    Let $\gamma$ be the boudnary of a disc $D(z_0,r)$ in the complex plane, equiipped with counterclockwise orientation. Let $z$ be a point inside the circle $\partial D(z_0,\gamma)$ . Then
+    \[\dfrac{1}{2\pi i} \int_{\gamma} \dfrac{1}{\xi-z}d\xi = 1\]
+\end{lemma}
+\begin{proof}\par
+    Consider $I(z) = \int_{\gamma} \dfrac{1}{\xi-z}d\xi = \int_0^1 \dfrac{1}{(z_0+e^{2\pi it})-z}(2\pi i)e^{2\pi i t}dt$ and since
+    \[\ParX \dfrac{1}{\xi-z} = \dfrac{1}{(\xi-z)^2}, \ParY \dfrac{1}{\xi -z} = i\dfrac{1}{(\xi-z)^2}\]
+    and hence we have
+    \[\ParbZ I(z) = \int_{\gamma} \ParbZ(\dfrac{1}{\xi-z})d\xi = 0\quad \ParZ I(z) = \int_{\gamma} \ParZ (\dfrac{1}{\xi-z})d\xi = \int_{\gamma}\dfrac{1}{(\xi-z)^2} d\xi\]
+    where $\dfrac{1}{(\xi-z)^2}$ is the complex derivative of the holomorphic function $\dfrac{-1}{\xi-z}$ and hence 
+    \[\ParZ I(z) = \int_{\gamma} \dfrac{1}{(\xi-z)^2}d\xi = 0\]
+    Therefore, $I(z)$ is holomorphic on $D(z_0,r)$ and $\ParZ I = 0$ which means $I$ is constant on $D(z_0,r)$ and notice
+    \[I(z_0) = 2\pi i\]
+    and hence the equation holds.
+\end{proof}
+
+\begin{theorem}
+    (The Cauchy integral fomula) Suppose that $U$ is an open set in $\C$ and that $f$ is a holomorphic function on $U$. Let $z_0\in U$ and let $r>0$ be such that $\overline{D}(z_0,r) \subset U$. Let $\gamma:[0,1] \to \C$ be the $C^1$ curve $\gamma(t)= z_0+r\cos(2\pi t) + ir \sin(2\pi t)$. Then for each $z\in D(z_0,r)$,
+    \[f(z) = \dfrac{1}{2\pi i}\int_{\gamma} \dfrac{f(\xi)}{\xi-z}d\xi\] 
+\end{theorem}
+\begin{proof}
+    By theorem 1.7, there is $H$ such that
+    \[\ParZ H = \dfrac{f(\xi)-f(z)}{\xi-z}\]
+    if $\xi \neq z$ and $\ParZ H(z) = f'(z)$ holomorphic on $D(z_0,r+\epsilon)$ and hence
+    \[\int_{\gamma} \dfrac{f(\xi)-f(z)}{\xi-z}d\xi = 0\]
+    and the equation holds by the lemma 1.3.
+\end{proof}
+
+\begin{theorem}
+    (The Cauchy integral theorem) If $f$ is a holomorphic function on an open disc $U$ in the complex plane, and if $\gamma:[a,b] \to U$ is a $C^1$ curve in $U$ with $\gamma(a) = \gamma(b)$, then
+    \[\int_{\gamma} f(z)dz = 0\]
+\end{theorem}
+\begin{proof}
+Only need to pick $G$ such that $\ParZ G = f$ on $U$ is fine.
+\end{proof}
+
+\end{document}

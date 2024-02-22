@@ -1,0 +1,94 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework02 - MATH 758}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix,enumerate}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Problem.1} 
+Show that a measure-preserving system $(X,\mathcal{B},\mu,T)$ is ergodic iff for any $f,g\in L_{\mu}^2$,
+\[\lim_{N\to\infty} \dfrac{1}{N}\sum\limits_{n=0}^{N-1}\langle U_T^n f,g\rangle = \langle f,1\rangle \cdot \langle 1,g\rangle\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We only prove the conclusion when the system is a p.m.p.s, then we will know the conclusion is true when $f$ is bounded.\par
+For $f$ not bounded, consider $\int_{\cdot} f^2 \ll \mu$ and hence for any $\epsilon > 0$, there exists $\epsilon$ such that $\int_E f^2 < \delta$ whenever $\mu(E) < \delta$. And notice $\mu(\{|f|>n\}) \to 0$ and hence there eixsts integer $N$, for any $n \geq N$, $\mu(\{|f|>\}) = \mu (E_n) < \delta$ and notice
+\[|\int Av_n(f) g - \int_{E_n} Av_n(f)g| \;eq ||Av_n(f)||_{E_n^c}^2||g||_2 < \sqrt{\delta}||g||^2\]
+and hence
+\[\int_{E_k}Av_n(f)g - \sqrt{\delta}||g||_2 \leq \int Av_n(f)g \leq \int_{E_k}Av_n(f)g+\sqrt{delta}||g||_2\]
+Then we pick $\liminf, \limsup$ and we have
+\[\int f\chi_{E_k}\int g -\sqrt{\delta}||g||_2 \leq \liminf \int Av_n(f)g \leq \limsup \int Av_n(f) g \leq\int f\chi_{E_k}\int g -\sqrt{\delta}||g||_2\]
+for any $E_k, \delta > 0$ and notice
+\[|\int f - \int f\chi_{E_k}| = |\int_{E_k^c} f | \leq \int_{E_k^c} f^2 < \delta\]
+and we have
+\[\int f - \delta - \sqrt{\delta}||g||_2 \leq \liminf \int Av_n(f)g \leq \limsup Av_n(f)g \leq \int f +\delta + \sqrt{\delta}||f||_2\]
+for any $\delta > 0$ and hence $\lim Av_n(f)g = \int f\int g$.
+
+\vspace{0.5em}
+
+\subsection*{Problem.6.1} 
+Suppose that $(X,T,\mu)$ is an ergodic topological p.m.p.s on a compact metric space $X$. A point $x$ is called $\mu$-generic if for every continuous function $f:X\to\R, \tfrac{f(x)+f(Tx)+\cdots+f(T^{n-1}x)}{n} \to \int_X fd\mu$. Show that $\mu$-a.e. point in $X$ is generic.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It is easy to check any continuous is bounded on $X$ and hence it is in $L^1$. Then we know there exists a finite open cover $B(x_i,r)$ of $X$ for any rational number $r>0$, and consider $A$ is all the open balls above with, for any open ball, we may consider $\epsilon$ rational to take a continuous function on $X$ such that it is $1$ on $B(X_i,r)$ and $0$ on $\overline{B(X_i,r+\epsilon)^c}$ and consider $S$ the set of there functions. Then we consider the set of finite sums of finite products if these functions which is a subalgebra of $C(X)$ and hence it is dense in $C(X)$ under the uniform metric and then we know there is a countable dense set of functions $f_n$ in $C(X)$. So consider  the points such that $\lim Av_k(f_n) = f_n, n\geq 0$ which has the probability $1$ and then for any such point $x$, we know $|Av_(f_n)-Av_(f)| \to 0$ and $\int |f_n-f|d\mu \to 0$ and hence $\mu$-a.e. points is generic in $X$.
+\vspace{0.5em}
+
+\subsection*{Problem.6.2}
+Suppose that $(X,T,\mu)$ is a p.m.p.s. and that $T$ is invertible. Show that $\lim \tfrac{1}{n}f(T^k x) = \lim \tfrac{1}{n}f(T^{-k} x)$ a.s.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $A$ mrb, we know $\mu(TA) = \mu(T^{-1}TA) = \mu(A)$ and hence $(X,T^{-1},\mu)$ is a p.m.p.s. and we  assume $g(x) = \lim Av_{(n,T)}f(x), h(x) = \lim Av_{(n,T^{-1})} f(x)$ and we consider $E_n = \{x, g(x)-h(x) > n^{-1}\}$ and since $T^{-1}E_n = \{x, g(Tx)-h(Tx) > n^{-1}\} = E_n, TE_n = \{x, g(T^{-1}x)-h(T^{-1}x) >n^{-1}\} = E_n$ and hence
+\[\int_{E_n} g = \lim \int Av_n(f)d\mu = \int_{E_n} f\]
+for $f$ bounded and which is true for $h$, so we have
+\[0 \geq \int_{E_n} f - \int_{E_n} f = \int_{E_n} (g-h) \geq n^{-1}\mu(E_n)\]
+which means this is true for all general functions $f$
+and hence $E_n$ is null for any integer $n$, so we have $g\leq h$ a.s. and similarly we have $g\geq h$ a.s. and hence $g= h$ a.s.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Problem.6.3}
+Let $X$ be a compact metric space. Suppose that $T_n:X\to X$ is a sequence of continuous functions that uniformly converge to $T:X\to X$. Suppose that $\mu$ is a measure on $X$ that is invariant under $T_n$ for each $n$, show that $\mu$ is also $T$-invariant. Conclude that the only measure on the circle that is invariant under an irrational rotation is Lebesgue.\par
+\vspace{0.5em}
+\textbf{Sol.}\par
+Since $T_n$ converges uniformly we know $T$ is continuous as well. 
+Consider there exists $U_n \downarrow A, K_n \uparrow A$ for $A$ measurable. And consider $f_n$ is $0$ outside $U_n$ and $1$ on $K_n$ and we know $f_n \to \chi_A$ a.s., then we know
+\[\int \chi_A(T) d\mu = \lim \int f_n(T)d\mu\]
+and
+\[\int f_n(T) d\mu = \lim \int f_n(T_k)d\mu \in [\mu(K_n), \mu(U_n)]\]
+since $f_n$ is continuous. Then we may find
+\[\mu(A) = \lim f_{s_n}(T_{p_n}) d\mu = \int \chi_A(T) = \mu(T^{-1}A)\]
+and hence $\mu$ is $T$-invariant.\par
+Since $n\theta$ is dense in $[0,1]$ for $\theta$ irrational, we know $\mu$ is invariant under any rotaion and hence a Lebesgue measure.
+\prvd
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}
