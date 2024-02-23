@@ -1,0 +1,366 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for MATH 758}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+\cover{"Lucy.jpg"}
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\mI}{mod\ 1}
+\begin{document}
+
+%%%封面页
+\maketitle
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\begin{quotation}
+dyn.sys. for dynamical system.\par
+mrb. for measurable.\par
+topo. for topological.\par
+m.p. for measure-preserving.\par
+\end{quotation}
+\begin{definition}
+    A $measurable\ space\ (X,\M)$ is a set with a $\sigma$-algebra $\M$.\par
+    A $measurable/topological\ dynamical\ system$ is a mrb./topo. space $X$ and a mrb./continuous function $f$.\par
+    A system is $measure$-$preserving$ if there is a measure $\mu$ on $X$ s.t. for any set $U$, $\mu(f^{-1}(U)) = \mu(U)$, then the data $(X,f,\mu)$ is a m.p.s and in particular a p.m.p.s if $\mu(X)=1$.\par
+\end{definition}
+\begin{definition}
+If $G$ is a $topological\ group$, then $G$ is a topo. space and a group as well, where group multiplication and inversion is continuous.\par
+A measure $\mu$ on $G$ is $translation$-$invariant$ if $\mu(gA) = \mu(A)$ for any mrb. subset $A$ and $g\in G$.\par
+\end{definition}
+
+\begin{proposition}
+    $L$ measure is the only translation invariant measure on $\R^n$ and $\T^n = \R^n/\Z^n$.
+\end{proposition}
+\begin{proof}\par
+    It suffices to show that if $\mu$ is translation invariant on $\R^n$, then it is a $L$ measure. Assume $\mu([0,1]^n)$ is $a<\infty$ and then we may know all single point set has $0$ measure, and then we may know $\mu([0,\tfrac{1}{k}]^n) = k^{-n}a$ and we may know for any rectangle $R$ with rational vertices, $\mu(R) = am(R)$ and hence $\mu = am$ for all rectangles and then we know $\mu = am$.\par
+    It is similar when replacing $\R^n$ by $\T^n$.\par
+\end{proof}
+
+\begin{example}
+Here are some examples of m.p.s.s.\par
+a. Circle rotations, i.e. $f(x) = x+\alpha(\mI),\alpha\in\R$.\par
+b.Translations on tori, i.e. $f(x_1,\cdots,x_n) = (x_1+\alpha_1,\cdots,x_n+\alpha_n)(\mI), \alpha_i\in\R, 1\leq i\leq n$.\par
+c.Translations on $\R^n$, i.e. $f(x)=x+v, v\in\R^n$.\par
+d. Circle doubling, e.g. $f(x) = 2x(\mI)$.\par
+e. Toral Automorphisms, $A\in GL_{n\times n}(\Z)$.\par
+f. Linear maps of $\R^n$ with determinant $1$.
+\end{example}
+\begin{proof}\par
+    We may skip the proof for a,b,c and consider a set $\{A, m(f^{-1}(A)) = m(A), A\subset\R^n\}$ which is apparently a $\sigma$-algebra and hence all the Borel sets since all rectangles are in it. We left the proof of e below.
+\end{proof}
+To prove e. we need a lemma.
+\begin{definition}
+For $f:X\to Y$ mrb.m the $pushforward$ measure of a measure $\mu$ on $X$ is defined by $f_*\mu(U) = \mu(f^{-1}(U))$. 
+\end{definition}
+\begin{lemma}
+A measure $\nu$ on $Y$ is $f_*\mu$ iff for any $g\in L^1(Y,f_*\mu)$
+\[\int_X g\circ f d\mu = \int_Y gd\nu\]
+\end{lemma}
+\begin{proof}\par
+    To show the sufficiency, consider
+    \[\int_Y \chi_U d(f_*\mu) = \mu(f^{-1}(U)) = \int_X \chi_U \circ f d\mu\]
+    for any mrb. set $U$ on $Y$, and hence the equation holds for any simple function, and hence for all $g\in L^1(Y,f_*\mu)$ by DCT.\par
+    To show the necessity, considering any characteristic function is fine.
+\end{proof}
+\begin{corollary}
+    If $A\in M_{n\times n}(\Z)$ has nonzero determinant and $f:\T^n\to\T^n$ is the map it induces on the torus, then $f$ preserves $L$ measure.
+\end{corollary}
+\begin{proof}\par
+It suffices to show $m = f_*m$. Notice
+\[f_*m(U+v) = m(f^{-1}(U+v)) = f_*m(U)\]
+and hence $f_*m = am$ for some $a\in\R$. Then it is easy to check $f_*m = m$ by consider $\mu(\T^n) = \mu(f^{-1}(\T^n))$.
+\end{proof}
+\begin{definition}
+    For a mrb. dyn.sys $(X,f)$ and a mrb. set $U$, a point $p$ in $U$ $recurs\ to\ U$ if it returns to $U$ i.o. and for a topo. dyn.sys $(X,f)$, call $p$ $recurrent$ if $p$ recurs to any open set containing it.
+\end{definition}
+\begin{theorem}
+    (Measurable Poincare Recurrence) If $(X,f,\mu)$ is a p.m.ps. and $U$ is a mrb. set, then $p$ recurs to $U$ a.s. on $U$.
+\end{theorem}
+\begin{proof}\par
+Consider $B=\{\text{the set of points in} U\text{ never come back}\}$, then we know $B = \bigcap_{n=0}^{\infty}E_n$ where $E_n = f^{-n}(U^c)$ and hence $B$ is mrb., and it is easy to check $f^m(B)\cap f^n(B) = \emptyset, n\neq m$ and hence $P(B) = 0$, which means $P(\bigcup_{n\geq 0}f^{-n}{B}) = 0$.
+\end{proof}
+\begin{theorem}
+(Topological Poincare Recurrence)A point is a.s. recurrent in a second countable topological p.m.p.s.
+\end{theorem}
+\begin{proof}\par
+    By Poincare Recurrence, we may find a countable open cover of $X$, then the conclusion goes.
+\end{proof}
+\begin{definition}
+    We say a m.p.s. $(X,T,\mu)$ is ergodic if the only $T$-invariant measurable sets, i.e. a mrb. set $A$ is $T$- invariant means $T^{-1}(A) = A$ are null or conull, which is equalivalent to the almost $T$-invariant mrb. sets are null or conull.
+\end{definition}
+\begin{proof}\par
+    The necessity is trivial, to see the sufficiency, consider $U$ is an almost $T$-invariant set, then we assume $ A' = \bigcap_{N\geq 0}\bigcup_{n\geq N}T^{-n}(A)$, we know
+    \[T^{-1}(A') = T^{-1}(A') = \bigcap_{N\geq 0}\bigcup_{n\geq N} T^{-(n+1)}(A) = A'\]
+    and hence $A'$ is null or conull. Then it is easy to check $\mu(A\triangle  T^{-k}(A)) = 0$ for any integer $k$ and hence $A\triangle A'$ is null, which means $A$ is null or conull.
+\end{proof}
+\begin{lemma}
+    A m.p.s. $(X,T,\mu)$ is ergodic iff for any two positive measure sets $A$ and $B$ there is some $n$ so that $T^{-n}(A)\cap B$ has positive measure.
+\end{lemma}
+\begin{proof}\par
+    To see the sufficiency, if there are two positive measure sets $A,B$ such that $T^{-n}(A)\cap B =0$ for any interger $n$, then we know $\mu(A),\mu(B)\in(0,1)$. And we know $\bigcup_{n\geq 0}T^{-n}(A)$ is almost $T$-invariant and hence is null or conull, which is a contradiction.\par
+    To see the necessity, we consider a positive measure $T$-invariant mrb. set $A$, then we know $\bigcup_{n\geq 0}T^{-n}(A) \cap A^c$ is the emptyset and hence $A^c$ is a null set.
+\end{proof}
+\begin{lemma}
+Let $T:\T^n\to \T^n$ be given by $T(x)=x+v$ where $v\in\T^n$. If $\{mv\}_{m\geq 0}$ is dense in $\T^n$, then $T$ is ergodic with respect to Lebesgue measure.
+\end{lemma}
+\begin{proof}\par
+    By the LRN theorem, there exists $\epsilon > 0$ such that $m(B(a,\epsilon)\cap A)/m(A), m(B(b,\epsilon)\cap B)>0.9$ for some $a\in A,b\in B$. Then we know there exists $m\geq 0$ such that $m(T^m(B(a,\epsilon))\cap B(b,\epsilon))/B(a,\epsilon) > 0.99$ and hence $m(T^m(A\cap B(a,\epsilon))) > 0.89 m(T^m(B(a,\epsilon))\cap B(a,\epsilon)), m(B\cap B(b,\epsilon))> 0.89 m(T^m(B(a,\epsilon)),B(b,\epsilon))$ and hence $m(T^m(A)\cap B) \geq 0.5 m(B(a,\epsilon)) >0$. Then by Lemma.6, the conclusion goes. 
+\end{proof}
+\begin{remark}
+$\{mv\}_{m\geq 0}$ is dense in $\T^n$ iff the smallest closed subgroup of $\T^n$ containing $v$ is $\T^n$ itself.
+\end{remark}
+\begin{proof}\par
+    (?)Only need to show $\overline{\{mv\}_{m\geq 0}}$ is a subgroup.
+\end{proof}
+
+\begin{definition}
+    A function is $T$-invariant if $f\circ T = f$.
+\end{definition}
+\begin{lemma}
+    A m.p.s. $(X,T,\mu)$ is ergodic , then any a.e. bounded mrb. $T$-invariant function is constant. \par
+    If any $T-invariant$ simple function has to be constant a.e., then $(X,T,\mu)$ is ergodic.\par 
+\end{lemma}
+\begin{proof}\par
+    (Change to finite a.e.?)We know $T(A) \subset A, T(A^c)\subset A^c$ and hence $\chi_A \circ T= \chi_A$ and hence $\chi_A$ is 0 or 1 a.e. and the necessity goes.\par
+    To see the sufficiency, for any $f$ mrb. and $T$-invariant then we know $\{f\leq c\}$ is $T$-invariant and hence null or conull for any $c\in\R$. Notice $\bigcup_{q\in\Q} \{f\leq q\}$ is $X$ and $\bigcup_{q\in\Q}\{f\leq q\}$ is null and then e may find $\sup\{q\in\Q,\{f\leq q\}\text{ null}\} = \inf\{\{f\leq q\}\text{ conull}\}= a$ and hence $\{f=a\}$ is conull. 
+\end{proof}
+\begin{lemma}
+Let $T$ be the action induced by $A\in GL_{n\times n}(\Z):\T^n\to \T^n$. Then $T$ is ergodic iff $A$ does not have a root of unity as an eigenvalue.
+\end{lemma}
+\begin{proof}\par
+    Skip temporarily.
+\end{proof}
+
+\section*{The Birkhoff Ergodic Theorem}
+
+\begin{definition}
+Given a p.m.p.s. $(X,T,\mu)$ and  $f:X\to\R$ a function in $L^1$, set $S_0(f):= 0$,
+\[S_n(f):=\sum\limits{k=0}^{n-1} f(T^k)\quad\text{and}\quad Av_n(f):= \dfrac{S_n(f)}{n}\]
+\end{definition}
+\begin{theorem}
+    (The Maximal Ergodic Theorem) For $\alpha\in\R$, let $E_{\alpha}$ be the points in $X$ so that $Av_n(f)>\alpha$ for some $n$. Then $\alpha\mu(E_{\alpha}) \leq \int_{E_{\alpha}} f$.
+\end{theorem}
+\begin{proof}\par
+    Assume $\alpha = 0$, then let $M_n(f) = \max_{0\leq k\leq n}(S_n(f))$ and $P_n = \{x,M_n(f)(x)>0\}$, and notice
+    \[M_n(f)\circ T \geq S_k(f)\circ T + f = S_{k+1}(f)\]
+    for $0\leq k \leq n$, so notice $M_n \geq 0$ and $M_n = 0$ on $X-P_n$, we have
+    \[\int_{P_n} f \geq \int_{P_n}M_n(f)d\mu - \int_{P_n}\circ d\mu \geq \int_X M_n(f)d\mu - \int_X M_n(f)\circ T d\mu = 0\]
+    and since $E_0 = \bigcup_{n\geq 0} P_n$, so $\int_{E_0} f d\mu = \lim \int f\chi_{{P_n}} d\mu \geq 0$ by DCT.\par
+    Then we may replace $f$ by $f-\alpha$ to obtain the required general conclusion.\par
+\end{proof}
+
+\begin{theorem}
+    (The Birkhoff Ergodic Theorem) If $f^*(x) = \limsup_n Av_n(f)$ and $f_*(x) = \liminf_nAv_n (f)$, then $f_* = f^*$, these functions are $T$-invariant and $\int f^* = \int f$. In particular, if $(X,\mu,T)$ is ergodic, $Av_n(f)$ converges pointwise a.e. to $\int f$.
+\end{theorem}
+\begin{proof}\par
+    Notice
+    \[\dfrac{n}{n+1}Av_n(f)(T(x)) + \dfrac{1}{n+1}f(x) = Av_{n+1}(f)(x)\]
+    and hence $f^*\circ T = f^*, f_*\circ T = f_*$.\par
+    Then for rational $p,q$, let $E(p,q) = \{x, f_*(x)\leq p |< q \leq f^*(x)\}$ we know
+    \[q\mu(E(p,q)) \leq \int_{E(p,q)} f \leq p\mu(E(p,q))\]
+    and hence $E(p,q) = 0$. So $f^* = f_*$ a.s. and hence $Av_n(f)$ converges to $f^*$ a.s.\par
+    We know $\int f^* = \int f$ when $f$ is bounded since
+    \[\int f^* d\mu = \lim \int_X Av_n(f)d\mu = \int_X f\mu\]
+    and for $f$ unbounded, we may find $g_n\to f$ uniformly and we may find $||g_n-f||_1 < \tfrac{\epsilon}{3}$, we have already know $Av_k(g_n)$ converges a.s. and hence in $L^1$ and then we have
+    \[||Av_k(f)-Av_m(f)||_1 < \epsilon\]
+    for $k,m$ big enough and hence $Av_k(f)$ is Cauchy in $L^1$ and hence it is convergent to $f^*$ in measure.\par
+    Then we may use the Lemma 1.4, we know $f^*$ is constant and hence $Av_n(f)$ converges to $f^* = \int f^* = \int f$ a.s.\par
+\end{proof}
+
+\section*{The Riesz Representation Theorem}
+
+\begin{lemma}
+    Supposre that $X$ is a compact metric space. If $K$ is a closed subset and $\mu$ is a finite measure, then
+    \[\mu(K)= \inf\{\int_X fd\mu. \chi_K\leq f \in C(X)\}\]
+\end{lemma}
+\begin{proof}\par
+    It is easy to show that if $f\in C(X)$,then $f$ is bounded on $X$ a.e. and hence $\mu(K) \leq fd\mu$ for any $f\geq\chi_K$ continuous.\par
+    Then we may use the Urysohn's Lemma to complete the proof.\par
+\end{proof}
+
+\begin{lemma}
+    If $X$ is a compact metric space, then $\M(X)$ injects into $C(X)^*$.    
+\end{lemma}
+\begin{proof}\par
+    If $||f-g||_u < \epsilon$, then we know
+    \[|\mu(f) - \mu(g)| \leq \epsilon\mu(X)\]
+    which means $\mu$ is continuous as a map from $C(X)$ to $\R$, the linerity of $\mu$ is obviously and the injective is secured by lemma 1.6., which means if $\mu = \nu$ as a bounded linear map of $C(X)$, then $\mu = \nu$  on all campact sets and hence the problem goes.
+\end{proof}
+
+\begin{lemma}
+    If $X$ is a compact metric space, then there is a continuous surjection from the Cantor set to $X$.
+\end{lemma}
+\begin{proof}\par
+    Consider we may find a $2^{q_1}$ cover of $X$, then we can find a $2^{q_2}$ cover of each balls of the first cover and repeat, then we may consider there will be a natural continuous map from $\{0,1\}^{\N}$ to $\prod_{i\geq 0}\{1,2,\cdots,2^{q_i}\}$ which determine a singleton and any point in $X$ can be represented like this.
+\end{proof}
+
+
+\begin{definition}
+    We call a functional $\mu: C(X)\to\R$ is positive if $\mu(f)\geq 0$ for any $f:X\to(0,\infty)$. This forms a cone, i.e. a subset of v.s. closed under addition and positive scalar multiplication.
+\end{definition}
+
+\begin{lemma}
+Suppose that $X$ is the Cantor set. Then the cone of positive linear functionals in $C(X)^*$ can be identified with $\M(X)$.    
+\end{lemma}
+\begin{proof}\par
+Let $\phi \in C(X)^*$ be a positive linear functional. Then consider $\mathcal{B}$ is the finite union of subsets with the first $n$ positions are the same for some integer $n$, we can check any subsets of $\{B\}$ is open and closed at the same time and hence $\{\chi_{B}\}_{B\in\mathcal{B}}$ are continuous and also $\mathcal{B}$ is an algebra, which is easy to check that $\phi$ is $\sigma$-additive on $\mathcal{B}$ and hence it determine a measure $\mu$ on $X$. Then $\phi$ and $\mu$ agreee on a dense set of $C(X)$ and hence they are the same.     
+\end{proof}
+
+\begin{lemma}
+A nonzero linear functional $\mu \in C(X)^*$ is positive iff $\mu(\chi_X) = ||\mu||$.    
+\end{lemma}
+\begin{proof}\par
+Firstly, notice $\mu(fg)$ defines a nonnegative semidefinite bilinear form 
+For any $f\in C(X)$,
+\[|\mu(f)|^2 = |\mu(f\cdot \chi_X)|^2 \leq \mu(f^2)\mu(\chi_X) \leq \mu(||f||^2 \chi_X)\mu(\chi_X) = ||f||^2\mu(\chi_X)^2\]
+and hence $||\mu|| \leq \mu(\chi_X)$. And the equality holds when $f = \chi_X$.\par
+For any $f:X\to [a,1],a>0$, we have
+\[\mu(f)-\dfrac{1+m}{2} = |\mu(f)-\mu(\dfrac{1+m}{2}\chi_X)\mu(\chi_X)|\leq ||f-\dfrac{1+m}{2}||\mu(\chi_X) \leq \dfrac{1-m}{2}\mu(\chi_X)\]
+and hence $\mu(f) \in [m,1]\mu(\chi_X) $, which means $\mu$ is positive.
+\end{proof}
+
+\begin{theorem}
+    (Riesz Representation Theorem) If $X$ is any compact metric space, the nthe cone of postive linear functionals in $C(X)^*$ can be identified with $\M(X)$.
+\end{theorem}
+\begin{proof}\par
+    Let $C$ be the Cantor set and $p:C\to X$ a continuous surjection. $C(X)\to C(C)$ given by $p^*(f) = f\circ p$ is a linear isometry. Let $\phi \in C(X)^*$ be a postive linear functional and $p^*\phi(f\circ p) = \phi(f) \leq ||\phi|||f||$ and hence is can be extended to a functional $\varphi: C(C)\to \R$ with the same norm. By the lemma 1.6. and 1.7., the extension is positive and can be given by integration against a measure $\mu$ on C. Then
+    \[\phi(f) = \varphi(p\circ f) = \int_C f(p)d\mu = \int_X fdp_*\mu\]
+\end{proof}
+
+\begin{theorem}
+    (Banach-Alaoglu) The set of contracting functionals in $C(X)^*$ is compact in the weak* topology.
+\end{theorem}
+
+\begin{corollary}
+    $\M^1(X)$ is compact and convex in the weak* topology.
+\end{corollary}
+
+\begin{proposition}
+    For $g:X\to X$, $g^* \M^1(X) \to \M^1(X)$ is cotinuous.
+\end{proposition}
+\begin{proof}\par
+    For any $\mu_n \to \mu$ in the weak* topology, we know
+    \[g^*\mu_n(f) = \mu_n(f\circ g) \to \mu(f\circ g) = g^*\mu(f) \]
+    for any $f\in C(x)$.
+\end{proof}
+
+\begin{definition}
+    A $topological\ semigroup$ is a group $G$ together with a topology so that multiplication $m:G\times G \to G$ given by $m(g,h) = gh$ is continuous.\par
+    A semigroup $G$ is $amenable$ if every continuous action of $G$ on a compact metric space $X$ admits a $G$-invariant measure.
+\end{definition}
+
+\begin{lemma}
+    (Markov-Kakutani) If $G$ is abelian then it is amenable.
+\end{lemma}
+
+\begin{proof}\par
+    Let $G$ act continuously on a compact metric space $X$. Set $\M = \M^1(X)$ and then let $A_{n,g}(\mu) = \tfrac{1}{n} \sum\limits_{i=1}^n (g^i)_* \mu$. Let $S$ be the set of finite composition of $\{A_n,g\}$. This ia an abelian semigroup since $G$ is abelian. Notice $g(\M)$ is a closed set for each $g\in S$, then for finite elements in $S$, the intersection of their images are nonempty and hence $\bigcap_{s\in S} s(\M)$ is nonempty, consider $\mu \in \bigcap_{s\in S} s(\M)$, then for any $n\in \N, g\in G$, we have
+    \[||\mu - g_*\mu|| = \tfrac{1}{n}||\sum\limits_{i=1}^n (g^i)_* \mu_n - \sum\limits_{i=2}^{n+1}(g^i)_8 \mu_n|| \leq \dfrac{1}{n}\]
+    and hence $\mu$ is a $G$-invariant measure.
+\end{proof}
+
+\begin{corollary}
+(Krylov-Bogolyubov) If $X$ is a compact metric space and $T:X\to X$ is continuous then there is an $T$-invariant measure.
+\end{corollary}
+
+\begin{definition}
+    (Haar measure) A left-invariant Borel measure on a topological group.
+\end{definition}
+
+\begin{corollary}
+    Compact groups are amenable. 
+\end{corollary}
+
+\begin{proof}\par
+    Let $G$ act on a compact space $X$ (where we assume the action is continuous, i.e. $G\times X \to X$ is continuous) and $\mu$ the Haar measure on $X$, then let $\phi(g) = gx$  where $x\in X$ and then for any $A\subset X$ and let $\nu = \phi_*\mu$
+    \[\nu(g^{-1}A) = \mu(\phi^{-1}g^{-1}A) = \mu(g^{-1}\phi^{-1} A) = \mu(\phi^{-1}A) = \nu(A)\]
+\end{proof}
+
+\begin{definition}
+    The $compact-open$ topology on the space $C(X,X)$ of continuous self-maps of $X$ is that of uniform convergence, i.e. the one metrized by
+    \[d_{C(X,X)}(f,g) := \sup_{x\in X}d_X(f(x),g(x))\]
+\end{definition}
+
+\begin{lemma}
+    If $G$ acts continuously on $X$, the the homomorphism $G\to C(X,X)$ is continuous.
+\end{lemma}
+
+\begin{proof}\par
+    Fix $\epsilon >0, h\in G$, for each $x$ there exists an $U_x, W_x$ open in $G,X$ such that $W_x H_x \subset B(hx,\epsilon/2)$, we may find a finte collection of $x_i$ such that $X =\bigcup_i U_{x_i}$ and then if $g\in \bigcap_i W_{x_i}$, we will know for any $x\in X$ we have
+    \[
+    |g(x)-h(x)| \leq |g(x)-h(x_i)|+|h(x_i)-h(x)| < \epsilon
+    \]
+\end{proof}
+
+\begin{definition}
+    For a topological semigroup $G$ acting continuously on a metric space $X$, each element $g\in G$ defines a linear contraction $g^*:C(X) \to C(X)$ where $g^*(f) = f\circ g$. This is homomorphism from the opposite semigroup $G^{op}$ to $B(C(X))$.
+\end{definition}
+
+\begin{proof}\par
+    We know $g_* h_*(f) = f\circ h \circ g = (hg)_* (f)$.
+\end{proof}
+
+\begin{lemma}
+    The homomorphism from $G^{op}$ to $B(C(X))$ that sends $g$ to $g^*$ is continuous. Moreover, $G$ acts continuously on $\M^1(X)$.
+\end{lemma}
+
+\begin{lemma}
+    Let $G$ be a compact group. If $G$ acts continuously and transitively on a Hausdorff space $X$ with point stabilizer $H$, then $X$ is homeomorphic to $G/H$.\par
+    In factm the conclusion hols when $G$ is a locally compact Hausdorff group that is $\sigma$-compact and $X$ is a locally compact Hausdorff space.
+\end{lemma}
+
+\begin{proof}\par
+    If $H$ stabilize $x\in X$, then $\phi:G/H\to X, \phi(g) = gx$, then $\phi$ is a continuous surjection and injective. Then notice a continuous bijection from a compact space to a Hausdorff space is a homeomorphism, which can be shown by thinking a closed set has to be mapped to a closed set.
+\end{proof}
+
+\begin{definition}
+    $Gr_d(\R^n)$ is the Grassmannian of $d$-dimensional subspaces in $\R^n$. If $V_n$ is a sequence of subspaces, then we say that $V_n\to V$ if a basis of $V_n$ converges to a basis of $V$.
+\end{definition}
+
+\begin{corollary}
+    Since $O(n)$ is compact and acts transitively on the Grassmannian, $Gr_d(\R^n)$ is compact for all $d$ and $n$. In particular, it is homeomorphic to $O(n)/O(d)\times O(n-d)$.
+\end{corollary}
+
+\begin{lemma}
+    Suppose that $(g_m)$ is a sequence of matrices in $SL(n,\R)$ with unbounded entries. Suppose that for $\mu,\nu \in \M^1(\mathbb{P}(\R^n))$, $(g_m)_*\mu$ weak* converges to $\nu$. Then there are proper subspaces $\mathcal{R}$ and $V$ of $\R^n$ so that $\nu$ is supported on $\mathbb{P}(\mathcal{R})\cup \mathbb{P}(V)$.
+\end{lemma}
+
+\begin{proof}
+    Assume $g_m/||g_m||_{\infty}$ converges to a matrix $g$ elementwise, then we know $\det g = 0$, then let $N,\mathcal{R}$ be the null and the range of $g$ respectively, then $g_m\cdot N$ will converge for some subsequence to a subspace $V$. If $l$ is a line in $\R^n$, then $g_m l$ converges to a line in $V$ or $\mathcal{R}$, and hences $l$ is in $N$ or not in $N$. Let $\mu_1(A) = \mu(A\cap \mathcal{P}(N))$ and $\mu_2(A) = \mu(A- \mathcal{P}(N))$. Then we may know $(g_m)_*\mu_i$ weak*ly converge to $\nu_i$ and $\nu_1,\nu_2$ are supported on $\mathcal{P}, \mathcal{R}$. 
+\end{proof}
+
+\begin{definition}
+    For a.e. $$
+\end{definition}
+
+\end{document}

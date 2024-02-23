@@ -1,0 +1,329 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework01 - MATH 734}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Notation}
+Here I use $X \wedge Y$ for $\min(X,Y)$ and $X\vee Y$ for $\max(X,Y)$. r.v. for random variable.
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1} 
+Let $(\Omega, \mathcal{F}_{0},\P)$ be a probability space and let $X,X':\Omega \rightarrow \R$ be $(\mathcal{F}_{0}-\mathcal{B})$-measurable RVs that are
+absolutely integrable. Suppose that $P(X\mathbf{1}_{B}=X'\mathbf{1}_{B})=1$ for
+all $B\in \mathcal{F}$, where $\mathcal{F}\subseteq \mathcal{F}_{0}$ is a $\sigma$-
+algebra on $\Omega$. Show that $E[X\,|\, \mathcal{F}]=E[X'\,|\, \mathcal{F}]$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $B\in \F$, we have
+\[
+\int_B E(X|\F)dP = \int_B X dP = \int X\chi_B dP = \int X'\chi_B dP = \int_B X' dP = \int_B E(X'|\F) dP
+\]
+for any $B\in \F$ and since $E(X'|\F)$ is $\F$-measurable, we know $E(X|\F) = E(X'|\F)$ a.s.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.2} 
+Suppose we have a stick of length $L$. Break it into two pieces at a
+uniformly chosen point and let $X_{1}$ be the length of the longer piece. Break
+this longer piece into two pieces at a uniformly chosen point and let $X_{2}$ be
+the length of the longer one. Define $X_{3},X_{4},\cdots$ in a similar way.\par
+a. Let $U\sim \text{Uniform}([0,L])$. Show that $X_{1}$ takes values from $[L/2,L]$, and that $X_{1} = U\vee (L-U)$.\par
+b. From (i), deduce that for any $L/2 \le x \le L$, we have
+\begin{align}
+P(X_{1}\geq x) = P(\text{$U\geq x$ or $L-U\geq x$}) = P(U\geq x) +
+P(U\leq L-x) = \frac{2(L-x)}{L}.
+\end{align}
+Conclude that $X_{1}\sim \text{Uniform}([L/2,L])$. What is $E[X_{1}]$?\par
+c. Show that $X_{2}\sim \text{Uniform}([x_{1}/2, x_{1}])$
+conditional on $X_{1}=x_{1}$. That is,
+\[
+P(X_{2}\geq x \,|\, X_{1}) = \frac{2(X_{1}-x)}{X_{1}} \quad \text{for $X_{1}/2 \leq x \leq X_{1}$}.
+\]
+({Hint:} Use the results in Ex. 5.1.12.) Using iterated
+expectation, show that $E[X_{2}] = (3/4)^{2}L$.\par
+d. In general, show that $X_{n+1}\,|\, X_{n} \sim \text{Uniform}([X_{n}/2, X_{n}])$. Conclude that $E[X_{n}]= (3/4)^{n}L$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Consider the length of the two sticks after being broken and we will get a ordered pair $(X,Y)$ with $Y = L-X$ and $X = U$, then we know $X_1 = X\vee Y = U\vee(L-U)$ and hence
+\[L = U+L-U\leq X_1 \geq \dfrac{1}{2}(U+L-U) = \dfrac{1}{2} L\]\par
+b. Notice
+\[P(X_{1}\geq x) = P(\text{$U\geq x$ or $L-U\geq x$}) = P(U\geq x) +
+P(U\leq L-x) = \frac{2(L-x)}{L}\]
+and we have
+\[P(X_{1} \leq x) = \dfrac{x-L/2}{L/2}\]
+since $P(X_{1} \geq x)$ is continuous respect to $x$, then we know
+\[EX_1 = \dfrac{3}{4}L\]\par
+c. We know that $X_1,X_2$ has the joint density
+\[f(x,y) = \dfrac{4}{xL}\chi_{x/2\leq y \leq x, L/2\leq x \leq L}\]
+and hence
+\[
+\begin{aligned}
+P(X_2 \geq a|X_1) = E(\chi_{[a,\infty)}(X_2)|X_1) &= \int \chi_{[a,\infty)}(y)f(X_1,y)dy / \int f(X_1,y) dy \\ &= \dfrac{2(X_1-a)}{X_1}\chi_{X_1/2\leq x\leq X_1} + \chi_{(-\infty,X_1/2)}
+\end{aligned}\]\par
+Now notice
+\[
+\begin{aligned}
+E(X_2) &= \int^L_{L/4} E(X_2\geq x) dx  = \int_{L/4}^L \int E(X_2\geq x|X_1) dP dx \\ &= \int_{L/4}^L E(X_2\geq x|X_1) dx dP = \int (3/4)X_1 dP = (3/4)^2 L
+\end{aligned}
+\]
+by the Fubini's theorem.\par
+d. It is easy to check we may find a joint density $g$ for $(X_{n+1},X_{n})$ and we have
+\[
+2/y\chi_{[y/2,y]}(x) =  g_{X_{n+1}|X_{n} = y}(x) = \dfrac{g(x,y)}{\int g(v,y)dv}
+\] and hence
+\[\dfrac{2}{y}\chi_{[y/2,y]}(x)\int g(v,y)dv = g(x,y)\]
+when $ y/2 \leq x \leq y$. Then we have
+\[
+\begin{aligned}
+    E(\chi_{[a,\infty)}(X_{n+1})|X_{n}) &= \dfrac{\int \chi_{[a,\infty)}(x)g(x,X_n)dx}{\int g(x,X_n)dx} = \dfrac{\int \dfrac{2}{X_n} \chi_{[X_n/2,X_n]\cap [a,\infty)}(x)\int g(v,X_n)dv dx}{\int \dfrac{2}{X_n} \chi_{[X_n/2,X_n]}(x)\int g(v,X_n)dv dx} \\
+    & = \dfrac{2(X_n-a)}{X_n}\chi_{X_n/2\leq x\leq X_n} + \chi_{(-\infty,X_n/2)}
+\end{aligned}
+\]
+and hence
+$X_{n+1}|X_n \sim \text{Uniform}([X_n/2. X_n])$, so \[E(X_{n+1}) = \int E(X_{n+1}\geq x)dx = \int \int E(X_{n+1}\geq x|X_n) dP dx = \dfrac{3}{4}E(X_n)\]
+therefore, we have $E(X_n) = (3/4)^n L$ by the induction.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.3} 
+(Markov's inequality) Let $X$ be a r.v. on $(\Omega,\F_0,P)$ with $X \geq 0$ and let $\F\subset\F_0$ be a sub-$\sigma$-algebra. Show that for each $a > 0$,
+\[ P(X\geq a|\F) \leq a^{-1}E(X|\F)\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It suffices to shwo that for any $B\in\F$, 
+\[
+E(P(X\geq a|\F);B) \leq a^{-1}E(E(X|\F);B)
+\]
+which means
+\[
+P(\{X\geq a\}\cap B) \leq a^{-1} \int_B X
+\]
+and hence the inequality holds.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.4} 
+Let $X$ be a r.v. on $(\Omega, \F_0, P)$ with $X \geq 0$ and let $F\subset\F_0$ be a sub-$\sigma$-algebra. Show that for each $a>0$,
+\[
+P(|X|\geq a|\F) \leq a^{-2}E(X^2|\F)
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It suffices to shwo that for any $B\in\F$, 
+\[
+E(P(|X|\geq a|\F);B) \leq a^{-2}E(E(X|\F);B)
+\]
+which means
+\[
+P(\{|X|\geq a\}\cap B) \leq a^{-2} \int_B X^2
+\]
+and hence the inequality holds.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.5} 
+(Cauchy-Schwarz inequality) Let $X,Y$ be r.vs on $(\Omega,\F_0,P)$ with $X \geq 0$ an let $\F\subset \F_0$ be a sub-$\sigma$-algebra. Show that
+\[
+E(XY|\F)^2 \leq E(X^2|\F)E(Y^2|\F)
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $B\in \F, a\in \R$, we have
+\[
+\int_B (E(X^2|\F) + a^2E(Y^2|\F) - 2aE(XY|\F)) = \int_B E((X-aY)^2|\F)= \int_B (X-aY)^2 \geq 0
+\]
+and hence $(E(X^2|\F) + a^2E(Y^2|\F) - 2aE(XY|\F)) \geq 0$ a.s. and hence we may know $(E(X^2|\F) + a^2E(Y^2|\F) - 2aE(XY|\F)) \geq 0$ for all rational number $a$ a.s., then we consider $E_n = \{E(XY|\F) > \sqrt{E(X^2|\F)E(Y^2|\F)+n^{-1}}\}$ and we have
+\[
+(E(X^2|\F) + a^2E(Y^2|\F) - 2aE(XY|\F)) \leq (a\sqrt{E(Y^2|\F)} - \sqrt{E(X^2|\F)})^2 - 2an^{-1}
+\]
+for all rational number $a$ a.s., and if $P(E_n) > 0$, then there exists $\omega \in \Omega$ such that $E(Y^2|\F) > 0, E(X^2|\F) > 0$ and then there has to be a rational number $a$  such that $(a\sqrt{E(Y^2|\F)} - \sqrt{E(X^2|\F)})^2 - 2an^{-1} < -\epsilon$ for some $\epsilon > 0$. Therefore, $E(XY|\F)^2 \leq E(X^2|\F)E(Y^2|\F)$ a.s.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.6} 
+(Bias-Variance decomposition) Let $X$ be r.vs on $(\Omega,\F_0,P)$ with $X \geq 0$ and let $\mathcal{G} \subset \F\subset \F_0$ be a sub-$\sigma$-algebras. Show that
+\[
+E(X-E(X|\mathcal{G}))^2 = E(E(X|\F)-E(X|\mathcal{G}))^2 + E(X-E(X|\F))^2
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice
+\[
+\begin{aligned}
+E(X-E(X|\mathcal{G}))^2 - E(E(X|\F)-E(X|\mathcal{G}))^2 + E(X-E(X|\F))^2 &= E(TX - TE(X|\F)) \\ &= E(E(TX|\F)-TE(X|\F)) \\ &= E(T(X|\F) - TE(X|\F)) = 0
+\end{aligned}
+\]
+where $T = E(X|\F) - E(X|\mathcal{G})$. Let $\mathcal{G} = \{\emptyset, \Omega\}$ then we will have
+\[
+E(X-EX)^2 = E(X-E(X|\F))^2 + E(E(X|\F)-EX)^2
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.7} 
+(Law of total variance) Let $X$ be r.vs on $(\Omega,\F_0,P)$ with $X \geq 0$ and let $\F\subset \F_0$ be a sub-$\sigma$-algebra. $\text{var}(X|\F) = E((X-E(X|\F))^2|\F)$. Show that
+\[
+\text{var}(X|\F) = E(X^2|\F) - E(X|\F)^2
+\]
+Furthermore, show that
+\[
+\text{var}(X) = E(\text{var}(X|\F)) + \text{var}(E(X|\F))
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice
+\[
+\begin{aligned}
+E((X-E(X|\F))^2|\F) &= E(X^2 - 2E(X|\F)X + E(X|\F)^2|\F) \\ &= E(X^2|\F) - 2E(X|\F)E(X|\F) + E(X|\F)^2 \\ &= E(X^2|\F) - E(X|\F)^2  
+\end{aligned}
+\]
+and we have
+\[
+E(\text{var}(X|\F)) + \text{var}(E(X|\F)) = EX^2 - E(E(X|\F)^2) + E(E(X|\F)^2) - [E(E(X|F))]^2 = \text{var}(X) 
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.7} 
+(Law of total variance) Let $X$ be r.vs on $(\Omega,\F_0,P)$ with $X \geq 0$ and let $\F\subset \F_0$ be a sub-$\sigma$-algebra. $\text{var}(X|\F) = E((X-E(X|\F))^2|\F)$. Show that
+\[
+\text{var}(X|\F) = E(X^2|\F) - E(X|\F)^2
+\]
+Furthermore, show that
+\[
+\text{var}(X) = E(\text{var}(X|\F)) + \text{var}(E(X|\F))
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice
+\[
+\begin{aligned}
+E((X-E(X|\F))^2|\F) &= E(X^2 - 2E(X|\F)X + E(X|\F)^2|\F) \\ &= E(X^2|\F) - 2E(X|\F)E(X|\F) + E(X|\F)^2 \\ &= E(X^2|\F) - E(X|\F)^2  
+\end{aligned}
+\]
+and we have
+\[
+E(\text{var}(X|\F)) + \text{var}(E(X|\F)) = EX^2 - E(E(X|\F)^2) + E(E(X|\F)^2) - [E(E(X|F))]^2 = \text{var}(X) 
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.2.2} 
+Given an example of a submartingale $X_n$ so that $X_n^2$ is a supermartingale.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Let $\F_n = \mathcal{B}_{[0,n]}$ and $X_n = -n^{-1}\chi_{[0,n]}$, then we know $E(X_{n+1}|\F_n) = - (n+1)^{-1}\chi_{[0,n]} \geq X_n$ and $E(X_n^2|\F_n) = (n+1)^2\chi_{[0,n]} \leq X_n^2$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.2.3} 
+Generalize (i) of Theorem 4.2.7 by showing that if $X_n$ and $Y_n$ are submartingales w.r.t. $\F_n$ then $X_n \vee Y_n$ is also.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice
+\[
+E(X_{n+1} \vee Y_{n+1}|\F_n) \geq E(X_{n+1}|\F_n)\vee E(Y_{n+1}|\F_n) \geq X_{n} \vee Y_n
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.2.5} 
+Given an example of a martingale $X_n$ with $X_n \to -\infty$ a.s.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider $\xi_n$ independent and $P(\xi_n = -1) = 1 - 2^{-n}, P(\xi_n = 2^n-1) = 2^{-n}$, $X_n = \sum\limits_{i=1}^n \xi_i$, then we have $P(\xi_n > 0\ i.o.) = 0$ since $\sum P(\xi_n>0) < \infty$. Then for any $\omega \in (\xi_n > 0\ i.o.)^c$, we know $X_n(\omega) \to -\infty$ and hence $X_n \to - \infty$ a.s.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.2.9} 
+(The switching principle) Suppose $X_n^1$ and $X_n^2$ are supermartingale w.r.t. $\F_n$ and $N$ is a stopping time so that $X_N^1 \geq X_N^2$. Then
+\[
+\begin{aligned}
+    Y_n &= X_n^1\chi_{N>n} + X_n^2\chi_{N\leq n} \\
+    Z_n &= X_n^1\chi_{N\geq n} + X_n^2\chi_{N<n}
+\end{aligned}
+\]
+are supermartingales.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    Notice
+    \[ E(Y_{n+1}|\F_n) = \chi_{N > n}E(X_{n+1}^1|\F_n) + \chi_{N\leq n}E(X_{n+1}^2|\F_n) \leq X_n^1 \chi_{N>n}+ X_n^2\chi_{N\leq n} = Y_n\]
+    and
+    \[ E(Z_{n+1}|\F_n) = \chi_{N \geq n}E(X_{n+1}^1|\F_n) + \chi_{N < n}E(X_{n+1}^2|\F_n) \leq X_n^1 \chi_{N \geq n}+ X_n^2\chi_{N < n} = Z_n\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.2.10} 
+(Dubin's inequality) For every positive supermartingale $X_n, n\geq 0$, the number of upcrossings $U$ of $[a,b]$ satisfies
+\[P(U\geq k) \leq \Big(\dfrac{a}{b}\Big)^k E \min(X_0/a,1)\]
+To prove this, we let $N_0 = -1$ and for $j\geq 1$ let
+\[
+\begin{aligned}
+    N_{2j-1} &= \inf\{m>N_{2j-2}:X_m \leq a\} \\
+    N_{2j} &= \inf\{m>N_{2j-1}:X_m \geq b\} 
+\end{aligned}
+\]
+Let $Y_n = 1$ for $0 \leq n < N_1$ and for $j>1$
+\[
+Y_n = \begin{cases}
+    (b/a)^{j-1}(X_n/a)\quad&\text{for }N_{2j-1}\leq n < N_{2j} \\
+    (b/a)^j&\text{for }N_{2j}\leq n<N_{2j+1}
+\end{cases}
+\]\par
+a. Use the switching principle in the previous exercise and induction to show that $Z_n^j = Y_{n\wedge N_j}$ is a supermartingale.\par
+b. Use $EY_{n\wedge N_{2k}} \leq EY_0$ and let $n\geq \infty$ to get Dubin's inequality.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Notice if $Y_n$ is a supermartingale, then
+\[
+E(Z_{n+1}^j|\F_m) = E(Y_{n+1}|\F_n)\chi_{N_j \geq n+1} + Y_{N_j}\chi_{N_j \leq n} \leq Y_n\chi_{N_j \geq n+1} + Y_{N_j}\chi_{N_j \leq n} = Y_n\chi_{N_j \geq n} + Y_{N_j}\chi_{N_j \leq n-1} = Z_n^j
+\]
+and then we know
+\[
+Y_n = \sum\limits_{j=1}^{\infty} ((b/a)^{j-1}(X_n/a)\chi_{N_{2j-1} \leq n < N_{2j}} + (b/a)^j\chi_{N_{2j}\leq n < N_{2j+1}}) + \chi_{0\leq n< N_1}
+\]
+and hence $Y_n$ is a supermartingale.\par
+b. Now we may know
+\[ EZ_n^{2k} \leq EZ_0^{2k} = EY_0 = E(X_0/a\wedge 1) \]
+and hence
+\[
+EZ_n^{2k} = E(Y_{n};N_{2k} > n) + E(Y_{N_2k}; N_2k \leq n) \geq \sum\limits_{j=0}^n (b/a)^kP(N_{2k} = j) = (b/a)^k P(N_{2k} \leq n) 
+\]
+where we know $P(N_{2k} \leq n ) = P(U_n \geq k)$, then we let $n\to\infty$ we may get
+\[P(U\geq k) \leq (a/b)^k E(X_0/a\wedge 1)\]
+\prvd
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

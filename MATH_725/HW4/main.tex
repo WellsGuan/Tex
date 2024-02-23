@@ -1,0 +1,191 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework04 - MATH 725}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+
+\subsection*{Section 6.5 Ex.42} 
+Complete the proof of Marcinkiewicz's thm.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $p_0 = p_1,q_0 < q_1$, then we know $q<\infty$ and
+    \[C_0||f||_{p_0} \geq [Tf]_{q_0},\quad C_1||f||_{p_0}\geq [Tf]_{q_1}\]
+    and we know if $q_1 < \infty$ then for any $f$ with $||f||_{p_0} = ||f||_{p_1} = 1$
+    \[
+    \begin{aligned}
+    \int |Tf|^q = q\int_0^{\infty} \alpha^{q-1}\dstrb{Tf}(\alpha)d\alpha &\leq q\Big[\int_0^1 \alpha^{q-1}\Big(\dfrac{C_0||f||_{p_0}}{\alpha})^{q_0}+\int_1^{\infty} \alpha^{q-1}\Big(\dfrac{C_1||f||_{p_1}}{\alpha})^{q_1}\Big] d\alpha\\
+    &= qC_0^{q_0} \int_0^1 \alpha^{q-q_0-1}d\alpha + qC_1^{q_1} \int_1^{\infty} \alpha^{q-q_1-1}d\alpha \\
+    & = \dfrac{q}{q-q_0}C_0^{q_0} + \dfrac{q}{q_1-q}C_1^{q_1} = B_p^{q}
+    \end{aligned}
+    \]
+    If $q_1 = \infty$, then assume $||f||_{p_0} = 1$, we have
+    \[
+        \int |Tf|^q = q\int_0^{\infty} \alpha^{q-1}\dstrb{Tf}(\alpha)d\alpha \leq q\int_0^{C_1||f||_{p_0}} \alpha^{q-1}(\dfrac{C_0||f||_{p_0}}{\alpha})^{q_0}d\alpha = \dfrac{q}{q-q_0}C_0^{q_0}C_1^{q-q_0}
+    \]
+    and hence
+    \[
+    ||Tf||_q = ||||f||_{p_0} T(f/||f_{p_0}||)||_q \leq  B_p||f||_{p_0}
+    \]
+    where
+    \[B_p = \Big(\Big(\dfrac{q}{q-q_0}C_0^{q_0}C_1^{q-q_0}\Big)^{1/q}\chi_{q_1 = \infty} +  \Big(\dfrac{q}{q-q_0}C_0^{q_0} + \dfrac{q}{q_1-q}C_1^{q_1}\Big)^{1/q}\chi_{q_1 < \infty}\Big)\]
+\par
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.2 Ex.7} 
+If $f$ is locally integrable on $\R^n$ and $g\in C^k$ has compact support, then $f*g \in C^k$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $E = supp(g)$ and we know $\partial^{\alpha} g$ vanishes out of $E$ for any $|\alpha|\leq k$ and hence it is bounded. It suffices to check that
+\[
+\dfrac{\partial (f*g)}{\partial x_i} = f*(\dfrac{\partial g}{\partial x_i})
+\]
+for $1\leq i \leq n$ and use the induction. Notice
+\[
+\begin{aligned}
+|\dfrac{\partial (f*g)}{\partial x_i}(x) - f*(\dfrac{\partial g}{\partial x_i})(x)| &= \lim_{h\to 0}|\dfrac{f*g(x+he_i)-f*g(x)}{h} - \int f(y)\dfrac{\partial g}{\partial x_i}(x-y) dy| \\
+&\leq \lim_{h\to 0}\int |f(y)||\dfrac{g(x+he_i-y)-g(x-y)}{h} -\dfrac{\partial g}{\partial x_i}(x-y)| dy \\
+&= \lim_{h\to 0}\int_{E'} |f(y)||\dfrac{g(x+he_i-y)-g(x-y)}{h} -\dfrac{\partial g}{\partial x_i}(x-y)| dy
+\end{aligned}
+\]
+where $E' = \bigcup_{|y|\leq 1}(E+y)$ is compact and notice we have
+\[
+|\dfrac{g(x+he_i-y)-g(x-y)}{h} -\dfrac{\partial g}{\partial x_i}(x-y)| \leq 2\sup_{E, 1\leq i\leq n} |\dfrac{\partial g}{\partial x_i}| < M
+\]
+for some $M$ positive, and $f$ is integrable on $E'$, so we can use the dominated convergence theorem and then
+\[
+|\dfrac{\partial (f*g)}{\partial x_i}(x) - f*(\dfrac{\partial g}{\partial x_i})(x)| = \int_{E'} |f(y)||\lim_{h\to 0}\dfrac{g(x+he_i-y)-g(x-y)}{h} -\dfrac{\partial g}{\partial x_i}(x-y)| dy = 0
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.2 Ex.8} 
+Suppose that $f\in L^p(\R)$. If theere exists $h\in L^p(\R)$ such that
+\[\lim_{y\to 0} ||y^{-1}(\tau_{-y}f -f )- h||_p = 0\]
+we call $h$ the $L^p$ derivative of $f$. If $f\in L^p(\R^n)$, $L^p$ partial derivatives of $f$ are defined similarly. Suppose that $p$ and $q$ are conjugate exponents, $f\in L^p, g\in L^q$ and the $L^p$ derivative $\partial_j f$ exists. Then $\partial_j(f*g)$ exists and equals $(\partial_jf)*g$. 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Denote $\partial_j f= h_j$ and it suffices to show that
+\[
+\begin{aligned}
+&\lim_{h\to 0}|\dfrac{f*g(x+he_i)-f*g(x)}{h}-\int h_j(x-y)g(y)dy|\\ = &\lim_{h\to 0} |\int [\dfrac{f(x+he_i-y)-f(x-y)}{h}g(y)-h_j(x-y)g(y)] dy| = 0
+\end{aligned}
+\]
+and we only need to show
+\[
+\lim_{h\to 0}\int |\dfrac{f(x+he_i-y)-f(x-y)}{h}-h_j(x-y)||g(y)| dy = 0
+\]
+and notice
+\[
+\begin{aligned}
+\int |\dfrac{f(x+he_i-y)-f(x-y)}{h}-h_j(x-y)||g(y)| dy &\leq ||g||_q ||\dfrac{f(x+he_i-\cdot)-f(x-\cdot)}{h}-h_j(x-\cdot)||_p \\ &= ||g||_q ||h^{-1}(\tau_{-he_i}f-f)-h||_p
+\end{aligned}
+\]
+Since 
+\[
+\lim_{h\to 0}||g||_q ||h^{-1}(\tau_{-he_i}f-f)-h||_p = 0
+\]
+and therefore the equality holds.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.2 Ex.10} 
+Let $\phi$ satisfy the hypotheses of Theorem 8.15. If $f\in L^p(1\leq p \leq \infty)$, define the $\phi$-maximal function of $f$ to be $M_{\phi}f(x) = \sup_{t>0}|f*\phi_t(x)|$.  Show that there is a constant $C$, independent of $f$ such that $M_{\phi}f \leq C\cdot Hf$. It follows from Theorem 3.17. that $M_{\phi}$ is weak type $(1,1)$ and the proof of Theorem 3.18 can then be adapted to give an alternate demonstration that $f*\phi_t \to (\int \phi)f$ a.e. 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice
+\[
+\begin{aligned}
+|\int_{B(0,t)}f(x-y)\phi_t(y)dy| &\leq \int_{B(0,t)} |f(x-y)|t^{-n} |\phi(t^{-1}y)| dy \\
+& \leq C_0\dfrac{m(B(0,1))}{m(B(0,t))} \int_{B(0,t)} |f(x-y)|(1+|y/t|)^{-n-\epsilon} dy \\
+& \leq C_0\dfrac{m(B(0,1))}{m(B(x,t))} \int_{B(x,t)} |f(y)|dy \\
+&\leq  C_0m(B(0,1)) Hf(x)
+\end{aligned}
+\]
+for some constant $C_0$ and
+\[
+\begin{aligned}
+|\int_{2^kt < |y| < 2^{k+1}t}f(x-y)\phi_t(y)dy| &\leq \int_{2^kt < |y| \leq 2^{k+1}t}|f(x-y)|t^{-n} |\phi(t^{-1}y)| dy \\
+& \leq C_0\dfrac{m(B(0,1))}{m(B(0,t))} \int_{2^kt < |y| \leq 2^{k+1}t} |f(x-y)|(1+|y/t|)^{-n-\epsilon} dy \\
+& \leq C_0\dfrac{m(B(0,1))}{m(B(0,t))} \int_{2^kt < |y| \leq 2^{k+1}t} |f(x-y)|(1+2^k)^{-n-\epsilon} dy \\
+& \leq C_0\dfrac{2^{k+1}m(B(0,1))}{2^{k(n+\epsilon)}m(B(0,2^{k+1}t))} \int_{B(0,2^{k+1}t)} |f(x-y)|dy \\
+&\leq  2C_0m(B(0,1))2^{-k\epsilon} Hf(x)
+\end{aligned}
+\]
+then we have
+\[
+\begin{aligned}
+|\int f(x-y)\phi_t(y)dy| &\leq C_0m(B(0,1)) Hf(x) + \sum\limits_{k=0}^{\infty} 2C_0m(B(0,1))2^{-k\epsilon} Hf(x) \\&\leq 2C_0m(B(0,1))[1+\dfrac{1}{1-2^{\epsilon}}]Hf(x)
+\end{aligned}
+\]
+\vspace{0.5em}
+
+\subsection*{Section 8.2 Ex.11} 
+Young's inequality shows that $L_1$ is a Banach algebra, the product begin convolution.\par
+a. If $J$ is an ideal in the algebra $L^1$, so is its closure in $L^1$.\par
+b. If $f\in L^1$, the smallest closed ideal in $L^1$ containing $f$ is the smallest closed subspace of $L^1$ containing all translates of $f$.
+\vspace{0.5em} \\
+\textbf{Sol.} \par
+a. We only need to show if $j_n \to j$ in $L_1$ where $j_n \in J$, then for any $x\in L^1$, $x*j_n \to x*j$ in $L^1$, which can be implied by
+\[
+||x*j_n - x*j||_1 = ||x*(j_n-j)||_1 = ||x||_1||j_n-j||_1 \to 0 
+\]
+by the Young's inequality.\par
+b. It suffices to show that $\tau_y(f)$ is contained by the closed ideal generated by $f$ for any $y\in\R^n$.\par
+Firstly, consdier for any $f\in C_c(\R^n)$ and integrable on $\R^n$, $g_n = \dfrac{1}{m(B(0,n^{-1}))}\chi_{B(0,n^{-1})}$, assume $supp(f) = E$ compact and $F = \bigcup_{|y|\leq 1}(E+y)$ compact and $f$ is uniformly continuous on $F$, then consider for $\epsilon > 0$, there exists integer $N$ such that $|f(x+y)-f(x)| < \epsilon$ whenever $|y|<N^{-1}$
+\[
+\begin{aligned}
+|f*g_n-f|_1 = \int |f*g_n(x) - f(x)|dx &= \int |m(B(0,n^{-1}))^{-1}\int_{B(0,n^{-1})} [f(x-y)-f(x)] dy | dx \\
+&\leq \int_F \epsilon dx = \epsilon \mu(F)  
+\end{aligned}
+\]
+for any $n\geq N$, which means $f*g_n \to f$ in $L^1$ for any $f\in C_c$ and hence $f*\tau_y(g_n) = \tau_y(f*g_n) \to \tau_y(f)$ in $L^1$ since $\tau_y$ is continuous.\par
+For general $f$, consider $f_n \to f$ in $L^1$, $f_n \in C_c$ since $C_c$ is dense in $L^1$. Then notice
+\[
+\begin{aligned}
+||f*\tau_y(g_n) - \tau_y(f)||_1 &\leq ||f*\tau_y(g_n) - f_m*\tau_y(g_n)|| + ||f_m*\tau_y(g_n) - \tau_y(f_m)||_1 + ||\tau_y(f_m)- \tau_y(f)||_1 \\ &\leq ||f-f_m||_1+||f_m*\tau_y(g_n) - \tau_y(f_m)||_1 + ||\tau_y(f_m)- \tau_y(f)||_1
+\end{aligned}
+\]
+by the Young's inequality and hence $\limsup_{n\to\infty}||f*\tau_y(g_n) - \tau_y(f)||_1 \leq ||f-f_m||_1 + ||\tau_y(f_m) - \tau_y(f)||_1$ for any integer $m$, which means
+\[
+\limsup_{n\to\infty}||f*\tau_y(g_n) - \tau_y(f)||_1 = 0
+\] 
+Therefore, $\tau_y(f)$ is contained in the closed ideal for any $y\in\R^n$.
+\prvd
+\vspace{0.5em}
+
+
+\addappheadtotoc
+
+\end{document}
