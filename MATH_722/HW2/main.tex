@@ -1,0 +1,240 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework02 - MATH 722}
+\author{Boren(Wellss) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Chapter.2 Ex.25} 
+a. let $\gamma$ be the boundary curve of the unit disc, equipped with counterclockwise orientation. Given an example of a $C^1$ function $f$ on a neighbourhood of $\overline{D}(0,1)$ such that
+\[ \int_{\gamma} f(\xi)d\xi = 0\]
+but such that $f$ is not holomorphic on any open set.\par
+b. Suppose that $f$ is a continuous function on the disc $D(0,1)$ and satisfies
+\[\int_{\partial D(0,r)} f(\xi)d\xi = 0\]
+for all $0<r<1$. Must $f$ be holomorphic on $D(0,1)$?\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Consider let $f(z) = Re(z)\bar{z}$, then we know
+\[
+\int_{\gamma} fdz = \int_0^1 (\cos(2\pi t)e^{-i2\pi t})(i2\pi)e^{i2\pi t} dt = 0
+\]
+but $\dfrac{\partial f(z)}{\partial \bar{z}} = Re(z) + \dfrac{1}{2}\bar{z}$ and hence $\dfrac{\partial f(z)}{\partial \bar{z}} = 0$ only on $\{(x,y), 3x = iy\}$, which means $f$ can not be holomorphic on any open set.
+\par
+b. Not really, let $f = \bar{z}^2$, then we have
+\[
+\int_{\partial D(0,r)} f(\xi) d\xi = \int_0^1 r^2e^{-i4\pi t}(2ri\pi)e^{i2\pi t} dt = 2ir^3\pi \int_0^1 e^{-i2\pi t} dt = 0
+\]
+for any $0< r < 1$ and $\dfrac{\partial f(z)}{\partial \bar{z}} = 2\bar{z}$ is not always $0$ on $D(0,1)$.
+\vspace{0.5em}
+
+\subsection*{Chapter.2 Ex.40} 
+Let $\gamma_1$ be the curve $\partial D(0,1)$ and $\gamma_2$ be the curve $\partial D(0,3)$, both equipped with counterclockwise orientation. Note that the two curves taken together form the boundary of an annulus. Compute\par
+a. $\dfrac{1}{2\pi i}\int_{\gamma_2}\dfrac{\xi^2+5\xi}{\xi-2} d\xi - \dfrac{1}{2\pi i}\int_{\gamma_1}\dfrac{\xi^2+5\xi}{\xi-2} d\xi$,\par
+c. $\dfrac{1}{2\pi i}\int_{\gamma_2}\dfrac{\xi^3-3\xi-6}{\xi(\xi+2)(\xi+4)} d\xi - \dfrac{1}{2\pi i}\int_{\gamma_1}\dfrac{\xi^3-3\xi-6}{\xi(\xi+2)(\xi+4)}d\xi$
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. By the Cauchy integral formula, we know
+\[\dfrac{1}{2\pi i}\int_{\gamma_1}\dfrac{\xi^2+5\xi}{\xi-2} d\xi = 0\]
+and
+\[
+\dfrac{1}{2\pi i}\int_{\gamma_2}\dfrac{\xi^2+5\xi}{\xi-2} d\xi = (\xi^2+5\xi)|_2 = 14
+\]
+and hence
+\[\dfrac{1}{2\pi i}\int_{\gamma_2}\dfrac{\xi^2+5\xi}{\xi-2} d\xi - \dfrac{1}{2\pi i}\int_{\gamma_1}\dfrac{\xi^2+5\xi}{\xi-2} d\xi = 14\]\par
+b. Consider a new piecewise curve $\gamma$ to be the connection by $\overline{i, 3i},\overline{\gamma_2},\overline{3i,i},\gamma_1$ where $\overline{\gamma}$ means the reverse of a curve and we know
+\[
+\dfrac{1}{2\pi i}\int_{\gamma_2}\dfrac{\xi^3-3\xi-6}{\xi(\xi+2)(\xi+4)} d\xi - \dfrac{1}{2\pi i}\int_{\gamma_1}\dfrac{\xi^3-3\xi-6}{\xi(\xi+2)(\xi+4)}d\xi = -\dfrac{1}{2\pi i}\int_{\gamma}\dfrac{\xi^3-3\xi-6}{\xi(\xi+2)(\xi+4)} d\xi 
+\]
+and we know
+\[
+-\dfrac{1}{2\pi i}\int_{\gamma}\dfrac{\xi^3-3\xi-6}{\xi(\xi+2)(\xi+4)} d\xi = \dfrac{\xi^3-3\xi-6}{\xi(\xi+4)}|_{-2} = 2
+\]
+since $\dfrac{\xi^3-3\xi-6}{\xi(\xi+4)}$ is holomorphic on a neiboughhood of the domain determined by $\gamma$.
+\vspace{0.5em}
+
+\subsection*{Chapter.3 Ex.10} 
+Find the complex power series expansion for $z^2/(1-z^2)^3$ about $0$ and determine the radius of convergence.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know for $|z|<1$
+\[
+z^2/(1-z^2)^3 = z^2(\sum\limits_{k=0}^{\infty} z^{2k})^3 = \sum\limits_{k=0}^{\infty}\dfrac{(k+2)(k+1)}{2}z^{2k+2}
+\]
+and notice
+\[
+\limsup \Big(\dfrac{(k+2)(k+1)}{2}\Big)^{1/2k+2} = 1
+\]
+and hence the power series has the radius of convergence of $1$. Notice $z^2/(1-z^2)^3$ is holomorphic on $D(0,1)$ and has singularities at $-1,1$, so the series is exactly the power series expansion of $z^2/(1-z^2)^3$.
+\par
+\vspace{0.5em}
+
+\subsection*{Chapter.3 Ex.11} 
+Determine the disc of convergence of each of the following series. Then determine at which points on the boundary of the disc of convergence the series convergence.\par
+b. $\sum_{k=2}^{\infty}k^{\ln k}(z+1)^k$\par
+e. $\sum_{k=1}^{\infty} 3^k(z+2i)^k$\par
+h. $\sum_{k=1}^{\infty} \dfrac{1}{k!}(z-5)^k$
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+b. Notice
+\[
+\limsup_{k\to\infty} (k^{\ln k})^{1/k} = \limsup_{k\to\infty} \exp{\dfrac{(\ln k)^2}{k}} = 1
+\]
+and hence the disc of convergence is $D(-1,1)$. If $|z+1| = 1, z+1 = e^{it}$, we know
+\[
+|k^{\ln k}(z+1)^k| = e^{(\ln k)^2} \geq 1
+\]
+for any $k\geq 3$ and hence the series can not be convergent on $\partial D(-1,1)$.\par
+e. Notice
+\[
+\limsup_{k\to\infty} (3^k)^{1/k} = 3
+\]
+and hence the disc of convergence is $D(-2i,1/3)$. if $|z+2i| = 1/3, z+2i = e^{it}/3$, we know
+\[
+|3^k(z+2i)^k| = |e^{ikt}| = 1
+\]
+for any $k\geq 1$ and hence the series can not be convergent on $\partial D(-1,1)$.\par
+h.
+Notice
+\[
+\limsup_{k\to\infty} (\dfrac{1}{k!})^{1/k} = \limsup_{k\to\infty} \exp\Big({-\dfrac{\sum\limits_{j=1}^k \ln j}{k}}\Big) = \exp(-\infty) = 1
+\]
+and hence the disc of convergence is $D(5,1)$. if $|z-5| = 1$, we know
+\[
+\sum\limits_{k=1}^{\infty} |\dfrac{1}{k!}(z-5)^k| = \sum\limits_{k=1}^{\infty}\dfrac{1}{k!} = e < \infty
+\]
+and hence the series is absolutely convergent on $\partial D(5,1)$, and hence convergent.
+\par
+\vspace{0.5em}
+
+
+\subsection*{Chapter.3 Ex.21} 
+Prove that the function
+\[
+f(z) = \sum\limits_{j=0}^{\infty} 2^{-j}z^{(2^j)}
+\]
+is holomorphic on $D(0,1)$ and continuous on $\overline{D}(0,1)$. Prove that if $\omega$ is a $(2^N)^{th}$ root of unity, then $\lim_{r\to 1^-}|f'(rw)| = \infty$. Deduce that $f$ cannot be the restriction to $D(0,1)$ of a holomorphic function defined on a connected open set that is strictly larger than $D(0,1)$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Denote $f_n(z) = \sum\limits_{j=0}^n 2^{-j}z^{(2^j)}$ and for any $0<r<1$, we know
+\[
+|f(z)-f_n(z)| \leq \sum\limits_{j=n+1}^{\infty} |2^{-j} z^{(2^j)}| \leq 2^{-n}
+\]
+on $\overline{D}(0,r)$ and hence $f_n$ converges to $f$ uniformly on any compact subset of $D(0,1)$, which means $f$ is holomorphic on $D(0,1)$ by the theorem.3.5.1. Notice for any $\epsilon > 0$ and $z\in\overline{D}(0,1)$, then exists $N$ such that $2^{-N}<\epsilon/4$ and there exists $\delta$ such that $|f_N(z+h)-f_N(z)| < \epsilon/2$ whenever $|h| < \delta$, then we know
+\[
+\begin{aligned}
+|f(z+h)-f(z)| &\leq |f(z+h)-f_N(z+h)| + |f_N(z)-f_N(z+h)| + |f(z)-f_N(z)|\\ &\leq \sum\limits_{j=N+1}^{\infty} |2^{-j}z^{(2^j)}| + \sum\limits_{j=N+1}^{\infty} |2^{-j}(z+h)^{(2^j)}| + \epsilon/2 < \epsilon
+\end{aligned}
+\]
+for any $|h|<\delta, z+h \in \overline{D}(0,1)$ and hence $f$ is continuous on $\overline{D}(0,1)$.\par
+Then by the corollary 3.5.2. we know
+\[
+|f'(r\omega)| = |\lim f'_n(r\omega)| = |C+(r\omega)^{-1}\sum\limits_{j=N}^{\infty}r^{2^j}| \geq |\sum\limits_{j=N}^{N+m}r^{2^j}|-|C|
+\]
+for any integer $m$, where $C$ is some constant and hence
+\[
+\liminf_{r\to 1^-}|f'(r\omega)| \geq \liminf_{r\to 1^-} |\sum\limits_{j=N}^{N+m}r^{2^j}|-|C| = m - |C|
+\]
+for any integer $m$, which means
+\[
+\lim_{r\to 1^-}|f'(r\omega)| = \infty
+\]
+Therefore, if $f$ is a restriction of a holomorphic function $G$ defined on a connected open set that is strictly larger than $D(0,1)$, we know $G'$ is continuous and equals to $f'$ on $\overline{D}(0,1)$ and hence bounded, which is a contradiction.
+\vspace{0.5em}
+
+\subsection*{Chapter.3 Ex.22} 
+Prove a version of L'Hospital's rule for $f,g$ holomorphic functions: If
+\[
+\lim_{z\to P}\dfrac{f(z)}{g(z)}
+\] is an indeterminate expresstion for $f$ and $g$ holomorphic, then the limit may be evaluated by considering
+\[
+\lim_{z\to P}\dfrac{\partial f/\partial z}{\partial g/\partial z}
+\] 
+Formulate a precise result and prove it.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Here is what I claim:  Given an open set $U$ and a point $P\in U$ , for $f,g$ holomorphic functions on $U-\{P\}$, then if the limit 
+\[\lim_{z\to P} \dfrac{\partial f/\partial z}{\partial g/\partial z}\]
+exists or equals to the infinity and $g'(z) \neq 0$ around $P$, then if $\lim_{z\to P} |f(z)| = \lim_{z\to P} |g(z)| \in \{0,\infty\}$
+\[
+\lim_{z\to P}\dfrac{f}{g} = \lim_{z\to P} \dfrac{\partial f/\partial z}{\partial g/\partial z} 
+\]
+and here is the proof.\par
+Denote
+\[\lim_{z\to P} \dfrac{\partial f/\partial z}{\partial g/\partial z} = \alpha\]
+and we firstly assume $\lim_{z\to P} f(z) = \lim_{z\to P} g(z) = 0$, then we know $f,g$ can be holomorphically extended to $P$ and then 
+\[
+\begin{aligned}
+f(z) &= f(z)-f(P) = \int_{\gamma} \partial f/\partial z (\xi) d\xi \\
+g(z) &= g(z)-g(P) = \int_{\gamma} \partial g/\partial z (\xi) d\xi \\
+\end{aligned}
+\]
+where $\gamma$ is the segment form $P$ to $z$ when $z$ is sufficiently close to $P$.\par 
+We firstly assume $\alpha < \infty$. Since $g'(z)\neq 0$ around $P$, so we may assume $g'(z)>0$ hence $g(z) > 0$ around $P$ without loss of generality (or let $g = -g$). We know for any $\epsilon > 0$, there exists $\delta > 0$
+\[
+(\alpha-\epsilon)g' \leq f' \leq (\alpha+\epsilon)g'
+\]
+whenever $|z-P| < \delta$ and then 
+\[(a-\epsilon)g(z) \leq f(z) \leq (a+\epsilon)g(z)\]
+which means
+\[
+\lim_{z\to P} \dfrac{f(z)}{g(z)} = \alpha
+\]
+If $\alpha = +\infty$, we assume $g'(z) > 0$, then we know for any $M>0$, there exists $\delta > 0$ such that \[f' \geq Mg'\]
+and hence
+\[
+\dfrac{f(z)}{g(z)} \geq M
+\]
+whenever $|z-P|<\delta$, which means 
+\[
+\lim_{z\to P} \dfrac{f(z)}{g(z)} = +\infty
+\]
+and the condition of  $\alpha = -\infty$ is the same.\par
+Now we assume $\lim_{z\to P} |f(z)| = \lim_{z\to P} |g(z)| = \infty$, we still assume $g'(z)>0$ and consider $\alpha < \infty$ at first, we have for any $\epsilon > 0$, there exists $\delta >0$ such that
+\[
+\alpha-\epsilon \leq \dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} \leq \alpha +\epsilon
+\]
+whenever $|z-P|,|\omega-P|<\delta$. And let $\omega\to P, \epsilon \to 0$ we know
+\[
+\lim_{\omega\to P}\dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} = \lim_{\omega\to P}\dfrac{f(\omega)}{g(\omega)} = \alpha
+\]
+Then we assume $\alpha = +\infty$, we still have for proper $M,\delta,z,\omega$
+\[
+\dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} \geq M
+\]
+and hence
+\[\liminf_{\omega\to P} \dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} = \liminf_{\omega\to P} \dfrac{f(z)}{g(z)} \geq M\]
+for any $M>0$, which means
+\[\lim_{\omega\to P}\dfrac{f(\omega)}{g(\omega)} = +\infty\] and the condition of $\alpha = -\infty$ is the same.
+\vspace{0.5em}
+
+
+\addappheadtotoc
+
+\end{document}

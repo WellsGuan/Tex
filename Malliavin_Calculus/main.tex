@@ -1,0 +1,71 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Durrett Ed5}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\section{Brownian Motion}
+
+\begin{definition}
+A real-valued stochastic process $B=(B_t)_{t\geq 0}$ defined on a probability space $(\Omega,\F;P)$ is called a Brownian motion if it satisfies the following conditions:\par
+a. Almost surely $B_0 = 0$.\par
+b. For all $0\leq t_1 < \cdots t_n$ the increments $B_{t_n}-B_{t_{n-1}},\cdots,B_{t_2}-B_{t_1}$ are independent random variables.\par
+c. If $0\leq s < t$, the increment $B_t-B_s$ is a Gaussian random variable with mean zero and variance $t-s$.\par
+d. With probability one, the map $t\to B_t$ is continuous.\par
+A $d$-dimensional Brownian motion is defined as an $\R^d$-valued stochastic process $B=(B_t)_{t\geq 0}$, $B_t = (B_t^1,\cdots,B_t^d)$, where $B^1,\cdots,B^d$ are $d$ independent Brownian motions.
+\end{definition}
+
+\begin{proposition}
+    Properties (a),(b),(c) are equivalent to that $B$ is a Gaussian process,i.e. for any finite set of indices $t_1,\cdots,t_n$, $(B_{t_1},\cdots,B_{t_n})$ is a multivariate Gaussian random variable, equivalently, any linear combination of $B_{t_i}$ is normal distributed r.v., with mean zero and covariance function
+    \[\Gamma(s,t) = \min(s,t)\]
+\end{proposition}
+\begin{proof}\par
+    Suppose (a),(b),(c) holds, then we know $(B_{t_1},\cdots,B_{t_n})$ is normal for any finite indices and then
+    \[
+    \begin{aligned}
+        m(t) &= E(B_t) = 0\\
+        \Gamma(s,t)&=E(B_sB_t) =E(B_{\min(s,t)}^2) = \min(s,t) 
+    \end{aligned}
+    \]\par
+    Conversly, we know $E(B_0^2) = 0$ and hence $B_0 = 0$ a.s., then we know $E(B_s^2) = s$ and for any $0<s<t$,
+    \[
+    E(B_s(B_t-B_s)) = 0
+    \]
+    and it is easy to check (c), and (b) is deduced by computing the covariance of the increments, notice that two r.v.s are independent iff $\phi_{(X_1,X_2,\cdots,X_n)} = \phi_{X_1}\phi_{X_2}\cdots\phi_{X_n}$ which implies that normal r.v.s are independent iff they have zero covariances.
+\end{proof}
+
+
+
+\end{document}

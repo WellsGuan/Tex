@@ -2,12 +2,12 @@
 \documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
 
 % 标题
-\title{Homework02 - MATH 725}
+\title{Homework02 - MATH 734}
 \author{Boren(Wells) Guan}
 
 % 本文档命令
 \usepackage{array,url,stix}
-\usepackage{subfigure}
+\usepackage{subfigure,listings}
 \newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
 \newcommand{\code}[1]{\lstinline{#1}}
 \newcommand{\prvd}{$\hfill \qedsymbol$}
@@ -22,6 +22,7 @@
 \newcommand{\Hil}{\mathcal{H}}
 \newcommand{\range}{\mathcal{R}}
 \newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
 
 % 文档区
 \begin{document}
@@ -29,130 +30,332 @@
 % 标题
 \maketitle
 
+\subsection*{Notation}
+Here I use $X \wedge Y$ for $\min(X,Y)$ and $X\vee Y$ for $\max(X,Y)$. r.v. for random variable.
+
 \subsection*{Before Reading:}\par
 To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
 And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
 
-\subsection*{Section 6.1 Ex.5} 
-Suppose $0<p<q<\infty$. Then $L^p$ is not contained by $L^q$ iff $X$ contains sets of arbitrarily small positive measure, and $L^q$ is not in $L^p$ iff $X$ contains sets of arbitratily large finite measure. What about $q = \infty$?
+\subsection*{Ex.1} 
+Let $(X_n)_{n\geq 0}$ be a stochastic process defined on a measurable space $(X,\F)$ adpated to a filtration $(\F_n)_{n\geq 0}$. Let $A$ be a measurable subset of the state space. For each $k\geq 1$, let $T_A^{(k)}$ denote the $k^{th}$ time that the process $X_n$ visits some state in $A$. That is
+\[
+T_A^{(m)} = \begin{cases}\inf\{n>T_A^{(m-1)}, X_n\in A\}\quad&T_A^{(m-1)} < \infty \\ \infty &T_A^{(m-1)} = \infty\end{cases}
+\]
+Show that $T_A^{(k)}$ is a stopping time for all $k\geq 1$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-We start with the proof of the first conclusion. To see the sufficiency, there exists $f\in L^p$ such that $||f||_q = \infty$. If there does not exists arbitrarily small positive measure sets, then we consider
-\[ 0= \mu(\{|f|=\infty\}) = \mu(\bigcap_{n\geq 0} \{|f|>n\}) = \lim_{n\to\infty} \mu(\{|f|>n\})\]
-and hence there exists an integer $N$ such that $\mu(\{|f|>N\}) = 0$ or there will be a contradiction. Then we know
-\[\int |f|^q d\mu \leq \int |f|^pN^{q-p}d\mu\ = ||f||_p^pN^{q-p}\]
-and hence $f\in L^q$, which is a contradiction. So see the necessity, consider there exists disjoint measurable sets $\{E_n\}_{n\geq 0}$ such that $ 0< \mu(E_n) < 2^{-n}$, then let $f= \mu(E_n)^{-\tfrac{1}{q}}\chi_{E_n}$ and we know
-\[\int |f|^p d\mu = \sum\limits_{n\geq 0}\mu(E_n)^{\tfrac{q-p}{q}} < \sum\limits_{n\geq 0}(2^{\tfrac{p-q}{p}})^n < \infty\]
-since $0 < 2^{\tfrac{p-q}{q}} < 1$. Also, notice
-\[\int |f|^q d\mu = \sum\limits_{n\geq 0}1\]
-which is not convergent and hence $f\in L^p$ but not in $L^q$.\par
-Then we will show the second conclusion. Assume $f\in L^q$ but not in $L^p$. To show the sufficiency, firstly, we claim that there is no simple function $\phi\geq 0$ such that $\phi\leq |f|^p$ and $\int \phi d\mu= \infty$, since if $\int\phi = \infty$, then we know there exists $E$ measurable such that $\mu(E) = \infty$ and $|f|^p \geq \phi(x) > 0$ where $x\in E$ and hence $|f|^q \geq \phi(x)^{\tfrac{q}{p}} > 0$ on $E$ and then $\int |f|^q d\mu = \infty$, which is a contradiction. Then we notice that
-\[\infty > \int |f|^q d\mu = \int_{|f|\geq 1} |f|^q d\mu + \int_{|f|<1} |f|^q d\mu \geq \int_{|f|\geq 1} |f|^p d\mu\]
-and hence $\int_{|f|<1} |f|^p d\mu = \infty$ and then we may find simple functions $\phi_n$ such that $\phi_n \leq |f|^p \leq 1$ and $\int \phi_n d\mu \geq n, n\in \N$. Assume $\phi_n$ is defined on $E_n$, then we know
-\[\mu(E_n) = \int \chi_{E_n} d\mu \geq \int \phi_n d\mu \geq n\]
-and $\mu(E_n) \leq \inf_{E_n}\{\phi_n\}^{-1}\int \phi_n d\mu <\infty$ and hence there are arbitrarily large finite measure sets.\par
-To show the necessity, we consider there exists disjoint $\{E_n\}_{n\geq 0}$ measurable sets such that $\infty > \mu(E_N) \geq 1$, then define $f = \sum\limits_{n\geq 1} n^{-\tfrac{1}{p}}\mu(E_n)^{-\tfrac{1}{p}}\chi_{E_n}$, then
-\[\begin{aligned}
-    \int |f|^p &= \sum\limits_{n\geq 1} \dfrac{1}{n} = \infty \\
-    \int |f|^q &= \sum\limits_{n\geq 1} \dfrac{1}{n^r}\mu(E_n)^{1-r} \leq \sum\limits_{n\geq 1} \dfrac{1}{n^r} < \infty
-\end{aligned}\]
-where $r = \tfrac{q}{p} > 1$, which means $f$ is in $L^q$ but not in $L^p$.\par
-If there exists $f\in L^p$ but $\mu(\{|f|>n\}) > 0$ for any integer $n$, then we know
-\[\int |f|^p d\mu \geq n^p\mu(\{|f|>n\})\]
-which means $\mu(\{|f|>n\}) \leq ||f||_p^p/n^p \to 0, n\to\infty$ and hence there exists arbitrarily small postive measure sets. If there exists disjoint $\{E_n\}_{n\geq 0}$ such that $0< \mu(E_n) \leq 2^{-2n}$, then consider $f = \sum\limits_{i=0}^{\infty} 2^{n/p}\chi_{E_n}$ and we know
-\[\int |f|^p d\mu \leq \sum\limits_{n\geq 0} <\infty\]
-and hence $f\in L^p$ but not in $L^{\infty}$.\par
-For the second part, consider a dirac measure on $\R$ at $0$ such that $\mu(E) = 0$ if $0\notin E$, $\mu(E=\infty)$ if $0\in E$, and $f = 1$ on $\R$, then $f\in L^{\infty}$ but not in $L^p$, however, there is not any finite postive measure set. which is a counterexample for the sufficiency.\par
-But the necessity is true, since there exists disjoint $\{E_n\}_{n\geq 0}$ such that $\infty > \mu(E_n)\geq 1$ and define $f = \sum\limits_{n\geq 0}\chi_{E_n}$, then $f\in L^{\infty}$ and $\int |f|^p dm = \infty$, which means $L^{\infty}$ is not contained in $L^p$.\par 
-\vspace{0.5em}
-
-\subsection*{Section 6.1 Ex.7} 
-If $f\in L^p\cap L^{\infty}$ for some $p<\infty$, so that $f\in L^q$ for all $q>p$, then $||f||_{\infty} = \lim_{q\to\infty} ||f||_q$.
-\vspace{0.5em}\\
-\textbf{Sol.} \par
-For any $\epsilon > 0$, assume $N_{\epsilon} = ||f||_{\infty} - \epsilon$, then we have $m_{\epsilon} = \mu(\{|f|>N_{\epsilon}\}) > 0$, where $m_{\epsilon} \leq N_{\epsilon}^{-p}||f||_p^p < \infty$. Notice that
-\[||f||_q^q = \int |f|^q d\mu \geq \int_{|f|>N_{\epsilon}} |f|^q d\mu \geq N_{\epsilon}^q m_{\epsilon}\]
-and hence $||f||_q \geq N_{\epsilon} m_{\epsilon}^{\tfrac{1}{q}}$, which means $\liminf_{q\to\infty} ||f||_q \geq N_{\epsilon}$ for any $\epsilon > 0$. Therefore, $\liminf_{q\to\infty}||f||_q \geq ||f||_{\infty}$.\par
-Then we know
-\[||f||_q \leq ||f||_p^{\lambda}||f||_{\infty}^{1-\lambda}\]
-for all $\infty>q>p$ where $\lambda = \tfrac{p}{q}$ by the Proposition 6.10 on Folland and hence
-\[\limsup_{q\to\infty} ||f||_q \leq \limsup_{q\to\infty}||f||_p^{\lambda}||f||_{\infty}^{1-\lambda} = ||f||_{\infty}.\]
-Therefore, $\lim_{q\to\infty} ||f||_q = ||f||_{\infty}$.
+We know
+\[
+\{T_A^{(m)} \leq n\} = \bigcup_{k=0}^{\infty}\{\inf\{p>k, X_p \in A\} \leq n, T_A^{(m-1)} = k\} = \bigcup_{k=0}^{n-1} \Big(\bigcup_{i = k+1}^n \{X_i \in A\}\cap\{T_A^{(m-1)} = k\}\Big)
+\]
+and hence $T_A^{(m-1)}$ is a stopping time will imply that $T_A^{(m)}$ is a stopping time.\par
+Then notice
+\[
+T_A^{(1)} = \inf\{n\geq 0, X_n \in A\}
+\]
+and hence
+\[
+\{T_A^{(1)} \leq n\} = \{\inf\{k\geq 0, X_k \in A\} \leq n\} = \bigcup_{k=0}^n\{X_k\in A\} \in \F_n
+\]
+which means $T_A^{(1)}$ is a stopping time.\par
+Therefore, $T_A^{(m)}$ is a stopping time for any $m\geq 1$ by the inducton.
 \prvd
 \vspace{0.5em}
 
-\subsection*{Section 6.1 Ex.13} 
-$L^p(\R^n,m)$ is separable for $1\leq p < \infty$. However, $L^{\infty}(\R^n,m)$ is not separable.
+\subsection*{Ex.2} 
+Let $X = (X_n)_{n\geq 0}$ be a supermartingale w.r.t. a filtration $\F_n$ and let $H = (H_n)_{n\geq 1}$ be any predictable sequence w.r.t. $(\F_n)_{n\geq 1}$. Suppose that $H_n$ is bounded and nonnegative for $n\geq 1$. Show that $\int_0^n HdX$ is a supermartingale w.r.t. $\F_n$. Also show the similar results for submartingales and martingales.
 \vspace{0.5em}\\
-\textbf{Sol.} \par
-Here we still recall that if $f\in L^p(\R^n,m)$, then there exists simple functions $\phi_n \to f$ in $L^p$ and $\phi_n$ is defined on finite measure set $E_n$, for each $E_n, \epsilon > 0$ there exists $K_n \subset E_n$ campact such that $\mu(E_n-K_n) < 2^{-n}\epsilon$. For any indicator function of finite measure set $E$, we know there exists $K$ campact, $U$ open such that $K\subset E \subset U$ and $\mu(U-K)$ can be arbitrarily small, then we will know that there exists $f\in C(\R^n)$ such that $f = 1$ on $K$, $f=0$ outside of $U$ and $f\geq 0$ by the Urysohn's Lemma, so then
-\[\int |f-\chi_E|^p dm \leq \int |\chi_U - \chi_K|^p dm\]
-where the right-hand-side can be small arbitrarily. Then by the Stone-Weierstrass' Theorem on locally compact hausdorff space, we know the polynomials on $\R^n$ is dense in $C_0(\R^n)$ in $L^{\infty}$ and hence the polynomials on $\R^n$ can be arbitrarily close to a simple function in $L^p(\R^n)$.\par
-Now consider all rational coefficients polynomials defined on the rectangle $E_{n} = [-n, n]^d,n\geq 0$ which are countable denoted as $P_n$, then for any polynomial $p$ on $\R^n$, we know $p|_{E_{n}}$ can be approached by the rational polynomials defined on $E_{\alpha}$ arbitrarily close in $L^p(\R^n)$ by the Dominated Convergence Theorem, then we know for $\epsilon > 0, f\in L^p$, there exists a simple function $\phi_n$ such that
-\[||f-\phi_n||_p < \epsilon\]
-and we may find a simple function $\phi$ with compact support such that
-\[||\phi_n-\phi||_p < \epsilon\]
-then we may find a continuous function $c$ on a campact, a polynomial $p$ on a compact set to approach $\phi$ and hence there exists an element $q$ in some $P_n$ close to $p$ and hence $||f-q||_p$ can be small arbitrarily. Notice $\bigcup_n P_n$ is countable and the problem goes.
+\textbf{Sol.}\par
+Notice that $E|\int_0^n HdX| \leq 2M_n\sum\limits_{i=0}^n E|X_i| <\infty$ where $\sup\{|H_i|,1\leq i \leq n\} \leq M_n$,
+\[
+E(\int_0^{n+1}HdX|\F_n) = E(\sum\limits_{k=1}^{n+1}H_k(X_k-X_{k-1})|\F_n) = H_{n+1}E(X_{n+1}-X_n|\F_n) + \int_0^n HdX \leq \int_0^n HdX
+\]
+which means $\int_0^n HdX$ is a supermartingale.\par
+For submartingales, we claim that $\int_0^n HdX$ is a submartingale w.r.t. $\F_n$ since if $X_n$ is a submartingale, then
+\[E(\int_0^{n+1}HdX|\F_n) = E(\sum\limits_{k=1}^{n+1}H_k(X_k-X_{k-1})|\F_n) = H_{n+1}E(X_{n+1}-X_n|\F_n) + \int_0^n HdX \geq \int_0^n HdX\]
+and naturally $\int_0^n HdX$ will be a martingale even if $H_n$ may be nonnegative because
+\[E(X_{n+1}-X_n|\F_n) = 0\]
+for $n\geq 0$ and then we will have
+\[
+E(\int_0^{n+1}HdX|\F_n) = E(\sum\limits_{k=1}^{n+1}H_k(X_k-X_{k-1})|\F_n) = H_{n+1}E(X_{n+1}-X_n|\F_n) + \int_0^n HdX = \int_0^n HdX
+\]
+and hence $\int_0^n HdX$ is a martingale.
+\prvd
 \vspace{0.5em}
 
-\subsection*{Section 6.2 Ex.18} 
-The self-duality of $L^2$ follows from Hilbert space theory, and this fact can be used to prove the Lebesgue-Radon-Nikodym theorem by the following argument due to von Neumann. Suppose that $\mu,\nu$ are positive finite measures on $(X,\M)$ and let $\lambda = \mu+\nu$.\par
-a. The map $f\mapsto \int f d\nu$ is a bounded linear functional on $L^2(\lambda)$, so $\int f d\nu = \int fg d\lambda$ for some $g\in L^2(\lambda)$. Equivalently, $\int f(1-g)d\nu = \int fg d\mu$ for $f\in L^2(\lambda)$.\par
-b. $0\leq g \leq 1$ $\lambda$-a.e., so we may assume $0\leq g \leq 1$ everywhere.\par
-c. Let $A=\{x,g(x)<1\},B=\{x,g(x)=1\}$ and set $\nu_a(E)=\nu(A\cap E),\nu_s(E)=\nu(B\cap E)$. Then $\nu_s \perp \mu$ and $\nu_a \ll \mu$; in fact, $d\nu_a = g(1-g)^{-1}\chi_Ad\mu$.\par
-\vspace{0.5em}
+\subsection*{Ex.3} 
+Find an instance of martingale converging in probability but not almost surely.
+\vspace{0.5em}\\
 \textbf{Sol.} \par
-a. Notice
-\[|\int f d\nu| \leq \int |f|d\nu \leq |f|d\lambda = ||f\cdot 1||_1 \leq ||1||_2||f||_2 = \sqrt{\lambda(X)}||f||_2\]
-by the Holder's inequality and hence $f\mapsto \int fd\nu\in L^2(\lambda)^*$. Then we know there always exists $g\in L^2(\lambda)$ such that 
-\[\int f d\nu = \int fg d\lambda = \int fg d(\nu+\mu) = \int fgd\nu + \int fg d\mu\]
-and hence $\int f(1-g)d\nu = \int fg d\mu$ since $\int fg d\nu$ is always finite.\par
-b. Let $f = \overline{sgn(g)}$ and then we know $f\in L^2(\lambda)$ since $|f|\leq 1$, then we know 
-\[ \nu(E) = \int_{E} d\nu \geq |\int_{E} fd\nu| = |\int_{E} fg d\lambda| = \int_{E} |g| d\lambda\]
-for any measurable set $E$, let $E = \{|g|\geq 1+n^{-1}\}$ then we will get $\nu(E) \geq (1+n^{-1})\lambda(E) > \lambda(E)$ if $\lambda(E) > 0$, which is a contradiction and hence $\lambda(E) = 0$ for any integer $n$, and hence $|g|\leq 1$ $\lambda$-a.e.\par
-Then let $f = \chi_E$, we know $\nu(E) = \int_E g d\lambda$ for any $E$ measurable and hence $g$ is always real and not negative which can be shown easily by choosing $E$ as $\{Im(g) > n^{-1}\}, \{Im(g) < -n^{-1}\}, \{g<n^{-1}\},n\in\N$. Therefore, we know $0\leq g\leq 1$ $\lambda$-a.e.\par
-c. Consider $F$ measurable and $\mu(F) = 0$, then we know $\lambda(F) = \nu(F) = \int gd\lambda$ and hence $g=1$ $\lambda$-a.e. on $F$ and hence $\nu_a(F) = \nu(A\cap F) = \nu(F-B) \leq \lambda(F-B) = 0$, which means $\nu_a(F) = 0$ and $\nu_a\ll \mu$.\par
-Then we know $\nu_s$ is null on $A$ and $\mu$ is null on $B$ since
-\[\lambda(E) = \int_E g d\nu = \int_E d\nu = \nu(E)\]
-if $E\subset B$, so $\nu_s \perp \mu$ since $A\cup B = X, A\cap B = \emptyset$.\par 
-Now we recall
-\[\int f(1-g)d\nu = \int fgd\mu\]
-for all $f\in L^2(\lambda)$, then let $f = \chi_E\chi_A/(1-g)$ for some measurable set $E$, we will have
-\[\chi_Ad\nu_a + \chi_A(1-g)d\nu_s= g(1-g)^{-1}\chi_A d\mu\]
+Let $X_0 = 0$ and $P(X_k = 1|X_{k-1} = 0) = P(X_k = -1|X_{k-1} = 0) = \tfrac{1}{2k}, P(X_k = 0|X_{k-1} = 0) = 1-\tfrac{1}{k}$ and $P(X_k = kX_{k-1}|X_{k-1} \neq 0) = \tfrac{1}{k}, P(X_k = 0|X_{k-1} \neq 0) = 1-\tfrac{1}{k}$, then we know $X_k \to 0$ in probability.\par However, $P(X_k = 0, k\geq K)$ and it picks discrete values and hence $X_k$ can not converge to $0$ a.s. 
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.4} 
+Use your favorate programming language (e.g., python, R, matlab, C++) and reproduce plots
+similar to the ones in Figure 5.3.1.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Here I tried with $(i,j,c) = (1,1,1), (1,1,3), (2,5,7)$ separately and get the images below:
+\begin{figure}[htbp]
+    \centering
+    \subfigure[(1,1,1)]{\includegraphics[width = 0.3\textwidth]{Figure_1.png}}
+    \subfigure[(1,1,3)]{\includegraphics[width = 0.3\textwidth]{Figure_2.png}}
+    \subfigure[(2,5,7)]{\includegraphics[width = 0.3\textwidth]{Figure_3.png}}
+\end{figure}\\
+and with the code here:\par
+\begin{lstlisting}
+import numpy
+import matplotlib.pyplot as plt
+
+M = 500
+tag = range(1,M+1)
+target = []
+
+def simu(i, j, c, target, times = 0, stop = M):
+    if times >= stop:
+        return
+    target.append(i/(i+j))
+    t = numpy.random.uniform()
+    if t <= i/(i+j):
+        simu(i+c,j,c,target,times+1)
+    else:
+        simu(i,j+c,c,target,times+1)
+    return
+
+for i in range(15):
+    target = []
+    simu(1,1,1,target)
+    plt.plot(tag,target)
+
+plt.show()
+\end{lstlisting}
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.5} 
+Let $X$ be a mean zero r.v. taking values from an interval $[-A,B]$. Fix a convex function $\phi:\R\to\R$. We will show that
+\[E(\phi(X)) \leq \phi(-A)\dfrac{B}{A+B} + \phi(B)\dfrac{A}{A+B}\]
+In words, over all possible distributions of $X$ over $[-A, B]$, the most extreme distribution that maximizes
+$E[\phi(X )]$ is the one that puts point mass on $-A$ and $B$ as in the right-hand side.\par
+a. Let $Y$ be a r.v. taking values from $[0, 1]$ and mean $p \in [0, 1]$. Suppose that for any convex function $\phi:\R \to \R$, we have
+\[E(\phi(Y)) \leq (1-p)\phi(0) + p\phi(1)\]
+then deduce the inequality above.\par
+b. Here we will deduce the inequality in (a). Let $Y$ be as before. Let $U \sim \text{Uniform}(0, 1)$ independent from $Y$. Argue that
+\[\chi_{U \leq Y }|Y \sim \text{Bernoulli}(Y )\text{ and } \chi_{U \leq Y} \sim \text{Bernoulli}(p)\]
+Then use Jensen's inequality to deduce
+\[ (1-p)\phi(0)+p\phi(1) = E(\phi(1(U\leq Y))) \geq E(\phi(Y))\]\par
+c. Let $\phi(x) = e^{\theta x}$ for a fixed $\theta > 0$ and assume $A = B > 0$. Deduce that
+\[E(e^{\theta X}) \leq \dfrac{E(e^{-\theta A})+E(e^{\theta A})}{2} \leq e^{\theta^2 A^2/2}\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Let $Y = \dfrac{X}{A+B} + \dfrac{A}{A+B}$ and we know $Y$ is a r.v. taking values from $[0,1]$ and mean $\dfrac{A}{A+B}$, so we know
+\[E(f(Y)) \leq \dfrac{B}{A+B}f(0) + \dfrac{A}{A+B} f(1)\]
+for any convex function $f:\R\to \R$. Let $f = \phi((A+B)x-A)$ and we will know
+\[
+\begin{aligned}
+f((1-t)x+ty) &= \phi((A+B)[(1-t)x+ty]-A) = \phi((1-t)[(A+B)x-A] + t[(A+B)y-A]) \\ &\leq (1-t)\phi((A+B)x-A)+t\phi((A+B)y-A) = (1-t)f(x) + f(y)
+\end{aligned}
+\]
+for any $x,y\in\R, t\in[0,1]$ and hence $f$ is a convex function, so we will have
+\[
+E(\phi(X)) = E(f(Y)) \leq \dfrac{B}{A+B}f(0) + \dfrac{A}{A+B} f(1) = \phi(-A)\dfrac{B}{A+B} + \phi(B)\dfrac{A}{A+B}
+\]\par
+b. Assume $\mu(A) = P(Y\in A)$ and then we know $(U,Y)$ will has the distribution
+\[
+\int_B du\mu(dy)
+\]
+and hence $P(\chi_{U\leq Y}|Y \in B) = \int_{(\chi_{U\leq Y} \in B)_Y} du = Y\delta_1(B) + (1-Y)\delta_0(B)$ where
+\[
+\delta_x(B) = \begin{cases}
+    1\quad & x\in B \\
+    0&x\notin B
+\end{cases}
+\]
+where $E_Y$ is the $Y$-section, and which means $X_{U\leq Y}|Y \sim \text{Bernoulli}(Y )$. For $\chi_{U\leq Y}$, we know it can be only $1$ or $0$ and where
+\[
+\begin{aligned}
+    P(\chi_{U\leq Y} = 1) &= \int_{U\leq Y} du \mu(dy) = \int \int_{(U\leq Y)_Y} du \mu(dy) = \int Y\mu(dy) = p \\
+    P(\chi_{U\leq Y} = 0) &= \int_{(U\leq Y)^c} du \mu(dy) = \int \int_{(U\leq Y)^c_Y} du \mu(dy) = \int (1-Y)\mu(dy) = 1-p
+\end{aligned}
+\]
+then we may know
+\[
+(1-p)\phi(0)+p\phi(1) = E(\phi(1(U\leq Y)))  = \int \int \phi(\chi(U\leq Y)) du \mu(dy) \geq \int \phi(Y) \mu(dy) = E(\phi(Y))
+\]
+by the Fubini's theorem and the Jensen's inequality.\par
+c. It suffices to show that
+\[
+\dfrac{E(e^{-\theta A})+E(e^{\theta A})}{2} = \dfrac{e^{-\theta A}+e^{\theta A}}{2} \leq e^{\theta^2A^2/2}
+\]
+and notice
+\[
+e^{x^2/2} - (e^x+e^{-x})/2 = \sum\limits_{k=0}^{\infty} (\dfrac{1}{2^kk!}-\dfrac{1}{(2k)!})x^{2k} \geq 0
+\]
+for any $x\in\R$ since $2^k \leq (2k)!/k!$ for any integer $k$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.6} 
+Let $T = T (n, p)$ denote the total number of triangles in $G(n, p)$.\par
+a. For each three distinct nodes $i , j , k$ in $G$, let $Y_{i,j,k} := \chi_{(i j , jk, ki \in E )}$, which is the indicator variable for the even that there is a triangle with node set ${i , j , k}$. Show that
+\[Y_{i,j,k} \sim \text{Bernoulli}(p^3)\]\par
+b. Show that we can write
+\[T = \sum\limits_{1\leq i < j < k \leq n}\chi_{(i j , jk, ki \in E )}\]\par
+Deduce that the expected number of triangles is
+\[ET = C_n^3 p^3\]\par
+c. Show that
+\[\text{var}(T(n,p)) = C_n^3(p^3-p^6) + 12 C_n^4(p^5-p^6) \sim \dfrac{n^4}{2}(p^5-p^6)\]
+Thus $\text{Std}(T (n, p)) = \Theta(n^2)$. If CLT holds for $T (n, p)$, then $T (n, p)$ should fluctuate around its mean by $\Theta(n^2)$. Can we
+conclude this by CLT?\par
+d. Show that for each $t \geq 0$,
+\[P\Big(|T(n,p)-C_n^3p^3|\geq t\Big) \leq 2\exp(-\dfrac{t^2}{n(n-1)(n-2)^2})\]
+Deduce that the above probability is $o(1)$ if $t\gg n^2$.Specifically, for any $\epsilon > 0$
+\[
+P\Big(|T(n,p)-C_n^3p^3|\geq n^{2+\epsilon}\Big) \leq 2\exp(-n^{2\epsilon})
+\]
+Thus, McDirmid's inequality almost confirms the upper tail of fluctuation of $T (n, p)$ predicted by CLT.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We know
+\[
+\begin{aligned}
+    P(Y_{i,j,k} = 1) &= P(ij,jk,ki\in E) = P(ij\in E)P(jk\in E)P(ki\in E) = p^3 \\
+    P(Y_{i,j,k} = 0) &= 1 - P(Y_{i,j,k} = 1) = 1-p^3
+\end{aligned}
+\]\par
+b. We know
+\[
+T = \sum\limits_{\{i,j,k\}, 1\leq i,j,k\leq n, i\neq j \neq k} Y_{i,j,k} = \sum\limits_{1\leq i < j < k \leq n} Y_{i,j,k} = \sum\limits_{1\leq i < j < k \leq n}\chi_{(i j , jk, ki \in E )}
+\]
+and hence
+\[
+ET = E(\sum\limits_{1\leq i < j < k \leq n}\chi_{(i j , jk, ki \in E )}) = E(\sum\limits_{1\leq i < j < k \leq n}Y_{i,j,k}) = \sum\limits_{1\leq i < j < k \leq n}E(Y_{i,j,k}) = C_n^3 p^3
+\]\par
+c. Denote $N = \{1,2,\cdots, n\}$ and notice
+\[\begin{aligned}
+ET^2 &= E[(\sum\limits_{1\leq i < j < k \leq n} Y_{i,j,k})^2] = E(\sum\limits_{1\leq i_1 < j_1 < k_1 \leq n}\sum\limits_{1\leq i_2 < j_2 < k_2 \leq n} Y_{i_1,j_1,k_1} Y_{i_2,j_2,k_2}) \\
+&= \sum\limits_{1\leq i < j < k \leq n} EY_{i,j,k}^2 + \sum\limits_{1\leq i < j < k\leq n} (\sum\limits_{p\in N-\{i,j,k\}}\sum\limits_{\{m,n\} \subset \{i,j,k\}}EY_{i,j,k}Y_{m,n,p}) \\
+&+ \sum\limits_{1\leq i < j < k\leq n} (\sum\limits_{\{p,q\}\subset N-\{i,j,k\}}\sum\limits_{m\in\{i,j,k\}}EY_{i,j,k}Y_{m,p,q}) \\
+&+ \sum\limits_{1\leq i < j < k \leq n} \sum\limits_{1\leq p < q < r \leq n, \{i,j,k\}\cap\{p,q,r\} = \emptyset} EY_{i,j,k}Y_{p,q,r} \\
+&= C_n^3 p^3 + 3(n-3)C_n^3 p^5 + 3C_n^3C_{n-3}^2p^6 + C_n^3C_{n-3}^3p^6
+\end{aligned}
+\]
+and hence
+\[
+\begin{aligned}
+\text{var}(T(n,p)) = ET^2 -(ET)^2 &= C_n^3 p^3 + 3(n-3)C_n^3 p^5 + 3C_n^3C_{n-3}^2p^6 + C_n^3C_{n-3}^3p^6 - C_n^3C_n^3 p^6 \\
+&= C_n^3 p^3 + 12 C_n^4 p^5 + C_n^3(3C_{n-3}^2 + C_{n-3}^3 - C_n^3)p&6 \\
+&= C_n^3(p^3-p^6) + 12 C_n^4(p^5-p^6)
+\end{aligned}
+\]
+where you may check that $3C_{n-3}^2 + C_{n-3}^3 - C_n^3 = -3(n-3)-1$. And we have
+\[
+\lim_{n\to\infty}  \dfrac{C_n^3(p^3-p^6) + 12 C_n^4(p^5-p^6)}{\dfrac{n^4}{2}(p^5-p^6)} = \lim_{n\to\infty} \dfrac{n(n-1)(n-2)(n-3)}{n^4} = 1
+\]
 and hence 
-\[\nu_a(E) = \nu_a(EA) + \nu_s(EA) = \int_{EA} g(1-g)^{-1}d\mu = \int_E g(1-g)^{-1}\chi_Ad\mu\]
-which means $d\nu_a = g(1-g)^{-1}\chi_A d\mu$.
+\[\text{var}(T(n,p)) = C_n^3(p^3-p^6) + 12 C_n^4(p^5-p^6) \sim \dfrac{n^4}{2}(p^5-p^6)\]
+By the way, we can not use CLT to $T(n,p)$ since $Y_{i,j,k}$ are not independent at all.\par
+d. Let $Y_{i,j}$ be $\chi_{ij\in E}$ and $T$ can be a function as $f(Y_{i,j}):\R^{C_n^2} \to \R$, with $|f(x)-f(x')| \leq n-2$ if $x,x'$ differs on only one corrdinate. So we may use the McDirmid's inequality and we have
+\[
+P(|T-C_n^3p^3| \geq t) \leq 2\exp\Big(-\dfrac{t^2}{2C_n^2(n-2)^2}\Big) = 2\exp\Big(-\dfrac{t^2}{n(n-1)(n-2)^2}\Big)
+\]
+then if $t = n^{2+\epsilon}$ for $\epsilon > 0$, we know
+\[
+P(|T-C_n^3p^3| \geq n^{2+\epsilon}) \leq 2\exp\Big(-n^{2\epsilon}\dfrac{n^{3}}{(n-1)(n-2)^2}\Big) \leq 2\exp(n^{-2\epsilon})
+\]
 \prvd
 \vspace{0.5em}
 
-\subsection*{Section 6.2 Ex.20} 
-Suppose $\sup_n||f_n||_p < \infty$ and $f_n\to f$ a.e.\par
-a. If $1<p<\infty$, then $f_n \to f$ weakly in $L^p$.\par
-b. The result of (a) is false in general for $p=1$. It is, however, true for $p=\infty$ if $\mu$ is $\sigma$-finite
-and weak convergence is replaced by weak* convergence.
+\subsection*{Durrett 4.3.1.} 
+Give an example of a martingale $X_n$ with $\sup_n |X_n| < \infty$ and $P(X_n = a\ i.o.) = 1$ for $a = -1,0,1$. This example shows that it is not enough to have $\sup |X_{n+1} - X_n| < \infty$ in Theorem 4.3.1.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-a. Firstly, by Fatou's lemma, we know
-\[\sup_n||f_n||_p^p \geq \liminf \int |f_n|^p d\mu \geq \int \liminf |f_n|^p d\mu = ||f||_p^p\]
-and hence $f\in L^p$.\par
-If suffices to show that for any $g\in L^q$,
-\[\int f_ng d\mu \to \int fg d\mu\]
-which can be implied from
-\[\int |f_n-f||g|d\mu \to 0, n\to\infty.\]
-For any $\epsilon > 0$, we know there exists $\delta > 0$ such that $\int |g|^q d\mu < \epsilon$ whenever $\mu(E)<\delta$ since $\int_E |g|^q d\mu = 0$ when $\mu(E)=0$. Then we have already mentioned several times that any simple function $\phi$ such that $0 \leq \phi \leq |g|^q$ will have $\int \phi d\mu<\infty$ and hence it can only defined on a finite measure set. Then we consider $\phi_n \uparrow |g|^q$ and $\int \phi_n d\mu \to \int |g|^q d\mu$ where $\phi_n$ simple, then we assume $\phi_n$ is defined on $E_n$, then we know
-\[\int |g|^q d\mu \geq \int_{E_n} |g|^q d\mu\geq \int \phi_nd\mu \to \int |g|^q d\mu\]
-and hence $\int_{X-E_n} |g|^q d\mu \to 0, n\to\infty$ since $g\in L^q$. So there is an integer $N$ such that $\int_{X-E_N}|g|^q d\mu < \epsilon$ and denote $E_N$ as $A$, and we know $\mu(A)<\infty$. So we have Egoroff's theorem and we know there exists $B\subset A$ such that $\mu(A-B)<\delta$ and $f_n\to f$ uniformly on $B$, then we have
-\[\begin{aligned}
-\limsup_{n\to\infty} \int |f_n-f||g|d\mu &\leq \limsup_{n\to\infty} \Big(\int_A^c |f_n-f||g|d\mu + \int_{A-B} |f_n-f||g|d\mu + \int_B |f_n-f||g|d\mu\Big) \\ &\leq (\sup_n||f_n||_p+||f||_p)\epsilon + \limsup_{n\to\infty}||f_n-f||_{L^p(B)}||g||_q \to 0, \epsilon \to 0
-\end{aligned}\] 
-by the Holder's inequality. Therefore, $f_n\to f$ weakly in $L^p$.\par
-b. Let $f_n = n\chi_{[0,n^{-1}]}$ and we know $f_n \to 0$ a.e. and $f\mapsto \int f$ is obviouslt a bounded linear functionla on $L^1$, then we know $f_n\mapsto 1, f\mapsto 0$ which is a counterexample.\par
-For $l^1$, consider $f_n = (\tfrac{1}{n},\tfrac{1}{n},\cdots,\tfrac{1}{n},\cdots), |f_n|_1 = 1$ and we know $f_n\to 0$ a.e. and define $f\mapsto \int f d\mu$ and we know $f_n\mapsto 1, f\mapsto 0$ which is a counterexample.\par
-Consider $\{g_n\}_{n\geq 0}\subset L^{\infty}$ and $g_n\to g$ a.e., we know $g\in L^{\infty}$ since $\sup_n ||g_n||_{\infty} < \infty$. It is suffice to show that for any $f\in L^1$, $\int fg_n \to \int fg, n\to\infty$, and we find $A,B$ the same as the proof of (a), then we will have
-\[\begin{aligned}
-\limsup_{n\to\infty} \int |g_n-g||f|d\mu &\leq \limsup_{n\to\infty} \Big(\int_A^c |g_n-g|||fd\mu + \int_{A-B} |g_n-g||f|d\mu + \int_B |g_n-g||f|d\mu\Big) \\ &\leq (\sup_n||g_n||_{\infty}+||f||_{\infty})\epsilon + \limsup_{n\to\infty}||g_n-g||_{L^{\infty}(B)}||g||_1 \to 0, \epsilon \to 0
-\end{aligned}\] 
-and hence $g_n\to g$ in weak* topology.\par
+Let $\xi_n$ be i.i.d. and $P(\xi_n = 1) = P(\xi_n = -1) = P(\xi_n = 0) = 1/3$ and assume
+\[
+X_{n+1} = \chi_{X_n = 0}\xi_{n+1} + \chi_{X_n \neq 0}(1+\xi_{n+1})X_n
+\]
+and $X_0 = \xi_0$. Assume $\F_n = \sigma(\xi_0,\xi_1,\cdots,\xi_n)$ and we may use the induction to show that $X_n \in \F_n$. Notice
+\[
+E(X_{n+1}|\F_n) = \chi_{X_n\neq 0} X_n = X_n
+\]
+and we know $X_n$ is a martingale w.r.t. to $\F_n$, also $\sup_n|X_n| < \infty$ but not uniformly bounded. Then we know
+\[P(X_n = 0\ i.o.) = 1\] since
+\[
+P(X_n = 0\ \text{not }i.o.) = \sum\limits_{k\geq 0} P(\bigcap_{m\geq k}\{X_m \neq 0\}) = 0
+\]
+and hence $P(X_n = 1\ i.o.) = P(X_n = -1\ i.o.) = 1$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.3.2.} 
+(Assumes familiarity with finite state Markov chains.) Fine tune the example for the previous problem so that $P (X_n = 0) \to 1 - 2p$ and $P(X_n = -1), P(X_n = 1) \to p$, where $p$ is your favorite number in $(0,1/2$), i.e., you are asked to do this for one value of $p$ that you may choose. This example shows that a martingale can converge in distribution without converging a.s. (or in probability).
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $\xi_n$ independent with
+\[
+P(\xi_k = k-i) = \dfrac{1}{4k}+\dfrac{1}{2k^2},\quad P(\xi_k = -(k-i)) =  \dfrac{1}{4k}+\dfrac{1}{2k^2},\quad P(\xi_k = 0) = \dfrac{1}{2} - \dfrac{1}{k}, 
+\]
+for $1\leq i \leq k$ and let $\F_n = \sigma(\xi_1,\cdots,Y\xi_n)$ and we know
+\[
+X_{n+1} = \xi_{n+1}\chi_{X_n = 0} + \dfrac{4n}{(n+2)(n-1)}X_n|\xi_{n+1}|\chi_{X_{n}\neq 0}
+\]
+and we know $X_n \in \F_n$ by the induction, then
+\[
+E(X_{n+1}|\F_n) = \chi_{X_n\neq 0}X_n = X_n
+\]
+Then \[P(X_{n+1} = 0) = (\dfrac{1}{2}-\dfrac{1}{n+1})P(X_n = 0) + (\dfrac{1}{2}-\dfrac{1}{n+1})(1-P(X_n = 0)) = \dfrac{1}{2}-\dfrac{1}{n+1} \to \dfrac{1}{2}\] and
+\[
+P(X_{n+1} = 1) = (\dfrac{1}{2}-\dfrac{1}{n})(\dfrac{1}{2} - \dfrac{1}{n})+(\dfrac{1}{2}+\dfrac{1}{n})P(X_n = \dfrac{1}{2}+\dfrac{1}{n+1}) = \dfrac{1}{4}- \dfrac{1}{4(n+1)^2} \to \dfrac{1}{4}
+\]
+and $P(X_{n+1} = -1)$ is similar.
+
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.3.3} 
+Let $X_n$ and $Y_n$ be positive integrable and adapted to $\F_n$. Suppose $E(X_{n+1}|\F_n) \leq X_n + Y_n$, with $\sum Y_n < \infty$ a.s. Prove that $X_n$ converges a.s. to a finite limit.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Let $S_n = X_n - \sum\limits_{k=1}^{n-1}Y_k$ and we know
+\[
+E(S_{n+1}|\F_n) = E(X_{n+1}|\F_n) - Y_n - (X_n - S_n) \leq X_n - (X_n - S_n) = S_n
+\]
+which means $S_n$ is a supermartingale. Assume $M>0$ and
+\[N = \inf\{k,\sum\limits_{i=1}^k Y_k > M\}\]
+then we know
+\[S_{n\wedge N} + M \geq X_{n\wedge N} \geq 0\]
+and hence $S_{n\wedge N} + M$ will converge to a finite limit almost surely since $S_{n\wedge N}$ is also a supermartingale.\par
+Now it is suffice to show that $S_n$ converges to a finite limit a.s. since $X_n = S_n + \sum\limits_{i=1}^{n-1}Y_i$ where $\sum\limits_{i=1}^{n-1}Y_i$ converges to $\sum\limits_{i=1}^{\infty} Y_i < \infty$ a.s. For all $\omega \in \{\omega,\sum\limits_{i=1}^{\infty} Y_i(\omega)< M\}$, we know $N(M) = \infty$ and hence $S_{n\wedge N}(\omega) = S_n(\omega)$, then we know $S_n(\omega)$ converges to a finite limit a.s. on $\{\omega,\sum\limits_{i=1}^{\infty} Y_i(\omega)<M\}$, and hence $S_n$ will converge to a finite limit a.s. on $\bigcup_{M=0}^{\infty}\{\omega,\sum\limits_{i=1}^{\infty} Y_i(\omega)<M\}$ and notice
+\[\bigcup_{M=0}^{\infty}\{\omega,\sum\limits_{i=1}^{\infty} Y_i(\omega)<M\} = \Omega\]
+and hence $S_n$ converges to a finite limit a.s. 
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.3.4.} 
+Let $p_m \in [0, 1)$. Use the Borel-Cantelli lemmas to show that
+\[
+\prod_{m=1}^{\infty}(1-p_m) = 0\iff \sum\limits_{m=1}^{\infty}p_m = \infty
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Let $B_n$ be independent events with $P(B_n) = p_n$ and $\F_n = \sigma(\{\emptyset, \Omega,B_1,\cdots,B_n \})$ and $\F_0 = \{\emptyset,\Omega\}$. By the Second Borel-Cantelli's Lemma, we know
+\[
+1 - \prod_{m=1}^{\infty}(1-p_m) \geq P(B_n\ i.o.) = P(\sum\limits_{n=1}^{\infty} P(B_n|\F_{n-1}) = \infty) = P(\sum\limits_{n=1}^{\infty} p_n = \infty)
+\]
+and
+\[
+1 - \sum\limits_{k\geq 1}\prod_{m=k}^{\infty}(1-p_m) \leq P(B_n\ i.o.) = P(\sum\limits_{n=1}^{\infty} p_n = \infty)
+\]
+since $B_n$ is independent to $\F_{n-1}$ and hence if $\sum\limits_{m=1}^{\infty} p_m = \infty$, we know
+\[
+\prod_{m=1}^{\infty}(1-p_m) \leq 1 - P(\sum\limits_{n=1}^{\infty} \chi_{B_n} = \infty) = 0
+\]
+which means $\prod_{m=1}^{\infty}(1-p_m) = 0$. If $\prod_{m=1}^{\infty}(1-p_m) = 0$, then we know $\prod_{m=k}^{\infty}(1-p_m) = 0$ for any integer $k$ and hence
+\[1 = 1 - \sum\limits_{k\geq 1}\prod_{m=k}^{\infty}(1-p_m) \leq  P(\sum\limits_{n=1}^{\infty} p_n = \infty)\]
+which means $\sum\limits_{n=1}^{\infty} p_n = \infty$ since $P(\sum\limits_{n=1}^{\infty} p_n = \infty)$ can be only $0$ or $1$.
+
 \prvd
 \vspace{0.5em}
 

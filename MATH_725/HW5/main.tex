@@ -1,0 +1,336 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework05 - MATH 725}
+\author{Boren(Wells) Guan}
+\date{Feb 28,2024}
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\newcommand{\Sch}{\mathcal{S}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+
+\subsection*{Section 8.3 Ex.15} 
+Let $\text{sinc} x = (\sin \pi x)/\pi x$ with $\text{sinc} 0 =1$.\par
+a. If $a>0, \hat{\chi_{[-a,a]}}(x) = \chi_{[-a,a]}^{\vee}(x) = 2a\text{sinc} 2ax$.\par
+b. Let $\Hil_{a} = \{f\in L^2, \hat{f}(\xi) = 0\text{ a.e. for }|\xi|>a\}$. Then $\Hil_{a}$ is a Hilbert space and $\sqrt{2a}\text{sinc}(2ax-k),k\in\Z$ is an orthonormal basis for $\Hil_a$.\par
+c. (The Sampling Theorem) If $f\in\Hil_{a}$ then $f\in C_0$ and $f(x) = \sum_{-\infty}^{\infty}f(k/2a)\text{sinc}(2ax-k)$, where the series converges both uniformly and in $L^2$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We know
+\[
+\hat{\chi_{[-a,a]}}(x) = \int_{-a}^a e^{-2\pi i \xi x} d\xi = \int_{-a}^a \cos 2\pi \xi x d\xi + i\int_{-a}^a \sin 2\pi \xi x d\xi = \dfrac{\sin 2\pi \xi x}{2\pi x}|^a_{-a} = 2a\text{sinc}2ax
+\]
+and
+\[
+\chi_{[-a,a]}^{\vee}(x) = \hat{\chi_{[-a,a]}}(-x)=2a\text{sinc} (-2ax) = 2a\text{sinc} 2ax
+\]\par
+b. It suffices to show that $\Hil_a$ is a closed subspace of $L^2$. Obviously $\Hil_a$ is a subspace and consider if $f_n \in \Hil_a$ converges to $f$ in $L^2$, we know that
+\[
+\int_{|\xi|>a,|\hat{f}(\xi)|>k^{-1}} |\hat{f}|^2 \leq \lim_{n\to\infty}||\hat{f}-\hat{f_n}||_2 = \lim_{n\to\infty}||\hat{(f-f_n)}||_2 = \lim_{n\to\infty}||f-f_n||_2 = 0
+\]
+and hence $\hat{f}(\xi) = 0$ a.e. for $|\xi|>a$, which means $\Hil_a$ is a Hilbert space.\par
+Notice $\chi_{[-a,a]} \in L^1,L^2$ and $\sin \pi x/\pi x \in L^1$, so we know
+\[
+\hat{\sqrt{2a}\text{sinc}(2ax-k)} = \dfrac{1}{\sqrt{2a}} = \hat{\chi_{\tau_{k/2a}}\hat{\chi_{[-a,a]}}} = \hat{(e^{2\pi i(k/2a)x}\chi_{[-a,a]})}
+\]
+almost everywhere and
+\[
+\begin{aligned}
+\langle \sqrt{2a}\text{sinc}(2ax-k_1), \sqrt{2a}\text{sinc}(2ax-k_2) \rangle &= \dfrac{1}{2a} \langle \tau_{k_1/2a}\hat{\chi_{[-a,a]}},\tau_{k_2/2a}\hat{\chi_{[-a,a]}}\rangle \\
+&=\dfrac{1}{2a} \langle \hat{(e^{2\pi i (k_1/2a)x}\chi_{[-a,a]})},\hat{(e^{2\pi i (k_2/2a)x}\chi_{[-a,a]})}\rangle \\
+&= \dfrac{1}{2a}\int_{-a}^a e^{2\pi i (k_1-k_2/2a)x}dx = \delta_{k_2}(k_1)
+\end{aligned}
+\]
+which means $\sqrt{2a}\text{sinc}(2ax-k)\in \Hil_a$ for any $k\in\Z$ and is an orthonormal set in $\Hil_a$.\par
+If $g \in \mathcal{H}_{a}$ and $g \perp f_{k}$ for any $k\in\Z$, then
+\[
+\int_{-a}^{a} \widehat{g}(\xi) e^{\pi i \xi k / a} d \xi=\sqrt{2 a} \int \widehat{g}(\xi) e^{\pi i \xi k / a} \phi(\xi) d \xi=\sqrt{2 a}\left\langle\widehat{g}, \widehat{f}_{k}\right\rangle=\sqrt{2 a}\left\langle g, f_{k}\right\rangle=0
+\]
+for all $k \in \mathbb{Z}$. This implies that $\left.\widehat{g}\right|_{[-a, a]} \in \mathcal{M}^{\perp}$, where $\mathcal{M}$ is the closed span of the collection of functions of the form $\xi \mapsto e^{-\pi i \xi k / a}$ (where $k \in \mathbb{Z}$ ). But $\mathcal{M}=L^{2}([-a, a])$ by the Stone-Weierstrass theorem and the fact that the inclusion $C([-a, a]) \hookrightarrow L^{2}([-a, a])$ is a bounded linear map with dense range (this is essentially Theorem 8.20). Therefore $\left.\widehat{g}\right|_{[-a, a]}=0$ almost everywhere, so $\widehat{g}=0$ almost everywhere and hence $g=0$ almost everywhere. This shows that $\left\{f_{k}\right\}_{k \in \mathbb{Z}}$ is an orthonormal basis for $\mathcal{H}_{a}$.\par
+c. Given $f \in \mathcal{H}_{a}$, the series $\sum_{k \in \mathbb{Z}}\left\langle f, f_{k}\right\rangle f_{k}=\sum_{k \in \mathbb{Z}}\left\langle\widehat{f}, \widehat{f}_{k}\right\rangle f_{k}$ converges to $f$ in $\mathcal{H}^{a}$, also in $L^{2}$ . If $k \in \mathbb{Z}$ then
+\[
+\left\langle\widehat{f}, \widehat{f}_{k}\right\rangle=\int \widehat{f}(x) e^{\pi i x k / a} \overline{\phi(x)} d x=\int_{-a}^{a} \frac{e^{\pi i x k / a}}{\sqrt{2 a}} \widehat{f}(x) d x=\frac{1}{\sqrt{2 a}} \int e^{\pi i x k / a} \widehat{f}(x) d x=\frac{\mathcal{F}^{2} f(-k / 2 a)}{\sqrt{2 a}}=\frac{f(k / 2 a)}{\sqrt{2 a}} .
+\]
+Let $A \subseteq \mathbb{Z}$and by Holder's inequality
+\[
+\sum_{k \in Z}\left|\left\langle f, f_{k}\right\rangle f_{k}(\xi)\right| \leq \sqrt{\sum_{k \in Z}\left|\left\langle f, f_{k}\right\rangle\right|^{2} \sum_{k \in Z}\left|f_{k}(\xi)\right|^{2}} \leq \sqrt{\sum_{k \in Z}\left|\left\langle f, f_{k}\right\rangle\right|^{2} \sum_{k \in \mathbb{Z}} 2 a|\operatorname{sinc}(2 a \xi-k)|^{2}}
+\]
+for all $\xi \in \mathbb{R}$.Then the first sum $\sum_{k \in Z}\left|\left\langle f, f_{k}\right\rangle\right|^{2}$ can be made small by choosing $Z$ appropriately , so the series $\sum_{k \in Z}\left\langle f, f_{k}\right\rangle f_{k}$ will be uniformly Cauchy provided that the second sum is uniformly bounded. It suffices to show this for $\xi \in\left[0, \frac{1}{2 a}\right)$ because
+\[
+\sum_{k \in \mathbb{Z}} 2 a|\operatorname{sinc}(2 a(\xi+i / 2 a)-k)|^{2}=\sum_{k \in \mathbb{Z}} 2 a|\operatorname{sinc}(2 a \xi+i-k)|^{2}=\sum_{j \in \mathbb{Z}} 2 a|\operatorname{sinc}(2 a \xi-j)|^{2}
+\]
+for all $\xi \in \mathbb{R}$ and $i \in \mathbb{Z}$. Given $\xi \in\left[0, \frac{1}{2 a}\right)$ define $Z:=\mathbb{Z} \backslash\{-1,0,1\}$, so that
+\[
+\begin{aligned}
+\sum_{k \in \mathbb{Z}} 2 a|\operatorname{sinc}(2 a \xi-k)|^{2} & \leq 6 a+\sum_{k \in Z} 2 a \frac{|\sin (2 \pi a \xi)|^{2}}{|2 \pi a \xi-\pi k|^{2}} 
+ \leq 6 a+\sum_{k \in Z} \frac{2 a}{|2 \pi a \xi-\pi k|^{2}} \\ & \leq 6 a+\sum_{k \in Z} \frac{2 a}{(\pi|k|-2 \pi a \xi)^{2}} \leq 6 a+\sum_{k \in Z} \frac{2 a}{(\pi|k|-\pi)^{2}}  \\&\leq 6 a+\sum_{k \in Z} \frac{2 a}{(\pi|k| / 2)^{2}} =6 a+\sum_{k \in Z} \frac{8 a}{\pi^{2}|k|^{2}}  =6 a+\frac{16 a}{\pi^{2}} \sum_{k=2}^{\infty} \frac{1}{k^{2}} <\infty 
+\end{aligned}
+\]
+which means that $\sum_{k \in \mathbb{Z}} f(k / 2 a) \operatorname{sinc}(2 a \xi-k)$ is uniformly Cauchy for all $\xi \in \mathbb{R}$. Since $\text{sinc}$ is continuous, in particular,  $\text{sinc}\in C_{0}$ because $|\operatorname{sinc}(\xi)| \leq|\pi \xi|^{-1}$ for all $\xi \in \mathbb{R} \backslash\{0\}$. Then the above series converges uniformly to some $g \in C_{0}$. A subsequence of its partial sums converges pointwise almost everywhere to $f$ which means that $f=g$ almost everywhere.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.3 Ex.16} 
+Let $f_k = \chi_{[-1,1]}*\chi_{[-k,k]}$.\par
+a. Compute $f_k(x)$ explicitly and show that $||f||_u = 2$.\par
+b. $f_k^{\vee}(x) = (\pi x)^{-2}\sin2\pi kx\sin 2\pi x$ and $||f_k^{\vee}||_1 \to \infty$ as $k\to\infty$.\par
+c. $\mathcal{F}(L^1)$ is a proper subset of $C_0$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We know
+\[
+f_k(x) = \int \chi_{[-1,1]}(y)\chi_{[-k,k]}(x-y)dy  = m((x-1,x+1)\cap[-k,k]) \leq 2
+\]
+and $f_k(0) = 2$, then we know $||f_k||_u = 2$.\par
+b. We know
+\[
+f_k^{\vee}(x) = \chi_{[-1,1]}^{\vee}(x)\chi_{[-k,k]}^{\vee}(x) = (2\sin2\pi x/2\pi x)(2k\sin 2\pi kx/2\pi k x) = (\pi x)^{-2}\sin 2\pi k x\sin 2\pi x
+\]
+and
+\[
+\lim_{k\to\infty}||f_k^{\vee}||_1 = \lim_{k\to\infty}\int |(\pi x)^{-2}\sin 2\pi k x\sin 2\pi x| dx = \lim_{k\to\infty}4k \int|\dfrac{\sin y}{y}||\dfrac{\sin y/k}{\sin y/k}|dy
+\]
+and since $\sin x/x \in L^1$ and nonzero, we know 
+\[
+\lim_{k\to\infty} \int|\dfrac{\sin y}{y}||\dfrac{\sin y/k}{\sin y/k}|dy = \int|\dfrac{\sin y}{y}|\lim_{k\to\infty}|\dfrac{\sin y/k}{\sin y/k}|dy = \int|\dfrac{\sin y}{y}|dy = C >0
+\]
+by the Dominated Convergence Theorem and hence
+\[
+\lim_{k\to\infty}||f_k^{\vee}||_1 = \lim_{k\to\infty}4Ck = +\infty
+\]
+since $C>0$.\par
+c. We have already know $\mathcal{F}:L^1 \to C_0$ is a continuous map by the Young's inequality, if $\mathcal{F}(L^1) = C_0$, then $\mathcal{F}$ becomes a surjective continuous linear map and hence open by the Open Mapping Theorem. Then we may find $C$ constant such that for any $f\in L^1$, $||f||_1 \leq C||\hat{f}||_u$, consider $f_k^{\vee}$, then it should be
+\[
+||f_k^{\vee}||_1 \leq C||f_k||_u = 2C
+\]
+for some constant $C$, which is a contradiction and hence $\mathcal{F}(L^1)$ is a proper subset of $C_0$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.3 Ex.18} 
+Suppose $f\in L^2(\R)$.\par
+a. The $L^2$ derivatives $f'$ exists iff $\xi\hat{f}\in L^2$, in which case $\hat{f'}(\xi) = 2\pi i \xi \hat{f}(\xi)$.\par
+b. If the $L^2$ derivative $f'$ exists, then
+\[
+[\int |f|^2 dx]^2 \leq 4 \int |xf(x)|^2 dx \int |f'(x)|^2 dx
+\]\par
+c. For any $b,\beta\in\R$, 
+\[\dfrac{||f||_2^4}{16\pi^2}\leq \int (x-b)^2|f(x)|^2 dx\int(\xi-\beta)^2 |\hat{f}(\xi)|^2 d\xi\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Notice if $f'$ exists, we know
+\[
+||\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}||_2 = ||\dfrac{\tau_{-y}f-f}{y}||_2 \in L^2
+\]
+for $y$ small enough and hence
+\[
+\lim_{y\to 0 }||\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}(\xi) - \xi \hat{f}||_2 = \int \lim_{y\to 0}|\dfrac{e^{2\pi i y\xi}-1}{y}-2\pi i \xi|^2|\hat{f}|^2 = 0
+\]
+since $|\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}(\xi) - \xi|< |\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}(\xi)|$ for $y$ small sufficiently and hence $||\xi \hat{f}||_2< \infty$. \par
+Now we assume $\xi \hat{f}\in L^2$ and we still have
+\[
+\lim_{y\to 0 }||\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}(\xi) - \xi \hat{f}||_2 = \int \lim_{y\to 0}|\dfrac{e^{2\pi i y\xi}-1}{y}-2\pi i \xi|^2|\hat{f}|^2 = 0
+\]
+since $|\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}(\xi) - \xi| < |2\pi i \xi|$ for $y$ significantly small, and hence
+\[
+\lim_{y\to \infty}||\dfrac{e^{2\pi i y\xi}-1}{y}\hat{f}||_2 = \lim_{y\to \infty}||\dfrac{\tau_{-y}f-f}{y}||_2 \in L^2 < \infty
+\]
+and hence $f'$ exists since $L^2$ is complete. And also $\hat{f'} = \lim_{y\to \infty} \hat{(\dfrac{\tau_{-y}f-f}{y})} = \lim_{y\to \infty} \dfrac{e^{2\pi i y\xi}-1}{y}\hat{f} = 2\pi i \xi \hat{f}$ in $L^2$.\par
+b. Assume the integral on the right side is finite, and then we know
+\[
+\begin{aligned}
+&\lim_{y\to \infty}||\dfrac{\tau_{-y}(x|f(x)|^2)-x|f(x)|^2}{y}- |f|^2 - 2Re(x\bar{f}f')||_1\\ \leq &\lim_{y\to \infty}(|||\tau_{-y}f|^2-|f|^2||_1 +||\dfrac{x|f(x+y)|^2-x|f(x)|^2}{y}-2Re(x\bar{f}f')||_1) = 0\\
+\end{aligned} 
+\]
+since $x|f(x)|^2 \in L^1$ because
+\[
+\int |x|f(x)|^2| \leq \int_{|x|\leq 1} |f(x)|^2 + \int_{|x|\geq 1}|xf(x)|^2  < \infty
+\]
+then we know
+\[
+|||f|^2+2Rex\bar{f}f'||_1 = \lim_{y\to 0}||\dfrac{\tau_{-y}(x|f(x)|^2)-x|f(x)|^2}{y}||_1 = 0
+\]
+Therefore
+\[
+[\int |f|^2 dx]^2 = 4Re(\int x\bar{f}f' dx)^2 \leq 4|\int x\bar{f}f' dx|^2 \leq 4 \int |xf(x)|^2 dx \int |f'(x)|^2 dx
+\]
+by the Cauchy-Schwartz inequality.\par
+c. We know
+\[
+\begin{aligned}
+\int (x-b)|f(x)|^2 dx\int(\xi-\beta)|\hat{f}(\xi)|^2 d\xi&= \int |x\tau_{-b}(f)|^2\int |\xi\tau_{-\beta}\hat{\xi}|^2 d\xi \\
+&= \dfrac{1}{4\pi^2}\int |x\tau_{-b}(f)|^2\int  |f'(x)|^2dx\\
+&= \dfrac{1}{4\pi^2}\int |x\tau_{-b}(f)|^2\int  |(\tau_{-b})f'(x)|^2dx\\
+&\geq \dfrac{1}{16\pi^2} [\int |f|^2 dx]^2 = \dfrac{||f||_2^4}{16\pi^2}
+\end{aligned}
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.3 Ex.23} 
+\textbf{Sol.} \par
+a. Define linear operators $P, Q$ on $\mathcal{\Sch}(\mathbb{R})$ by $Pf(x):=f'(x)$ and $Q f(x)=x f(x)$. If $f, g \in \Sch(\mathbb{R})$ then
+\[
+\int(Q f) \bar{g}=\int x f(x) \overline{g(x)} d x=\int f(x) \overline{x g(x)} d x=\int f(\overline{Q g})
+\]
+and we know $(f \bar{g})'=f' \bar{g}+f \overline{g'}$, and 
+\[
+\int(f \bar{g})^{\prime}=\lim _{N \rightarrow \infty} \int_{-N}^{N}(f \bar{g})^{\prime}=\lim _{N \rightarrow \infty}(f(N) \overline{g(N)}-f(-N) \overline{g(-N)})=0
+\]
+by Monotone Convergence Theorem and the Fundalmental Theorem of Calculus and
+\[
+\begin{aligned}
+\int(P f) \bar{g}=\int f^{\prime} \bar{g}=\int(f \bar{g})^{\prime}-\int f \overline{g^{\prime}}=-\int f(\overline{P g})
+\end{aligned}
+\]
+then
+\[
+\begin{aligned}
+\sqrt{2} \int(T f) \bar{g}&=\int(Q f-P f) \bar{g}=\int(Q f) \bar{g}-\int(P f) \bar{g}=\int f(\overline{Q g})+\int f(\overline{P g})\\ &=\int f(\overline{Q g+P g})=\sqrt{2} \int f\left(\overline{T^{*} g}\right)
+\end{aligned}
+\]
+Therefore \[\int(T f) \bar{g}=\int f\left(\overline{T^{*} g}\right)\] and if $x \in \mathbb{R}$ we know 
+\[(P Q f)(x)=(Q f)^{\prime}(x)=f(x)+x f^{\prime}(x)=f(x)+(Q P f)(x)\] 
+so
+\[
+2\left[T^{*}, T\right]=[Q+P, Q-P]=[Q, Q]-[Q, P]+[P, Q]-[P, P]=2[P, Q]=2 I
+\]
+which means that $\left[T^{*}, T\right]=I=T^{0}$. If $k \in \mathbb{N}$ with $k>1$ and $\left[T^{*}, T^{k-1}\right]=(k-1) T^{k-2}$, then
+\[
+T^{*} T^{k}=T^{*} T^{k-1} T=\left[T^{*}, T^{k-1}\right] T+T^{k-1} T^{*} T=(k-1) T^{k-1}+T^{k-1}\left[T^{*}, T\right]+T^{k-1} T T^{*}=k T^{k-1}+T^{k} T^{*}
+\]
+in which case $\left[T^{*}, T^{k}\right]=k T^{k-1}$ and hence $\left[T^{*}, T^{k}\right]=k T^{k-1}$. for any integer $k$ by induction.\par
+b. For an integer $k$, we know $T h_{k}=(k !)^{-1 / 2} T^{k+1} h_{0}=\sqrt{k+1}((k+1) !)^{-1 / 2} T^{k+1} h_{0}=\sqrt{k+1} h_{k+1}$, and since
+\[
+\sqrt{2}\left(T^{*} h_{0}\right)(x)=x h_{0}(x)+h_{0}^{\prime}(x)=\pi^{-1 / 4} x e^{-x^{2} / 2}+\pi^{-1 / 4}(-x) e^{-x^{2} / 2}=0\]
+and we know that $T^{*} h_{k}=(k !)^{-1 / 2} T^{*} T^{k} h_{0}=(k !)^{-1 / 2}\left(\left[T^{*}, T^{k}\right]+T^{k} T^{*}\right) h_{0}=(k !)^{-1 / 2} k T^{k-1} h_{0}=\sqrt{k} h_{k-1}$ by (a). Then we have 
+\[T T^{*} h_{k}=T\left(\sqrt{k} h_{k-1}\right)=\sqrt{k} T h_{k-1}=\sqrt{k} \sqrt{k} h_{k}=k h_{k}\]
+for all nonnegative $k$ if we choose $k = 0$ and let $h_{-1}$ an arbitrarily choosed function.\par
+c. Notice 
+\[S=2 T T^{*}+I=(Q-P)(Q+P)+I=Q^{2}+[Q, P]-P^{2}+[P, Q]=Q^{2}-P^{2}\]
+and hence, if $f \in \Sch(\mathbb{R})$ then $S f(x)=Q^{2} f(x)-P^{2} f(x)=x^{2} f(x)-f^{\prime \prime}(x)$ for any $x \in \mathbb{R}$. And if $k \in \mathbb{N} \cup\{0\}$ then
+\[
+S h_{k}=2 T T^{*} h_{k}+h_{k}=2 k h_{k}+h_{k}=(2 k+1) h_{k}
+\]\par
+d. Notice that $\left\|h_{0}\right\|_{2}^{2}=\int\left|h_{0}\right|^{2}=\int \frac{e^{-x^{2}}}{\sqrt{\pi}} d x=\frac{\sqrt{\pi}}{\sqrt{\pi}}=1$. For integer $k$ and $\left\|h_{k-1}\right\|_{2}=1$ we have
+\[\begin{aligned}
+\left\|h_{k}\right\|_{2}^{2}&=\int h_{k} \overline{h_{k}}=k^{-1} \int\left(T T^{*} h_{k}\right) \overline{h_{k}}=k^{-1} \int\left(T^{*} h_{k}\right)\left(\overline{T^{*} h_{k}}\right)\\ &=k^{-1} \int \sqrt{k} h_{k-1} \overline{\sqrt{k} h_{k-1}}=\int\left|h_{k-1}\right|^{2}=1
+\end{aligned}
+\]
+and hence $\left\|h_{k}\right\|=1$ for any $k \in \mathbb{N} \cup\{0\}$ by induction. If $j, k \in \mathbb{N} \cup\{0\}$ and $j>k$ then
+\[
+\begin{aligned}
+\left(h_{j}, h_{k}\right)&=\int h_{j} \overline{h_{k}}=j^{-1} \int\left(T T^{*} h_{j}\right) \overline{h_{k}}=j^{-1} \int\left(T^{*} h_{j}\right)\left(\overline{T^{*} h_{k}}\right)\\ &=j^{-1} \int \sqrt{j} h_{j-1}\left(\overline{\sqrt{k} h_{k-1}}\right)=\sqrt{\frac{k}{j}}\left(h_{j-1}, h_{k-1}\right)
+\end{aligned}
+\]
+and hence $\left(h_{j}, h_{k}\right)=\sqrt{\frac{k(k-1) \cdots 0}{j(j-1) \cdots(j-k)}}\left(h_{j-k-1}, h_{-1}\right)=0$, which measn $\left\{h_{k}\right\}_{k=0}^{\infty}$ is orthonormal.\par
+e. For any integer $k$ we know
+\[
+T^{k-1} f(x)=(-1)^{k-1} 2^{(1-k) / 2} e^{x^{2} / 2} \frac{d^{k-1}}{d x^{k-1}}\left(e^{-x^{2} / 2} f(x)\right),
+\]
+for all $x \in \mathbb{R}$ and
+\[
+\begin{aligned}
+T^{k} f(x) & =(-1)^{k-1} 2^{-k / 2}\left(x e^{x^{2} / 2} \frac{d^{k-1}}{d x^{k-1}}\left(e^{-x^{2} / 2} f(x)\right)-x e^{x^{2} / 2} \frac{d^{k-1}}{d x^{k-1}}\left(e^{-x^{2} / 2} f(x)\right)-e^{x^{2} / 2} \frac{d^{k}}{d x^{k}}\left(e^{-x^{2} / 2} f(x)\right)\right) \\
+& =(-1)^{k} 2^{-k / 2} e^{x^{2} / 2} \frac{d^{k}}{d x^{k}}\left(e^{-x^{2} / 2} f(x)\right) .
+\end{aligned}
+\]
+for any $x \in \mathbb{R}$. Therefore 
+\[T^{k} f(x)=(-1)^{k} 2^{-k / 2} e^{x^{2} / 2} \frac{d^{k}}{d x^{k}}\left(e^{-x^{2} / 2} f(x)\right)\]
+for any $x \in \mathbb{R}$ and $k \in \mathbb{N} \cup\{0\}$ by induction. If $k \in \mathbb{N} \cup\{0\}$ then 
+\[h_{k}=k^{-1 / 2} T h_{k-1}=\cdots=(k !)^{-1 / 2} T^{k} h_{0}\] which means for any $x \in \mathbb{R}$ we have
+\[
+h_{k}(x)=(k !)^{-1 / 2}(-1)^{k} 2^{-k / 2} e^{x^{2} / 2} \frac{d^{k}}{d x^{k}}\left(e^{-x^{2} / 2} h_{0}(x)\right)=\frac{(-1)^{k}}{\sqrt{\pi^{1 / 2} 2^{k} k !}} e^{x^{2} / 2} \frac{d^{k}}{d x^{k}} e^{-x^{2}}
+\]\par
+f. Given $k \in \mathbb{N} \cup\{0\}$, it is easily shown by induction and the product rule that $\frac{d^{k}}{d x^{k}} e^{-x^{2}}=P_{k}(x) e^{-x^{2}}$ for all $x \in \mathbb{R}$, where $P_{k}(x)$ is some polynomial of degree $k$. The formula for $h_{k}$ from (e) implies that
+\[
+H_{k}(x)=\frac{(-1)^{k}}{\sqrt{\pi^{1 / 2} 2^{k} k !}} e^{x^{2}} P_{k}(x) e^{-x^{2}}=\frac{(-1)^{k}}{\sqrt{\pi^{1 / 2} 2^{k} k !}} P_{k}(x)
+\]
+which means $H_{k}(x)$ is also a polynomial of degree $k$. In particular $H_{0}(x)$ is a non-zero constant, so all the constant polynomials are in $\operatorname{span}\left\{H_{0}(x)\right\}$.\par
+If the polynomials of degree less than $k$ are in $\operatorname{span}\left\{H_{j}(x)\right\}_{j=0}^{k-1}$ and $c \in \mathbb{R} \backslash\{0\}$ is the leading term of $H_{k}(x)$, then $x^{n}-c^{-1} H_{k}(x) \in \operatorname{span}\left\{H_{j}(x)\right\}_{j=0}^{k-1}$, which implies that $x^{n} \in \operatorname{span}\left\{H_{j}(x)\right\}_{j=0}^{k}$ and hence every polynomial of degree at most $k$ is in $\operatorname{span}\left\{H_{j}(x)\right\}_{j=0}^{k}$. Then $\operatorname{span}\left\{H_{j}(x)\right\}_{j=0}^{k}$ is the set of polynomials of degree at most $k$, for all $k \in \mathbb{N} \cup\{0\}$ by induction.\par
+g. Let $f \in L^{2}$ and suppose that $f \perp h_{k}$ for all $k \in \mathbb{N} \cup\{0\}$. Define $g: \mathbb{R} \rightarrow \mathbb{C}$ by $g(x):=f(x) e^{-x^{2} / 2}$, so that $g \in L^{1}$ (by Hölder's inequality). If $\xi, x \in \mathbb{R}$ and $N \in \mathbb{N}$ then
+\[
+\left|\sum_{k=0}^{N} \frac{(-2 \pi i \xi x)^{k}}{k !} g(x)\right| \leq \sum_{k=0}^{N} \frac{|2 \pi \xi x|^{k}}{k !}|f(x)| e^{-x^{2} / 2} \leq e^{2 \pi|\xi x|-x^{2} / 2}|f(x)|
+\]
+If $\xi \in \mathbb{R}$ then $x \mapsto e^{2 \pi|\xi x|-x^{2} / 2}$ is clearly in $L^{2}$, so $x \mapsto e^{2 \pi|\xi x|-x^{2} / 2}|f(x)|$ is in $L^{1}$. Then
+\[
+\widehat{g}(\xi)=\int e^{-2 \pi i \xi x} g(x) d x=\int \sum_{k=0}^{\infty} \frac{(-2 \pi i \xi x)^{k}}{k !} g(x) d x=\lim _{N \rightarrow \infty} \int \sum_{k=0}^{N} \frac{(-2 \pi i \xi x)^{k}}{k !} g(x) d x
+\]
+by the Dominated Convergence Theorem. If $N \in \mathbb{N}$ then $\sum_{k=0}^{N} \frac{(2 \pi i \xi x)^{k}}{k !} \in \operatorname{span}_{\mathbb{C}}\left\{H_{k}(x)\right\}_{k=0}^{N}$, and since $\overline{H_{k}} g=f \overline{h_{k}}$ for all $k \in \mathbb{N} \cup\{0\}$, it follows that $\widehat{g}(\xi)=\lim _{N \rightarrow \infty} 0=0$. In particular $\widehat{g} \in L^{1}$, so by the Fourier inversion theorem $g=(\widehat{g})^{\vee}=0$ almost everywhere. Since $e^{-x^{2} / 2}>0$ for all $x \in \mathbb{R}$, this implies that $f=0$ in $L^{2}$. Therefore $\left\{h_{k}\right\}_{k=0}^{\infty}$ is an orthonormal basis for $L^{2}$.\par
+h. Obviously $A$ is linear and bijective since its inverse is given by $A^{-1} f(x):=(2 \pi)^{-1 / 4} f\left((2 \pi)^{-1 / 2} x\right)$ . If $f \in L^{2}$ then
+\[
+\|A f\|_{2}^{2}=\int|A f(x)|^{2} d x=\int \sqrt{2 \pi}|f(x \sqrt{2 \pi})|^{2} d x=\frac{1}{\sqrt{2 \pi}} \int \sqrt{2 \pi}|f(t)|^{2} d t=\|f\|_{2}^{2}
+\]
+which shows that $A$ is unitary. If $\xi \in \mathbb{R}$ then (assuming $f \in L^{1}$ )
+\[
+\begin{aligned}
+\widehat{A f}(\xi)=\int e^{-2 \pi i \xi x}(2 \pi)^{1 / 4} f(x \sqrt{2 \pi}) d x&=(2 \pi)^{1 / 4} \int e^{-\sqrt{2 \pi} i \xi x \sqrt{2 \pi}} f(x \sqrt{2 \pi}) d x\\ &=\frac{1}{(2 \pi)^{1 / 4}} \int e^{-\sqrt{2 \pi} i \xi t} f(t) d t
+\end{aligned}
+\]
+then we have
+\[
+\widetilde{f}(\xi)=A^{-1} \widehat{A f}(\xi)=\frac{(2 \pi)^{-1 / 4}}{(2 \pi)^{1 / 4}} \int e^{-\sqrt{2 \pi} i(2 \pi)^{-1 / 2} \xi t} f(t) d t=\frac{1}{\sqrt{2 \pi}} \int e^{-i \xi t} f(t) d t
+\]
+If $f \in \mathcal{S}$ then clearly $\tilde{f} \in S$, and
+\[
+\begin{aligned}
+\sqrt{2 \pi} \widetilde{T f}(\xi)&=\int e^{-i \xi t} T f(t) d t=\int T f(t) \overline{e^{i \xi t}} d t\\ &=\int f(t) \frac{\overline{\left(t e^{i \xi t}+i \xi e^{i \xi t}\right)}}{\sqrt{2}} d t=\frac{1}{\sqrt{2}} \int f(t)(t-i \xi) e^{-i \xi t} d t
+\end{aligned}
+\]
+On the other hand, we have
+\[
+-\sqrt{2 \pi} i T(\tilde{f})(\xi)=-\frac{i}{\sqrt{2}}\left(\xi \int e^{-i \xi t} f(t) d t-\frac{d}{d \xi} \int e^{-i \xi t} f(t) d t\right)
+\]
+Since $\left|\frac{d}{d \xi} e^{-i \xi t} f(t)\right|=\left|-i t e^{-i \xi t} f(t)\right|=|t f(t)|$ for all $t \in \mathbb{R}$, and $t \mapsto t f(t)$ is in $L^{1}$ (as $f \in \mathcal{S}$ ), we know
+\[
+\begin{aligned}
+-\sqrt{2 \pi} i T(\widetilde{f})(\xi) & =-\frac{i}{\sqrt{2}}\left(\xi \int e^{-i \xi t} f(t) d t-\int \frac{d}{d \xi} e^{-i \xi t} f(t) d t\right) \\
+& =-\frac{i}{\sqrt{2}}\left(\int \xi e^{-i \xi t} f(t) d t+\int i t e^{-i \xi t} f(t) d t\right) \\
+& =\frac{1}{\sqrt{2}}\left(\int t e^{-i \xi t} f(t) d t-\int i \xi e^{-i \xi t} f(t) d t\right) \\
+& =\frac{1}{\sqrt{2}} \int(t-i \xi) e^{-i \xi t} f(t) d t \\
+& =\sqrt{2 \pi} \widetilde{T f}(\xi) .
+\end{aligned}
+\]
+In particular $\widetilde{T f}=-i T(\widetilde{f})$. Note that $A h_{0}(x)=(2 \pi)^{1 / 4} h_{0}(\sqrt{2 \pi} x)=2^{1 / 4} e^{-\pi x^{2}}$ for all $x \in \mathbb{R}$ and hence $\widehat{A h_{0}}(\xi)=$ $2^{1 / 4} e^{-\pi \xi^{2}}$ for all $\xi \in \mathbb{R}$ (by Proposition 8.24 ). Then we have
+\[
+\widetilde{h}_{0}(\xi)=A^{-1} \widehat{A h_{0}}(\xi)=(2 \pi)^{-1 / 4} 2^{1 / 4} e^{-\pi(2 \pi)^{-1} \xi^{2}}=\pi^{-1 / 4} e^{\xi^{2} / 2}=h_{0}(\xi)
+\]
+for all $\xi \in \mathbb{R}$. If $k \in \mathbb{N}$ then $h_{k}=(k !)^{-1 / 2} T^{k} h_{0}$, so for all $\xi \in \mathbb{R}$, we have
+\[
+\widetilde{h}_{k}(\xi)=(k !)^{-1 / 2} \widetilde{T^{k} h_{0}}(\xi)=(k !)^{-1 / 2}(-i) T\left(\widetilde{T^{k-1} h_{0}}\right)(\xi)=\cdots=(k !)^{-1 / 2}(-i)^{k} T^{k} \widetilde{h}_{0}(\xi)=(-i)^{k} h_{k}(\xi)
+\]\par
+Since $\left\{h_{k}\right\}_{k=1}^{\infty}$ is an orthonormal basis for $L^{2}$, its unitary image $\left\{\phi_{k}\right\}_{k=0}^{\infty}$ is also an orthonormal basis for $L^{2}$. Moreover, for each $k \in \mathbb{N} \cup\{0\}$ it is clear that $\widehat{\phi}_{k}=\widehat{A h_{k}}=A A^{-1} \widehat{A h_{k}}=A \widetilde{h}_{k}=A(-i)^{k} h_{k}=(-i)^{k} \phi_{k}$.
+\prvd
+\vspace{0.5em}
+
+
+\addappheadtotoc
+
+\end{document}

@@ -1,0 +1,47 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Bonus 02 - MATH 722}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Problem} 
+Let $f$ be holomorphic on a neighbourhood of $\overline{D}(0,1)$. Assume that the restriction of $f$ to $\overline{D}(0,1)$ is one-to-one and $f'$ is nowhere zero on $\overline{D}(0,1)$. Prove that in fact $f$ is one-to-one on a neigbourhood of $\overline{D}(0,1)$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Let $D_n = D(0,1+n^{-1})$ and if the conclusion is not correct, then we can always find $x_n,y_n\in D(0,1+n^{-1})$ such that $f(x_n) = f(y_n)$, and since $x_n,y_n$ is in $\overline{D}(0,2)$. Then there exists $x,y$ such that $x_n\to x, y_n\to y$ with $|x|,|y|\leq 1$, and $f(x) - f(y) = \lim_{n\to\ infty} f(x_n) - f(y_n) = 0$, if $x\neq y$ there will be a contradiction and hence $x = y$, which is also impossible since we know $f'(x) \neq 0$ and we may assume there exists $\delta >0$ such that $Ref'(y) > \epsilon > 0$ for some $\epsilon$ whenever $|y-x| < \delta$, then for any $p,q\in D(x,\delta)$, we have
+\[
+Re(f(p)-f(q))  = Re (\int_{\overline{qp}} f'(\xi)d\xi) = \int_{\overline{qp}} Ref'(\xi)d\xi \geq \epsilon|p-q|
+\]
+which means $f$ should be one-to-one around $x$, the proof is the same when $Im(f'(x)) \neq 0$. Then we know $x_n,y_n \to x$ with $f(x_n) = f(y_n)$, which is a contradiction. Therefore, $f$ should be one-to-one on $D_n$ for some integer $n$.
+\par 
+\vspace{0.5em}
+
+\addappheadtotoc
+
+
+\end{document}

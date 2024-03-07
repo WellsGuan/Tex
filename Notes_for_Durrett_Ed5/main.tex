@@ -350,7 +350,7 @@ Then assume $\phi(\theta) = Ee^{\theta \xi_i},Y_i = e^{\theta \xi_i}/\phi(\theta
     \[(b-a)EU_n \leq E(X_n-a)^+ - E(X_0-a)^+\]
     where $U_n = \sup\{k, N_{2k} \leq n\}$.
 \end{theorem}
-\begin{proof}
+\begin{proof}\par
     Here we assume $Y_m = a+(X_m-a)^+$ and we have
     \[
     (b-a)U_n \leq (H\cdot Y)_n
@@ -365,12 +365,12 @@ Then assume $\phi(\theta) = Ee^{\theta \xi_i},Y_i = e^{\theta \xi_i}/\phi(\theta
 \begin{theorem}
     (Martingale convergence theorem) If $X_n$ is a submartingale with $\sup EX_n^+ < \infty$ then as $n\to\infty$, $X_n$ converges a.s. to a limit $X$ with $E|X|<\infty$.
 \end{theorem}
-\begin{proof}
-    We know $(X-a)^+ \leq X^+ |a|$, then we know
+\begin{proof}\par
+    We know $(X-a)^+ \leq X^+ +|a|$, then we know
     \[EU_n \leq (|a|+EX_n^+)/(b-a)\]
     so $\sup X_n^+$ will imply than $EU < \infty$ where $U = \lim U_n$ and hence for all rational $a,b$, we know
     \[P(\{\liminf X_n < a < b < \limsup X_n\}) = 0\]
-    and hence $\lim X_n$ exists a.s. and $EX^+ \leq \liminf EX_n^+ <\ infty$ and hence $X<\infty$ a.s. and notice
+    and hence $\lim X_n$ exists a.s. and $EX^+ \leq \liminf EX_n^+ <\infty$ and hence $X<+\infty$ a.s. and notice
     \[EX_n^- = EX_n^+ - EX_n \leq EX_n^+ - EX_0\]
     and hence $EX^- \leq \liminf EX_n^- \leq \liminf EX_n^+ - EX_0 < \infty$
     therefore $E|X|<\infty$. 
@@ -379,7 +379,7 @@ Then assume $\phi(\theta) = Ee^{\theta \xi_i},Y_i = e^{\theta \xi_i}/\phi(\theta
 \begin{theorem}
     If $X_n\geq 0$ is a supermartingale then as $n\to\infty$, $X_n\to X$ a.s. and $EX\leq EX_0$.
 \end{theorem}
-\begin{proof}
+\begin{proof}\par
     Let $Y_n = -X_n$ and hence a submartingale with $EY_n^+ = 0$, then we know $X_n \to X$ a.s. and we also have
     \[EX \leq \liminf EX_n^+ \leq EX_0\] 
 \end{proof}
@@ -387,14 +387,202 @@ Then assume $\phi(\theta) = Ee^{\theta \xi_i},Y_i = e^{\theta \xi_i}/\phi(\theta
 \begin{proposition}
     The theorem 1.18. provide a method to show that a.s. convergence does not guarantee convergence in $L^1$.
 \end{proposition}
-\begin{proof}
+\begin{proof}\par
 Let $S_n$ be a symmetric simple random walk with $S_0 = 1$ and $P(\xi_i=1) = P(\xi_i = -1) = \tfrac{1}{2}$, let $N = \inf\{n: S_n = 0\}$ and $X_n = S_{N\wedge n}$. Then we know $X_n$ nonnegative and $EX_n = EX_0=1$ since $X_n$ is a martingale, then we know $X_n \to X$ where $X$ is some r.v. and hence $X = 0$, because there is no way to converge to others and hence $X_n$ do not converge to $X$ in $L^1$.
 \end{proof}
 
 \begin{proposition}
     Convergence in probability do not guarantee convergence a.s.
 \end{proposition}
-\begin{proof}
+\begin{proof}\par
     Let $X_0 = 0$ and $P(X_k = 1|X_{k-1} = 0) = P(X_k = -1|X_{k-1} = 0) = \tfrac{1}{2k}, P(X_k = 0|X_{k-1} = 0) = 1-\tfrac{1}{k}$ and $P(X_k = kX_{k-1}|X_{k-1} \neq 0) = \tfrac{1}{k}, P(X_k = 0|X_{k-1} \neq 0) = 1-\tfrac{1}{k}$, then we know $X_k \to 0$ in probability, but $P(X_k = 0, k\geq K)$ and it picks discrete values and hence $X_k$ can not converge to $0$ a.s. 
 \end{proof}
+
+\begin{theorem}
+Let $X_1,X_2,\cdots$ be a martingale with $|X_{n+1}-X_n| \leq M < \infty$. Let
+\[
+\begin{aligned}
+    C &= \{\lim X_n\text{ exists and is finite}\} \\
+    D &= \{\limsup X_n = +\infty\text{ and }\liminf X_n = -\infty\} \\
+\end{aligned}
+\]
+Then $P(C\cup D) = 1$.
+\end{theorem}
+\begin{proof}
+    We may assume that $X_0 = 0$ and then for $K\geq 0$ denote
+    \[
+    N = \inf\{n,X_n \leq - K\}
+    \]
+    then we know $X_{n\wedge N}$ is a martingale since
+    \[
+    E(X_{(n+1)\wedge N}|\F_n) = E(X_{n+1}\chi_{N \geq n+1}+X_{N}\chi_{N\leq n}|\F_n) = X_{N}\chi_{N\leq n} + X_n\chi_{N\geq n+1} = X_{n\wedge N}
+    \]
+    and $X_{n\wedge N} \geq -K-M$ and hence $X_{n\wedge N} + K +M \geq 0$ and we may know $X_{n\wedge N}$ will converges to $X$ a.s. with $X$ finite. So if $\liminf X_n > -\infty$, then we know there exists $K$ large enough such that $N = \infty$ and hence $X_n$ will converges to a finite limit on $\{\liminf X_n > -\infty\}$. For $\limsup X_n$ consider $N = \inf\{x, X_n \geq K\}$ with $K+M - X_{n\wedge N}$ will converges and the $\lim X_n$ will exists and be finite on $\{\limsup X_n = +\infty\}$ and hence the conclusion holds.
+\end{proof}
+
+\begin{theorem}
+    (Doob's decomposition) Any submartingale $X_n, n\geq 0$ can be written in a unique way as $X_n = M_n + A_n$ where $M_n$ is a martingale and $A_n$ is a predictable increasing sequence with $A_0 = 0$.    
+\end{theorem}
+\begin{proof}
+    If so we know
+    \[
+    E(X_{n+1}|\F_n) = M_n + A_{n+1} = X_n - A_n + A_{n+1}
+    \]
+    and hence set
+    \[
+    A_n = \sum\limits_{k=1}^{n} (E(X_{k}|\F_{k-1})-X_{k-1})
+    \]
+    and
+    \[
+    M_k = X_k - A_k
+    \]
+    then it is easy to check $A_n$ is predictable increasing sequence and
+    \[
+    E(M_{n+1}|\F_n) = E(X_{n+1}-\sum\limits_{k=1}^{n+1} (E(X_{k}|\F_{k-1})-X_{k-1})|\F_n) = X_n - A_n
+    = M_n
+    \]
+\end{proof}
+
+\begin{theorem}
+    (Second Borel-Cantelli lemma) Let $\F_n,n\geq 0$ be a filtration with $\F_0 = \{\emptyset,\Omega\}$ and let $B_n, n\geq 1$ a sequence of events with $B_n \in \F_n$. Then
+    \[\{B_n,i.o.\} = \{\sum\limits_{n=1}^{\infty}P(B_n|\F_{n-1}) = \infty\}\]
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    \sum\limits_{i=1}^{\infty} \chi_{B_i} = \infty
+    \]
+    on $\{B_n\ i.o.\}$
+    and we know
+    \[
+    \chi_{B_n} = M_n + \sum\limits_{k=1}^n (E(\chi_{B_k}|\F_{k-1})-\chi_{B_{k-1}})
+    \]
+    and hence
+    \[
+    M_n = \sum\limits_{i=1}^n \chi_{B_i} - \sum\limits_{i=1}^{n}E(\chi_{B_i}|\F_{i-1})
+    \]
+    is a martingale. Then we know
+    \[
+    EM_n = EX_0 <\infty
+    \]
+    which means $M_n$ is a martingale with bounded increments and we know
+    \[
+    \{B_n\ i.o.\} = \{\sum P(B_n|\F_{n-1})=\infty\}
+    \]
+    on both part of $\Omega$.
+\end{proof}
+
+\begin{example}
+    (Polya's Urn Scheme) An urn contains $r$ red and $g$ green balls. At each time we draw a ball out, then replact it with $c$ balls with the same color. Let $X_n$ be the fraction of green balls after the $n^{th}$ draw. 
+\end{example}
+\begin{proof}\par
+    $X_n$ is a martingale because assume $\F_n$ is is consisting by $E_{i,j} = \{\text{There are }i\text{ green balls and }j\text{ red balls in the urn.}\}$ and it suffices to show that
+    \[
+    \dfrac{j}{i+j}P(E_{i,j})
+    = \int_{E_{i,j}}E(X_{n+1}|\F_n)
+    \]
+    where we know
+    \[
+    X_{n+1}=\begin{cases}
+        (j+c)/(i+j+c)&\quad\text{ with probability }j/(i+j)\\
+        (j)/(i+j+c)&\quad\text{ with probability }i/(i+j)\\
+    \end{cases}
+    \]
+    and the equality is easy to be checked. Since $X_n \geq 0$, then we know $X_n$ will converges to $X$.
+\end{proof}
+
+\begin{theorem}
+    Assume $\mu$ is a finite measure and $\nu$ a probability measure on $(\omega,\F)$ with $\F_n \uparrow \F$,i.e. $\sigma(\bigcup \F_n) = \F$ and $\mu_n,\nu_n$ are the restrictions on $\F_n$ of $\mu,\nu$. Suppose $\mu_n \leq \nu_n$ for all $n$. Let $X_n = \dfrac{d\mu_n}{d\nu_n}$ and let $X = \limsup X_n$, then
+    \[
+    \mu(A) = \int_A Xd\nu + \mu(A\cap\{X=\infty\})
+    \]
+    for any $A\in\F$.
+\end{theorem}
+\begin{proof}\par
+    We should show a lemma at first.
+    \begin{lemma}
+        $X_n$ defined on $(\Omega,\F,\nu)$ is a martingale w.r.t. $\F_n$.
+    \end{lemma}
+    \begin{proof}\par
+        For any $A\in \F_n$, we know
+        \[
+        \int_A X_n d\nu = \int_A X_n d\nu_n = \mu_n(A) = \mu(A)
+        \]
+        and which means $\int_A X_n d\nu= \int_A X_{n+1} d\nu$
+        for any $A \in \F_n$.
+    \end{proof}
+    Now let's come back to the proof of the original theorem.\par
+    Now we know $X_n$ is a nonnegative martingale on $(\Omega,\F,\nu)$ and hence $X_n \to X$ $\nu$-a.s. Without loss of the generality, we may assume $\mu$ is a probability measure and let $\rho = (\mu+\nu)/2$, then we know $\mu\ll \nu \ll \rho$ and similarly define $\rho_n$ and $Y_n = d\mu_n/d\rho_n, Z_n = d\nu_n/d\rho_n$ and $Y_n+Z_n = 2, Y_n,Z_n \geq 0$ $\rho_n$-a.s. By the lemma, we will know that $Y_n,Z_n$ are bounded martingales and we may assume they have limits $Y,Z$.\par
+    Notice for $A\in \F_n$, we have
+    \[
+    \mu(A) = \int_A Y_n d\rho \to \int_A Y d\rho 
+    \]
+    by the DCT and hence $\mu(A) = \int_A Y d\rho$ for all $A\in \bigcup_{m}\F_m$ and we will know $\mu(A) = \int_A Yd\rho$ for $A\in \F$ by the $\pi-\lambda$ theorem and hence $Y = d\mu/d\rho$, then we will know $Z = d\nu/d\rho$. Then notice
+    \[
+    0 = \int_{\{Z_n = 0\}} Z_n d\rho_n = \nu_n(\{Z_n = 0\})
+    \]
+    and hence $\int_{Z_n = 0}Y_n d\rho_n = \mu_n(\{Z_n = 0\}) = 0$, which means $Y_n = 0$ $\rho$-a.s. on $\{Z_n = 0\}$ which means $Z_n > 0$ a.s. since $\{Y_n = Z_n = 0\}$ is $\rho$-null. Then we know $X_n = Y_n/Z_n$ $\rho$-a.s. and hence $X = Y/Z$ $\rho$-a.s. and hence $\nu$-a.s.\par
+    Let $W = (1/Z)\chi_{Z>0}$ and then $1 = ZW + \chi_{Z=0}$ and we have
+    \[
+    \mu(A) = \int_A YWZ d\rho + \int_A \chi_{Z = 0}Yd\rho = \int_A Xd\nu + \mu(A\cap\{X=\infty\})
+    \]
+    since $\nu(\{Z= 0\}) = \int_{\{Z=0\}} Zd\rho = 0$ and $\{X=\infty\} = \{Z=0\}$ $\rho$-a.s. and hence $\mu$-a.s.
+\end{proof}
+
+\begin{definition}
+    Let $\xi_i^n, i,n\geq 1$ be $i.i.d.$ nonnegative integer-valued r.v.s and define
+    \[
+    Z_{n+1} = \begin{cases}
+    \xi_1^{n+1}+\cdots\xi_{Z_n}^{n+1}\quad&Z_n>0 \\
+    0&Z_n=0
+    \end{cases}
+    \]
+    where $Z_0 = 1$ and $Z_n$ is called a $Galton-Watson$ process, $p_k = P(\xi_i^n = k)$ is called the offspring distribution.
+\end{definition}
+
+\begin{lemma}
+    Let $\F_n = \sigma(\xi_i^m:i\geq 1, 1\leq m \leq n)$ and $\mu = E\xi_i^m \in (0,\infty)$, then $Z_n/\mu^n$ is a martingale w.r.t. $\F_n$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    E(Z_{n+1}/\mu^{n+1}|\F_n) = E(\sum\chi_{Z_n = k}\sum\limits_{i=1}^k \xi_i^{n+1})/\mu^{n+1} = k\chi_{Z_n = k}/\mu^n = Z_n/\mu^n
+    \]
+\end{proof}
+
+\begin{theorem}
+    If $\mu<1$ then $Z_n = 0$ for all $n$ sufficiently large, so $Z_n/\mu^n \to 0$.
+\end{theorem}
+\begin{proof}\par
+    $E(Z_n/\mu^n) = E(Z_0) = 1$ and hence
+    \[
+    P(Z_n > 0) \leq \mu^n
+    \]
+    and hence
+    \[P(Z_n > 0\ i.o.) = 0\]
+    by the Borel-Cantelli's theorem, which means $Z_n = 0$ for all $n$ sufficiently large almost surely.
+\end{proof}
+
+\begin{theorem}
+    If $\mu=1$ and $P(\xi_i^m = 1)<1$, then $Z_n = 0$ for all $n$ sufficiently large.
+\end{theorem}
+\begin{proof}\par
+    $2P(Z_n>1) \leq \mu^n$ and hence $Z_n \leq 1$ for all $n$ sufficiently large almost surely, and the $Z_n = 0$ for all $n$ sufficiently large will not happen iff $Z_n = 1$ for all $n$ sufficiently large, which owns the probability of $0$ and hence the conclusion holds.
+\end{proof}
+
+\begin{definition}
+    For $s\in [0,1]$, let $\phi(s) = \sum_{k\geq 0} p_ks^k$ and $\phi$ is called the $generating\ function$ for the offspring distribution $p_k$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\mu>1$. If $Z_0 = 1$ then $P(Z_n = 0\text{ for some }n) = \rho$ which is the only solution of $\phi(\rho) = \rho$ in $[0,1)$.    
+\end{theorem}
+\begin{proof}\par
+    Firstly let us show the existence. We can calculate
+    \[\phi'(s) = \sum kp_ks^{k-1}\]
+    by some methods in real analysis and hence $\phi'(s) > h+\epsilon$ for some $\epsilon > 0$ near $1$ and hence there have to be a point in $[0,1)$ such that $\phi(\rho) = \rho$ since $\phi(0)\geq 0$. And $\phi'$ is increasing strictly on $[0,1)$ guaranteeing that the point is unique.\par
+    Then consider $\theta_m = P(Z_m = 0)$, then $\theta_m = \phi(\theta_{m-1})$ which can be implied by consider $Z_1 = k$ separately.\par
+    Then notice $\theta_0 = 0$ and then $\theta_m \leq \rho$ may implie that $\theta_{m+1} = \phi(\theta_m) \leq \phi(\rho) \leq \rho$ and hence $\phi(\theta_m) \geq \theta_m$, which means $\theta_m$ is increasing, then we know $\theta_m \uparrow \rho$.
+\end{proof}
+
 \end{document}

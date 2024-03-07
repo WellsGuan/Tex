@@ -307,7 +307,7 @@ where
     and then we know
     \[f(z)-f(z_0) = f(\gamma(1)) - f(\gamma_0) = \int_{\gamma} \ParZ fdz = (z-z_0) \int_0^1 \ParZ f(\gamma(t)) dt = \ParZ f(z_0) + \int_0^1(\ParZ f (\gamma(t))- \ParZ f(z_0))dt\]
     and hence
-    \[|\dfrac{f(z)-f(z_0)}{z-z_0}- \ParZ f(z_0)| \leq \int |\ParZ(\gamma(t))- \ParZ f(z_0)|dt \to 0\]
+    \[|\dfrac{f(z)-f(z_0)}{z-z_0}- \ParZ f(z_0)| \leq \int |\ParZ f(\gamma(t))- \ParZ f(z_0)|dt \to 0\]
     when $z\to z_0$.
 \end{proof}
 
@@ -341,7 +341,7 @@ where
 \end{proof}
 
 \begin{lemma}
-    Let $(\alpha,\beta)\subset\R$ be an open interval and let $H:(\alpha,\beta)\to\R, F:(\alpha,\beta)\to\R$ be continuous functions. Let $p\in(\alpha,\beta)$ and suppose that $dH/dx$ exists and equals $F(x)$ for all $x\in(\alpha,\beta)\{p\}$. Then $(dH/dx)(p)$ exists and $(dH/dx)(x) = F(x)$ for all $x\in(\alpha,\beta)$.
+    Let $(\alpha,\beta)\subset\R$ be an open interval and let $H:(\alpha,\beta)\to\R, F:(\alpha,\beta)\to\R$ be continuous functions. Let $p\in(\alpha,\beta)$ and suppose that $dH/dx$ exists and equals $F(x)$ for all $x\in(\alpha,\beta)-\{p\}$. Then $(dH/dx)(p)$ exists and $(dH/dx)(x) = F(x)$ for all $x\in(\alpha,\beta)$.
 \end{lemma}
 \begin{proof}\par
     Assume $[a,b]\subset (\alpha,\beta)$ and then $K(x) = H(a) + \int_a^x F(t)dt$ on $[a,b]$, so we know $K-H$ is continuous on $[a,b]$ and constant on $[a,p)\cup(p,b]$, which means $K=H$ on $[a,b]$.
@@ -349,7 +349,7 @@ where
 
 \begin{theorem}
     Let $U\subset \C$ be either an open rectangle or an open disc and let $P\in U$. Let $f$ and $g$ be continuous, real-valued functions on $U$ which are continuously differentiable on $U-\{P\}$. Suppose further that
-    \[\ParY f = \ParX g\text{ on }U=\{P\}\]
+    \[\ParY f = \ParX g\text{ on }U-\{P\}\]
     Then there exists a $C^1$ function $h:U\to\R$ such that
     \[\ParX = f, \ParY = g\]
     at every point of $U$.
@@ -378,12 +378,12 @@ where
 \end{definition}
 
 \begin{lemma}
-    Let $\gamma$ be the boudnary of a disc $D(z_0,r)$ in the complex plane, equiipped with counterclockwise orientation. Let $z$ be a point inside the circle $\partial D(z_0,\gamma)$ . Then
+    Let $\gamma$ be the boundary of a disc $D(z_0,r)$ in the complex plane, equipped with counterclockwise orientation. Let $z$ be a point inside the circle $\partial D(z_0,\gamma)$ . Then
     \[\dfrac{1}{2\pi i} \int_{\gamma} \dfrac{1}{\xi-z}d\xi = 1\]
 \end{lemma}
 \begin{proof}\par
     Consider $I(z) = \int_{\gamma} \dfrac{1}{\xi-z}d\xi = \int_0^1 \dfrac{1}{(z_0+e^{2\pi it})-z}(2\pi i)e^{2\pi i t}dt$ and since
-    \[\ParX \dfrac{1}{\xi-z} = \dfrac{1}{(\xi-z)^2}, \ParY \dfrac{1}{\xi -z} = i\dfrac{1}{(\xi-z)^2}\]
+    \[\ParX \dfrac{1}{\xi-z} = \dfrac{1}{(\xi-z)^2},\quad \ParY \dfrac{1}{\xi -z} = i\dfrac{1}{(\xi-z)^2}\]
     and hence we have
     \[\ParbZ I(z) = \int_{\gamma} \ParbZ(\dfrac{1}{\xi-z})d\xi = 0\quad \ParZ I(z) = \int_{\gamma} \ParZ (\dfrac{1}{\xi-z})d\xi = \int_{\gamma}\dfrac{1}{(\xi-z)^2} d\xi\]
     where $\dfrac{1}{(\xi-z)^2}$ is the complex derivative of the holomorphic function $\dfrac{-1}{\xi-z}$ and hence 
@@ -411,6 +411,199 @@ where
 \end{theorem}
 \begin{proof}
 Only need to pick $G$ such that $\ParZ G = f$ on $U$ is fine.
+\end{proof}
+
+\begin{definition}
+    A $piecewise$ $C^1$ curve $\gamma:[a,b]\to\C, a<b,a,b\in\R$ is a continuous function such that there exists a finite set of numbers $a_1\leq a_2 \leq \cdots \leq a_k$ satisfying $a_1=a$ and $a_k=b$ and with the property that for every $1\leq j \leq k-1$, $\gamma|_{[a_j,a_{j+1}]}$ is a $C^1$ curve. As before, $\gamma$ is a piecewise $C^1$ curve in an open set $U$ if $\gamma_{[a,b]}\subset U$.
+\end{definition}
+
+\begin{definition}
+    If $U\subset \C$ is open and $\gamma:[a,b]\to U$ is a piecewise $C^1$ curve in $U$ and if $f:U\to\C$ is a continuous, complex-valued function on $U$, then
+    \[
+    \int_{\gamma} f(z)dz = \sum\limits_{j=1}^k \int_{\gamma|_{[a_j,a_{j+1}]}} f(z)dz
+    \]
+    and the definition is well-defined.
+\end{definition}
+\begin{proof}\par
+    We need to show for any $\{a_j\}_1^k,\{b_i\}_1^m$, the RHS determined by the chosen sequence is the same. Assume $a_{j_t} = b_{i_t}, 1\leq t \leq q$, with $\{a_j\}_{j_t+1}^{j_{t+1}-1} \cap \{b_i\}_{i_t+1}^{j_{i+1}-1} = \emptyset$, then we know $\gamma|_{a_{j_t},a_{j_{t+1}}}$ is a $C_1$ curve and hence the integral over the curve is the same.
+\end{proof}
+
+\begin{lemma}
+    Let $\gamma:[a,b]\to U$ open in $\C$ to be a piece wise $C^1$ curve. Let $\phi:[c,d]\to [a.b]$ be a piecewise $C^1$ strictly monotone increasing function with $\phi(c) = a, \phi(d) = b$. Let $f:U\to \C$ be a continuous function on $U$. Then the function $\gamma\circ \phi:[c,d]\to U$ is a piecewise $C^1$ curve and
+    \[
+        \int_{\gamma} f(z)dz = \int_{\gamma\circ\phi} f(z)dz
+    \]
+\end{lemma}
+\begin{proof}
+    Use the proposition 1.11.
+\end{proof}
+
+\begin{lemma}
+If $f:U\to \C$ is a holomorphic function and if $\gamma:[a,b]\to U$ is a piecewise $C^1$ curve, then
+\[f(\gamma(b))-f(\gamma(a)) = \int_{\gamma} f'dz\]
+\end{lemma}
+\begin{proof}
+    Use the proposition 1.7.
+\end{proof}
+
+\begin{proposition}
+If $f:\C-\{0\} \to \C$ is a holomorphic function, and if $\gamma_r$ describes the circle of radius $r$ around $0$, traversed once around counter-clockwise, then, for any two positive numbers $r_1<r_2$,
+\[\int_{\gamma_{r_1}} f(z)dz = \int_{\gamma_{r_2}} f(z)dz\]
+\end{proposition}
+
+\begin{proposition}
+    Let $0<r<R<\infty$ and define the annulus $\mathcal{A} = \{z\in\C: r < |z| < R\}$. Let $f;\mathcal{A}\to\C$ be a holomorphic function. If $r<r_1<r_2<R$ and if for each $j$ the curve $\gamma_{r_j}$ describes the circle pf radius $r_j$ around $0$, traversed once counter clockwise, then we have 
+    \[
+    \int_{\gamma_{r_1}}fdz = \int_{\gamma_{r_2}}fdz
+    \]
+\end{proposition}
+
+\newpage
+
+\subsection*{Applications of the Cauchy integral}
+\begin{theorem}
+    Let $U\subset \C$ be an open set and let $f$ be holomorphic on $U$. Then $f\in C^{\infty}(U)$. Moreover, if $\overline{D}(P,r)\subset U$ and $z\in D(P,r)$, then
+    \[
+    \Big(\ParZ \big)^k f(z) = \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+1}}d\xi
+    \]
+    for any integer $k$.
+\end{theorem}
+\begin{proof}\par
+    Use the induction to $f$, assume
+    \[
+    (\ParZ \big)^k f(z) = \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+1}}d\xi
+    \]
+    and $(\ParZ \big)^k f(z)$ is holomorphic, then we gonna prove that
+    \[
+    (\ParZ \big)^{k+1} f(z) = \dfrac{(k+1)!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+2}}d\xi
+    \]
+    and $(\ParZ \big)^{k+1} f(z)$ is holomorphic. Consider
+    \[
+    \begin{aligned}
+    \Big|\dfrac{f(\xi)}{(\xi-\omega)^{k+1}}-
+    \dfrac{f(\xi)}{(\xi-z)^{k+1}}\Big| &\leq \sup_{\xi\in \partial D(P,r)}|f(\xi)| \epsilon^{-2k-2}\Big|\sum\limits_{i=1}^{k+1} C_{k+1}^{i}(2r)^{k+1-i}(\omega-z)^i\Big| \\
+    & \leq |\omega-z|(k+1)\Big(\sup_{\xi\in \partial D(P,r)}|f(\xi)| \epsilon^{-2k-2}\Big|\sum\limits_{i=0}^{k} C_{k}^{i}(2r)^{k-i}(\omega-z)^i\Big|\Big)\\
+    & \leq |\omega-z|(k+1)\Big(\sup_{\xi\in \partial D(P,r)}|f(\xi)| \epsilon^{-2k-2}(2r+1)^k\Big)
+    \end{aligned}
+    \]
+    for all $|\omega-z|$ small enough and hence
+    \[
+    \dfrac{f(\xi)}{(\xi-\omega)^{k+1}} \to 
+    \dfrac{f(\xi)}{(\xi-z)^{k+1}}
+    \]
+    uniformly when $\omega \to z$, so may know
+    \[
+    \lim_{\omega \to z} \dfrac{(\ParZ \big)^{k+1} f(\omega) - (\ParZ \big)^{k+1} f(z)}{\omega - z} = \lim_{\omega \to z} \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{\dfrac{f(\xi)}{(\xi-\omega)^{k+1}}-\dfrac{f(\xi)}{(\xi-z)^{k+1}}}{\omega - z}d\xi
+    \]
+    and we know that
+    \[
+    \lim_{\omega \to z} \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{\dfrac{f(\xi)}{(\xi-z)^{k+1}}-\dfrac{f(\xi)}{(\xi-z)^{k+1}}}{\omega - z}d\xi =  \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\lim_{\omega \to z}\dfrac{\dfrac{f(\xi)}{(\xi-\omega)^{k+1}}-\dfrac{f(\xi)}{(\xi-z)^{k+1}}}{\omega - z}d\xi
+    \]
+    by the DCT and hence
+    \[
+    \lim_{\omega \to z} \dfrac{(\ParZ \big)^{k+1} f(\omega) - (\ParZ \big)^{k+1} f(z)}{\omega - z}
+    = \dfrac{(k+1)!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+2}}d\xi
+    \]
+    which means $(\ParZ \big)^k f(z)$ is holomorphic and the equality holds. Then we use the induction, and the conclusion goes.
+\end{proof}
+
+\begin{corollary}
+    If $f:U\to\C$ is holomorphic, then $f':U\to \C$ is holomorphic.
+\end{corollary}
+
+\begin{theorem}
+    If $\phi$ is a continuous function on $\{\xi:|\xi-P| = r\}$, then the function $f$ given by
+    \[
+    f(z) = \dfrac{1}{2\pi i}\int_{|\xi-P|=r}\dfrac{\phi(\xi)}{\xi-z}d\xi
+    \]
+    is defined and holomorphic on $D(P,r)$.
+\end{theorem}
+
+\begin{theorem}
+    (Morera) Suppose that $f:U\to \C$ is a continuous function on a connected open subset $U$ of $\C$. Assume that for every closed, piecewise $C^1$ curve $\gamma:[0,1]\to U$, $\gamma(0) = \gamma(1)$, it holds that
+    \[
+    \int_{\gamma} f(\xi) d\xi = 0
+    \]
+    Then $f$ is holomorphic on $U$.
+\end{theorem}
+\begin{proof}
+    Consider $x\in U$ and define $F(y) = \int_{\phi} fdz$ for any $y\in U$ where $\phi$ is a picewise $C^1$ curve from $x$ to $y$, where we know the integral is well-defined since any integral of $f$ on a closed, piece wise $C^1$ curve is $0$. Then for any $y\in U$, consider a segment from $y+h$ where $|h|$ is small enough and we know
+    \[
+    \lim_{|h|\to 0}\dfrac{F(y+h)-F(y)}{h} = \lim_{|h|\to 0}\dfrac{1}{h}\int_0^h f(y+z) dz = f(y)
+    \]
+    which means $F$ is holomorphic on $U$ and $F' = f$ on $U$, and hence $f$ is holomorphic on $U$.
+\end{proof}
+
+\begin{definition}
+    let $P\in\C$ be fixed. A $complex\ power\ series$ centered at $P$ is an expression of the form
+    \[
+    \sum a_k(z-P)^k
+    \]
+    where $a_k$ is complex valued.
+\end{definition}
+
+\begin{lemma}
+    (Abel) If $\sum a_k(z-P)^k$ converges at some $z$, then the series converges at each $\omega \in D(P,r)$, where $r = |z-P|$.
+\end{lemma}
+\begin{proof}\par
+    Since $\sum a_k(z-P)^k$ converges, we know $a_k(z-P)^k \to 0$ and hence bounded, then we know 
+    \[
+    |a_k| \leq Mr^{-k}
+    \]
+    for some $M>0$ and then for any $\omega \in D(P,r)$, assume $|\omega - P| = \delta < r$, then we know
+    \[
+    |a_k(\omega-P)^k| \leq |a_k|\delta^k \leq M(\delta/r)^{-k}
+    \]
+    and hence
+    \[
+    \sum |a_k(\omega-P)^k| \leq M\sum (\delta/r)^{-k} < \infty
+    \]
+    which means $\sum a_k(\omega-P)^k$ converges.
+\end{proof}
+
+\begin{definition}
+    Let $\sum a_k(z-P)^k$ be a power series. Then
+    \[r = \sup\{|\omega-P|:\sum a_k(\omega-P)^k\text{ converges}\}\]
+    is called the $radius\ of\ convergence$ of the power series.
+\end{definition}
+
+\begin{lemma}
+    If $\sum a_k(z-P)^k$ is a power series with radius of convergence $r$, then the series converges for each $\omega \in D({P,r})$ and diverges for each $\omega$ such that $|\omega-P|>r$.
+\end{lemma}
+
+\begin{lemma}
+    (The root test) The radius of convergence of the power series $\sum a_k(z-P)^k$ is
+    \[\dfrac{1}{\limsup |a_k|^{1/k}}\]
+    if $\limsup |a_k|^{1/k} > 0$ or
+    \[\infty\]
+    if $\limsup |a_k|^{1/k} = 0$.
+\end{lemma}
+\begin{proof}\par
+    Assume $\alpha = \limsup |a_k|^{1/k}$, if $|\omega-P|>1/\alpha$, then denote $|\omega-P| = c/\alpha,c>1$ and we know
+    \[
+    |a_k(z-P)^k| = (c|a_k|^{1/k}/\alpha)^k
+    \]    
+    and we know there are infinitly many $a_k$ such that $|a_k|^{1/k}/\alpha > 1/c$ and hence the series diverge.\par
+    For $|\omega-P|<1/\alpha$, we denote $|\omega-P| = d/\alpha, d<1-\epsilon$ for some $\epsilon >0$ and we have
+    \[
+    |a_k(\omega-P)^k| \leq (|a_k|^{1/k}d/\alpha)^k \leq (1-\epsilon)^k 
+    \]
+    when $k$ is sufficiently large and hence the series is absolutely convergent and the condition for $\alpha = 0$ is similar.
+\end{proof}
+
+\begin{definition}
+    Let $\sum f_k(z)$ be a series of functions on a set $E$. The series is said to be uniformly Cauchy if for any $\epsilon > 0$, these is an integer $N$ such that
+    \[
+    |\sum\limits_{k=m}^{n} f_k(z)| <\epsilon
+    \]
+    on $E$ for any $n\geq m \geq N$.
+\end{definition}
+
+\begin{proposition}
+    Let $\sum a_k(z-P)^k$ be a power series with radius of convergence $r$. Then, for any number $R$ with $0 \leq R < r$ ,the series $\sum |a_k(z-P)|^k$ converges uniformly on $\overline{D}(P,R)$ and hence $\sum a_k(z-P)^k$ converges uniformly and absolutely on $\overline{D}(P,R)$.
+\end{proposition}
+\begin{proof}
+
 \end{proof}
 
 \end{document}

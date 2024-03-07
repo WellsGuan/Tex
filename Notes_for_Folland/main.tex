@@ -17,10 +17,14 @@
     %%% 组合数, 在数学环境中使用
 \newcommand{\F}{\mathcal{F}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\inK}{\kappa}
+\newcommand{\T}{\mathbb{T}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\M}{\mathcal{M}}
+\newcommand{\Sch}{\mathcal{S}}
 \newcommand{\dstrb}[1]{\lambda_{#1}}
 \begin{document}
 
@@ -632,89 +636,690 @@ and
     and let $A(\alpha) = [\alpha/[C_0(p_0||f||_p^p/p)^{1/p_0}]]^{\tfrac{p_0}{p_0-p}}$ and we get $||T_{g_{A(\alpha)}}||_{\infty} \leq \alpha$ and then the rest are the same.
 \end{proof}
 
+\newpage
+
+\subsection*{Fourier analysis}
+
 \begin{definition}
-    Suppose $X_n, n\geq 0$ is a submartingale. Let $a<b, N_0 = -1$ and for $k\geq 1$ let
+    For this chapter we work on $\R^n$. $C^k(U)$ is the space of all functions on $U$ with continuous partial derivatives of order $\leq k$ an $C^{\infty}(U) = \bigcap_{i=1}^{\infty}C^k(U)$. For any $E\subset \R^n$, $C_c^{\infty}(E)$ is the space of all $C^{\infty}$ functions on $\R^n$ with compact support contained in $E$. If we miss $U,E$, it means $U = \R^n$ or $E = \R^n$.\par
+    For $x,y\in \R^n$, we define
+    \[x\cdot y = \sum\limits_{i=1}^n x_iy_i,\quad |x| = \sqrt{x\cdot x}\]
+    A $multi-index$ is an ordered $n$-tuple of nonnegative integers $\alpha$ with
+    \[|\alpha| = \sum\limits_{i=1}^n \alpha_j,\quad \alpha! = \prod_{i=1}^n \alpha_j!,\quad \partial^{\alpha} = \Big(\dfrac{\partial}{\partial x_1}^{\alpha^1}\Big)\cdots\Big(\dfrac{\partial}{\partial x_n}^{\alpha^n}\Big)
+    \]
+    and for $x\in \R^n$, we define
+    \[
+    x^{\alpha} = \prod_{i=1}^n x_j^{\alpha_j}
+    \]
+\end{definition}
+
+\begin{definition}
+    (Schwarz space) $\Sch$ is consisted of functions $f$ in $C^{\infty}$ such that for any nonnegative integer $N$ and multi-index $\alpha$, define
+    \[
+    ||f||_{(N,\alpha)} = \sup_{x\in\R^n}(1+|x|)^N |\partial^{\alpha}f(x)|
+    \]
+    then
+    \[
+    \Sch = \{f\in C^{\infty}:||f||_{(N,\alpha)} < \infty\text{ for all }N,\alpha\}
+    \]
+\end{definition}
+
+\begin{proposition}
+    If $f\in\Sch$, then $\partial^{\alpha} f \in L^p$ for all $\alpha$ and all $p\in[1,\infty]$.
+\end{proposition}
+\begin{proof}
+    We know
+    \[|\partial^{\alpha} f(x)| \leq C_N(1+|x|)^{-N}\]
+    for all $N$ and $(1+x)^{-N} \in L^p$ for all $N > n/p$.   
+\end{proof}
+
+\begin{proposition}
+    $\Sch$ is a Frechet space, i.e. a complete Hausdorff topological vector space whose topology is defined by a countable family of seminorms, with the topology defined by the norms $||\cdot||_{N,\alpha}$.
+\end{proposition}
+\begin{proof}\par
+    We only need to show the completness of $\Sch$, which means for $\{f_j\}_1^{\infty}$ Cauchy in $\Sch$, i.e. $||f_m-f_n||_{(N,\alpha)} \to 0, n,m\to\infty$, there exists $g\in \Sch$ and $||f_n - g||_{N,\alpha} \to 0, n\to\infty$.\par
+    Notice
+    \[
+    \sup_{x\in\R^n}|\partial^{\alpha}f_n - \partial^{\alpha}f_m| = ||f_n-f_m||_{(0,\alpha)} \to 0, n,m \to \infty
+    \]
+    and hence $\partial^{\alpha} f_n$ converges uniformly to some $g^{\alpha}$ for any multi-index $\alpha$. Now we consider
+    \[
+    \partial^{\alpha} f_k(x+te_j) - \partial^{\alpha} f_k(x) = \int_0^t \partial^{\alpha+e_j} f_k(x+se_j)ds
+    \]
+    then by DCT we know
+    \[
+    g^{\alpha}(x+te_j) - g^{\alpha}(x) = \int_0^t g^{\alpha+e_j}(x+se_j)ds
+    \]
+    and henc $\partial^{e_j} g^{\alpha} = g^{\alpha+e_j}$ which means $g^{\alpha} = \partial^{\alpha} g^0$ by the induction. Then notice
+    \[
+    ||f_k - g||_{(N,\alpha)} = \sup_{x\in\R^n}(1+|x|)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} g(x)|
+    \]
+    and we know for $\epsilon > 0$, there exists an integer $N$ such that
+    \[\sup_{x\in\R^n}(1+|x|)^N|\partial^{\alpha} f_k(x)-\partial^{\alpha} f_j(x)| < \epsilon/2\]
+    then we know
     \[
     \begin{aligned}
-        N_{2k-1} &= \inf\{m>N_{2k-2},X_m\leq a\} \\
-        N_{2k} &= \inf\{m>N_{2k-1}, X_m \geq b\}
+    (1+x)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} g(x)| &\leq (1+x)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} f_(k+m)(x)|+(1+x)^N|\partial^{\alpha} f_{k+m}(x) - \partial^{\alpha} g(x)| \\ &< \epsilon/2 + (1+x)^N|\partial^{\alpha} f_{k+m}(x) - \partial^{\alpha} g(x)|
     \end{aligned}
-    \] 
-    The $N_j$ are stopping times so
-    \[
-    H_m = \begin{cases}
-        1\quad\text{ if }N_{2k-1}<m\leq N_{2k}\text{ for some }k\\
-        0\quad\text{ otherwise}
-    \end{cases}
     \]
-    defines a predictable sequence.
-\end{definition}
+    for any integer $m$ and hence
+    \[
+    (1+x)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} g(x)| \leq \epsilon
+    \]
+    for any $k \geq N$, which means $||f_k - g||_{(N,\alpha)} \to 0, k\to\infty$ and hence $g\in \Sch$.
+\end{proof}
+
+\begin{proposition}
+    (The product rule)For $|\alpha| = N, f,g\in C^N$, we have
+    \[
+    \partial^{\alpha}(fg) = \sum\limits_{\beta + \gamma = \alpha}\dfrac{\alpha!}{\beta!\gamma!}(\partial^{\beta}f)(\partial^{\gamma}g)
+    \]
+\end{proposition}
+\begin{proof}
+    We use the induction to $N$, if we have the formula for any $|\alpha| = N-1$, we will know
+    \[
+    \begin{aligned}
+    \partial^{\alpha+e_j}(fg) = \sum\limits_{\beta + \gamma = \alpha}\dfrac{\alpha!}{\beta!\gamma!}\partial^{e_j}[(\partial^{\beta}f)(\partial^{\gamma}g)]  &= \sum\limits_{\beta + \gamma = \alpha}\dfrac{\alpha!}{\beta!\gamma!}[(\partial^{\beta+e_j}f)(\partial^{\gamma}g)+(\partial^{\beta}f)(\partial^{\gamma+e_j}g)] \\
+    & = \sum\limits_{\beta + \gamma = \alpha+e_j}(\dfrac{\alpha!}{(\beta-e_j)!\gamma!}+\dfrac{\alpha!}{\beta!(\gamma-e_j)!})(\partial^{\beta}f)(\partial^{\gamma}g) \\
+    & = \sum\limits_{\beta + \gamma = \alpha+e_j}\dfrac{(\alpha+e_j)!}{\beta!\gamma!}(\partial^{\beta}f)(\partial^{\gamma}g) \\
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{corollary}
+    We may know
+    \[
+    \begin{aligned}
+        \partial^{\alpha}(x^{\beta}f) &= x^{\beta}\partial^{\alpha}f + \sum c_{\gamma\delta}x^{\delta}\partial^{\gamma}f \\
+        x^{\beta}\partial^{\alpha}f &= \partial^{\alpha}(x^{\beta}f) + \sum c'_{\gamma\delta}\partial^{\gamma}(x^{\delta}f)
+    \end{aligned}
+    \]
+    for some constants $c_{\gamma\delta},c'_{\gamma\delta} = 0$ unless $|\gamma|<|\alpha|$ and $|\delta|<|\beta|$.
+\end{corollary}
+\begin{proof}
+    We know
+    \[
+    \partial^{\alpha}(x^{\beta}f) = \sum\limits_{\gamma + \delta = \alpha}\dfrac{\alpha!}{\gamma!\delta!}(\partial^{\delta}x^{\beta})(\partial^{\gamma}f)
+    \]
+    and the first conclusion goes, and hence the second equality goes by elimination.
+\end{proof}
+
+\begin{proposition}
+    If $f\in C^{\infty}$, then $f\in\Sch$ iff $x^{\beta}\partial^{\alpha} f$ is bounded for all multi-indices $\alpha,\beta$ iff $\partial^{\alpha}(x^{\beta}f)$ is bounded for all multi-indices $\alpha,\beta$.
+\end{proposition}
 \begin{proof}\par
+    For the first equivalence, notice
+    \[
+    |x^{\beta}\partial^{\alpha} f| \leq (1+|x|)^{|\beta|}|\partial^{\alpha} f| 
+    \]
+    is bounded. And notice $\sum\limits_{j=1}^n |x_j|^N$ is strictly postive when $|x|=1$ for any integer $N$, then we know it has a minimum when $|x|=1$ and denote it as $\delta$, we know $\sum\limits_{j=1}^n |x_j|^N \ge \delta_N |x|^N$, then we know
+    \[
+    (1+|x|)^N \leq 2^N(1+|x|^N) \leq 2^N(1+\delta^{-1}\sum\limits_{j=1}^n |x_j|^N) \leq 2^N + 2^N\delta^{-1}\sum\limits_{|\beta|\leq N}|x^{\beta}|
+    \]
+    and hence $f\in\Sch$.\par
+    The second equivalence can be deduced by the corollary 1.3.
+\end{proof}
+
+\begin{definition}
+    If $f$ is a function on $\R^n$ and $y\in\R^n$, we call
+    \[
+    \tau_yf(x) = f(x-y)
+    \] 
+    and we know $||\tau_y f||_p = ||f||_p$ for $1\leq p \leq \infty$ and $||\tau_y f||_u = ||f||_u$. A function $f$ is called uniformly continuous if $||\tau_y f - f||_u \to 0, y\to 0$.
+\end{definition}
+
+\begin{lemma}
+    If $f\in C_c(\R^n)$, then $f$ is uniformly continuous.
+\end{lemma}
+
+\begin{proposition}
+    If $1\leq p < \infty$, translation is continuous in the $L^p$ norm, i.e. if $f\in L^p$ and $z\in\R^n$, then \[\lim_{y\to 0} ||\tau_{y+z}f-\tau_z f||_p = 0\]
+\end{proposition}
+\begin{proof}\par
+    Notice $C_c$ is dense in $L^p$ is fine.
+\end{proof}
+
+\begin{definition}
+    Le $f$ and $g$ be measurable functions on $\R^n$. The $convolution$ of $f$ and $g$ is the function $f*g$ defined by
+    \[f*g(x) = \int f(x-y)g(y)dy\]
+    We may prove that $f*g$ is measurable.
+\end{definition}
+
+\begin{proposition}
+    Assumming that all integrals in question exist, we have\\
+    a. $f*g = g*f$ \\
+    b. $(f*g)*h = f*(g*h)$ \\
+    c. For $z\in\R^n,\tau_z(f*g) = (\tau_zf)*g = f*(\tau_z g)$ \\
+    d. If $A$ is the closure of $\{x+y, x\in \text{supp}(f), y\in\text{supp}(g)\}$, then $\text{supp}(f*g)\subset A$.
+\end{proposition}
+\begin{proof}\par
+    a. Trivial.\par
+    b. We know
+    \[
+    \begin{aligned}
+        (f*g)*h(x) = &\int \int f(z)g(x-y-z)dz h(y) dy \\
+        & =  \int f(z) (g*h)(x-z) dz = f*(g*h)(x)
+    \end{aligned}
+    \]\par
+    c. \[\tau_z(f*g) = f*g(x+z) = \int f(x+z-y)g(y) dy = \int\tau_zf(x-y)g(y)dy = \tau_zf*g(x)\] and hence $\tau_z(f*g) = \tau_z(g*f) = \tau_zg*f = f*\tau_z g$.\par
+    d. Trivial.
+\end{proof}
+
+\begin{theorem}
+    (Young's inequality) If $f\in L^1$ and $g\in L^p(1\leq p\leq \infty)$, then $f*g(x)$ exists for almost every $x$, $f*g\in L^p$ and $||f*g||_p \leq ||f||_1||g||_p$. 
+\end{theorem}
+\begin{proof}
     Notice
-    \[\{N_{2k-1} = n\} = \bigcup_{0\leq m \leq n-1}\{N_{2k-2} = m\}\cap(\bigcap_{ n-1-m\geq k\geq 0}\{X_{m+k} > a\})\cap\{X_n \leq a\}\]
+    \[
+    ||f*g||_p = (\int |\int f(y)g(x-y) dy|^p dx)^{1/p} \leq \int (\int |f(y)g(x-y)|^p dx)^{1/p}dy = \int |f(y)|||g||_p dy = ||f||_1||g||_p
+    \]
+    by the Minkowski's inequality for integrals.
+\end{proof}
+
+\begin{proposition}
+If $p$ and $q$ are conjugate exponents, $f\in L^p$ and $g\in L^q$, then $f*g(x)$ exists for every $x$, $f*g$ is bounded and uniformly continuous and $||f*g||_u \leq ||f||_p||g||_q$. If $1<p<\infty$, then $f*g \in C_0(\R^n)$, i.e. $f$ vaninshed at infinity, i.e. $\{|f|\geq \epsilon\}$ is compact for any $\epsilon > 0$.
+\end{proposition}
+\begin{proof}
+    We know
+    \[
+    |f*g(x)| = |\int f(y)g(x-y)dy| \leq |f(\cdot)g(x-\cdot)|_1 \leq ||f||_p||g(x-\cdot)||_q = ||f||_p||g||_q
+    \]
+    by the Holder's inequality and hence $||f*g||_u \leq ||f||_p||g||_q$. Then for any $y\in \R^n$,
+    \[||\tau_y f*g - f*g||_u = ||(\tau_y f-f)*g||_u \leq ||\tau_yf-f||_p||g||_q \to 0, y\to 0\]
+    if $1\leq p < \infty$. If $p = \infty$, exchange $f,g$.\par
+    Consider $f_n,g_n \in C_c$ and $f_n \to f$ in $L^p$, $g_n\to g$ in $L^q$, then we know
+    \[
+    ||f_n*g_n-f*g||_u \leq ||f_n*g_n - f_n*g||_u + ||f_n*g - f*g||_u \leq ||f_n||_p ||g_n-g||_q + ||f_n-f||_p||g||_q \to 0
+    \]
+    and notice $f_n*g_n \in C_c$ and hence $f*g \in C_0$. 
+\end{proof}
+
+\begin{proposition}
+    Suppose $1\leq p,q,r \leq \infty$ and $p^{-1}+q^{-1} = r^{-1}+1$, then\par
+    a. (Young's inequality, general form) If $f\in L^p$ and $g\in L^q$, then $f*g \in L^r$ and $||f*g||_r \leq ||f||_p||g||_q$.\par
+    b. Suppose also that $p>1,q>1$ and $r<\infty$. If $f\in L^p$ and $g\in weak\ L^q$,then $f*g \in L^r$ and $||f*g||_r \leq C_{pq}||f||_p[g]_q$ where $C_{pq}$ is independent of $f,g$.\par
+    c. Suppose that $p=1$ and $r= q >1$. If $f\in L^1$ and $g\in weak\ L^q$m then $f*g\in weak\ L^q$ and $[f*g]_q \leq C_q||f||_1$ where $C_q$ is independent of $f$ and $g$.  
+\end{proposition}
+\begin{proof}\par
+    a. Notice we have the inequality holds when $p=1,r=q$ and $r=\infty$, then for fixed $q$ and $g$, then we may use the Riesz-Thorin Interpolation Theorem.\par
+    We will skip the proof for b.c.
+\end{proof}
+
+\begin{proposition}
+    If $f\in L^1,g\in C^k$ and $\partial^{\alpha} g$ is bounded for $|\alpha|\leq k$, then $f*g\in C^k$ and $\partial^{\alpha}(f*g) = f*(\partial^{\alpha} g)$ for $|\alpha| \leq k$.
+\end{proposition}
+\begin{proof}\par
+    If $\alpha^{\alpha}(f*g) = f*(\partial^{\alpha} g)$, then
+    \[
+    \partial^{\alpha+e_j}(f*g) = \partial^{e_j}f*(\partial^{\alpha} g) = \partial^{e_j}\int f(y)\partial^{\alpha}g(x-y)dy = \int f(y)\partial^{e_j}\partial^{\alpha}g(x-y)dy 
+    \]
+    if $\partial^{\alpha+e_j} g$ is bounded and hence the conclusion holds by the induction.
+\end{proof}
+
+\begin{proposition}
+    If $f,g\in \Sch$, then $f*g \in \Sch$.
+\end{proposition}
+\begin{proof}
+    We know $f*g\in C^{\infty}$ by proposition 1.20. and then notice
+    \[1+|x| \leq (1+|x-y|)(1+|y|)\]
+    so we have
+    \[
+    \begin{aligned}
+    (1+|x|)^N|\partial^{\alpha}(f*g)(x) &\leq \int (1+|x-y|)^N|\partial^{\alpha}f(x-y)|(1+|y|)^N|g(y)|dy \\ &\leq||f||_{(N,\alpha)}||g||_{(N+n+1,0)}\int(1+|y|)^{-n-1}dy < \infty
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $\phi\in L^1$ and $\int \phi(x)dx = a$, define $\phi_t(x) = t^{-n}\phi(t^{-1}x)$ then\par
+    a. If $f\in L^p, 1\leq p < \infty$, then $f* \phi_t \to af,t\to 0$ in $L^p$.\par
+    b. If $f$ is bounded and uniformly continuous then $f*\phi_t \to af$ uniformly as $t\to 0$.\par
+    c. If $f\in L^{\infty}$ and $f$ is continuous on an open set $U$, then $f*\phi_t \to af$ uniformly on compact subsets of $U$ as $t\to 0$.
+\end{theorem}
+\begin{proof}\par
+    a. Notice that
+    \[
+    f*\phi_t - af = \int f(x-y)\phi_t(y) dy- \int f(x)\phi(y)dy = \int(f-\tau_{tz}f)(x)\phi(z)dz
+    \]
+    and then by the Minkowski's inequality for integrals, we know
+    \[
+    ||f*\phi_t-af||_p \leq \int ||f-\tau_{tz}f||_p |\phi(z)| dz
+    \]
+    and by DCT we know
+    \[
+    ||f*\phi_t-af||_p \to 0, t\to 0
+    \]\par
+    b. Notice
+    \[
+    ||f*\phi_t - af||_u \leq \int ||f-\tau_{tz}f||_u|\phi(z)|dz \leq \int_E ||f-\tau_{tz}f||_u|\phi(z)|dz + \int_{E^c}2||f||_u|\phi(z)|dz
+    \]
+    for any measurable set and choose $E$ as a property compact set is fine.\par
+    c. Still refer the equality and then we know for a compact subset $E$ of $U$, and $\epsilon >0$, we may choose a compact set $K$ such that
+    \[
+    \int_{K^c} 2||f||_{\infty}|\phi(z)|dz < \epsilon/2
+    \]
+    then choose $d$ small enough such that $dK+E$ is in a compact subset $E'$ of $U$ and notice $f$ is bounded and uniformly continuous on $E'$, so we know
+    \[
+    ||(f*\phi_t-af)|_{E}||_u = ||f|_E*\phi_t - af|_E||_u
+    \]
+    and the rest is similar.
+\end{proof}
+
+\begin{theorem}
+    Suppose $|\phi(x)|\leq C(1+|x|)^{-n-\epsilon}$ for some $C,\epsilon > 0$ and $\int |\phi(x)|dx = a$. If $f\in L^p$, then $f*\phi_t(x) \to af(x)$ as $t\to 0$ for every $x$ in the Lebesgue set of $f$, inparticular, for almost every $x$ and for every $x$ at which $f$ is continuous.
+\end{theorem}
+\begin{proof}\par
+    Firstly, let us recall that if $f\in L^p$, then $L\in L^1_{loc}$, since
+    \[
+    \int_K |f| \leq \int_{K\cap\{|f|\geq 1\}} |f|^p + m(K) < ||f||_p^p + m(K) < \infty
+    \]
+    for any compact set $K$.\par
+    We are going to show
+    \[
+    \int |f(x-y)-f(x)||\phi_t(y)|dy \to 0, t\to 0
+    \]
+    if $r^{-n}\int_{|y|<r} |f(x-y)-f(x)|dy \to 0, r\to 0$.\par
+    We know for any $\delta > 0$, there exists $\eta>0$ such
+    \[
+    \int_{|y|<r} |f(x-y)-f(x)|dy < \delta r^{n}
+    \]
+    for any $r<\eta$. We have
+    \[
+    \int_{|y|\geq \eta} |f(x-y)-f(x)||\phi_t(y)|dy \leq ||f||_p||\chi_{|y|\geq \eta}\phi_t(y)||_p' + |f(x)|||\chi_{|y|\geq\eta}\phi_t(y)||_1
+    \]
+    Now we consider $||\chi_{|y|\geq\eta}\phi_t(y)||_q$, if $q= \infty$, we know
+    \[
+    ||\chi_{|y|\geq\eta}\phi_t{y}||_{\infty} \leq \sup_{|y|\geq\eta}Ct^{-n}(1+|y/t|)^{-n-\epsilon}  \leq Ct^{-n}(1+|\eta/t|)^{-n-\epsilon} \leq C|\eta|^{-n-\epsilon}t^{\epsilon} \to 0
+    \]
+    if $t\to\infty$. For $q<\infty$, we know
+    \[
+    ||\chi_{|y|\geq\eta} \phi_t(y)||_q^q = \int_{|y|\geq\eta} t^{-nq}|\phi(t^{-1}y)|^qdy \leq Ct^{\epsilon q}\int_{r\geq\eta/t} r^{n-1-(n+\epsilon)q} dr \leq C_1t^{\epsilon q}
+    \]
+    for some constant $C_1$ by the proposition 2.51. on Folland.\par
+    Now we consider
+    \[
+    \int_{|y|<\eta} |f(x-y)-f(x)||\phi_t(y)|dy
+    \]
+    for fixed $t$, we consider
+    \[
+    \begin{aligned}
+    \int_{|y|<\eta} |f(x-y)-f(x)||\phi_t(y)|dy
+    &= \sum\limits_{i=1}^{K}\int_{2^{-i}\eta\leq|y|<2^{1-i}\eta} |f(x-y)-f(x)||\phi_t(y)|dy \\
+    &+ \int_{|y|\leq 2^{-K}\eta} |f(x-y)-f(x)||\phi_t(y)|dy \\
+    &\leq \sum\limits_{i=1}^{K}\int_{2^{-i}\eta\leq|y|<2^{1-i}\eta} |f(x-y)-f(x)|(Ct^{-n}|2^{-i}\eta/t|^{-n-\epsilon})dy \\
+    &+ \int_{|y|\leq 2^{-K}\eta} |f(x-y)-f(x)|(Ct^{-n})dy \\
+    &\leq C\delta t^{\epsilon}\sum\limits_{i=1}^K [2^{i(n+\epsilon)}/\eta^{n+\epsilon}](2^{1-i}\eta)^n + C\delta t^{-n}(2^{-K}\eta)^n \\
+    &\leq 2^nC\delta(t/\eta)^{\epsilon}\dfrac{2^{K\epsilon}-1}{2^{\epsilon}-1}+ C\delta (2^{-K}\eta/t)^n 
+    \end{aligned}
+    \]
+    so let $2^{K-1} < \eta/t \leq 2^K$, then we know
+    \[\int_{|y|<\eta} |f(x-y)-f(x)||\phi_t(y)|dy \leq C\delta + 2^nC\delta(t/\eta)^{\epsilon}\dfrac{(2(\eta/t))^{\epsilon}-1}{2^{\epsilon}-1} \leq 2^nC\delta(1+\dfrac{2^{\epsilon}}{2^{\epsilon}-1})\]
+    for any $\delta > 0$, and the conclusion holds.
+\end{proof}
+
+\begin{definition}
+    If $a=1$, then call $\{\phi_t\}_{t>0}$ an approximate identity.
+\end{definition}
+
+\begin{proposition}
+    $C_c^{\infty}$ (and hence also $\Sch$) is dense in $L^p(1\leq p <\infty)$ and in $C_0$.
+\end{proposition}
+\begin{proof}\par
+    If there exists $\phi\in C_c^{\infty}$, we will know that $g*\phi_t \to g$ in $L^p$ and $g*\phi_t \in C_c^{\infty}$ if $g\in C_c, g\in L^1\cap L^p$. Notice for any $f\in L^p$,$\epsilon > 0$, we can find $g\in C_c, g\in L^1\cap L^p$ such that $||f-g||<\epsilon$, and hence we know $C_c^{\infty}$ is dense in $L^p$. Also if $f\in C_0$, then for any $\epsilon > 0$, we may find $g\in C_c$ such that $||f-g||_u \leq \epsilon$, since $g$ is bounded and uniformly continuous, we know $||g*\phi_t - g||_u \to 0$ if $t\to 0$.
+    So now we only need to check that $C_c^{\infty}$ is nonempty, which can be given by
+    \[
+    \phi(x) = e^{-\dfrac{1}{1-|x|^2}}\chi_{1-|x|^2 > 0}\]
+    since $e^{-1/t}\chi_{(0,\infty)}(t)$ is smooth and $1-|x|^2$ is obviously smooth.
+\end{proof}
+
+\begin{theorem}
+    (The $C^{\infty}$ Urysohn lemma) If $K\subset\R^n$ is compact and $U$ is an open set containing $K$, there exists $f\in C_c^{\infty}$ such that $0\leq f \leq 1$ and $f = 1$ on $K$ and $\text{supp}(f)\subset U$. 
+\end{theorem}
+\begin{proof}\par
+    Consider $\delta = d(K,U)$ and we may find $\phi\in C_c^{\infty}$ such that $\text{supp}(\phi) \subset D(0,d/3)$. Let $V = \bigcup_{x\in K}D(x,d/3)$, then $\chi_V*\phi$ is the function we would like.
+\end{proof}
+
+\begin{theorem}
+    If $\phi$ is a measurable function on $\R^n$(resp. $\T^n$), such that $\phi(x+y) = \phi(x)\phi(y)$ and $|\phi|=1$, there exists $\xi\in\R^n$(resp. $\T^n$) such that $\phi(x) = e^{2\pi\xi\cdot x}$.
+\end{theorem}
+\begin{proof}\par
+    We first prove the conclusion for $\R$, let $a\in \R$ such that $\int_0^a \phi(t)dt\neq 0$ and let $A = a^{-1}$, then we know
+    \[
+    \phi(x) = A\int_0^a \phi(x)\phi(t)dt = A\int_x^{x+a}\phi(t)dt
+    \]
+    and hence $\phi(x)$ is continuous, and then $\phi(x)\in C^1$ with
+    \[
+    \phi'(x) = A[\phi(a)-1]\phi(x) = B\phi(x)
+    \]
+    Therefore,
+    \[
+    [e^{-Bx}\phi(x)]' = -B\phi(x)+\phi'(x) = 0 
+    \]
+    and hence $\phi(x) = ce^{Bx}$ for some constant $C$. Notice $\phi(0)= 1$, so we know $\phi(x) =e^{Bx}$ and hence $B$ is a pure imaginary number, so we may let $B = 2\pi i \xi$ for some contant $\xi$.\par
+    If $\phi$ is defined on $T$, we may expand it into a period function on $\R$ with the same property and hence $\xi\in \mathbb{Z}$.\par
+    For $\phi$ defined on $\R^n$, we may consider $\phi^j(t) = \phi(te_j)$ and then we know $\phi^j(t) = e^{2\pi i \xi_j}$ for some constant $\xi_j$, then for $x\in\R^n$, we know $\phi(x) = \prod_{i=1}^n \phi(x_i e_i) = \prod_{i=1}^n \phi^i(x_i)= e^{2\pi i \xi\cdot x}$ for some $\xi \in \R$ and the conclusion is similar for $\T^n$. 
+\end{proof}
+
+Before entering the next theorem, we recall a lemma we did not prove it formally before.
+
+\begin{lemma}
+    If $\{u_{\alpha}\}$ is an orthonormal set in a Hilbert space $\mathcal{H}$, if the finite linear combination of $\{u_{\alpha}\}$ is dense in $\mathcal{H}$, then it is a orthonormal basis.
+\end{lemma}
+\begin{proof}
+    Assume $\langle x,u_{\alpha}\rangle = 0$ for any $\alpha$, then if $x\neq 0$, then we may find $x_n \in \text{span}\{u_{\alpha}\}$ converges to $x$ in $\mathcal{H}$ and hence
+    \[
+    ||x||^2 = \lim\langle x_n,x\rangle =0
+    \] 
+    and the conclusion holds.
+\end{proof}
+
+\begin{theorem}
+    Let $E_{\mathcal{K}}(x) = e^{2\pi i \mathcal{K}\cdot x}$, then $\{E_{\mathcal{K}}, \mathcal{K}\in \mathbb{Z}^n\}$ is an orthonormal basis of $L^2(\T^n)$.
+\end{theorem}
+\begin{proof}\par
+    It is easy to verify that $\{E_{\inK}\}_{\inK \in \Z^n}$ is an orthonormal basis since
+    \[
+    \langle E_{\inK_1},E_{\inK_2} \rangle = \int E_{\inK_1 - \inK_2} = \delta{\kappa_1-\kappa_2}
+    \]\par
+    Now we consider $A = \text{span}\{E_{\kappa}\}_{\kappa\in\Z^n}$, then we know $A$ is separating points and hence we know $A$ is dense in $C(\T^n)$ by the Stone-Weierstrass' Theorem and hence it is dense in $L^2(\T^n)$. The rest is by the lemma 1.4.
+\end{proof}
+
+\begin{definition}
+    If $f\in L^2(\T^n)$, we define its $Fourier\ transform$ $\hat{f}$ a function on $\Z^n$ by
+    \[
+    \hat{f}(\kappa) = \langle f,E_{\kappa}\rangle = \int_{\T^n}f(x)e^{-2\pi i \kappa\cdot x} dx
+    \]
+    and we call the series
+    \[
+    \sum\limits_{\kappa\in\Z^n}\hat{f}(\kappa)E_{\kappa}
+    \]
+    the $Fourier\ series$ of $f$.
+\end{definition}
+
+\begin{theorem}
+    (The Hausdorff-Young Inequality) Suppose that $1\leq p \leq 2$ and $q$ is the conjugate exponent to $p$. If $f\in L^p(\T^n)$, then $\hat{f}\in l^q(\Z^n)$ and $||\hat{f}||_q \leq ||f||_p$.
+\end{theorem}
+\begin{proof}\par
+    Use the Riesz-Thorin Interpolation Theorem directly.
+\end{proof}
+
+\begin{definition}
+    For $f\in L^1$, define the Fourier Transform of $f$ by
+    \[\F f(\xi) = \hat{f}(\xi) = \int_{\R^n}f(x)e^{-2\pi i\xi\cdot x} dx\]
+    with $||\hat{f}||_u \leq ||f||_1$ and continuous by the DCT and we know
+    \[\F:L^1 \to BC(\R^n)\]
+\end{definition}
+\begin{theorem}
+    Suppose $f,g\in L^1$.\par
+    a. $\hat{(\tau_y f)}(\xi) = e^{-2\pi i \xi\cdot y}\hat{f}(\xi)$ and $\tau_{\eta}(\hat{f}) = \hat{h}$ where $h = e^{2\pi i \eta\cdot x}f(x)$.\par
+    b.If $T$ is an invertible linear transformation of $\R^n$ and $S = (T^*)^{-1}$ is its inverse transpose, then $\hat{(f\circ T)} = |\det T|^{-1} \hat{f}\circ S$. In particular, if $T$ is a rotation, then $\hat{(f\circ T)} = \hat{f}\circ T$ and if $Tx = t^{-1}x(t>0)$, then $\hat{(f\circ T)}(\xi) = t^n\hat{f}(t\xi)$, so that $\hat{(f_t)}(\xi) = \hat{f}(t\xi)$.\par
+    c. $\hat{(f*g)} = \hat{f}\hat{g}$.\par
+    d. If $x^{\alpha}f\in L^1$ for $|\alpha|\leq k$, then $\hat{f}\in C^k$ and $\partial^{\alpha}\hat{f} = \hat{[(-2\pi i x)^{\alpha}f]}$.\par
+    e. If $f\in C^k,\partial^{\alpha} f \in L^1$ for $|\alpha|\leq k$, and $\partial^{\alpha}f\in C_0$ for $|\alpha|\leq k -1$, then $\hat{(\partial^{\alpha}f)}(\xi) = (2\pi i \xi)^{\alpha}\hat{f}(\xi)$.\par
+    f.(The Riemann-Lebesgue Lemma)$\F(L^1(\R^n)) \subset C_0(\R^n)$.
+\end{theorem}
+\begin{proof}\par
+    a. We know
+    \[
+    \hat{(\tau_y f)}(\xi) = \int f(x-y)e^{-2\pi i \xi\cdot x} dx = e^{-2\pi i \xi \cdot y}\hat{f}(\xi)
+    \]
     and
     \[
-    \{N_{2k} = n\} = \bigcup_{0\leq m \leq n-1}\{N_{2k-1} = m\}\cap(\bigcap_{ n-1-m\geq k\geq 0}\{X_{m+k} < b\})\cap\{X_n \geq b\}
-    \]
-    and hence $N_{2k-1},N_{2k}$ are stopping times by induction.\par
-    And notice
+    \tau_{\eta}\hat{f}(\xi) = \hat{f}(\xi+\eta) = \int f(x)e^{-2\pi i (\xi-\eta)\cdot x}dx = \int h(x)e^{-2\pi i \xi \cdot x}dx = \hat{h}(\xi)
+    \]\par
+    b. We know
     \[
-    \{N_{2k-1}<m\leq N_{2k}\text{ for some }k\} = \bigcup_{k\geq 0} \{N_{2k-1} \leq m-1\}\cap\{N_{2k}\geq m\} \in \F_{m-1}
+    \hat{(f\circ T)}(\xi) = \int f(Tx)e^{-2\pi i \xi\cdot x} dx = \int f(Tx)e^{-2\pi i \xi^*T^{-1}Tx} dx = |\det T|^{-1}\int f(x)e^{-2\pi(S\xi)\cdot x} dx = |\det T^{-1}|\hat{f}\circ S 
     \]
-    and hence $H_m$ is predictable.
-\end{proof}
-
-\begin{theorem}
-    (Upcoming inequality) If $X_m,m\geq 0$, is a submartingale then
-    \[(b-a)EU_n \leq E(X_n-a)^+ - E(X_0-a)^+\]
-    where $U_n = \sup\{k, N_{2k} \leq n\}$.
-\end{theorem}
-\begin{proof}
-    Here we assume $Y_m = a+(X_m-a)^+$ and we have
+    and the rest is easy to check.\par
+    c. We know
     \[
-    (b-a)U_n \leq (H\cdot Y)_n
+    \hat{(f*g)}(\xi) = \int \int f(x-y)g(y) dy e^{-2\pi i \xi\cdot x} dx = \int (\int f(x-y)e^{-2\pi i \xi\cdot(x-y)} dx) g(y)e^{-2\pi i \xi \cdot y}dy = \hat{f}(\xi)\hat{g}(\xi)
     \]
-    let $K_m = 1-H_m$ and then we know that $(K\cdot X)_n$ is a submartingale and then
-    \[E(K\cdot X)_n \geq E(K\cdot X)_0 = 0\]
+    by the Fubini's theorem.\par
+    d. We assume $\partial^{\alpha} = [\hat{(-2\pi i x)}^{\alpha} f]$ and then
+    \[
+    \begin{aligned}
+    \partial^{\alpha+e_j}\hat{f}(\xi) &= \partial^{e_j} \hat{[(-2\pi i x)^{\alpha} f(\xi)]}\\ &= \partial^{e_j} \int (-2\pi i x)^{\alpha}f(x)e^{-2\pi i \xi\cdot x}dx
+    \\ &= \lim_{t\to 0}\dfrac{\int (-2\pi i x)^{\alpha}f(x)(e^{-2\pi i (\xi+te_j)\cdot x}-e^{-2\pi i \xi\cdot x})dx}{t} 
+    \end{aligned}
+    \]
+    since
+    \[
+    |(-2\pi i x)^{\alpha}f(x)(e^{-2\pi i (\xi+te_j)\cdot x}-e^{-2\pi i \xi\cdot x})| \leq |(-2\pi i x)^{\alpha}f(x)||2\pi i x^{e_j}| = C |x^{\alpha+e_j}f(x)| \in L^1
+    \]
     so we know
-    \[E(H\cdot Y)_n \leq E(Y_n-Y_0) = E(X_n-a)^+ - E(X_0-a)^+\]
-    since $Y_n-Y_0 = (H\cdot Y)_n + (K\cdot Y)_n$
+    \[
+    \partial^{\alpha+e_j}\hat{f}(\xi) = \int (-2\pi i x)^{\alpha+e_j}f(x)e^{-2\pi i \xi\cdot x}dx
+    \]
+    if $|\alpha + e_j| \leq k$ and by the induction, we are done.\par
+    e. We know if the equality if true for $\alpha$, then
+    \[
+    \begin{aligned}
+    \hat{(\partial^{\alpha+e_j}f)}(\xi) - (2\pi i \xi)^{\alpha+e_j}\hat{f}(\xi)&= \int \partial^{\alpha+e_j}f(x)e^{-2\pi i \xi\cdot x} dx - (2\pi i \xi)^{\alpha+e_j}\int f(x)e^{-2\pi i \xi\cdot x}dx \\
+    &= \int \partial^{e_j}\partial^{\alpha}f(x)e^{-2\pi i \xi\cdot x} dx - (2\pi i \xi)^{e_j}\int \partial^{\alpha}f(x)e^{-2\pi i \xi\cdot x}dx \\
+    &= \int \partial^{e_j}[\partial^{\alpha}f(x)e^{-2\pi i \xi\cdot x}] dx \\
+    &= \int\int_{-\infty}^{\infty} \partial^{e_j}[\partial^{\alpha}f(x)e^{-2\pi i \xi \cdot x}]dx_j dx' = 0
+    \end{aligned}
+    \]
+    by the Fubini's theorem if $\partial^{\alpha}f \in C_0$. And the conclusion holds by the induction.\par
+    f. If $f\in C^1\cap C_c$, then we know $\partial^{\alpha} f \in L^1$ for any $|\alpha|\leq 1$ and then we know
+    \[
+    2\pi i|\xi|^{\alpha}\hat{f}(\xi) = \hat{(\partial^{\alpha} f)}(\xi)
+    \]
+    is bounded and continuous, and hence
+    \[
+    |\xi|\hat{f}(\xi) = \sqrt{\sum_1^n [|\xi|^{\alpha}\hat{f}(\xi)]^2}
+    \]
+    is bounded and continuous, and hence $\hat{f} \in C_0$. Now notice $C^1\cap C_c$ is dense in $L^1$ and hence $\hat{f_n} \to \hat{f}$ uniformly if $f_n \to f$ in $L^1$ and hence $\F(C^1\cap C_c)$ is dense in $\F(L^1)$ under the uniform norm, notice $C_0$ is closed under the uniform norm and the conclusion holds.
 \end{proof}
 
-\begin{theorem}
-    (Martingale convergence theorem) If $X_n$ is a submartingale with $\sup EX_n^+ < \infty$ then as $n\to\infty$, $X_n$ converges a.s. to a limit $X$ with $E|X|<\infty$.
-\end{theorem}
-\begin{proof}
-    We know $(X-a)^+ \leq X^+ |a|$, then we know
-    \[EU_n \leq (|a|+EX_n^+)/(b-a)\]
-    so $\sup X_n^+$ will imply than $EU < \infty$ where $U = \lim U_n$ and hence for all rational $a,b$, we know
-    \[P(\{\liminf X_n < a < b < \limsup X_n\}) = 0\]
-    and hence $\lim X_n$ exists a.s. and $EX^+ \leq \liminf EX_n^+ <\ infty$ and hence $X<\infty$ a.s. and notice
-    \[EX_n^- = EX_n^+ - EX_n \leq EX_n^+ - EX_0\]
-    and hence $EX^- \leq \liminf EX_n^- \leq \liminf EX_n^+ - EX_0 < \infty$
-    therefore $E|X|<\infty$. 
-\end{proof}
-
-\begin{theorem}
-    If $X_n\geq 0$ is a supermartingale then as $n\to\infty$, $X_n\to X$ a.s. and $EX\leq EX_0$.
-\end{theorem}
-\begin{proof}
-    Let $Y_n = -X_n$ and hence a submartingale with $EY_n^+ = 0$, then we know $X_n \to X$ a.s. and we also have
-    \[EX \leq \liminf EX_n^+ \leq EX_0\] 
+\begin{corollary}
+    $\F$ maps the Schwartz space $\Sch$ continuously to itself.
+\end{corollary}
+\begin{proof}\par
+    Notice we have $x^{\alpha}\partial^{\beta} f\in L^1\cap C_0$ and $f\in C^{\infty}$ then $\hat{f}\in C^{\infty}$ and
+    \[
+    \hat{(x^{\alpha}\partial^{\beta}f)}(\xi) = (-2\pi i)^{-|\alpha|}\partial^{\alpha}\hat{(\partial^{\beta}f)} = (-1)^{|\alpha|}(2\pi i)^{|\alpha|-|\beta|}\partial^{\alpha}(\xi^{\beta}\hat{f})
+    \]
+    which means $\partial^{\alpha}(\xi^{\beta}\hat{f})$ is bounded for any $\alpha,\beta$ and hence $\hat{f} \in \Sch$.\par
+    By the way, notic $\int (1+|x|)^{-n-1}dx<|infty$ and we have
+    \[
+    ||\hat{(x^{\alpha}\partial^{\beta}f)}||_u \leq ||(x^{\alpha}\partial^{\beta}f)||_1 \leq C||(1+|x|)^{n+1}x^{\alpha}\partial^{\beta}f||_u
+    \]
+    so we know
+    \[
+    ||\hat{f}||_{(N,\beta)} = ||(1+|\xi|)^N\partial^{\beta}\hat{f}||_u
+    \]
+    is less than a linear combination of $\partial^{\beta}(\xi^{\gamma}\hat{f})$ with $|\gamma| \leq N$ and hence
+    \[
+    ||\hat{f}||_{(N,\beta)} \leq \sum_{\gamma \leq |\beta|} C_{\gamma}||f||_{(N+n+1,\gamma)} < \infty 
+    \]
+    and hence $\F$ is continuous on $\Sch$.
 \end{proof}
 
 \begin{proposition}
-    The theorem 1.18. provide a method to show that a.s. convergence does not guarantee convergence in $L^1$.
+    If $f(x) = e^{-\pi a |x|^2}$ where $a>0$, then $\hat{f}(\xi) = a^{-n/2}e^{-\pi|\xi|^2/a}$.
 \end{proposition}
-\begin{proof}
-Let $S_n$ be a symmetric simple random walk with $S_0 = 1$ and $P(\xi_i=1) = P(\xi_i = -1) = \tfrac{1}{2}$, let $N = \inf\{n: S_n = 0\}$ and $X_n = S_{N\wedge n}$. Then we know $X_n$ nonnegative and $EX_n = EX_0=1$ since $X_n$ is a martingale, then we know $X_n \to X$ where $X$ is some r.v. and hence $X = 0$, because there is no way to converge to others and hence $X_n$ do not converge to $X$ in $L^1$.
+\begin{proof}\par
+    If $n=1$,then we know
+    \[f' = -2\pi axf\]
+    and hence
+    \[
+    (\hat{f})' = \hat{(-2\pi i x f)} = \dfrac{i}{a}\hat{f'} = -\dfrac{2\pi}{a} (\cdot)\hat{f}
+    \]
+    since $xf = cf'$ is in $L^1$ and $f\in C^{\infty}, f'\in L^1$ and $f'\in C_0$, so we know
+    \[(e^{\pi\xi^2/a}\hat{f}(\xi))' = 0\]
+    and since $\hat{f}(0) = a^{-1/2}$, we have
+    \[
+    \hat{f} = a^{-1/2}e^{-\pi\xi^2/a}
+    \]
+    For general $n$, use the Fubini's theorem:
+    \[
+    \int e^{-\pi a|x|^2}e^{-2\pi i \xi\cdot x} = \prod\int e^{-\pi ax_j^2}e^{-2\pi i \xi_jx_j} = a^{-n/2}\prod e^{-\pi \xi_j^2/a} = a^{-n/2} e^{-\pi|\xi|^2/a}
+    \]
 \end{proof}
 
-\begin{proposition}
-    Convergence in probability do not guarantee convergence a.s.
-\end{proposition}
-\begin{proof}
-    Let $X_0 = 0$ and $P(X_k = 1|X_{k-1} = 0) = P(X_k = -1|X_{k-1} = 0) = \tfrac{1}{2k}, P(X_k = 0|X_{k-1} = 0) = 1-\tfrac{1}{k}$ and $P(X_k = kX_{k-1}|X_{k-1} \neq 0) = \tfrac{1}{k}, P(X_k = 0|X_{k-1} \neq 0) = 1-\tfrac{1}{k}$, then we know $X_k \to 0$ in probability, but $P(X_k = 0, k\geq K)$ and it picks discrete values and hence $X_k$ can not converge to $0$ a.s. 
+\begin{definition}
+    If $f\in L^1$, we define
+    \[f^{\vee} = \hat{f}(-x) = \int f(\xi)e^{2\pi i \xi\cdot x} d\xi\]
+\end{definition}
+
+\begin{lemma}
+    If $f,g\in L^1$ then $\int\hat{f}g = \int f\hat{g}$.
+\end{lemma}
+\begin{proof}\par
+    We know
+    \[
+    \int\hat{f}g = \int f(x)e^{-2\pi i \xi\cdot x} g(\xi) dx d\xi = \int f\hat{g}
+    \]
+    by the Fubini's theorem.
 \end{proof}
+
+\begin{theorem}
+    (The Fourier Inversion Theorem) If $f\in L^1$ and $\hat{f}\in L^1$, the n $f$ agrees almost everywhere with a continuous function $f_0$ and $(\hat{f})^{\vee} = \hat{(f^{\vee})} = f_0$.
+\end{theorem}
+\begin{proof}\par
+    Let $\phi_{x,t}(\xi) = e^{2\pi i \xi\cdot x - \pi t^2|\xi|^2}$ and then we know
+    \[
+    \hat{(\phi_{x,t})}(y) = \int e^{2\pi i \xi\cdot x- \pi t^2|\xi|^2-2\pi i \xi\cdot y}d\xi = \int e^{-\pi t^2|\xi|^2}e^{-2\pi i (y-x)}d\xi = t^{-n}e^{-\pi |x-y|^2/t^2} = g_t(x-y)
+    \]
+    where $g = e^{-\pi|x|^2}$ by proposition 1.23.\par
+    Then we know
+    \[
+    f*g_t(x) = \int f(y)g_t(x-y) = \int f\hat{(\phi_{x,t})}(y) = \int \hat{f}\phi_{(x,t)}
+    \]
+    so we know $\int\hat{f}\phi_{(x,y)} \to f,t\to 0$ in $L^1$, however
+    \[
+    \lim_{t\to 0}\int\hat{f}\phi_{(x,t)} = \lim_{t\to 0}\int\hat{f}(\xi)e^{2\pi i \xi\cdot x - \pi t^2|\xi|^2}d\xi = \int \lim_{t\to 0}\hat{f}(\xi)e^{2\pi i \xi\cdot x - \pi t^2|\xi|^2}d\xi = (\hat{f})^{\vee}
+    \]
+    by the DCT and hence $f = (\hat{f})^{\vee}$ a.e. where we know $(\hat{f})^{\vee}$ is a continuous function. Then notice
+    \[
+    \hat{(f^{\vee})}(x) = \int f^{\vee}(\xi)e^{-2\pi i \xi\cdot x}d\xi = \int \hat{f}(-\xi)e^{2\pi i (-\xi)\cdot x} d\xi = (\hat{f})^{\vee}(x)
+    \]
+    and the problem goes.
+\end{proof}
+
+\begin{corollary}
+    If $f\in L^1$ and $\hat{f} = 0$, then $f=0$ a.e.
+\end{corollary}
+
+\begin{corollary}
+    $\F$ is an isomorphism of $\Sch$ onto itself.
+\end{corollary}
+
+\begin{theorem}
+    Let $\mathcal{X} = \{f\in L^1, \hat{f} \in L^1\}$, then we can extend $\F$ from $\mathcal{X}$ to $L^1 + L^2$.
+\end{theorem}
+\begin{proof}\par
+    Notice $\hat{f}\in L^1$ implies that $f\in L^{\infty}$ and hence $f\in L^2$, so we know $\mathcal{X}\in L^1\cap L^2$. Then since $\Sch \subset \mathcal{X}$ and dense in both $L^1$ and $L^2$, so we may extend $\hat{f}$ by $L^{\infty}$ on $L^1$ and by $L^2$ on $L^2$, however the Fourier transform on $L^1$ has been defined.\par
+    For $L^2$ case, we may consider $f,g\in\mathcal{X}$ and $h = \bar{\hat{g}}$ which implies $\F$ keeps the $L^2$ inner product on $\mathcal{X}$ since
+    \[
+    \int f\bar{g} = \int f\hat{h} = \int \hat{f}h = \int \hat{f}\overline{\hat{g}}
+    \]
+    so, if $f_n,g_n \in \mathcal{X}$ converges to $f,g$, then we know
+    \[
+    \langle f,g\rangle = \lim_{n\to\infty} \langle f_n,g_n\rangle = \lim_{n\to\infty}\langle \hat{f_n},\hat{g_n}\rangle = \langle \hat{f},\hat{g}\rangle
+    \]
+    which means $\F$ is even a unitary isomorphism on $L^2$.\par
+    Now we only need to check that the expansion from $\mathcal{X}$ agree on $L^1\cap L^2$. For $f\in L^1 \cap L^2$, we may consider $g(x) = e^{-\pi|x|^2}$ and we know $f\cdot g_t \in L^1$ and $\hat{(f*g_t)} = \hat{f}\hat{g_t} = e^{-\pi t^2|\xi|^2}\hat{f}$, and hence $(f*g_t) \in \mathcal{X}$, then we know $(f*g_t) \to f$ in both $L^1$ and $L^2$, so $\hat{f*g_t} \to \hat{f}$ in both $L^{\infty}$ and $L^2$ and hence the extension agrees, so we know $||\hat{f}||_2 = \lim||\hat{f*g_t}||_2 = \lim||f*g_t||_2 = ||f||_2 < \infty$.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $1\leq p\leq 2$ and $q$ is the conjugate exponent to $p$. If $f\in L^p(\R^n)$, then $\hat{f}\in L^q$ and $||\hat{f}||_q \leq ||f||_p$.
+\end{theorem}
+
+\begin{theorem}
+    If $f\in L^1$, the series $\sum\limits_{k\in\Z^n}\tau_kf$ converges pointwise a.e. and in $L^1(\T^n)$ to a function $Pf$ such that $||Pf||_1 \leq ||f||_1$. Moreover, for $\kappa \in \Z^n$, $\hat{(Pf)}(\kappa)$ equals $\hat{f}(\kappa)$.
+\end{theorem}
+\begin{proof}\par
+    Let $Q = [-1/2,1/2)^n$ and we know
+    \[
+    \int_Q \sum_{k\in\Z^n}|f(x-k)|dx = \sum\limits_{k\in\Z^n}\int_{Q+k}|f(x)| dx = \int |f|
+    \]
+    by the MCT and hence $\sum \tau_k f$ converges a.e. and in $L^1(\T^n)$ to a function $Pf \in L^1(\T^n)$ with $||Pf||_1 \leq ||f||_1$. And
+    \[
+    \hat{(Pf)}(\kappa) = \int_Q\sum\limits_{k\in \Z^n} f(x-k)e^{2\pi i \kappa\cdot x}dx = \sum\limits_{k\in\Z^n}\int_{Q+k}f(x)e^{-2\pi i \kappa \cdot(x+k)}dx = \int_{\R^n} f(x)e^{-2\pi i \kappa\cdot x} dx = \hat{f}(\kappa)
+    \]
+    by the DCT.
+\end{proof}
+
+\begin{theorem}
+    (The Poisson Summation Formula) Suppose $f\in C(\R^n)$ such that $|f| \leq C(1+|x|)^{-n-\epsilon}$ and $|\hat{f}(\xi)| \leq C(1+|\xi|)^{-n-\epsilon}$ for some $C,\epsilon >0$, then
+    \[
+    \sum\limits_{k\in\Z^n} f(x+k) = \sum\limits_{\kappa\in\Z^n} \hat{f}(\kappa)e^{2\pi i \kappa\cdot x}
+    \]
+    where both series converge absolutely and uniformly on $\T^n$. 
+\end{theorem}
+\begin{proof}\par
+    The absolute and uniformly convergence of the series follows that $\sum (1+|k|)^{-n-\epsilon} < \infty$, so $Pf = \sum_k \tau_k f$ is in $C(\T^n)$ and hence in $L^2(\T^n)$. Then by the theorem 1.24, we know $\sum_{\kappa\in\Z^n}\hat{f}(\kappa)e^{2\pi i \kappa\cdot x}$ converges to $Pf$ in $L^2(\T^n)$ and since the right series is also continuous and hence they are the same pointwise.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $f$ is periodic and absolutely continuous on $\R$ and that $f'\in L^p(\T)$ for some $p>1$, then $\hat{f}\in l^1(\Z)$.
+\end{theorem}
+\begin{proof}\par
+    For $p>1$, we know $C_p = \sum_1^{\infty}k^{-p}<\infty$ and since $L^p(\T)\subset L^2(\T)$, then we assume $p\leq 2$, then we know
+    \[
+    \widehat{(f')}(k) = \int_{\T} f'(x)e^{-2\pi i kx}dx = f(x)e^{-2\pi i kx}|^1_0 - \int f(x)(-2\pi i k)e^{-2\pi i k x} = 2\pi i k \hat{f}(k)
+    \]
+    by the Integration by parts and then
+    \[
+    \sum_{k\neq 0}|\hat{f}(k)| \leq [\sum_{k\neq 0}(2\pi|k|)^{-p}]^{1/p}[\sum_{k\neq 0}(2\pi|k\hat{f}(k)|^q)]^{1/q} \leq C||\widehat{(f')}||_q \leq C||f'||_p
+    \]
+    by the Hausdorff-Young inequality and hence $||\hat{f}||_1 < \infty$.
+\end{proof}
+
+\begin{lemma}
+    If $f,g\in L^2$,then $(\hat{f}\hat{g})^{\vee} = f*g$. 
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    ||\hat{f}\hat{g}||_1 \leq ||\hat{f}||_2||\hat{g}||_2 = ||f||_2||g||_2 < \infty
+    \]
+    and hence $(\hat{f}\hat{g})^{\vee}$ exists and
+    \[
+    f*g(x) = \int f(y)g(x-y)dy = \int\hat{f}(\xi)\widehat{\overline{g(x-\cdot)}}(\xi) d\xi = (\hat{f}\hat{g})^{\vee}(x)
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose that $\Phi \in L^1\cap C_0, \Phi(0) = 1$ and $\phi = \Phi^{\vee}\in L^1$. For $f\in L^1+L^2$, for $t>0$ set
+    \[
+    f^t(x) = \int \hat{f}(\xi)\Phi(t\xi)e^{2\pi \xi \cdot x}d\xi
+    \]\par
+    a. If $f\in L^p, 1\leq p < \infty$, then $f^t\in L^p$ and $||f^t - f||_p \to 0, t\to 0$.\par
+    b. If $f$ is bounded and uniformly continuous, then so is $f^t$ and $f^t\to f$ uniformly as $t\to 0$.\par
+    c. Suppose that $|\phi(x)|\leq C(1+|x|)^{-n-\epsilon}$ for some $C,\epsilon > 0$. Then $f^t(x)\to f(x)$ for every $x$ in the Lebesgue set of $f$.
+\end{theorem}
+\begin{proof}\par
+    Let $f=f_1+f_2, f_1\in L^1,f_2\in L^2$ and we know $\Phi\in L^1\cap L^2$, so
+    \[
+    \int \hat{f_1}(\xi)\Phi(t\xi)e^{2\pi i \xi\cdot x}d\xi =  \int \hat{f_1}(\xi)\widehat{(\phi_t)}(\xi)e^{2\pi i \xi\cdot x}d\xi
+    \]
+    since
+    \[
+    \int \phi_t(\xi)e^{-2\pi i \xi \cdot x}d\xi = t^{-n}\int \phi(t^{-1}\xi)e^{-2\pi i \xi \cdot x}d\xi = \hat{\phi}(tx) = \Phi(tx)
+    \]
+    a.e. so
+    \[
+     \int \hat{f_1}(\xi)\Phi(t\xi)e^{2\pi i \xi\cdot x}d\xi = f_1*\phi_t
+    \]
+    since $\hat{f_1}\phi\in L^1$ and $f*\phi_t \in L61$. Then
+    \[
+     \int \hat{f_2}(\xi)\Phi(t\xi)e^{2\pi i \xi\cdot x}d\xi = f_2*\phi_t(\xi)
+    \]
+    by the lemma 1.6. and we know $f^t = f*\phi_t$. Then by the theorem 1.14. we have (a),(b) and (c) is according to theorem 1.15.
+\end{proof}
+
+\begin{theorem}
+    Suppsoe that $\Phi \in C$ satisfies $|\Phi(\xi)| \leq C(1+|\xi|)^{-n-\epsilon}$, $|\Phi^{\vee}(x)| \leq C(1+|x|)^{-n-\epsilon}$ and $\Phi(0) = 1$. Given $f\in L^1(\T^n)$ for $t>0$, set
+    \[
+    f^t(x) = \sum\limits_{\kappa\in\Z^n}\hat{f}(\kappa)\Phi(t\kappa)e^{2\pi i \kappa\cdot x}
+    \]\par
+    a. If $f\in L^p(\T^n), 1\leq p <\infty$, then $||f^t - f||_p \to 0$ as $t\to 0$ and if $f\in C(\T^n)$, then $f^t \to f$ uniformly as $t\to 0$.\par
+    b. $f^t(x)\to f(x)$ for every $x$ in the Lebesgue set of $f$.
+\end{theorem}
 
 \end{document}

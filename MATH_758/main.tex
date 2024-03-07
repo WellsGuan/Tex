@@ -4,16 +4,6 @@
 %%%使用包
 \usepackage{amsmath, amssymb, amstext,mathrsfs}
 
-%%%标题
-\title{Notes for MATH 758}
-%%%作者
-\author{Wells Guan}
-%%%封面中间色块
-\definecolor{customcolor}{RGB}{102,102,255}
-\colorlet{coverlinecolor}{customcolor}
-%%%封面图
-\cover{"Lucy.jpg"}
-
 %%%自定义符号区
     %%% 组合数, 在数学环境中使用
 \newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
@@ -34,10 +24,6 @@
 \newcommand{\T}{\mathbb{T}}
 \newcommand{\mI}{mod\ 1}
 \begin{document}
-
-%%%封面页
-\maketitle
-
 %%%正文
 
 %%% Stochastic Processes
@@ -359,8 +345,10 @@ and hence $\mu(f) \in [m,1]\mu(\chi_X) $, which means $\mu$ is positive.
     Assume $g_m/||g_m||_{\infty}$ converges to a matrix $g$ elementwise, then we know $\det g = 0$, then let $N,\mathcal{R}$ be the null and the range of $g$ respectively, then $g_m\cdot N$ will converge for some subsequence to a subspace $V$. If $l$ is a line in $\R^n$, then $g_m l$ converges to a line in $V$ or $\mathcal{R}$, and hences $l$ is in $N$ or not in $N$. Let $\mu_1(A) = \mu(A\cap \mathcal{P}(N))$ and $\mu_2(A) = \mu(A- \mathcal{P}(N))$. Then we may know $(g_m)_*\mu_i$ weak*ly converge to $\nu_i$ and $\nu_1,\nu_2$ are supported on $\mathcal{P}, \mathcal{R}$. 
 \end{proof}
 
+\newpage
+
 \begin{definition}
-    For a.e. $$
+    
 \end{definition}
 
 \end{document}
