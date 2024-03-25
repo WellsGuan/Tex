@@ -1,0 +1,336 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework03 - MATH 734}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Notation}
+Here I use $X \wedge Y$ for $\min(X,Y)$ and $X\vee Y$ for $\max(X,Y)$. r.v. for random variable.
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1} 
+Let $(X_k)_{0\leq k \leq n}$ be a martingale w.r.t. a filtration $(\F_k)_{0\leq k\leq n}$. Suppose that the increment has an exponential tail: For all $1\leq k \leq n$ and $t \geq 0$, almost surely,
+\[P(|X_k-X_{k-1}|\geq t|\F_{k-1}) \leq \exp{(-ct)}\]
+where $c>0$ is a constant. In this exercise, we will show that the following variant of Azuma-Hoeffding inequality holds:
+\[P(|X_n-X_0|\geq t)\leq 2\exp\Big(-\dfrac{c^2 t}{8n}(t\wedge (2n/c))\Big)\]\par
+a. Show that
+\[P(X_n\geq t) \leq \exp\Big(-\theta t+\dfrac{2n\theta^2}{c^2}\Big)\quad\text{for all }\theta\in[0,c/2]\]\par
+b. Let $\bar{t} = t\wedge (2n/c)$. From (a), show that for all $t\geq 0$
+\[P(X_n\geq t) \leq \exp\Big(-\dfrac{c^2t\bar{t}}{8n}\Big)\]\par
+Lastly, deduce the inequality in (a) by a union bound.\par
+c. Using (a), deduce that
+\[\ln\Big(P(\dfrac{1}{\sqrt{n}}|X_n-X_0| \geq t)\Big) \leq \begin{cases}
+    -\dfrac{c^2t^2}{8}\quad&\text{for }t\leq\dfrac{2\sqrt{n}}{c} \\
+    -\dfrac{ct\sqrt{n}}{4}&\text{for }t>\dfrac{2\sqrt{n}}{c}
+\end{cases}\]
+Thus, for "small deviations" $t\leq \tfrac{2\sqrt{n}}{c}$, we have a Gaussian tail bound, as if the normalized sum had a normal distribtuion with constant variance/ However, for "large deviations" $t>\tfrac{2\sqrt{n}}{c}$, we have much heavier, sub-exponential tail bound. This is because a single increment $\xi_k$ could be as large as $\sqrt{n}$ with probability $O(\exp{(-c\sqrt{n})})$, which already matches the sub-exponential tail bound.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Here we know
+\[
+\begin{aligned}
+E(\exp(\theta X_n)) = E(E(\exp(\theta X_{n})|\F_{n-1})) &= E(\exp(\theta X_{n-1})E(\exp(\theta(X_{n}-X_{n-1})|\F_{n-1}))) \\
+& \leq \exp(2(\theta/c)^2)E(\exp(\theta X_{n-1}))
+\end{aligned}
+\]
+and by the induction, we know
+\[
+E(\exp X_n) \leq \exp(\dfrac{2n\theta^2}{c^2})
+\]
+and hence
+\[
+P(X_n \geq t) \leq  \exp(-\theta t +\dfrac{2n\theta^2}{c^2})
+\]
+for any $\theta \in [0,c/2]$ by the Markov's inequality.\par
+b. If $t<2n/c$, we know
+\[
+\dfrac{2n\theta^2}{c^2}-\theta t = \dfrac{2n}{c^2}\theta(\theta-\dfrac{c^2t}{2n}) \geq  \dfrac{2n}{c^2}\dfrac{c^4t^2}{16n^2} = -\dfrac{c^2t^2}{8n} = -\dfrac{c^2t\bar{t}}{8n}
+\]
+and the equality can be reached when $\theta = \tfrac{c^2t}{4n}$. If $t\geq 2n/c$, we know
+\[
+\dfrac{2n\theta^2}{c^2} - \theta t = \dfrac{2n}{c^2}\theta(\theta-\dfrac{c^2t}{2n}) \geq \dfrac{2n}{c^2}\dfrac{c}{2}\Big(\dfrac{c}{2} - \dfrac{c^2t}{2n}\Big) = \dfrac{n}{2} - \dfrac{ct}{2} 
+\]
+with the equality can be reached when $\theta = c/2$. And notice
+\[
+\dfrac{n}{2} - \dfrac{ct}{2} \leq \dfrac{ct}{4} - \dfrac{ct}{2} = -\dfrac{ct}{4} = -\dfrac{c^2t\bar{t}}{8n}
+\]
+then we may conclude that
+\[
+P(X_n \geq t) \leq \exp\Big(-\dfrac{c^2t\bar{t}}{8n}\Big)
+\]
+by choosing proper $\theta$. Then replace $X_n$ with $-X_n$ and we may still have the inequality and we got
+\[
+P(X_n \leq -t) = P(-X_n \geq t) \leq \exp\Big(-\dfrac{c^2t\bar{t}}{8n}\Big)
+\]
+and hence
+\[
+P(|X_n - X_0| \geq t) = P(|X_n|\geq t) = P(X_n \geq t) + P(X_n \leq -t) \leq 2\exp\Big(-\dfrac{c^2t\bar{t}}{8n}\Big)
+\]
+if we assume $X_0$ a.s. Actually, which did not lose the generality.\par
+c. By the inequality we have concluded, we know
+\[
+    P(\dfrac{1}{\sqrt{n}}|X_n-X_0| \geq t) \leq \exp\Big({-\dfrac{c^2\sqrt{n}t(\sqrt{n}t\wedge(2n/c))}{8n}}\Big) = \begin{cases}
+    \exp\Big(-\dfrac{c^2t^2}{8}\Big)\quad&\text{for }t\leq\dfrac{2\sqrt{n}}{c} \\
+    \exp\Big(-\dfrac{ct\sqrt{n}}{4}\Big)&\text{for }t>\dfrac{2\sqrt{n}}{c}
+    \end{cases}
+\]
+and hence the required inequality holds.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.2} 
+Suppose $\mu > 1$. In order to compute the extinction probablity $\xi = P(\tau <\infty) \in [0,1)$, consider the following "fixed point iterates": $\theta_0 = 0$ and
+\[\theta_n = \phi(\theta_{n-1})\]
+where $\phi(s) = E(s^{Z_1})$ is the generating function of the offspring distribution.\par
+a. Show that $\theta_n = \phi_n(0)$ for all $n\geq 1$.\par
+b. Show that $\phi'(\xi) \in [0,1)$.\par
+c. By induction, show that $\theta_n \leq \xi$ for all $n\geq 0$.\par
+d. Show that
+\[\xi - \theta_n = \phi(\xi) - \phi(\theta_{n-1}) \leq \phi'(\xi)(\xi - \theta_{n-1})\]
+By induction, deduce that
+\[0 \leq \xi - \theta_n \leq \phi'(\xi)^n\]
+Conclude that $\theta_n\uparrow \xi$ at an exponential rate.
+\vspace{0.5em}\\
+\textbf{Sol.}\par
+a. If $\theta_n = \phi^{(n)}(0)$, then $\theta_{n+1} = \phi(\phi^{(n)}(0)) = \phi^{(n+1)}(0)$ and since $\theta_0 = 0 = \phi^{(0)}(0)$ and by induction we know
+\[\theta_n = \phi_n(0)\]\par
+b.  If $p_0 = 0$, then $\xi = 0$ and we know $\phi'(0) = p_1 < 1$ since $\mu > 1$. Then we assume $p_0 > 0$ and we know
+\[
+\phi(\xi) = \sum\limits_{n\geq 0} p_n \xi^n
+\]
+where we know
+\[
+\phi_m(\xi) = \sum\limits_{n = 0}^, p_n\xi^n
+\]
+by the way, notice
+\[
+\sum\limits_{n\geq 1}np_nx^{n-1}, \quad\sum\limits_{n\geq 2}n(n-1)p_nx^{n-2}
+\]
+are convergent on $[0,1)$ by considering the radius of convergence, and hence we may know that
+$\phi'(\xi) = \sum\limits_{n\geq 1}np_nx^{n-1},\quad \phi''(\xi) = \sum\limits_{n\geq 2}n(n-1)p_nx^{n-2}$
+by the Dominated Convergence Theorem when $\xi\in[0,1)$. Notice $\phi(\xi) = \xi$, $\phi(0) = p_0 > 0$ and $\phi(1) = 1$ and $\liminf_{x\to 1}\phi'(x) > 1$. If $\phi'(\xi) \geq 1$, then $\phi(y) > y$ for any $y\in(\xi,1)$, where is a contradiction.\par
+c. If $p_0 = 0$, we know $\xi = 0$ and the problem becomes trivial since $\theta_n = 0$ for any integer $n$. If $\theta_n \leq \xi$, then we know $\phi(x) > x$ for any $x\in [0,\xi)$, then if $\theta_n = \xi$, we know $\theta_{n+1} = \xi$. If $\theta_n < \xi$, we know $\phi(\theta_n) \leq \phi(\xi) = \xi$ since $\phi$ is increasing on $[0,\xi]$. Since $\theta_0 = 0 \leq \xi$, so we may know $\theta_n \leq \xi$ for any $n\in\N$ by induction.
+\[
+\xi - \theta_n = \phi(\xi)-\phi(\theta_{n-1}) = \phi'(t\xi+(1-t)\theta_{n-1})(\xi - \theta_{n-1}) \leq \phi'(\xi)(\xi - \theta_{n-1})
+\]
+by the Lagrange's mean theorem. Then if $\xi-\theta_{k} \leq \phi'(\xi)^k$, then we know
+\[
+\xi - \theta_{k+1} \leq \phi'(\xi)(\xi-\theta_{k}) \leq \phi'(\xi)^{k+1}
+\]
+and notice
+\[
+\xi - \theta_0 \leq 1 = \phi'(\xi)^0
+\]
+and hence
+\[\xi - \theta_n \leq \phi'(\xi)^n\]
+for any $n\in\N$ by induction, and obviously $\xi-\theta_n \geq 0$.
+\vspace{0.5em}
+
+\subsection*{Ex.3}
+Suppose $\mu<1$ and $EZ_1^2 < \infty$\par
+a. Use a similar approach illustrated in Ex.2. to show that $1-\phi_n(0)\leq \mu^n$. Conclude that
+\[P(\tau>n) \leq \mu^n\]\par
+b. By Taylor's theorem, shows that
+\[1-\phi_{n+1}(0) = \phi(1)-\phi(\phi_n(0)) = \mu(1-\phi_n(0)) + O((1-\phi_n(0))^2)\]
+Using the convexity of $\phi$, deduce that, for some constant $C>0$,
+\[\mu(1-\phi_n(0)) - C((1-\phi_n(0))^2) \leq 1 - \phi_{n+1}(0) \leq \mu(1-\phi_n(0))\]
+Deduce that
+\[
+1-C\mu^{n-1} \leq \dfrac{\mu^{-n-1}(1-\phi_{n+1}(0))}{\mu^{-n}(1-\phi_n(0))} \leq 1
+\]
+Use Weierstrass' theorem on convergence of products to conclude that the limit
+\[
+C_p = \lim_{n\to\infty} \dfrac{\mu^{-n-1}(1-\phi_{n+1}(0))}{1-\phi_0(0)} = \lim_{n\to\infty} \mu^{-n-1}(1-\phi_{n+1}(0))
+\]
+exists and is positive. Finally, conclude that
+\[P(\tau > n) \sim C_p \mu^n\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Notice $\phi'(x) < 1$ for all $x\in[0,1)$ and $\phi(0) > 0$, so we may conclude that $\xi = 1$ with we know $\phi'(1) = \mu$, then we have
+\[P(\tau>n) = 1 - \phi^{(n)}(0) = 1-\theta_n \leq \phi'(1)^n = \mu^n\]\par
+b. We know $\phi''(1)<\infty$ since $E\xi_i^2 < \infty$ and
+\[
+\begin{aligned}
+1-\phi_{n+1}(0) &= \phi(1) - \phi(\phi^{(n)}(0)) \\ &= \phi(1) - (\phi(1)-\phi'(1)(1-\phi^{(n)}(0))+\phi''(1-\lambda(1-\phi^{(n)}(0)))((1-\phi^{(n)}(0))^2))/2 \\
+&\geq \mu(1-\phi^{(n)}(0)) - \dfrac{\phi''(1)}{2}(1-\phi^{(n)}(0))^2
+\end{aligned}
+\]
+for some $1> \lambda > 0$ and hence
+\[1-\phi_{n+1}(0) = \mu(1-\phi^{(n)}(0)) + O((1-\phi^{(n)}(0))^2)\]
+and for the second equality required, it suffices to show that
+\[
+1-\phi^{(n+1)}(0) \leq \mu(1-\phi_n(0))
+\]
+which can be implied by
+\[
+1-\phi^{(n+1)}(0) = \phi(1)-\phi(\phi^{(n)}(0)) = \phi'(t+(1-t)\phi^{(n)}(0))(1-\phi^{(n)}(0)) \leq \mu(1-\phi^{(n)}(0))
+\]
+by the convexity of $\phi$ and the Lagrange's mean theorem.\par
+Then we know
+\[
+1- C\mu^{n-1}\leq 1 - C((1-\phi^{(n)}))/\mu \leq  \dfrac{\mu^{-n-1}(1-\phi_{n+1}(0))}{\mu^{-n}(1-\phi_n(0))} \leq 1
+\]
+by dividing $\mu(1-\phi^{(n)}(0))$ on both sides of the inequality, since $\mu(1-\phi^{(n)}(0)) > 0$.\par
+Then we know
+\[ 1\geq \dfrac{\mu^{-n-1}(1-\phi^{(n+1)}(0))}{1-\phi^0(0)} \geq \prod_{m = 1}^{n+1}(1-C\mu^{m-1})\]
+where we know for $n$ large significantly, we will have
+\[
+-2C\mu^{n-1} \leq \ln(1-C\mu^{n-1}) \leq  \ln\Big(\dfrac{\mu^{-n-1}(1-\phi_{n+1}(0))}{\mu^{-n}(1-\phi_n(0))}\Big) \leq 0
+\]
+which means there exists $m$ large enough such that $\sum\limits_{n\geq m}  \ln(1-C\mu^{m-1})$ converges and hence \[\prod_{n\geq m} \dfrac{\mu^{-n-1}(1-\phi_{n+1}(0))}{\mu^{-n}(1-\phi_n(0))}\] converges, which means $C_p$ exists and finite. Then we may know
+\[
+\lim_{n\to\infty} \dfrac{P(\tau > n)}{C_p \mu^n} =\lim_{n\to\infty} \dfrac{1-\phi^{(n)}(0)}{C_p} = 1
+\]
+which means $P(\tau > n) \sim C_p \mu^n$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.4} 
+Suppose $\mu = 1$ and $p_1 \neq 1$ and $EZ_1^2 < \infty$.\par
+a. Show that there exists a constant $c>0$ such that
+\[P(\tau>n) \sim C/n\]\par
+b. Use (a) to deduce that the extinction time has the following scaling property: for each $x>1$
+\[P(\tau>xn|\tau>n) = C/x + o(1)\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Since $\phi''(1) < \infty$, let $\theta_n = \phi^{(n)}(0)$, then
+\[
+(1-\theta_n) - \dfrac{\phi''(1-\xi_n)}{2}(1-\theta_n)^2 = 1-\theta_{n+1}
+\]
+then we let $y_n = (1-\theta_n)^{-1}m, c_n=\phi''(1-\xi_n)/2 > 0$ and we know
+\[
+y_{n+1} = y_n+\dfrac{c_n}{1-c_n(1-\theta_n)}
+\]
+where we know
+\[
+\lim_{n\to\infty} c_n = \phi''(1)/2 := c\quad \lim_{n\to\infty} \theta_n = 1
+\]
+and hence
+\[
+\lim_{n\to\infty} y_{n+1}-y_n = c
+\]
+which means
+\[
+\lim_{n\to\infty} y_{n+1}c^{-1}/n = 1
+\]
+which is exactly $y_{n}c^{-1} \sim n$, i.e. $P(\tau>n) \sim c^{-1}/n$.\par
+b. We know
+\[
+\lim_{n\to\infty} P(\tau>xn|\tau >n)x = \lim_{n\to\infty} \dfrac{P(\tau>xn)nx}{P(\tau>n)n} = 1
+\]
+which means
+\[
+\lim_{n\to\infty} P(\tau>xn|\tau >n)x - 1 =0
+\]
+and hence
+\[
+\lim_{n\to\infty} P(\tau>xn|\tau >n) - 1/x = 0
+\]
+which meaens $P(\tau>xn|\tau >n) = 1/x + o(1)$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.3.4.} 
+Let $p_m \in [0, 1)$. Use the Borel-Cantelli lemmas to show that
+\[
+\prod_{m=1}^{\infty}(1-p_m) = 0\iff \sum\limits_{m=1}^{\infty}p_m = \infty
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Let $B_n$ be independent events with $P(B_n) = p_n$ and $\F_n = \sigma(\{\emptyset, \Omega,B_1,\cdots,B_n \})$ and $\F_0 = \{\emptyset,\Omega\}$. By the Second Borel-Cantelli's Lemma, we know
+\[
+1 - \prod_{m=1}^{\infty}(1-p_m) \geq P(B_n\ i.o.) = P(\sum\limits_{n=1}^{\infty} P(B_n|\F_{n-1}) = \infty) = P(\sum\limits_{n=1}^{\infty} p_n = \infty)
+\]
+and
+\[
+1 - \sum\limits_{k\geq 1}\prod_{m=k}^{\infty}(1-p_m) \leq P(B_n\ i.o.) = P(\sum\limits_{n=1}^{\infty} p_n = \infty)
+\]
+since $B_n$ is independent to $\F_{n-1}$ and hence if $\sum\limits_{m=1}^{\infty} p_m = \infty$, we know
+\[
+\prod_{m=1}^{\infty}(1-p_m) \leq 1 - P(\sum\limits_{n=1}^{\infty} \chi_{B_n} = \infty) = 0
+\]
+which means $\prod_{m=1}^{\infty}(1-p_m) = 0$. If $\prod_{m=1}^{\infty}(1-p_m) = 0$, then we know $\prod_{m=k}^{\infty}(1-p_m) = 0$ for any integer $k$ and hence
+\[1 = 1 - \sum\limits_{k\geq 1}\prod_{m=k}^{\infty}(1-p_m) \leq  P(\sum\limits_{n=1}^{\infty} p_n = \infty)\]
+which means $\sum\limits_{n=1}^{\infty} p_n = \infty$ since $P(\sum\limits_{n=1}^{\infty} p_n = \infty)$ can be only $0$ or $1$.
+
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.4.2.} 
+Generalize the proof of Theorem. 4.4.1. to show that if $X_n$ is a submartingale and $M\leq N$ are stopping times with $P(N\leq k) = 1$ then $EX_M \leq EX_N$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We may know that $X_{N\wedge n}$ is a submartingale, then we have $P(M\leq k) = 1$ and hence
+\[EX_M = EX_{N\wedge M} \leq EX_{N\wedge k} = EX_{N}\]
+by the theorem 4.4.1.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.4.6.} 
+Suppose in addition to the consditions introduced above that $|\xi_m|\leq K$ and let $s_n^2 = \sum_{m\leq n}\sigma^2_m$. Ex 4.2.2. implies that $S_n^2 - s_n^2$ is a martingale. Use this and theorem 4.4.1 to conclude
+\[
+P\Big(\max_{1\leq m\leq n} |S_m| \leq x\Big) \leq (x+K)^2/\text{var}(S_n)
+\] 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Let $N = \inf\{k, |S_m| > x\}$ is a stopping time, then we know
+\[
+(x+K)^2 \geq E(S_N^2) \geq E(S_N^2 - s_N^2) + s_n^2P(N>n) \geq E(S_0^2-s_0^2) + s_n^2P(N>n) = s_n^2P(N>n)
+\]
+by the theorem 4.4.1. and hence
+\[
+P(\max_{1\leq m \leq n}|S_m|\leq x) = P(N>n) \leq (x+K^2)/s_n^2 = \dfrac{(x+K)^2}{\text{var}(S_n)}
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.4.7.} 
+Let $X_n$ be a martingale with $X_0 = 0$ and $EX_n^2 < \infty$. Show that
+\[P(\max_{1\leq m \leq n}X_m \geq \lambda) \leq EX_n^2/(EX_n^2 + \lambda ^2)\] 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know that $(X_n+C)^2$ is a submartingale and $\lambda > 0$, then we choose $C$ such that $\lambda +C >0$, then
+\[
+\begin{aligned}
+P(\max_{1\leq m\leq n}(X_m+C) &\geq \lambda +C) \leq P(\max_{1\leq m \leq n}(X_m+C)^2 \geq (\lambda+C)^2) \leq \dfrac{E(X_n+C)^2}{(\lambda+C)^2} \\ &= \dfrac{EX_n^2 + C^2}{(\lambda+C)^2}
+\end{aligned}
+\]
+and let $C = \dfrac{EX_n^2}{\lambda}$ then we get
+\[
+P(\max_{1\leq m \leq n}X_m \geq \lambda) \leq \dfrac{EX_n^2 + C^2}{(\lambda+C)^2}|_{C = EX_n^2/\lambda} = \dfrac{EX_n^2}{\lambda^2+EX_n^2}
+\]
+\prvd
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

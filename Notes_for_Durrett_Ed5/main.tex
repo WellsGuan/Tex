@@ -585,4 +585,45 @@ Then $P(C\cup D) = 1$.
     Then notice $\theta_0 = 0$ and then $\theta_m \leq \rho$ may implie that $\theta_{m+1} = \phi(\theta_m) \leq \phi(\rho) \leq \rho$ and hence $\phi(\theta_m) \geq \theta_m$, which means $\theta_m$ is increasing, then we know $\theta_m \uparrow \rho$.
 \end{proof}
 
+\begin{theorem}
+    If $X_n$ is a submartingale and $N$ is a stopping time with $P(N\leq k )= 1$, then 
+    \[
+    EX_0 \leq EX_N \leq EX_k
+    \]
+\end{theorem}
+\begin{proof}\par
+    We know $X_{N\wedge n}$ is a submartingale since
+    \[
+    E(X_{N\wedge (n+1)}|\F_n) = E(X_{n+1}\chi_{N\geq n+1} + X_{N}\chi_{N \leq n}|\F_n) \leq X_N\chi_{N\leq n} + X_n\chi_{N\geq n+1} = X_{N\wedge n}
+    \]
+    and hence
+    \[
+    EX_0 = EX_{N\wedge 0} \leq EX_{N\wedge k} = EX_N  
+    \]
+    and let $K_n = \chi_{N<n}$ and we know $K_n$ is predictable, then we know $(K\cdot X)_n$ is a submartingale since
+    \[
+    E((K\cdot X)_{n+1}|\F_n) = E(\sum\limits_{m=1}^{n+1}K_m(X_m-X_{m-1})|\F_n) = K_{n+1}E(X_{n+1}-X_n|\F_n) + (K\cdot X)_n \leq (K\cdot X)_n
+    \]
+    since $K$ is postive and we know
+    \[(K\cdot X)_{n} = X_n - X_{N\wedge n}\]
+    and we know
+    \[
+    E(X_k - X_N) = E((K\cdot X)_k) \geq E((K\cdot X)_0) = 0
+    \]
+\end{proof}
+
+\begin{theorem}
+    (Doob's inequality) Let $X_m$ be a submartingale,
+    \[\bar{X}_n = \max_{0\leq m \leq n}X_m^+\]
+    $\lambda > 0$ and $A = \{\bar{X}_n \geq \lambda\}$. Then
+    \[\lambda P(A) \leq EX_n\chi_A \leq EX_n^+\]
+\end{theorem}
+\begin{proof}\par
+    Let $N = \inf\{m,X_m\geq\lambda\text{ or }m=n\}$, then $X_N \geq \lambda$ on $A$, then
+    \[\lambda P(A)\leq EX_N\chi_A \leq EX_n\chi_A\]
+    by the theorem 1.26. and then second inequality is obvious.
+\end{proof}
+
+2024/03/11
+
 \end{document}

@@ -1,0 +1,245 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework07 - MATH 725}
+\author{Boren(Wells) Guan}
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\newcommand{\Sch}{\mathcal{S}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Sec8.6. Ex.43 Folland} 
+A function $\phi$ on $\R^n$ that satisfies $\sum\limits_{j,k = 1}^m z_j\bar{z}_k\phi(x_j-x_k) \geq 0$ for all $z_1,\cdots,z_m\in\C$ and all $x_1,\cdots,x_m\in\R^n$ for any $m\in\N$, is called positive definite. If $\mu\in M(\R^n)$ is positive, then $\hat{\mu}$ is positive definite. 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It sufficient to show that
+\[
+\sum\limits_{j,k = 1}^m z_j\bar{z}_k\hat{\mu}(x_j-x_k) = \sum\limits_{j,k = 1}^m z_j\bar{z}_k\int e^{-2\pi i (x_j-x_k)\cdot x}\mu(dx) \geq 0
+\]
+where we know
+\[
+\begin{aligned}
+\sum\limits_{j,k = 1}^m z_j\bar{z}_k\int e^{-2\pi i (x_j-x_k)\cdot x}\mu(dx) &= \int \sum\limits_{j,k=1}^m z_je^{-2\pi i x_j\cdot x}\overline{z_ke^{-2\pi i x_k\cdot x}}\mu(dx)\\
+& = \int \Big|\sum\limits_{j=1}^m z_je^{-2\pi i x_j\cdot x}\Big|^2 \mu(dx) \geq 0
+\end{aligned}
+\]
+and we are done.
+\prvd
+
+\subsection*{Sec.8.7. Ex.48 Folland} 
+\textbf{Sol.} \par
+a. Make  Fourier transform to $f$ as $BC(\mathbb{T})$ and we get:
+\[
+\begin{cases}
+    (\partial^2_t - (2\pi|k|)^2)\hat{u}(k) = 0 \\
+    \hat{u}(k,0) = \hat{f}(k)
+\end{cases}
+\]
+and then it is easy to check that
+\[
+\hat{u}(k,t) = \hat{f}(k)e^{-2\pi kt}
+\]
+and by the inversion theorem we know
+\[
+u(x,t) = f * (e^{-2\pi|k|t})^{\vee}(x)
+\]\par
+b.  Make  Fourier transform to $f$ as $BC(\mathbb{T})$ and we get:
+\[
+\begin{cases}
+    (\partial^2_t + (2\pi|k|)^2)\hat{u}(k) = 0 \\
+    \hat{u}(k,0) = \hat{f}(k)
+\end{cases}
+\]
+and then it is easy to check that
+\[
+\hat{u}(k,t) = \hat{f}(k)e^{-4\pi^2|k|^2t}
+\]
+and by the inversion theorem we know
+\[
+u(x,t) = f * (e^{-4\pi^2|k|^2t})^{\vee}(x)
+\]\par
+c.  Make  Fourier transform to $f$ as $BC(\mathbb{T})$ and we get:
+\[
+\begin{cases}
+    (\partial_t + (2\pi|k|^2))\hat{u}(k) = 0 \\
+    \hat{u}(k,0) = \hat{f}(k) \\
+    \partial_t \hat{u}(k,0) = \hat{g}(k)
+\end{cases}
+\]
+and then it is easy to check that
+\[
+\hat{u}(k,t) = \hat{f}(k)\cos(2\pi|k|t)+\hat{g}(k)\sin(2\pi|k|t)/(2\pi|k|)
+\]
+denoting $sin(2\pi|k|t)/(2\pi|k|)$ as $H_t(k)$ and by the inversion theorem we know
+\[
+u(x,t) = f * (\partial_t H_t)^{\vee}(x)+g*H_t^{\vee}(x)
+\]\par
+\prvd
+
+\subsection*{Sec.8.7. Ex.49 Folland} 
+\textbf{Sol.} \par
+a. Extend $f$ to be odd and periodic and let $a=0,b=2^{-1}$ and by Ex.8.48, we know
+\[  
+\hat{u}(k,t) = \widehat{\tilde{f}}(k)e^{-(2\pi|k|)^2 t}
+\]
+then since
+\[
+\begin{aligned}
+\widehat{\tilde{f}}(k) &= \int_{-\dfrac{1}{2}}^{\dfrac{1}{2}} \tilde{f}(x)e^{-2\pi i kx} dx\\ &=-\int^0_{-\tfrac{1}{2}} f(-x)e^{-2\pi i kx} dx + \int_0^{\tfrac{1}{2}} f(x)e^{-2\pi i kx} dx \\ &= - 2i\int_0^{\tfrac{1}{2}} f(x)\sin(2\pi k x) dx
+\end{aligned}
+\]
+and we know
+\[
+u(x,t) = \tilde{f}*(e^{(-2\pi|k|)^2 t})^{\vee}(x)
+\]
+on $(0,1/2)$.\par
+b. Extend $f$ to be even and periodic and let $a=0,b=2^{-1}$ and we know
+\[
+\hat{u}(k,t) = \widehat{\tilde{f}}(k)e^{-(2\pi|k|)^2 t}
+\]
+then since
+\[
+\begin{aligned}
+\widehat{\tilde{f}}(k) &= \int_{-\dfrac{1}{2}}^{\dfrac{1}{2}} \tilde{f}(x)e^{-2\pi i kx} dx \\ &= 2\int_0^{\tfrac{1}{2}} f(x)\cos(2\pi k x) dx
+\end{aligned}
+\]
+and we know
+\[
+u(x,t) = \tilde{f}*(e^{(-2\pi|k|)^2 t})^{\vee}(x)
+\]
+on $(0,1/2)$.
+\prvd
+
+\subsection*{Ex.2.P.177 Rudin} 
+Show that the metrizable topology for $\mathscr{D}(\Omega)$ that was rejected in Section 6.2. is not complete for any $\Omega$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+If $\Omega$ is not $\R^n$, then we choose $x\in \Omega$ arbitrarily and assume $M = \inf\{r,B(x,r)-\Omega \neq \emptyset\}$. Then we define $E_k$ as $\overline{B(x,(1-{k+2}^{-1})r)},k\geq 0$.\par
+Then we choose $\phi_0 \in D_{E_0}$ with $|\phi_0|\leq 1$, and define $\phi_k \in D_{E_k}$ with
+\[\phi_k(x) = \phi_0(\dfrac{2^{-1}(x-x_k)}{(1-(k+2)^{-1})}+x)\]
+then it is easy to check $\phi_k \in D_{E_k}$ and
+\[
+|\partial^{\alpha}\phi_k(x)| = \Big|\Big(\dfrac{2^{-1}}{(1-(k+2)^{-1})}\Big)^{|\alpha|}\partial^{\alpha}\phi_0(x)\Big| \leq |\partial^{\alpha}\phi_0|
+\]
+for any $|\alpha|\geq 0$ and we may know that $|\partial^{\alpha}\phi_0(x)| \leq M_{\alpha}$ for some $M_{\alpha}$ positive for any $|\alpha|\geq 0$. Now we define
+\[f_m = \sum\limits_{k=0}^m 2^{-k}\phi_k\]
+and we may know that
+\[
+|\partial^{\alpha}f_m - \partial^{\alpha}f_{m+n}| \leq 2^{-m+1}M_{\alpha} \leq 2^{-m+1}\max_{|\beta| = |\alpha|}\{M_{\beta}\}
+\]
+which means $f_k$ is Cauchy in the norms $||\phi||_N$ since
+\[\lim_{m\to\infty}2^{-m+1} \max_{|\beta| \leq N}\{M_{\beta}\} \to 0\]
+for any positive integer $N$. However, the limit of $f_k$ is not in $\mathscr{D}(\Omega)$, since for any $g\in \mathscr{D}(\Omega)$, for sufficiently large $N$, $|f_n-g| \geq \phi_N$ for some points in $\Omega$ for any $n\geq N$ by considering a point $y$ on $\partial B(x,r)$ such that $y\notin\Omega$, which always exists. And there exists $\delta > 0$ such that $B(y,\delta)\cap \text{supp}(g) = \emptyset$, however, $|f_n|$ can be always larger than $\phi_N$ for some $N$ large enough on $B(y,\delta)$.\par
+For $\Omega =  \R^n$, we may use the construction of Rudin in Page.151. 6.2 directly, by choosing $\phi \in \mathscr{D}(\R^n)$ with support in $[0,1]^n$ and let $e = \sum\limits_{i=1}^n e_i$ and $f_m(x) = \sum\limits_{i=1}^m i^{-1}\phi(x-ie)$ which is Cauchy but its limit does not have compact support.
+\prvd
+
+\subsection*{Ex.6.P.177 Rudin} 
+a. Suppose $c_m = \exp\{-(m!)!\}, m = 0,1,2,\cdots$ does the series 
+\[\sum\limits_{m\geq 0}c_m(D^m \phi)(0)\]
+converge for every $\phi \in C^{\infty}(\R)$?\par
+b. Let $\Omega$ be open in $\R^n$, suppose $\Lambda_i \in \mathscr{D}'(\Omega)$ and suppose that all $\Lambda_i$ have their supports in some fixed compact $K\subset \Omega$. Prove that the sequence $\{\Lambda_i\}$ cannot converge in $\mathscr{D}'(\Omega)$ unless the orders of the $\Lambda_j$ are bounded.\par
+c. Can the assumption about the supports be dropped in (b)? 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We may know that
+\[e^{-(m!)!} \leq \dfrac{1}{1+(m!)!}\]
+and by the Taylor's expansion, we know
+\[
+\sum\limits_{m\geq 0}\dfrac{D^m\phi(0)}{m!} = \phi(1) < \infty
+\]
+and we may find $M>0$ and positive integer $N$ such that
+\[
+\Big|\dfrac{D^m\phi(0)}{m!}\Big| \leq M
+\]
+and hence
+\[
+|c_mD^m\phi(0)| \leq M\dfrac{m!}{1+(m!)!} \leq M\dfrac{m!}{(2m)!} \leq \dfrac{M}{2^m}
+\]
+for $m\geq \max\{3,N\}$. Therefore, we know
+\[
+\sum\limits_{m\geq \max\{3,N\}}  |c_mD^m\phi(0)| \leq \sum\limits_{m\geq \max\{3,N\}} \dfrac{M}{2^m} \leq M/4
+\]
+and hence the series converge for every $\phi \in C^{\infty}(\R)$.\par
+b. If the orders of $\Lambda_i$ are unbounded, but it converges to $\Lambda$ in $\mathscr{D}'(\Omega)$. Then we know there exists $C$ such that
+\[|\Lambda \phi| \leq C||\phi||_N\]
+for every $\phi \in \mathscr{D}_K$, and hence for any $\phi \in \mathscr{D}_K$, we know
+\[
+\lim_{i\to\infty}|\Lambda_i \phi| \leq C_{\phi}||\phi||_N < \infty
+\]
+and since a nowhere dense set in $(\mathscr{D}_K,||\cdot||_N)$ is also a nowhere sense set in $\mathscr{D}_K$ equipped with the original topology, so $(\mathscr{D}_K,||\cdot||_N)$ is a nonmeager set as a normed space, which means we may use the Banach-Steinhaus' theorem:
+\[
+|\Lambda_i \phi| \leq C'||\phi||_N
+\]
+for a constant $C'$ for all $\phi \in \mathscr{D}_K$, and we know for any compact set $K'$ in $\Omega$,
+\[
+|\Lambda_i \phi| = |\Lambda_i \phi|_K| \leq C'||\phi_K||_N = C'||\phi||_N 
+\]
+for any $\phi \in \mathscr{D}_{K'}$, which is a contradiction and hence $\Lambda_i$ cannot converge in $\mathscr{D}'(\Omega)$ if the orders of $\Lambda_i$ are unbounded.\par
+c. No, let $\Omega = \R$ and let
+\[\Lambda_m \phi = \int \phi\chi_{[m,m+1]}\]
+and it is easy to check that $\Lambda_m$ has infinite order for any $m\in \Z$. However for any $\phi\in\mathscr{D}(\R)$, we know
+\[\lim_{m\to\infty} \Lambda_m \phi = 0\]
+and hence the assumption can not be dropped.
+\prvd
+
+\subsection*{Ex.7.P.178 Rudin} 
+Let $\Omega = (0,\infty)$. Define
+\[\Lambda \phi = \sum\limits_{m=1}^{\infty}(D^m\phi)\Big(\dfrac{1}{m}\Big)\]
+Prove that $\Lambda$ is a distribution of infinite order in $\Omega$. Prove that $\Lambda$ cannot be extended to a distribution in $\R$; that is, there exists no $\Lambda_0 \in \mathscr{D}'(\R)$ such that $\Lambda_0 = \Lambda$ in $(0,\infty)$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Since for any $\phi\in\mathscr{D}(\Omega)$, there are only finite elements of $\{m^{-1},m\geq 1\}$ can be in the support of $\phi$, so $\Lambda \phi$ is well defined for any $\phi \in \mathscr{D}(\Omega)$. And for any $\phi_1,\phi_2\in\mathscr{D}(\Omega)$ with supports $K_1,K_2\subset\Omega$. We know $K_1\cup K_2$ is still compact and hence they containes only finite elements in $\{m^{-1},m\geq 1\}$, denoted as $\{n_i^{-1}\}_{i=1}^N$, then for any $c\in\mathbb{K}$, we have
+\[
+\Lambda (c\phi_1+\phi_2) = \sum\limits_{i=1}^N (D^{n_i}(c\phi_1+\phi_2))\Big(\dfrac{1}{n_i}\Big) = \sum\limits_{i=1}^N \Big[c(D^{n_i}\phi_1)\Big(\dfrac{1}{n_i}\Big)+(D^{n_i}\phi_2)\Big(\dfrac{1}{n_i}\Big)\Big] = c\Lambda \phi_1 + \Lambda \phi_2
+\]
+and hence $\Lambda$ is a linear functional of $\mathscr{D}(\Omega)$.\par
+Then by the theorem 6.5 on Rudin's, we may it suffices to show that $\Lambda$ is continuous on $\mathscr{D}_K$ for any compact subset $K$ of $\Omega$ under the topology induced by $||\cdot||_N$. For a campact subset $K$ of $\Omega$, if $\phi_i \to \phi$ in $\mathscr{D}_K$, then we know
+\[
+||\phi_i - \phi||_N \to 0, i\to\infty
+\]
+and then assume $\{m_i\}_{i=1}^q$ is $K\cap\{n^{-1},n\geq 1\}$ and let $N_0 \geq \max_{1\leq i \leq q}\{m_i\}$ we know
+\[
+|D^{m_i}(\phi_n-\phi)\Big(\dfrac{1}{m_i}\Big)| \leq ||\phi_n-\phi||_{N_0} \to 0, n\to\infty
+\]
+and hence $\Lambda \phi_n \to \Lambda \phi$ on $\mathscr{D}_K$. Therefore, we know $\Lambda \in \mathscr{D}'(\Omega)$.\par
+If there exists a function $\phi$ with support $[0,1]$ such that $\sum\limits_{1\geq m}(D^m)(m^{-1})$ diverge, then we consider $\tau_{n^{-1}}\phi, n\geq 1$ and we may know that
+\[
+\lim_{n\to \infty} \Lambda \tau_{n^{-1}}\phi = \infty
+\]
+since $\phi$ is smooth. So if $\Lambda_0 = \Lambda$ in $(0,\infty)$, then we will know $\Lambda_0 \phi = \infty$ which is a contradiction.\par
+Now let us show the existence of $\phi$, which is relatively easy to construct, consider a smooth function $\phi$ with support in $[0,1]$ and $\phi|_U = e^x_U$ for some small neighbourhood $U$ of $1/2$, and then let $\phi_n = 2^{-n+1}\phi(\dfrac{n}{2}x)$ then we know $f = \sum\limits_{n\geq 1} \phi_n$ is in $C^{\infty}(\R)$ since the series converges uniformly, then we know
+\[(D^m\phi(m^{-1})) \geq \sqrt{e}2^{-m+1}\Big(\dfrac{m}{2}\Big)^m \geq 2\sqrt{e}\]
+for $m\geq 4$ and hence
+\[\sum\limits_{m\geq 1}(D^m\phi(m^{-1})) = +\infty\]
+The rest is to show this kind of $\phi$ exists, which is relative easy by the Urysohn's lemma for $C_c^{\infty}$ and multiply a proper function with $e^x$.
+\prvd
+
+\addappheadtotoc
+
+\end{document}

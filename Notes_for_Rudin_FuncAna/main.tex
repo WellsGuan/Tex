@@ -1,0 +1,159 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Rudin's Functional Analysis}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\inK}{\kappa}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\Sch}{\mathcal{S}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+
+\begin{quotation}
+m.s. for measure space\par
+mrb. for measurable\par
+t.v.s. for a topological vector space
+\end{quotation}
+
+\section{Test functions and Distributions}
+
+\begin{theorem}
+    Suppose $\mathscr{P}$ is a separating family of seminorms on a vector space $X$. Associate to each $p\in \mathcal{P}$ and to each positive $n$ the set
+    \[V(p,n) = \{x:p(x)<n^{-1}\}\]
+    Let $\mathscr{B}$ be the collection of all finite intersections of the sets $V(p,n)$. Then $\mathscr{B}$ is a convex balanced local base for a topology $\tau$ on $X$, which turns $X$ into a locally convex space such that\par
+    a. every $p\in\mathcal{P}$ is continuous\par
+    b. a set $E\subset X$ is bounded, i.e. for any neighbourhood $V$ of $0$, there exists $s$ real positive such that $E\subset rV$ for any $|r|\geq s$, if and only if every $p\in\mathcal{P}$ is bounded on $E$.
+\end{theorem}
+\begin{proof}\par
+    Obviously, $\mathscr{B}$ is a convex balanced local base for $\tau$. Let $A\subset X$ be open iff $A$ is a union of translates of members of $\mathscr{B}$, which defines a topology $\tau$ on $X$. By the way, it is easy to check that $p(0) = 0$ for all $p\in\mathcal{P}$, and if $x_n \to y$, then we know $x_n - y \to 0$, which means for any integer $m$, there exists $N$ such that $x_n-y \in V(p,m)$ for any $n\geq N$ and hence $p(x_n-y) \to 0$, which means $p$ is continuous under $\tau$.\par
+    Then we consider if $x+y \in U$ for some $x,y\in X, U$ open, then we know $U-(x+y)$ is an open neighbourhood of $0$ and hence there exists a union of finite elements of $V(p,n)$ denoted as $V$ such that $0 \in V+q$ and hence there exists $p_i,n_i$ such that $V' = \bigcup_{i=1}^m V(p_i,n_i) \subset V+q$, then we know let $T = \bigcup_{i=1}^m V(p_i,2n_i)$ and $T+T\subset V' \subset V+Q$. Now we know $(T+T)+(x+y)\subset U$ and hence $(T+x)+(T+y) \subset U$, which means addition is continuous under $\tau$.\par
+    Now consider if $\alpha x$ for some $\alpha\in \mathbb{K}, x\in X$ such that $\alpha x \in U$ for some $U$ open, then if $\alpha = 0$, then we may find $\delta$ and a neighbourhood $V$ of $x$ such that $diam(B(\alpha,\delta) V)$ is small sufficiently and hence $B(\alpha,\delta) V \subset U$. Now consider if $\alpha \neq 0$, then we know we may find $V = \bigcup_{i=1}^m V(p_i,n_i)$ and $V+y\subset U$ for some $y\in X$ with $\alpha x \in V+y$, then we know $\alpha(x-y') \in V$ where $y' = \alpha^{-1}y$. Then we may find $V'$ an open neighbourhood of $x-y'$ and $B$ centered at $\alpha$ such that $BV'\subset V$ and hence multiplication is continuous under $\tau$.\par
+    To sum up, $(X,\tau)$ is a locally convex space. (b) is obviously then. 
+\end{proof}
+
+\begin{theorem}
+    For the conditions provided in theorem 1.1., if we know $\mathcal{P}$ is a countable separating family of seminorms on $X$, we claim that
+    \[
+    d(x,y) = \max_{i} \dfrac{c_ip_i(x-y)}{1+p_i(x-y)}
+    \]
+    where $c_i \to 0$ positive, is a metric on $X$ metrize $\tau$.
+\end{theorem}
+\begin{proof}
+    It is easy to check that $d$ is a metric on $X$ and consider $B_r = B_d(0,r)$, then we know
+    \[
+    B_r = \bigcap_{i=1}^{\infty} \{x, \dfrac{c_ip_i(x)}{1+p_i(x)} < r\} =  \bigcap_{i=1}^{\infty} \{x, (c_i-r)p_i(x) < r\} = \bigcap_{c_i >r} V(p_i,\dfrac{c_i-r}{r})
+    \]
+    which is an open set in $\tau$ and for any $V(p,n)$, we may find $r$ small enoguh such that $B_r \subset V(p,n)$, which means for any open set $U$, it can be a union of open balls of $d$ and hence they induce the same topology.
+\end{proof}
+
+
+\begin{definition}
+    (Frechet space) A local convex t.v.s. with the topology induced by a translation-invariant complete metric.
+\end{definition}
+
+\begin{definition}
+    If $K$ is a compact set in an open set $\Omega$, then $\D_K$ denotes the space of all $f\in C^{\infty}(\Omega)$ whose support lies in $K$.  
+\end{definition}
+
+\begin{proposition}
+    There exists a topology in $C^{\infty}(\Omega)$ makes $C^{\infty}(\Omega)$ into a Frechet space with the Heine-Borel property, i.e. any bounded closed set in $C^{\infty}(\Omega)$ is compact, such that $\D_K$ is a closed subspace of $C^{\infty}$ whenever $K\subset\Omega$.
+\end{proposition}
+\begin{proof}\par
+    We choose compact sets $K_i$ such that $K_i$ lies in the interior of $K_{i+1}$ at first with $\Omega = \bigcup K_i$. Define seminorms $p_n$ by
+    \[
+    p_n = \max\{|\partial^{\alpha}(x)|:x\in K_n, |\alpha| \leq n\}
+    \]
+    Then by thoerem 1.1 and 1.2. we know it defines a metrizable locally convex topology on $C^{\infty}(\Omega)$ and for each $x\in\Omega$, the functional $f\mapsto f(x)$ is continuous in this topology. Since
+    \[\D_K = \bigcap_{x\in K^c}\mathcal{N}(f\mapsto f(x))\]
+    and hence $\D_K$ is closed under this toplogy in $C^{\infty}(\Omega)$.\par
+    It is easy to check that
+    \[
+    V_n = \{f\in C^{\infty}(\Omega), p_n(f)<n^{-1}\}
+    \]
+    then if $f_i$ is Cauchy in $C^{\infty}(\Omega)$ and then we know $f_i - f_j \in V_n$ for fixed $n$ if $i,j$ large sufficiently. Then it is easy to see that $\partial^{\alpha} f_i$ converges to some function $g_{\alpha}$ uniformly since it is Cauchy uniformly. And hence it is easy to check that $g_0\in C^{\infty}(\Omega)$, then we know $C^{\infty}$ is a Frechet space and hence $\D_K$ is because it is a closed subspace.\par
+    We skip the proof of Heine-Borel property of $C^{\infty}(\Omega)$.
+\end{proof}
+
+\begin{definition}
+    Consider a nonempty open set $\Omega \subset \R^n$, then define
+    \[\D(\Omega) = \bigcup_{K\subset \Omega\text{ compact}} \D_K\]
+    as the $test\ function\ space$ $\D(\Omega)$. The norms
+    \[||\phi||_N = \max\{|\partial^{\alpha}\phi(x)|, x\in \Omega, |\alpha| \leq N\}\]
+    is defined.
+\end{definition}
+
+\begin{proposition}
+    The restrictions of these norms to any $D_K$ where $K\subset \Omega$ compact induce the same topology on $\D_K$ as do the seminorms $p_N$ in proposition 1.1.
+\end{proposition}
+\begin{proof}\par
+    For each $K$. we know there exists $N$ such that $K$ is in the interior of $K_N$ for $N$ large enough and we have
+    \[
+    ||\phi||_N \leq p_N(\phi)
+    \]
+    if $\phi\in\D_K$ and then the problem goes since notice $||\phi||_n \leq ||\phi||_{n+1}, p_n \leq p_{n+1}$. Then we may know
+    \[
+    V_N = \{\phi\in\D_K, ||\phi||_N < N^{-1}\}
+    \]
+    will become a local base.
+\end{proof}
+
+\begin{definition}
+    Let $\Omega$ be a nonempty open set in $\R^n$.\par
+    a. For every compact $K\subset\Omega,\tau_K$ denotes the Frechet space topology of $\D_K$ as described above.\par
+    b. $\beta$ is the collection of all convex balanced sets $W\subset\D(\Omega)$ such that $\D_K\cap W \in \tau_J$ for every compact $K\subset\Omega$.\par
+    c. $\tau$ is the collection of all unions of sets of the form $\phi+W$ with $\phi\in\D(\Omega)$ and $W\in\beta$.
+\end{definition}
+    We can see that
+    \[\{\phi\in\D(\Omega),|\phi(x_m)|<c_m,m\geq 1\}\]
+    for a sequence $x_m$ without limit point in $\Omega$ and $c_m$ a sequence of positive numbers belongs to $\beta$.
+
+\begin{theorem}
+    a. $\tau$ is a topology in $\D(\Omega)$ and $\beta$ is a local $base$ for $\tau$.\par
+    b. $\tau$ makes $\D(\Omega)$ into a locally convew topological vector space.
+\end{theorem}
+\begin{proof}
+    We claim that for any $V_1,V_2\in \tau, \phi \in V_1\cap V_2$
+    \[\phi + W \subset V_1\cap V_2\]
+    for some $W\in\beta$. We know there exist $\phi_1,\phi_2, \in \D(\Omega)$ and $W_1,W_2\in\beta$ such that
+    \[
+    \phi \in \phi_i + W_i \in V_i
+    \]
+    and we may choose $K$ so that $\phi_1,\phi_2\in\D_k$ and then since $\D_K\cap W_i$ is open, we have
+    \[\phi - \phi_i \in (1-\epsilon_i)W_i\]
+    for some $\epsilon_i>0$ and hence
+    \[
+    \phi-\phi_i+\epsilon_iW_i \subset W_i
+    \]
+    by the convexity of $W_i$, then
+    \[\phi+\epsilon_iW_i \subset \phi_i + W_i \subset V_i\]
+    and let $W = (\epsilon_1W_1)\cap(\epsilon_2W_2)$ and we are done. Then we know any intersection of two open sets in $\tau$ is open in $\tau$ and if let $\phi = 0, V_1=V_2=V$, then we know there is always some $W\in\beta$ such that $W\subset V$ for any open set $V$ and hence $\beta$ is a local base.\par
+\end{proof}
+
+\end{document}

@@ -4,7 +4,7 @@
 % 标题
 \title{Homework02 - MATH 722}
 \author{Boren(Wellss) Guan}
-
+\date{February 26,2024}
 % 本文档命令
 \usepackage{array,url,stix}
 \usepackage{subfigure}
@@ -22,6 +22,7 @@
 \newcommand{\Hil}{\mathcal{H}}
 \newcommand{\range}{\mathcal{R}}
 \newcommand{\nul}{\mathcal{N}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
 
 % 文档区
 \begin{document}
@@ -179,61 +180,30 @@ Prove a version of L'Hospital's rule for $f,g$ holomorphic functions: If
 Formulate a precise result and prove it.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-Here is what I claim:  Given an open set $U$ and a point $P\in U$ , for $f,g$ holomorphic functions on $U-\{P\}$, then if the limit 
+Here is what I claim:  Given an open set $U$ and a point $P\in U$ , for $f,g$ holomorphic functions on $U$ and $f(P) = g(P) =0$, then if the limit 
 \[\lim_{z\to P} \dfrac{\partial f/\partial z}{\partial g/\partial z}\]
-exists or equals to the infinity and $g'(z) \neq 0$ around $P$, then if $\lim_{z\to P} |f(z)| = \lim_{z\to P} |g(z)| \in \{0,\infty\}$
+exists or equals to the infinity and $g'(P) \neq 0$ around $P$, then 
 \[
-\lim_{z\to P}\dfrac{f}{g} = \lim_{z\to P} \dfrac{\partial f/\partial z}{\partial g/\partial z} 
+\lim_{z\to P}\dfrac{f}{g} = \dfrac{\partial f/\partial z (P)}{\partial g/\partial z(P)} 
 \]
 and here is the proof.\par
-Denote
-\[\lim_{z\to P} \dfrac{\partial f/\partial z}{\partial g/\partial z} = \alpha\]
-and we firstly assume $\lim_{z\to P} f(z) = \lim_{z\to P} g(z) = 0$, then we know $f,g$ can be holomorphically extended to $P$ and then 
+We know
 \[
-\begin{aligned}
-f(z) &= f(z)-f(P) = \int_{\gamma} \partial f/\partial z (\xi) d\xi \\
-g(z) &= g(z)-g(P) = \int_{\gamma} \partial g/\partial z (\xi) d\xi \\
-\end{aligned}
+h(P+z) = \sum\limits_{n\geq 0} \Big(\ParZ\Big)^nh(P)/n! z^n
 \]
-where $\gamma$ is the segment form $P$ to $z$ when $z$ is sufficiently close to $P$.\par 
-We firstly assume $\alpha < \infty$. Since $g'(z)\neq 0$ around $P$, so we may assume $g'(z)>0$ hence $g(z) > 0$ around $P$ without loss of generality (or let $g = -g$). We know for any $\epsilon > 0$, there exists $\delta > 0$
+and
 \[
-(\alpha-\epsilon)g' \leq f' \leq (\alpha+\epsilon)g'
+h'(P+z) = \sum\limits_{n\geq 0}\Big(\ParZ\Big)^nh(P)/(n-1)! z^{n-1}
 \]
-whenever $|z-P| < \delta$ and then 
-\[(a-\epsilon)g(z) \leq f(z) \leq (a+\epsilon)g(z)\]
-which means
+for $h\in\{f,g\}$. And hence we know for $z\neq 0$
 \[
-\lim_{z\to P} \dfrac{f(z)}{g(z)} = \alpha
+f(P+z)/g(P+z) = \dfrac{\sum\limits_{n\geq 0} \Big(\ParZ\Big)^nf(P)/n! z^n}{\sum\limits_{n\geq 0} \Big(\ParZ\Big)^ng(P)/n! z^n} = \dfrac{\sum\limits_{n\geq 1} \Big(\ParZ\Big)^nf/n! (P)z^{n-1}}{\sum\limits_{n\geq 1} \Big(\ParZ\Big)^ng/n! (P)z^{n-1}}
 \]
-If $\alpha = +\infty$, we assume $g'(z) > 0$, then we know for any $M>0$, there exists $\delta > 0$ such that \[f' \geq Mg'\]
-and hence
+then we know
 \[
-\dfrac{f(z)}{g(z)} \geq M
+\lim_{|z|\to 0}\dfrac{f(z+P)}{g(z+P)} = \dfrac{f'(P)}{g'(P)}
 \]
-whenever $|z-P|<\delta$, which means 
-\[
-\lim_{z\to P} \dfrac{f(z)}{g(z)} = +\infty
-\]
-and the condition of  $\alpha = -\infty$ is the same.\par
-Now we assume $\lim_{z\to P} |f(z)| = \lim_{z\to P} |g(z)| = \infty$, we still assume $g'(z)>0$ and consider $\alpha < \infty$ at first, we have for any $\epsilon > 0$, there exists $\delta >0$ such that
-\[
-\alpha-\epsilon \leq \dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} \leq \alpha +\epsilon
-\]
-whenever $|z-P|,|\omega-P|<\delta$. And let $\omega\to P, \epsilon \to 0$ we know
-\[
-\lim_{\omega\to P}\dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} = \lim_{\omega\to P}\dfrac{f(\omega)}{g(\omega)} = \alpha
-\]
-Then we assume $\alpha = +\infty$, we still have for proper $M,\delta,z,\omega$
-\[
-\dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} \geq M
-\]
-and hence
-\[\liminf_{\omega\to P} \dfrac{f(z)-f(\omega)}{g(z)-g(\omega)} = \liminf_{\omega\to P} \dfrac{f(z)}{g(z)} \geq M\]
-for any $M>0$, which means
-\[\lim_{\omega\to P}\dfrac{f(\omega)}{g(\omega)} = +\infty\] and the condition of $\alpha = -\infty$ is the same.
 \vspace{0.5em}
-
 
 \addappheadtotoc
 

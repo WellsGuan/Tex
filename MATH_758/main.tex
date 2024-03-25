@@ -348,7 +348,22 @@ and hence $\mu(f) \in [m,1]\mu(\chi_X) $, which means $\mu$ is positive.
 \newpage
 
 \begin{definition}
-    
+    For a seq $\{a_n\}$ real and we call
+    \[A_n = \dfrac{1}{n}\sum\limits_{i=1}^n a_i\]
+    as its $Cesaro\ averages$.\par
+    We call the seq Cesaro converges to $L$ iff
+    \[\lim_{n\to\infty} A_n = L\]
+    and Cesaro absolutely converges to $L$ iff
+    \[
+    \lim_{n\to\infty} \dfrac{1}{n}\sum\limits_{i=1}^n |a_i - L| = 0    
+    \]
 \end{definition}
+
+\begin{lemma}
+    Suppose that $(X,T,\mu)$ is a p.m.p.s. THe system is ergodic if and only if for any $f,g \in L^2$, $\int f(T^nx)g(x)d\mu$ Cesaro-converges to $\int_X \int_X g$. 
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
 
 \end{document}

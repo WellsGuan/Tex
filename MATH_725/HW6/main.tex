@@ -92,7 +92,6 @@ and notice $f$ is bounded, so we know if suffices to show
 \sup_{|x-y|\leq 1, x\neq y, x,y\in[0,1]}\dfrac{|f(x)-f(y)|}{|x-y|^{\alpha}} <\ infty\]
 and we are done.
 \prvd
-\vspace{0.5em}
 
 \subsection*{Section 8.5 Ex.34} 
 If $D_m$ is the $m$th Dirichlet kernel, then $||D_m||_1 \to \infty$ as $m\to\infty$.
@@ -136,7 +135,6 @@ c. Denote the $E_x$ the set of all $f\in C(\mathbb{T})$ such that $\{S_mf(x)\}$ 
 and hence $\phi_{m,q} \in C(\mathbb{T})^*$.\par
 Then we know for any $q\in\Q$, $E_q$ is meager and hence $\sup_{m\geq 0}||\phi_{m,q}(f)|| =\infty$ is not empty, so by the Ex.40 at Page 165,Folland, there exists $f$ such that $\sup_{m\geq 0}||\phi_{m,q}(f)|| =\infty$ for any $q\in\Q\cap\mathbb{T}$.
 \prvd
-\vspace{0.5em}
 
 \subsection*{Section 8.5 Ex.36}
 The Fourier transform is not surjective from $L^1(\mathbb{T})$ to $C_0(\Z)$.
@@ -155,10 +153,9 @@ The Fourier transform is not surjective from $L^1(\mathbb{T})$ to $C_0(\Z)$.
     \]
     which is a contradiction by Ex.34.
 \prvd
-\vspace{0.5em}
 
 \subsection*{Section 8.6 Ex.39}
-If $\mu$ is a positive Borel measure on $\mathbb{T}$ with $\mu(\mathbb{T})=1$, then $|\widehat{\mu}(k)| < 1$ for all $k\neq 0$ unless $\mu$ is a linear combination, with nonnegative cofficients of the point masses at $\dfrac{\alpha}{m},\dfrac{\alpha+1}{m},\cdots,\dfrac{m+\alpha-1}{m}$ for some integer $m$, in with case $\widehat{\mu}(jm) = e^{-2\pi ij\alpha}$ for all $j\in\Z$.
+If $\mu$ is a positive Borel measure on $\mathbb{T}$ with $\mu(\mathbb{T})=1$, then $|\widehat{\mu}(k)| < 1$ for all $k\neq 0$ unless $\mu$ is a linear combination, with nonnegative cofficients of the point masses at $\dfrac{\alpha}{m},\dfrac{\alpha+1}{m},\cdots,\dfrac{m+\alpha-1}{m}$ for some integer $m, \alpha \in [0,1)$, in with case $\widehat{\mu}(jm) = e^{-2\pi ij\alpha}$ for all $j\in\Z$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
     Here we know
@@ -175,8 +172,7 @@ If $\mu$ is a positive Borel measure on $\mathbb{T}$ with $\mu(\mathbb{T})=1$, t
     \]
     almost everywhere on $\mathbb{T}$, which means $\mu(\{x \neq (m+a)/k\text{ for some }m\in\Z\}) = 0$, which means
     \[\mu(\Big(\bigcup_{q\in\Z}\{x = \dfrac{q+sgn(k)a}{|k|}\}\Big)\cap\mathbb{T}) = 1\]
-    and hence $\mu$ is a linear combination with nonnegative coefficients of the point masses at \[\dfrac{\alpha}{m},\dfrac{\alpha+1}{m},\cdots,\dfrac{m+\alpha-1}{m}\] if $k>0,\alpha > 0$ or at \[\dfrac{1-\alpha}{m},\dfrac{1-\alpha}{m},\cdots,\dfrac{m+\alpha-1}{m}\] if $k<0,\alpha > 0$ or at \[0,\dfrac{1}{m},\cdots,\dfrac{m-1}{m}\] if $\alpha = 0$, where $m = |k|$.\par
-    Assume we $\mu$ is the linear combination required, we know
+    and hence $\mu$ is a linear combination with nonnegative coefficients of the point masses at \[\dfrac{\alpha}{m},\dfrac{\alpha+1}{m},\cdots,\dfrac{m+\alpha-1}{m}\] if $k>0,\alpha > 0$ or at \[\dfrac{1-\alpha}{m},\dfrac{1-\alpha}{m},\cdots,\dfrac{m+\alpha-1}{m}\] if $k<0,\alpha > 0$ or at \[0,\dfrac{1}{m},\cdots,\dfrac{m-1}{m}\] if $\alpha = 0$, where $m = |k|$. Assume we $\mu$ is the linear combination required, we know
     \[
     \widehat{\mu}(jm) = \int e^{-2\pi i jm\cdot x}d\mu(x) = e^{-2\pi i j \alpha}\mu(\mathbb{T}) = e^{-2\pi i j \alpha}
     \]
