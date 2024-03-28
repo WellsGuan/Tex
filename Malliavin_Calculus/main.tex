@@ -139,11 +139,10 @@ A $d$-dimensional Brownian motion is defined as an $\R^d$-valued stochastic proc
     \end{aligned}
     \]
 \end{proof}
-
 \begin{proposition}
-    The total variation of Browian motion on an interval $[0,t]$ defined By
-    \[V = \sup_{\pi}\sum\limits_{j=0}^{n-1}|B_{t_{j+1}}- B_{t_j}|\]
-    where $\pi = \{0 = t_0<t_1<\cdots<t_n\}$ is infinite with probability one.
+    The total variation of Brownian morion on an interval $[0,t]$ defined by
+    \[V = \sup_{\pi} \sum\limits_{i=1}^{n-1} [B_{t_{j+1}-B_{t_j}}]\]
+    where $\pi$ is any partition of $[0,t]$, is infinite with probability $1$.
 \end{proposition}
 \begin{proof}\par
     Here we know
@@ -157,6 +156,49 @@ A $d$-dimensional Brownian motion is defined as an $\R^d$-valued stochastic proc
     which means $P(V<\infty) = 0$.
 \end{proof}
 
+\begin{definition}
+    (Wiener integral) Let $\mathcal{E}_0$ be the set pf step functions in $\R_+$,i.e.
+    \[\phi(t) = \sum\limits_{j=0}^{n-1}a_j\chi_{t_j,t_{j+1}}(t)\]
+    where $n\geq 1$ is an integer,$a_i \in \R$ and $0 = t_0 < \cdot < t_n$. And we may define Wiener integral of a step function by
+    \[
+    \int_0^{\infty} \phi dB_t = \sum\limits_{i=0}^{n-1}a_i(B_{t_{i+1}}-B_{t_i}) 
+    \]
+\end{definition}
 
+\begin{proposition}
+    The Wiener integral is a linear isometry from $\epsilon_0\subset L^2(\R^+)$ to $L^2(\Omega)$.
+\end{proposition}
+\begin{proof}
+    Notice 
+    \[
+    E[(\int_0^{\infty} \phi dB_t)^2] = \sum\limits_{i=0}^{\infty}a_i^2(t_{i+1}-t_i) = ||\phi||_2    
+    \]
+\end{proof}
 
+\begin{definition}
+    We have already know Wiener integral is a linear isometry from a dense subspace from $L^2(\R_+)$ to $L^2(\Omega)$, and hence we may call the extension of the linear isometry to be the Wiener integral and for any $\phi \in L^2(\R_+)$, denote
+    \[\int_0^{\infty} \phi dB_t\]
+    to be its image of the isometry.
+\end{definition}
+
+\begin{definition}
+    Let $D$ be a Borel subset of $\R^m$, a white noise on $D$ is a centered Gaussian family of random variables
+    \[\{W_A, A\subset \mathcal{B}(\R^m),A\subset D, m(A)<\infty\}\]
+    such that
+    \[E(W_AW_B) = m(A\cap B)\]
+\end{definition}
+
+\begin{proposition}
+    $\chi_A \to W_A$ is a linear isometry from $L^2(D)\to L^2(\Omega)$.
+\end{proposition}
+
+\begin{definition}
+    Similarly, we may define the integral r.s.t. $W$ of $\phi\in\L^2(D)$ denoted by
+    \[\phi \mapsto \int_D \phi W(dx)\]
+    by extending the linear isometry.
+\end{definition}
+
+\begin{definition}
+    Consider a Browian motion $B$ defined on a probability space $(\Omega,\F,P)$. For any time $t\geq 0$, define $\F_t$ the $\sigma$-algebra by $B_s, 0 \leq s \leq t$ and the null events in $\F$., we call $\F_t$ the natural filtration of Browiabn motion on the probability space $(\Omega, \F,P)$. 
+\end{definition}
 \end{document}
