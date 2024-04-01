@@ -201,4 +201,55 @@ A $d$-dimensional Brownian motion is defined as an $\R^d$-valued stochastic proc
 \begin{definition}
     Consider a Browian motion $B$ defined on a probability space $(\Omega,\F,P)$. For any time $t\geq 0$, define $\F_t$ the $\sigma$-algebra by $B_s, 0 \leq s \leq t$ and the null events in $\F$., we call $\F_t$ the natural filtration of Browiabn motion on the probability space $(\Omega, \F,P)$. 
 \end{definition}
+
+\begin{lemma}
+    Suppose $X$ and $Y$
+\end{lemma}
+
+\begin{theorem}
+    For any measurable and bounded (or nonnegative) function $f:\R\to\R, s\geq 0$ and $t\geq 0$, we have
+    \[E(f(B_{s+t})|\F_s) = (P_tf)(B_s)\]
+    where
+    \[
+    (P_tf)(x) = \int_{\R}f(y)p_t(x-y)dy
+    \]
+    where
+    \[
+    p_t = \dfrac{1}{\sqrt{2\pi t}} e^{-\tfrac{x^2}{2t}}
+    \]
+\end{theorem}
+Check Durrett Theorem 7.2.1.
+
+\begin{proposition}
+    The familty of operators $P_t$ satifies the semigroup property $P_t\circ P_s = P_{t+s}$ and $P_0 = Id$.
+\end{proposition}
+\begin{proof}
+    \[
+    \begin{aligned}
+    P_t\circ P_s(f)(x) &= \int_{\R} P_sf(y)p_t(x-y)dy \\ & = \int_{\R} \int_{\R} f(z) p_s(y-z)p_t(x-y) dzdy \\
+    & = \int_{\R} f(z) \int_{\R} \dfrac{1}{2\pi \sqrt{st}} e^{-\Big(\tfrac{(y-z)^2}{2s}+\tfrac{(x-y)^2}{2t}\Big)} dydz \\
+    & = \int_{\R} f(z) \int_{\R} \dfrac{1}{2\pi \sqrt{st}} e^{-\Big(\tfrac{(\sqrt{s+t}y-(2tz+2sx)/\sqrt{s+t})^2-(tz+sx)^2/(s+t)+tz^2+sx^2}{2st}\Big)} dydz
+    \end{aligned}
+    \]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    The processes $B_t, (B_t^2-t)$ and $e^{aB_t-a^2t/2}, a\in\R$ are $\F_t$ martingales.
+\end{theorem}
+
+\begin{definition}
+    The Brownian hitting time is defined by
+    \[\tau_a = \int\{t\geq 0, B_t = a\}\]
+\end{definition}
+
+\begin{proposition}
+    Fix $a>0$. Then, for all $\alpha > 0$
+    \[E(e^{-\alpha\tau_a}) = e^{-\sqrt{2\alpha}a}\]
+\end{proposition}
+
+\begin{theorem}
+    
+\end{theorem}
+
 \end{document}
