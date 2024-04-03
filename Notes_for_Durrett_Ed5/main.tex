@@ -592,38 +592,61 @@ Then $P(C\cup D) = 1$.
     \]
 \end{theorem}
 \begin{proof}\par
-    We know $X_{N\wedge n}$ is a submartingale since
+    We know that $X_{N\wedge n}$ is a submartingale, since
+    \[E(X_{N\wedge(n+1)}|\F_n) = \chi_{N>n}E(X_{n+1}|\F_n) + \sum\limits_{i=0}^n \chi_{N = i}X_i \geq \chi_{N>n}X_n + + \sum\limits_{i=0}^n \chi_{N = i}X_i= X_{N\wedge n}\]
+    so
+    \[EX_0 = EX_{N\wedge 0} \leq EX_{N\wedge K} = EX_k\]
+    Similarly, we let $K_n = \chi_{N < n}$ and we know
     \[
-    E(X_{N\wedge (n+1)}|\F_n) = E(X_{n+1}\chi_{N\geq n+1} + X_{N}\chi_{N \leq n}|\F_n) \leq X_N\chi_{N\leq n} + X_n\chi_{N\geq n+1} = X_{N\wedge n}
+        E[(K\cdot X)_{n+1}|\F_n] = E[(\sum\limits_{i=1}^{n+1}K_i(X_i-X_{i-1}))|\F_n] = (K\cdot X)_n + K_{n+1}E(X_{n+1}-X_n|\F_n) \geq (K\cdot X)_n
     \]
-    and hence
-    \[
-    EX_0 = EX_{N\wedge 0} \leq EX_{N\wedge k} = EX_N  
-    \]
-    and let $K_n = \chi_{N<n}$ and we know $K_n$ is predictable, then we know $(K\cdot X)_n$ is a submartingale since
-    \[
-    E((K\cdot X)_{n+1}|\F_n) = E(\sum\limits_{m=1}^{n+1}K_m(X_m-X_{m-1})|\F_n) = K_{n+1}E(X_{n+1}-X_n|\F_n) + (K\cdot X)_n \leq (K\cdot X)_n
-    \]
-    since $K$ is postive and we know
-    \[(K\cdot X)_{n} = X_n - X_{N\wedge n}\]
-    and we know
-    \[
-    E(X_k - X_N) = E((K\cdot X)_k) \geq E((K\cdot X)_0) = 0
-    \]
+    and hence $(K\cdot X)_m$ becomes a submartingale. And notice $(K\cdot X)_m = X_m - X_{N\wedge m}$ and hence
+    \[EX_k - EX_{N\wedge k} = EX_k - EX_N \geq E(K\cdot X)_0 = 0\]
 \end{proof}
 
 \begin{theorem}
-    (Doob's inequality) Let $X_m$ be a submartingale,
+    (Doob's inequality)Let $X_m$ be a submartingale, 
     \[\bar{X}_n = \max_{0\leq m \leq n}X_m^+\]
-    $\lambda > 0$ and $A = \{\bar{X}_n \geq \lambda\}$. Then
+    and let $\lambda >0, A = \{\bar{X}_n \geq \lambda\}$, then
     \[\lambda P(A) \leq EX_n\chi_A \leq EX_n^+\]
 \end{theorem}
 \begin{proof}\par
-    Let $N = \inf\{m,X_m\geq\lambda\text{ or }m=n\}$, then $X_N \geq \lambda$ on $A$, then
-    \[\lambda P(A)\leq EX_N\chi_A \leq EX_n\chi_A\]
-    by the theorem 1.26. and then second inequality is obvious.
+    Let $N = \inf\{m, X_m \geq \lambda\}\wedge n$ and it is easy to check that $N$ is a stopping time, since we know $X_N \geq \lambda$ on $A$ and by theorem 1.26, we know
+    \[\lambda P(A) \leq EX_N\chi_A \leq EX_n\chi_A\]
+    since
+    \[EX_N\chi_{A^c} = EX_n\chi_{A^c}\]
+    and the second inequality is trivial.
 \end{proof}
 
-2024/03/11
+\begin{theorem}
+    ($L^p$ maximum inequality) If $X_n$ is a submartingale, then for $1< p < \infty$
+    \[E(\bar{X}_n^p) \leq \Big(\dfrac{p}{p-1}\Big)^p E(X_n^+)^p\]
+    Consequently, if $Y_n$ is a martingale and $Y_n^* = \max_{0\leq m \leq n} |Y_m|$, we have
+    \[E|Y_n^*|^p \leq \Big(\dfrac{p}{p-1}\Big)^p E(|Y_n|^p)\]
+\end{theorem}
+\begin{proof}
+    We may know that
+    \[
+    \begin{aligned}
+    E[(\bar{X}_n\wedge M)^p] &= \int_0^{\infty} p\alpha^{p-1}P(\bar{X}_n\wedge M \geq \alpha)d\alpha     \\
+    &\leq p\int_0^{\infty} \alpha^{p-1}(\alpha^{-1}\int X_n^+\chi_{(\bar{X}_n\wedge M)\geq \alpha}dP)d\alpha \\
+    & = \int p\int\alpha^{p-2}\chi_{(\bar{X}_n\wedge M) \geq \alpha} d\alpha X_n^+ dP \\
+    & = \int\Big(\dfrac{p}{p-1}X_n^+(\bar{X}_n\wedge M)^{p-1}\Big)dP \\
+    &= \Big(\dfrac{p}{p-1}\Big)(E(X_n^+)^p)^{1/p}(E((\bar{X}_n\wedge M)^{p-1})^{p'})^{1/p'}
+    \end{aligned}
+    \]
+    and hence the inequality holds. For the latter consequence, notice we have $|Y_n|$ is a submartingale by the Jensen's inequality, and hence we may use the first inequality to $|Y_n|$ and the inequality holds.
+\end{proof}
+
+\begin{theorem}
+    ($L^p$ convergence theorem) If $X_n$ is a martingale with $\sup E|X_n|^p < \infty$ where $p > 1$, then $X_n \to X$ a.s. and in $L^p$.
+\end{theorem}
+\begin{proof}
+    It is easy to check that $\sup EX_n^+$ is finite and we may use the Martingale convergence theorem to $X_n$ and hence there exists $X$ such  that $X_n \to X$ a.s. Also we may know that
+    \[E(X_n^*)*p \leq \Big(\dfrac{p}{p-1}\Big)^p E|X_n|^p < M\]
+    for some positive constant $M$ and by the MCT, we know $\sup |X_n| \in L^p$ and hence we may use the DCT to $X_n$ and hence $X_n \to X$ in $L^p$.
+\end{proof}
+
+
 
 \end{document}
