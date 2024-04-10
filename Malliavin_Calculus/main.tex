@@ -36,6 +36,131 @@
 
 %%% Stochastic Processes
 \chapter{}
+\section{Basics of Stochastic Processes}
+
+We will refer $X_t$ to be real or $\R^d$-valued continuous-time stochastic processes defined on a probability space $(\Omega,\F,P)$. For every fixed $\omega\in\Omega$, $t\mapsto X_t(\omega)$ is called a trajectory or sample path of the process.\par
+
+For a real-valued stochastic process, let $-\leq t_1 < \cdots < t_n$ be fixed. Then we know
+\[P_{t_1,\cdots,t_n} = P\circ (X_{t_1},\cdots,X_{t_n})^{-1}\]
+is a probablity distribtuion on $\R^n$, which is called the finite-dimensional marginal distribution of the process.
+
+\begin{theorem}
+    (Kolmogorov's extension theorem) Consider a family of probablity measures
+    \[\{P_{t_1,\cdots,t_n}, t_1<\cdots<t_n, n\geq 1, t_i\geq 0\}\]
+    such that\par
+    a. $P_{t_1,\cdots,t_n}$ is a probablity on $\R^n$.\par
+    b. For $\{t_{k_1}<\cdots<t_{k_m}\} \subset \{t_1<t_2<\cdots<t_n\}$,$P_{t_{k_1},\cdots,t_{k_m}}$ is required to be a marginal of $P_{t_1,\cdots,t_n}$, then there exists a real-valued stochastic process $X_t$ owning finite-dimensional marginal distributions of $\{P_{t_1,\cdots,P_{t_n}}\}$.
+\end{theorem}
+
+\begin{definition}
+    A real-valued process $X_t$ is a second-order process iff $EX_t^2 < \infty, t\geq 0$, define
+    \[m_X(t) = EX_t, \Gamma_X(s,t) = \text{cov}(X_s,X_t)\]
+\end{definition}
+
+\begin{definition}
+    A real-valued process $X_t$ is said to be Gaussian if its finite-dimensional marginal distributions are multidimensional Gaussian laws.
+\end{definition}
+
+\begin{proposition}
+    A Gaussian process is determined by $m_X$ and $\Gamma_X$, conversely, for any $m:\R_+\to\R$ and a symmetric $\Gamma:\R_+\times\R_+\to\R$ which is nonnegative definite, there always exists a Gaussian process with mean $m$ and covariance function $\Gamma$ by Kolmogorov's extension theorem. 
+\end{proposition}
+
+\begin{definition}
+    We call two processes $X,Y$ are  equivalent if for all $t\geq 0$, $X_t = Y_t$ a.s. And we call they indistinguishable if $X_t(\omega) = Y_t(\omega)$ for all $t\geq 0$ and for all $\omega$ in some set with probability $1$.
+\end{definition}
+
+\begin{proposition}
+    Two equivalent processes with right-continuous trajectories are indistinguishable.
+\end{proposition}
+\begin{proof}
+    Let $X_q = Y_q$ on $\Omega_q$ for $q\in\Q$ and let $\Omega' = \bigcap_{q\in\Q}\Omega_q$ and we know $\Omega'$ has the probability $1$. And it is easy to check that $X_t = Y_t$ on $\Omega '$ for all $t$.
+\end{proof}
+
+\begin{theorem}(Kolmogorov's continuity theorem)
+    Suppose that $X = X_t, t\in[0,T]$ satisfies
+    \[ E(|X_t-X_s|^{\beta}) \leq K|t-s|^{1+\alpha}\]
+    for all $s,t\in [0,T]$ and for some constants $\beta,\alpha,K>0$. Then there exists a version $\tilde{X}$ of $X$ such that, if $\gamma < \alpha/\beta$, then
+    \[|\tilde{X_t}|-\tilde{X_s} \leq G_{\gamma}|t-s|^{\gamma}\]
+    for all $s,t\in[0,T]$, where $G_{\gamma}$ is a random variable. The trajectories of $\tilde{X}$ are Holder continuous of $\gamma$ for any $\gamma < \alpha/\beta$.
+\end{theorem}
+
+\begin{definition}
+    $\F_t$ is an increasing family of sub-$\sigma$-field of $\F$. A process $X_t$ is $\F_t$-adapted if $X_t$ is $\F_t$-measurable for all $t\geq 0$.
+\end{definition}
+
+\begin{definition}
+    An adapted process $X_t,t\geq 0$ is a Markov process w.r.t.  a filtration $\F_t$ if for any $s\geq 0, t>0$ and any measurable and bounded function $f:\R\to\R$,
+    \[E(f(X_{s+t})|\F_s) = E(f(X_{s+t})|X_s)\ a.s.\]
+\end{definition}
+
+\begin{proposition}
+    A $\F_t$-Markov process $X_t$ is also a $\F_t^X$-Markov process where
+    \[\F_t^X = \sigma\{X_u, 0\leq u \leq t\}\]
+\end{proposition}
+\begin{proof}
+    Notice
+    \[E(f(X_{s+t}|\F_s^X)) = E(E(f(X_{s+t}|\F_s))|\F_s^X) = E(E(f(X_{s+t}|X_s))|\F_s^X) = E(f(X_{s+t}|X_s))\]
+    since $\sigma(X_s) \subset F_s^X \subset F_t$.
+\end{proof}
+
+\begin{definition}
+    Assume a filtration $\F_t$ on $(\Omega,\F,P)$ satisfies that for any $P(A) = 0,A\in\F$, $A\in\F_0$ and it is right-continuous,i.e.
+    \[\F_t = \cap_{n\geq 1}\F_{t+n^{-1}}\]
+    Then consider a r.v. $T:\Omega\to[0,\infty]$ is a stopping time w.r.t. to the filtration if
+    \[\{T\leq t\in\F_t\}\]
+    for any $t\geq 0$.
+\end{definition}
+
+\begin{proposition}
+    a. $T$ is a stopping time iff $\{T<t\} \in \F_t$ for all $t\geq 0$.\par
+    b. $S\vee T$ and $S\wedge T$ are stopping times.\par
+    c. Givene a stopping time $T$,
+    \[\F_T = \{A, A\cap\{T\leq t\} \in \F_t, \forall t\geq 0\}\]
+    is a $\sigma$-algebra.\par
+    d. If $S\leq T$, then $\F_S\subset \F_T$.\par
+    e. Let $X_t, t\geq 0$ be a continuous and adapted process. The hitting time of a set $A\subset \R$ is defined by
+    \[T_A = \inf\{t\geq 0,X_t \in A\}\]
+    and whether $A$ is open or closed, $T_A$ is a stopping time.\par
+    f. Let $X_t$ be an adapted stochastic process with right-continuous paths and let $T<\infty$ be a stopping time. Then the random variable
+    \[X_T(\omega) = X_{T(\omega)(\omega)}\]
+    is $\F_T$-measurable.
+\end{proposition}
+
+\begin{definition}
+    An adapted process $M = M_t,t\geq 0$ is called a martingale w.r.t. a filtration $\F_t,t\geq 0$ if\par
+    a. for all $t\geq 0$, $E(|M_t|) < \infty$\par
+    b. for each $s\leq t$, $E(M_t|\F_s) = M_s$
+\end{definition}
+
+\begin{proposition}
+    a. For any integrable random varibale $X$, $E(X|\F_t)$ is a martingale.\par
+    b. If $M_t$ is a submartingale then $t\to E(M_t)$ is nondecreasing.\par
+    c. If $M_t$ is a martingale and $\varphi$ is a convex function such that $E|\phi(M_t)| < \infty$ for all $t\geq 0$ then $\phi(M_t)$ is a submartingale. 
+\end{proposition}
+\begin{proof}
+    Only (c) is needed to be proved. Conside $ax+b \leq \phi(x)$ and we know
+    \[E(\phi(M_t)|\F_s) \geq aE(X_t|\F_s) + b \]
+    for any such $a,b$ and hence
+    \[E(\phi(M_t)|\F_s) \geq \phi(M_t)\]
+\end{proof}
+
+\begin{definition}
+    An adapted process $M_t,t\geq 0$ is called a local martingale if there exists a sequence of stopping times $\tau_n\uparrow \infty$ such that, for any $n\geq 1$ $M_{t\wedge\tau_n}$ is a martingale.
+\end{definition}
+
+\begin{theorem}
+    Let $M_t,t\geq 0$ be a continuous local martingale such that $M_0 = 0$. Let $\pi = \{0= t_0 < t_1<\cdots<T_n = t\}$ be a partition of $[0,t]$. Then we have
+    \[\sum\limits_{j=0}^{n-1}(M_{t_{j+1}}-M_{t_j})^2 \to \langle M\rangle_t, |\pi| \to 0\]
+    in probability, where $\langle M\rangle_t, t\geq 0$ is called the quadratics variation of the local martingale. Moreover, if $M_t, t\geq 0$ is a martingale then the convergence holds in $L^1(\Omega)$.
+\end{theorem}
+
+\begin{theorem}
+    The quadratic variation is the unique continuous and increasing process satisfying $\langle M\rangle_0 = 0$ and
+    \[M_t^2 - \langle M\rangle_t\] is a local martingale.\par
+\end{theorem}
+
+
+
 \section{Brownian Motion}
 
 \begin{definition}
@@ -238,9 +363,20 @@ Check Durrett Theorem 7.2.1.
     The processes $B_t, (B_t^2-t)$ and $e^{aB_t-a^2t/2}, a\in\R$ are $\F_t$ martingales.
 \end{theorem}
 
+\begin{proof}
+    $B_t$ is obviously a $\F_t$ martingale. Notice
+    \[
+    E[(B_t^2-t)|\F_s] = E[(B_t-B_s)^2+B_s^2+2B_s(B_t-B_s)-t|\F_t] = t-s+B_s^2-t = B_s^2 - s
+    \]
+    and
+    \[
+    E(e^{aB_t-a^2t/2}|\F_s) = e^{-a^2t/2}E(e^{a(B_t-B_s)}e^{aB_s}|\F_s) = e^{aB_s}Ee^{a(B_t-B_s)-a^2t/2} = e^{aB_s-a^2s/2}
+    \]
+\end{proof}
+
 \begin{definition}
     The Brownian hitting time is defined by
-    \[\tau_a = \int\{t\geq 0, B_t = a\}\]
+    \[\tau_a = \inf\{t\geq 0, B_t = a\}\]
 \end{definition}
 
 \begin{proposition}

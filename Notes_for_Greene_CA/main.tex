@@ -172,7 +172,7 @@ It $u(x,y)$ is a real-valued polynomial with $\Delta u = 0$, then there exists a
     \]
     then there is a function $h\in C^(\mathcal{R})$ such that
     \[\ParX h =f, \ParY h = g\]
-    on $\mathcal{R}$. If $f,g$ are real-valuedd, the nwe may take $h$ to be real-valued also.
+    on $\mathcal{R}$. If $f,g$ are real-valued, then we may take $h$ to be real-valued also.
 \end{theorem}
 \begin{proof}\par
     For $(x,y) \in \mathcal{R}$, define
@@ -985,7 +985,7 @@ If $f:\C-\{0\} \to \C$ is a holomorphic function, and if $\gamma_r$ describes th
 \end{proposition}
 
 \begin{definition}
-    An open set $U\subset \C$ is holomorphically simplt connected if $U$ is connected and if, for each holomorphic function $f:U\to\C$, there is a holomorphic function $F:U\to\C$ such that $F'=f$.
+    An open set $U\subset \C$ is holomorphically simply connected if $U$ is connected and if, for each holomorphic function $f:U\to\C$, there is a holomorphic function $F:U\to\C$ such that $F'=f$.
 \end{definition}
 
 \begin{lemma}
@@ -1188,6 +1188,212 @@ If $f:\C-\{0\} \to \C$ is a holomorphic function, and if $\gamma_r$ describes th
     \dfrac{1}{2\pi i}\int_{\partial D(P,r)} \dfrac{f'(\xi)}{f(\xi)} d\xi = \dfrac{1}{2\pi i}\int_{\partial D(P,r)} \dfrac{g'(\xi)}{g(\xi)}
     \]
 \end{theorem}
+\begin{proof}
+    Define
+    \[
+    f_t:U\to\C
+    \]
+    by $f_t = tf+(1-t)g$ and we know $f_t$ is nonzero for $t\in[0,1], \xi \in \partial (P,r)$ since if $f_t(\xi) =  0$ for some $t$, we have
+    \[t(f(\xi)-g(\xi)) = -g(\xi),(1-t)(f(\xi)-g(\xi)) = f(\xi)\]
+    and hence
+    \[|f(\xi)-g(\xi)| = |f(\xi)|+|g(\xi)|\]
+    which is a contradiction, then
+    \[I_t  =\dfrac{1}{2\pi i}\dfrac{f'_t(\xi)}{f_t(\xi)}d\xi, t\in [0,1]\]
+    will be continuous to $t$, however, it takes values in the integers, so $I_t$ has to be constant and hence $I_0 = I_1$.
+\end{proof}
 
+\begin{theorem}
+    (Hurwitz's theorem) Suppose that $U\subset\C$ is a connected open set and that $\{f_j\}$ is a sequence of nowhere vanishing holomorphic functions on $U$. If the sequence of nowhere vanishing holomorphic functions on $U$. If the sequence $\{f_j\}$ converges uniformly on compact subsets of $U$ to a limit function $f_0$, then either $f_0$ is nowhere vanishing or $f_0 = 0$.
+\end{theorem}
+\begin{proof}
+    Consider a contradiction, we supose $f_0$ is not constant $0$ but $f_0(P) = 0$ for some $P\in U$. Then there has to be an $r>0$ such $f_0$ is nonzero on $\overline{D(P,r)} - \{P\}$, then
+    \[I = \dfrac{1}{2\pi i} \int_{|\xi-P| = r} \dfrac{f'_0(\xi)}{f_0(\xi)} d\xi\]
+    is a positive integer, equal to the order of the zero of $f$ at $P$.\par
+    However,
+    \[I_j = \dfrac{1}{2\pi i} \int_{|\xi-P| = r} \dfrac{f'_j(\xi)}{f_j(\xi)} d\xi\]
+    equals to $0$ since $f_j$ is nonzero everywhere, but $I_j \to I$ and there will be a contradiction.
+\end{proof}
+
+\begin{definition}
+    A $domain$ in $\C$ is a connected open set. A $bounded domain$ is a connected open set $U$ such that there is an $R>0$ with $|z|<R$ for all $z\in U$. 
+\end{definition}
+
+\begin{theorem}
+    (The maximum modulus principle) Let $U\subset\C$ be a domain. Let $f$ be a holomorphic function on $U$. If there is a point $P\in U$ such that $|f(P)| \geq |f(z)|$ for all $z\in U$, then $f$ is constant.
+\end{theorem}
+\begin{proof}
+    Assume there is such a $P$ and then if $f$ is not constant, we know $f(U)$ is open and hence there have to be some $ \zeta \in f(U)$ such that $|\zeta| \geq |f(P)|$.
+\end{proof}
+
+\begin{corollary}
+    (Maximum modulus theorem) Let $U\subset\C$ be a bounded domain. Let $f$ be a continuous function on $\overline{U}$ that is holomorphic on $U$. Then the maximum value of $|f|$ on $\overline{U}$ must occur on $\partial U$.
+\end{corollary}
+
+\begin{theorem}
+    Let $U\subset\C$ ba a domain and let $f$ be a holomorphic function on $U$. If there is a point $P\in U$ at which $|f|$ has a local maximum, then $f$ is constant.
+\end{theorem}
+\begin{proof}
+    If $|f|$ do have a local maximum, then we know $f$ is constant on an open ball in $U$ and hence $f$ has to be constant since $U$ is connected.
+\end{proof}
+
+\begin{proposition}
+    Let $f$ be holomorphic on a domain $U\subset\C$. Assume that $f$ never vanishes. If there is a point $P\in U$ such that $|f(P)| \leq |f(z)|$ for all $z\in U$, then $f$ is constant. 
+\end{proposition}
+
+\begin{proposition}
+    (Schwarz's lemma) Let $f$ be holomorphic on the unit disc, assume that $f(z) \leq 1$ on $\C$ and $f(0) = 0$, then $|f(z)| \leq |z|$ and $|f'(0)| \leq 1$.
+    If either $|f(z)|=|z|$ for some $z\neq 0$ or if $|f'(0)| = 1$, then $f$ is a rotation, i.e. $f(z) = \alpha z$ for some complex constant $\alpha$ of unit modulus.
+\end{proposition}
+\begin{proof}
+    Consider $g(z) = f(z)/z$, where $g$ have a removable singularity at $0$ and hence we may consider it as a holomorphic function on unit disc, then notice $g(z) \leq 1/(1-\epsilon)$ on $D(0,1-\epsilon)$ by the maximum modulus theorem and hence we know $g\leq 1$ on $D$, and hence $|f'(0)| \leq 1$.\par
+    If $|f(z)| = |z|$ for some $z\neq 0$, we know $|g(z)| = 1$ with $g$ constant on $D$, and it is the same when $|g(0)| = 1$.
+\end{proof}
+
+\begin{theorem}
+    (Schwarz-Pick) Let $f$ be holomorphic on the unitdisc with $|f(z)| \leq 1$ for all $z\in D$. Then for any $a\in D(0,1)$ and with $f(a) = b$, we have
+    \[|f'(a)| \leq \dfrac{1-|b|^2}{1-|a|^2}\]
+    Moreover, if $f(a_1)= b_1,f(a_2 = b_2)$, then
+    \[\Big|\dfrac{b_2-b_1}{1-\bar{b}_1b_2}\Big| \leq \Big|\dfrac{a_2-a_1}{1-\bar{a}_1a_2}\Big|\]
+    if either the equalies above can be reached, then $f$ is a conformal self-mapping to itself.
+\end{theorem}
+\begin{proof}
+    If $c\in D(0,1)$, define
+    \[\phi_c(z) = \dfrac{z-c}{1-\bar{c}z}\]
+    and notice that
+    \[\Big|\dfrac{z-c}{1-\bar{c}z}\Big| < 1\], iff $|z|<1$ and it follows that $\phi_c$ is a holomorphic mapping from $D(0,1)$ to itself with inverse $\phi_{-c}$, then consider
+    \[g(z) = \phi_b\circ f \circ \phi_{-a}\]
+    and we know
+    \[|g(z)| \leq 1, g(0)=0\]
+    and hence
+    \[g'(0) \leq 1, |g(z)| \leq z\]
+    For the second conlusion, let
+    \[h = \phi_{b_1}\circ f\circ\phi_{-a_1}(z) \leq |z|\]
+    and then we know
+    \[\phi_{b_1}(b_2) \leq |\phi_{a_1}(a_2)|\]
+\end{proof}
+
+\begin{definition}
+    A real-valued function $u:U\to\R$ on an open set $U\subset \C$ is harmonic if it is $C^2$ on $U$ and
+    \[\Delta u = 0\]
+\end{definition}
+
+\begin{lemma}
+    If $u:D\to \R$ is a harmonic function on a disc $D$, then there is a holomorphic function $F:D\to\C$ such that $Re F = u$ on $D$.
+\end{lemma}
+
+\begin{definition}
+    Any function $v$ such that $u+iv$ is holomorphic is called a harmonic conjugate of $u$.
+\end{definition}
+
+\begin{corollary}
+    If $u:U\to\R$ is a harmonic function on an open set $U\subset\C$, then $u\in C^{\infty}$.
+\end{corollary}
+
+\begin{lemma}
+    If $U$ is a holomorphically simply connected open set and if $u:U\to\R$ is a harmonic function, then there is a $C^2$ harmonic function $v$ such that $u+iv:U\to \C$ is holomorphic.
+\end{lemma}
+\begin{proof}
+    Let
+    \[H = \ParX u - i \ParY u\]
+    and we know $H$ is holomorphic on $U$ and hence  there exists $F'$ such that $F' = H$, and it is easy to check that $(ReF) ' = u+c$ for some constant $c$ and then we know $F-C = u + iv'$ is the required funcition.
+\end{proof}
+
+\begin{theorem}
+    (The maximum principle for harmonic functions) If $u:U\to\R$ is harmonic on a connected open set $U$ and if there is a point $P_0 \in U$ with the property that $u(P_0) = \sup_{Q\in U}u(Q)$, then $u$ is constant on $U$.
+\end{theorem}
+\begin{proof}
+    We may show that $\{z, u(z) = u(P_0)\}$ is open by considering $ReH = u$ on $D(P_0,r)$ for $H$ holomorphic and use the maxium modulus principle to $e^H$. And the set is closed in $U$ is easy to be checked.
+\end{proof}
+
+\begin{corollary}
+    (Minimum principle for harmonic functions) If $u:U\to\R$ is harmonic on a connected open set $U$ and if there is a point $P_0 \in U$ with the property that $u(P_0) = \inf_{Q\in U}u(Q)$, then $u$ is constant on $U$.
+\end{corollary}
+
+\begin{corollary}
+    Let $U\subset \C$ be a bounded, connected open set and let $u$ be a continuous, real-valued function on the closure $\overline{U}$ of $U$ that is harmonic on $U$. Then
+    \[\max_{\overline{U}} u = \max_{\partial U} u(\min_{\overline{U}} u = \min_{\partial U} u)\]
+\end{corollary}
+
+\begin{theorem}
+    (The mean value property) Suppose that $u:U\to\R$ is a harmonic function on an open set $U\subset\C$ and that $\overline{D}(P,r) \subset U$ for some $r>0$. Then
+    \[u(P) = \dfrac{1}{2\pi} \int_0^{2\pi} u(P+re^{i\theta})d\theta\]
+\end{theorem}
+\begin{proof}
+    Choose $s>r$ such that $D(P,s)\subset U$ and we may find $H:D(P,s) \to \C$ such that $H= u+iv$ holomorphic and we know
+    \[H(P) = \dfrac{1}{2\pi i }\int_{\gamma}\dfrac{H(\xi)}{\xi-P} = \dfrac{1}{2\pi i}\int_0^{2\pi} H(P+re^{i\theta}) d\theta\]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{lemma}
+    Let $a\in D(0,1)$, then the holomorphic function $\phi_a(z) = \dfrac{z-a}{1-\bar{a}(z)}$ has the following properties:\par
+    a. $\phi_a$ is holomorphic and invertible on a neighborhood of $\overline{D}(0,1)$\par
+    b. $\phi_a:D(0,1)\to D(0,1)$ is one-to-one and onto\par
+    c. $(\phi_a)^{-1} = \phi_{-a}$\par
+    d. $\phi_a(a) = 0$
+\end{lemma}
+
+\begin{lemma}
+    If $u:U\to\R$ is harmonic and if $H:V\to U$ is holomorphic, then $u\circ H$ is harmonic.
+\end{lemma}
+\begin{proof}
+    We prove a chain rule for complex functions:
+    \[
+    \begin{aligned}
+    \ParZ(f\circ g) &= \dfrac{1}{2}\Big(\ParX f(g_1,g_2)\ParX g_1+\ParY f(g_1,g_2)\ParX g_2\Big)-\dfrac{i}{2}\Big(\ParX f(g_1,g_2)\ParY g_1+\ParY f(g_1,g_2)\ParY g_2\Big) \\
+    &= \dfrac{1}{2}\Big( \ParZ f(g_1,g_2)\ParX g_1+\ParbZ f(g_1,g_2)\ParX g_1-i^{-1}\ParZ f(g_1,g_2)\ParX g_2+i^{-1}\ParbZ f(g_1,g_2)\ParX g_2\Big)
+    \\ & - \dfrac{1}{2}\Big( i\ParZ f(g_1,g_2)\ParY g_1+i\ParbZ f(g_1,g_2)\ParY g_1-\ParZ f(g_1,g_2)\ParY g_2+\ParbZ f(g_1,g_2)\ParY g_2\Big)
+    \\& = \ParZ f(g)\ParZ g_1+\ParbZ f(g)\ParZ g_1 -i^{-1}\ParZ f(g)\ParZ g_2 + i^{-1}\ParbZ f(g)\ParZ g_2
+    \\& = \ParZ f(g)\ParZ {g} + \ParbZ f(g)\ParZ \bar{g}
+    \end{aligned}
+    \]
+    and similarly we know
+    \[
+    \begin{aligned}
+    \ParbZ(f\circ g) &= \dfrac{1}{2}\Big(\ParX f(g_1,g_2)\ParX g_1+\ParY f(g_1,g_2)\ParX g_2\Big)+\dfrac{i}{2}\Big(\ParX f(g_1,g_2)\ParY g_1+\ParY f(g_1,g_2)\ParY g_2\Big) \\
+    &= \dfrac{1}{2}\Big( \ParZ f(g_1,g_2)\ParX g_1+\ParbZ f(g_1,g_2)\ParX g_1-i^{-1}\ParZ f(g_1,g_2)\ParX g_2+i^{-1}\ParbZ f(g_1,g_2)\ParX g_2\Big)
+    \\ & + \dfrac{1}{2}\Big( i\ParZ f(g_1,g_2)\ParY g_1+i\ParbZ f(g_1,g_2)\ParY g_1-\ParZ f(g_1,g_2)\ParY g_2+\ParbZ f(g_1,g_2)\ParY g_2\Big)
+    \\& = \ParZ f(g)\ParbZ g_1+\ParbZ f(g)\ParbZ g_1 -i^{-1}\ParZ f(g)\ParbZ g_2 + i^{-1}\ParbZ f(g)\ParbZ g_2
+    \\& = \ParZ f(g)\ParbZ {g} + \ParbZ f(g)\ParbZ \bar{g}
+    \end{aligned}
+    \]
+    so
+    \[
+    \Delta u(H) = 4\ParZ\ParbZ u(H) = 4\ParZ\Big(\ParbZ u(H)\ParbZ \bar{H}\Big) = \ParbZ(u(H))\Delta \bar{H} = 0
+    \]
+\end{proof}
+
+\begin{theorem}
+    (The Poisson integral formula) Let $u:U\to\R$ ba a harmonic function on a neighbourhood of $\overline{D(0,1)}$. Then for any $a\in D(0,1)$,
+    \[u(a) = \dfrac{1}{2\pi}\int_0^{2\pi} u^{e^{i\phi}}\dfrac{1-|a|^2}{|a-e^{i\theta}|^2}d\phi\]
+\end{theorem}
+\begin{proof}
+    Consider $u(\phi_a)$ is fine.
+\end{proof}
+
+\begin{theorem}
+    Let $f$ be a continuous function on $\partial D(0,1)$. Define
+    \[
+    u(z) = \begin{cases}
+        \dfrac{1}{2\pi} \int_0^{2\pi} f(e^{\i\theta})\dfrac{1-|z|^2}{|z-e^{i\theta}|^2}d\theta\quad&\text{if}z\in D(0,1)\\
+        f(z)&\text{if}z\in\partial D(0,1)
+    \end{cases}
+    \]
+    then $u$ is continuous on $\overline{D}(0,1)$ and harmonic on $D(0,1)$.
+\end{theorem}
+
+\begin{definition}
+    A continuous function $h:U\to\R$ on an open set $U\subset \C$ has the samll circle mean value property if, for each point $P\in U$ there is an $\epsilon_P>0$ such that $\overline{D}(P,\epsilon_p)\subset U$ and for every $0<\epsilon <\epsilon_P$
+    \[h(P) = \dfrac{1}{2\pi}\int_0^{2\pi}h(P+\epsilon e^{i\theta})d\theta\]
+\end{definition}
+\begin{theorem}
+    If $h:U\to\R$ is a continuous function on an open set $U$ with the SCMV property, then $h$ is harmonic.
+\end{theorem}
+
+\begin{corollary}
+    If $\{h_j\}$ is a sequence of real-valued harmonic functions that converges uniformly on compact subsets of $U$ to a function $h:U\to\R$, then $h$ is harmonic on $U$.
+\end{corollary}
+\begin{proof}
+    By theorem 7.4.2, it is easy to check that $h$ has the SCMV property.
+\end{proof}
 
 \end{document}

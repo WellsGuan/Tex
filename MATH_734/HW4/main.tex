@@ -1,0 +1,296 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework04 - MATH 734}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Notation}
+Here I use $X \wedge Y$ for $\min(X,Y)$ and $X\vee Y$ for $\max(X,Y)$. r.v. for random variable.
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1} 
+Let $X_n$ be a martingale with $EX_n^2 < \infty$ for all $n$. Show that\par
+a. If $m\leq n$ and $Y\in\F_m$, then $E[(X_n-X_m)Y] = 0$.\par
+b. If $l\leq m \leq n$, then $E[(X_n-X_m)(X_m-X_l)] = 0$.\par
+c. If $m\leq n$, then
+\[E[(X_n-X_m)^2|\F_m] = E(X_n^2|\F_m) - X_m^2\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We know
+\[E[(X_n-X_m)Y] = E[E[(X_n-X_m)Y|\F_m]] = E[YE[(X_n-X_m)|\F_m]] = 0\]\par
+b. Let $Y = X_m - X_l \in \F_m$ in (a).\par
+c. We know
+\[
+\begin{aligned}
+E[(X_n-X_m)^2|\F_m] &= E(X_n^2-2X_nX_m+X_m^2|\F_m) \\ &= E(X_n^2|\F_m) - 2X_mE(X_n|\F_m)+X_m^2 \\ &= E(X_n^2|\F_m) - X_m^2
+\end{aligned}
+\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.2} 
+Consider supercritical branching process $(Z_n)_{n\geq 0}$ with mean offspring number $\mu  = E\xi_n^i > 1$ and suppose $\text{var}(\xi_n^i) = \sigma^2 < \infty$. We know that $\zeta = P(\tau<\infty)$ is nonzero, where $\tau$ denotes the extinction time. And we also know that $X_n = Z_n/\mu^n$ converges a.s. to some limiting r.v. $X$. It is reasonable that on the survival event $\tau = \infty$, $X$ should be positive so the population grows asymptotically exponentially as $X\mu^n$. The goal of this exercise is to justify this: except for a set of probability zero,
+\[\{X > 0\} = \{\tau = \infty\}\]\par
+a. Show that
+\[E(X_n^2|\F_{n-1}) = X_{n-1}^2 + \mu^{-2n}E[(Z_n - \mu Z_{n-1})^2|\F_{n-1}]\]\par
+b. Show taht
+\[E[(Z_n-\mu Z_{n-1})^2|\F_{n-1}] = \sigma^2 Z_{n-1}\]\par
+c. Deduce that for all $n\geq 1$,
+\[EX_n^2 = EX_{n-1}^2 + \sigma^2/\mu^{n+1}\]
+and by induction, show that
+\[EX_n^2 = 1 + \sigma^2 \sum\limits_{k=2}^{n-1}\mu^{-k}\]\par
+d. Show that $X_n \to X$ in $L^2$ and $EX_n \to EX$ for some RV $X$.\par
+e. Deduce that $EX = 1$, so $\theta = P(X=0)<1$. Show that $\theta$ satisfies the fixed point equation
+\[\theta = \sum\limits_{k=0}^{\infty}p_kk^{\theta} = \phi(\theta)\]
+where $\phi(s) = E(s^{Z_1})$ is the generating function of the offspring distribution. Deduce that $\theta = \zeta = P(\tau<\infty)$ and conclude
+\[\{X > 0\} = \{\tau = \infty\}\]
+\vspace{0.5em}\\
+\textbf{Sol.}\par
+a. We know 
+\[E(X_n^2|\F_{n-1}) - X_{n-1}^2 = E[(X_n-X_{n-1})^2|\F_{n-1}] = \mu^{-2n}E[(Z_n-\mu Z_{n-1})^2|\F_{n-1}]\]
+by EX.1.(c) since $X_n$ is a martingale and hence we get
+\[
+E(X_n^2|\F_{n-1}) = X_{n-1}^2 + \mu^{-2n}E[(Z_n - \mu Z_{n-1})^2|\F_{n-1}]
+\]\par
+b. We know
+\[
+\begin{aligned}
+E[(Z_n-\mu Z_{n-1})^2\chi_{Z_{n-1} = k}|\F_{n-1}] &= \chi_{Z_{n-1} = k}E[(\sum\limits_{i=1}^k \xi_n^i - k\mu)^2|\F_n] \\ &= \chi_{Z_{n-1}=k}\sum\limits_{i=1}^k \text{var}(\xi_n^i) \\ &= \chi_{Z_{n-1} = k}k\sigma^2 \\ &= \chi_{Z_{n-1} = k}\sigma^2\Z_{n-1}
+\end{aligned}
+\]
+and notice
+\[(Z_n-\mu Z_{n-1})^2 = (Z_n - \mu Z_{n-1})^2\sum\limits_{k\geq 0}\chi_{Z_{n-1} = k}\]
+and we are done by the MCT.\par
+c. We know
+\[
+\begin{aligned}
+EX_n^2 &= EX_{n-1}^2 + E[\mu^{-2n}E[(Z_n-\mu Z_{n-1})^2\chi_{Z_{n-1} = k}|\F_{n-1}]] \\ &= EX_{n-1}^2 + \sigma^2 \mu^{-2n}EZ_{n-1} = EX_{n-1}^2 + \sigma^2\mu^{-n-1}
+\end{aligned}
+\]
+and since $EX_0 = 1$ and we may know that
+\[EX_n^2 = 1 + \sigma^2\sum\limits_{i=2}^{n+1}\mu^{-i}\]
+by the induction.\par
+d. Obviously we have
+\[E[X_n^2] \leq 1 + \dfrac{\sigma^2}{\mu^2(1-\mu)}\]
+and we may use the $L^p$ martingale convergence theorem to $X_n$ and hence $X_n \to X$ a.s. and in $L^2$ for some r.v. $X$. Then we know
+\[(E|X_n-X|)^2 \leq E|X_n-X|^2 \to 0\]
+by the Jensen's inequality and hence
+\[E|X_n-X| \to 0, n\to\infty\]
+which means $EX_n \to EX, n\to\infty$.\par
+e. Notice $EX_n = 1$ and hence we know $EX = 1$. Obviously if $\theta = 1$ then we know $\mu = 0$ which is a contradiction and hence $\theta < 1$. Then notice
+\[
+\theta = P(\lim_{n\to\infty}X_n = 0) = \sum\limits_{k=1}^{\infty}P(\lim_{n\to\infty}X_n = 0|Z_1 = k)p_k = p_kP(\lim_{n\to\infty}X_n = 0)^k = \sum\limits_{k=0}^{\infty}p_kk^{\theta} = \phi(\theta)
+\]
+and hence $\theta = \tau$ since the fixed point is unique on $[0,1)$, and the required conclusion holds.
+\vspace{0.5em}
+
+\subsection*{Ex.3}
+In theorem 5.6.11, further assume that $X\in L^p$ for some $o\geq 1$. Conclude that in Theorem 5.6.11., $X_n = E[X|\F_n] \to E[X|\F_{\infty}]$ in $L^p$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know
+\[|E(X|\F_n)|^p \leq E(|X|^p|\F_n)\]
+by the Jensen's inequality and hnce
+\[E(|X_n|^p) \leq E(|X|^p)\]
+so we know
+\[E(\bar{|X_n|}^p) \leq \Big(\dfrac{p}{p-1}\Big)^p E|X_n|^p \leq\Big(\dfrac{p}{p-1}\Big)^pE(|X|^p) \]
+and hence
+\[E(\sup|X_n|)^p \leq \Big(\dfrac{p}{p-1}\Big)^pE(|X|^p) < \infty\]
+by the MCT and hence
+\[\lim_{n\to\infty}E|X_n-X_{\infty}|^p = E\lim_{n\to\infty}|X_n-X_{\infty}|^p = 0\]
+by the DCT since $|X_n-X_{\infty}|^p \leq 2^p(\sup|X_n|)^p \in L^p$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.4} 
+Let $f:[0,1)\to\R$ be a Borel measurable funciton. In this exercise, we wil show that for each $k\geq 1$, there exists a step function $g_k$ with stepsize $2^{-k}$ such that $||f-g_k||_1\to 0$ as $k\to\infty$, a well-known fact in real analysis. We will use a filteration given by diadic partition and Levy's upward converence theorem.\par
+a. Fix an integer $L\geq 1$ and denote the intervals $I_{L;i} = [\tfrac{i-1}{L},\tfrac{i}{L})$ for $i=1,\cdots,L$ the partition $[0,1)$. Let $U$ be an independent Uniform([0,1)) r.v. and let $\F_L$ denote the $\sigma$-algebra generated by the events $(U\in I_{L;i})$ for $i=1,\cdots,L$. Define
+\[f_L = E[f(U)|\F_L]\]
+Show that $f_L$ is the block average of $f$ over the interval partition $[0,1) = I_{L;1}\sqcup \cdots \sqcup I_{L;L}$ that is for each $\omega \in I_i$ for $i = 1,\cdots,L$
+\[f_L(\omega) = \dfrac{1}{|I_i|}\int_{I_i} f(x)dx\]\par
+b. Now take $L=2^k$ for $k=1,2,\cdots$ Show that $(\F_{2^k})_{k\geq 2}$ defines a filtration and that $f_{2^k}$ is a martingale w.r.t. this filtration. Conclude that
+\[||f_{2^k}-f||_1 \to 0, k\to\infty\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. It suffices to check that
+\[\int_{U\in I_{L;i}} f(U) dP = \int_{I_{L;i}} f(x)dx\]
+and we know
+\[
+\int_{U\in I_{L;i}} f(U) dP = \int f(U)\chi_{I_{L;i}}(U) dP = \int f(x)\chi_{I_{L;i}}(x) dx = \int_{I_{L;i}} f(x)dx
+\]
+and hence the conclusion holds.\par
+
+b. Obviously $\F_{2^k}$ is a filtration and
+\[E(f_{2^k}|\F_{2^{k-1}}) = \sum\limits_{i=1}^{2^{k-1}} \dfrac{1}{|I_{2^{k-1};i}|} \chi_{U\in I_{2^{k-1};i}}\int_{I_{2^{k-1};i}} f_{2^k}dx = \sum\limits_{i=1}^{2^{k-1}} \dfrac{1}{|I_{2^{k-1};i}|} \chi_{U\in I_{2^{k-1};i}}\int_{I_{2^{k-1};i}} f(x)dx = f_{2^{k-1}}\]
+and hence $f_{2^k}$ is a martingale w.r.t $\F_{2^k}$ and hence
+$||f_{2^k} \to E(f(U)|\F_{\infty})$ in $L^1$. Since $\F_{\infty} = \{U\in\mathcal{B}\}$ and hence
+\[||f_{2^k} \to f(U)||_1 \to 0, k\to\infty\]
+Now we let $g_{2^k} = \int_{i=1}^{2^k} \chi_{I_{2^k;i}}\dfrac{1}{|I_{2^k;i}|}\int_{I_{2^k;i}}f(x)dx$ and it is easy to check that $g_{2^k}(U) = f_{2^k}$ and we know
+\[
+\int|g_{2^k} - f| dx = \int|g_{2^k}(U) - f(U)|dP \to 0, k\to\infty
+\]
+and we are done.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Ex.5} 
+A symmetric integrable function $W:[0,1]^2 \to [0,1]$ is called a graphon, a continuum generalization of graphs which also arise as the limit object for sequences of dense graphs. A 'block graphon' is a special graphon that takes constant values over rectangles that partition $[0,1]^2$. Use the approach in Ex.5.6.15 to show that, for each $k\geq 1$, there exists a block graphon $W_k$ with square blocks of side lengths $2^{-k}$ such that
+\[||W-W_k||_1 \to 0, k\to\infty\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know
+\[
+I = \int W (dxdy) = \int \int W(x,y) dx
+dy = \int \int W(x,y) dy dx\]
+by the Fubini's theorem and hence assume
+\[g(x) = \int W(u,x)du = \int W(x,u)du\]
+and we know $g(x) \in L^1([0,1])$, and hence $W(x,\cdot) \in L^1([0,1])$ a.s. for any $\epsilon > 0$ and $y\in [0,1]$, we may find $g^y_{2^k}$ such that
+\[|g^y_{2^k} -W(\cdot,y)|_1 <\epsilon\]
+and it is easy to check that
+\[\int g^y_{2^k}(x) dy = \dfrac{1}{I_{2^k;i}}\int_{I_{2^k;i}\times [0,1]} W\]
+for $y \in I_{2^k;i}$ and hence $g^y_{2^k}(x)$ is in $L^1$ respect to $y$ and for any $\epsilon > 0$ we may find $||\phi_{2^m;x}(y)-g^y_{2^k}(x)||_1 < \epsilon, m \geq k$, then assume $W_{k} = \phi_{2^m;x}|_{I_{2^m;i}}$ on $I_{2^m;i}\times I_{2^m;j}$ if $x\in I_{2^m;j}$, then we know
+\[
+\begin{aligned}
+\int |W-W_k|(dxdy) &\leq \int \int |W-g_{2^k}^x| dy dx + \int\int |g_{2^k}^x(y) - W_k(x,y)| dx dy \\
+& < \epsilon + \epsilon = 2\epsilon 
+\end{aligned}
+\]
+and notice $\epsilon$ is arbitrary and we are done.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett Ex.4.6.4.} 
+\textbf{Sol.} \par
+For any $\omega \in \{\limsup X_n < \infty\}$, we know
+\[M(\omega) < \infty\]
+and then there exists $N(\omega)$ such that
+\[X_n(\omega) < 2M(\omega)\] for all $n\geq N(\omega)$. Then
+\[P(D|X_1,\cdots,X_n)(\omega) \geq \delta(x)\]
+for all $n\geq N(\omega)$. Since $D\in \sigma(X_1,X_2,\cdots)$ by Theorem 4.6.9., we know LHS converges to $\chi_D(\omega)$ for all $\omega \in \{\limsup X_n < \infty\}$ a.s., then we know
+\[\chi_D \geq \delta(x)>0\] for all $\omega \in \{\limsup X_n < \infty\} - E$ where $P(E) = 0$. Then $\chi_D(\omega) = 1$ and hence $\omega \in D$, the rest is easy to be checked.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.6.5.}
+\textbf{Sol.} \par
+Notice
+\[E(\chi_D|X_1,X_2,\cdots,X_n) = \sum\limits_{i=0}^{[x]} \chi_{X_n = i}E(\chi_D|X_1,X_2,\cdots,X_n) \geq \sum\limits_{i=0}^n p_0^i > 0\]
+so we can let $X_n = Z_n$ and we are done by Ex.4.6.4.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.6.6.} 
+\textbf{Sol.} \par
+Notice $X_n$ is a martingale such that
+\[E[X_{n+1}|\F_] = X_n(\alpha +\beta X_n)+(1-X_n)\beta X_n = X_n\]
+Since $|X_n| \leq 1$ for all $n$, it is uniformly integrale and hence $X_n\to X$ a.s. and in $L^1$ for some $X\in L^1$. Then let
+\[B_n = \{X_{n+1} = \alpha+\beta X_n\}\] and $B= \limsup B_n$. For $\omega \in B$ ,
+\[X_{n+1}(\omega) -X_n(\omega) = \alpha(1-X_{n}(\omega))\]
+and hence $X_n$ converges a.s. Then we know
+\[\alpha|1-X_n| < \epsilon, i.o.\]
+and hence
+\[X = 1\] a.s. on $B$. For $\omega \in B^c$, we know
+\[X_{n+1} = \beta X_n\]
+which means $X = 0$ on $B^c$ a.s. and hence $X\in\{0,1\}$.\par
+Since $X_n$ is a martingale, we know $EX_0 = EX_n$, and $EX_n \to EX$ by the DCT and hence
+\[\theta = EX_0 = EX = P(X=1)\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.6.7.} 
+\textbf{Sol.} \par
+Notice that
+\[
+\begin{aligned}
+E|E(Y_n\F_n-E(Y|\F_{\infty}))| &\leq E|E(Y_n|\F_n)- E(Y|\F_n)|+E|E(Y|\F_n) - E(Y|\F_{\infty})| \\
+& \leq E|Y_n-Y|+E|E(Y|\F_n) - E(Y|\F_{\infty})| \to 0, n\to\infty
+\end{aligned}
+\]
+by the Jensen's inequality.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.8.5.} 
+\textbf{Sol.} \par
+a. By Ex.4.8.3., we know
+\[(S_{V_0\wedge n }-(V_0\wedge n)(p-q))^2 - (V_0\wedge n )(1-(p-q)^2)\]
+is a uniformly integrable martingale, and hence
+\[(1-(p-q)^2)EV_0 = E(S_{V_0} - V_0(p-q))^2\]
+and notice $p<1/2, V_0 <\infty$ a.s. and $S_{V_0} = 0$, we know
+\[(1-(p-q)^2)EV_0 = (p-q)^2 EV_0^2\]
+and hence
+\[EV_0^2 = \dfrac{1-(p-q)^2}{(q-p)^3}x\]\par
+b. We know $EV_0^2 = 0$ where $x = 0$ and it is easy to check that $EV_0^2$ is linear respect to $x$ by Theorem 4.8.9.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.8.6.} 
+\textbf{Sol.} \par
+a. Assume $\phi(\theta) = Ee^{\theta\xi_i}$ and $X_n = e^{\theta S_n}/\phi(\theta)^n$. Then $X_n$ will become a martingale and hence
+\[e^{\theta x} = EX_0 = EX_{V_0\wedge n} = E\dfrac{e^{\theta S_{V_0\wedge n}}}{\phi(\theta)^{V_0\wedge n}}\]
+and notice $\theta \leq 0$ and $S_{V_0\wedge n} \geq 0, e^{\theta S_{V_0 \wedge n}} \leq 1$ and $\phi(\theta) \geq 1$. Then we know
+\[e^{\theta x} = E\dfrac{e^{\theta S_{V_0\wedge n}}}{\phi(\theta)^{V_0\wedge n}} \to E\dfrac{e^{\theta S_{V_0}}}{\phi(\theta)^{V_0}} = E\phi(\theta)^{-V_0}\]
+by the DCT.\par
+b. Since $\phi(\theta) = 1/s$, we get $pe^{2\theta} - e^{\theta}/s + q = 0$ and we have
+\[e^{\theta} = \dfrac{1-\sqrt{1-4pqs^2}}{2ps}\]
+and then
+\[Es^{V_0} = \Big(\dfrac{1-\sqrt{1-4pqs^2}}{2ps}\Big)^x\]
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.8.7.} 
+\textbf{Sol.} \par
+Notice that $E(S_{n+1}^4|\F_n) = S_n^4 + 6S_n^2+1$ and $E(S_{n+1}^2|\F_n) = S_n^2 + 1$. Since $E(Y_{n+1}|\F_n) = Y_n$, we know
+\[(2b-6)n + (b+c-5) = 0\]
+and hence $b=3,c=2$. Then by $EY_0 = EY_{T\wedge n}$ and we know
+\[ 0 = ES_{T\wedge n}^4 - 6E(T\wedge n)S_{T\wedge n}^2 + 3E(T\wedge n)^2 +ET\wedge n\]
+and hence 
+\[ 0 = a^4 - 6a^2 + 3ET^2 + 2ET\]
+by the DCT and MCT and then
+\[ET^2 = \dfrac{5a^4-2a^2}{3}\]
+since $ET = a^2$.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Durrett 4.8.11.} 
+\textbf{Sol.} \par
+Assume
+\[\phi(\theta) = Ee^{\theta\xi} = e^{((c-\mu)\theta + \sigma^2\theta^2/2)}\]
+and notice $\theta_0 = -2(c-\mu)/\sigma^2$ satisfies $\phi(\theta_0) = 1$. For this $\theta_0$, $X_n = e^{\theta_0S_n}$ will be a martingale and let $T = \inf\{S_n \leq 0\}$. By Ex.4.8.8. we know $X_{T\wedge n}$ is a uniformly integrable martingale and hence
+\[Ee^{\theta_0S_0} = Ee^{\theta_0S_T} \geq E(e^{\theta_0S_T};T<\infty) \geq P(T<\infty)\]
+and let $\theta_0 = -2(c-\mu)/\sigma^2$ will be fine. 
+\prvd
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}
