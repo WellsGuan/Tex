@@ -1,0 +1,224 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework06 - MATH 734}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Pb}{\mathbb{P}}
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Notation}
+Here I use $X \wedge Y$ for $\min(X,Y)$ and $X\vee Y$ for $\max(X,Y)$. r.v. for random variable.
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1} 
+Show the following implications
+\[\rho_{xx} > 0\Leftrightarrow P^m(x,x) > 0\text{ for some }m\geq 1\]
+\begin{proof}
+We know
+\[\rho_{xx} = P_x(\tau_x^{+} < \infty) = \sum\limits_{n\geq 1}P_x(Z_n = x, Z_k \neq x\text{ for }1\leq k \leq n-1)\]
+and
+\[
+P^m(x,x) = \sum\limits_{n= 1}^m P_x(Z_n = x, Z_k \neq x\text{ for }1\leq k \leq n-1)P^{m-n}(x,x)
+\]
+by Markov property and since $P^{0}(x,x) = 1$, we are done.
+\end{proof}
+
+\subsection*{Ex.2} 
+Fix states $x,y \in S$ and let $\tau_y^{(m)}$ denote the time of mth visit to $y$. Then for each $m\geq 1$, show that
+\[P_x(\tau_y^{(m)} < \infty) = \rho_{xy}\rho_{yy}^{m-1}\]
+\begin{proof}
+   Let use the induction to $m$, we know
+   \[
+   \begin{aligned}
+    P_x(\tau_y^{m+1} < \infty) &= \sum\limits_{1\leq n_1 < \cdots < n_{m+1}} P_x(Z_{n_i} = y, 1\leq i \leq m+1, Z_k \neq y, k\in [1,n_{m+1})-\{n_i\}_{i=1}^m)\\
+    &= \sum\limits_{1\leq n_1 < \cdots < n_{m}, n_{m+1}>n_{m}} P_x(Z_{n_i} = y, 1\leq i \leq m, Z_k \neq y, k\in [1,n_{m})-\{n_i\}_{i=1}^{m-1})\\ &P(Z_{n_{m+1}} = y,Z_k \neq y, k \in (n_m,n_{m+1})|Z_{n_m} = y)\\
+    &= \rho_{yy}\sum\limits_{1\leq n_1 < \cdots < n_{m}, n_{m+1}>n_{m}} P_x(Z_{n_i} = y, 1\leq i \leq m, Z_k \neq y, k\in [1,n_{m})-\{n_i\}_{i=1}^{m-1})\\
+    &= \rho_{xy}\rho^m_{yy}
+   \end{aligned}
+   \]
+    by the induction assumption and we are done.
+\end{proof}
+
+\subsection*{Ex.3}
+Let $P$ be a Markov transition Matrix on a finite state space. Show that the spectral radius of $P$ is one.
+\begin{proof}
+    Consider the diagonlization of $P$ as
+    \[
+    P = S\Lambda S^{-1}
+    \]
+    where $\Lambda$ is the eigenmatrix of $P$, then by Gershogin circle theorem, we know all eigenvalues are in $\bigcup_{i}B_(P_{ii}, 1-P_{ii})$ and since $P^n = S\Lambda^n S^{-}$ is still stochastic, so we know the eigenvalue of $P$ has to be $1$. So we know
+    \[
+    1/\limsup_{n\to\infty}|P^n(x,y)|^{1/n} = 1/\lambda_0 = 1
+    \]
+    where $\lambda_0$ is the largest eigenvalue of $P$.
+\end{proof}
+
+\subsection*{Ex.4} 
+Let $P$ be an irreducible transition matrix on a finite state space $S$ and let $h$ be a $P$-harmonic function on $S$. Show that $h$ is a constant function.
+\begin{proof}
+    We know for any $x,y\in S$
+    \[
+    h(x) = \sum\limits_{y\in X}p^{(n)}(x,y)h(y)
+    \]
+    and let $h(x) = \max_{x\in X} h$ and we will have
+    \[
+    p^{(n)}(x,y)h(x) \leq p^{(n)}(x,y)h(y)
+    \]
+    and choose $n$ such that $p^{(n)}(x,y) > 0$ since $P$ is irreducible and we have $h(x) = h(y)$.
+\end{proof}
+
+\subsection*{Ex.5} 
+Let $x,y$ be two communicating states, meaning that there exists a positive probability to reach $y$ from $x$ and vice versa. Show that if one is positive recurrent, then so is the other.
+\begin{proof}
+    Assume $E_x(t^x) < \infty $ i.e.
+    \[
+    \sum\limits_{n\geq 0} p^{(n)}(x,x) = \sum\limits_{n\geq 0} nP_x(t^x = n) < \infty
+    \]
+    and we know
+    \[
+    \begin{aligned}
+    p^{(k)}(x,y)E_y(s^y)p^{(l)}(y,x) &= \sum\limits_{n\geq 0}p^{(k)}(x,y)p^{(n)}(y,y)p^{(l)}(y,x)\\
+    & \leq \sum\limits_{n\geq 0}p^{(n+k+l)}(x,x) \\
+    & \leq E_x(t^x)
+    \end{aligned}
+    \]
+    anf let $k,l$ such that $p^{(k)}(x,y),p^{(l)}(y,x) > 0$ and we are done.
+\end{proof}
+
+\subsection*{Ex.6} 
+Let $P$ be a Markov transition matrix on a countable state space $S$ with a stationary distribution $\pi$.\par
+a. Define
+\[d(t) = \sup_x ||P^t(x,\cdot)-\pi||_{TV},\quad \hat{d}(t) = \sup_{x,y}||P^t(x,\cdot) - P^t(y,\cdot)||_{TV}\]
+Show that $d(t) \leq \hat{d}(t) \leq 2d(t)$.\par
+b. Show that $\hat{d}(s+t) \leq \hat{d}(s)\hat{d}(t)$.\par
+c. Show that $d(lt_{mix}) \leq 2^{-l}$.
+\begin{proof}
+a. It suffcies to show that
+\[
+\sup_x\sum\limits_{z\in S}|P^t(x,z) - \pi(z)| \leq \sup_{x,y}\sum\limits_{z\in S}|P^t(x,z) - P^t(y,z)|
+\]
+and 
+\[
+\sup_{x,y}\sum\limits_{z\in S}|P^t(x,z) - P^t(y,z)| \leq 2\sup_{x}\sum\limits_{z\in S}|P^t(x,z) - \pi(z)|
+\]
+the second inequality is trivial and notice
+\[
+\pi(z) = \sum\limits_{y\in S}\pi(y)P^t(y,z)
+\]
+and hence
+\[
+\sum\limits_{z\in S}|p^t(x,z) - \pi(z)| = \sum\limits_{z\in S}|\sum\limits_{y\in S}\pi(y)(p^{t}(x,z)-p^t(y,z))| \leq \sum\limits_{y\in S}\pi(y)\sum\limits_{z\in S}|P^t(x,z) - P^t(y,z)|
+\]
+and hence $d(t) \leq \hat{d}(t)$.\par
+b. Consider independent coupling of $P^t(x,\cdot), P^t(y,\cdot)$ as $X_x^t, Y_y^t$ and we know
+\[
+p^{s+t}(x,y) = \sum\limits_{w\in S}P(X_x^s = w, X_w^t = y)
+\]
+and then we may know that $X_{X_x^s}^t, Y_{Y_y^s}^t$ is a coupling of $p^{s+t}(x,\cdot), p^{s+t}(y,\cdot)$ and then we know
+\[
+P(X_{X_x^s}^t \neq Y_{Y_y^s}^t) \leq \hat{d}(s)\hat{d}(t)
+\]
+and we are done.\par
+c. It suffices to show that $\hat{d}(t_{mix}) \leq 2^{-1}$, which can be induced by
+\[\hat{d}(t_{mix}) \leq 2d(t_{mix}) \leq w^{-1}\]
+\end{proof}
+
+\subsection*{Ex.7}
+Let $X_t$ be a random walk on a connected graph $G(V,E)$\par
+a. Show that all nodes have the same period.\par
+b. If $G$ contains an odd cycle $C$, show that all nodes in $C$ have period $1$.\par
+c. Show that $X_t$ is a aperiodic if and only if $G$ contains an odd cycle.\par
+d. Show that $X_t$ is periodic if and only if $G$ is bipartite.
+\begin{proof}
+    a. Assume $(X,P)$ to be the Markov chain $X_t$ and for any $x,y\in a$, we know there exists $k,l$ such that
+    \[p^{(k)}(x,y), p^{(l)}(y,x) > 0\]
+    and hence denote the period of $x$ to be $n_x$.
+    \[n_x | k+l,\quad n_y | l+k\]
+    and so we know for any $m$ such that $p^{(m)}(y,y) > 0$, we know
+    \[
+    n_x | k+l+m
+    \]
+    and hence $n_x|n_y$ since $p^{(k+m+l)}(x,x) > 0$ and $n_x|m$ for any $m \in T(y)$ and similarly we know $n_y | n_x$ and hence $n_x = n_y$ for any $x,y\in X$.\par
+    b. We know $p^{(2)}(x,x) \geq p(x,y)p(y,x) > 0$ for any $y$ connect to $x$, and also \[p^{(k)}(x,x) \geq p(x,x_1),\cdots p(x_k,x)>0\] for $x$ in an odd cirble and hence $n_x|2$ and $n_x|k$ for some $k$ odd and hence $n_x = 1$.\par
+    Here we only prove the suffiencies of (c) aand (d) and the necessities come up automatically.\par
+    c. Induced by (a) and (b).\par
+    d. From (c), we know $n_x | 2$ for any $x\in X$ and if $X_t$ is periodic, then $n_x = 2$ for any $x\in X$ so we know there is no odd circle in the graph and we may choose any $x\in X$ and color it as $B$ and any $y$ should be $R$ with the length from $y$ to $x$ is odd, else $B$, and we know it is well-defined since there is no odd circle.\par
+    Then we know any points with the same color is not connected directly and hence $G$ will become a bipartite.
+\end{proof}
+
+
+\subsection*{Ex.8} 
+Let $P$ be an irreducible transition matrix for a Markov chain on $S$. Let $Q$ be a matrix on $S\times S$ defined by
+\[Q((x,y),(z,w)) = P(x,z)P(y,w)\]\par
+a. Consider a Markov chain $Z_t = (X_t,Y_t)$ on $S\times S$ that evolves by indeoendently evolving its two coordinates according to $P$. Show that $Q$ above is the transition matrix for $Z_i$.\par
+b. Show that $Q$ is irreducible if $P$ is aperiodic.
+\begin{proof}
+a. We know
+\[
+\begin{aligned}
+P(Z_{n+1} = (z,w)|Z_n = (x,y)) &= P(Z_1 = (z,w)|Z_0 = (x,y)) \\ &= \dfrac{P(X_1 = z, X_0 = x)P(Y_1 = w, Y_0 = y)}{P(X_0 
+= x)P(Y_0 = y)}\\ &= p(x,z)p(y,w)
+\end{aligned}
+\]\par
+b. For any $x,y \in S$, there will be $k,l$ and $m$ such that $p^{(k)}(x,x),p^{(l)}(y,y) >0$ and $k,l$ coprime and then we know there exists $n,m$ such that $p^{(n)}(x,z), p^{(m)}(y,w) > 0$. Then we know there has to be $s,t$ such that $sk + n = tl + m = N$ and it is easy to check $p^{(N)}(x,z)p^{(N)}(y,w) > 0$. 
+\end{proof}
+
+\subsection*{Ex.9} 
+Let $(X_t)_{t\geq 0}$ be a RW on a connected graph $G = (V,E)$. Let $P$ denote its transtion matrix. Suppose $G$ contains an odd cycle, so that the walk is irreducible and aperiodic. Foe each $x\in V$, let $T(x)$ denote the set of all possible return times to the state $x$.\par
+a. For any $x\in V$, show that $a,b\in T(x)$ implies $a+b\in T(x)$.\par
+b. For any $x\in V$, show that $T(x)$ contains $2$ and some odd integer $b$.\par
+c. For each $x\in V$, let $b_x$ be the smallest odd integer contained in $T(x)
+$. Show that $m \in T(x)$ whenever $m\geq b_x$.\par
+d. Let $b^* = \max_{x\in V}b_x$. Show that $m\in T(x)$ for all $x\in V$ whenever $m\geq b^*$.\par
+e. Let $r = |V| + b^*$. Show that $P^r(x,y) > 0$ for all $x,y\in V$.
+\begin{proof}
+    a. For any $a,b\in T(x)$, we know $p^{(a)}(x,x), p^{(b)}(x,x) > 0$ and hence
+    \[
+    p^{(a+b)}(x,x) \geq p^{(a)}(x,x)p^{(b)}(x,x) > 0
+    \]\par
+    b. Consider the proof of Ex.7 and we are done.\par
+    c. For any $q > b_x$ even, obviously $q \in T(x)$ and for those even we know $q - b_x = 2m$ for some $m$ and we are done by (a).\par
+    d. Induced by (c) directly.\par
+    e. We know there exists $m \leq |V|$ such that $P^{(m)}(x,y) > 0$ and since $P^{(|V|-m+b^+)}(y,y) > 0$ and we are done. 
+\end{proof}
+
+\subsection*{Ex. 10}
+Let $P$ be the transition matrix of a Markov chain $X_t$ on a finite state space $S$. Show that (a) implies (b).\par
+a. $P$ is irreducible and aperiodic.\par
+b. There exists an integer $r\geq 0$ such that every entry of $P^r$ is positive.\par
+Furthermore, show that (b) implies (a) if $X_t$ is a RW on some graph $G$.
+\begin{proof}
+    (a) implies (b), we only need to choose a multiply of $n_{x,y}$ such that $p^{n_{x,y}}(x,y) > 0$ and we are done.\par
+    (b) implies (a) and since $P^{r+1}$ is stochastic and we know there know has to be $y$ such that $P^{r+1} > 0$ since if not then $P^{r +1}$ will be $y$ such that $P^{r+1}(y,y)> 0$ since $P$ is stochastic, and the we know $P$ is aperiodic and $P$ is irreducible is trivial.
+\end{proof}
+
+\addappheadtotoc
+
+\end{document}

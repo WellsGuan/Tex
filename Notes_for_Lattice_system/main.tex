@@ -1,0 +1,177 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Durrett Ed5}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\EL}{\overline{L}}
+\newcommand{\Hil}{\mathcal{H}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+\chapter{Preliminaries}
+
+\begin{lemma}
+    Denote $A,B,C,D$ are $N\times N$ matrices and we will have
+    \[
+    1_{\det A \neq 0}\det\left[\begin{array}{cc}
+        A & B \\
+        C & D
+    \end{array}\right] = \det\left(\left[\begin{array}{cc}
+        A & 0 \\
+        C & D-CA^{-1}B
+    \end{array}\right]\left[\begin{array}{cc}
+        1 & A^{-1}B \\
+        0 & 1
+    \end{array}\right]\right) = \det A \det (D-CA^{-1}B)
+    \]
+\end{lemma}
+
+\begin{lemma}
+    
+\end{lemma}
+
+\chapter{Real Wigner Matrix}
+
+\section{Wigner theorem}
+
+\begin{definition}
+    $Z_{i,j}, i<j, Y_i$ are two independent families of i.i.d., zero mean and real-valued random variables with $EZ_{1,2}^2 = 1$ and
+    \[r_k := \max(E|Z_{1,2}|^k,E|Y_1|^k) < \infty\]
+    and we call 
+    \[X_N(j,i) = X_N(i,j) = Z_{i,j}/\sqrt{N}(i<j) + Y_i/\sqrt{N}(i=j)\]
+    a Wigner matrix, and if $Z_{i,j},Y_i$ are Gaussian, we call it Gaussian Wigner matrix.\par
+    Let $\lambda_i^N$ be the eigenvalues of $X_N$ with $\lambda_1^N \leq \lambda_2^N \leq \cdots \leq \lambda_N^N$ and define the empirical distribution to be
+    \[L_N = \dfrac{1}{N}\sum\limits_{i=1}^N\delta_{\lambda_i^N}\]
+    and the standard semicirble distribution as $\sigma(x)dx$ with
+    \[
+    \sigma(x) = \dfrac{1}{2\pi}\sqrt{4-x^2}\chi_{|x|\leq 2}
+    \]
+\end{definition}
+
+\begin{theorem}
+    For a Wigner matrix, the empirical measure $L_N$ converges weakly in probability to the standard semicircle distribution, i.e. for any $f\in C_b(\R),\epsilon > 0$
+    \[
+    \lim_{N\to\infty}P(|\langle L_N,f|-|\langle \sigma,f\rangle| > \epsilon) = 0
+    \]
+\end{theorem}
+
+\begin{theorem}
+    Define the moments $m_k : = \langle ,\sigma,x^k\rangle$ and we will have
+    \[m_{2k} = C_k, m_{2k+1} = 0\]
+    where $C_k$ is the Catalan numbers
+    \[
+    C_k = C_{2k}^k/(k+1)
+    \]
+\end{theorem}
+
+\begin{definition}
+    Define the ditribution $\EL_N = EL_N$ by $\langle \EL_N, f\rangle = E\langle L_N,f\rangle$ for $f\in C_b$ and $m_k^N := \langle \EL_N, x^k\rangle $.
+\end{definition}
+
+\begin{lemma}
+    a. For $k\in \N$, we have $\lim_{N\to\infty} m_k^N = m_k$.\par
+    b. For $k\in \N$ and $\epsilon > 0$, we have
+    \[\lim_{N\to\infty} P(|\langle L_N, x^k| - \langle \EL_N,x^k\rangle | > \epsilon) = 0\]
+\end{lemma}
+
+\begin{lemma}
+    (Hoffman-Wielandt) Let $A,B$ be $N\times N$ symmetric matrices, with eigenvalues $\lambda_1^A \leq \lambda_2^A \leq \cdots \leq \lambda_N^A$ and $\lambda_1^B \leq \lambda_2^B \leq \cdots \leq \lambda_N^B$, then
+    \[\sum\limits_{i=1}^N|\lambda_i^A - \lambda_i^B|^2 \leq tr(A-B)^2\]
+\end{lemma}
+
+\begin{theorem}
+    (Maximal eigenvalue) Consider a Wigner matrix $X_N$ satisfying $r_k \leq k^{Ck}$ for some constant $C$ and all $k\in\N$, we will have $\lambda_N^N$ converges to $2$ in probability.
+\end{theorem}
+
+\begin{theorem}
+    (CLT for linear statistics of eigenvalues of Wigner matrices)Denote $W_{N,k} : = N(\langle L_N,x^k\rangle - \langle \EL_N,x^k\rangle)$ then we will have
+    \[
+    \lim_{N\to\infty}P\Big(\dfrac{W_{N,k}}{\sigma_k} \leq x\Big) = \phi(x)
+    \]
+    where $\phi$ is the Gaussian distribution and
+    \[
+    \sigma^2_k = \lim_{N\to\infty}EW_{N,k}^2
+    \]
+\end{theorem}
+
+\section{Complex Wigner matrices}
+
+\begin{definition}
+    For two independent families of i.i.d. complex-valued random variables $Z_{i,j}, i<j, Y_i$ such that $EZ_{1,2}^2 = 0, E|Z_{1,2}|^2 = 1$ and
+    \[r_k := \max(E|Z_{1,2}|^k,E|Y_1|^k) < \infty\]
+    and $N\times N$ matrix $X_N$ with
+    \[X_N(j,i)^* = X_N(i,j) = Z_{i,j}/\sqrt{N}(i<j) + Y_i/\sqrt{N}(i=j)\]
+    is a Hermitian Wigner matrix and define the Gaussian Hermitian Wigner matrix similarly. Since the eigenvalues are real, we may use the old denotation.
+\end{definition}
+
+\begin{theorem}
+    For a Hermimtian Wigner matrix, the empirical measure $L_N$ converges weakly in probability to the standard semicircle distribution, i.e. for any $f\in C_b(\R),\epsilon > 0$
+    \[
+    \lim_{N\to\infty}P(|\langle L_N,f|-|\langle \sigma,f\rangle| > \epsilon) = 0
+    \]
+\end{theorem}
+
+\begin{lemma}
+    a. For $k\in \N$, we have $\lim_{N\to\infty} m_k^N = m_k$.\par
+    b. For $k\in \N$ and $\epsilon > 0$, we have
+    \[\lim_{N\to\infty} P(|\langle L_N, x^k| - \langle \EL_N,x^k\rangle | > \epsilon) = 0\]
+\end{lemma}
+
+\begin{definition}
+    Let $\xi_{i,j},\eta_{i,j}$ to be an i,i,d, family of real mean $0$ and variance $1$ Gaussian random variables. We define $P_i^{(1)}$ to be the laws of the random matrices $(Z_{i,j}), Z_{i,i} = \sqrt{2}\xi_{i,i}, Z_{i,j} = Z_{j,i} = \xi_{i,j}, i<j$ and $P_i^{(2)}$ is that of $(U_{i,j}), U_{i,i} = \xi_{i,i}, U_{i,j} = \overline{U_{j,i}} = \dfrac{\xi_{i,j}+i\eta_{i,j}}{\sqrt{2}}, i<j$. A random matrix $X\in \Hil_N^{(\beta)}$ with law $P_N^{(\beta)}$ is said to belong to Gaussian orthogonal ensemble (GOE) or Gaussian unitrary ensemble (GUE).
+\end{definition}
+
+We know for $X(N)$ in GOR or GUE, we will have $X_N := X(N)/\sqrt{N}$ tends to the semicircle law.
+
+\chapter{}
+
+\section{The method of Laplace}
+
+The method is aiming to deal with an asymptotic integral like
+\[\int f(t)^{s}g(t)dt\]
+when $s\to \infty$, with the condition for $f:\R\to\R^+$ and constant $a$ and positive constants $s_0,K,L,M$ and $\mathcal{G}(a,\epsilon_0,s_0,f,K,L,M)$ to be all measurable functions $g$ such that\par
+a. $|g(a)| \leq K$\par
+b. $\sup_{0<|x-a|\leq\epsilon_0} \left|\dfrac{g(x)-g(a)}{x-a}\right| \leq L$\par
+c. $\int f(x)^{s_0}|g(x)|dx \leq M$ then
+
+\begin{theorem}
+    (Laplace) Let $f:\R \to \R^+$ be a function such that for some $a\in \R$ and some positive constants $\epsilon_0,c$ and\par
+    a. $f(x)\leq f(x')$ if $a-\epsilon_0 \leq x \leq x' \leq a$ or $a\leq x'\leq x\leq a+\epsilon_0$.\par
+    b. For all $\epsilon < \epsilon_0$, $\sup_{|x-a|>\epsilon}f(x) \leq f(a) - c\epsilon^2$.\par
+    c. $f(x)$ has two continuous derivatives in $(a-2\epsilon_0,a+2\epsilon_0)$.\par
+    d. $f''(a) < 0$.\par
+    Then for any $g\in \mathcal{G}(a,\epsilon_0,s_0,f,K,L,M) $ we have
+    \[
+    \lim_{s\to \infty}\sqrt{s}f(a)^{-s}\int f(x)^sg(x)dx = \sqrt{-\dfrac{2\pi f(a)}{f''(a)}}g(a)
+    \]
+    and for fixed $a,\epsilon,s_0,K,L,M$ for $g\in \mathcal{G}(a,\epsilon_0,s_0,f,K,L,M)$ the convergence is uniform.
+\end{theorem}
+
+\end{document}

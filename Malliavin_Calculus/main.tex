@@ -384,8 +384,317 @@ Check Durrett Theorem 7.2.1.
     \[E(e^{-\alpha\tau_a}) = e^{-\sqrt{2\alpha}a}\]
 \end{proposition}
 
-\begin{theorem}
-    
-\end{theorem}
+\section{Stochastic Integrals}
+
+\begin{definition}
+    We say that a stochastic process $u_t$ is progressively measurable if, for any $t\geq 0$ the restriction of $u$ to $\Omega\times [0,t]$ is $\F_t\times B([0,t])$-measurable.
+\end{definition}
+
+\begin{definition}
+    Let $P$ be the $\sigma$-field of sets $A\subset \Omega \times \R^+$ such that $\chi_A$ is progressivelyy measurable. We denote by $L^2(P)$ the Hilbert space $L^2(\Omega\times \R^+, P, P\times m)$ equipped the norm
+    \[
+    ||u||^2 = E(\int_0^{\infty} u_s^2ds) = \int_0^{\infty}Eu_s^2 ds
+    \]
+    bu Fubini's theorem.
+\end{definition}
+
+\begin{definition}
+    A process $u = u_t$ is called a simple process if it is of the form
+    \[u_t = \sum\limits_{j=0}^{n-1}\phi_j \chi_{(t_j,t_{j+1}]}(t)\]
+    where $0\leq t_0 < t_1 < \cdots < t_n$ and the $\phi_j$ are $\F_{t_j}$-measurable random variables such that $E\phi_j^2 < \infty$ and denote the space of simple processes as $\mathcal{E}$.\par
+    We define the stochastic integral of a process $u\in \mathcal{E}$ of $u_t$ as
+    \[
+    I(u) = \int_0^{\infty} u_tdB_t = \sum\limits_{j=0}^{n-1}\phi_j(B_{t_{j+1}}-B_{t_j})
+    \]
+\end{definition}
+Here it is easy to see that $\phi_j \chi_{(t_j,t_{j+1}]}(t)$ is progressively measurable.
+
+\begin{proposition}
+    Here are some properties of stochatic integrals.\par
+    a. For any $a,b\in \R$ and simple process $u,v \in \mathcal{E}$, we know
+    \[
+    \int_0^{\infty}(au_t + bv_t)dB_t = a\int_0^{\infty}u_t dB_t + b\int_0^{\infty} v_tdB_t
+    \]\par
+    b. For any $u\in \mathcal{E}$, we have
+    \[
+    E(\int_0^\infty{u_t}dB_t) = 0
+    \]\par
+    c. For any $u\in\mathcal{E}$, we know
+    \[
+    E\Big(\Big(\int_0^{\infty} u_tdB_t\Big)^2\Big) = E\Big(\int_0^{\infty} u_t^2 dt\Big)
+    \]
+\end{proposition}
+\begin{proof}
+    (a) is trivial. (b) can be shown by the independence of $\phi_j$ and $B_{t_{j+1}}- B_{t_{j}}$. (c) Can be shown by
+    \[
+    E\Big(\Big(\int_0^{\infty} u_tdB_t\Big)^2\Big) = E(\Big(\sum\limits_{j=0}^{n-1} \phi_j (B_{t_{j+1}}- B_{t_j})\Big)^2) = \sum\limits_{j=0}^{n-1} E\phi_j^2(t_{j+1}-t_j)
+    \]
+\end{proof}
+
+\begin{proposition}
+    The space $\mathcal{E}$ of simple processes is dense in $L^2(P)$.
+\end{proposition}
+\begin{proof}
+    For $u \in L^2(P)$, we define
+    \[
+    u_t^{(n)} = n\int_{(t-1/n)\wedge 0}^t u_s ds
+    \]
+    we know $u_t^{(n)}$ is continuous as $\R \to L^2(\Omega)$ and hence we also know
+    \[
+    \lim_{n\to\infty}E\Big(\int_0^{\infty} |u_t - u_t^{(n)}|^2 dt\Big) = 0
+    \]
+    since $\lim_{n\to \infty} u_t^{(n)} = u_t$ a.s. by Lebesgue differential, then we may know the limit above holds by the DCT since
+    \[
+    \int_0^{\infty}|u_t^{(n)}(\omega)|^2 dt = \int_0^{\infty}n^2|\int_{t-1/n}^tu_s(\omega)ds|^2 dt \leq ||u_t||_2^2
+    \]
+    where $f(s,t) = u_s\chi_{(t-1/n,t]}$ by the Minkowski's inequaility of integrals.\par
+    For $u\in L^2(P)$ continuous in $L^2(\Omega)$, we define
+    \[
+    u_t^{(n,N)} = \sum\limits_{j=0}^{(n,N)}u_{t_j}\chi_{(t_j,t_{j+1}]}(t)
+    \]
+    where $t_j = jN/n$. The continuity in $L^2(\Omega)$ implies that
+    \[
+    E\Big(\int_0^{\int}|u_t-u_t^{n,N}|^2 dt\Big) \leq E\Big(\int_N^{\infty} u_t^2 dt\Big) + N\sup_{|t-s| \leq N/n, t,s \leq N}E(|u_t-u_s|^2)
+    \]
+    and we let $N\to\infty$ and $n\to\infty$ we may get the conclusion.
+\end{proof}
+
+\begin{proposition}
+    The stochastic integral can be extended to a linear isometry.
+\end{proposition}
+
+\begin{proposition}
+    Here are some properties, for any $u,v\in L^2(P)$, we know
+    \[
+    E(I(u)) = 0,\quad E(I(u)I(v)) = E(\int_0^{\infty} u_sv_s ds)
+    \]
+    and for any $T$ we set
+    \[
+    \int_0^T u_s dB_s = \int_0^{\infty} u_s\chi_{[0,T]}(s)dB_s
+    \]
+    which is the indefinite integral of $u$ with respect to $B$, where requiring $u\in L^2_T(P)$.
+\end{proposition}
+
+\begin{definition}
+    Define $L^2_{\infty}(P)$ the set of progressively processes such that
+    \[
+    E\Big(\int_0^t u_s^2 ds\Big) < \infty
+    \]
+    for each $t>0$, for any process $u\in L^2_{\infty}(P)$, we can define the indefinite integral process
+    \[
+    \int_0^t u_s dB_s
+    \]
+\end{definition}
+
+\begin{proposition}
+    Here are some properties of indefinite integral process.\par
+    a. For any $a\leq b \leq c$, we have
+    \[
+    \int_a^b u_s dB_s + \int_b^c u_s dB_s = \int_a^c u_s dB_s
+    \]\par
+    b. If $a<b$ and $F$ is a bounded and $\F_a$-measurable random variable then
+    \[
+    \int_a^b Fu_sdB_s = F\int_a^b u_s dB_s
+    \]\par
+    c. Let $u\in L^2{\infty}(P)$, then the indefinite stochastic integral
+    \[
+    M_t = \int_0^t u_sdB_s, t\geq 0
+    \]
+    is a square integrable martingale w.r.t. the filtration $\F_t$ and admits a continuous version.
+\end{proposition}
+
+\begin{proof}
+    (a) is trivial. For (b), we only need to consider $u_t^{(n)}$ simple and converging to $u_t$ in $L^2(P)$, and we have
+    \[
+    \int_a^b Fu_s^{(n)}dB_s = F\sum\phi_{t_j}(B_{t_{j+1}-B_{t_j}}) = F\int_a^b u_s^{(n)}dB_s
+    \]
+    and we are done since $F$ is bounded.\par
+    (c) For a simple process
+    \[
+    u_t = \sum\limits_{j=0}^{n-1}\phi_j \chi_{(t_j,t_{j+1}]}(t)
+    \]
+    then we know
+    \[
+    \begin{aligned}
+    E\Big(\int_0^t u_vdB_v\Big| \F_s\Big) &= \sum\limits_{j=0}^{n-1}E(\phi_j(B_{t_{j+1}\wedge t} - B_{t_j\wedge t})\Big|\F_s) \\
+    &= \sum\limits_{j=0}^{n-1}E(E\Big(\phi_j(B_{t_{j+1}\wedge t} - B_{t_j\wedge t}\Big|\F_{t_j \wedge s}\Big))\Big|\F_s) \\
+    &= \int_0^s u_v dB_v
+    \end{aligned}
+    \]
+    and hence we know $M_t$ is an $\F_t$-martingale if $u$ is simple. For $T>0$, let $u^{(n)}$ converges to $u$ in $L^2_T(P)$, then we know $t\in [0,T]$, we have
+    \[
+    \int_0^t u_s^{(n)} dB_s \to \int_0^t u_s dB_s
+    \]
+    in $L^2(\Omega)$ and we know the convergence of the conditional expectiations by $E(Z(X-E(X\F))) = 0$ for any $Z\in L^2(\F)$ and hence $\int_0^t u_s dB_s$ is a martingale.\par
+    To show that the indefinite integral has a continuous version. Let $u\in L^2$ and fix $T>0$. Consider a sequence of simple processed $u^{(n)}$ which convereges to $u$ in $L^2_T(P)$, by the continuity of the paths of Brownian motion, we know
+    \[
+    M_t^{(n)} = \int_0^t u_s^{(n)}dB_s
+    \]
+    has continuous trajectories. Then  since $M^{(n)}$ is a martingale, so we know
+    \[
+    \begin{aligned}
+    P\Big(\sup_{0\leq t\leq T}|M_t^{(n)} - M_t^{(m)}| > \lambda\Big) &\leq \dfrac{1}{\lambda^2}E\Big(|M_t^{(n)} - M_t^{(m)}|^2\Big) \\
+    & = \dfrac{1}{\lambda^2}E\Big(\int_0^T |u_t^{(n)} - u_t^{(m)}|\Big) \to 0
+    \end{aligned}
+    \]
+    as $n,m \to \infty$ and we may choose $n_k$ such that
+    \[
+    P\Big(\sup_{0\leq t\leq T}|M_t^{(n_{k+1}) - M_t^{(n_k)}}| > 2^{-k}\Big) \leq 2^{-k}
+    \]
+    and we may know that for any $\omega \in \Omega$, there is $k_1(\omega)$ such that
+    \[
+    \sup_{0\leq t\leq T}|M_t^{(n_{k+1})}(\omega) - M_t^{(n_{k})}(\omega)| \leq 2^{-k}
+    \]
+    has probability of $1$ and then we know $M_t^{(n_k)}(\omega)$ is uniformly convergent to a continuous function $J_t(\omega)$ a.s. and then we know $J_t(\omega) = \int_0^t u_s dB_s$ a.s. Then we may choose different $t$ and construct a continuous version of $\int_0^t u_s dB_s$ inductively.
+\end{proof}
+
+\begin{proposition}
+    For any $T,\lambda > 0$ and $u\in L^2_{\infty}(P)$, we know
+    \[
+    P\Big(\sup_{t\in [0,T]} |M_t| > \lambda \Big) \leq \dfrac{1}{\lambda^2}E\Big(\int_0^T u_t^2 dt\Big)
+    \]
+    and
+    \[
+    E\Big(\sup_{t\in [0,T]}|M_t|^2 \leq 4 E(\int_0^T u_t^2 dt)\Big)
+    \]
+    by Doob's inequality and $L^p$ maxmium inequalities.
+\end{proposition}
+
+\begin{proposition}
+    Let $u \in L^2_{\infty}(P)$. Consider a subdivision of the interval $[0,t]$
+    \[
+    \pi = \{0 = t_0 < t_1 < \cdots < t_n = t\}
+    \]
+    then as $|\pi| \to 0$, we have
+    \[
+    S_{\pi}^2(u) = \sum\limits_{j=0}^{n-1}\Big( \int_{t_j}^{t_{j+1}} u_s dB_s\Big)^2 \to \int_0^t u_s^2 ds
+    \]
+    in $L^1(\Omega)$.
+\end{proposition}
+
+\section{Derivative and Divergence Operators}
+
+\begin{definition}
+    For this chapter, we will consider the probability space $(\Omega,\F,P)$ such that $\Omega = \R^n, \F = B(\R^n)$ to be the Borel $\sigma$-field of $\R^n$ and $P$ to be the standard Gaussian probability with density
+    \[
+    p(x) = (2\pi)^{-n/2}e^{-|x|^2/2}
+    \]
+    and we define the derivative operator for differentiable function $F:\R^n \to \R$ as
+    \[
+    \nabla F = \Big(\dfrac{\partial F}{\partial x_1},\cdots,\dfrac{\partial F}{\partial x_n}\Big)
+    \]
+    and the divergence opertor for differentiable veector-valued functions $u:\R^n\to\R^n$ as
+    \[
+    \delta(u) = \sum\limits_{i=1}^n \Big( u_ix_i - \dfrac{\partial u_i}{\partial x_i}\Big) = \langle u,x\rangle - div u
+    \]
+\end{definition}
+
+\begin{proposition}
+    The operator $\delta$ is the adjoint of $\nabla$ that is
+    \[
+    E(\langle u, \nabla F\rangle) = E(F\delta (u))
+    \]
+    for $F:\R^n \to \R$ and $u: \R^n \to \R^n$ continuously differentiable functions satisfying integral by parts.
+\end{proposition}
+\begin{proof}
+    Since $\partial p/\partial x_i = - x_i p $ and we have
+    \[
+    \begin{aligned}
+    \int \langle \nabla F,u\rangle pdx  &=\sum\limits_{i=1}^n \int \dfrac{\partial F}{\partial x_i} u_i pdx \\
+    & = \sum\limits_{i=1}^n \Big(-\int F\dfrac{\partial u_i }{\partial x_i} pdx + \int Fu_i x_i p dx\Big) \\ &= \int F\delta (u) pdx
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}
+    Consider the Hilbert space $h \in H = L^2(\R^+)$ and the Wiener integral
+    \[
+    B(h) = \int_0^{\infty} h(t)dB_t
+    \]
+    and $S$ the set of smooth and cylindrical random variables of the form
+    \[
+    F = f(B(h_1),\cdots,B(h_n))
+    \]
+    where $f\in C_p^{\infty}(\R^n)$ and $h_i \in H$.
+\end{definition}
+
+\begin{definition}
+    For $F \in S$, we define the Malliavin derivative $DF$ to be the $H$-valued random variable defined by
+    \[
+    D_tF = \sum\limits_{i=1}^n \dfrac{\partial f}{\partial x_i}(B(h_1),\cdots,B(h_n))h_i(t)
+    \]
+    which is well-defined and a linear but unbounded operator from $S$ into $L^2(\Omega;H)$.\par
+    Let $S_H$ to be the element $u = (u_t)$ with the form
+    \[
+    u_t = \sum\limits_{j=1}^n F_jh_j(t)
+    \]
+    with $F_j \in S$ and $h_j \in H$. And the divergence of an element $u$ in $S_H$ will be given by
+    \[
+    \delta(u) = \sum\limits_{j=1}^nF_j B(h_j) - \sum\limits_{j=1}^n \langle DF_j, h_j\rangle_H
+    \]
+\end{definition}
+
+\begin{proposition}
+    For $F\in S$ and $u\in S_H$, then
+    \[
+    E(F\delta(u)) = E(\langle DF,u\rangle_H)
+    \]
+\end{proposition}
+\begin{proof}
+    Consider $h_i,h_j$ orthonormal and then we may know that $B(h_i)$ are i.i.d., then for $F = f(B(h_1),\cdots,B(h_n))$ and
+    \[
+    u = \sum\limits_{j=1}^n g_j(B(h_1),\cdots,B(h_n))h_j
+    \]
+    and
+    \[
+    \begin{aligned}
+    E(\langle DF,u\rangle_H) &= \int \sum\limits_{j=1}^n  E(D_tF g_j(B(h_1),\cdots,B(h_n))h_j(t)) \\
+    & = \sum\limits_{i,j=1}^n \int E\Big(\dfrac{\partial f}{\partial x_i}(B(h_1),\cdots,B(h_n))g_j(B(h_1),\cdots,B(h_n)) h_i(t)h_j(t)\Big) \\
+    &
+    = \sum\limits_{i=1}^n E\Big(\dfrac{\partial f}{\partial x_i}(B(h_1),\cdots,B(h_n))g_j(B(h_1),\cdots,B(h_n))\Big) \\
+    &= 
+    \sum\limits_{j=1}^nE\Big(Fg_j(B(h_1),\cdots,B(h_n))B(h_j) - F\dfrac{\partial g_j}{\partial x_j}(B(h_1),\cdots,B(h_n))\Big) \\
+    & = E(F\delta(u))
+    \end{aligned}
+    \]
+    since
+    \[
+    \langle DF_j, h_j\rangle = \dfrac{\partial g_j}{\partial x_j}(B(h_1),\cdots,B(h_n))
+    \]
+\end{proof}
+
+\begin{proposition}
+    Suppose that $u,v \in S_H, F\in S$ and $h \in H$. Then for a complete orthonormal system in $H$ denoted as $e_i$, we have
+    \[
+    \begin{aligned}
+        E(\delta(u)\delta(v)) &= E(\langle u,v\rangle_H) + E(\sum\limits_{i,j=1}^{\infty} D_{e_i}\langle u,e_j\rangle_H D_{e_j}\langle v,e_i\rangle_H) \\
+        D_h(\delta(u)) &= \delta(D_h(u)) + \langle h,u\rangle_H \\
+        \delta(Fu) &= F\delta(u) - \langle DF,u\rangle_H
+    \end{aligned}
+    \]
+\end{proposition}
+\begin{proof}
+    We know
+    \[
+    \begin{aligned}
+    D_h(\delta(u)) &= D_h\Big(\sum\limits_{j=1}^n F_jB(h_j) - \sum\limits_{j=1}^n \langle DF_j,h_j\rangle_H\Big) \\
+    &= \sum\limits_{j=1}^n D_hF_j B(h_j) + \sum\limits_{j=1}^n F_j \langle h,h_j\rangle_H - \sum\limits_{j=1}^n D_h\Big\langle \sum\limits_{i=1}^n \dfrac{\partial F_j}{\partial x_i}(B(h_1),\cdots,B(h_n))h_i, h_j\Big\rangle_H \\
+    & = \sum\limits_{j=1}^n F_j \langle h,h_j\rangle_H + \sum\limits_{j=1}^n \Big(D_h F_jB(h_j) - \langle D_h(DF_j), h_j \rangle_H\Big) \\
+    & = \langle u,h\rangle_H + \delta(D_h u)
+    \end{aligned}
+    \]
+    by Fubini's Theorem.\par
+    Then
+    \[
+    \begin{aligned}
+        E(\delta(u)\delta(v)) &= E\Big(\langle v,D(\delta(u))\rangle_H\Big)\\
+        &= \sum\limits_{n\geq 1}\Big(\langle v,e_i\rangle_H D_{e_i}(\delta(u))) \\
+        &= E(\langle u,v\rangle)_H + \sum\limits_{i=1}^{\infty}E(\langle v,e_i\rangle_H \delta(D_{e_i} u))\\
+        & = E(\langle u,v\rangle)_H + \sum\limits_{i=1}^{\infty}E(\langle D\langle v,e_i\rangle_H, D_{e_i}uyu u \rangle_H)
+    \end{aligned}
+    \]
+\end{proof}
+
+
 
 \end{document}
