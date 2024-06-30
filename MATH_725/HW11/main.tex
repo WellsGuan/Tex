@@ -1,0 +1,176 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework11 - MATH 725}
+\author{Boren(Wells) Guan}
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\newcommand{\Sch}{\mathcal{S}}
+\newcommand{\D}{\mathscr{D}}
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.7.11 Rudin} 
+Suppose $\Lambda:\Sch_n \to C(\R^n)$ is continuous linear and $\tau_x\Lambda = \Lambda\tau_x$ for every $x\in \R^n$. Does it follow that there exists $u\in\Sch_n'$ such that
+\[\Lambda\phi = u*\phi\]
+for every $\phi\in\Sch_n$?
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+First show such $u$ satisfies $u*\phi(x) = \Lambda \phi(x)$
+\[
+u*\phi(x) = u(\tau_x\phi^-) = \lambda (\tau_x\phi^-)^-(0) = \lambda \phi(y+x)|_{y=0}
+\]
+since $\tau_x\Lambda = \Lambda \tau_x$, here actually get $\Lambda \phi(y+x) = (|lambda \phi)(y+x)$. Thus $u*\phi(x) = (\Lambda \phi)(x)$, and hence $u$ is well-defined.\par
+Next, show such $u$ is indeed a tempered distribution.\par
+a. Since $\Lambda$ is linear, and hence $u$ is obviously linear.\par
+b. Since $\Lambda$ is continuous, we know for any $N,\epsilon > 0$, these is $\delta > 0$ such that for any $\phi \in \Sch_n$
+\[||\phi||_N < \delta, ||\Lambda \phi||_u < \epsilon\]
+and hence $|u(\phi)| = |\Lambda\phi^-(0)| \leq ||\Lambda \phi||_u < \epsilon$, so $u\in\Sch_n'$.
+\prvd
+
+\subsection*{Ex.7.14 Rudin} 
+Suppose $F$ is an entire function in $\C^n$ and suppose that to each $\epsilon > 0$ there correspond an integer $N(\epsilon)$ and a constant $\gamma(\epsilon) < \infty$ such that
+\[|F(z)| \leq \gamma(\epsilon)(1+|z|)^{N(\epsilon)}e^{\epsilon|Im z|}\]
+Prove that $F$ is a polynomial.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+There is $u\in\D'(\R^n)$ by theorem 7.23. such that
+\[F(z) = u(e_{-z})\]
+on $\R^n$ and $supp u \subset \epsilon B$ for any $\epsilon > 0$, so $supp u = \{0\}$. Since $F$ is entire, we may have
+\[
+F(z) = \sum_{n\geq 0}c_nz^n
+\]
+and then $F|_{\R^n} = \sum\limits_{n\geq 0}c_n x^n = \hat{u}(x)$, so there is an $N$ such that $c_m = 0$ for any $m>N$, then $F$ will become a polynomial.
+\prvd
+
+\subsection*{Ex.7.19 Rudin} 
+Show that the hypotheses of theorem 7.25 imply that $D^{\alpha} f$ is locally $L^2$ for every multi-index $\alpha$ with $|\alpha| \leq r$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It is trivial when $r\leq 1$, we assume the conclusion holds when $r \leq n$, if $r= n+1$, we should prove for any $|\alpha| = n+1$, $D^{\alpha} \in L^2_{loc}$.\par
+We may choosed $i$ such that $\alpha_i > 0$ and then replace $F$ with $D_{x_i} F$ and we are done by induction.
+\prvd
+
+\subsection*{Ex.7.22 Rudin} 
+Prove the various assertions made in the following basic outline:
+\[T^n = \{(e^{ix_1},e^{ix_2},\cdots,e^{ix_n}), x_j\text{ real}\}\]
+Functions $\phi$ on $T^n$ can be identified with functions $\tilde{\phi}$ on $\R^n$ that are $2\pi$-periodic in each variable, by setting
+\[
+\tilde{\phi}(x_1,\cdots,x_n) = \phi(e^{ix_1},\cdots,e^{ix_n})
+\]
+For $k\in \Z^n$, the function $e_k$ is define by
+\[e_k(e^{ix_1},\cdots,e^{ix_n}) = e^{i(k\cdot x)}\]
+and $\sigma_n$ is the Haar measure of $T^n$. If $\phi \in L^1(\sigma_n)$, the Fourier coefficients of $\phi$ are $\hat{\phi}(k) = \int_{T^n}e_{-k}\phi d\sigma_n$. $\D(T^n)$ is the space of all functions $\phi$ on $T^n$ such that $\tilde{\phi} \in C^{\infty}(\R^n)$. If $\phi \in \D(T^n)$ then
+\[
+\{\sum\limits_{k\in\Z^n}(1+k\cdot k)^N |\hat{\phi}(k)|^2\}^{1/2} < \infty
+\]
+for $N = 0,1,2\cdots$. These norms define a Frechet space topology on $\D(T^n)$ which coincides with the one given by the norms
+\[
+\max_{|\alpha| \leq N}\sup_{x\in \R^n}|(D^{\alpha}\tilde{\phi})(x)|
+\]
+$\D'(T^n)$ is the space of all continuous linear functionals on $\D(T^n)$, its members are the distributions on $T^n$. The Fourier coefficients of any $u \in \D'(T)$ are defined by
+\[
+\hat{u}(k) = u(e_{-k})
+\]
+To each $u\in \D'(T^n)$ correspond an $N$ and a $C$ such that
+\[
+|\hat{u}(k)| \leq C(1+|k|)^N
+\]
+Conversely, if $g$ is a complex function on $\Z^n$ that satisfies $|g(k)| \leq C(1+|k|)^N$ for some $C$ and $N$, then $g = \hat{u}$ for some $u\in\D'(T)$.\par
+There is thus a linear one-to-one correspondence between distributions on $T^n$, on one hand, and functions of polynomial growth on $\Z^n$, on the other.\par
+If $E_1 \subset E_2\subset \cdots$ are finite sets whose union is $\Z^n$ and if $u\in\D'(T^n)$, the partial sums
+\[
+\sum\limits_{k \in E_j} \hat{u}(k)e_k
+\]
+converges to $u$ as $j\to\infty$ in the weak*-topology of $D'(T_n)$.\par
+The convolution $u*v$ of $u\in\D'(T^n)$ and $v\in\D'(T^n)$ is most easily defined as having Fourier coefficients $\hat{u}(k)\hat{v}(k)$. The analogues of Theorem 6.30 and 6.37 are true, the proofs are much simpler.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know
+\[
+\begin{aligned}
+\sum\limits_{k\in\Z^n}(1+k\cdot k)^N |\hat{\phi}(k)|^2 &= \sum\limits_{k\in\Z^n}(1+k\cdot k)^N C|\int_{[0,1]^n}\tilde{\phi}(t)e^{-i(k\cdot t)} d m_n|^2 \\
+&\leq 2^NC
+\sum\limits_{k\in\Z^n} \int_{([0,1]^n)^2}|k|^{2N}\tilde{\phi}(t)e^{-i(k\cdot t)}\overline{\tilde{\phi}}(s)e^{i(k\cdot s)} (d m_n)^2 \\
+&\leq 2^NC \sum\limits_{|\alpha| \leq N} \sum\limits_{k\in \Z^n}|(D^{\alpha}\phi)^{\wedge}(k)| \\
+& = 2^NC \sum\limits_{|\alpha| \leq N} ||D^{\alpha}\phi||_2^2< \infty
+\end{aligned}
+\]
+for some positive constant $C$. Obviously the seminorms define a locally convex metrizable space, and it suffices to show the induced metric is complete to show it is a Frechet space, which can be shown by if $\phi_i$ is complete under the induced metric $d$, then we know each $\hat{\phi_i}(k)$ is Cauchy and with finite seminorms and we are done. According to the inequalities above, we know there exists $M_i$ such that
+\[
+(\sum\limits_{k\in\Z^n}(1+k\cdot k)^N |\hat{\phi}(k)|^2)^{1/2} \leq M_N \max_{|\alpha| \leq N} \sup|D^{\alpha}\tilde{\phi}|
+\]
+Conversly, notice we may evaluate $|D^{\alpha}\phi(x) - D^{\alpha}(0)|$ by $||D^{\beta} \phi||_2$ where $|\beta| = |\alpha| + 1$, then we may know that the topology coincide.\par
+Then we know
+\[
+|\hat{u}(k)| = |u(e_{-k})|
+\]
+where
+\[
+\sum\limits_{k\in\Z^n}(1+k\cdot k)^N|\hat{e_{-j}}(k)|^2 = (1+|k|^2)^{2N}
+\]
+and since $u$ is continuous, there exists $C$ and $N_0$ such that
+\[
+|u(e_{-k})| \leq C(\sum\limits_{k\in\Z^n}(1+k\cdot k)^N_0|\hat{e_{-j}}(k)|^2)^{1/2} \leq C(1+|k|)^{2N_0}
+\]
+so for $|g(k)| \leq C(1+|k|)^N$, we may assume $u(e_{-k}) = g(k)$ and since $e_{-k}$ is a orthonormal basis in $L^2(T^n)$, we may know tha $u$ can be linear extended to $L^2(T^n)$ with
+\[
+|u(e_k)| \leq C(\sum\limits_{k\in\Z^n}(1+k\cdot k)^N |\hat{e_{-k}}(k)|^2)^{1/2}
+\]
+for some $C,N$ and hence the extension $u$ will be a continuous linear functional for $\D(T^n)$.\par
+For the convergence, it suffices to show for $\phi \in \D(T^n)$, we have
+\[
+\sum\limits_{k\in E_n} \hat{u}(k)\langle e_k,\phi\rangle \to u(\phi)
+\]
+which can be implies by that
+\[
+\sum\limits_{k\in E_n} \langle r_k,\phi\rangle e_k \to u
+\]
+in $L^2$ and so converges in the topology in $\D(T^n)$ by the inequality at first, so the convergence holds.\par
+Now we should check Theorem 6.30 and 6.37 for $u,v\in \D'(T^n)$, the equalites in 6.30. (a),(b) still hold and hence they are still correct. For (c), notice
+\[
+(\varphi * \phi)^{\vee}(t) = \int_{T^n} \phi^{\vee}(s)(\tau_s \varphi^{\vee})(t) d\sigma_n
+\]
+and $s\mapsto \phi^{\vee}(s)\tau_s\varphi^{\vee}$ is continuous of $T^n$ into $\D(T^n)$, then
+\[
+(u*(\varphi*\phi))(0) = u(\int_{T^n} \phi^{\vee}(s)(\tau_s \varphi^{\vee})(0) d\sigma_n) = u\int_{T^n}\phi^{\wedge}(s)u(\tau_s\phi^{\wedge}) ds = ((u*\varphi)*\phi)(0)
+\]
+and replace $\phi$ with $\tau_{-x}\phi$ will be fine.\par
+For Theorem 6.37., for any $g,h\in\D(T^n)$, we know
+\[
+(u*v)*(g*h) = (u*(v*(g*h))) = u*((v*g)*h) = u*(h*(v*g)) = (u*h)*(v*g)
+\]
+and similarly we may get
+\[
+(v*u)*(g*h) = (v*u)*(h*g) = (v*g)*(u*h) = (u*v)*(g*h)
+\]
+and hence they are the same. We ignore the conclusion about the compact supports since $u,v$ have to own compact supports as $\D'(T^n)$. And since the inequalities in Theorem 6.30. holds, then the equalities in the proof of Theorem 6.37.(d) are still correct and we are done.
+\prvd
+
+\addappheadtotoc
+
+\end{document}

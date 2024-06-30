@@ -1,0 +1,125 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework09 - MATH 725}
+\author{Boren(Wells) Guan}
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\newcommand{\Sch}{\mathcal{S}}
+\newcommand{\D}{\mathscr{D}}
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.6.13 Rudin} 
+If $\phi \in \D(\Omega)$ and $\Lambda \in \D'(\Omega)$, does either of the statements
+\[\phi\Lambda = 0, \Lambda \phi = 0\]
+imply the other?
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know $\phi\Lambda = 0$ implies that $\Lambda\phi = 0$, by consider $K$ the support of $\phi$ and $I = 1$ on $K$ and $I\in \D(\Omega)$, then we know
+\[0 = (\phi\Lambda)(I) = \Lambda(\phi I) = \Lambda\phi\]
+However, the inverse direction is false, consider $\Lambda f = \int_0^1 f dm$ for $f\in \D(\R)$, then consider $\phi = x-1/2$ on $[0,1]$ with a compact support, and $g = 1$ on $[3/4,1]$ and $g = 0$ on $[0,1/2]$ with a compact support by Urysohn's lemma, with $0 \leq g\leq 1$, then we know
+\[
+\Lambda \phi = 0, (\phi\Lambda)(f) = \Lambda(\phi f) > 1/16 > 0
+\]
+and hence $\Lambda \phi = 0$ a necessity condition of $\phi\Lambda = 0$ but not a sufficient one. 
+\prvd
+
+\subsection*{Ex.6.18 Rudin} 
+Express $\delta \in \D'(\R^2)$ in the form given by Theorem 6.27. as explicitly as you can.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider
+\[\delta \phi = \dfrac{1}{4\pi} \int \ln(x^2+y^2)\Delta \phi\]
+\prvd
+
+\subsection*{Ex.6.23 Rudin} 
+Suppose $\{f_i\}$ is a sequence of locally integrable functions in $\R^n$, such that
+\[\lim_{i\to\infty} (f_i*\phi)(x)\]
+exists, for each $\phi \in \D(\R^n)$ and each $x\in\R^n$. Prove that then $\{D^{\alpha}(f_i*\phi)\}$ converges uniformly on compact sets, for each multi-index $\alpha$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For a compact set $K$ and $\phi \in \D_S$, let $M$ a compact set containing $K-S,K+S$ and we may define
+\[\Lambda_i \phi = \int f_i\phi\]
+and it is easy to check that
+\[(f_i*\phi)(x) = \Lambda_i \tau_x\hat{\phi}\]
+and hence orbits of $\Lambda_i$ are bounded on $\D_M$ and hence $\Lambda$ is equicontinuous by Banch-Steinhaus' theorem. However, notice $\{\tau_x\hat{\phi}\}_{x\in K}$ has to be compact in $\D_M$ since $x\mapsto \tau_x\hat{\phi}$ is continuous, so it suffices to show a family of equicontinuous linear map, point-wise convergent will implies it is uniformly convergent on a compact set.\par
+For any $\epsilon > 0$, we know there exists $N$ such that for any $i,j\geq N_{\phi}$, we have
+\[
+|\Lambda_i \phi - \lambda_j \phi| <\epsilon
+\]
+and we may find $\delta$ such that
+\[d(\phi-\varphi) < \delta \implies |\Lambda_i\phi - \Lambda_i \varphi| < \epsilon\]
+for any $i$, where $d$ is the metric induce the topology on $\D_M$, then for a compact set of $\D_M$, we may find $\phi_m$ such that $B_d(\phi_m,\delta)$ is an open cover of the set and hence for any element $\varphi$ in it, we know
+\[
+|\Lambda_i \phi - \Lambda_j \phi| < 3\epsilon
+\]
+for any $n\geq \max N_{\phi_m}$ and hence $\Lambda_i$ is uniformly Cauchhy on $\{\tau_x\hat{\phi}\}_{x\in K}$ and the conclusion holds.
+\prvd
+
+\subsection*{Ex.6.24 Rudin} 
+Let $H$ be the Heaviside function on $\R$, defined by
+\[
+H(x) = \begin{cases}
+    1\quad& x > 0 \\
+    0&x\leq 0
+\end{cases}
+\]
+and let $\delta$ be the Dirac measure.\par
+a. Show that $(H*\phi)(x) = \int_{-\infty}^x \phi(s)ds$, if $\phi \in \D(\R)$.\par
+b. Show that $\delta' * H = \delta$.\par
+c. Show that $1*\delta'$ = 0.\par
+d. It follows that the associative law fails:
+\[1*(\delta'*H) = 1*\delta = 1\]
+but
+\[(1*\delta')*H = 0 * H = 0\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We know
+\[(H*\phi)(x) = \int H(x-y)\phi(y) dy = \int_{-\infty}^{x}\phi(y)dy\]
+for $\phi \in \D(\R)$.\par
+b. We know
+\[\delta'*H = H'\]
+and since
+\[
+(\delta'*H)(\phi) = DH(\phi) = -\int H\phi' = \phi(0)
+\]
+for $\phi \in \D$, so $(\delta'*H) = \delta$.\par
+c. We know
+\[(1*\delta')(\phi) = (1*(\delta'*\hat{\phi}))(0) = (1*(\delta'(\tau_x\phi))) = (1*\phi')(0) = 0\]
+for any $\phi \in \D$.\par
+d. Now it suffices to show
+\[(1*\delta)(\phi) = (1*(\delta(\tau_x{\phi})))(0) = (1*\phi)(0) = \int \phi\]
+and it is trivial that
+\[
+0*H = 0
+\]
+\prvd
+
+\addappheadtotoc
+
+\end{document}

@@ -647,6 +647,253 @@ Then $P(C\cup D) = 1$.
     for some positive constant $M$ and by the MCT, we know $\sup |X_n| \in L^p$ and hence we may use the DCT to $X_n$ and hence $X_n \to X$ in $L^p$.
 \end{proof}
 
+\begin{theorem}
+    (Orthogonality of martingale increments) Let $X_n$ be a martingale with $EX_n^2 < \infty$ for all $n$. If $m\leq n$ and $Y\in\F_m$ has $EY^2 < \infty$ then
+    \[E((X_n-X_m)Y) = 0\]
+    and hence if $l<m<n$
+    \[E((X_n-X_m)(X_m-X_l)) = 0\] 
+\end{theorem}
+\begin{proof}
+    We know
+    \[E|(X_n-X_m)Y| < \infty\]
+    Then we know
+    \[
+    E((X_n-X_m)Y) = E[E((X_n-X_m)Y|\F_m)] = E(YE(X_n-X_m|\F_m)) = 0
+    \]
+\end{proof}
 
+\begin{theorem}
+    (Conditional variance formula) If $X_n$ is a martingale with $EX_n^2 < \infty$ for all $n$,
+    \[E((X_n-X_m)^2|\F_m) = E(X_n^2|F_m) - X_m^2\]
+\end{theorem}
+
+\begin{definition}
+    Assume $X_n$ is a martingale with $X_0 = 0$ and $EX_n^2 < \infty$ for all $n$, then we know $X_n^2$ is a submartingale and by Doob's decomposition we may write
+    \[X_n^2 = M_n+A_n\]
+    with $M_n$ a marignale and
+    \[A_n = \sum\limits_{m=1}^n E((X_m-X_{m-1})^2|F_{m-1})\]
+    and then $A_n$ is called the increasing process associated with $X_n$. 
+\end{definition}
+
+\begin{theorem}
+    $E(\sup_m|X_m|^2) \leq 4EA_{\infty}$ where $A_{\infty} = \lim_{n\to\infty}{A_n}$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    E|X_n^*|^2 \leq 4 E(X_n^2)
+    \]
+    by the $L^p$ maximum inequality and notice
+    \[
+    E(A_n) = E(X_n^2)- E(M_n) = E(X_n^2) - E(X_0^2) = E(X_n^2)
+    \]
+    and the rest is by the MCT.
+\end{proof}
+
+\begin{theorem}
+    $\lim_{n\to\infty} X_n$ exists and is finite a.s. on $\{A_{\infty} < \infty\}$.
+\end{theorem}
+\begin{proof}
+    Let $N = \inf\{n, A_{n+1}>a^2\}$ and $N$ will be a stopping time. Then we know $X_{N\wedge n}$ will be a martingale and we know the increasing process of $X_{N\wedge n}$ will be $A_{N\wedge n}$ and hence
+    \[E(\sup X_{N\wedge n}^2) \leq 4 a^2\]
+    and then we know $X_{N\wedge n}$ converges a.s. and in $L^2$, since on $A_{\infty} < a^2$, there exists $b^2$ such that $X_{N\wedge n} = X_n$, so we know $\lim X_n$ exists a.s. on $A_{\infty} < a^2$, let $n \in \N$ and the conclusion holds.
+\end{proof}
+
+\begin{definition}
+    A collection of r.v.s $X_i, i\in I$ is uniformly integrable if
+    \[
+    \lim_{M\to\infty}\Big(\sup_{i\in I} E(|X_i|;|X_i|>M)\Big) = 0
+    \]
+\end{definition}
+
+\begin{theorem}
+    Given a probability space $(\Omega,\F_0,P)$ and an $X\in L^1$ then $\{E(X|\F), \F\text{ is a }\sigma\text{-field} \subset \F_0\}$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+    For any $\epsilon > 0$, we know there exists $M$ such that $E|X|/M < \delta$, and for any $A,P(A)<\delta$, we have $E(|X|;A)<\epsilon$, now we notice
+    \[
+    |E(X|\F)| \leq E(|X||\F)
+    \]
+    by the Jensen's inequality and hence we know
+    \[
+    E(|E(X|\F)|;|E(X|\F)| > M) \leq E(E(|X||\F);E(|X||\F) > M) = E(|X|;E(|X||\F) > M)
+    \]
+    and then
+    \[
+    P\{E(|X||\F) > M\} \leq E|X|/M < \delta
+    \]
+    and hence
+    \[
+    E(|E(X|\F)|;|E(X|\F)| > M) < \epsilon
+    \]
+    for any $\F$.
+\end{proof}
+
+\begin{theorem}
+    Let $\phi \geq 0$ be any function with $\phi(x)/x \to \infty$ as $x\to\infty$. If $E\phi(|X_i|) \leq C$ for all $i \in I$, then $\{X_i, i\in I\}$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+    Let $\epsilon_M = \sup\{x/\phi(x), x\geq M\}$, then for $i\in I$
+    \[E(|X_i|;|X_i| > M) \leq \epsilon_M E(\phi(|X_i|); |X_i| > M) \leq C\epsilon_M\]
+    and $\epsilon_M \to 0$ as $M\to\infty$.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $E|X_n| <\infty$ for all $n$. If $X_n\to X$ in probability then the following are equivalent\par
+    a. $\{X_n, n\geq 0\}$ is uniformly integrable.\par
+    b. $X_n\to X$ in $L^1$.\par
+    c. $E|X_n| \to E|X| < \infty$.
+\end{theorem}
+\begin{proof}
+    (i)$\implies$(ii). Let $\phi_M(x) = sgn(x)M$ if $|x|>M$ else $\phi_M(x) = x$ and we know
+    \[
+    |\phi_M(Y)-Y| = (|Y|-M)^+ \leq |Y|\chi_{|Y|\geq M}
+    \]
+    and we know
+    \[
+    E|X_n-X| \leq E|\phi_M(X_n)-\phi_M(X)| + E(|X_n|;|X_n| > M) + E(|X|;|X| > M)
+    \]
+    by the triangle inequality. Then it is easy to check $\phi_M(X_n) \to \phi(X)$ in probability, then since $\phi_M(X_n)-\phi(X)$ is bounded, we know
+    \[E|\phi_M(X_n)-\phi_M(X)\]
+    converges to $0$. Then by the Fatou's lemma we know $E|X| < \infty$ and the rest is easy to be check by choosing $M$ large.\par
+    (ii)$\implies$(iii). Trivial\par
+    (iii)$\implies$(i). Let $\phi_M$ be $x$ when $x \in [0,M-1]$ and $0$ on $[M,\infty)$, the rest is linear. We know $E\phi_M(|X|) \to E|X|$ by the DCT and it is easy to check that $E\phi_M(|X_n|) \to E\phi_M(|X|)$. Then
+    \[E(|X_n|; |X_n|>M) \leq E|X_n| - E\phi_M(|X_n|) \leq E|X| - E\phi_M(|X|) < \epsilon\]
+    for $M, n$ large enough.
+\end{proof}
+
+\begin{theorem}
+    For a submartingale, the following are equivalent\par
+    a. It is uniformly integrable\par
+    b. It converges a.s. and in $L^1$.\par
+    c. It converges in $L^1$.
+\end{theorem}
+\begin{proof}
+    (i)$\implies$(ii). We know $\sup E|X_n| < \infty$ so the martingale convergence theorem implies $X_n \to X$ a.s. and hence in probability, which implies that the convergence in $L^1$ by theorem 1.36. (ii)$\implies$(iii) is trivial.\par
+    (iii)$\implies$(i). Convergence in $L^1$ implies convergence in probability, and the rest is due to Theorem 1.36.
+\end{proof}
+
+\begin{lemma}
+    If integrable random variables $X_n\to X$ in $L^1$, then
+    \[E(X_n;A) \to E(X;A)\]
+\end{lemma}
+\begin{proof}
+    We know
+    \[|EX_m\chi_A - EX\chi_A \leq E|X_m\chi_A - X\chi_A| \leq E|X_m - X| \to 0\]
+\end{proof}
+
+\begin{lemma}
+    If a martingale $X_n\to X$ in $L^1$ then $X_n = E(X|\F_n)$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[E(X_m|\F_n) = X_n\]
+    for any $m>n$, and hence for $A\in\F_n$, we know $E(X_n;A) = E(X_m;A)$. However, $E(X_n;A) \to E(X;A)$, so we know $E(X_n;A) = E(X;A)$ for any $A\in\F_n$ and hence $X_n = E(X|\F_n)$.
+\end{proof}
+
+\begin{theorem}
+    For a martingale, the following are equivalent\par
+    a. It is uniformly integrable\par
+    b. It converges a.s. and in $L^1$\par
+    c. It converges in $L^1$\par
+    d. There is an integrable random variable $X$ such that $X_n = E(X|\F_n)$.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $\F_n \uparrow \F_{\infty}$ then
+    \[E(X|\F_n) \to E(X|\F_{\infty})\ a.s.\text{and in }L^1\]
+\end{theorem}
+\begin{proof}
+    We know $Y_n = E(X|\F_n)$ is a martingale and uniformly integrable, so $Y_n$ converges a.s. and in $L^1$ to $Y$ and we know
+    \[
+    \int_A X = \int_A Y
+    \]
+    for any $A\in\F_n$, then we may use the $\pi-\lambda$ theorem to show that for any $A\in\F_{\infty}$ the equality holds, so $Y = E(X|\F_{\infty})$ since $Y$ is $\F_{\infty}$ measurable.
+\end{proof}
+
+\begin{theorem}
+    (Levy 0-1 Law) If $\F_n\uparrow \F_{\infty}$ and $A\in\F_{\infty}$ then $E(\chi_A|\F_n) \to \chi_A$ a.s. 
+\end{theorem}
+
+\begin{theorem}
+    (DCT for conditional expectations) Suppose $Y_n\to Y$ a.s. and $|Y_n| \leq Z$ for all $n$ where $EZ<\infty$. If $\F_n \uparrow\F_{\infty}$ then
+    \[E(Y_n|\F_n) \to E(Y|\F_{\infty})\ a.s.\]
+\end{theorem}
+\begin{proof}
+    Let $W_N = \sup\{|Y_n-Y_m|:n,m\geq N\}$ and we know $W_N \leq 2Z$, and
+    \[
+    \limsup_{n\to \infty}E(|Y_n-Y||\F_n) \leq \lim_{n\to\infty} E(W_N|\F_n) = E(W_N|\F_{\infty})
+    \]
+    since $W_N \downarrow 0$ a.s. and we know
+    \[
+    E(W_N|\F_{\infty}) \downarrow 0
+    \]
+    by theorem 1.3.c and hence
+    \[
+    |E(Y_n|\F_n) - E(Y|\F_n)| \leq E(|Y_n-Y||\F_n) \to 0
+    \]
+    by Jensen's ineq. Also $E(Y|\F_n) \to E(Y|\F_{\infty})$ by theorem 1.39. So the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a uniformly integrable submartingale then for any stopping time $N$, $X_{N\wedge n}$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+    We know $X_n^+$ is a submartingale and then
+    \[EX_{N\wedge n}^+ \leq EX_n^+\]
+    by theorem 1.26. Notice $X_n^+$ is uniformly integrable and hence
+    \[\sup_{n\geq 0} EX_{N\wedge n}^+ \leq \sup_{n\geq 0}EX_n^+ < \infty\]
+    So we know $X_{N\wedge n} \to X_N$ where $X_{\infty} = \lim X_n$ and $E|X_N| < \infty$. Then
+    \[
+    E(|X_{N\wedge n}|;|X_{N\wedge n}| > K) = E(|X_N|;|X_N>K, N \leq n) + E(|X_n|;|X_n|>K,N>n)
+    \]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $E|X_N| < \infty$ and $X_n\chi_{N>n}$ is uniformly integrable, then $X_{N\wedge n}$ is uniformly integrable and hence $EX_0 \leq EX_N$.
+\end{theorem}
+\begin{proof}
+    Notice
+     \[
+    E(|X_{N\wedge n}|;|X_{N\wedge n}| > K) = E(|X_N|;|X_N>K, N \leq n) + E(|X_n|;|X_n|>K,N>n)
+    \]
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a uniformly integrable submartingale then for any stopping time $N\leq\infty$, we have $EX_0 \leq EX_N \leq EX_{\infty}$, where $X_{\infty} = \lim X_n$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[EX_0 \leq E_{N\wedge n} \leq EX_n\]
+    and since $X_n\to X_{\infty}$ in $L^1$ and $X_{N\wedge n} \to X_{N}$ in $L^1$ and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a nonnegative supermartingale and $N\leq \infty$ is a stopping time, then $EX_0 \geq EX_N$ where $X_{\infty} = \lim X_n$.
+\end{theorem}
+\begin{proof}
+    $X_[\infty] = \lim X_n$ exists by the martingale convergence theorem. By Fatou's lemma
+    \[
+    EX_0 \geq \liminf EX_{N\wedge n} \geq X_N
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $X_n$ is a submartingale and $E(|X_{n+1}-X_n|\F_n) \leq B$ a.s. If $N$ is a stopping time with $EN < \infty$ then $X_{N\wedge n}$ is uniformly integrable and hence $EX_N \geq EX_0$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[|X_{N\wedge n}| \leq |X_0| + \sum\limits_{m=0}|X_{m+1}-X_m|\chi_{N>m}\]
+    Notice
+    \[
+    E(|X_{m+1}-X_m|;N>m) = E(E(|X_{m+1}-X_m||\F_m); N > m) \leq BP(N>m)
+    \]
+    and hence
+    \[
+    E\sum\limits_{m=0}|X_{m+1}-X_m|\chi_{N>m} = BEN
+    \]
+    and the rest is easy to be checked.
+\end{proof}
 
 \end{document}

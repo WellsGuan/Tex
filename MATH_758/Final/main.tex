@@ -1,0 +1,510 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Harmonic Functions on Denumerable Markov Chain with the Potential Theory}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\Har}{\mathcal{H}}
+\newcommand{\Sar}{\mathcal{S}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+\newcommand{\ParbZ}{\dfrac{\partial}{\partial \bar{z}}}
+\newcommand{\ParX}{\dfrac{\partial}{\partial x}}
+\newcommand{\ParY}{\dfrac{\partial}{\partial y}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\begin{abstract}
+    Markov chain is closely relative to the ergodic theorem and there are several important conclusions about invariant measures on Markov chain. This paper is aimed to introduce some related properties and see how they work on denumerable Markov chain, which is a specific situation, however, able to offer many more elementary techniques to obtain the same conclusions. The paper is the final paper for the MATH 758 at the University of Wisconsin-Madison, hosted by Professor Paul Apisa. The paper is done for extending in-courses content and show my gratefulness and respect for Paul as a kind teacher and excellent mathematician. 
+\end{abstract}
+
+\section{Introduction}
+
+We can always work on irreducible classes of a Markov chain instead of itself. So for this paper, we assume $(X,P)$ to be an irreducible Markov chain without emphasising. To begin the paper, we will start from the Dirichelet problem on Markov chain, which is \par
+(Dirichelet Problem) Let $(X,P)$ be a finite Markov chain. We choose and fix a subset $X^{\circ} \subset X$ called the interior, and $\partial X = X - X^{\circ}$ with $p(x,x) = \delta_x$, we suppose $X^{\circ}$ is connected i.e. $P_{X^{\circ}}$ is irreducible and for any $x' \in \partial X$, there exists $y\in X^{\circ}$ such that $y\to x$. Then for any function $g:\partial X \to \R$, find the solution of $h$ such that $h = g$ on $\partial X$ and $h$ is harmonic in $X^{\circ}$.\par
+So let us introduce the definition of harmonic function.\par
+\begin{definition}
+    (Harmonic function)\par
+    A function $h:X\to \R$ is harmonic on $A\subset X$ if $h(x) = Ph(x)$ for every $x\in A$, where \[Ph(x) = \sum\limits_{y \in X}p(x,y)h(y)\]\par
+    Denote $\Har(A) = \Har(A, P)$ to be the linear space of all functions on $X$ and harmonic on $A$.
+\end{definition}
+
+Similar to the harmonic functions from analysis, we still have the maximum principle.
+
+\begin{theorem}
+    (Maximum principle) Let $h \in \Har(X^{\circ})$ and $M = \max_X h(x)$, then there is $y\in \partial X$ such that $h(y) = M$. If $h$ is non-constant then $h(x) < M$ for every $x\in X^{\circ}$.
+\end{theorem}
+\begin{proof}
+    Here we may know if $x\in X^{\circ}$ and $h(x) = M$, then choose any $y\in X$ and we have
+    \[
+    \begin{aligned}
+    M = h(x) &= p^{(n)}(x,y)h(y) + \sum\limits_{v\neq y}p^{(n)}(x,v)h(v) \\
+    &\leq p^{(n)}(x,y)h(y) + (1-p^{(n)}(x,y))M
+    \end{aligned}
+    \]
+    where $n$ such that $p^{(n)}(x,y) > 0$ and hence $h(y) = M$, which means $h$ is then constant.
+\end{proof}
+
+To solve the Dirichlet problem, we need to introcution the hitting distribtution.
+
+\begin{definition}
+    (Hitting distribution)\par
+    Let $s = s^{X_{ess}}$, then $P_x(s^{X_{ess}} < \infty) = 1$ for any $x\in X$ by Lemma A.3.\par
+    Define
+    \[\nu_x(y)  = P_x(s<\infty, Z_s = y), y\in\partial X\]
+    and $\nu_x$ will become a probability distribution on $X_{ess}$, called the hitting distribution of $X_{ess}$.
+\end{definition}
+
+And now we may give a proof of Dirichelet problem.
+
+\begin{theorem}
+    (Solution of the Dirichlet problem) For every function $g:\partial X\to \R$ there is a unique function $h\in \Har(X^{\circ},P)$ such that $h(y) = g(y)$ for all $y\in \partial(X)$ which is given by
+    \[
+    h(x) = \int_{\partial X} gd\nu_x
+    \]
+\end{theorem}
+\begin{proof}
+    We may work on the uniqueness of the solution firstly, if $h,h' \in \Har(X^{\circ}, P)$, then we know $h - h'$ should be the solution of the  Dirichlet problem when $g = 0$ and by the maximum principle, we know $h-h' \leq 0$ and $h'-h\leq 0$ and we know $ h = h'$.\par
+    The existence of $h$ can be shown by considering the hitting distribution. Consider $x\mapsto \nu_x(y)$, since
+    \[
+    \begin{aligned}
+    \sum\limits_{v\in X}p(x,v)\nu_v(y) &= \sum\limits_{v\in X}p(x,v)P_v(s<\infty, Z_s = y)\\ &= \sum\limits_{v\in X}p(x,v)P_x(s<\infty, Z_s = y|Z_1 = v) \\ &= \sum\limits_{v\in X}P_x(s<\infty, Z_s = y, Z_1 = v) \\ &= \nu_x(y)
+    \end{aligned}
+    \]
+    we know $\nu_X$ is harmonic and hence $h = \int_{\partial x}gd\nu_x$ is harmonic functions with $h(y) = g(y)$ for $y\in \partial X$.
+\end{proof}
+
+Here is a more general theorem than theorem 1.2.
+
+\begin{theorem}
+    Let $(X,P)$ be a finite Markov chain, and denote its essential classes by $C_i, i\in I$.\par
+    a. If $h$ is harmonic on $X$, then $h$ is constant on each $C_i$.\par
+    b. For each function $g:I\to\R$ there is a unique function $h\in\Har(X,P)$ such that for all $i\in I$ and $x\in C_i$ one has $h(x) = g(i)$.
+\end{theorem}
+
+The proof is similar.
+\newpage
+
+\section{Potential theories}
+
+In the section we assume $P$ is irreducible and transient on $X$. We have already figure out the properties of harmonic functions when $X$ is finite. And for this part, we will only assume $P$ to be substochastic. \par
+All functions $f:X\to\R$ are assumed to be $P$-integrable (which is a subspace) i.e.
+    \[
+    \sum\limits_{y\in X}p(x,y)|f(y)| < \infty
+    \]
+    for all $x\in X$ and the measures are assumed to satify
+    \[vP(y) = \sum\limits_{x\in X}v(x)p(x,y) < \infty\]
+    then we may work on well-defined objects. Instead of harmonic functions, the main object following will become superharmonic functions and excessive measures.\par
+
+\begin{definition}
+    (Superharmonic functions)\par
+    A real function $h$ on $X$ is called harmonic if $h(x) = Ph(x)$ and superharmonic if $h(x) \geq Ph(x)$ for every $x\in X$. Addition to $\Har$, we define
+    \[
+    \Har^+ = \{h\in \Har, h(x)\geq 0\}\quad \Har^{\infty} = \{h \in \Har, h\text{ is bounded on }X\}
+    \]
+    and let $\Sar = \Sar (X,P)$ the space of all superharmonic functions and similarly defined $\Sar^+,\Sar^{\infty}$
+\end{definition}
+
+\begin{definition}
+    A measure on $X$ is invariant or stationary if $v= vP$ and excessive or superinvariant $v=vP$. Denote \[I^+ = I^+(X,P), \quad E^+ = E^+(X,P)\] the cones of all invariant and excessive measures.
+\end{definition}
+
+We know that we have
+\[
+0<G(x,y) < \infty
+\]
+for any $x,y \in \infty$. Actually, this claim is necessary as we will see, and the structure of superharmonic functions will be revealed by Riesz decomposition and Approximation Theorem. Now let us give the definition of the potentials.
+
+\begin{definition}
+    (Potentials)\par
+    For a $G$-integrable function $f:X\to \R$, $g(x) = Gf(x) = \sum\limits_{y\in X}G(x,y)f(y)$ is called the potential of $f$, while $f$ is called the charge of $g$. The support of $f$ is $\{x\in X, f(x) \neq 0\}$.
+\end{definition}
+
+Before coming to the main theorems, let us learn something about potentials at first.
+
+\begin{proposition}(Some properties of potentials)\par
+    a. If $g$ is the potential of $f$, then $f = (I-P)g$. Furthermore, $P^ng\to 0$ pointwise.\par
+    b. If $f$ is non-negative, then $g = Gf \in \Sar^+$ and $g$ is harmonic on $X- supp(f)$ that is $Pg(x) = g(x)$ for every $x\in X-supp(f)$.
+\end{proposition}
+\begin{proof}
+    Instead of general $f$, considering that $f \geq 0$ firstly, since $Gf = \sum\limits_{n\geq 0}P^nf$ and then we know
+    \[
+    P Gf(x) = G Pf = \sum\limits_{n\geq 1}P^n f = Gf - f
+    \]
+    ($Gf = \sum\limits_{n\geq 0}P^nf$ can be verified by MCT to exchange the summation) and hence $Gf$ is superharmonic on $X$ and harmonic on $X-supp(f)$. Then notice
+    \[
+    P^ng(x) = GP^nf(x) = \sum\limits_{k=n}^{\infty}P^kf(x)
+    \]
+    has to be convergent to $0$ since the partial sum is the rest items of $(I-P)^{-1} = G$. For general $f$, decompose it as $f^+$ and $f^-$ will be fine.
+\end{proof}
+
+Then let us prove the Riesz decomposition theorem.
+
+\begin{theorem}
+    (Riesz decomposition theorem)\par If $u\in \Sar^+$ then there is a potential $g\in Gf$ and a function $h\in\Har^+$ such that
+    \[u = Gf + h\]
+    and the decomposition is unique.
+\end{theorem}
+\begin{proof}
+    Since $u\geq 0$ and $u\geq Pu$, for every $x\in X$ and every $n\geq 0$, we know
+    \[
+    P^nu(x) \geq P^{n+1}u(x) \geq 0
+    \]
+    Therefore, the limit function
+    \[
+    h(x) = \lim_{n\to\infty} P^nu(x)
+    \]
+    exists and
+    \[
+    Ph(x) = P(\lim_{n\to\infty} P^n u)(x) = \lim_{n\to\infty}P^{n+1}u(x) = h(x)
+    \]
+    by DCT since $u$ is $P$-integrable. Then let $f = u - Pu$ and then we know
+    \[
+    u-h = Gf
+    \]
+    Then let us prove the uniqueness, we consider $u = g_1+h_1$ another decomposition, then $P^n = P^ng_1 + h_1$ and then we know $P^n u \to h_1$ since $P^ng_1 \to 0$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    (Approximation theorem)\par If $h \in \Sar^+(X,P)$ then there are potentials $g_n = Gf_n, f_n \geq 0$
+    \[
+    g_n(x) \uparrow  h(x)
+    \]
+    pointwisely.
+\end{theorem}
+\begin{proof}
+    Define
+    \[
+    R^A[h](x) = \inf\{u(x), u\in\Sar^+, u(y) \geq h(y)\text{ for all }y\in A\}
+    \]
+    and $R^A[h] \leq h$. In particular, we have
+    \[
+    R^A[h](x) = h(x) 
+    \]
+    for $x\in A$. We know $R^A[h](x) \in \Sar^+$ since for a family of subharmonic functions, we let $\nu = \inf\nu_i$ and we have $P\nu \leq P\nu_i \leq \nu_i$. Let $A$ be a finite subset $X$. Let $f_0 (x) = h(x)$ if $x\in A$ and $f_0(x) = 0$. $f_0$ is non-negative and finitely supported. Then $Gf_0$ exists and finite on $X$, with $Gf_0 \geq f_0$. So $Gf_0$ is a superharmonic function since $P Gf_0 = GPf_0 \leq Gf_0$ and with $Gf_0 \geq h$ on  $A$. So we know $R^A[h]\leq Gf_0$. Then give the Riesz decomposition of $R^A[h] = Gf + h'$ and since $h' = P^{n}h' \leq P^{n}Gf_0 \to 0$ and hence $h' = 0$.\par
+    Let $A_n$ be an increasing sequence of finite subsets of $X$ such that $X = \bigcup_{n}A_n$ and let $g_n = R^{A_n}[h]$ then we know $g_n \leq h$ but $g_n = h$ on $A_n$. We claim $g_n = R^{A_n}[h]$ will satisfy the requirement, only need to check that $g_n \to h$ pointwise which is trivial.
+\end{proof}
+
+\section{Recurrent cases}
+
+In this section, we would like to introduce the properties of superharmonic functions on recurrent Markov chain. Since as we know a irreducible Markov chain can be either transient or recurrent, we will know the properties of superharmonic functions on irreducible Markov chain totally then. The maximal prinple is a little bit different when $X$ is infinite, since the maxmium can not be reached always.
+
+\begin{theorem}
+    (Maximum principle - infinite) \par(Assume $|X| > 1$) If $h\in\Har(X,P)$ and there is $x\in X$ such that $h(x) = M = \max_X h$, then $h$ is constant, where $P$ is substochatic. Furthermore, if $M\neq 0$ then $P$ is stochastic.
+\end{theorem}
+
+The proof is totally the same. The following theorem is to revealing the properties of superharmonic functions on recurrent Markov chain.
+
+\begin{theorem}
+    $(X,P)$ is recurrent iff every nonnegative superharmonic function is constant.
+\end{theorem}
+\begin{proof}
+    (Here notice $(X,P)$ is either transient or recurrent since it is irreducible).\par
+    Suppose that $(X,P)$ is recurrent, we show that $\Sar^+ = \Har^+$, let $h\in \Sar ^+$, we have
+    \[g = h - Ph\]
+    is non-negative and $P$-integrable. We have
+    \[
+    \sum_{k=0}^n P^kg = h-P^{n+1}h
+    \]
+    We will seem $g(y)$ can be positive, if $g(y) > 0$ for some $y$, then
+    \[
+    \sum\limits_{k=0}^{n}p^{(k)}(x,y)g(y) \leq \sum_{k=0}^n P^kg(x) \leq h(x)
+    \]
+    and then we have
+    \[
+    G(y,y) \leq h(y)/g(y) < \infty
+    \]
+    which is a contradiction since $y$ is recurrent. So $g = 0$ and hence $h$ is harmonic.\par
+    Then we consider for any $h\in \Sar^+ = \Har^+$, let $x\in X$ and define $g(v) = \min\{h(v),h(x)\}$, then we know when $h(y) \leq h(x)$
+    \[
+    Pg(y) = \sum\limits_{x\in X}p(y,x) g(x) \leq Ph(y) = h(y) = g(y)
+    \]
+    and if $h(y) > h(x)$ the RHS is less than $h(x)$ since $P$ is substochastic, so $g$ is subharmonic and hence harmonic, then $g$ should be constant. Therefore, for any $y\neq x$ $h(y) \geq h(x)$ and then we know $h$ is constant.\par
+    b. Here are two proofs here, one can be deduced by lemma A.4. directly and the other one is from the view of Riesz decomposition of $h$ when $P$ is transient. We will know that $Gf$ has to be $0$ for any $f$ by choosing $Gf+h$ to be superharmonic, which is impossible and hence $(X,P)$ to be recurrent.\par
+    Notice the constant is harmonic implies that $P$ is stochastic.
+\end{proof}
+
+Then we may introduce the excessive measures on recurrent Markov chain and its relatively properties. Let us deal with some simple conclusions to start.
+
+\begin{proposition}(Some properties of excessive measures)\par
+    a. If $v\in E^+$ then $vP^n\in E^+$ for each $n$ and either $v = 0$ or $v(x) > 0$ for every $x$.\par
+    b. If $v_i, i\in I$ is a family of excessive measures, then also $v(x) = \inf_I v_i(x)$ is excessive.\par
+    c. If $(X,P)$ is transient, then for each $x\in X$, the measure $G(x,\cdot)$ defined by $y\mapsto G(x,y)$ is excessive.
+\end{proposition}
+\begin{proof}
+    a. Here we know
+    \[
+    vP^{(n)}(x) = \sum\limits_{y\in X}p^{(n)}(y,x)v(y) \leq v(x)
+    \]
+    and hence if $v(x) = 0$, then $v(y) = 0$ since $(X,P)$ irreducible.\par
+    b. $vP \leq v_i P \leq v_i$.\par
+    c. We know
+    \[
+    G(x,\cdot)P(y) = \sum\limits_{w\in X} G(x,w)p(w,y) \leq G(x,y)
+    \]
+\end{proof}
+
+The following theorem shows part of the duality of excessive measures and superharmonic functions. We still assume $(X,P)$ is substochatic and irreducible.
+
+\begin{theorem}
+    $(X,P)$ is recurrent iff there is a non-zero invariant measure $\nu$ such that each excessive measure is a multiple of $\nu$. Then $P$ must be stochastic.
+\end{theorem}
+\begin{proof}
+    Firstly, assume that $P$ is recurrent. Then we know $P$ must to be stochastic by theorem 3.2. We also know there is an excessive measure $\nu$ such that $\nu(y) > 0$ for all $y$ by Lemma A.5. We consider $\nu$-reversal $\hat{P}$ of $P$ and we know $\hat{P}$ is substochastic and $\hat{p}^{(n)}(x,y) = v(y)p^{(n)}(y,x)/v(x)$ and hence $\hat{P}$ is recurrent and then stochastic, so $\nu$ must be invariant. If $\sigma$ is any other excessive measure, we define $h(x) = \sigma(x)/\nu(x)$, then we know
+    \[
+    \hat{P}h(y) = \sum\limits_{x\in X}\hat{P}(x,y)\sigma(y)/\sigma(y) = \sum\limits_{x\in X} p(y,x)\sigma(y)/\nu(x) \leq h(y)    \]
+    and we know $h$ must be constant.\par
+    If $(X,P)$ is transient, then $G(x,\cdot)$ is excessive but not invariant since $GP(x,\cdot) = G(x,\cdot) - \delta_x$ is definitly not invariant, which is contradiction.
+\end{proof}
+
+\newpage
+
+\section{The Balayee theory}
+
+This section is really interesting for a lot of tricks and let us introduce $F$ and $L$ functions.
+
+\begin{definition}
+    (F and L functions)\par
+    For $A\subset X, x,y \in X$, we define
+    \[
+    F^A(x,y) = \sum\limits_{n=0}^{\infty}P_x(Z_n = y, Z_j \notin A\text{ for }0\leq j < n)\chi_A(y)
+    \]
+    and
+    \[
+    L^A(x,y) = \sum\limits_{n=0}^{\infty}P_x(Z_n = y, Z_j \notin A\text{ for }0<j\leq n)\chi_A(x)
+   \]
+\end{definition}
+
+and the following two theorems show the duality of $F$ and $L$.
+
+\begin{theorem}(Duality)\par
+    a. We have
+    \[
+    \hat{L}^A(x,y) = \dfrac{v(y)F^A(y,x)}{v(x)},\quad \hat{F}^A(x,y) = \dfrac{v(y)L^A(y,x)}{v(x)}
+    \]\par
+    b. $x\in A \implies F^A(x,\cdot) = \delta_x, y\in A \implies L^A(\cdot,y) = 1_y$.
+\end{theorem}
+\begin{proof}
+    a. We have
+    \[
+    \begin{aligned}
+        \hat{L}^A(x,y) &= \sum\limits_{n\geq 0}\sum \hat{P}_x(Z_n = y, Z_j = x_j, 0\leq j < n)\chi_A(x) \\
+        &= \sum\limits_{n\geq 0}\sum v(y)p(y,\cdot)\cdots p(\cdot,x)/v(x) \\
+        &= v(y)\sum\limits_{n\geq 0}P_y(Z_n=x,Z_j\notin A)\chi_A(x)/v(x) \\
+        &= v(y)F^A(y,x)/v(x)
+    \end{aligned} 
+    \]
+    and the rest is similar.\par
+    b. $x\in A$, then $F^A(x,y) = P_x(Z_0 = y)$. And the other one is similar.
+\end{proof}
+
+This lemma will help us to compute wit h $F$ and $L$.\par
+
+\begin{lemma}(Some formulas)\par
+    a. $G = G_{X-A}+F^AG$.\par
+    b. $G = G_{X-A} + GL^A$.\par
+    c. $F^AG = GL^A  = G-G_{X-A}$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    \begin{aligned}
+    p^{(n)}(x,y) &= P_x(Z_n = y, s^A>n)+P_x(Z_n = y, s^A \leq n)\\
+    &= p_{X-A}^{(n)}(x,y) + \sum_{v\in A}\sum\limits_{k=0}^n P_x(Z_n = y, s^A = k, Z_k = v) \\
+    & = p_{X-A}^{(n)}(x,y) + \sum_{v\in A}\sum\limits_{k=0}P_x(s^A = k,Z_k = v)p^{(n-k)}(v,y)
+    \end{aligned}
+    \]
+    then we have
+    \[
+    G(x,y) = G_{X-A}(x,y) = \sum\limits_{v\in A}(\sum\limits_{k=0}^{\infty}P_x(s^A = k, Z_k = v))(\sum\limits_{n=0}^{\infty} p^{(n)}(v,y))
+    \]
+    and hence
+    \[
+    G(x,y) = G_{X-A}(x,y) + \sum\limits_{v\in X}F^A(x,v)G(v,y)
+    \]\par 
+    The rest is to enumerate the last time of visiting $A$.
+\end{proof}
+
+\begin{lemma}
+    $P^A = P_{A,X}F^A = L^AP_{X,A}$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    \begin{aligned}
+        p^A(x,y) &= p(x,y) + \sum_{v\in X-A}p(x,v)P_v(s^A<|infty, Z_{s^A} = y) \\
+        &=\sum\limits_{v\in A}p(x,v)\delta_v(y) + \sum\limits_{v\in X-A}p(x,v)F^A(v,y) \\
+        &= \sum\limits_{v\in X}p(x,v)F^A(v,y)
+    \end{aligned}
+    \]
+    Then let $v$ be any excessive positive measures, which can be secured by Lemma.A.5., then we have
+    \[
+    p^A(x,y) = \hat{p}(y,x) = \sum_{v\in X}\hat{p}(y,v)\hat{F}(v,x) = \sum\limits_{v\in X} L(x,v)p(v,y) 
+    \]
+    and we are done.
+\end{proof}
+
+\begin{lemma}(The $F$ and $L$ transformation on superharmonic functions and excessive measures)\par
+    a. If $h\in\Sar^+(X,P)$, then $F^Ah(x) = \sum_{y\in A} F^A(x,y)h(y)$ if finite and
+    \[F^Ah(x) \leq h(x)\]\par
+    b. If $v\in E^+(X,P)$, then $vL^A(y) = \sum_{x\in A}v(x)L^A(x,y)$ is finite and
+    \[vL^A(y) \leq v(y)\]
+\end{lemma}
+\begin{proof}
+    By approximation theorem, we may find $g_n = Gf_n$ such that $g_n \uparrow h$ on $X$. The $f_n$ can be chosen to have finite support. So
+    \[
+    F^Ag_n = F^AGf_n = Gf_n - G_{X-A}f_n \leq g_n \leq h
+    \]
+    and hence $F^Ah \leq h$ by MCT.\par
+    For the other conclusion, we know 
+    \[
+    vL^A(y) = \sum_{x\in A}v(x)L^A(x,y) = \sum_{x\in A}\hat{F}^A(y,x)v(y) \leq v(y)
+    \]
+\end{proof}
+
+Recall the reduced measure
+   \[R^A[v] (x) = \inf\{\mu\in E^+, \mu(y)\geq v(y), y\in A\}\]
+and we have the theorems for $F$ and $L$ as the following
+
+\begin{theorem}
+    a. If $h\in \Sar^+$ then $R^A[h] = F^Ah$. In particular, $R^A[h]$ is harmonic in every point of $X-A$ while $R^A[h] = h$ on $A$.\par
+    b. If $v\in E^+$ then $R^A[v] = vL^A$. In particular, $R^A[v]$ is invariant in every point of $X-A$ while $R^A[v] = v$ on $A$.
+\end{theorem}
+\begin{proof}(Reduced measures of $F$ and $L$)\par
+    a. For $x\in X-A$ and $y\in A$, we factorize and then
+    \[
+    F^A(x,y) = p(x,y) + \sum\limits_{v\in X-A} p(x,v)F^A(v,y) = \sum_{v\in X} p(x,v)F^A(v,y)
+    \]
+    then
+    \[
+    F^Ah(x) = \sum\limits_{y\in A}F^A(x,y)h(y) = \sum\limits_{v\in X,y\in X} p(x,v)F^A(v,y)h(y) = P(F^A h)(x)
+    \]
+    then for $x\in A$
+    \[
+    P(F^Ah)(x) = \sum PF^A(x,y)h(y) = P^Ah(x) \leq h(x)
+    \]
+    and it is easy to check $F^Ah = h$ on A. We know $F^A \in \{u\in \Sar^+, u\geq h, y\in A\}$ then $R^A[h] \leq F^A h$. Then for $u \in Sar^+$ and $u\geq h$ on $A$, we know
+    \[
+    u(x) \geq \sum_{y\in A}F^A(x,y)u(y) \geq F^Ah(x)
+    \]
+    and we are done.\par
+    b. For $x\in X$ we have $L^A(x,y) = 0$ and then
+    \[
+    vL^AP(y) = \sum\limits_{x\in A,w\in A}v(x)L^A(x,w)P(w,y) = \sum\limits_{x\in A}v(x)L^AP(x,y) = vP^A \leq v(y)
+    \]
+    for $y \in A$ and for $x\in X-A$, we have
+    \[
+    vL^AP(x) = \sum\limits_{y\in A,w\in A}v(y)L^A(y,w)P(w,x) = 0 = vL^A(x)
+    \]
+    and then since $vL^A(y) = v(y)$ for all $y\in A$, so we are done.\par
+\end{proof}
+
+We will use the Domination principle as the end of this paper, which is also an important conclusion of the potential theory.
+
+\begin{theorem}
+    (Domination Principle)\par
+    Let $f$ be a non-negative, $G$-integrable function on $X$ with support $A$. If $h\in \Sar^+$ is such that $h(x) \geq Gf(x)$ for every $x\in A$, then $h\geq Gf$ on the whole of $X$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    h(x) \geq F^Ah(x) \geq \sum\limits_{y\in A}F^A(x,y)Gf(y) = F^AGf(x) = Gf^A(x) = Gf(x) 
+    \]
+    for every $x$ since $f^A = f$.
+\end{proof}
+
+\newpage
+
+\appendix
+
+\section{Some lemmas}
+
+\subsection{}
+\begin{lemma}
+    We call a set $B\subset X$ convex if $x,y \in B$ and $x\to w\to y$ implies $w\in B$. For $B\subset X$ finite,convex set containing no essential elements. Then there is $\epsilon > 0$ such that for each $x\in B$ and all but finitely many $n\in \N$
+    \[
+    \sum\limits_{y\in B}p^{(n)}(x,y) \leq (1-\epsilon)^n
+    \]
+\end{lemma}
+\begin{proof}
+    $B$ is a disjoint union of finite nonessential irreducible classes $C(x_1),\cdots,C(X_k)$ and assume $C(x_1),C(x_2),\cdots,C(x_j)$ are the maximal elements in the partial order $\to$ restricted on $C(x_i), 1\leq i\leq k$. We know there is $v_i \in X$ such that $x_i \to v_i$ but $v_i \nrightarrow x_i$ for $1\leq i \leq j$ with $v_i \in X - B$. For $x\in B$, $x\to x_i$ for some $i$ and hence $x\to v_i$ while $v_i \nrightarrow x$ for some $i$. So we may find $m_x$ such that
+    \[\sum_{y\in B} p^{(m_x)}(x,y) < 1\]
+    Let $ m = \max\{m_x, x\in B\}$ and $x\in B$, we know
+    \[
+    \sum\limits_{y\in B}p^{(m)}(x,y) = \sum\limits_{y\in B}\sum\limits_{\omega \in X}p^{(m_x)}(m_x)(x,\omega)p^{(m-m_x)}(\omega,y) < 1
+    \]
+    since $B$ is finite, there is $\kappa > 0$ such that
+    \[
+    \sum_{y\in B}p^{(m)}(x,y) \leq 1-\kappa
+    \]
+    let $n \geq m$ and we assume $n = km +r$ and we know
+    \[
+    \sum\limits_{y\in B}p^{(n)}(x,y) = \sum\limits_{w\in B}p^{(km)}(x,w) = \sum\limits_{y\in B}p^{(k-1)m}\sum\limits_{\omega \in B}p^{(m)}(y,\omega) \leq \cdots \leq (1-\kappa)^k = (1-\epsilon)^n
+    \]
+    where $\epsilon = 1 - (1-\kappa)^{1/2m}$.
+\end{proof}
+
+
+\begin{lemma}
+    For $C$ finite, non-essential irreducible class. The expected number of visits $C$ starting from $x\in C$ is finite, i.e.
+    \[
+    E_x(v^C) \leq 1/\epsilon +M
+    \]
+    Then we may know
+    \[P_x(\exists k, Z_n \in C\text{ for all }n>k) = 1\]
+    since $P(v^C = \infty) = 0$.
+\end{lemma}
+
+\begin{lemma}
+    If the set of all non-essential states in $X$ is finite, then the Markov chain reaches some essential class with probability one:
+    \[P_x(s^{X_{ess}}<\infty) = 1\]
+    where $X_{ess}$ is the union of all essential classes.
+\end{lemma}
+
+\begin{lemma}
+    If $(X,P)$ is transient, then for each $y\in X$, the function $G(\cdot,y)$ is superharmonic and positive. There is at most one $y\in X$ for which $G(\cdot,y)$ is a constant function. If $P$ is stochastic, then $G(\cdot,y)$ is non-constant for every $y$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    PG(x,y) = \sum\limits_{w\in X}p(x,w)G(w,y) = G(x,y)
+    \]
+    and
+    \[
+    PG(y,y) = \sum\limits_{w\in X}p(y,w)G(w,y) = G(y,y) - 1
+    \]
+    and hence $G(\cdot,y) \in \Sar^+$. Suppose $y_1,y_2\in X$ and $y_1\neq y_2$ such that $G(\cdot,y_i)$ are constant, then
+    \[
+    F(y_1,y_2) = G(y_1,y_2)/G(y_2,y_2) = 1, F(y_2,y_1) = 1
+    \]
+    and then $F(y_1,y_1) \geq F(y_1,y_2)F(y_2,y_1) \geq 1 = 1$ and $y_1$ is recurrent, which is a contradiction.\par
+    If $P$ is stochastic, since $G(\cdot,y)$ is strictly superharmonic and there will be a contradiction since constant function is harmonic.
+\end{proof}
+
+\begin{lemma}
+    In the recurrent as well as in the transient case, for each $x\in X$, the measure $L(x,\cdot)$ defined by $y\mapsto L(x,y)$ is finite and excessive.
+\end{lemma}
+
+\end{document}
