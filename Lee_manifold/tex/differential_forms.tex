@@ -1,0 +1,31 @@
+\section{Differential Forms}
+
+\subsection{Algebra of Alternating Tensors}
+
+\begin{lemma}
+    Let $\alpha$ be a covariant $k$-tensor on a finite-dimensional vector space $V$. The following are equivalent
+    \begin{itemize}
+        \item $\alpha$ is alternating
+        \item $\alpha(v_1,\cdots,v_k) = 0$ whenever the $k$-tuple $(v_1,\cdots v_k)$ is linear dependent
+        \item $\alpha$ gives the value zero whenever two of its arguments are equal, i.e. \[\alpha(v_1,\cdots,w,\cdots,w,\cdots,v_k)=0\]
+    \end{itemize}
+\end{lemma}
+
+\begin{definition}(Alternation)\par
+    $\text{Alt}:T^k(V^*) \to \Lambda^k(V^*)$ is called the \textbf{alternation} defined by
+    \[\text{Alt}\alpha = \dfrac{1}{k!}\sum\limits_{\sigma\in S_k}(\text{sgn}\sigma)(\alpha^{\sigma})\]
+\end{definition}
+
+\begin{proposition}
+    Let $\alpha$ be a covariant tensor on a finite-dimensional vector space
+    \begin{itemize}
+        \item $\text{Alt} \alpha$ is alternating
+        \item $\text{Alt} \alpha = \alpha$ if and only if $\alpha$ is alternating
+    \end{itemize}
+\end{proposition}
+
+\begin{definition}(Multi-index)\par
+    A \textbf{multi-index} of length $k$ is an ordered $k$-tuple $I=(i_1,\cdots,i_k)$ and for $\sigma\in S_k$ define
+    \[I_{\sigma} = (i_{\sigma(1)},\cdots,i_{\sigma(k)})\]
+\end{definition}
+

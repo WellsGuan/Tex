@@ -1,0 +1,149 @@
+\section{Vector Fields}
+
+\subsection{Vector Fields on Manifolds}
+
+\begin{definition}(Vector Fields)\par
+    If $M$ is a smooth manifold with or without boundary, a \textbf{vector field} on $M$ is a section of the map $\pi:TM \to M$, i.e. a continuous map $X:M\to TM$ with $\pi \circ X\ = Id_M$.
+    \textbf{Smooth vector fields} are those smooth as maps from $M$ to $TM$.\par
+    The \textbf{support} of $X$ is define by the closure of
+    \[\{p\in M,X_p \neq 0\}\]
+    and \textbf{compactly supported} if it has a compact support.
+    For a chart $(U,(x_i))$ if we write
+    \[X(p) = X_i(p)\dfrac{\partial}{\partial x_i}\Big|_{p}\]
+    then we call $X_i:U\to \mathbb{R}$ the component functions of $X$.
+\end{definition}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boudnary, and let $X:M\to TM$ be a vector field, if $(U,(x_i))$ is any smooth coordinate chart on $M$, then the restriction of $X$ to $U$ is smooth if and only if its component functions w.r.t. this chart are smooth.
+\end{proposition}
+\Pf\par
+    Assume $(x_i,v_i)$ to be the coordinates on $\pi^{-1}(U)$ and  Then
+    \[\hat{X}(x) = (x_1,\cdots,x_n,\tilde{X}_1(x),\cdots,\tilde{X}_n(x))\]
+    and we are done.
+
+\begin{lemma}
+    Let $M$ be a smooth manifold with or without boundary, and let $A\subset M$ be a closed subset. Suppose $X$ is a smooth vector field along $A$. Given any open subset containing $A$, there exists a smooth global vector field $\tilde{X}$ on $M$ such that $\tilde{X}|_A = X$ and $\text{supp}\tilde{X}\subset U$.
+\end{lemma}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boundary. Given $p\in M$ and $v\in T_pM$, there is a smooth global vector field $X$ on $M$ such that $X_p = v$.
+\end{proposition}
+
+\begin{definition}
+    It is standard to use $\mathfrak{X}(M)$ to denote all smooth vector fields on $M$. With
+    \[(aX+bY)(p) = aX(p) + bY(p)\]
+    and we may define for $f\in C^{\infty}(M)$ and $X\in \mathfrak{X}(M)$
+    \[(fX)(p) = f(p)X_p\]
+    and we may see it is a smooth vector field. 
+\end{definition}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boundary.
+    \begin{itemize}
+        \item If $X$ and $Y$ are smooth vector fields on $M$ and $f,g\in C^{\infty}(M)$, then $fX+gY$ is a smooth vector field.
+        \item $\mathfrak{X}(M)$ is a module over the ring $C^{\infty}(M)$.
+    \end{itemize}
+\end{proposition}
+
+\begin{definition}(Frame)\par
+    Suppose $M$ a smooth $n$-manifold with or without boundary. An ordered $k$-tuple $(X_i)$ defined on some subset $A$ is \textbf{linear independent} if $(X_1(p),\cdots,X_k(p))$ is a linearly independent $k$-tuple in $T_pM$ at each $p\in A$. It is called to \textbf{span the tangent bundle} if $(X_1(p),\cdots,X_k(p))$ spans $T_pM$ at each $p\in A$.\par
+    A \textbf{local frame} for $M$ is an ordered $n$-tuple of vector fields $(E_1,\cdots,E_n)$ defined on an open subset $U$ that is linearly independent and spans the tangent bundle, and it is a \textbf{global frame} if $U=M$ and a \textbf{smooth frame} if $E_i$ is smooth.
+\end{definition}
+
+\begin{definition}
+    If $X\in\mathfrak{X}(M)$ and $f$ is a smooth function defined on an open subset $U\subset M$, we obtain a new function $Xf:U\to\mathbb{R}$ defined by
+    \[(Xf)(p) = X(p)f\]
+\end{definition}
+\Pf\par
+    To see $Xf \in \mathfrak{X}(M)$, we may check for a chart $(U,\phi)$, we will have
+    \[
+    \widetilde{(Xf)}(x) = \tilde{f}(x)\widetilde{X}(x) =  \sum\limits_{i=1}^n \tilde{f}(x)\tilde{X_i}(x)\dfrac{\partial}{\partial x_i} 
+    \]
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boundary, and let $X:M\to TM$ be a rough vector field. The following are equivalent
+    \begin{itemize}
+        \item $X$ is smooth.
+        \item For every $f\in C^{\infty}(M)$, the function $Xf$ is smooth on $M$.
+        \item For every open subset $U\subset M$ and every $f\in C^{\infty}(U)$, the function $Xf$ is smooth on $U$.
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    We have proved (a) implies (b), and to see (b) implies (c), we may consider if $f\in C^{\infty}(U)$, then consider $\psi$ a bump function which equals to $1$ on some neighbourhood of $p$ with $\text{supp} \psi \in U$ and we may know $\psi f$ can be extended to $M$ and $X(\psi f)$ is smooth, which equals to $Xf$ on some meighbourhood of $p$, and hence $Xf$ is smooth in a neighbourhood of any point of $U$ and we are done.\par
+    We may consider a local coordinates on $U$ and then apply (c) to $x_i$ and we may get $X(x_i) = X_i$ which is smooth on some neighborhood of any point.
+
+\begin{definition}(Global Derivation)\par
+    A map $X:C^{\infty}\to C^{\infty}$ is a \textbf{derivation} if it is linear and
+    \[
+    X(fg) = fX(g) + gX(f)
+    \]
+    and we may know $\mathfrak{X}(M)$ is a subset of derivation.
+\end{definition} 
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boundary. A map $D:C^{\infty} \to C^{\infty}$ is a derivation if and only if it is of the form $D(f) = X(f)$ for some smooth vector field $X\in\mathfrak{X}(M)$.
+\end{proposition}
+
+\subsection{Vector Fields and Smooth Maps}
+
+\begin{definition}($F$-related)\par
+    Suppose $F:M\to N$ is smooth and $X$ is a vector field on $M$, and suppose there is a vector field $Y$ on $N$ such that
+    \[dF_p(X(p)) = Y(F(p))\]
+    for each $p\in M$, then we call $X$ and $Y$ are $F$-\textbf{related}.
+\end{definition}
+
+\begin{proposition}
+    Suppose $F:M\to N$ is a smooth map between manifolds with or without boundary, $X\in\mathfrak{M}, Y \in \mathfrak{N}$. Then $X$ and $Y$ are $F$-related if and only if for every smooth function $f$ define on an open subset of $N$, we have
+    \[X(f\circ F) = (Yf)\circ F\]
+\end{proposition}
+
+\begin{proposition}
+    Suppose $M$ and $N$ are smooth manifolds with or without boundary, and $F:M\to N$ is a diffeomorphism, For every $X\in\mathfrak{M}$, there is a unique smooth vector field on $N$ that is $F$-related to $X$.\par
+    This vector field is called the \textbf{pushforward} of $X$ by $F$.
+\end{proposition}
+
+\begin{corollary}
+    Suppose $F:M\to N$ is a diffeomorphism and $X\in\mathfrak{X}(M)$, for any $f\in C^{\infty}(N)$
+    \[((F_*X)f)\circ F = X(f\circ F)\]
+\end{corollary}
+
+\subsection{Lie Brackets}
+
+\begin{definition}
+    For two smooth vector fields $X,Y$, we may define the \textbf{Lie Bracket} of $X$ and $Y$ by
+    \[[X,Y]f = XYf - YXf\]
+\end{definition}
+
+\begin{lemma}
+    The Lie bracket of any pair of smooth vector fields is a smooth vector field.
+\end{lemma}
+
+\begin{proposition}(Coordinate Formula for the Lie Bracket)\par
+    Let $X,Y$ be smooth vector fields on a smooth manifold $M$ with or without boundary, and let $X = X_i\dfrac{\partial}{\partial x_i}$ and $Y = Y_j\dfrac{\partial}{\partial x_j}$ be the coordinate expressions for $X$ and $Y$ in terms of some smooth local coordinates $(x_i)$ for $M$. Then $[X,Y]$ has the following coordinate expression
+    \[[X,Y] = \sum\limits_{1\leq i,j\leq n}\left(X_i\dfrac{\partial Y_j}{\partial x_i} - Y_i\dfrac{\partial X_j}{\partial x_i}\right)\dfrac{\partial}{\partial x_j} = \sum\limits_{j=1}^n(XY_j - YX_j)\dfrac{\partial}{\partial x_j}\]
+\end{proposition}
+
+\begin{proposition}
+    The Lie bracket satisfies the following identities for all $X,Y,Z \in \mathfrak{X}(M)$
+    \begin{itemize}
+        \item For $a,b\in\mathbb{R}$,$[aX+bY,Z] = a[X,Z] + b[Y,Z],
+            [Z,aX+bY] = a[Z,X] + b[Z,Y]$
+        \item $[X,Y] = -[Y,X]$
+        \item $[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$
+        \item For $f,g\in C^{\infty}(M)$
+        ,$[fX,gY] = fg[X,Y] + (fXg)Y - (gYf)X$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proposition}
+    Let $F:M\to N$ be a smooth map between manifolds with or withour boundary, and let $X_1,X_2\in\mathfrak{X}(M)$ and $Y_1,Y_2\in\mathfrak{X}(N)$ be vector fields such that $X_i$ is $F$-related tp $Y_i$, then $[X_1,X_2]$ is $F$-related to $[Y_1,Y_2]$.
+\end{proposition}
+
+\subsection{The Lie Algebra of a Lie Group}
+
+\begin{definition}
+    Suppose $G$ is a Lie group. A vector field $X$ on $G$ is said to be \textbf{left-invariant} if it is invariant under all left translations, i.e.
+    \[d(L_g)_g'((g')) = X(gg')\]
+    which means $X$ is $L_g$-related to itself and $(L_g)_*X = X$.
+\end{definition}
+

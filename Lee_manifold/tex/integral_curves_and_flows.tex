@@ -1,0 +1,90 @@
+\section{Integral Curves and Flows}
+
+\subsection{Integral Curves}
+
+\begin{definition}(Integral Curve)\par
+    Suppose $M$ is a smooth manifold with or without boundary. If $V$ is a vector field on $M$, an \textbf{integral curve} of $V$ is a differentiable curve $\gamma:J\to M$ such that 
+\[\gamma'(t)\ =  V(\gamma(t))\]
+for all $t\in J$.
+\end{definition}
+
+\begin{proposition}
+    Let $V$ be a smooth vector field on a smooth manifold $M$. For each point $p\in M$, there exist $\epsilon > 0$ and a smooth curve $\gamma:(-\epsilon,\epsilon) \to M$ that is an integral curve of $V$ starting at $p$.
+\end{proposition}
+
+\begin{lemma}(Rescaling Lemma)\par
+    Let $V$ be a smooth vector field on a smooth manifold $M$, let $J\subset \mathbb{R}$ be an interval, and let $\gamma:J\to M$ be an integral curve of $V$. For any $a\in\mathbb{R}$, the curve $\tilde{\gamma}\to M$ defined by $\tilde{gamma}(t) = \gamma(at)$ is an integral curve of the vector field $aV$, wjere $\tilde{J} = \{t,at\in J\}$.
+\end{lemma}
+
+\begin{lemma}(Transition Lemma)\par
+    Let $V,M,J$ and $\gamma$ be as in the proceding lemma. For any $b\in\mathbb{R}$, the curve $\hat{\gamma}:\hat{J} \to M$ defined by $\hat{\gamma}(t) = \gamma(t+b)$ is also an integral curve of $V$, where $hat{J} = \{t+b\in J\}$.
+\end{lemma}
+
+\begin{proposition}
+    Suppose $M$ and $N$ are smooth manifolds and $F:M\to N$ is a smooth map. Then $X\in\mathfrak{X}(N)$ are $F$-related if and only if $F$ takes integral curves of $X$ to integral curves of $Y$, meaning that for each integral curve $\gamma$ of $X$, $F\circ\gamma$ is an integral curve of $Y$.
+\end{proposition}
+
+\subsection{Flows}
+
+\begin{definition}(Global Flow)\par
+    A \textbf{global flow} on $M$ to be a continuous left $\mathbb{R}$-action on $M$, i.e. a continuous map $\theta:\mathbb{R}\times M \to M$ such that for all $s,t\in\mathbb{R}$ and $p\in M$
+    \[\theta(t,\theta(s,p)) = \theta(t+s,p),\quad \theta(0,p) = p\]
+    And we may care about continuous map $\theta_t:M\to M$
+    \[\theta_t(p) = \theta(t,p)\]
+    and for each $p\in M$, we may define $\theta^{(p)}:\mathbb{R} \to M$
+    by 
+    \[\theta^{(p)}(t) = \theta(t,p)\]
+\end{definition}
+
+
+\begin{definition}(Infinitesimal generator)\par
+    If $\theta:\mathbb{R}\times M \to M$ is a smooth global flow, for each $p\in M$ we define a tangent vector $V_p\in T_pM$ by
+    \[V_p = {\theta^{(p)}}'(0)\]
+    then $p\mapsto V_p$ is a vector field on $M$, which is called \textbf{infinitesimal generator} of $\theta$.     
+\end{definition}
+
+\begin{proposition}
+    Let $\theta:\mathbb{R} \times M \to M$ be a smooth global flow on a smooth manifold $M$. The infinitesimal generator $V$ of $\theta$ is a smooth vector field on $M$, and each curve $\theta^{(p)}$ is an integral curve of $V$.
+\end{proposition}
+
+\begin{definition}(Flow)\par
+    If $M$ is a manifold, a \textbf{flow domain} for $M$ is an open subset $D\subset \mathbb{R} \times M$ with the property that for each $p\in M$, $D^{(p)} = \{t, (t,p)\in D\}$ is an open interval containing $0$.\par
+    A \textbf{flow} on $M$ is a continuous map $\theta:D\to M$ where $D\subset \mathbb{R}\times M$ is a flow domain such that
+    \[\theta(0,p) = p\]
+    and for all $s\in D^{(p)}$ and $t\in D^{(\theta(s,p))}$ such that $s+t\in D^{(p)}$
+    we have
+    \[\theta(t,\theta(s,p)) = \theta(t+s,p)\]
+    If $\theta$ is a flow, we define $\theta_t(p) = \theta^{(p)}(t) = \theta(t,p)$ if $(t,p)\in D$. For each $t\in \mathbb{R}$, we also define
+    \[M_t = \{p,(t,p)\in D\}\]
+    If $\theta$ is smooth, the \textbf{infinitesimal generator} of $\theta$ is defined by $V_p = {\theta^{(p)}}'(0)$
+\end{definition}
+
+\begin{proposition}
+    If $\theta:D\to M$ is a smooth flow, then the infinitesimal generator $V$ of $\theta$ is a smooth vector field, and each curve $\theta^{(p)}$ uis an integral curve.
+\end{proposition}
+
+\begin{theorem}(Fundamental Theorem on Flows)\par
+    Let $V$ be a smooth vector field on a smooth manifold $M$. There is a unique smooth maximal flow $\theta:D\to M$ whose infinitesimal generator is $V$. This flow has the following properties
+    \begin{itemize}
+        \item For each $p\in M$, the curve $\theta^{(p)}:D^{(p)}\to M$ is the unique maximal integral curve of $V$ starting at $p$.
+        \item If $s\in D^{(p)}$, then $D^{(\theta(s,p))}$ is the interval $D^{(p)}$.
+        \item For each $t\in \mathbb{R}$, the set $M_t$ is open in $M$ and $\theta_t:M_t \to M_{-t}$ is a diffeomorphism with inverse $\theta_{-t}$.
+    \end{itemize}
+    This unique flow is called the \textbf{flow generated} by $V$.
+\end{theorem}
+
+\begin{proposition}
+    Suppose $M$ and $N$ are smooth manifolds, $F:M\to N$ is a smooth map, $X\in\mathfrak{X}(M), Y \in \mathfrak{X}(N)$. Let $\theta$ be the flow of $X$ and $\eta$ the flow of $Y$. If $X$ and $Y$ are $F$-related, then for each $t\in\mathbb{R}$, $F(M_t) \subset N_t$ and $\eta_t\circ F = F\circ \theta_t$
+    \[
+    \begin{tikzcd}
+        M_t\arrow[r,"F"]\arrow[d,"\theta_t"] &  N_t\arrow[d,"\eta_t"]\\
+        M_{-t}\arrow[r,"F"] & N_{-t}\\
+    \end{tikzcd}
+    \]
+\end{proposition}
+
+\begin{corollary}
+    Let $F:M\to N$ be a diffeomorphism. If $X\in\mathfrak{X}(M)$ and $\theta$ is the flow of $X$, then the flow of $F_*X$ is $\eta_t = F\circ \theta_t\circ F^{-1}$ with domain $N_t = F(M_t)$ for each $t\in\mathbb{R}$.
+\end{corollary}
+
+
