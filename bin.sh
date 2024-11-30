@@ -11,4 +11,5 @@ do
     find . -name '*.fdb_latexmk' -delete
     find . -name '*.blg' -delete
     find . -name '*.xdv' -delete
+    find . -name '*.toc' -delete
 done
