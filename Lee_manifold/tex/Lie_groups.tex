@@ -1,0 +1,26 @@
+\section{Lie Groups}
+
+\subsection{Basic Concepts}
+
+\begin{definition}(Lie Group)\par
+    A \textbf{Lie group} is a smooth manifold $G$ that is a group, with multiplication $m:G\times G \to G$ and inversion map $i:G\to G$ is smooth.
+\end{definition}
+
+\begin{proposition}
+    If $G$ is a smooth manifold with a group structure such that the map $G\times G \to G$ is smooth, then $G$ is a Lie group.
+\end{proposition}
+\Pf\par
+    Firstly we may obtained that the inversion is smooth since the inclusion $\iota: g\mapsto (e,g)$ from $G$ to $G\times G$ is smooth and $m\circ\iota$ smooth and we are done.\par
+    The rest is to check $Id \otimes i $ is smooth.
+
+\begin{definition}
+    If $G$ is a Lie group, any element $g\in G$ defines maps $L_g,R_g$ by $L_g(h) = gh, R_g(h) = hg$, which is a diffeomorphism.
+\end{definition}
+
+\begin{definition}
+    If $G$ and $H$ are Lie groups, a \textbf{Lie group homomorphism} from $G$ to $H$ is a smooth map $F:G\to H$ is also a group homomorphism.
+\end{definition}
+
+\begin{theorem}
+    Every Lie group homomorphism has constant rank.
+\end{theorem}

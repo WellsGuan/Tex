@@ -1,0 +1,136 @@
+\section{Smooth Maps}
+
+\subsection{Smooth Functions and Smooth Maps}
+
+\begin{definition}(Smooth Function)\par
+    Suppose $M$ is a smooth $n$-manifold, then $f:M\to\mathbb{R}^k$ is a \textbf{smooth function} if for any $p\in M$, there exists a smooth chart $(U,\phi)$ such that $p\in U$ and $f\circ \phi^{-1}$ is smooth on $\hat{U} = \phi(U)$.\par
+    $\hat{f} = f\circ \phi^{-1} : \phi(U) \to \mathbb{R}^k$ is a \textbf{coordinate representation of }$f$.
+\end{definition}
+
+\begin{definition}
+    For $M,N$ smooth manifolds, $F:M\to N$ is a \textbf{smooth map} if for every $p\in M$, ther exist smooth charts $(U,\phi)$ containing $p$ and $(V,\psi)$ containing $F(P)$ such that $\psi\circ F\circ \phi^{-1}:\phi(U)\to \psi(V)$ is smooth.
+\end{definition}
+\begin{proposition}
+    Every smooth map is continuous.
+\end{proposition}
+\Pf\par
+    Waiting for add.
+
+\begin{proposition}
+    Suppose $M$ and $N$ are smooth manifolds with or without boundary, and $F:M\to N$ is a map. Then $F$ is smooth if and only if the following conditions is satisfied
+    \begin{itemize}
+        \item For every $p$, there exists smooth charts $(U,\phi)$ containing $p$ and $(V,\psi)$ containing $F(p)$ such that $U\cap F^{-1}(V)$ is open in $M$ and the composite map $\psi\circ F\circ \phi^{-1}$ is smooth from $\phi(U\cap F^{-1}(V))$ to $\psi(V)$.
+        \item $F$ is continuous and there exist smooth atlases $\{(U_{\alpha}, \phi_{\alpha})\}$ and $\{(V_{\beta},\psi_{\beta})\}$ such that for each $\alpha$ and $\beta$, $\psi_{\beta} \circ F \circ \phi_{\alpha}^{-1}$ is smooth from $\phi_{\alpha}(U_{\alpha} \cap F^{-1}(V_{\beta}))$ to $\psi_{\beta}(V_{\beta})$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proposition}
+    Let $M$ and $N$ be smooth manifolds with or without boudnary, and let $F:M\to N$ be a map.\par
+    \begin{itemize}
+        \item If every point $p\in M$ has a neighbourhood $U$ such that the restriction $F|_U$ is smoot, then $F$ is smooth.\par
+        \item Conversely, if $F$ is smooth, then its restriction to every open subset is smooth.
+    \end{itemize}
+\end{proposition}
+
+\begin{corollary}(Gluing Lemma)\par
+    Let $M$ and $N$ be smooth manifolds with or without boundary, and let $(U_{\alpha})_{\alpha \in A})$ be an open cover of $M$. Suppose that for each $\alpha \in $, we a re given a smooth map $F_{\alpha} U_{\alpha} \to N$ such that the maps agree on overlaps, then there exists a unique smooth map $F:M\to N$ such that $F|_{U_{\alpha}} = F_{\alpha}$ for any $\alpha\in A$.
+\end{corollary}
+
+\begin{definition}
+    If $F:M\to N$ is a smooth map, and $(U,\phi)$ and $(V,\psi)$ are any smooth charts for $M$ and $N$, we call $\hat{F}:\psi \circ F\circ \phi^{-1}$ the coordinate representation of $F$.
+\end{definition}
+
+\begin{proposition}
+    Let $M,N,P$ be smooth manifolds with or without boundary.
+    \begin{itemize}
+        \item Every constant map $c:M\to N$ is smooth.
+        \item The identity map of $M$ is smooth.
+        \item If $U\subset M$ is an open submanifold with or without boundary, then the inclusion $U\hookrightarrow M$ is smooth.
+        \item If $F:M\to N$ and $G:N\to P$ are smooth, then so is $G\circ F:M\to P$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proposition}
+    Suppose $M_1,\cdots,M_k$ and $N$ are smooth manifolds with or without boundary, such that at most one of $M_1,\cdots,M_k$ has nonempty boundary. For each $i$, let $\pi_i:M_1\times\cdots\times M_k \to M_i$ is the projection and then A map $F:N\to M_1\times\cdots M_k$ is smooth if and only if each of the component maps $F_i = \pi_i \circ F:N\to M_i$ is smooth.
+\end{proposition}
+
+\begin{example}\par
+    \begin{itemize}
+        \item Any map from a zero-dim manifold into a smooth manifold.\par
+        \item If the circle $S^1$ is given the standard smooth structure, then $\epsilon \mathbb{R} \to S^1$ defined by $t\mapsto e^{2\pi i t}$ is smooth.
+        \item The map $\epsilon^n:\mathbb{R}^n \to T^n$.
+        \item The inclusion map $\iota: S^n \hookrightarrow \mathbb{R}^{n+1}$.
+        \item The quotient map $\pi:\mathbb{R}^{n+1}/\{0\} \to \mathbb{R}P^n$.\par
+        \item $q:S^n \to \mathbb{R}P^n = \pi|S^n$ where $\pi$ is the quotient map above.
+        \item The projection maps from a product manifold to each component.
+    \end{itemize}
+\end{example}
+
+\begin{definition}
+    A diffeomorphism from $M$ to $N$ is a smooth bijective map $F:M\to N$ that has a smooth inverse.
+\end{definition}
+
+\begin{example}
+Consider the maps $F:D^n \to \mathbb{R}^n$ and $G:\mathbb{R}^n \to D^n$ given by
+\[
+F(x) = \dfrac{x}{\sqrt{1-|x|^2}}\quad G(x) = \dfrac{y}{\sqrt{1+|y|^2}}
+\]
+\end{example}
+
+\begin{proposition}\ \par
+    \begin{itemize}
+        \item Every composition of diffeomorphisms is a diffeomorphism.
+        \item Every finite product of diffeomorphisms between smooth manifolds is a diffeomorphism.
+        \item Every diffeomorphism is a homeomorphism and an open map.
+        \item The restriction of a diffeomorphism to an open submanifold with or without boundary is a diffeomorphism onto its image.
+        \item "Diffeomorphic" is an quivalence relation on the class of all smooth manifoldls with or without boundary.
+    \end{itemize}
+\end{proposition}
+
+\begin{theorem}
+    A nonempty smooth manifold of dimension $m$ cannot be diffeomorphic to an $n$-dimensional smooth manifold unless $m=n$.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $M$ and $N$ are smooth manifolds with boundary and $F:M\to N$ is a diffeomorphism. Then $F(\partial M) = \partial N$ and $F$ restricts to a diffeomorphism from $\text{Int} M$ to $\text{Int} N$.
+\end{theorem}
+
+\subsection{Partitions of Unity}
+
+\begin{definition}
+    Suppose $M$ is a topological space, and let $X = (X_{\alpha})_{\alpha in A}$ be an open cover of $M$. A \textbf{partition of unity subordinate to }$X$ is an indexed family $\{\psi_{\alpha}\}_{\alpha \in A}$ of continuous functions $\psi_{\alpha}:M\to\mathbb{R}$ with
+    \begin{itemize}
+        \item $0\leq \psi_{\alpha}(x)\leq 1$ for all $\alpha \in A$ and all $x\in M$.
+        \item $\text{supp}\psi_{\alpha} \subset X_{\alpha}$ for each $\alpha \in A$.
+        \item The familty of supports is locally finite, i.e. that every point has a neighbourhood that intersects $\text{supp} \psi_{\alpha}$ for only finite indexes.
+        \item $\sum\limits_{\alpha\in A} \psi_{\alpha}(X) = 1$ for all $x\in M$.
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}(Existence of Partitions of Unity)\par
+    Suppose $M$ is a smooth manifold with or without boundary, and $X$ is any indexed open cover of $M$, then there exists a smooth partition of unity subordinate to $X$.
+\end{theorem}
+
+\begin{definition}
+    If $M$ is a topological space, $A\subset M$ is a closed subset, and $U\subset M$ is an open subset containing $A$, a continuous function $\psi: M\to \mathbb{R}$ is called \textbf{a bump function} for $A$ supported in $U$ if $0\leq \psi \leq 1$ on $M$ and $\psi \equiv 1 $ on $A$ and $\text{supp} \psi \subset U$.
+\end{definition}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boudnary. For any closed subset $A\subset M$ and any open subset $U$ containing $A$, there exists a smooth bump function for $A$ supported in $U$.
+\end{proposition}
+
+\begin{lemma}(Extension Lemma for Smooth Functions)\par
+    Suppose $M$ is a smooth manifold with or without boundary, $A\subset M$ is a closed subset and $f:A\to \mathbb{R}^k$ is a smooth function. For any open subset $U$ containing $A$, there exists a smooth function $\tilde{f}:M\to\mathbb{R}^k$ such that $\tilde{f}|_A = f$ and $\text{supp}\tilde{f} \subset U$.
+\end{lemma}
+
+\begin{definition}
+    If $M$ is a topological space, an \textbf{exhaustion function for }$M$ is a continuous function $f:M\to\mathbb{R}$ such that $f^{-1}((-\infty,c])$ is compact for each $c\in\mathbb{R}$.
+\end{definition}
+
+\begin{proposition}
+    Every smooth manifold with or withoud boundary admits a smooth positive exhaustion function.
+\end{proposition}
+
+\begin{theorem}
+    Let $M$ be a smooth manifold. If $K$ is any closed subset of $M$, there is a smooth nonnegative function $f:M\to\mathbb{R}$ such that $f^{-1}(0) = K$.
+\end{theorem}

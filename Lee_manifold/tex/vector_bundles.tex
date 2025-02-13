@@ -1,0 +1,21 @@
+\section{Vector Bundles}
+
+\subsection{Vector Bundles}
+
+\begin{definition}(Vector Bundle)\par
+    Let $M$ be a topological space. A \textbf{vecctor bundle} of rank $k$ over $M$ is a topological space $E$ together with a surjective continuous map $\pi:E\to M$ such that
+    \begin{itemize}
+        \item For each $p\in M$, the fiber $E_p = \pi^{-1}(p)$ is endowed with the structure of a $k$-dimensional real vector space.
+        \item For each $p\in M$, there exist a neighborhood $U$ of $p$ in $M$ and a homeomorphism $\phi:\pi^{-1}(U) \to U \times\mathbb{R}^k$ such that $\pi_U\circ \phi = \pi$ and for each $q\in U$, the restriction of $\phi$ to $E_q$ is a vector space isomorphism from $E_q$ to $\{q\} \times \mathbb{R}^k \cong \mathbb{R}^k$.
+    \end{itemize}\par
+    If $M$ and $E$ are smooth manifolds with or without boundary, $\pi$ is a smooth map, and $\phi$ can be chosen to be diffeomorphisms, then $E$ is called a \textbf{smooth vector bundle}.\par
+    A rank-$1$ vector bundle is called a \textbf{line bundle}. The space $E$ is called the \textbf{total space of the bundle} and $M$ is called its \textbf{base} and $\pi$ to be its \textbf{projection}.\par
+    If there exists a local trivialization of $E$ over all of $M$, then $E$ is said to be a \textbf{trivial bundle} and if $E\to M$ is a smooth bundle that admits a smooth global trivialization, then we say that $E$ is \textbf{smoothly trivial}.  
+\end{definition}
+
+\begin{lemma}
+    Let $\pi:E\to M$ be a smooth vector bundle of rank $k$ over $M$. Suppose $\Phi:\pi^{-1}(U) \to U\times\mathbb{R}^k$ and $\Psi:\pi^{-1}(V) \to V\times\mathbb{R}^k$ are two smooth local trivializations of $R$ trivializations of $E$ with $U\cap V\neq \emptyset$. There exists a smooth map $\tau:U\cap V \to \text{GL}(k,\mathbb{R})$ such that the composition $\Phi\circ\Psi^{-1}:(U\cap V)\times \mathbb{R}^k \to (U\cap V)\times \mathbb{R}^k$ has the form
+    \[\Phi\circ\Psi^{-1}(p,v) = (p,\tau(p)v)\]
+    where $\tau(p)v$ denotes the usual action of the $k\times k$ matrix $\tau(p)$ on the vector $v\in\mathbb{R}^k$.
+\end{lemma}
+

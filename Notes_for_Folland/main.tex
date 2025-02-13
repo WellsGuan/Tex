@@ -1,0 +1,1325 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Folland}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\inK}{\kappa}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Sch}{\mathcal{S}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+
+\begin{quotation}
+m.s. for measure space\par
+mrb. for measurable\par
+\end{quotation}
+
+\section{$L^p$ spaces}
+
+\begin{definition}
+For a fixed m.s. $(X,\M,\mu)$, if $f$ is a measurable function on $X$ and $0<p<\infty$, we define
+\[||f||_p = \Big[\int |f|^p d\mu\Big]^{1/p}\]
+and
+\[L^p(X,\M,\mu) = \{f:X\to\C, f\text{ mrb and }||f||_p < \infty\}\]
+\end{definition}
+
+\begin{lemma}
+    (Yooung's inequality) If $a,b\geq 0$ and $0<\lambda<1$, then
+    \[a^{\lambda}b^{1-\lambda} \leq \lambda a + (1-\lambda)b\]
+    with equality iff $a=b$.
+\end{lemma}
+
+\begin{proof}\par
+    If $b = 0$, the inequality goes. Then assume $b>0$, and it suffices to show that
+    \[\dfrac{a}{b}^{\lambda} \leq \lambda \dfrac{a}{b}+(1-\lambda)\]
+    and consider the function $f(x) = x^{\lambda}-\lambda x - (1-\lambda)$, we have $f'(x) = \lambda x^{1-\lambda} - \lambda$ which is less than zero if $x>1$ and greater than zero if $x<1$, so we know $f(x) \leq f(1) = 0$ and the inequality holds.
+\end{proof}
+
+\begin{theorem}
+    (Holder Inequality) Suppose $1<p<\infty$ and $p^{-1}+q^{-1}=1$. If $f$ and $g$ are measurable functions on $X$, then
+    \[||fg||_1 \leq ||f||_p||g||_1\]
+    In particular, if $f\in L^p, g\in L^q$, then $fg\in L^1$ and in this case equality holds iff $\alpha|f|^p = \beta|g|^q$ a.e. for some constants $\alpha,\beta$.
+\end{theorem}
+\begin{proof}\par
+    Consider we should show that
+    \[
+    \int |fg| d\mu \leq \int |f|^pd\mu \int |g|^qd\mu
+    \]
+    and if $||f||_p = 0$ or $||g||_q = 0$, then the LHS equals to $0$. Now we consider let replace $f,g$ with $f/||f||_p, g/||g||_q$ and it is suffices to show
+    \[\int |fg| d\mu \leq 1\]
+    and notice we have
+    \[
+    \int |fg|d\mu \leq \int \dfrac{1}{p}|f|^p+\dfrac{1}{q}|g|^q d\mu = 1
+    \]
+    and the equality holds iff $|fg| = p^{-1}|f|^p+q^{-1}|g|^q$ a.e. which means $|f|^p = |g|^q$ a.e. for the replaced $f,g$.
+\end{proof}
+
+\begin{theorem}
+    (Minkowski's Inequality) If $1\leq p <\infty$ and $f,g \in L^p$, then
+    \[||f+g||_p \leq ||f||_p + ||g||_p\]
+\end{theorem}
+\begin{proof}\par
+    Consider
+    \[
+    \int |f+g|^p d\mu \leq \int |f+g|^{p-1}(|f|+|g|) \leq |||f+g|^{p-1}||_q(||f||_p+||g||_p) = ||f+g||_p^{(p-1)/p}
+    \]
+    and the inequality holds.
+\end{proof}
+
+\begin{theorem}
+    For $1\leq p < \infty$, $L^p$ is a Banach space.
+\end{theorem}
+\begin{proof}\par
+    It suffices to show that $L^p$ is complete, which can be induced from any absolutely convergence series $S=\sum\limits f_i$ converges. Let $S_n = \sum\limits_{i=1}^n f_i$ and it is easy to check that $S_n$ is Cauchy in $L^p$, then let $G = \sum |f_i|$ and we have $|G|_p = \lim |G_n|_p < \infty$ by the MCT where $G_n = \sum\limits_{i=1}^n |f_i|$ and hence $G\in L^p$ which means $S$ converges a.e. and consider
+    \[ \lim||S-S_n||_p = ||\lim S-S_n||_p = 0\]
+    by the DCT.
+\end{proof}
+
+\begin{proposition}
+    For $ 1\leq p < \infty$, the set of simple functions $f = \sum\limits_1^n a_j \chi_{E_j}$, where $\mu(E_j) < \infty$ for all $j$ is dense in $L^p$.
+\end{proposition}
+
+\begin{proof}\par
+    For $f\in L^p$, we may find $|f_j|\uparrow |f|$ and $f_j$ converges to $f$ pointwise, then we assume $f_j = \sum_1^n a_j\chi_{E_j}$ and then we have
+    \[
+    \sum_1^n a_j^p\mu(E_j) = \int |f_j|^p d\mu \leq \int |f|^p d\mu <\infty
+    \]
+    and hence $f_j$ is just in the required set, and by the DCT we know $||f-f_j||_p \to 0$.
+\end{proof}
+
+\begin{definition}
+    \[||f||_{\infty} = \int\{a \geq 0:\mu(\{x:|f(x)|>\alpha\}) = 0\}\]
+    with the convention that $\inf\emptyset = \infty$ and then it is called the essential supremum of $|f|$. And define
+    \[L^{\infty} = \{f:X\to\C, f\text{ mrb and }||f||_{\infty} < \infty\}\]
+\end{definition}
+
+\begin{theorem}
+    a. If $f$ and $g$ are measurable functions on $X$, then $||fg||_1 \leq ||f||_1||g||_{\infty}$, if $f\in L^1$ and $g\in L^{\infty}$, $||fg||_1 = ||f||_1||g||_{\infty}$ iff $|g(x)| = ||g||_{\infty}$ a.e. on the set where $f(x) \neq 0$.\par
+    b. $||\cdot||_{\infty}$ is a norm on $L^{\infty}$.\par
+    c. $||f_n-f||_{\infty} \to 0$ iff $f_n\to f$ uniformly a.e.\par
+    d. $L^{\infty}$ is a Banach space.\par
+    e. The simple functions are dense in $L^{\infty}$.
+\end{theorem}
+
+\begin{proof}
+    a. Let $E = \{|g|\leq |g|_{\infty}\}$ and then $E$ is conull, so
+    \[
+    \int |fg| d\mu = \int_E |fg| d\mu \leq ||g||_{\infty} \int_E |f| d\mu = \int |f|d\mu ||g||_{\infty}
+    \]
+    where the equality can be reached when $g(x) = ||g||_{\infty}$ a.e. on $E$.\par
+    b. It suffices to show the triangle inequality where notice $|f|\leq ||f||_{\infty},g\leq ||g||_{\infty}$ a.e. and hence $|f+g| \leq ||f||_{\infty}+||g||_{\infty}$ a.e.\par
+    c. Let $E_n = \{|f_n-f| \leq ||f_n-f||_{\infty}\}$ and then let $E = \bigcap E_n$ conull and hence $f_n\to f$ on $E$ uniformly.\par
+    d. If suffices to show that an absolutely convergent series $\sum f_i$ converges in $L^{\infty}$ where we may know $f_i \leq ||f_i||_{\infty}$ a.e. on $X$ for any integer $i$ and hence the we will know $\sum|f_i| \leq \sum ||f_i||_{\infty}$ a.e. and hence $\sum f_i$ converges a.e. and we have $|\sum f_i - \sum_1^n f_i| \leq \sum_{n+1}^{\infty} ||f_i||_{\infty} \to 0$ a.e.\par
+    e. Let $f_j \to f$ be the simple functions converges to $f$ uniformly where $f$ is bounded and hence $f_j\to f$ uniformly a.e. and hence $||f_j - f||_{\infty} \to 0$. 
+\end{proof}
+
+\begin{proposition}
+    If $0<p<q<r\leq \infty$, then $L^q \subset L^p + L^r$; that is, each $f\in L^q$ is the sum of a function in $L^p$ and a function in $L^r$. 
+\end{proposition}
+\begin{proof}\par
+    Considering $|f|>1$ and $|f|\leq 1$ separately will be fine.
+\end{proof}
+
+\begin{proposition}
+    If $0 < p < q < r \leq \infty$, then $L^p\cap L^r \subset L^q$ and $||f||_q \leq ||f||_p^{\lambda}||f||_r^{1-\lambda}$ where $q^{-1} = \lambda p^{-1}+(1-\lambda)r^{-1}$.
+\end{proposition}
+\begin{proof}\par
+    Here we know
+    \[
+    \int |f|^q d\mu = \int |f|^{\lambda q}|f|^{(1-\lambda)q} d\mu \leq |||f|^{\lambda q}||_{p/\lambda q}|||f|^{(1-\lambda)q}||_{r/(1-\lambda)q} = ||f||_p^{\lambda q}||f||_r^{(1-\lambda)q}
+    \]
+    by the Holder's inequality and the inequality holds.\par
+\end{proof}
+
+\begin{proposition}
+    If $A$ is any set and $0 < p < q \leq \infty$, then $l^p(A) \subset l^q(A)$ and $||f||_q \leq ||f||_p$.    
+\end{proposition}
+\begin{proof}
+    If $q = \infty$, then $||f||_{\infty} = \sup |f(\alpha)| \leq ||f||_p$. If $q < \infty$, then consider
+    \[
+    ||f||_q \leq ||f||_p^{\lambda}||f||_{\infty}^{1-\lambda} \leq ||f||_p
+    \]
+\end{proof}
+
+\begin{proposition}
+    If $\mu(X)<\infty$ and $0<p<q\leq \infty$, then $L^p(\mu) \supset L^q(\mu)$ and $||f||_p \leq ||f||_q\mu(X)^{(p^{-1}-q^{-1})}$.
+\end{proposition}
+\begin{proof}\par
+    Consider if $q =\infty$, then
+    \[
+    \int |f|^p d\mu \leq \int |f|_{\infty}^p d\mu = ||f||_{\infty}^p \mu(X)
+    \]
+    and if $q<\infty$, then
+    \[
+    \int |f|^p d\mu = \int (|f|^{q})^{p/q}(1)^{(q-p)/q} \leq |f^p|_{q/p}|1|_{q/(q-p)} = ||f||_q^p \mu(X)^{(1-p/q)}
+    \]
+    by the Holder's inequality.
+\end{proof}
+
+\begin{proposition}
+    Suppose that $p$ and $q$ are conjugate exponents and $1\leq q <\infty$. If $g\in L^q$, then
+    \[||g||_q = ||\phi_g|| = \sup\{|\int fg|, ||f||_p = 1\}\]
+    If $\mu$ is semifinite, this result holds also for $q=\infty$, where define
+    \[\phi_g(f) = \int fg\]
+\end{proposition}
+\begin{proof}\par
+    It suffices to show that $||\phi_g|| \geq ||g||_q$. Let
+    \[
+    f = \dfrac{|g|^{q-1}\overline{sgn(g)}}{||g||_q^{q-1}}
+    \]
+    and we have
+    \[
+    ||f||_p = \dfrac{\int |g|^{(q-1)p}}{||g||_p^{q-1}} = 1
+    \]
+    and $|\phi_g(f)| = \int fg = \dfrac{\int |g|^q}{||g||_q^{q-1}} = ||g||_q$.\par
+    If $q=\infty$, we know there exists $B\subset \{|g|>||g||_{\infty} - \epsilon\}$ for any $\epsilon > 0$ such that $\mu(B) < \infty$, then let
+    \[
+    f = \mu(B)^{-1} \chi_B \overline{sgn(g)}
+    \]
+    and we have $||f||_1 = 1$ and
+    \[
+    |\phi_g(f)| = \mu(B)^{-1}\int_B|g| \geq ||g||_{\infty} - \epsilon
+    \]
+    and hence $||\phi_g|| = ||g||_{\infty}$.
+\end{proof}
+
+\begin{theorem}
+    Let $p$ and $q$ be conjugate exponents. Suppose that $g$ is a measurable function on $X$ such that $fg\in L^1$ for all $f$ in $\Sigma$ which is the space of all simple functions with a finite measure support, and the quantity
+    \[M_q(g) = \sup \{|\int fg|, f\in\Sigma\text{ and }||f||_p = 1\}\]
+    is finite. Also, suppose either that $S_g = \{x, g(x)\neq 0\}$ is $\sigma$-finite or that $\mu$ is semifinite. Then $g\in L^q$ and $M_q(g) = ||g||_q$.
+\end{theorem}
+\begin{proof}\par
+    Notice for any $f$ bounded with a finite measure support and $||f||_p = 1$, we know $|f| \leq ||f||_{\infty}\chi_E$ where $E$ is a finite support of $f$ and consider $f_n$ is simple function converge to $f$ with $|f_n| \leq |f|$ and then we know
+    \[
+    |\int fg| = \lim |\int f_ng| \leq M_q(g)
+    \] 
+    by the DCT.\par
+    Suppose $q < \infty$ and $S_g$ is $\sigma-finite$, then we may find $E_n$ increasing to $S_g$ with $\mu(E_n) <\infty$, we may find $\phi_n \to g$ and let $g_n = \phi_n\chi_{E_n}$. Then $g_n \to g$ pointwise and let
+    \[
+    f_n = \dfrac{g_n^{q-1}\overline{sgn(g)}}{||g_n||_q^{q-1}}
+    \]
+    then we have
+    \[
+    ||f_n||_p = \dfrac{\int |g_n|^q}{||g_n||_q^q} = 1
+    \]
+    and
+    \[
+    |\int f_n g| = \int \dfrac{|g_n|^{q-1}|g|}{||g_n||_q^{q-1}} \geq ||g_n||_q
+    \]
+    which means $M_q(g) \geq ||g_n||_q$ for any integer $n$ and hence $M_q(g) \geq ||g||_q$ by the MCT, which means $g\in L^q$.\par
+    If $\mu$ is semifinite, then let $E = \{|g|>\epsilon\}$ and then we know there is $A\subset E$ with $\mu(A) < \infty$ if $\mu(E)>0$, and we have
+    \[
+    M_q(g) \geq |\int \mu(A)^{-p^{-1}}\chi_A\overline{sgn(g)} g| \geq \epsilon\mu(A)^{1-p^{-1}}
+    \]
+    where $\mu(A)$ can be arbitrarily large if $\mu(E) = \infty$ and which is a contradiction. Therefore, $\mu$ is semifinite will imply that $S_g$ is $\sigma$-finite.\par
+    If $q = \infty$, then let $A = \{|g|\geq M_{\infty}(g)+\epsilon\}$, if $\mu(A)$ is positive, then we let $f = \mu(A)^{-1}\chi_A sgn(g)$ and we know
+    \[|\int fg| \geq M_{\infty}(g)+\epsilon\]
+    which is a contradiction and hence $||g||_{\infty} \leq M_{\infty}(g)$.
+\end{proof}
+
+\begin{theorem}
+    Let $p$ and $g$ be conjugate exponents. If $1<p < \infty$, for each $\phi \in (L^p)^*$ there exists $g\in L^q$ such that $\phi(f) = \int fg$ for all $f\in L^p$ and hence $L^q$ is isometrically isomorphic to $(L^p)^*$. The same conclusion holds for $p=1$ if $\mu$ is $\sigma$-finite.
+\end{theorem}
+
+\begin{proof}\par
+    Firstly assume $\mu$ is finite, the all simple functions are in $L^p$, and then consider for disjoint sets $E_j$ and $E = \bigcup_j E_j$, we have
+    \[
+    ||\chi_E - \sum\limits_{i=1}^n\chi_{E_j}||_p = \mu(\bigcup_{n+1}^{\infty}) \to 0
+    \]
+    then let $\nu(E) = \phi(\chi_E)$ and
+    \[\nu(E) = \phi(E) = \lim \phi(\sum\limits_{i=1}^n \chi_{E_i}) = \lim \sum\limits_{i=1}^n \nu(E_j)\]
+    and hence $\nu$ is a complex measure. Also if $\mu(E) = 0$, then $\nu(E) = \phi(\chi_E) = 0$, so there is an $g$ measurable such that $\phi(\chi_E) = \nu(E) = \int_E g$ and notice
+    \[
+    |\int fg| \leq ||\phi||||f||_p
+    \]
+    for any simple function in $L^p$ and hence $g\in L^q$ by theorem 1.5 and then we know $fg \in L^1$ for any $f\in L^p$ and hence $\phi(f) = \int fg$ for any $f\in L^p$.\par
+    If $\mu$ is $\sigma$-finite, let $E_n$ increasing $X$, $\mu(E_n) > 0$ and then we know there is $g_n \in L^q(E_n)$ on $E_n$ such that $\phi(f) = \int fg_n$ for any $f\in L^p(E_n)$ and $g_n = g_m$ on $E_n$ a.e., then we define $g= g_n$ on $E_n$ and we know $||g||_q = \lim ||g_n||_q \leq ||\phi||$ by the MCT, now we know
+    \[
+    \int fg = \lim \int f\chi_{E_n}g = \lim \int fg_n = \lim \phi(f\chi_{E_n}) = \phi(f)
+    \]\par
+    For general $\mu$, for a $\sigma$-finite subset $E$, there is $g_E\in L^q(E)$ and $\phi(f) = \int fg_E$ for any $f\in L^p(E)$ and $||g_E||_q \leq ||\phi||$, so we may find $E_n$ such that $||g_{E_n}||_q \to \sup||g_E||_q$ and let $F = \bigcup_E$ which is $\sigma$-finite, then we know $||g_F||_q \geq ||g_{E_n}||_q$ for any integer $n$ and hence $||g_F||_q = M$. Then for any $A$ $\sigma$-finite, we will know
+    \[
+    \int |g_F|^q + \int |g_{A-F}|^q = \int |g_{A\cup F}|^q \leq M = \int |g_F|^q
+    \]
+    and hence $g_{A-F} = 0$ a.e. and hence $g_{A\cup F} = g_F$ a.e. for all $A$ $\sigma$-finite subset. If $g\in L^p$, we know $S_f$ is $\sigma$-finite and hence $\phi(f) = \int fg_{S_g\cup F} = \int f g_F$ for any $f\in L^p$.
+\end{proof}
+
+\begin{corollary}
+    If $1 < p < \infty$, $L^p$ is reflexive.
+\end{corollary}
+
+\begin{theorem}
+    (Chebyshev's Inequality) If $f\in L^p(0<p<\infty)$, then for any $\alpha > 0$,
+    \[\mu(\{x:|f|>\alpha\}) \leq \Big[\dfrac{||f||_p}{\alpha}\Big]^p\]
+\end{theorem}
+
+\begin{theorem}
+    Let $(X,\M,\mu)$ and $(Y,\mathcal{N},\nu)$ be $\sigma$-finite measure spaces, and let $K$ be an $(\M\otimes\mathcal{N})$-measurable function on $X\times Y$. Suppose that there exists $C>0$ such that $\int |K(x,y)d\mu(x)| \leq C$ for a.e. $y\in Y$ and $\int|K(x,y)d\nu(y)| \leq C$ for a.e. $x\in X$ and that $1\leq p \leq \infty$. If $f\in L^p(\nu)$, then the integral
+    \[Tf(x) = \int K(x,y)f(y)d\nu(y)\]
+    converges absolutely for a.e. $x\in X$, the function $Tf$ thus defines is in $L^p(\mu)$ and $||Tf||_p \leq C||f||_p$.
+\end{theorem}
+\begin{proof}
+    Consider
+    \[
+    \int |K(x,y)f(y)|d\nu(y) \leq ||K(x,\cdot)^{q^{-1}}||_q||K(x,y)^{p^{-1}}|f(y)|||_p \leq C^{q^{-1}}\Big[\int |K(x,y)||f(y)|^p d\nu(y)\Big]^{p^{-1}}
+    \]
+    for a.e. $x\in X$, then we know
+    \[
+    \begin{aligned}
+        \int |Tf(x)|^p d\mu(x) &= \int |\int K(x,y)f(y)d\nu(y)|^p d\mu(x) \\ 
+        &\leq \int C^{p/q}\int |K(x,y)||f(y)|^p d\nu(y)d\mu(x) \\ &= C^{p/q} \int \int |K(x,y)|d\mu(x)|f(y)|^p d\nu(y) \\ &\leq C^{p/q+1} ||f||_p^p <\infty
+    \end{aligned}
+    \]
+    and hence $Tf \in L^p(\mu)$ and $||Tf||_p \leq C||f||_p$.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $(X,\M,\mu)$ and $(Y,\mathcal{N},\nu)$ are $\sigma$-finite measure spaces, and let $f$ be an $(\M\otimes\mathcal{N})$-measurable function on $X\times Y$.\par
+    a. If $f\geq 0$ and $1\leq p < \infty$, then
+    \[\Big[\int\Big(\int f(x,y)d\nu(y)\Big)^p d\mu(x)\Big]^{1/p} \leq \int\Big[\int f(x,y)^pd\mu(x)\Big]^{1/p} d\nu(y)\]\par
+    b. If $1\leq p \leq \infty$, $f(\cdot,y) \in L^p(\mu)$ for a.e. $y$, and the function $y\mapsto ||f(\cdot,y)||_p$ is in $L^1(\nu)$, then $f(x,\cdot) \in L^1(\nu)$ for a.e. $x$, the function $x\mapsto \int f(x,y)d\nu(y)$ is in $L^p(\mu)$ and
+    \[||\int f(\cdot,y)d\nu(y)||_p \leq \int||f(\cdot,y)||_p d\nu(y)\]
+\end{theorem}
+\begin{proof}\par
+    a. Let $g\in L^q(\mu)$ and we have
+    \[
+    \int \int f(x,y)d\nu(y)|g(x)| d\mu(x) \leq ||g||_q\int\Big[\int f(x,y)^p d\mu(x)\Big]^{1/p}d\nu(y)
+    \]
+    and hence $||\int f(x,y)d\nu(y)||_p \leq \int\Big[\int f(x,y)^p d\mu(x)\Big]^{1/p}d\nu(y)$ by theorem 1.5.\par
+    b. This conclusion is obvious and by (a) if $p<\infty$ and it goes when $q = \infty$.
+\end{proof}
+
+\begin{theorem}
+    Let $K$ be a Lebesgue measurable function on $(0,\infty)\times(0,\infty)$ such that $K(\lambda x,\lambda y) = \lambda^{-1}K(x,y)$ for all $\lambda > 0$ and $\int_0^{\infty}|K(x,1)|x^{-1/p}dx \leq C < \infty$ for some $p\in[1,\infty]$, and let $q$ be the conjuate exponent to $p$. For $f\in L^p$ and $g\in L^q$, let
+    \[
+    Tf(y) = \int_0^{\infty} K(x,y)f(x)dx,\quad Sg(x) = \int_0^{\infty} K(x,y)g(y)dy
+    \]
+    Then $Tf$ and $Sg$ are defined a.e. and $||Tf||_p \leq C||f||_p$ and $||Sg||_q \leq C||g||_q$.
+\end{theorem}
+\begin{proof}
+    Consider
+    \[
+    \begin{aligned}
+    \Big(\int |Tf(y)|^p dy\Big)^{1/p} = \Big(\int |\int K(x,y)f(x) dx|^p dy\big)^{1/p}
+     &\leq \Big(\int \Big(\int |K(x,y)f(x)| dx\Big)^p dy\Big)^{1/p} \\
+    &= \Big(\int \Big(\int |K(z,1)f(yz)| dz\Big)^p dy \Big)^{1/p}\\
+    &\leq \int ||f(\cdot z)||_p |K(z,1)| dz \\
+    &\leq C||f||_p
+    \end{aligned}
+    \]
+    by the Minkowski's inequaltiy for integral and $||f(yz)||_p = z^{-1/p}||f||_p$ and the other conclusion is the same since
+    \[
+    \begin{aligned}
+    \int_0^{\infty} |K(1,y)|y^{-1/q} dy &= \int_0^{\infty} |K(y^{-1},1)|y^{1-1/q}dy \\ &= - \int_0^{\infty}|K(u,1)|u^{1/q+1}(-u^{-2}) du = \int_0^{\infty} |K(u,1)| u^{-1/p} du \leq C
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{corollary}
+    Let
+    \[Tf(y) = y^{-1}\int_0^y f(x)dx,\quad Sg(x) = \int_x^{\infty} y^{-1}g(y)dy\]
+    Then for $1<p\leq \infty$ and $1\leq q <\infty$,
+    \[||Tf||_p \leq \dfrac{p}{p-1}||f||_p, \quad ||Sg||_q \leq q||g||_q\]
+\end{corollary}
+\begin{proof}\par
+    Let $K(x,y) = y^{-1}\chi_{(x<y)}$ and we know
+    \[\int |K(x,y)|x^{-1/p} dx = y^{-1} qx^{1/q}|^y_0 = q = \dfrac{p}{p-1}\]
+\end{proof}
+
+\begin{definition}
+    If $f$ is a measurable function on $(X,\M,\mu)$, its $distribution\ function$ $\lambda_f:(0,\infty)\to[0,\infty]$ by
+    \[\lambda_f(\alpha) = \mu(|f|>\alpha)\]
+\end{definition}
+
+\begin{proposition}
+    a. $\dstrb{f}$ is decreasing and right continuous.\par
+    b. If $|f|\leq |g|$, then $\dstrb{f} \leq \dstrb{g}$.\par
+    c. If $|f_n|$ increases to $|f|$, then $\dstrb{f_n}$ increases to $\dstrb{f}$.\par
+    d. If $f = g+h$, then $\dstrb{f}(\alpha) \leq \dstrb{g}(\tfrac{1}{2}\alpha)+\dstrb{h}(\tfrac{1}{2}\alpha)$.
+\end{proposition}
+\begin{proof}\par
+    a. Trivial.\par
+    b. $\dstrb{g}(\alpha) = \mu(|g|>\alpha) \geq \mu(|f|>\alpha) = \dstrb{f}(\alpha)$.\par
+    c. $\{|f| > \alpha\} = \bigcup \{|f_n| > \alpha\}$.\par
+    d. $\{|f+g|>\alpha\} \subset \{|f|>\tfrac{1}{2}\alpha\}$ and $\{|g|>\tfrac{1}{2}\alpha\}$.
+\end{proof}
+
+\begin{proposition}
+    If $\dstrb{f}(\alpha) < \infty$ for all $\alpha > 0$ and $\phi$ is a nonnegative Borel measurable function on $(0,\infty)$, then
+    \[\int_X \phi\circ |f|d\mu = - \int_0^{\infty}d\dstrb{f}(\alpha)\]
+    where $d\dstrb{f} = d\nu$, which is the negative Borel measure defined by $\dstrb{f}$.
+\end{proposition}
+\begin{proposition}
+    Consider for a h-interval $(a,b]$, we have
+    \[\int_X \chi_{(a,b]}(|f|)d\mu = \mu(b\leq |f|>a) = -\nu((a,b]) = - \int_0^{\infty} \chi_{(a,b]} d\dstrb{f}\]
+    and hence the equality holds for all Borel set $E$. The rest can be obtained by the MCT.
+\end{proposition}
+
+\begin{proposition}
+    If $0<p<\infty$, then
+    \[\int |f|^p d\mu = p\int_0^{\infty}\alpha^{p-1}\dstrb{f}(\alpha)d\alpha\]
+\end{proposition}
+\begin{proof}\par
+    If $\dstrb{f}(\alpha) = \infty$ for some $\alpha$, then we know the both sides are infinity. Then we assume $\dstrb{f}<\infty$ and if $f$ is simple, then $\dstrb{f}$ should be bounded and vanish when $\alpha \to \infty$ and the integration by parts will show it immediately.\par
+    For general case, let $\{g_n\}$ be simple functions increase to $|f|^p$ and the MCT will guarantee the equality.
+\end{proof}
+
+\begin{definition}
+    If $f$ is a measurable function on $X$ and $0<p<\infty$, we define
+    \[[f]_p = (\sup_{\alpha > 0}\alpha^p \dstrb{f}(\alpha))^{1/p}\]
+    and the weak $L^p$ space is all $f$ such that $[f]_p < \infty$.\par
+    We have
+    \[
+    L^p \subset \text{weak }L^p,\quad[f]_p \leq ||f||_p 
+    \]
+\end{definition}
+
+\begin{proposition}
+    If $f$ is a measurable function and $A>0$, let $E(A) = \{x, |f|>A\}$ and set
+    \[h_A = f\chi_{X-E(A)}+A(sgn(f))\chi_{E(A)}\quad g_A = f- h_A = (sgn(f))(|f|-A)\chi_{E(A)}\]
+    then
+    \[\dstrb{g_A}(\alpha) = \dstrb{f}(\alpha+A),\quad \dstrb{h_A}(\alpha) = \begin{cases}\dstrb{f}(\alpha)\quad&\text{if }\alpha<A \\ 0&\text{if }\alpha\geq A\end{cases}\]
+\end{proposition}
+\begin{proof}\par
+    Here we have
+    \[
+    \dstrb{g_A}(\alpha)  =\mu(\{|g_A|>\alpha\}) \leq \mu(\{|f|>\alpha+A\})
+    \]
+    and by the way
+    \[
+    \dstrb{f}(\alpha+A) = \mu(\{|f|-A>\alpha\}) \leq \mu(\{|g_A|>\alpha\})
+    \]\par
+    Then we know
+    \[
+    \dstrb{h_A}(\alpha) = \mu(\{|f||\chi_{X-E(A)}| > \alpha\}) + \mu(\{A|\chi_{E(A)}|>\alpha)\}) = \chi_{\alpha<A}(\dstrb{f}(\alpha) - \dstrb{f}(A) + \dstrb{f}(A)) = \chi_{\alpha<A}\dstrb{f}(\alpha)
+    \]
+\end{proof}
+
+\begin{lemma}
+    Let $\phi$ be a counded continuous function on the strip $0\leq Re z \leq 1$ that is holomorphic on the interior of the strip. If $|\phi(z)| \leq M_0$ for $Re z = 0$ and $|\phi(z)| \leq M_1$ for $Re z = 1$, then $|\phi(z)| \leq M_0^{1-t}M_1^t$ for $Re z = t, 0<t<1$. 
+\end{lemma}
+\begin{proof}\par
+    Let $\phi_n(z) = \phi(z)M_0^{z-1}M_1^{-z}e^{n^{-1}z(z-1)}$ and we know $|\phi_n(0)|,|\phi_n(1)|\leq 1$ when $Re z = 0,1$ and notice $|\phi_n| \to 0$ when $|Im z|\to \infty$ since let $z = x+iy$ and 
+    \[
+    |\phi_n(z)| = |\phi(z)||M_0^{x-1}||M_1^{-x}|e^{n^{-1}(x(x-1)-y^2)}| \to 0, y\to \infty
+    \]
+    and then we know $\phi_n(z) \leq 1$ on the strip by the maximal modulus principle, then we have
+    \[
+    |\phi(z)|M_0^{t-1}M_1^{-t} = \lim_{n\to\infty} |\phi_n(z)| \leq 1 
+    \]
+\end{proof}
+
+\begin{theorem}
+    (The Riesz-Thorin Interpolation Theorem)\\Suppose that $(X,\M,\mu)$ and $(Y,\mathcal{N},\nu)$ are mesure spaces and $p_0,p_1,q_0,q_1 \in [1,\infty]$. If $q_0 = q_1 = \infty$, suppose also that $\nu$ is semifinite. For $0<t<1$, define
+    \[
+    p_t^{-1} = (1-t)p_0^{-1} + tp_1^{-1},\quad q_t^{-1} = (1-t)q_0^{-1}+tq_1^{-1}
+    \]
+    If $T$ is a linear map from $L^{p_0}(\mu) + L^{p_1}(\mu)$ into $L^{q_0}(\nu)+L^{q_1}(\nu)$ such that $||Tf||_{q_0} \leq M_0||f||_{p_0}$ for $f\in L^{p_0}(\mu)$ and $||Tf||_{q_1} \leq M_1||f||_{p_1}$ for $f\in L^{p_1}(\mu)$, then $||Tf||_{q_t} \leq M_0^{1-t}M_1^t ||f||_{p_t}$ for $f\in L^{p_t}(\mu), 0 < t < 1$. 
+\end{theorem}
+\begin{proof}\par
+    We know
+    \[||Tf||_{q_t} = \sup\{|\int (Tf)g|, g\in \Sigma_X, ||g||_{\tilde{q_t}} = 1\}\]
+    where $\tilde{q_t}$ is the conjugate of $q_t$ and then we only need to show that
+    \[
+    |\int (Tf)g| \leq M_0^{1-t}M_1^t
+    \]
+    for any $g\in \Sigma_X$ and $||f||_{p_t} = 1$. We assume $f = \sum\limits a_j\chi_{E_j}$ and $g = \sum\limits b_k\chi_{F_k}$. Define
+    \[
+    \alpha(z) = (1-t)p_0^{-1} + t p_1^{-1},\quad \beta(z) (1-t)q_0^{-1} + t q_1^{-1}
+    \]
+    and let
+    \[
+    \begin{aligned}
+        f_z &= \sum |a_j|^{\alpha(z)/\alpha(t)}e^{i\theta_j}\chi_{E_j} \\
+        g_z &= \sum |b_k|^{(1-\beta(z))/(1-\beta(t))}e^{i\varphi_k}\chi_{F_k} \\
+    \end{aligned}
+    \]
+    where $\theta_j = Arg(a_j), \varphi_k = Arg(b_k)$ and
+    \[
+    \phi(z) = \int (Tf_z)g_z
+    \]
+    here we assume $\alpha(t)=\neq 0, \beta(t)\neq 1$ and hence $(p_0,p_1) \neq (\infty,\infty), (q_0,q_1)\neq (1,1)$. Then we know
+    \[
+    \phi(z) = \sum\limits |a_j|^{\alpha(z)/\alpha(t)}|b_k|^{(1-\beta(z))/(1-\beta(t))}e^{i(\varphi_k+\theta_j)}\int(T\chi_{E_j})\chi_{F_k}
+    \]
+    which is an entire function and we have
+    \[
+    \begin{aligned}
+        |\phi(ir)| \leq ||Tf_{ir}||_{q_0}||g_{ir}||_{\tilde{q_0}} &\leq M_0 ||f_{ir}||_{p_0} ||g_{ir}||_{\tilde{q_0}} \\ &= M_0 |\int |f|^{p_0Re\alpha(ir)/\alpha(t)}|^{1/p_0}|\int |g|^{\tilde{q_0}Re(1-\beta(ir))/(1-\beta(t))}|^{1/\tilde{q_0}} \\
+        &= M_0
+    \end{aligned}
+    \]
+    and
+    \[
+    \begin{aligned}
+        |\phi(1+ir)| \leq ||Tf_{1+ir}||_{q_1}||g_{ir}||_{\tilde{q_1}} &\leq M_1 ||f_{1+ir}||_{p_1} ||g_{ir}||_{\tilde{q_0}} \\ &= M_1 |\int |f|^{p_1Re\alpha(1+ir)/\alpha(t)}|^{1/p_1}|\int |g|^{\tilde{q_1}Re(1-\beta(1+ir))/(1-\beta(t))}|^{1/\tilde{q_1}} \\
+        &= M_1
+    \end{aligned}
+    \]
+    Therefore, we will know $|\int (Tf)g| = |\phi(t)| \leq M_0^{1-t}M_1^t$ by the lemma 1.2. When $p_0 = p_1 = \infty$, the inequality is trivial and when $q_0 = q_1 = 1$, let $g_z = g$ and the proof is fine.\par
+    Now we only need to prove that $Tf = \lim Tf_n$ for any $f\in L^{p_t}$ where $f_n \in \Sigma_X$ and $f_n \to f$ pointwise with $|f_n| \leq |f|$. Consider $g = f\chi_{|f|<1}$ and $h = f\chi_{|f|>1}$, then we know $g \in L^{p_0}$ and $h\in L^{p_1}$, then we know $||Tg_n - Tg||_{q_0} \leq M_0 ||g_n - g||_{p_0} \to 0$ and $||Th_n - Th||_{q_1} \leq M_1 ||h_n - h||_{p_1} \to 0$ by the DCT and hence there exists subsequence $n_k$ such that $Tg_{n_k} \to Tg, Th_{n_k} \to Th$ pointwise and hence $Tf_{n_k} \to Tf$ pointwise, and
+    \[
+    ||Tf||_{q_t} \leq \liminf ||Tf_n||_{n_k} \leq \liminf M_0^{1-t}M_1^t ||f_{n_k}||_{p_t} = M_0^{1-t}M_1^t ||f||_{p_t}
+    \]
+    and the problem goes.
+\end{proof}
+
+\begin{definition}
+    For $T:X\to Y$ where $X,Y$ are normed vector spaces and $T$ is called sublinear if
+    \[|T(f+g)| \leq |Tf|+|Tg| \quad |T(cf)| c|Tf|\]
+    for any $f,g\in X,c>0$.\par
+    Then we call a sublinear map $T$ is $strong\ type\ (p,q)$ if $L^p(\mu) \subset X$ and $T$ maps $L^p(\mu)$ into $L^q(\nu)$, then there exists $C>0$ such that $||Tf||_q \leq C||f||_p$ for all $f\in L^p(\mu)$ for any $1\leq p,q \leq \infty$.\par
+    $T$ is $weak\ type\ (p,q)$ if $L^p(\mu)\subset X$ and $T$ maps $L^p(\mu)$ into $weak\ L^q(\nu)$ and there exists $C>0$ such that $[Tf]_q \leq C||f||_p$ for all $f\in L^p(\mu)$ for any $1\leq p \leq \infty$ and $1\leq q < \infty$. 
+\end{definition}
+
+\begin{theorem}
+    (The Marcinkiewicz Interpolation Theorem)\\Suppose that $(X,\M,\mu)$ and $(Y,\mathcal{N},\nu)$ are mesure spaces and $p_0,p_1,q_0,q_1 \in [1,\infty]$ such that $p_0 \leq q_0, p_1 \leq q_1$ and $q_0 \neq q_1$ and
+    \[
+    p^{-1} = (1-t)p_0^{-1} + tp_1^{-1},\quad q^{-1} = (1-t)q_0^{-1}+tq_1^{-1}
+    \]
+    where $0 < t < 1$. If $T$ is a sublinear map from $L^{p_0}(\mu) + L^{p_1}(\mu)$ to the space of measurable functions on $Y$ that is weak types $(p_0,q_0)$ and $(p_1,q_1)$, then $T$ is strong type $(p,q)$. More precisely, if $[Tf]_{q_j} \leq C_j||f||_{p_j}$ for $j=0,1$, then $||Tf||_q \leq B_p||f||_p$ where $B_p$ depends only on $p_j,q_j$, $C_j$ in addition to $p$; and for $j=0,1$, $B_p|p-p_j|$ remains bounded as $p\to p_j$ if $p_j < \infty$.
+\end{theorem}
+\begin{proof}\par
+    Assume $p_0 = p_1,q_0 < q_1$, then we know $q<\infty$ and
+    \[C_0||f||_{p_0} \geq [Tf]_{q_0},\quad C_1||f||_{p_0}\geq [Tf]_{q_1}\]
+    and we know if $q_1 < \infty$ then for any $f$ with $||f||_{p_0} = ||f||_{p_1} = 1$
+    \[
+    \begin{aligned}
+    \int |Tf|^q = q\int_0^{\infty} \alpha^{q-1}\dstrb{Tf}(\alpha)d\alpha &\leq q\Big[\int_0^1 \alpha^{q-1}\Big(\dfrac{C_0||f||_{p_0}}{\alpha})^{q_0}+\int_1^{\infty} \alpha^{q-1}\Big(\dfrac{C_1||f||_{p_1}}{\alpha})^{q_1}\Big] d\alpha\\
+    &= qC_0^{q_0} \int_0^1 \alpha^{q-q_0-1}d\alpha + qC_1^{q_1} \int_1^{\infty} \alpha^{q-q_1-1}d\alpha \\
+    & = \dfrac{q}{q-q_0}C_0^{q_0} + \dfrac{q}{q_1-q}C_1^{q_1} = B_p^{q}
+    \end{aligned}
+    \]
+    If $q_1 = \infty$, then assume $||f||_{p_0} = 1$, we have
+    \[
+        \int |Tf|^q = q\int_0^{\infty} \alpha^{q-1}\dstrb{Tf}(\alpha)d\alpha \leq q\int_0^{C_1||f||_{p_0}} \alpha^{q-1}(\dfrac{C_0||f||_{p_0}}{\alpha})^{q_0}d\alpha = \dfrac{q}{q-q_0}C_0^{q_0}C_1^{q-q_0}
+    \]
+    and hence
+    \[
+    ||Tf||_q = ||||f||_{p_0} T(f/||f_{p_0}||)||_q \leq  B_p||f||_{p_0}
+    \]
+    where
+    \[B_p = \Big(\Big(\dfrac{q}{q-q_0}C_0^{q_0}C_1^{q-q_0}\Big)^{1/q}\chi_{q_1 = \infty} +  \Big(\dfrac{q}{q-q_0}C_0^{q_0} + \dfrac{q}{q_1-q}C_1^{q_1}\Big)^{1/q}\chi_{q_1 < \infty}\Big)\]
+    when $p_0 = p_1, q_0 < q_1$ and we know $B_p$ is a constant respect to $p$ and obviously we have $B_p|p-p_j|$ is bounded when $p\to p_j$. Then we assume $p_0<p_1$, then we have for any $f\in L^p(\mu)$
+    \[
+    \begin{aligned}
+        \int |g_A|^{p_0} &= p_0\int_0^{\infty} \alpha^{p_0-1}\dstrb{g_A}(\alpha)d\alpha \leq p_0 \int_A^{\infty}\alpha^{p_0-1}\dstrb{f}(\alpha)d\alpha\\
+        \int |h_A|^{p_1} &= p_1\int_0^{\infty} \alpha^{p_1-1}\dstrb{h_A}(\alpha)d\alpha \leq p_1\int_0^A \alpha^{p_1-1}\dstrb{f}(\alpha)d\alpha
+    \end{aligned}
+    \]
+    Let $A = A(\alpha)$ and
+    \[
+    \int |Tf|^q = q \int_0^{\infty} \alpha^{q-1}\dstrb{Tf}(\alpha) d\alpha \leq 2^qq\int_0^{\infty}\alpha^{q-1}(\dstrb{g_A}(\alpha)+\dstrb{h_A}(\alpha))d\alpha
+    \]
+    and notice
+    \[
+        \dstrb{g_A}(\alpha) \leq \Big(\dfrac{C_0||g_A||_{p_0}}{\alpha}\Big)^{q_0},\quad \dstrb{h_A}(\alpha) \leq \Big(\dfrac{C_1||h_A||_{p_1}}{\alpha}\Big)^{q_1}
+    \]
+    where we may see $g_A \in L^{p_0}, h_A \in L^{p_1}$ by consider $f' = f/A$, then $g'_1 = g_A/A, h'_1 = h_A/A$ and we have
+    \[
+        \int |h'_1|^{p_1} \leq \int |f'|^{p}, \quad \int |g'_1|^{p_0} \leq \int (|g'_1|+1)^{p_0} \leq \int |f'| ^p
+    \]
+    and hence $h'_1 \in L^{p_1}, g'_1 \in L^{p_0}$, which means the inequalities above holds for $f$ and then we have
+    \[
+    \begin{aligned}
+    \int |Tf|^q \leq 2^qq &\int_0^{\infty}\alpha^{q-1}\Big[\Big(\dfrac{C_0||g_A||_{p_0}}{\alpha}\Big)^{q_0}+\Big(\dfrac{C_1||h_A||_{p_1}}{\alpha}\Big)^{q_1}\Big]d\alpha \\
+    = 2^qq\Big[ &C_0^{q_0}p_0^{q_0/p_0}\int_0^{\infty}\alpha^{q-q_0-1}\Big(\int_{A(\alpha)}^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)d\beta\Big)^{q_0/p_0}d\alpha\\ +&C_1^{q_1}p_1^{q_1/p_1}\int_0^{\infty}\alpha^{q-q_1-1}\Big(\int_0^{A(\alpha)}\beta^{p_1-1}\dstrb{f}(\beta)d\beta\Big)^{q_1/p_1}d\alpha\Big]
+    \end{aligned}
+    \]
+    where we have
+    \[
+    \begin{aligned}
+    \int_0^{\infty}\alpha^{q-q_0-1}\Big(\int_{A(\alpha)}^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)d\beta\Big)^{q_0/p_0}d\alpha &\leq \Big[\int_0^{\infty}\Big(\int_{A(\alpha) \leq \beta} [\alpha^{p_0(q-q_0-1)/q_0}\beta^{p_0-1}\dstrb{f}(\beta)]^{q_0/p_0}d\alpha\Big)^{p_0/q_0}d\beta\Big]^{q_0/p_0} \\
+    &=\Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\Big(\int_{A(\alpha) \leq \beta} \alpha^{q-q_0-1}d\alpha\Big)^{p_0/q_0}d\beta\Big]^{q_0/p_0}
+    \end{aligned}
+    \]
+    and
+    \[
+    \begin{aligned}
+    \int_0^{\infty}\alpha^{q-q_1-1}\Big(\int_{A(\alpha)}^{\infty}\beta^{p_1-1}\dstrb{f}(\beta)d\beta\Big)^{q_1/p_1}d\alpha &\leq \Big[\int_0^{\infty}\Big(\int_{A(\alpha) > \beta} [\alpha^{p_1(q-q_1-1)/q_1}\beta^{p_1-1}\dstrb{f}(\beta)]^{q_0/p_0}d\alpha\Big)^{p_1/q_1}d\beta\Big]^{q_1/p_1} \\
+    &=\Big[\int_0^{\infty}\beta^{p_1-1}\dstrb{f}(\beta)\Big(\int_{A(\alpha) > \beta} \alpha^{q-q_1-1}d\alpha\Big)^{p_1/q_1}d\beta\Big]^{q_1/p_1}
+    \end{aligned}
+    \]
+    then we may consider if $q_0<q_1$ then let $A(\alpha) = \alpha^{r}$ and we have
+    \[
+    \begin{aligned}
+    \int_0^{\infty}\alpha^{q-q_0-1}\Big(\int_{A(\alpha)}^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)d\beta\Big)^{q_0/p_0}d\alpha &\leq \Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\Big(\int_0^{\beta^{1/r}} \alpha^{q-q_0-1}d\alpha\Big)^{p_0/q_0}d\beta\Big]^{q_0/p_0} \\
+    & = \dfrac{1}{q-q_0}\Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\beta^{p_0(q-q_0)/rq_0}\beta\Big]^{q_0/p_0}
+    \end{aligned}
+    \]
+    and let \[r = \dfrac{p_0}{q_0}\dfrac{q-q_0}{p-p_0} = \dfrac{q_0^{-1}-q^{-1}}{q^{-1}}\dfrac{p^{-1}}{p_0^{-1}-p^{-1}} = \dfrac{q_0^{-1}-q_1^{-1}}{p_0^{-1}-p_1^{-1}}\dfrac{p^{-1}}{q^{-1}} = \dfrac{q_1^{-1}-{q^{-1}}}{p_1^{-1}-p^{-1}}\dfrac{p^{-1}}{q^{-1}} = \dfrac{p_1}{q_1}\dfrac{q-q_1}{p-p_1}\]
+    and we know if $||f||_p = 1$ then
+    \[
+    \int_0^{\infty}\alpha^{q-q_0-1}\Big(\int_{A(\alpha)}^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)d\beta\Big)^{q_0/p_0}d\alpha \leq  \dfrac{1}{q-q_0}\Big(\dfrac{||f||_p^p}{p}\Big)^{q_0/p_0} = |q-q_0|^{-1}p^{-q_0/p_0}
+    \]
+    and similarly
+    \[
+    \begin{aligned}
+    \int_0^{\infty}\alpha^{q-q_1-1}\Big(\int_0^{A(\alpha)}\beta^{p_1-1}\dstrb{f}(\beta)d\beta\Big)^{q_1/p_1}d\alpha &\leq \Big[\int_0^{\infty}\beta^{p_1-1}\dstrb{f}(\beta)\Big(\int_{\beta^{1/r}}^{\infty} \alpha^{q-q_1-1}d\alpha\Big)^{p_1/q_1}d\beta\Big]^{q_1/p_1} \\
+    & = \dfrac{1}{q_1-q}\Big[\int_0^{\infty}\beta^{p_1-1}\dstrb{f}(\beta)\beta^{p_1(q-q_1)/rq_1}\beta\Big]^{q_1/p_1}
+    \end{aligned}
+    \]
+    and then
+    \[
+    \int_0^{\infty}\alpha^{q-q_1-1}\Big(\int_0^{A(\alpha)}\beta^{p_1-1}\dstrb{f}(\beta)d\beta\Big)^{q_1/p_1}d\alpha \leq  \dfrac{1}{q_1-q}\Big(\dfrac{||f||_p^p}{p}\Big)^{q_1/p_1} = |q-q_1|^{-1}p^{-q_1/p_1}
+    \]
+    Therefore, we have
+    \[
+    \int |Tf|^q \leq 2^qq\Big[C_0^{q_0}(p_0/p)^{q_0/p_0}|q-q_0|^{-1}+C_1^{q_1}(p_1/p)^{q_1/p_1}|q-q_1|^{-1} \Big]
+    \]
+    when $q_0 < q_1$ and if $q_0 > q_1$, let $A(\alpha) = \alpha^{r}$ and notice $r<0$ so we have
+    \[
+    \begin{aligned}
+    \int_0^{\infty}\alpha^{q-q_0-1}\Big(\int_{A(\alpha)}^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)d\beta\Big)^{q_0/p_0}d\alpha &\leq \Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\Big(\int_{\beta^{1/r}}^{\infty} \alpha^{q-q_0-1}d\alpha\Big)^{p_0/q_0}d\beta\Big]^{q_0/p_0} \\
+    & = \dfrac{1}{q_0-q}\Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\beta^{p_0(q-q_0)/rq_0}\beta\Big]^{q_0/p_0}
+    \end{aligned}
+    \]
+    and the rest calculation are similar, we can still get
+    \[
+    \int |Tf|^q \leq 2^qq\Big[C_0^{q_0}(p_0/p)^{q_0/p_0}|q-q_0|^{-1}+C_1^{q_1}(p_1/p)^{q_1/p_1}|q-q_1|^{-1} \Big] = B_t
+    \]
+    and to show $B_p|p-p_j|$ is bounded when $p\to p_j, j = 0,1$, it suffices to show that $|(p-p_j)/(q-q_j)|$ is bounded when $p\to p_j$ and which is easy to check by $r$.\par
+    For the rest conditions, we assume $p_1 = q_1 = \infty$ at first, we know
+    \[
+    ||Th_A||_{\infty} \leq C_1||h_A||_{\infty}
+    \]
+    and let $A(\alpha) = \alpha/C_1$ then $\dstrb{Th_A}(\alpha) = 0$ and then
+    \[
+    \begin{aligned}
+    \int|Tf|^q &\leq 2^qq C_0^{q_0}p_0^{q_0/p_0}\Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\Big(\int_0^{C_1\beta} \alpha^{q-q_0-1}d\alpha\Big)^{p_0/q_0}d\beta\Big]^{q_0/p_0} \\
+    &=2^qq C_0^{q_0}C_1^{q-q_0}(p_0/p)^{q_0/p_0}|q-q_0|^{-1}
+    \end{aligned}
+    \]
+    when $||f||_p = 1$, and hence
+    \[
+    B_p = 2\Big[ C_0^{q_0}C_1^{q-q_0}(p_0/p)^{q_0/p_0}|q-q_0|^{-1}\Big]^{1/q}
+    \]
+    at this considition, which is bounded when $p\to p_j, j = 0,1$.\par
+    Then assume $q_0 < q_1 = \infty$, we have
+    \[||Th_A||_{\infty} \leq C_1||h_A||_{p_1} \leq C_1\Big(p_1\int_0^A \alpha^{p_1-1}\dstrb{f}(\alpha)d\alpha\Big)^{1/p_1} \leq C_1p_1^{1/p_1}A^{(p_1-p)/p_1}(||f||_p^p/p)^{1/p_1}\]
+    and let $A(\alpha) = [\alpha/[C_1(p_1||f||_p^p/p)^{1/p_1}]]^{\tfrac{p_1}{p_1-p}}$ and we get $||Th_{A(\alpha)}||_{\infty} \leq \alpha$ and
+    \[
+    \begin{aligned}
+    \int|Tf|^q &\leq 2^qq C_0^{q_0}p_0^{q_0/p_0}\Big[\int_0^{\infty}\beta^{p_0-1}\dstrb{f}(\beta)\Big(\int_0^{d\beta^{(p_1-p)/p_1}} \alpha^{q-q_0-1}d\alpha\Big)^{p_0/q_0}d\beta\Big]^{q_0/p_0} \\
+    &=2^qq C_0^{q_0}d^{q-q_0}p_0^{q_0/p_0}|q-q_0|^{-1}\Big[\int_0^{\infty}\beta^{p_0-1+p_0(q-q_0)(p_1-p)/p_1q_0}\dstrb{f}(\beta)d\beta\Big]^{q_0/p_0} \\
+    & = 2^qq C_0^{q_0}\Big(C_1(p_1||f||_p^p/p)^{1/p_1}\Big)^{q-q_0}p_0^{q_0/p_0}|q-q_0|^{-1}\Big(\dfrac{||f||_p^p}{p}\Big)^{q_0/p_0}
+    \end{aligned}
+    \]\par
+    For $q_1 < q_0 = \infty$, we have
+     \[||Tg_A||_{\infty} \leq C_0||g_A||_{p_0} \leq C_0\Big(p_0\int_A^{\infty} \alpha^{p_0-1}\dstrb{f}(\alpha)d\alpha\Big)^{1/p_0} \leq C_0p_0^{1/p_0}A^{(p_0-p)/p_0}(||f||_p^p/p)^{1/p_0}\]
+    and let $A(\alpha) = [\alpha/[C_0(p_0||f||_p^p/p)^{1/p_0}]]^{\tfrac{p_0}{p_0-p}}$ and we get $||T_{g_{A(\alpha)}}||_{\infty} \leq \alpha$ and then the rest are the same.
+\end{proof}
+
+\newpage
+
+\subsection*{Fourier analysis}
+
+\begin{definition}
+    For this chapter we work on $\R^n$. $C^k(U)$ is the space of all functions on $U$ with continuous partial derivatives of order $\leq k$ an $C^{\infty}(U) = \bigcap_{i=1}^{\infty}C^k(U)$. For any $E\subset \R^n$, $C_c^{\infty}(E)$ is the space of all $C^{\infty}$ functions on $\R^n$ with compact support contained in $E$. If we miss $U,E$, it means $U = \R^n$ or $E = \R^n$.\par
+    For $x,y\in \R^n$, we define
+    \[x\cdot y = \sum\limits_{i=1}^n x_iy_i,\quad |x| = \sqrt{x\cdot x}\]
+    A $multi-index$ is an ordered $n$-tuple of nonnegative integers $\alpha$ with
+    \[|\alpha| = \sum\limits_{i=1}^n \alpha_j,\quad \alpha! = \prod_{i=1}^n \alpha_j!,\quad \partial^{\alpha} = \Big(\dfrac{\partial}{\partial x_1}^{\alpha^1}\Big)\cdots\Big(\dfrac{\partial}{\partial x_n}^{\alpha^n}\Big)
+    \]
+    and for $x\in \R^n$, we define
+    \[
+    x^{\alpha} = \prod_{i=1}^n x_j^{\alpha_j}
+    \]
+\end{definition}
+
+\begin{definition}
+    (Schwarz space) $\Sch$ is consisted of functions $f$ in $C^{\infty}$ such that for any nonnegative integer $N$ and multi-index $\alpha$, define
+    \[
+    ||f||_{(N,\alpha)} = \sup_{x\in\R^n}(1+|x|)^N |\partial^{\alpha}f(x)|
+    \]
+    then
+    \[
+    \Sch = \{f\in C^{\infty}:||f||_{(N,\alpha)} < \infty\text{ for all }N,\alpha\}
+    \]
+\end{definition}
+
+\begin{proposition}
+    If $f\in\Sch$, then $\partial^{\alpha} f \in L^p$ for all $\alpha$ and all $p\in[1,\infty]$.
+\end{proposition}
+\begin{proof}
+    We know
+    \[|\partial^{\alpha} f(x)| \leq C_N(1+|x|)^{-N}\]
+    for all $N$ and $(1+x)^{-N} \in L^p$ for all $N > n/p$.   
+\end{proof}
+
+\begin{proposition}
+    $\Sch$ is a Frechet space, i.e. a complete Hausdorff topological vector space whose topology is defined by a countable family of seminorms, with the topology defined by the norms $||\cdot||_{N,\alpha}$.
+\end{proposition}
+\begin{proof}\par
+    We only need to show the completness of $\Sch$, which means for $\{f_j\}_1^{\infty}$ Cauchy in $\Sch$, i.e. $||f_m-f_n||_{(N,\alpha)} \to 0, n,m\to\infty$, there exists $g\in \Sch$ and $||f_n - g||_{N,\alpha} \to 0, n\to\infty$.\par
+    Notice
+    \[
+    \sup_{x\in\R^n}|\partial^{\alpha}f_n - \partial^{\alpha}f_m| = ||f_n-f_m||_{(0,\alpha)} \to 0, n,m \to \infty
+    \]
+    and hence $\partial^{\alpha} f_n$ converges uniformly to some $g^{\alpha}$ for any multi-index $\alpha$. Now we consider
+    \[
+    \partial^{\alpha} f_k(x+te_j) - \partial^{\alpha} f_k(x) = \int_0^t \partial^{\alpha+e_j} f_k(x+se_j)ds
+    \]
+    then by DCT we know
+    \[
+    g^{\alpha}(x+te_j) - g^{\alpha}(x) = \int_0^t g^{\alpha+e_j}(x+se_j)ds
+    \]
+    and henc $\partial^{e_j} g^{\alpha} = g^{\alpha+e_j}$ which means $g^{\alpha} = \partial^{\alpha} g^0$ by the induction. Then notice
+    \[
+    ||f_k - g||_{(N,\alpha)} = \sup_{x\in\R^n}(1+|x|)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} g(x)|
+    \]
+    and we know for $\epsilon > 0$, there exists an integer $N$ such that
+    \[\sup_{x\in\R^n}(1+|x|)^N|\partial^{\alpha} f_k(x)-\partial^{\alpha} f_j(x)| < \epsilon/2\]
+    then we know
+    \[
+    \begin{aligned}
+    (1+x)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} g(x)| &\leq (1+x)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} f_(k+m)(x)|+(1+x)^N|\partial^{\alpha} f_{k+m}(x) - \partial^{\alpha} g(x)| \\ &< \epsilon/2 + (1+x)^N|\partial^{\alpha} f_{k+m}(x) - \partial^{\alpha} g(x)|
+    \end{aligned}
+    \]
+    for any integer $m$ and hence
+    \[
+    (1+x)^N|\partial^{\alpha} f_k(x) - \partial^{\alpha} g(x)| \leq \epsilon
+    \]
+    for any $k \geq N$, which means $||f_k - g||_{(N,\alpha)} \to 0, k\to\infty$ and hence $g\in \Sch$.
+\end{proof}
+
+\begin{proposition}
+    (The product rule)For $|\alpha| = N, f,g\in C^N$, we have
+    \[
+    \partial^{\alpha}(fg) = \sum\limits_{\beta + \gamma = \alpha}\dfrac{\alpha!}{\beta!\gamma!}(\partial^{\beta}f)(\partial^{\gamma}g)
+    \]
+\end{proposition}
+\begin{proof}
+    We use the induction to $N$, if we have the formula for any $|\alpha| = N-1$, we will know
+    \[
+    \begin{aligned}
+    \partial^{\alpha+e_j}(fg) = \sum\limits_{\beta + \gamma = \alpha}\dfrac{\alpha!}{\beta!\gamma!}\partial^{e_j}[(\partial^{\beta}f)(\partial^{\gamma}g)]  &= \sum\limits_{\beta + \gamma = \alpha}\dfrac{\alpha!}{\beta!\gamma!}[(\partial^{\beta+e_j}f)(\partial^{\gamma}g)+(\partial^{\beta}f)(\partial^{\gamma+e_j}g)] \\
+    & = \sum\limits_{\beta + \gamma = \alpha+e_j}(\dfrac{\alpha!}{(\beta-e_j)!\gamma!}+\dfrac{\alpha!}{\beta!(\gamma-e_j)!})(\partial^{\beta}f)(\partial^{\gamma}g) \\
+    & = \sum\limits_{\beta + \gamma = \alpha+e_j}\dfrac{(\alpha+e_j)!}{\beta!\gamma!}(\partial^{\beta}f)(\partial^{\gamma}g) \\
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{corollary}
+    We may know
+    \[
+    \begin{aligned}
+        \partial^{\alpha}(x^{\beta}f) &= x^{\beta}\partial^{\alpha}f + \sum c_{\gamma\delta}x^{\delta}\partial^{\gamma}f \\
+        x^{\beta}\partial^{\alpha}f &= \partial^{\alpha}(x^{\beta}f) + \sum c'_{\gamma\delta}\partial^{\gamma}(x^{\delta}f)
+    \end{aligned}
+    \]
+    for some constants $c_{\gamma\delta},c'_{\gamma\delta} = 0$ unless $|\gamma|<|\alpha|$ and $|\delta|<|\beta|$.
+\end{corollary}
+\begin{proof}
+    We know
+    \[
+    \partial^{\alpha}(x^{\beta}f) = \sum\limits_{\gamma + \delta = \alpha}\dfrac{\alpha!}{\gamma!\delta!}(\partial^{\delta}x^{\beta})(\partial^{\gamma}f)
+    \]
+    and the first conclusion goes, and hence the second equality goes by elimination.
+\end{proof}
+
+\begin{proposition}
+    If $f\in C^{\infty}$, then $f\in\Sch$ iff $x^{\beta}\partial^{\alpha} f$ is bounded for all multi-indices $\alpha,\beta$ iff $\partial^{\alpha}(x^{\beta}f)$ is bounded for all multi-indices $\alpha,\beta$.
+\end{proposition}
+\begin{proof}\par
+    For the first equivalence, notice
+    \[
+    |x^{\beta}\partial^{\alpha} f| \leq (1+|x|)^{|\beta|}|\partial^{\alpha} f| 
+    \]
+    is bounded. And notice $\sum\limits_{j=1}^n |x_j|^N$ is strictly postive when $|x|=1$ for any integer $N$, then we know it has a minimum when $|x|=1$ and denote it as $\delta$, we know $\sum\limits_{j=1}^n |x_j|^N \ge \delta_N |x|^N$, then we know
+    \[
+    (1+|x|)^N \leq 2^N(1+|x|^N) \leq 2^N(1+\delta^{-1}\sum\limits_{j=1}^n |x_j|^N) \leq 2^N + 2^N\delta^{-1}\sum\limits_{|\beta|\leq N}|x^{\beta}|
+    \]
+    and hence $f\in\Sch$.\par
+    The second equivalence can be deduced by the corollary 1.3.
+\end{proof}
+
+\begin{definition}
+    If $f$ is a function on $\R^n$ and $y\in\R^n$, we call
+    \[
+    \tau_yf(x) = f(x-y)
+    \] 
+    and we know $||\tau_y f||_p = ||f||_p$ for $1\leq p \leq \infty$ and $||\tau_y f||_u = ||f||_u$. A function $f$ is called uniformly continuous if $||\tau_y f - f||_u \to 0, y\to 0$.
+\end{definition}
+
+\begin{lemma}
+    If $f\in C_c(\R^n)$, then $f$ is uniformly continuous.
+\end{lemma}
+
+\begin{proposition}
+    If $1\leq p < \infty$, translation is continuous in the $L^p$ norm, i.e. if $f\in L^p$ and $z\in\R^n$, then \[\lim_{y\to 0} ||\tau_{y+z}f-\tau_z f||_p = 0\]
+\end{proposition}
+\begin{proof}\par
+    Notice $C_c$ is dense in $L^p$ is fine.
+\end{proof}
+
+\begin{definition}
+    Le $f$ and $g$ be measurable functions on $\R^n$. The $convolution$ of $f$ and $g$ is the function $f*g$ defined by
+    \[f*g(x) = \int f(x-y)g(y)dy\]
+    We may prove that $f*g$ is measurable.
+\end{definition}
+
+\begin{proposition}
+    Assumming that all integrals in question exist, we have\\
+    a. $f*g = g*f$ \\
+    b. $(f*g)*h = f*(g*h)$ \\
+    c. For $z\in\R^n,\tau_z(f*g) = (\tau_zf)*g = f*(\tau_z g)$ \\
+    d. If $A$ is the closure of $\{x+y, x\in \text{supp}(f), y\in\text{supp}(g)\}$, then $\text{supp}(f*g)\subset A$.
+\end{proposition}
+\begin{proof}\par
+    a. Trivial.\par
+    b. We know
+    \[
+    \begin{aligned}
+        (f*g)*h(x) = &\int \int f(z)g(x-y-z)dz h(y) dy \\
+        & =  \int f(z) (g*h)(x-z) dz = f*(g*h)(x)
+    \end{aligned}
+    \]\par
+    c. \[\tau_z(f*g) = f*g(x+z) = \int f(x+z-y)g(y) dy = \int\tau_zf(x-y)g(y)dy = \tau_zf*g(x)\] and hence $\tau_z(f*g) = \tau_z(g*f) = \tau_zg*f = f*\tau_z g$.\par
+    d. Trivial.
+\end{proof}
+
+\begin{theorem}
+    (Young's inequality) If $f\in L^1$ and $g\in L^p(1\leq p\leq \infty)$, then $f*g(x)$ exists for almost every $x$, $f*g\in L^p$ and $||f*g||_p \leq ||f||_1||g||_p$. 
+\end{theorem}
+\begin{proof}
+    Notice
+    \[
+    ||f*g||_p = (\int |\int f(y)g(x-y) dy|^p dx)^{1/p} \leq \int (\int |f(y)g(x-y)|^p dx)^{1/p}dy = \int |f(y)|||g||_p dy = ||f||_1||g||_p
+    \]
+    by the Minkowski's inequality for integrals.
+\end{proof}
+
+\begin{proposition}
+If $p$ and $q$ are conjugate exponents, $f\in L^p$ and $g\in L^q$, then $f*g(x)$ exists for every $x$, $f*g$ is bounded and uniformly continuous and $||f*g||_u \leq ||f||_p||g||_q$. If $1<p<\infty$, then $f*g \in C_0(\R^n)$, i.e. $f$ vaninshed at infinity, i.e. $\{|f|\geq \epsilon\}$ is compact for any $\epsilon > 0$.
+\end{proposition}
+\begin{proof}
+    We know
+    \[
+    |f*g(x)| = |\int f(y)g(x-y)dy| \leq |f(\cdot)g(x-\cdot)|_1 \leq ||f||_p||g(x-\cdot)||_q = ||f||_p||g||_q
+    \]
+    by the Holder's inequality and hence $||f*g||_u \leq ||f||_p||g||_q$. Then for any $y\in \R^n$,
+    \[||\tau_y f*g - f*g||_u = ||(\tau_y f-f)*g||_u \leq ||\tau_yf-f||_p||g||_q \to 0, y\to 0\]
+    if $1\leq p < \infty$. If $p = \infty$, exchange $f,g$.\par
+    Consider $f_n,g_n \in C_c$ and $f_n \to f$ in $L^p$, $g_n\to g$ in $L^q$, then we know
+    \[
+    ||f_n*g_n-f*g||_u \leq ||f_n*g_n - f_n*g||_u + ||f_n*g - f*g||_u \leq ||f_n||_p ||g_n-g||_q + ||f_n-f||_p||g||_q \to 0
+    \]
+    and notice $f_n*g_n \in C_c$ and hence $f*g \in C_0$. 
+\end{proof}
+
+\begin{proposition}
+    Suppose $1\leq p,q,r \leq \infty$ and $p^{-1}+q^{-1} = r^{-1}+1$, then\par
+    a. (Young's inequality, general form) If $f\in L^p$ and $g\in L^q$, then $f*g \in L^r$ and $||f*g||_r \leq ||f||_p||g||_q$.\par
+    b. Suppose also that $p>1,q>1$ and $r<\infty$. If $f\in L^p$ and $g\in weak\ L^q$,then $f*g \in L^r$ and $||f*g||_r \leq C_{pq}||f||_p[g]_q$ where $C_{pq}$ is independent of $f,g$.\par
+    c. Suppose that $p=1$ and $r= q >1$. If $f\in L^1$ and $g\in weak\ L^q$m then $f*g\in weak\ L^q$ and $[f*g]_q \leq C_q||f||_1$ where $C_q$ is independent of $f$ and $g$.  
+\end{proposition}
+\begin{proof}\par
+    a. Notice we have the inequality holds when $p=1,r=q$ and $r=\infty$, then for fixed $q$ and $g$, then we may use the Riesz-Thorin Interpolation Theorem.\par
+    We will skip the proof for b.c.
+\end{proof}
+
+\begin{proposition}
+    If $f\in L^1,g\in C^k$ and $\partial^{\alpha} g$ is bounded for $|\alpha|\leq k$, then $f*g\in C^k$ and $\partial^{\alpha}(f*g) = f*(\partial^{\alpha} g)$ for $|\alpha| \leq k$.
+\end{proposition}
+\begin{proof}\par
+    If $\alpha^{\alpha}(f*g) = f*(\partial^{\alpha} g)$, then
+    \[
+    \partial^{\alpha+e_j}(f*g) = \partial^{e_j}f*(\partial^{\alpha} g) = \partial^{e_j}\int f(y)\partial^{\alpha}g(x-y)dy = \int f(y)\partial^{e_j}\partial^{\alpha}g(x-y)dy 
+    \]
+    if $\partial^{\alpha+e_j} g$ is bounded and hence the conclusion holds by the induction.
+\end{proof}
+
+\begin{proposition}
+    If $f,g\in \Sch$, then $f*g \in \Sch$.
+\end{proposition}
+\begin{proof}
+    We know $f*g\in C^{\infty}$ by proposition 1.20. and then notice
+    \[1+|x| \leq (1+|x-y|)(1+|y|)\]
+    so we have
+    \[
+    \begin{aligned}
+    (1+|x|)^N|\partial^{\alpha}(f*g)(x) &\leq \int (1+|x-y|)^N|\partial^{\alpha}f(x-y)|(1+|y|)^N|g(y)|dy \\ &\leq||f||_{(N,\alpha)}||g||_{(N+n+1,0)}\int(1+|y|)^{-n-1}dy < \infty
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $\phi\in L^1$ and $\int \phi(x)dx = a$, define $\phi_t(x) = t^{-n}\phi(t^{-1}x)$ then\par
+    a. If $f\in L^p, 1\leq p < \infty$, then $f* \phi_t \to af,t\to 0$ in $L^p$.\par
+    b. If $f$ is bounded and uniformly continuous then $f*\phi_t \to af$ uniformly as $t\to 0$.\par
+    c. If $f\in L^{\infty}$ and $f$ is continuous on an open set $U$, then $f*\phi_t \to af$ uniformly on compact subsets of $U$ as $t\to 0$.
+\end{theorem}
+\begin{proof}\par
+    a. Notice that
+    \[
+    f*\phi_t - af = \int f(x-y)\phi_t(y) dy- \int f(x)\phi(y)dy = \int(f-\tau_{tz}f)(x)\phi(z)dz
+    \]
+    and then by the Minkowski's inequality for integrals, we know
+    \[
+    ||f*\phi_t-af||_p \leq \int ||f-\tau_{tz}f||_p |\phi(z)| dz
+    \]
+    and by DCT we know
+    \[
+    ||f*\phi_t-af||_p \to 0, t\to 0
+    \]\par
+    b. Notice
+    \[
+    ||f*\phi_t - af||_u \leq \int ||f-\tau_{tz}f||_u|\phi(z)|dz \leq \int_E ||f-\tau_{tz}f||_u|\phi(z)|dz + \int_{E^c}2||f||_u|\phi(z)|dz
+    \]
+    for any measurable set and choose $E$ as a property compact set is fine.\par
+    c. Still refer the equality and then we know for a compact subset $E$ of $U$, and $\epsilon >0$, we may choose a compact set $K$ such that
+    \[
+    \int_{K^c} 2||f||_{\infty}|\phi(z)|dz < \epsilon/2
+    \]
+    then choose $d$ small enough such that $dK+E$ is in a compact subset $E'$ of $U$ and notice $f$ is bounded and uniformly continuous on $E'$, so we know
+    \[
+    ||(f*\phi_t-af)|_{E}||_u = ||f|_E*\phi_t - af|_E||_u
+    \]
+    and the rest is similar.
+\end{proof}
+
+\begin{theorem}
+    Suppose $|\phi(x)|\leq C(1+|x|)^{-n-\epsilon}$ for some $C,\epsilon > 0$ and $\int |\phi(x)|dx = a$. If $f\in L^p$, then $f*\phi_t(x) \to af(x)$ as $t\to 0$ for every $x$ in the Lebesgue set of $f$, inparticular, for almost every $x$ and for every $x$ at which $f$ is continuous.
+\end{theorem}
+\begin{proof}\par
+    Firstly, let us recall that if $f\in L^p$, then $L\in L^1_{loc}$, since
+    \[
+    \int_K |f| \leq \int_{K\cap\{|f|\geq 1\}} |f|^p + m(K) < ||f||_p^p + m(K) < \infty
+    \]
+    for any compact set $K$.\par
+    We are going to show
+    \[
+    \int |f(x-y)-f(x)||\phi_t(y)|dy \to 0, t\to 0
+    \]
+    if $r^{-n}\int_{|y|<r} |f(x-y)-f(x)|dy \to 0, r\to 0$.\par
+    We know for any $\delta > 0$, there exists $\eta>0$ such
+    \[
+    \int_{|y|<r} |f(x-y)-f(x)|dy < \delta r^{n}
+    \]
+    for any $r<\eta$. We have
+    \[
+    \int_{|y|\geq \eta} |f(x-y)-f(x)||\phi_t(y)|dy \leq ||f||_p||\chi_{|y|\geq \eta}\phi_t(y)||_p' + |f(x)|||\chi_{|y|\geq\eta}\phi_t(y)||_1
+    \]
+    Now we consider $||\chi_{|y|\geq\eta}\phi_t(y)||_q$, if $q= \infty$, we know
+    \[
+    ||\chi_{|y|\geq\eta}\phi_t{y}||_{\infty} \leq \sup_{|y|\geq\eta}Ct^{-n}(1+|y/t|)^{-n-\epsilon}  \leq Ct^{-n}(1+|\eta/t|)^{-n-\epsilon} \leq C|\eta|^{-n-\epsilon}t^{\epsilon} \to 0
+    \]
+    if $t\to\infty$. For $q<\infty$, we know
+    \[
+    ||\chi_{|y|\geq\eta} \phi_t(y)||_q^q = \int_{|y|\geq\eta} t^{-nq}|\phi(t^{-1}y)|^qdy \leq Ct^{\epsilon q}\int_{r\geq\eta/t} r^{n-1-(n+\epsilon)q} dr \leq C_1t^{\epsilon q}
+    \]
+    for some constant $C_1$ by the proposition 2.51. on Folland.\par
+    Now we consider
+    \[
+    \int_{|y|<\eta} |f(x-y)-f(x)||\phi_t(y)|dy
+    \]
+    for fixed $t$, we consider
+    \[
+    \begin{aligned}
+    \int_{|y|<\eta} |f(x-y)-f(x)||\phi_t(y)|dy
+    &= \sum\limits_{i=1}^{K}\int_{2^{-i}\eta\leq|y|<2^{1-i}\eta} |f(x-y)-f(x)||\phi_t(y)|dy \\
+    &+ \int_{|y|\leq 2^{-K}\eta} |f(x-y)-f(x)||\phi_t(y)|dy \\
+    &\leq \sum\limits_{i=1}^{K}\int_{2^{-i}\eta\leq|y|<2^{1-i}\eta} |f(x-y)-f(x)|(Ct^{-n}|2^{-i}\eta/t|^{-n-\epsilon})dy \\
+    &+ \int_{|y|\leq 2^{-K}\eta} |f(x-y)-f(x)|(Ct^{-n})dy \\
+    &\leq C\delta t^{\epsilon}\sum\limits_{i=1}^K [2^{i(n+\epsilon)}/\eta^{n+\epsilon}](2^{1-i}\eta)^n + C\delta t^{-n}(2^{-K}\eta)^n \\
+    &\leq 2^nC\delta(t/\eta)^{\epsilon}\dfrac{2^{K\epsilon}-1}{2^{\epsilon}-1}+ C\delta (2^{-K}\eta/t)^n 
+    \end{aligned}
+    \]
+    so let $2^{K-1} < \eta/t \leq 2^K$, then we know
+    \[\int_{|y|<\eta} |f(x-y)-f(x)||\phi_t(y)|dy \leq C\delta + 2^nC\delta(t/\eta)^{\epsilon}\dfrac{(2(\eta/t))^{\epsilon}-1}{2^{\epsilon}-1} \leq 2^nC\delta(1+\dfrac{2^{\epsilon}}{2^{\epsilon}-1})\]
+    for any $\delta > 0$, and the conclusion holds.
+\end{proof}
+
+\begin{definition}
+    If $a=1$, then call $\{\phi_t\}_{t>0}$ an approximate identity.
+\end{definition}
+
+\begin{proposition}
+    $C_c^{\infty}$ (and hence also $\Sch$) is dense in $L^p(1\leq p <\infty)$ and in $C_0$.
+\end{proposition}
+\begin{proof}\par
+    If there exists $\phi\in C_c^{\infty}$, we will know that $g*\phi_t \to g$ in $L^p$ and $g*\phi_t \in C_c^{\infty}$ if $g\in C_c, g\in L^1\cap L^p$. Notice for any $f\in L^p$,$\epsilon > 0$, we can find $g\in C_c, g\in L^1\cap L^p$ such that $||f-g||<\epsilon$, and hence we know $C_c^{\infty}$ is dense in $L^p$. Also if $f\in C_0$, then for any $\epsilon > 0$, we may find $g\in C_c$ such that $||f-g||_u \leq \epsilon$, since $g$ is bounded and uniformly continuous, we know $||g*\phi_t - g||_u \to 0$ if $t\to 0$.
+    So now we only need to check that $C_c^{\infty}$ is nonempty, which can be given by
+    \[
+    \phi(x) = e^{-\dfrac{1}{1-|x|^2}}\chi_{1-|x|^2 > 0}\]
+    since $e^{-1/t}\chi_{(0,\infty)}(t)$ is smooth and $1-|x|^2$ is obviously smooth.
+\end{proof}
+
+\begin{theorem}
+    (The $C^{\infty}$ Urysohn lemma) If $K\subset\R^n$ is compact and $U$ is an open set containing $K$, there exists $f\in C_c^{\infty}$ such that $0\leq f \leq 1$ and $f = 1$ on $K$ and $\text{supp}(f)\subset U$. 
+\end{theorem}
+\begin{proof}\par
+    Consider $\delta = d(K,U)$ and we may find $\phi\in C_c^{\infty}$ such that $\text{supp}(\phi) \subset D(0,d/3)$. Let $V = \bigcup_{x\in K}D(x,d/3)$, then $\chi_V*\phi$ is the function we would like.
+\end{proof}
+
+\begin{theorem}
+    If $\phi$ is a measurable function on $\R^n$(resp. $\T^n$), such that $\phi(x+y) = \phi(x)\phi(y)$ and $|\phi|=1$, there exists $\xi\in\R^n$(resp. $\T^n$) such that $\phi(x) = e^{2\pi\xi\cdot x}$.
+\end{theorem}
+\begin{proof}\par
+    We first prove the conclusion for $\R$, let $a\in \R$ such that $\int_0^a \phi(t)dt\neq 0$ and let $A = a^{-1}$, then we know
+    \[
+    \phi(x) = A\int_0^a \phi(x)\phi(t)dt = A\int_x^{x+a}\phi(t)dt
+    \]
+    and hence $\phi(x)$ is continuous, and then $\phi(x)\in C^1$ with
+    \[
+    \phi'(x) = A[\phi(a)-1]\phi(x) = B\phi(x)
+    \]
+    Therefore,
+    \[
+    [e^{-Bx}\phi(x)]' = -B\phi(x)+\phi'(x) = 0 
+    \]
+    and hence $\phi(x) = ce^{Bx}$ for some constant $C$. Notice $\phi(0)= 1$, so we know $\phi(x) =e^{Bx}$ and hence $B$ is a pure imaginary number, so we may let $B = 2\pi i \xi$ for some contant $\xi$.\par
+    If $\phi$ is defined on $T$, we may expand it into a period function on $\R$ with the same property and hence $\xi\in \mathbb{Z}$.\par
+    For $\phi$ defined on $\R^n$, we may consider $\phi^j(t) = \phi(te_j)$ and then we know $\phi^j(t) = e^{2\pi i \xi_j}$ for some constant $\xi_j$, then for $x\in\R^n$, we know $\phi(x) = \prod_{i=1}^n \phi(x_i e_i) = \prod_{i=1}^n \phi^i(x_i)= e^{2\pi i \xi\cdot x}$ for some $\xi \in \R$ and the conclusion is similar for $\T^n$. 
+\end{proof}
+
+Before entering the next theorem, we recall a lemma we did not prove it formally before.
+
+\begin{lemma}
+    If $\{u_{\alpha}\}$ is an orthonormal set in a Hilbert space $\mathcal{H}$, if the finite linear combination of $\{u_{\alpha}\}$ is dense in $\mathcal{H}$, then it is a orthonormal basis.
+\end{lemma}
+\begin{proof}
+    Assume $\langle x,u_{\alpha}\rangle = 0$ for any $\alpha$, then if $x\neq 0$, then we may find $x_n \in \text{span}\{u_{\alpha}\}$ converges to $x$ in $\mathcal{H}$ and hence
+    \[
+    ||x||^2 = \lim\langle x_n,x\rangle =0
+    \] 
+    and the conclusion holds.
+\end{proof}
+
+\begin{theorem}
+    Let $E_{\mathcal{K}}(x) = e^{2\pi i \mathcal{K}\cdot x}$, then $\{E_{\mathcal{K}}, \mathcal{K}\in \mathbb{Z}^n\}$ is an orthonormal basis of $L^2(\T^n)$.
+\end{theorem}
+\begin{proof}\par
+    It is easy to verify that $\{E_{\inK}\}_{\inK \in \Z^n}$ is an orthonormal basis since
+    \[
+    \langle E_{\inK_1},E_{\inK_2} \rangle = \int E_{\inK_1 - \inK_2} = \delta{\kappa_1-\kappa_2}
+    \]\par
+    Now we consider $A = \text{span}\{E_{\kappa}\}_{\kappa\in\Z^n}$, then we know $A$ is separating points and hence we know $A$ is dense in $C(\T^n)$ by the Stone-Weierstrass' Theorem and hence it is dense in $L^2(\T^n)$. The rest is by the lemma 1.4.
+\end{proof}
+
+\begin{definition}
+    If $f\in L^2(\T^n)$, we define its $Fourier\ transform$ $\hat{f}$ a function on $\Z^n$ by
+    \[
+    \hat{f}(\kappa) = \langle f,E_{\kappa}\rangle = \int_{\T^n}f(x)e^{-2\pi i \kappa\cdot x} dx
+    \]
+    and we call the series
+    \[
+    \sum\limits_{\kappa\in\Z^n}\hat{f}(\kappa)E_{\kappa}
+    \]
+    the $Fourier\ series$ of $f$.
+\end{definition}
+
+\begin{theorem}
+    (The Hausdorff-Young Inequality) Suppose that $1\leq p \leq 2$ and $q$ is the conjugate exponent to $p$. If $f\in L^p(\T^n)$, then $\hat{f}\in l^q(\Z^n)$ and $||\hat{f}||_q \leq ||f||_p$.
+\end{theorem}
+\begin{proof}\par
+    Use the Riesz-Thorin Interpolation Theorem directly.
+\end{proof}
+
+\begin{definition}
+    For $f\in L^1$, define the Fourier Transform of $f$ by
+    \[\F f(\xi) = \hat{f}(\xi) = \int_{\R^n}f(x)e^{-2\pi i\xi\cdot x} dx\]
+    with $||\hat{f}||_u \leq ||f||_1$ and continuous by the DCT and we know
+    \[\F:L^1 \to BC(\R^n)\]
+\end{definition}
+\begin{theorem}
+    Suppose $f,g\in L^1$.\par
+    a. $\hat{(\tau_y f)}(\xi) = e^{-2\pi i \xi\cdot y}\hat{f}(\xi)$ and $\tau_{\eta}(\hat{f}) = \hat{h}$ where $h = e^{2\pi i \eta\cdot x}f(x)$.\par
+    b.If $T$ is an invertible linear transformation of $\R^n$ and $S = (T^*)^{-1}$ is its inverse transpose, then $\hat{(f\circ T)} = |\det T|^{-1} \hat{f}\circ S$. In particular, if $T$ is a rotation, then $\hat{(f\circ T)} = \hat{f}\circ T$ and if $Tx = t^{-1}x(t>0)$, then $\hat{(f\circ T)}(\xi) = t^n\hat{f}(t\xi)$, so that $\hat{(f_t)}(\xi) = \hat{f}(t\xi)$.\par
+    c. $\hat{(f*g)} = \hat{f}\hat{g}$.\par
+    d. If $x^{\alpha}f\in L^1$ for $|\alpha|\leq k$, then $\hat{f}\in C^k$ and $\partial^{\alpha}\hat{f} = \hat{[(-2\pi i x)^{\alpha}f]}$.\par
+    e. If $f\in C^k,\partial^{\alpha} f \in L^1$ for $|\alpha|\leq k$, and $\partial^{\alpha}f\in C_0$ for $|\alpha|\leq k -1$, then $\hat{(\partial^{\alpha}f)}(\xi) = (2\pi i \xi)^{\alpha}\hat{f}(\xi)$.\par
+    f.(The Riemann-Lebesgue Lemma)$\F(L^1(\R^n)) \subset C_0(\R^n)$.
+\end{theorem}
+\begin{proof}\par
+    a. We know
+    \[
+    \hat{(\tau_y f)}(\xi) = \int f(x-y)e^{-2\pi i \xi\cdot x} dx = e^{-2\pi i \xi \cdot y}\hat{f}(\xi)
+    \]
+    and
+    \[
+    \tau_{\eta}\hat{f}(\xi) = \hat{f}(\xi+\eta) = \int f(x)e^{-2\pi i (\xi-\eta)\cdot x}dx = \int h(x)e^{-2\pi i \xi \cdot x}dx = \hat{h}(\xi)
+    \]\par
+    b. We know
+    \[
+    \hat{(f\circ T)}(\xi) = \int f(Tx)e^{-2\pi i \xi\cdot x} dx = \int f(Tx)e^{-2\pi i \xi^*T^{-1}Tx} dx = |\det T|^{-1}\int f(x)e^{-2\pi(S\xi)\cdot x} dx = |\det T^{-1}|\hat{f}\circ S 
+    \]
+    and the rest is easy to check.\par
+    c. We know
+    \[
+    \hat{(f*g)}(\xi) = \int \int f(x-y)g(y) dy e^{-2\pi i \xi\cdot x} dx = \int (\int f(x-y)e^{-2\pi i \xi\cdot(x-y)} dx) g(y)e^{-2\pi i \xi \cdot y}dy = \hat{f}(\xi)\hat{g}(\xi)
+    \]
+    by the Fubini's theorem.\par
+    d. We assume $\partial^{\alpha} = [\hat{(-2\pi i x)}^{\alpha} f]$ and then
+    \[
+    \begin{aligned}
+    \partial^{\alpha+e_j}\hat{f}(\xi) &= \partial^{e_j} \hat{[(-2\pi i x)^{\alpha} f(\xi)]}\\ &= \partial^{e_j} \int (-2\pi i x)^{\alpha}f(x)e^{-2\pi i \xi\cdot x}dx
+    \\ &= \lim_{t\to 0}\dfrac{\int (-2\pi i x)^{\alpha}f(x)(e^{-2\pi i (\xi+te_j)\cdot x}-e^{-2\pi i \xi\cdot x})dx}{t} 
+    \end{aligned}
+    \]
+    since
+    \[
+    |(-2\pi i x)^{\alpha}f(x)(e^{-2\pi i (\xi+te_j)\cdot x}-e^{-2\pi i \xi\cdot x})| \leq |(-2\pi i x)^{\alpha}f(x)||2\pi i x^{e_j}| = C |x^{\alpha+e_j}f(x)| \in L^1
+    \]
+    so we know
+    \[
+    \partial^{\alpha+e_j}\hat{f}(\xi) = \int (-2\pi i x)^{\alpha+e_j}f(x)e^{-2\pi i \xi\cdot x}dx
+    \]
+    if $|\alpha + e_j| \leq k$ and by the induction, we are done.\par
+    e. We know if the equality if true for $\alpha$, then
+    \[
+    \begin{aligned}
+    \hat{(\partial^{\alpha+e_j}f)}(\xi) - (2\pi i \xi)^{\alpha+e_j}\hat{f}(\xi)&= \int \partial^{\alpha+e_j}f(x)e^{-2\pi i \xi\cdot x} dx - (2\pi i \xi)^{\alpha+e_j}\int f(x)e^{-2\pi i \xi\cdot x}dx \\
+    &= \int \partial^{e_j}\partial^{\alpha}f(x)e^{-2\pi i \xi\cdot x} dx - (2\pi i \xi)^{e_j}\int \partial^{\alpha}f(x)e^{-2\pi i \xi\cdot x}dx \\
+    &= \int \partial^{e_j}[\partial^{\alpha}f(x)e^{-2\pi i \xi\cdot x}] dx \\
+    &= \int\int_{-\infty}^{\infty} \partial^{e_j}[\partial^{\alpha}f(x)e^{-2\pi i \xi \cdot x}]dx_j dx' = 0
+    \end{aligned}
+    \]
+    by the Fubini's theorem if $\partial^{\alpha}f \in C_0$. And the conclusion holds by the induction.\par
+    f. If $f\in C^1\cap C_c$, then we know $\partial^{\alpha} f \in L^1$ for any $|\alpha|\leq 1$ and then we know
+    \[
+    2\pi i|\xi|^{\alpha}\hat{f}(\xi) = \hat{(\partial^{\alpha} f)}(\xi)
+    \]
+    is bounded and continuous, and hence
+    \[
+    |\xi|\hat{f}(\xi) = \sqrt{\sum_1^n [|\xi|^{\alpha}\hat{f}(\xi)]^2}
+    \]
+    is bounded and continuous, and hence $\hat{f} \in C_0$. Now notice $C^1\cap C_c$ is dense in $L^1$ and hence $\hat{f_n} \to \hat{f}$ uniformly if $f_n \to f$ in $L^1$ and hence $\F(C^1\cap C_c)$ is dense in $\F(L^1)$ under the uniform norm, notice $C_0$ is closed under the uniform norm and the conclusion holds.
+\end{proof}
+
+\begin{corollary}
+    $\F$ maps the Schwartz space $\Sch$ continuously to itself.
+\end{corollary}
+\begin{proof}\par
+    Notice we have $x^{\alpha}\partial^{\beta} f\in L^1\cap C_0$ and $f\in C^{\infty}$ then $\hat{f}\in C^{\infty}$ and
+    \[
+    \hat{(x^{\alpha}\partial^{\beta}f)}(\xi) = (-2\pi i)^{-|\alpha|}\partial^{\alpha}\hat{(\partial^{\beta}f)} = (-1)^{|\alpha|}(2\pi i)^{|\alpha|-|\beta|}\partial^{\alpha}(\xi^{\beta}\hat{f})
+    \]
+    which means $\partial^{\alpha}(\xi^{\beta}\hat{f})$ is bounded for any $\alpha,\beta$ and hence $\hat{f} \in \Sch$.\par
+    By the way, notic $\int (1+|x|)^{-n-1}dx<|infty$ and we have
+    \[
+    ||\hat{(x^{\alpha}\partial^{\beta}f)}||_u \leq ||(x^{\alpha}\partial^{\beta}f)||_1 \leq C||(1+|x|)^{n+1}x^{\alpha}\partial^{\beta}f||_u
+    \]
+    so we know
+    \[
+    ||\hat{f}||_{(N,\beta)} = ||(1+|\xi|)^N\partial^{\beta}\hat{f}||_u
+    \]
+    is less than a linear combination of $\partial^{\beta}(\xi^{\gamma}\hat{f})$ with $|\gamma| \leq N$ and hence
+    \[
+    ||\hat{f}||_{(N,\beta)} \leq \sum_{\gamma \leq |\beta|} C_{\gamma}||f||_{(N+n+1,\gamma)} < \infty 
+    \]
+    and hence $\F$ is continuous on $\Sch$.
+\end{proof}
+
+\begin{proposition}
+    If $f(x) = e^{-\pi a |x|^2}$ where $a>0$, then $\hat{f}(\xi) = a^{-n/2}e^{-\pi|\xi|^2/a}$.
+\end{proposition}
+\begin{proof}\par
+    If $n=1$,then we know
+    \[f' = -2\pi axf\]
+    and hence
+    \[
+    (\hat{f})' = \hat{(-2\pi i x f)} = \dfrac{i}{a}\hat{f'} = -\dfrac{2\pi}{a} (\cdot)\hat{f}
+    \]
+    since $xf = cf'$ is in $L^1$ and $f\in C^{\infty}, f'\in L^1$ and $f'\in C_0$, so we know
+    \[(e^{\pi\xi^2/a}\hat{f}(\xi))' = 0\]
+    and since $\hat{f}(0) = a^{-1/2}$, we have
+    \[
+    \hat{f} = a^{-1/2}e^{-\pi\xi^2/a}
+    \]
+    For general $n$, use the Fubini's theorem:
+    \[
+    \int e^{-\pi a|x|^2}e^{-2\pi i \xi\cdot x} = \prod\int e^{-\pi ax_j^2}e^{-2\pi i \xi_jx_j} = a^{-n/2}\prod e^{-\pi \xi_j^2/a} = a^{-n/2} e^{-\pi|\xi|^2/a}
+    \]
+\end{proof}
+
+\begin{definition}
+    If $f\in L^1$, we define
+    \[f^{\vee} = \hat{f}(-x) = \int f(\xi)e^{2\pi i \xi\cdot x} d\xi\]
+\end{definition}
+
+\begin{lemma}
+    If $f,g\in L^1$ then $\int\hat{f}g = \int f\hat{g}$.
+\end{lemma}
+\begin{proof}\par
+    We know
+    \[
+    \int\hat{f}g = \int f(x)e^{-2\pi i \xi\cdot x} g(\xi) dx d\xi = \int f\hat{g}
+    \]
+    by the Fubini's theorem.
+\end{proof}
+
+\begin{theorem}
+    (The Fourier Inversion Theorem) If $f\in L^1$ and $\hat{f}\in L^1$, the n $f$ agrees almost everywhere with a continuous function $f_0$ and $(\hat{f})^{\vee} = \hat{(f^{\vee})} = f_0$.
+\end{theorem}
+\begin{proof}\par
+    Let $\phi_{x,t}(\xi) = e^{2\pi i \xi\cdot x - \pi t^2|\xi|^2}$ and then we know
+    \[
+    \hat{(\phi_{x,t})}(y) = \int e^{2\pi i \xi\cdot x- \pi t^2|\xi|^2-2\pi i \xi\cdot y}d\xi = \int e^{-\pi t^2|\xi|^2}e^{-2\pi i (y-x)}d\xi = t^{-n}e^{-\pi |x-y|^2/t^2} = g_t(x-y)
+    \]
+    where $g = e^{-\pi|x|^2}$ by proposition 1.23.\par
+    Then we know
+    \[
+    f*g_t(x) = \int f(y)g_t(x-y) = \int f\hat{(\phi_{x,t})}(y) = \int \hat{f}\phi_{(x,t)}
+    \]
+    so we know $\int\hat{f}\phi_{(x,y)} \to f,t\to 0$ in $L^1$, however
+    \[
+    \lim_{t\to 0}\int\hat{f}\phi_{(x,t)} = \lim_{t\to 0}\int\hat{f}(\xi)e^{2\pi i \xi\cdot x - \pi t^2|\xi|^2}d\xi = \int \lim_{t\to 0}\hat{f}(\xi)e^{2\pi i \xi\cdot x - \pi t^2|\xi|^2}d\xi = (\hat{f})^{\vee}
+    \]
+    by the DCT and hence $f = (\hat{f})^{\vee}$ a.e. where we know $(\hat{f})^{\vee}$ is a continuous function. Then notice
+    \[
+    \hat{(f^{\vee})}(x) = \int f^{\vee}(\xi)e^{-2\pi i \xi\cdot x}d\xi = \int \hat{f}(-\xi)e^{2\pi i (-\xi)\cdot x} d\xi = (\hat{f})^{\vee}(x)
+    \]
+    and the problem goes.
+\end{proof}
+
+\begin{corollary}
+    If $f\in L^1$ and $\hat{f} = 0$, then $f=0$ a.e.
+\end{corollary}
+
+\begin{corollary}
+    $\F$ is an isomorphism of $\Sch$ onto itself.
+\end{corollary}
+
+\begin{theorem}
+    Let $\mathcal{X} = \{f\in L^1, \hat{f} \in L^1\}$, then we can extend $\F$ from $\mathcal{X}$ to $L^1 + L^2$.
+\end{theorem}
+\begin{proof}\par
+    Notice $\hat{f}\in L^1$ implies that $f\in L^{\infty}$ and hence $f\in L^2$, so we know $\mathcal{X}\in L^1\cap L^2$. Then since $\Sch \subset \mathcal{X}$ and dense in both $L^1$ and $L^2$, so we may extend $\hat{f}$ by $L^{\infty}$ on $L^1$ and by $L^2$ on $L^2$, however the Fourier transform on $L^1$ has been defined.\par
+    For $L^2$ case, we may consider $f,g\in\mathcal{X}$ and $h = \bar{\hat{g}}$ which implies $\F$ keeps the $L^2$ inner product on $\mathcal{X}$ since
+    \[
+    \int f\bar{g} = \int f\hat{h} = \int \hat{f}h = \int \hat{f}\overline{\hat{g}}
+    \]
+    so, if $f_n,g_n \in \mathcal{X}$ converges to $f,g$, then we know
+    \[
+    \langle f,g\rangle = \lim_{n\to\infty} \langle f_n,g_n\rangle = \lim_{n\to\infty}\langle \hat{f_n},\hat{g_n}\rangle = \langle \hat{f},\hat{g}\rangle
+    \]
+    which means $\F$ is even a unitary isomorphism on $L^2$.\par
+    Now we only need to check that the expansion from $\mathcal{X}$ agree on $L^1\cap L^2$. For $f\in L^1 \cap L^2$, we may consider $g(x) = e^{-\pi|x|^2}$ and we know $f\cdot g_t \in L^1$ and $\hat{(f*g_t)} = \hat{f}\hat{g_t} = e^{-\pi t^2|\xi|^2}\hat{f}$, and hence $(f*g_t) \in \mathcal{X}$, then we know $(f*g_t) \to f$ in both $L^1$ and $L^2$, so $\hat{f*g_t} \to \hat{f}$ in both $L^{\infty}$ and $L^2$ and hence the extension agrees, so we know $||\hat{f}||_2 = \lim||\hat{f*g_t}||_2 = \lim||f*g_t||_2 = ||f||_2 < \infty$.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $1\leq p\leq 2$ and $q$ is the conjugate exponent to $p$. If $f\in L^p(\R^n)$, then $\hat{f}\in L^q$ and $||\hat{f}||_q \leq ||f||_p$.
+\end{theorem}
+
+\begin{theorem}
+    If $f\in L^1$, the series $\sum\limits_{k\in\Z^n}\tau_kf$ converges pointwise a.e. and in $L^1(\T^n)$ to a function $Pf$ such that $||Pf||_1 \leq ||f||_1$. Moreover, for $\kappa \in \Z^n$, $\hat{(Pf)}(\kappa)$ equals $\hat{f}(\kappa)$.
+\end{theorem}
+\begin{proof}\par
+    Let $Q = [-1/2,1/2)^n$ and we know
+    \[
+    \int_Q \sum_{k\in\Z^n}|f(x-k)|dx = \sum\limits_{k\in\Z^n}\int_{Q+k}|f(x)| dx = \int |f|
+    \]
+    by the MCT and hence $\sum \tau_k f$ converges a.e. and in $L^1(\T^n)$ to a function $Pf \in L^1(\T^n)$ with $||Pf||_1 \leq ||f||_1$. And
+    \[
+    \hat{(Pf)}(\kappa) = \int_Q\sum\limits_{k\in \Z^n} f(x-k)e^{2\pi i \kappa\cdot x}dx = \sum\limits_{k\in\Z^n}\int_{Q+k}f(x)e^{-2\pi i \kappa \cdot(x+k)}dx = \int_{\R^n} f(x)e^{-2\pi i \kappa\cdot x} dx = \hat{f}(\kappa)
+    \]
+    by the DCT.
+\end{proof}
+
+\begin{theorem}
+    (The Poisson Summation Formula) Suppose $f\in C(\R^n)$ such that $|f| \leq C(1+|x|)^{-n-\epsilon}$ and $|\hat{f}(\xi)| \leq C(1+|\xi|)^{-n-\epsilon}$ for some $C,\epsilon >0$, then
+    \[
+    \sum\limits_{k\in\Z^n} f(x+k) = \sum\limits_{\kappa\in\Z^n} \hat{f}(\kappa)e^{2\pi i \kappa\cdot x}
+    \]
+    where both series converge absolutely and uniformly on $\T^n$. 
+\end{theorem}
+\begin{proof}\par
+    The absolute and uniformly convergence of the series follows that $\sum (1+|k|)^{-n-\epsilon} < \infty$, so $Pf = \sum_k \tau_k f$ is in $C(\T^n)$ and hence in $L^2(\T^n)$. Then by the theorem 1.24, we know $\sum_{\kappa\in\Z^n}\hat{f}(\kappa)e^{2\pi i \kappa\cdot x}$ converges to $Pf$ in $L^2(\T^n)$ and since the right series is also continuous and hence they are the same pointwise.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $f$ is periodic and absolutely continuous on $\R$ and that $f'\in L^p(\T)$ for some $p>1$, then $\hat{f}\in l^1(\Z)$.
+\end{theorem}
+\begin{proof}\par
+    For $p>1$, we know $C_p = \sum_1^{\infty}k^{-p}<\infty$ and since $L^p(\T)\subset L^2(\T)$, then we assume $p\leq 2$, then we know
+    \[
+    \widehat{(f')}(k) = \int_{\T} f'(x)e^{-2\pi i kx}dx = f(x)e^{-2\pi i kx}|^1_0 - \int f(x)(-2\pi i k)e^{-2\pi i k x} = 2\pi i k \hat{f}(k)
+    \]
+    by the Integration by parts and then
+    \[
+    \sum_{k\neq 0}|\hat{f}(k)| \leq [\sum_{k\neq 0}(2\pi|k|)^{-p}]^{1/p}[\sum_{k\neq 0}(2\pi|k\hat{f}(k)|^q)]^{1/q} \leq C||\widehat{(f')}||_q \leq C||f'||_p
+    \]
+    by the Hausdorff-Young inequality and hence $||\hat{f}||_1 < \infty$.
+\end{proof}
+
+\begin{lemma}
+    If $f,g\in L^2$,then $(\hat{f}\hat{g})^{\vee} = f*g$. 
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    ||\hat{f}\hat{g}||_1 \leq ||\hat{f}||_2||\hat{g}||_2 = ||f||_2||g||_2 < \infty
+    \]
+    and hence $(\hat{f}\hat{g})^{\vee}$ exists and
+    \[
+    f*g(x) = \int f(y)g(x-y)dy = \int\hat{f}(\xi)\widehat{\overline{g(x-\cdot)}}(\xi) d\xi = (\hat{f}\hat{g})^{\vee}(x)
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose that $\Phi \in L^1\cap C_0, \Phi(0) = 1$ and $\phi = \Phi^{\vee}\in L^1$. For $f\in L^1+L^2$, for $t>0$ set
+    \[
+    f^t(x) = \int \hat{f}(\xi)\Phi(t\xi)e^{2\pi \xi \cdot x}d\xi
+    \]\par
+    a. If $f\in L^p, 1\leq p < \infty$, then $f^t\in L^p$ and $||f^t - f||_p \to 0, t\to 0$.\par
+    b. If $f$ is bounded and uniformly continuous, then so is $f^t$ and $f^t\to f$ uniformly as $t\to 0$.\par
+    c. Suppose that $|\phi(x)|\leq C(1+|x|)^{-n-\epsilon}$ for some $C,\epsilon > 0$. Then $f^t(x)\to f(x)$ for every $x$ in the Lebesgue set of $f$.
+\end{theorem}
+\begin{proof}\par
+    Let $f=f_1+f_2, f_1\in L^1,f_2\in L^2$ and we know $\Phi\in L^1\cap L^2$, so
+    \[
+    \int \hat{f_1}(\xi)\Phi(t\xi)e^{2\pi i \xi\cdot x}d\xi =  \int \hat{f_1}(\xi)\widehat{(\phi_t)}(\xi)e^{2\pi i \xi\cdot x}d\xi
+    \]
+    since
+    \[
+    \int \phi_t(\xi)e^{-2\pi i \xi \cdot x}d\xi = t^{-n}\int \phi(t^{-1}\xi)e^{-2\pi i \xi \cdot x}d\xi = \hat{\phi}(tx) = \Phi(tx)
+    \]
+    a.e. so
+    \[
+     \int \hat{f_1}(\xi)\Phi(t\xi)e^{2\pi i \xi\cdot x}d\xi = f_1*\phi_t
+    \]
+    since $\hat{f_1}\phi\in L^1$ and $f*\phi_t \in L61$. Then
+    \[
+     \int \hat{f_2}(\xi)\Phi(t\xi)e^{2\pi i \xi\cdot x}d\xi = f_2*\phi_t(\xi)
+    \]
+    by the lemma 1.6. and we know $f^t = f*\phi_t$. Then by the theorem 1.14. we have (a),(b) and (c) is according to theorem 1.15.
+\end{proof}
+
+\begin{theorem}
+    Suppsoe that $\Phi \in C$ satisfies $|\Phi(\xi)| \leq C(1+|\xi|)^{-n-\epsilon}$, $|\Phi^{\vee}(x)| \leq C(1+|x|)^{-n-\epsilon}$ and $\Phi(0) = 1$. Given $f\in L^1(\T^n)$ for $t>0$, set
+    \[
+    f^t(x) = \sum\limits_{\kappa\in\Z^n}\hat{f}(\kappa)\Phi(t\kappa)e^{2\pi i \kappa\cdot x}
+    \]\par
+    a. If $f\in L^p(\T^n), 1\leq p <\infty$, then $||f^t - f||_p \to 0$ as $t\to 0$ and if $f\in C(\T^n)$, then $f^t \to f$ uniformly as $t\to 0$.\par
+    b. $f^t(x)\to f(x)$ for every $x$ in the Lebesgue set of $f$.
+\end{theorem}
+
+\end{document}

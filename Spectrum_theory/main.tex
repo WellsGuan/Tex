@@ -1,0 +1,193 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Func Analysis Rudin}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+\newcommand{\ParbZ}{\dfrac{\partial}{\partial \bar{z}}}
+\newcommand{\ParX}{\dfrac{\partial}{\partial x}}
+\newcommand{\ParY}{\dfrac{\partial}{\partial y}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+
+\section*{Fundamental Concepts}
+
+\begin{definition}
+A $complex\ algebra$ is a complex v.s. $A$ with a multiplication with $x(yz) = (xy)z, (x+y)z = xz+yz, x(y+z) = xy+xz$ and $cxy = (cx)y = x(cy)$ for any $x,y,z\in A$ and $c\in \C$.\par
+If $A$ is a Banach space with $||xy|| \leq ||x||||y||$ and there is a unit element $e$ in $A$ i.e. $xe = ex = x, ||e||=1$ for any $x\in A$, then we call $A$ is a Banach algebra.
+\end{definition}
+
+\begin{lemma}
+    If $Y$ is a complete n.v.s, then so is $L(X,Y)$.
+\end{lemma}
+
+\begin{lemma}
+    (The Open Mapping Theorem) Let $X,Y$ be Banach spaces. If $T\in L(X,Y)$ is surjective, then $T$ is open.
+\end{lemma}
+
+\begin{theorem}
+    Assume that $A$ is a Banach space as well as a complex algebra with unit element $e \neq 0$, in which multiplication is left-continuous and right-continuous. Then there is a norm on $A$ which induces the same topology as the given one and which makes $A$ into a Banach algebra.
+\end{theorem}
+\begin{proof}\par
+    Consider $T: X\to B$ by $x\mapsto M_x$ where $M_x(y) = xy$ which is obviously a bounded linear map and $B$ is the subspace of $L(X,X)$ of all these maps. Then we have
+    \[||M_xM_y|| \leq  ||M_x||||M_y||\quad ||M_e|| = 1\]
+    and notice
+    \[||x|| \leq ||M_x||||e||\]
+    which means $T^{-1}$ is continuous, and notice if $M_{x_n}$ Cauchy, then
+    \[M' y = xy\]
+    and hence $M' = M_x$, which means $B$ will become a Banach space, and hence $T$ is open by the Open Mapping Theorem, which means $T$ is continuous and then a isometry from $X$ to $B$, where $B$ is a Banach algebra and so does $X$.
+\end{proof}
+
+\begin{definition}
+    Suppose $A$ is a complex algebra and $\phi$ is a linear functional on $A$ which is not identically $0$. If
+    \[\phi(xy) = \phi(x)\phi(y)\]
+    for all $x,y\in A$, then $\phi$ is called a complex homomorphism on $A$.
+\end{definition}
+
+\begin{proposition}
+    If $\phi$ is a complex homomorphism on a complex algebra $A$ with unit $e$, then $\phi(e) = 1$ and $\phi(x) \neq 0$ for every invertible $x\in A$.
+\end{proposition}
+\begin{proof}\par
+    There is $y$ such that $\phi(y) \neq 0$, then it is easy to check $\phi(e) = 1$ and hence the invertible element can not be mapped to $0$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $A$ is a Banch algebra, $x\in A$, $||x||<1$. Then\par
+    a. $e-x$ is invertible,\par
+    b. $||(e-x)^{-1}-e-x||\leq \dfrac{||x||^2}{1-||x||}$.\par
+    c. $|\phi(x)|<1$ for every complex homomorphism $\phi$ on $A$.
+\end{theorem}
+\begin{proof}
+    We only need to prove c, since for any $|\lambda| \geq 1$, we know
+    \[
+    \phi(e-\lambda^{-1}x) = 1 - \lambda^{-1}\phi(x)\neq 0
+    \]
+    which means $\phi(x)$ has to be strictly less than $1$. 
+\end{proof}
+
+\begin{lemma}
+    Suppose $f$ is an entire function of one complex variable, $f(0) = 1, f'(0) = 0$, and
+    \[0 < |f(\lambda)| \leq e^{|\lambda|}\]
+    Then $f(\lambda) = 1$ for all $\lambda \in \C$.
+\end{lemma}
+
+\begin{theorem}
+    If $\phi$ is a linear functional on a Banach algebra $A$, such that $\phi(e)=1$ and $\phi(x) \neq 0$ for every invertible $x\in A$, then
+    \[\phi(xy) = \phi(x)\phi(y)\]
+    and $\phi$ is continuous.
+\end{theorem}
+\begin{proof}
+    Here consider $N$ to be the null space of $\phi$, then for any $x\in A$, $x = a + \phi(x)e$ where $a \in N$ and then
+    \[\phi(xy) = \phi(ab) + \phi(x)\phi(y)\]
+    so it suffices to show $ab\in N$ for any $a\in N, b\in N$, which is equivalent to $a^2 \in N$ for any $a\in N$, since if so, then $\phi(x)^2 = \phi(x)^2$, and we have
+    \[
+    \phi(xy+yx) = 2\phi(x)\phi(y)
+    \]
+    which means $ax+xa \in N$ for any $a\in N, x\in A$, then consider
+    \[
+    (xy-yx)^2+(xy+yx)^2 = 2x(yxy)+2(yxy)x
+    \] 
+    and hence if $x\in N$, then $xyxy + yxyx, (xy+yx)^2 \in N$ which means $(xy-yx)^2 \in N$, and then $xy - yx\in N$.\par
+    Now we will show that $a^2 \in N$ for any $a\in N$, consider since $x$ invertible is not in $N$, so $||e-x|| \geq 1$ for any $x\in N$ and hence
+    \[||\lambda e-x|| \geq |\lambda| = (\phi(\lambda e-x))\]
+    for any $x\in N, \lambda \in C$ which means $||\phi(x)|| \leq ||x||$ for any $x\in A$ and hence $\phi$ is continuous.\par
+    Then we may assume $a\in N, ||a|| = 1$ and consider
+    \[f(\lambda) = \sum\limits \dfrac{\phi(a^n)}{n!}\lambda^n\]
+    where $f(0) = 1, f'(0) = 0$ entire.\par
+    To show $f$ is nonzero, consider
+    \[E(\lambda) == \sum \dfrac{\lambda^n}{n!}a^n\]
+    where $a^0 = e$ and then we know $f(\lambda) = \phi(E(\lambda))$, and notice $E(\lambda+\mu) = E(\lambda)E(\mu)$ since
+    \[
+    ||x_ny_n - xy|| \leq ||x_n||||y_n-y||+||y||||x-x_n||
+    \]
+    and then $E(\lambda)E(-\lambda) = e$ and hence $E(\lambda)$ is invertible, so $\phi(E(\lambda)) \neq 0$. To sum up, $f = 1$ on $\C$ and hence $0 = f'' = 0\phi(a^2)$. 
+\end{proof}
+
+\begin{definition}
+    Let $A$ be a Banach algebra, let $GL(A)$ be the set of all invertible elements of $A$, which is a group under the multiplication.\par
+    For $x\in A$, the $spectrum$ $\sigma(x)$ of $x$ is the set of all complex numbers $\lambda$ such that $\lambda e -x$ is not invertible.\par
+    The $spectral\ radius$ of $x$ is the number
+    \[\rho(x) = \sup \{|\lambda|: \lambda \in \sigma(x)\}\]
+\end{definition}
+
+\begin{theorem}
+Suppose $A$ is a Banach algebra, $x\in GL(A), h \in A$ and $||h|| < \tfrac{1}{2}||x^{-1}||^{-1}$. Then $x+h \in G(A)$ and
+\[||(x+h)^{-1} - x^{-1} + x^{-1}hx^{-1}|| \leq 2||x^{-1}||^3||h||^2\]
+\end{theorem}
+\begin{proof}
+    $(x+h) = x(e+x^{-1}h)$ and hence $x+h \in GL(A)$ since $||x^{-1}h|| < \tfrac{1}{2}$. And
+    \[
+    ||(x+h)^{-1} - x^{-1}+x^{-1}hx^{-1}|| \leq ||(e+x^{-1}h)^{-1}-e+hx^{-1}||||x^{-1}|| \leq \dfrac{||x^{-1}h||^2}{1 - ||x^{-1}h||} \leq 2||x^{-1}||^3||h||^2
+    \]
+\end{proof}
+
+\begin{corollary}
+    If $A$ is a Banach algebra, then $G(A)$ is an open subset of $A$ and the mapping $x\to x^{-1}$ is a homeomorphism of $GL(A)$ onto $GL(A)$.
+\end{corollary}
+
+\begin{theorem}
+    If $A$ is a Banach algebra and $x\in A$, then\par
+    a. the spectrum $\sigma(x)$ of $x$ is compact and nonempty\par
+    b. the spectral readius $\rho(x)$ of $x$ satisfies
+    \[\rho(x) = \lim_{n\to\infty} ||x^n||^{1/n} = \inf_{n\geq 1} ||x^n||^{1/n}\]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+    a. Consider $\phi:\C \to A$ by $\lambda\mapsto \lambda e-x$ and it is easy to check $\phi$ is continuous, and then consider $\phi^{-1}{\sigma(x)^c}$ is an open set and hence $\sigma(x)$ is closed. For $|\lambda| > ||x||$, $e- \lambda^{-1}x \in GL(A)$ and hence $\sigma(x) \subset \overline{B(0,||x||)}$ and hence $\sigma(x)$ is a bounded closed set in $\C$, so it is compact.\par
+    Now denote $ U = \sigma(x)^c$ and define $f:U \to A$ by $f(\lambda) = (\lambda e -x)^{-1}$ which is continuous, then we know
+    \[f(\mu) - f(\lambda) + (\mu-\lambda)f(\lambda)^2  \leq 2||f(\lambda)||^3||\mu-\lambda||^2\]
+    for $\mu$ close to $\lambda$ and hence
+    \[\lim_{\mu\to\lambda} \dfrac{f(\mu)-f(\lambda)}{\mu-\lambda} = - f^2(\lambda)\]
+    which means $f$ is a holomorphic $A$-valued function, then notice for $|\lambda| > ||x||$
+    \[
+    f(\lambda) = \lambda^{-1} \sum \lambda^{-n}x^n
+    \]
+    which converges uniformly on $\partial D(0,r)$, then we may know
+    \[
+    \dfrac{1}{2\pi i}\int_{\partial D(0,r)} \lambda^k f(\lambda) d\lambda= \dfrac{1}{2\pi i} \sum \int_{\partial D(0,r)} \lambda^{k-n-1}x^n = x^k
+    \]
+    but if $\sigma(x)$ is empty, then let $k = 0$ we know the integral should be $0$ since $f$ is holomorphic on $\C$, but then we will know $e = 0$ which is a contradiction, so $\sigma(x)$ is nonempty.\par
+    b. We use the $f$ above, and we know $f$ is holomorphic on $\partial D(0,r)$ for any $r>\rho(x)$, then we consider
+    \[M(r) = \sup_{\theta}|f(re^{i\theta})| < \infty\]
+    and $||x^n||\leq r^{n+1}M_r$ and hence
+    \[\limsup_{n\to\infty} ||x^n||^{1/n} \leq r\]
+    for any $r> \rho(x)$, which means $\rho(x) \leq \limsup ||x^n||^{1/n}$.\par
+    Notice
+    \[(\lambda e^n - x^n)y = (\lambda e -x)(\lambda^{n-1} e +\cdots + x^{n-1})y\]
+    for any $y\in A$, and hence $\lambda \in \sigma(x)$ will imply $\lambda^n \in \sigma(x^n)$, so we have
+    \[\lambda \leq ||x^n||^{1/n}\]
+    for any integer $n$ and hence $\rho(x) = \sup\{|\lambda|, \lambda \in \sigma(x)\} \leq \inf ||x^n||^{1/n}$.
+\end{document}

@@ -1,0 +1,1000 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\Pf}[1]{$Proof.$\par}
+
+\declaretheoremstyle[name=Definiton,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{definition}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{theorem}
+
+
+\declaretheoremstyle[name=Lemma,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{lemma}
+
+\declaretheoremstyle[name=Corollary,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{corollary}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+
+\declaretheoremstyle[name=Example,]{prcpsty}
+\declaretheorem[style=prcpsty,numberwithin=subsection]{example}
+
+\declaretheoremstyle[name=Ex,]{prcpsty}
+\declaretheorem[style=prcpsty,numberwithin=section]{exercise}
+
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{Notes for Algebraic Topology}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on the notes provided by Maxim on MATH 751 2024 FALL} \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Author} \\ 
+		Wells Guan \\
+		 \\
+		}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+\section{Fundamental Group}
+
+\subsection{Concepts}
+
+\begin{definition}(Homotopy)\par
+Two paths $\gamma,\delta \in \mathcal{P}(X,x,y) := \{\gamma:[0,1] \to X, \gamma(0) = x, \gamma(1) = y, \gamma\text{ continuous}\}$ are called \textbf{homotopic}, denoted as $\gamma\sim\delta$, if there exists a continuous map
+\[F:[0,1]\times[0,1] \to X\]
+such that $F(\cdot,0) = \gamma, F(\cdot,1) = \delta, F(0,s) = x, F(1,s) = y$ for any $s \in [0,1]$ and call $F$ a \textbf{homotopy} between $\gamma$ and $\delta$.
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+
+\draw[->] (0,0) -- (0,5);
+\draw[->] (0,0) -- (5,0);
+\draw     (0,4) -- (4,4);
+\draw     (4,0) -- (4,4);
+\draw     (0,3) -- (4,3);
+\filldraw[black] (1.8,-0.3) node[anchor=west]{$\gamma$};
+\filldraw[black] (1.8,2.7) node[anchor=west]{$\gamma_s$};
+\filldraw[black] (1.8,3.7) node[anchor=west]{$\delta$};
+\filldraw[black] (-0.5,2) node[anchor=west]{$x$};
+\filldraw[black] (4.1,2) node[anchor=west]{$y$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lemma}
+    The homotopy relation is an equivalence relation on the set $\mathcal{P}(X,x,y)$.
+\end{lemma}
+\Pf
+
+\begin{definition}(Fundamental Group)\par
+    The \textbf{funadamental group} of $X$ at the basepoint $x\in X$ is the set of equivalence classes of loops at $x$, i.e. $\Omega(X,x) := \mathcal{P}(X,x,x)$ under the homotopy relation.
+\end{definition}
+
+\begin{definition}(Concatenation)\par
+    For $x,y,z\in X$, define a binary operation $*$ on paths:
+    \[\mathcal{P}(X,x,y) \times \mathcal{P}(X,y,z) \to \mathcal{P}(X,x,z)\]
+    by
+    \[(\gamma * \delta)(t) = \begin{cases}\gamma(2t)\quad &0 \leq t \leq \tfrac{1}{2} \\ \delta(2t-1)\quad &\tfrac{1}{2} \leq t \leq 1\end{cases}\]
+\end{definition}
+
+\begin{lemma}
+    The concatenation is consistent with the homotopy relation, i.e. if $\gamma \sim \gamma', \delta \sim \delta'$, then $\gamma* \delta \sim \gamma' * \delta'$.
+\end{lemma}
+\Pf
+
+\begin{corollary}
+    Conncatenation of paths induces a binaary law o nthe set $\pi_1(X,x)$ by
+    \[[\gamma]\cdot [\delta] := [\gamma * \delta]\]
+\end{corollary}
+\Pf
+
+\begin{theorem}
+    $(\pi_1(X,x), \cdot)$ is a group.
+\end{theorem}
+\Pf
+
+\subsection{Basepoint Independence}
+
+\begin{proposition}
+    For $\delta \in \mathcal{P}(X,x,y)$, we may define $\delta_{\#}: \pi_1(X,x) \to \pi_1(X,y)$ by \[[\gamma] \mapsto [\bar{\delta}*\gamma*\delta]\]
+    which is well-defined and an isomorphism.
+\end{proposition}
+\Pf
+
+\subsection{Functoriality}
+
+\section{Classification of Compact Surfaces}
+
+\subsection{Concepts}
+
+\begin{definition}
+    An $n$-dimensional manifold with no boundary is a topological space $X$ such that every $x\in X$ has a neighbourhood $U_x$ homeomorphic to $\mathbb{R}^n$.
+\end{definition}
+
+\begin{definition}
+    A surface is a $2$-dimensional manifold with no boundary.
+\end{definition}
+
+\begin{proposition}
+    The identification space $X$ obtained from a polugonal region $P$ as above is Hausdorff and compact.
+\end{proposition}
+
+\begin{definition}
+    Let $M,N$ be surfaces. We define the connected sum of $M$ and $N$ denoted by $M\# N$ as
+    \[M\#N = (M-D_1)\sqcup(N-D_2) / (\partial D_1 \sim \partial D_2)\]
+    where $D_1,D_2$ are relatively disks in $M,N$.
+\end{definition}
+
+\begin{lemma}
+    If $L_1,L_2$ are labeling schemes for $M$ and $N$, then their concatenation $L_1L_2$ is a labeling scheme for $M\# N$.
+\end{lemma}
+
+\begin{definition}
+    $T_n = T^2 \# \cdots T^2$, and $P_n = \mathbb{R}P^2\# \cdots \mathbb{R}P^2$.
+\end{definition}
+
+\begin{theorem}
+    Any compact surface is homeomorphic to $S^2, T_n$ or $P_n$ for some $n\in \mathbb{N}$.
+\end{theorem}
+
+\subsection{Fundamental Group of a Labeling Scheme}
+
+\begin{theorem}
+    If $X$ is the identification space of a labeling scheme
+    \[a_1^{\epsilon_1}a_2^{-\epsilon} \cdots a_n^{\epsilon^n}\]
+    with $\epsilon_i = \pm 1$ whose vertices are indentificed by the projection, then
+    \[\pi_1(X) = \langle a_1,\cdots,a_n|a_1^{\epsilon_1}a_2^{-\epsilon} \cdots a_n^{\epsilon^n} = 1\rangle\]
+\end{theorem}
+
+\begin{proposition}
+    \[\begin{aligned}
+    \pi_1(T_n) &= \langle a_1,b_1,\cdots,a_n,b_n|a_1b_1a_1^{-1}b_1^{-1}\cdots a_nb_n a_n^{-1}b_n^{-1}\rangle \\
+    \pi_1(P_n) &= \langle a_1,\cdots, a_n|a_1^2\cdots a_n^2 = 1\rangle
+    \end{aligned}\]
+\end{proposition}
+
+
+\begin{proposition}
+    $S^2,P_n,T_n$ have non isomorphic fundamental froups, hence they are not homotopu eqiovalent nor homeomorphic.
+\end{proposition}
+
+\begin{theorem}
+    Any surface is homeomorphic to one of $S^2, T_n$ or $P_n$ for some $n\in \mathbb{N}$.
+\end{theorem}
+
+\begin{corollary}
+    If $X$ is a simply connected surface, the nit is homeomorphic to $S^2$.
+\end{corollary}
+
+\subsection{Classification of Surfaces}
+
+\begin{proposition}
+    If $P$ is a polygonal region with an even number of edges which are identified in pairs, then the quotient space $X$ is a comapct $2$-dimensional manifold.
+\end{proposition}
+
+\begin{theorem}
+    Every $2$-dimensional compact surface is homeomorphic to the identification space of a regular labling scheme.
+\end{theorem}
+
+\begin{theorem}
+    Aa polygonal region of a regular labeling scheme is homromorphic to a standard labeling scheme.
+\end{theorem}
+
+\section{Covering spaces}
+
+\subsection{Concepts}
+
+\begin{definition}(Covering)\par
+    A map $p:E \to B$ is called a \textbf{covering} if
+    \begin{itemize}
+        \item $p$ is continuous and onto.
+        \item For any $b\in B$, there is $U \in \mathcal{N}(b)$ is evenly covered, i.e. $p^{-1}(U) = \sqcup_{\alpha} V_{\alpha}$ where $V_{\alpha}$ are disjoint open sets and $p|_{V_{\alpha}}:V_{\alpha} \to U$ is a homeomorphic for any $\alpha$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}(Equivalence of coverings)\par
+    Assume $p_1:E_1 \to B, p_2 : E_2 \to B$ are coverings. We call them \textbf{equivalent} if there is an $f:E_1 \to E_2$ homeomorphism such that $p_2 \circ f = p_1$.\par
+    The equivalence of coverings is an equivalence relation.
+\end{definition}
+
+\begin{lemma}
+    If $p:E\to B$ is a covering, $B_0\subset B$ and $E_0:=p^{-1}(B_0)$, then $p|_{E_0}$ is a covering.
+\end{lemma}
+
+\begin{theorem}(Path lifting property)\par
+    Let $p$ be a covering, $b_0\in B$, and $e_0 \in p^{-1}(b_0)$. If $\gamma: I \to B$ is a path in $B$ starting at $b_0$, then there is a unique lift $\widetilde{\gamma}_{e_0}:I\to E$ such that $\widetilde{\gamma}_{e_0} = e_0$.
+\end{theorem}
+
+\begin{theorem}(Homotopy lifting property)\par
+    Let $p:E\to B$ be a covering, $b_0 \in B$ and $e_0\in p^{-1}(b_0)$. Let $F:I\times I \to B$ be a homotopy with with $F(0,s) = b_0$ for all $s\in I$. Then there is a unique lift $\widetilde{F}:I\times I \to E$ of $F$ such that $\widetilde{F}(0,s) = e_0$ for any $s\in I$.
+\end{theorem}
+
+\begin{corollary}
+    If $\gamma_1,\gamma_2$ are paths in $B$ starting at $b_0$ which are homotopic by $F$, then $\widetilde{\gamma_1}_{e_0} \overset{\widetilde{F}}{\sim} \widetilde{\gamma_2}_{e_0}$, where infer the same endpoints.
+\end{corollary}
+\Pf\par
+We know $\widetilde{F}$ is a homotopy in $E$ starting at $e_0$ and obviously an homotopy between $\widetilde{\gamma_1},\widetilde{\gamma_2}$ and hence they have the same endpoints.
+
+\begin{definition}
+    Let $b_0\in B$, for $e_0 \in p^{-1}(b_0)$, define
+    \[\phi_{e_0}:\pi(B,b_0) \to p^{-1}(b_0)\]
+    by $[\gamma]\mapsto \widetilde{\gamma}_{e_0}(1)$. 
+\end{definition}
+
+\begin{theorem}
+    $\phi_{e_0}$ is onto if $E$ is path-connected and injective if $E$ is simply connected.
+\end{theorem}
+\Pf\par
+    If $E$ is path-connected, then there exists $\gamma$ from $e_0$ to any $e\in p^{-1}(b)$, then we know $[p\circ \gamma] \mapsto e$.\par
+    If $E$ is simply-connected, we consider if $\phi_{e_0}([\gamma]) = \phi_{e_0}([\delta]) = e$, then since $\widetilde{\gamma} \sim \widetilde{\delta}$ by $E$ is simply-connected, we know $\gamma \sim \delta$ and we are done.
+
+\begin{proposition}
+    If $p:E\to B$ is a covering and $B$ is path-connected, then for $b_0,b_1 \in B$ there is a bijection $p^{-1}(b_0) \to p^{-1}(b_1)$.
+\end{proposition}
+\Pf\par
+    We may consider $\gamma$ a path from $b_0,b_1$, and then for any $e\in p^{-1}(b_0)$, there exists a unique lift $\widetilde{\gamma}_{e}$ of $\gamma$, and then we know the endpoint of $\widetilde{\gamma}_{e}$ is distinct and consider $\bar{\gamma}$, the conclusion is done.
+
+\begin{proposition}
+    Let $E$ be path connected, $p:E\to B$ a covering, and $p(e_0) = b_0$. Then $p_*:\pi_1(E,e_0) \to \pi_1(B,b_0)$ is injective. Further, if $e_0$ is changed to some other point $e_1 \in p^{-1}(b_0)$, then the images under $p_*$ of the groups $\pi_1(E,e_0)$ and $\pi_1(E,e_1)$ are conjugate in $\pi_1(B,b_0)$.
+\end{proposition}
+\Pf\par
+    For $[\widetilde{\gamma}],[\widetilde{\delta}] \in \pi_1(E,e_0)$, if $\gamma \sim \delta$, then by the uniqueness of lift, we know $\widetilde{\gamma} \sim \widetilde{\delta}$.\par
+    There exists $\widetilde{l}$ a path from $e_0,e_1$, then for any $\widetilde{\gamma} \sim \widetilde{\delta}$ loops at $e_0$, then $l_{\#}:\pi_1(E,e_0) \to \pi_1(E,e_1)$ is an isomorphism. And then for any $[\widetilde{\gamma}] \in \pi_1(E,e_0)$, we know $p_*(\bar{l})p_*([\widetilde(\gamma)])p_*(l) = p_*([\bar{l}*\gamma*l])$ which also induces a surjective from $p_*(\pi_1(E,e_0))$ to $p_*(\pi_1(E,e_1))$ and obviously injective, and hence they are conjugate. 
+
+\begin{theorem}
+    Let $E$ be path-connected, $p:E\to B$ a covering map, $b_0 \in B$ and $e_0 \in p^{-1}(b_0)$. Let $H:= p_*(\pi_1(E,e_0)) \leq pi_1(B,b_0)$. Then
+    \begin{itemize}
+        \item A loop $\gamma$ in $B$ based at $b_0$ lifts to a loop in $E$ at $e_0$ if and only if $[\gamma] \in H$.\par
+        \item $\phi_{e_0}:H/\pi_1(B,b_0)\to p^{-1}(b_0), [\gamma] \mapsto \widetilde{\gamma}_{e_0}(1)$ is a bijection. In particular,
+        \[\# p^{-1}(b_0) = [\pi_1(B,b_0)]:p_*(\pi_1(E,e_0))\]
+    \end{itemize}
+\end{theorem} 
+\Pf\par
+    We may show $p_*$ to be a homomorphism, which can be shown by
+    \[p_*([\widetilde{\gamma}][\widetilde{\delta}]) = [\gamma*\delta] = [\gamma][\delta] =p_*([\widetilde{\gamma}])p_*([\widetilde{\delta}])\]
+    and hence $H$ is a subgroup. The first conclusion is trivial.\par
+
+\begin{theorem}(Lifting Lemma)\par
+    Let $E,B,Y$ be path-connected and locally path-connected, i.e. there is a path-connected topology basis. Let $p:E\to B$ be a cover, $b_0 \in B, e_0 \in p^{-1}(b_0)$, and $f:Y\to B$ a continuous map such that $f(y_0) = b_0$. Then there exists a lift $\widetilde{f}:Y\to E$ of $f$ such that $\widetilde{f}(y_0) = e_0$ if and only if $f_*\pi_1(Y,y_0) \subset p_*\pi_1(E,e_0)$.
+    \[
+    \begin{tikzcd}
+                                        & (E,e_0)\arrow[d, "p"]\\
+    (Y,y_0) \arrow[ru,"\widetilde{f}"] \arrow[r,"f"] & (B,b_0) \\
+    \end{tikzcd}
+    \]
+\end{theorem}
+\Pf\par
+    For the sufficiency, we know if so, then $p\circ \widetilde{f} = f$ and hence \[f_*(\pi_1(Y,y_0)) = p_*(\widetilde{f}_*(\pi_1(Y,y_0))) \subset p_*(\pi_1(E,e_0))\]\par
+    For the necessity, firstly we may give the definition of $\widetilde{f}$ naturally by considering for any $y\in Y$, there exists $\gamma$ a path from $y_0$ to $y$ and hence $f\circ \gamma$ will become a path from $b_0$ to $f(y)$ in $B$. Then by path lifting property, we may define $\widetilde{f}(y)$ to be $\widetilde{f\circ \alpha}(1)$ and then $\widetilde{f}$ will be a lift if it is well-defined.\par
+    To see it is well-defined, we have to show that for any $\gamma,\delta$ from $y_0$ to $y$, $\widetilde{f\circ \gamma}(1) = \widetilde{f\circ \delta}(1)$. Notice $\gamma * \bar{\delta} \in \Omega(Y,y_0)$ and then $f \circ(\gamma*\bar{\delta}) \in \Omega(B,b_0)$ 
+    and hence
+    \[
+    \widetilde{(f\circ (\gamma * \bar{\delta}))}_{e_0} = \widetilde{(f\circ \alpha)}_{e_0} * \widetilde{\overline{(f\circ \delta)}}_{\widetilde{(f\circ \gamma)}(1)} = \widetilde{(f\circ \alpha)}_{e_0} * \overline{(\widetilde{f\circ \delta})_{e_0}}
+    \]
+    and hence $\widetilde{f}$ is well-defined.\par
+    Now we only need to show that $\widetilde{f}$ is continuous. For any $U$ open in $E$, we assume $\widetilde{y} \in U$ and we know for $f(y)$, there exists path-connected locally homeomorphism neighbourhood $V$ of $f(y)$, such that $V' \subset U$ is homeomorphic to $V$ by $p$. There exists $W$ a path-connected neighbourhood of $y$ such that $f(W)\subset V$ and then we show $f(W) \subset V'$. Since for any $w\in W$, there exists $\alpha$ a path from $y$ to $w$ and then we know $f\circ \alpha$ from $f(y)$ to $f(w)$ covered by $V$ and use the homeomorphism we know $\widetilde{f}(w) \in V' \subset U$ and we are done.
+
+\begin{corollary}
+    If $Y$  is simply connected, then such a lift always exists.
+\end{corollary}
+
+\begin{proposition} Let $p:E\to B$ be a cover, $b_0 \in B, e_0 \in p^{-1}(b_0)$, and $f:Y\to B$ a continuous map such that $f(y_0) = b_0$. If $Y$ is connected and $\widetilde{f_1},\widetilde{f_2}: Y \to E$ are two lifts as in the previous theorem, then $\widetilde{f_1} = \widetilde{f_2}$.    
+\end{proposition}
+\Pf\par
+    Consider $A = \{\widetilde{f}_1 =\widetilde{f}_2 \}$, we know $A$ is nonempty.\par
+    We claim $A$ is closed, since for any $y$ such that $\widetilde{f}_1(y) \neq \widetilde{f}_2(y)$, there exists $U$ evenly covered neighbourhood of $f(y)$ such that $\widetilde{f}_i(y) \in U_i$ disjoint, since $\widetilde{f}_i$ are continuous and hence $A$ is closed.\par
+    Similarly, we will have $A$ is open by the locally homeomorphism.
+
+\subsection{Covering Transformations}
+
+For this subsection, all spaces are assumed to be path-connected and locally connected.
+
+\begin{definition}
+    If $p:E\to B, p':E'\to B$ are coverings, a \textbf{homomorphism of coverings} $h:(E,p) \to (E',p')$ is a continuous map $h:E\to E'$ such that $p'\circ h = p$.
+\end{definition}
+
+\begin{definition}
+    An \textbf{isomorphism of coverings} is a homomorphism of coverings which is also a homeomorphism.
+\end{definition}
+
+\begin{theorem}
+    Let $p:E\to B, p':E'\to B$ be coverings of $B$ with $p(e_0)= p'(e_0') = b_0 \in B$. Then there is an equivalence of coverings $h:E\to E'$, $h(e_0) = e_0'$ if and only if $H = p_*(\pi_1(E,e_0))$ and $H' = p'_*(\pi_1(E',e_0'))$ are equal as subgroups. 
+    \[
+    \begin{tikzcd}
+                                        & (E',e_0')\arrow[d, "p'"]\\
+    (E,e_0) \arrow[ru,"\widetilde{h}"] \arrow[r,"p"] & (B,b_0) \\
+    \end{tikzcd}
+    \]
+\end{theorem}
+\Pf\par
+    The sufficiency is trivial. It suffices to show the necessity, if $H = H'$, we know there exists $h: (E,e_0) \to (E',e_0')$ and $h':(E',e_0') \to (E,e_0)$ such that $h\circ p' = p, h'\circ p = p'$. We have $(h\circ h') \circ p = p$, which is a lift of $p$ and hence it has to be $id_E$ and we are done.
+
+\begin{proposition}
+    If $h,k:(E,p) \to (E',p')$ are homeomorphisms of coverings $p,p'$ of $B$ such that $h(e) = k(e)$ for some $e\in E$, then $h=k$.
+\end{proposition}
+
+\begin{definition}(Deck Transformation)\par
+    If $E=E', p=p'$ an equivalence of $p$ interchanges points in the fiber over each $b\in B$, such a self-quivalence is called an automorphism of $(E,p)$ or a \textbf{deck transformation}.
+\end{definition}
+
+\begin{definition}(Deck Group)\par
+    The deck transformations form a group under composition of maps, called the \textbf{deck group} of $(E,P)$ and denoted $\mathcal{D}(E,p)$.
+\end{definition}
+
+\begin{corollary}
+    If $p:E\to B$ is a covering and $p(e_1) = p(e_2)$, then there is $h\in \mathcal{D}(E,p)$ with $h(e_1) = e_2$ if and only if $p_*(\pi_1(E,e_1)) = p_*(\pi_1(E,e_2))$.
+\end{corollary}
+
+\begin{corollary}
+    If $h\in\mathcal{D}(E,p)$ so that $h(x) = x$ for some $x$, then $h = id_E$.
+\end{corollary}
+
+\begin{theorem}(Main Theorem)\par
+    Let $p:E\to B$ and $p':E'\to B$ be covering maps. Let $p(e_0) = p'(e_0') = b_0$. The covering maps $p$ and $p'$ are equivalent if and only if the subgroups $H=p_*(E,e_0)$ and $H'(p_*'(E',e_0'))$ are conjugate in $\pi_1(B,b_0)$.
+\end{theorem}
+    Notice this is a general case for Theorem 2.2.1.\par
+\Pf\par
+    If there exists an equivalence $h$, and $h(e_0) = e_0''$, then we may have \[p_*(\pi_1(E,e_0)) = p'_*(\pi_1(E',e_0''))\] and there exists $\delta$ from $e_0''$ to $e_0'$ and we know $\delta_{\#}:\pi_1(E',e_0'') \to \pi_1(E',e_0')$ an isomorphism, and the induced $p_*'(\pi_1(E',e_0''))$ is conjugate with $p_*'(\pi_1(E',e_0'))$ by $p_*'([\delta])$.\par
+    To show the necessity, we consider if $H'$ is conjuate to $H$, then there exists $[\gamma] \in \pi_1(B,b_0)$ such that $[\gamma]^{-1} H' [\gamma] = H$, for $\gamma$ we may consider $\widetilde{\gamma}_{e_0'}$ and denote $e_0'' = \widetilde{\gamma}_{e_0'}(1)$. Then we may know that $p_*(\pi_1(E',e_0'')) = H$ and there exists $h$ such that $h(e_0) = h(e_0'')$ an equivalence.
+
+\subsection{Universal Covering Spaces}
+
+\begin{definition}(Universal Cover)\par
+    A covering $p:E\to B$ is called a universal covering map is $E$ is simply connected, then call $E$ a \textbf{universal cover}.
+\end{definition}
+
+\begin{corollary}
+    If a universal cover of $B$ exists, it is unique up to equivalence of coverings.
+\end{corollary}
+
+\begin{definition}(Semi-locally Simply Connectness)\par
+    A topological space $B$ is semi-locally simply connected if for any $b\in B$, there is a neighborhood $U_b$ of $b$ such that the inclusion $\iota: U_b \hookrightarrow B$ induces a trivial homomorphism $\iota_*: \pi_1(U_b,b) \to \pi_1(B,b)$.
+\end{definition}
+
+\begin{theorem}
+    A topological space $B$ has a universal cover if and only if $V$ is path connected, locally path connected and semi-locally connected. (Simply connectness infers path-connectness).
+\end{theorem}
+To show the theorem we need two conclusions.
+
+\begin{proposition}
+    Let $p:E\to B$ be a covering map, $p(e_0) = b_0$. Assume $E$ is simply-connected. Then there exists a neighborhood $U$ of $b_0$ such that the inclusion $\iota:U\hookrightarrow B$ induces a trivial homomorphism $\iota_*:\pi_1(U,b_0) \to \pi_1(B,b_0)$.
+\end{proposition}
+\Pf\par
+    Only thing need to be paid attention is that find a neighbourhood such that the loops on it have fiber consisted of loops, that is there is always $U \in \mathcal{N}(b_0)$ such that $U$ is evenly covered, and hence $U$ will satisfy the requirement.
+
+\begin{theorem}
+    Let $B$ be path connected, locally path connected and semi-locally simply connected. Let $b_0 \in B$ and $H\subset \pi_1(B,b_0)$ a subgroup. Then there is a covering $p:E\to B$ and a point $e_0 \in p^{-1}(b_0)$ such that $p_*\pi_1(E,e_0) = H$.
+\end{theorem}
+\Pf\par
+    This theorem need a construction, like we consider $\mathcal{P}$ to be all the paths from $b_0$ in $B$ and define a equivalent relation by $\alpha \sim \beta$ if $\alpha(1) = \beta (1)$ and $[\alpha*\bar{\beta}]\in H$, then denote $\alpha_{\#}$ to be its equivalence class, and $E$ to be all the equivalence classes. Define $p:E\to B$ by $\alpha_{\#} \mapsto \alpha(1)$.\par
+    We may define $(U\in \mathcal{N}(\alpha(1)),\alpha_{\#})$ by all $(\alpha*\gamma)_{\#}$ such that $\gamma$ is covered in $U$ and it is eays to check $p$ is continuous under the topology generated by $(U,\alpha_{\#})$. For any $b \in B$ and $p(\beta) = b$, we consider $U$ to be a local simply connected set and then define $(U,\beta) \to U$ be $\beta * \alpha \mapsto \alpha(1)$, which is checked to be a bijection and equals the restriction of $p$ on $(U,\beta)$ and easy to be check a homeomorphism. If $\beta, \gamma$ and there exists $\delta,\delta'$ such that $\beta* \delta \sim \gamma * \delta'$ and they are both in $(U,\beta)\cap (U,\gamma)$ for some path-connected and locally simply connected $U$, then it can be checked that $\beta \sim \gamma$ and hence $p$ is a covering.\par
+    Now we only need to check that there exists $e_0$ such that $p_*(\pi_1(E,e_0)) = H$, which is easy to be checked since for any $[\gamma] \in H$, there is a unique lift of $\gamma$ and it has to be a loop at $e_0$, then we know $\pi_*$ will be a surjection to $H$ and we are done.
+
+Now we may prove the Theorem 2.3.2.\par
+\Pf\par
+Only need to check the necessity, we may know let $H = e$ and we can find a covering such that $p_*(\pi_1(E,e_0))$ is trivial. We should consider the construction, and the simply connectness can be obtained fro the construction directly.
+
+\subsection{Group Actions and Covering maps}
+
+Assume all spaces path connected and locally path connected
+
+\begin{theorem}
+    If $p:E\to B$ is a cover with
+    \[H = p_*(\pi_1(E,e)) \subset \pi_1(B,p(e))\]
+    then 
+    \[\mathcal{D}(E,p) \cong N(H)/H\]
+    where $N(H) = \{g\in \pi_1(B,p(e))|gHg^{-1}\}$ is the normalizer of $H$.
+\end{theorem}
+\Pf\par
+    We know $\phi_e:\pi_1(B,p(e)) \to F:=p^{-1}(p(e))$ is surjective, and we may consider if $\phi_e([\gamma]) = \phi_e([\delta])$ then $p_*([\gamma])p_*([\delta])^{-1} \in H$ and hence it induce $\phi_e: \pi_1(B,p(e))/H \to F$ a bijection. And $\varphi_e:\mathcal{D}(E,p)\to F$ by $\varphi_e(h) = h(e)$.\par
+    Then consider for $e'\in Im\varphi_e$, consider $\alpha,\beta$ from $e$ to $e'$, we will have $p_*([\alpha])p_*([\beta])^{-1} \in H$ and $p_*([\alpha])Hp_*([\alpha])^{-1} = H$ and hence $p_*([\alpha]) \in N(H)$, and hence $Im\varphi_e \subset \phi_e(N(H)/H)$.\par
+    For any $e' \in \phi_e(N(H)/H)$, it is easy to check that $p_*(\pi_1(E,e')) = H$ and hence there exists $h\in\mathcal{D}(E,p)$ such that $h(e) = e'$.\par
+    Now we know $Im(\varphi_e) = \phi_e(N(H)/H)$ and hence $\phi_e^{-1}\circ \varphi_e$ is a injective and surjective, so an isomorphism and we are done.     
+
+\begin{corollary}
+    If $\pi_1(E,e) = 0$, then $\mathcal{D}(E,p) \cong \pi_1(B,p(e))$. 
+\end{corollary}
+
+\begin{definition}
+    A covering $p:E\to B$ is regular if $p_*$ is a normal subgroup of $\pi_1(B,p(e))$ for any $e\in E$.
+\end{definition}
+
+\begin{proposition}
+    A covering $p:E\to B$ is regular if and only if the deck group acts transitively on the fibers of $p$.
+\end{proposition}
+\Pf\par
+    The sufficiency can be obtained by consider the isomorphism between $\mathcal{D}(E,p)$ and $\pi_1(B,p(e))/H$.\par
+    To see the necessity, we may know that $N(H) = \pi_1(B,p(e))$ and we are done.
+
+\begin{corollary}
+    If $p:E\to B$ is regular, then
+    \[\mathcal{D}(E,p) \cong \pi_1(B,p(e))/p_*\pi_1(E,e)\]
+\end{corollary}
+
+It is easy to know that a unversial cover is regular.
+
+\begin{example}\ \par
+    \begin{itemize}
+        \item $p:\mathbb{R} \to S^1$ by $t\mapsto \exp(2\pi it)$
+        \item $\mathbb{R}^2 \to T^2$ naturally.
+        \item $p:S^2 \to \mathbb{R}P^2$ quotient.
+    \end{itemize}
+\end{example}
+
+\begin{definition}
+    We call $G$ acts freely on $X$ if $gx =  x$ for some $x$ implies that $g = e_G$.
+\end{definition}
+
+\begin{definition}
+    The group $G$ acts properly discontinuous on $X$ if for any $x\in X$, there is an open neighborhood $U_x$ of $x$ such that $gU_x\cap U_x =\empty$ for any $g\neq e_G$.
+\end{definition}
+
+\begin{proposition}
+    If $X$ is Hausdorff and $G$ is a finite group of homeomorphisms of $X$ acting freely on $X$, the action of $G$ is properly discontinuous.
+\end{proposition}
+
+\begin{theorem}
+    Let $X$ be a path-connected, locally path-connected topological space, and $G\leq Homeo(X)$. Then $\pi:X\to X/G$ is a covering if and only if $G$ acts properly discontinuous on $X$. Moreover, if this is the case, the deck group $\mathcal{D}(X,\pi)$ of the covering is isomorphic to $G$ and the covering is regular.
+\end{theorem}
+\Pf\par
+    We know $\pi$ is an open map. To see the necessity, for any $x\in X$, $x\in U$ such that $gU\cap U$ empty for any $g \neq e_G$. Then $\pi(U)$ is an evenly covered neighborhood of $[x]$ since it is an open continuous bijection.\par
+    To see the sufficiency, for $x\in X$, $V_x$ is a neighborhood of $[x]$ which is evenly covered, $V_x \cong U$ containing $x$. Then if $y\in gU\cap U$, then $g^{-1}y, y$ are in $U$ and they have the same image under $\pi$, which is a contradiction.\par
+    Now we prove that $\mathcal{D}(X,\pi) \cong G$. $g$ is obviously in $\mathcal{D}(X,\pi)$, and for any $h\in \mathcal{D}(X,\pi)$, $h(x) = gx$, then $h$ has to be $g$ since $\pi$ is a covering.\par
+    $\pi$ is regular by proposition 2.4.3.
+
+\begin{corollary}
+    If $X$ is simply connected and $G$ acts properply discontinuously on $X$, then $\pi_1(X/G)\cong G$.
+\end{corollary}
+
+\begin{proposition}
+    If $p:E\to B$ is a cover, then $\mathcal{D}(E,p)$ acts properly discontinuous on $E$.
+\end{proposition}
+
+\begin{proposition}
+    Any regular cover of $B$ is of the form $E/G$, where $E$ is the universal cover of $B$ and $G$ acts properly discontinuous on $E$.
+\end{proposition}
+
+\subsection{Exercises}
+
+\begin{exercise}
+    Show that the map $p:S^1 \to S^1, p(z) = z^n$ is a covering.
+\end{exercise}
+\Pf\par
+    For $x = e^{i2\pi t}$, we have $y = e^{i2\pi t/n}$ such that $y^n = x$ and hence $p$ is surjective. Obviously continuous and choose $B_(1/2n)$ which is evenly covered.
+
+\begin{exercise}
+    Let $p:E\to B$ be a covering map, with $E$ path connected. Show that if $B$ is simply-connected, then $p$ is a homeomorphism.
+\end{exercise}
+\Pf\par
+    For $b\in B$, if there exists $e_b, e_b'$ distinct in the fiber of $b$, then consider $\gamma$ a path from $e_b$ to $e_b'$ and we know $p\circ \gamma$ is a trivial loop in $B$ and hence $e_b = e_b'$ which is a contradiction. So $p^{-1}$ is well defined and we know $p$ is open by choosing a evenly covered neighborhood.
+
+\begin{exercise}\ \par
+    \begin{itemize}
+        \item Show that if $n>1$ then any continuous map $f:S^n \to S^1$ is nullhomotopic.
+        \item Show that any continuous map $f:\mathbb{R}P^2 \to S^1$ is nullhomotopic.
+    \end{itemize}
+\end{exercise}
+\Pf\par
+    If $\widetilde{f}$ is a lift of a continuous map and it is nullhomotopic, then we know $p\circ F$ will be a homotopy from $f$ to a constant. So since $\mathcal{R}$ is a cover of $S^1$ which is contractible, and we are done since $p_*(\pi_1(S^n, e))$ is trivial.
+    For the second problem, notice that $p_*(\mathcal{\mathbb{R}P^2}, e)$ has to be trivial since, $\mathbb{R}P^2 = S^3/\{0,1\}$ which means $\pi_1(\mathbb{R}P^2)$ is $\{0,1\}$ since $S^3$ is simply connected.
+
+\section{Homology}
+
+\subsection{Singular Homology}
+
+\begin{definition}(Simplex)\par
+    The \textbf{standard} $n$-simplex is the set
+    \[\Delta^n:=\left\{(t_0,\cdots,t_n)\in \mathbb{R}^{n+1}\Big|\sum\limits_{i=0}^n t_i = 1, t_i \geq 0\right\}\]\par
+
+    An $n$-simplex is  the convex span in $\mathbb{R}^m$ of $n+1$ points $v_0,\cdots,v_n$ that do not lie in a hyperplane of dimension less than $n$.\par
+    We denote
+    \[[v_0,\cdots,v_n]\]
+    for the $n$-simplex generated by $\{v_i\}$, and there is a canonical linear homeomorphism from $\Delta^n$ to any $n$-simplex $[v_0,\cdots,v_n]$ given by
+    \[\Delta^n \to [v_0,\cdots,v_n]:= (t_0,\cdots,t_n)\mapsto \sum\limits_{i=0}^n t_iv_i\]
+    If we delete one vertex, then remaining $n$ vertices span a $(n-1)$-simplex, called a \textbf{face} of $[v_i]_{i=1}^n$ and the union of all faces is called the \textbf{bounday} of the simplex and $[v_0,\cdots,\hat{v_i},\cdots,v_n]$ denotes that $v_i$ is deleted.
+\end{definition}
+
+\begin{definition}
+    A \textbf{singular} $n$-simplex in a space $X$ is a continuous map $\sigma:\Delta^n \to X$.
+\end{definition}
+
+\begin{definition}(Homology)\par
+    Let $C_n(X)$ be the free abelian group with basis consisted of the singular $n$-simplices in $X$, i.e.
+    \[C_n(X) = \left\{\sum\limits_{i} n_i \sigma_i| n_i\in \mathbb{Z}, \sigma_i: \Delta^n \to X\text{ continuos}\right\}\]
+    where the formal sum $\sum\limits_{i=1}n_i\sigma_i$ is finite and we call an element of $C_n(X)$ an $n$-\textbf{chain} in $X$.\par
+    The \textbf{boundary maps} $\partial_n: C_n(X) \to C_{n-1}(X)$ is defined as
+    \[
+    \partial_n(\sigma) := \sum\limits_{i=1}^n (-1)^i \sigma|_{[v_0,\cdots,\hat{v_i},\cdots,v_n]}
+    \]
+    and we will know that $\partial_n\circ \partial_{n+1} = 0$.\par
+    We call $C_{\bullet}(X) = (C_n(X),\partial_n)_{}n\in\mathbb{N}$ the \textbf{singular chain complex} of $X$.\par
+    The $n$-th singular homology group of $X$ is defined by
+    \[H_n(X):=\ker(\partial_n)/\text{Im}(\partial(n+1))\]
+\end{definition}
+\Pf\par
+    We know that for $\sigma:\Delta^{n+1}\to X$
+    \[
+    \begin{aligned}
+    \partial_n(\partial_{n+1}(\sigma)) &= \partial_n\left(\sum\limits_{i=1}^{n+1}(-1)^i \sigma|_{[v_0,\cdots,\hat{v_i},\cdots,v_{n+1}]}\right) \\
+    &= \sum\limits_{i=1}^{n+1}\sum\limits_{j\neq i}(-1)^i (-1)^{\delta(j,i)}\sigma|_{[v_0,\cdots,\hat{v_i},\cdots,\hat{v_j},\cdots,v_{n+1}]} 
+    \end{aligned}
+    \]
+    where $\delta(j,i) = j$ if $j<i$ and it is $j-1$ if $j>i$, so we may get that for each not order $2$-tuple $(i,j)$, the coefficient will of $\sigma_{(i<j)}$ will always be $(-1)^{i+j-1}+(-1)^{j+i} = 0$.\par
+    By this, we may know that $\text{Im}(\partial_{n+1})$ will be a subgroup of $\ker(\partial_n)$ the the definition goes.
+
+\begin{definition}\ \par
+    \begin{itemize}
+        \item $Z_n:=\ker(\partial_n)$ is the group of $n$-\textbf{cycles}.
+        \item $Z_n:=\text{Im}(\partial_n)$ is the group of $n$-\textbf{boundaries}.
+    \end{itemize}
+\end{definition}
+    
+\begin{proposition}
+    Let $x_0$ be a point. Then
+    \[
+    H_n(x_0) = \begin{cases}
+        \mathbb{Z},\quad &n=0 \\
+        0,& n > 0
+    \end{cases}
+    \]
+\end{proposition}
+\Pf\par
+    We may know $\partial_n(\sigma_n) = 0$ when $n$ is odd and $\sigma_{n-1}$ when $n$ is even since there is only one kind of singular $n$-simplex and then we know $\ker(\partial_n) = \mathbb{Z}$ when $n$ is odd and $0$ when $n$ is even and hence for all $n$ even except for $0$ $\sigma_n$ have $0$ kernel and for $n$ odd it is $\mathbb{Z}/\mathbb{Z}$ and we are done.
+
+\begin{proposition}
+    Suppose $X$ is a space and $(X_{\alpha})_{\alpha\in A}$ to be the path-connected components of $X$. Then, $H_n(X) \cong \bigoplus_{\alpha\in A} H_n(X_{\alpha})$.
+\end{proposition}
+\Pf\par
+    Since $\Delta^n$ is path connected and we know $\text{Im}(\sigma) \subset X_{\alpha}$ for some $\alpha$, so we may construct an isomorphism between $C_n(X)$ and $\bigoplus_{\alpha} C_n(X_{\alpha})$ by
+    \[(\sigma_{\alpha})\mapsto \sigma_{\alpha}\]
+    for $\text{Im}(\sigma_{\alpha}) \subset X_{\alpha}$ and span it to $\bigoplus_{\alpha} C_n(X_{\alpha})$, since $\partial(C_n(X_{\alpha})) \subset C_{n-1}(X_{\alpha})$ we may know that $\ker(\partial_n), \text{Im}(\partial_{n+1})$ can be also given a direct sum decomposition like this, and for some $\sigma + \text{Im}(\partial_{n+1})$, we may maps it to $(0,\cdots,\sigma+\text{Im}_{\alpha}(\partial_{n+1}),\cdots,0)$ if $\text{Im}(\sigma) \subset X_{\alpha}$ and we are done by span it to $\bigoplus_{\alpha}H_n(X_{\alpha})$.
+
+\begin{definition}(Augmentation map)\par
+    $\epsilon: C_0(X) \to \mathbb{Z}$ by $\sum\limits_i n_i\sigma_i \mapsto \sum_i n_i$.
+\end{definition}
+
+\begin{proposition}
+    If $X\neq \emptyset$ is path connected, then $H_0(X) \cong \mathbb{Z}$.
+\end{proposition}
+    We know
+    \[C_1(X) \overset{\partial_1}{\rightarrow} C_0(X) \overset{\partial_0}{\rightarrow} 0\]
+    and we claim $\ker(\epsilon) = \text{Im}(\partial_1)$ for the augmentation map.
+    If $\sum\limits_i n_i \sigma_i \in \ker(\epsilon)$, then $\sum\limits_i n_i = 0$ and we may assume that $\sigma_i: [v_0] \to X$ at $p$ and for any $p,q$ distinct in $X$, we may find a path from $p$ to $q$ which will satisfy that $\partial_1(\gamma) = (p) - (q)$ and hence we may obtained that $\ker(\epsilon) \subset \text{Im}(\partial_1)$ by induction, and obviously $\text{Im}(\partial_1) \in \ker(\epsilon)$.\par
+    Notice $\ker(\partial_0) = C_0(X)$ and then we know $C_0(X)/\ker(\epsilon) \cong H_0(X)$, where the former is isomorphic to $\mathbb{Z}$ and we are done.
+
+\begin{definition}(Reduced Homology)\par
+    The \textbf{reduced homology} groups of $X$, $\widetilde{H}_n(X)$ are the homology groups of the augmented chain complex of $X$ defined as
+    \[\cdots \rightarrow C_2(X)  \overset{\partial_2}{\rightarrow} C_1(X) \overset{\partial_1}{\rightarrow} C_0(X) \overset{\epsilon}{\rightarrow} \mathbb{Z} {\rightarrow} 0\]
+    this complex is a chain complex since $\epsilon \circ \partial_1 = 0$. $\epsilon$ induces an onto map $C_0(X)/\text{Im}(\partial_1) = H_0(X) \to \mathbb{Z}$ with kernel $\widetilde{H}_0(X)$ and $H_0(X)\cong \widetilde{H}_0(X)\oplus \mathbb{Z}$ and $H_n(X)\cong\widetilde{H}_n(X)$ for $n\geq 1$.
+\end{definition}
+
+\subsection{Homotopy Invariance}
+
+\begin{definition}
+    Let $f:X\to Y$ continuous and we have an induced homomorphism from $C_n(X) \to C_n(Y)$
+    \[f_{\#}(\sum\limits_i n_i\sigma_i) = \sum\limits_{i} n_i(f\circ\sigma_i)\]
+\end{definition}
+
+\begin{lemma}
+    $f_{\#}$ is a chain map, i.e. $f_{\#}\partial_n = \partial_nf_{\#}$.
+\end{lemma}
+\Pf\par
+    Since
+    \[
+    \begin{aligned}
+        f_{\#}(\partial_n(\sigma)) &= f_{\#}\left(\sum\limits_i (-1)^i \sigma|_{[v_0,\cdots,\hat{v}_i,\cdots,v_n]}\right) \\
+        &= \sum\limits_i (-1)^i f\circ \sigma|_{[v_0,\cdots,\hat{v}_i,\cdots,v_n]} \\
+        &= \sum\limits_i (-1)^i (f\circ \sigma)|_{[v_0,\cdots,\hat{v}_i,\cdots,v_n]} \\
+        &= \partial_n(f_{\#}(\sigma))
+    \end{aligned}
+    \]
+
+\begin{corollary}
+    $f_{\#}$ takes $n$-cycles/boundaries to $n$-cycles/boundaries.
+\end{corollary}
+
+\begin{corollary}
+    The map $f:X\to Y$ induces a homomorphism $f_*:H_n(X) \to H_n(Y)$.
+\end{corollary}
+
+\begin{proposition}\ \par
+    \begin{itemize}
+        \item If $X\overset{g}{\rightarrow}Y\overset{f}{\rightarrow}Z$ are maps, then $(f\circ g)_* = f_* \circ g_*$.
+        \item $(id_X)_* = id_{H_n(X)}$
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    Notice
+    \[f_*(\sigma + \text{Im}_X(\partial_n)) = f_{\#}(\sigma) + \text{Im}_Y(\partial_n) \]
+
+\begin{theorem}
+    If $f,g:X\to Y$ are homotopic maps, then they induce the same homomorphisms $f_* = g_*:H_n(X)\to H_n(Y)$ for every $n$.
+\end{theorem}
+\Pf\par
+    Let $F:X\times I \to Y$ be the homotopy between $f$ and $g$. We will define a \textbf{prism operator} $P:C_n(X) \to C_{n+1}Y$ such that
+    \[\partial P + P \partial = g_{\#} - f_{\#}\]\par
+    If we have already defined $O$, for $\alpha \in \ker(\partial)\subset C_n(X)$, we have $g_{\#}(\alpha) - f_{\#}(\alpha) = \partial P(\alpha)$. Then we may know
+    \[
+    f_*([\alpha]) = g_*([\alpha])
+    \].\par
+
+\begin{definition}(Prism Operator)\par
+    This is to defined the prism operator before.
+\end{definition}
+\Pf\par
+    For $\sigma:\Delta^n \to X$ a singular $n$-simplex, and then we can extedn $P$ by linearity. We have the following maps:
+    \[\Delta^n \times I \overset{(\sigma,id)}{\rightarrow} X\times I \to Y\]
+
+\begin{corollary}
+    If $f:X\to Y$ is a homotopy equivalence then $f_*:H_n(X)\to H_n(Y)$ are isomorphisms for every $n$.
+\end{corollary}
+
+\begin{corollary}
+    If $X$ is contractible, then $\widetilde{H}_n(X) = 0$ for every $n$.
+\end{corollary}
+
+\begin{definition}(Chain Homotopy)\par
+    A map $P:C_n(X) \to C_{n+1}(X)$ satisfies
+    \[\partial P + P\partial = g_{\#} - f_{\#}\]
+    is called a \textbf{chain homotopy} between $g_{\#}, f_{\#}$.\par
+    More generally, if $(C_i,\partial_i), (D_i,\partial_i)$ are two chain complexs with two chain map $h,k:C_i \to D_i$ suh that there exists a map $P:C_n\to D_{n+1}$ such that $P\partial + \partial P = h-k$.
+    \[
+    \begin{tikzcd}
+        \cdots\arrow[r] & C_{n+1}\arrow[r]\arrow[ld,"P"] & C_n\arrow[r]\arrow[d,"h\text{ or }k"]\arrow[ld,"P"] & C_{n-1}\arrow[r]\arrow[ld,"P"] & \cdots \\
+        \cdots\arrow[r] & D_{n+1}\arrow[r] & D_n\arrow[r] & D_{n-1}\arrow[r] & \cdots \\
+    \end{tikzcd}
+    \]
+\end{definition}
+
+\subsection{Homology of a pair}
+
+\begin{definition}
+    Given a space $X$ and a subspace $A\subset X$, define
+    \[C_n(X,A):= C_n(X)/C_n(A)\]
+    called the set of \textbf{relateive} $n$-\textbf{chains}.\par
+    $\partial:C_n(X)\to C_{n-1}(X)$ takes $C_n(A)$ to $C_{n-1}(A)$ and induced maps $\partial:C_n(X,A)\to C_{n-1}(X,A)$, with $\partial^2 = 0$ and we get a chain complex $(C_i(X,A), \partial_i)$ whose homology is called the \textbf{relative homology} of the pair $(X,A)$, denoted as $H_n(X,A)$.
+\end{definition}
+
+\begin{definition}(Connecting Homomorphism)\par
+    We consider a short exact sequence of chain complexes
+    \[0 \rightarrow A_{\bullet} \overset{i}{\rightarrow} B_{\bullet} \overset{j}{\rightarrow} C_{\bullet} \to 0\]
+    which means the diagram
+    \[
+    \begin{tikzcd}
+        & \vdots\arrow[d] & \vdots\arrow[d] & \vdots\arrow[d] & \\
+        0\arrow[r] & A_{n+1}\arrow[r,"i"]\arrow[d,"\partial"] & B_{n+1}\arrow[r,"j"]\arrow[d,"\partial"] & C_{n+1}\arrow[r]\arrow[d,"\partial"] & 0 \\
+        0\arrow[r] & A_{n}\arrow[r,"i"]\arrow[d,"\partial"] & B_{n}\arrow[r,"j"]\arrow[d,"\partial"] & C_{n}\arrow[r]\arrow[d,"\partial"] & 0 \\
+        0\arrow[r] & A_{n-1}\arrow[r,"i"]\arrow[d] & B_{n-1}\arrow[r,"j"]\arrow[d] & C_{n-1}\arrow[r]\arrow[d] & 0 \\
+        & \vdots & \vdots & \vdots & \\
+    \end{tikzcd}
+    \]
+    commutes and there is a map $\partial:H_n(C_i) \to H_{n-1}(A_i)$ called a \textbf{connecting homomorphism}.
+\end{definition}
+\Pf\par
+    Consider $c\in \ker(\partial_n) \subset C_n$, since the sequence is exact and we may know $j$ is surjective, there exists $b\in B_n$ such that $c = j(b)$ and hence
+    \[j(\partial(b)) = \partial(j(b)) = \partial(c) = 0\]
+    and hence $\partial(b) \in \ker j = \text{Im(i)}$. So there exists $a\in A_{n-1}$ such that $\partial(b) = i(a)$ and hence $\partial(i(a)) = i(\partial(a)) = 0$, which means $\partial(a) = 0$ since $\ker i = 0$. Define $\partial(c) = [a]\in H_{n-1}(A)$.
+    Let us check this will be come a homomorphism, that is for $[c] \in H_n(C_i)$, we have
+    \[
+    \partial(c) = [a] \in H_{n-1}(A)
+    \]
+    where there exists $b\in B_n$ such that $c = j(b)$ and $\partial(b) = i(a)$, if there exists $b'$ such that $c = j(b')$ then $b-b'\in \ker(j) \in \text{Im}(i)$ and there exists $a'$ such that $i(a') = b-b'$ and
+    \[
+    \partial(b') = i(a+\partial(a'))
+    \]
+    which since means $[a] = [a+\partial(a')]$ and hence the homomorphism is well-defined.\par
+    And for $c+\partial(c')$ we know
+    \[
+    c+\partial(c') = j(b+\partial(b'))
+    \]
+    and hence $\partial(b)$ unchanged and it is well-defined on $H_{n}(C_i)$ and we are done.
+
+\begin{theorem}
+    The sequence
+    \[\cdots \rightarrow H_n(A_{\bullet}) \overset{i_*}{\rightarrow} H_n(B_{\bullet}) \overset{j_*}{\rightarrow} H_n(C_{\bullet}) \overset{\partial}{\rightarrow} H_{n-1}(A_{\bullet})\to \cdots\]
+    is exact.\par
+\end{theorem}
+\Pf\par
+    Recall
+    \[
+    i([\alpha]) = [i(\alpha)]
+    \]
+    which is well-defined because if $\alpha - \alpha' \in \text{Im}(\partial) \subset A_n$, then there is $a \in A_{n+1}$ such that $\partial(a) = \alpha - \alpha'$
+    \[
+    i(a) - i(a) = i(\alpha-\alpha') = i(\partial(a)) = \partial(i(a)) \in \text{Im}(\partial)
+    \]
+    and hence $i_*$ is well-defined and similarly $j_*$ is well defined and we have shown above that $\partial$ is well defined.\par
+    "$\text{Im}(i_*) = \ker(j_*)$": for any $[\alpha] \in H_n(A_{\bullet})$, we have $i_*([\alpha]) = [i(\alpha)]$ and then
+    \[
+    j_*(i_*([\alpha])) = [j(i(\alpha))] = [0]
+    \]
+    and if $j_*([\beta]) = 0$, then $[j(\beta)] = 0$, which means there exists $c\in C_{k+1}$ such that $j(\beta) = \partial(c)$. Since $j$ is surjective and there exists $b\in B_{k+1}$ such that $c = j(b)$ and hence $j(\partial(b)) = j(\beta)$ and hence $\beta - \partial(b) \in \ker(j) = \text{Im}(i) $ and hence there exists $\alpha \in A_k$ such that $i(a) = \beta - \partial(b)$ and hence $i_*([a]) = [i(a)] = [\beta]$ and we are done.\par
+    "$\text{Im}(j_*) = \ker(\partial)$": for any $j_*([\beta]) = [j(\beta)]$, we know $\partial([j(\beta)]) = [a]$ where $i(a) = \partial(\beta), a\in A_{n-1}$ and hence
+    \[
+    i(\partial(a)) = \partial(i(a)) = 0
+    \]
+    and hence $a\in \ker(\partial)$. For the other side, if $\partial([\gamma]) = 0$, then there exists $a\in A_{n-1},,\beta\in B_n$ such that $j(\beta) = \gamma$ and $i(a) = \partial(\beta), a\in \text{Im}(\partial)$, which means there exists $\alpha \in A_{n}$ such that $\partial(\alpha) = a$ and hence
+    \[
+    \beta - i(\alpha) \in \ker(\partial)
+    \]
+    then
+    \[
+    j_*([\beta - i(\alpha)]) = [j(\beta) - j(i(\alpha))] = [\gamma]
+    \]
+    and we are done.\par
+    "$\text{Im}(\partial) = \ker(i_*)$": for $[\gamma] \in H_n(C_{\bullet})$, we may know that $\partial([\gamma]) = [a]$ where $i(a) = \partial(\beta)$ such that $j(\beta) = \gamma$, and then $i_*([a]) = [i(a)] = [\partial(\beta)] = 0$. For the other side, if $[i(\alpha)] = i_*([\alpha]) = 0$, then there exists $b\in B_{n+1}$ such that $\partial(b) = i(\alpha)$ and then $\partial[j(b)] = [\alpha]$ and we are done.
+
+\begin{definition}(Induced Homomorphism)\par
+    Consider $f:(X,A) \to (Y,B)$ such that $f(A)\subset (B)$, then we may know $f_{\#}(C_n(A)) \subset C_n(B)$ and hence $f_{\#}:C_n(X,A) \to C_n(Y,B)$ is well-defined.\par
+    Then $f_{\#}\partial = \partial f_{\#}$ and it can induce $f_*: H_n(X,A) \to H_n(Y,B)$ by for
+    \[f_*([\sigma]) = [f\circ \sigma]\]
+    and
+    \[0 \to C_{\bullet}(A) \to C_{\bullet}(X) \to C_{\bullet}(X,A) \to 0\]
+    is exact and we may use the general theory on this sequence.
+\end{definition}
+\Pf\par
+    Consider $[\sigma] - [\sigma'] = \partial([\gamma]) \in \text{Im}_{C_{n+1}(X,A)}(\partial)$, then $f_{\#}([\sigma] - [\sigma']) = f_{\#}(\partial([\gamma])) = \partial(f_{\#}([\gamma])) \in \text{Im}_{C_{n}(Y,B)}(\partial)$.
+
+\begin{theorem}
+    Let $X$ be a topological space and let $A$ be a subspace of $X$. Then there is a long exact sequence
+    \[
+    \cdots \to H_n(A) \to H_n(X) \to H_n(X,A) \to H_{n-1}(A)
+    \]
+\end{theorem}
+\Pf\par
+    Since
+    \[
+    \begin{tikzcd}
+        C_n(X)\arrow[d,"\partial"]\arrow[r,"\pi"] & C_{n}(X,A)\arrow[d,"\partial"] \\
+        C_{n-1}(X)\arrow[r,"\pi"] & C_{n-1}(X,A) \\
+    \end{tikzcd}
+    \]
+    commutes and we are done.
+
+\begin{corollary}
+    There is a long exact sequence
+    \[
+    \cdots \to \widetilde{H}_n(A) \to \widetilde{H}_n(X) \to \widetilde{H}_n(X,A) \to \widetilde{H}_{n-1}(A) \to \cdots
+    \]
+\end{corollary}
+\Pf\par
+Notice we have
+\[
+\begin{tikzcd}
+    0\arrow[r] & C_0(A)\arrow[r]\arrow[d,"\epsilon"] & C_0(X)\arrow[r]\arrow[d,"\epsilon"] & C_0(X,A)\arrow[r]\arrow[d,"0"] & 0 \\
+    0\arrow[r] & \mathbb{Z}\arrow[r]\arrow[d] & \mathbb{Z} \arrow[r]\arrow[d] & 0\arrow[r]\arrow[d] & 0 \\
+    & 0 & 0 & 0 & \\
+\end{tikzcd}
+\]
+commutes.
+
+\begin{corollary}
+    For $x_0\in X$, we have $\widetilde{H}_n(X) \cong H_n(X,x_0)$ for all $n$.
+\end{corollary}
+
+\begin{corollary}
+    There is a long exact sequence for homology of $(X,A,B), B\subset A\subset X$
+    \[
+    \cdots \to H_n(A,B) \to H_n(X,B) \to X_n(X,A) \to H_{n-1}(A,B)
+    \]
+\end{corollary}
+
+\begin{proposition}
+    If $f,g:(X,A) \to (Y,B)$ are homotopic through maps of pairs $(X,A) \to (Y,B)$, then $f_* = g_*: H_n(X,A) \to H_n(Y,B)$.
+\end{proposition}
+\Pf\par
+    Consider $P:C_n(X) \to C_{n+1}(Y)$ which also takes $C_n(A)$ into $C_{n+1}(B)$ by construction. So $P$ is well-defined on $C_n(X,A) \to C_n(Y,B)$ and then we are done.
+
+\begin{theorem}(Excision Theorem)\par
+    Given subspaces $Z\subset A \subset X$ such that $\overline{Z}\subset\text{int}(A)$, the inclusion $(X/Z, A/Z) \hookrightarrow (X,A)$ induces isomorphisms between $H_n(X/Z,A/Z)$ and $H_n(X,A)$.\par
+    Equivalently, if $A,B\subset X$ are such that $X=\text{int}(A)\cup\text{int}(B)$, the inclusion $(B,A\cap B)\hookrightarrow (X,A)$ induces isomorphisms between $H_n(B,A\cap B)$ and $H_n(X,A)$.
+\end{theorem}
+
+\begin{definition}(Suspension)\par
+    For a space $X$, define its suspension $\Sigma X$ to be the quotient of $X\times[-1,1]$ by identifying $X\times\{-1\}$ to one point and $X\times\{1\}$ to another point.
+\end{definition}
+
+\begin{theorem}(Suspension Theorem)\par
+    Let $X$ be a toplogical space, with suspension $\Sigma X$. There are isomorphisms
+    \[\widetilde{H}_i(X) \cong \widetilde{H}_{i+1}(\Sigma X), \text{ for all }i\geq 0\]
+\end{theorem}
+\Pf\par
+    Let $\pi:X\times [-1,1] \to \Sigma X$ be the quotient map. Let $\Sigma_+ X = \pi(X\times[-\dfrac{1}{4},1])$ and let $\Sigma_-X = \pi(X\times[-1,\dfrac{1}{4}])$ and let $S = \pi(X\times \{-1\}), N = \pi(X\times\{1\})$. Then we claim
+    \begin{itemize}
+        \item $\widetilde{H}_i(\Sigma X) \cong H_i(\Sigma X,S)$
+        \item $H_i(\Sigma X,S)\cong H_i(\Sigma X, \Sigma_-X)$
+    \end{itemize}
+    There exists a deformation retraction from $\Sigma_- X$ to $S$ and by proposition 4.3.6. we are done.\par
+    Then by
+    \[ \widetilde{H}_n(S) \to \widetilde{H}_n(\Sigma_-X) \to \widetilde{H}_n(\Sigma_-X,S) \to \widetilde{H}_{n-1}(S) \]
+    exact we know $\widetilde{H}_n(\Sigma_-X,S) = H_n(\Sigma_-X,S)$ is $0$ and then we may know $H_i(\Sigma X,S)\cong H_i(\Sigma X, \Sigma_-X)$ by corollary 4.3.5.\par
+    Then by the deformation retraction from $X\times[-\dfrac{1}{4},\dfrac{1}{4}]$ to $X$ and we may have $$H_n(\Sigma X,\Sigma_-X)\cong H_n(\Sigma_+X,X)$$ Then use corollary 4.3.3. to $(\Sigma_+ X, X)$ and we will have $\widetilde{H}_{n-1}(X) \cong H_i(\Sigma_+X,X)$ and we are done since $\Sigma_+ X$ is contractible.  
+
+\begin{corollary}
+    $\widetilde{H}_k(S^n) = \mathbb{Z}$ if $k=n$ and $0$ for else. ($S_0$ is two points) 
+\end{corollary}
+\Pf\par
+    Use the induction, only need to check that $\widetilde{H}_0(S^{n+1}) = 0$, which is because $S^{n+1}$ is path-connected.
+
+\begin{theorem}(Brower)\par
+    If $U\subset \mathbb{R}^m$ and $V\subset\mathbb{R}^n$ are nonempty homeomorphic open sets, then $m=n$.
+\end{theorem}
+    Let use check \[H_k(\mathbb{R}^m,\mathbb{R}^m - \{x\}) \cong H_k(U,U-\{x\}) \cong H_k(V,V-\{f(x)\}) \cong H_k(\mathbb{R}^n,\mathbb{R}^n - \{x\})\]
+    by Excision Theorem and we are done.\par
+    We may see $U,\{x\}^c$ and we have
+    \[H_n(U,U-\{x\}) \cong H_n(X,X-\{x\})\]
+    for any $U$ open set and $x\in U$.
+
+\begin{theorem}(Brower's Fixed Point Theorem)\par
+    \begin{itemize}
+        \item $\partial D^n$ is not a retract of $D^n$.
+        \item Any continuous map $f:D^n \to D^n$ has a fixed point.
+    \end{itemize}
+\end{theorem}
+\Pf\par
+    Consider
+    \[
+    \begin{tikzcd}
+        \widetilde{H}_{n-1}(S^{n-1})\arrow[r,"\iota_*"] & \widetilde{H}_{n-1}(D^{n})\arrow[r,"j_*"] & \widetilde{H}_{n-1}(S^{n-1})
+    \end{tikzcd}
+    \]
+    and we will know this induce a contradiction of the retraction.\par
+    Define $r:D^n \to S^{n-1}$ by let $r(x)$ be the unique element in $[f(x),x)\cap \partial D^n - \{f(x)\}$ and $r$ will be a retraction if there is no fixed point.
+
+\begin{theorem}(Mayer-Vietoris Sequence)\par
+    Suppose $X = A\cup B = \text{int}(A)\cup \text{int}(B)$. Then there is a long exact sequence
+    \[
+    \cdots \to H_n(A\cap B) \overset{\phi}{\to} H_n(A)\oplus H_n(B) \overset{\psi}{\to} H_n(X) \overset{\partial}{\to} H_{n-1}(A\cap B) \to \cdots \to H_0(X) \to 0
+    \]
+\end{theorem}
+\Pf\par
+    Let $C_n(A+B)$ denote the subgroup of $C_n(X)$ whose elements are precisely sums of singular simplices in either $A$ or $B$. The boundary map may also have a restriction on $C_n(A+B)$ and if $H_n(X) \cong H_n(A+B)$ and we only need to prove
+    \[
+    0 \to C_n(A\cap B) \overset{\phi}{\to} C_n(A)\oplus C_n(B) \overset{\psi}{\to} C_n(A+B) \to 0
+    \]
+    to be exact, which can be obtained by $\phi(x) = (x,-x)$ and $\psi(x,y) = x+y$ and obviously $\phi$ is injective and $\psi$ is surjective. $\text{Im}(A\cap B) \subset \ker(\phi)$ and the converse is true and we are done.
+
+\subsection{Fundamental Group and Homology}
+
+A path is a $1$-simplex and a loop will become a $1$-cycle.
+
+\begin{theorem}
+    There is a homomorphism
+    \[h:\pi_1(X,x_0) \to H_1(X)\]
+    If $X$ is path-connected, then $h$ is onto, with $\ker h = [\pi_1,\pi_1]$, the commutator subgroup, which is generated by $\{[g,h] = g^{-1}h^{-1}hg, g,h\in \pi_1(X,x_0)\}$. Then $h$ induce an isomorphism from the ablianization of the fundamental group to the first homology group.
+\end{theorem}
+\Pf\par
+
+\subsection{Cellular Homology}
+
+\begin{definition}(Degree)\par
+    The \textbf{degree} of continuous map $f:S^n\to S^n$ is defined as
+    \[
+    \deg f:=f_*(1)
+    \]
+    where $f_*:\widetilde{H}_n(S^n) \to \widetilde{H}_n(S_n)$.
+\end{definition}
+
+Degree has the properties:\par
+1. $\deg id = 1$.\par
+2. If $f$ is not surjective, then $\deg f = 0$.\par
+3. If $f \cong g$ are homotopic maps, then $\deg f = \deg g$.\par
+4. $\deg (g\circ f) = \deg g \cdot \deg f$.\par
+5. If $f$ is a homotopy equivalence, then $\deg f = \pm 1$.\par
+6. If $r:S^n\to S^n$ is a reflection across some $n$-dimensional subspace of $\mathbb{R}^{n+1}$, then $\deg r = -1$.\par
+\Pf\par
+    We may assume the subspace is $\mathbb{R^n}\times\{0\}$ with $r(x_0,\cdots,x_n) = (x_0\cdots,-x_n)$
+    and consider the upper and lower hemispheres $U,L$, since there exists homeomorphism between $\Delta^n$ and $U,L$, and we may know $U-L\in \ker\partial$ and (we assume that $[U-L]$ to be the generator and we are done).\par
+7. If $a:S^n \to S^n$ is the antipodal map $(x\to -x)$, then $\deg a = (-1)^{n+1}$.\par
+8. If $f:S^n\to S^n$ is a continuous map, and $Sf:S^{n+1} \to S^{n+1}$ is the suspension of $f$ then $\deg Sf = \deg f$.\par
+9. If $f:S^n \to S^n$ has no fixed points then $\deg f = (-1)^{n+1}$.\par
+10. $S^n$ has continuous field of non-zero tangent vectors if and onlyy if $n$ is odd.
+
+\begin{theorem}
+    If $f:S^n\to S^n$ is surjective and there exists some $y\in S^n$ such that its fiber is a finite number of points, then there exists $U_i$ neighbourhoods of $x_i$ such that $f(U_i-\{x_i\}) \subset V-\{y\}$ for some neighbourhood of $y$ and then we may define a local degree of $f$ at $x_i$ which is the degree of $(f|_{x_i})_*:H_n(U_i,U_i-\{x_i\}) \to H_n(V,V-\{y\})$ and
+    \[
+    \deg f = \sum\limits_{i=1}^m \deg f|_{x_i}
+    \]
+\end{theorem}
+
+\begin{definition}(CW Complexes)\par
+    Start with a discrete set $X_0$, whose elements are called $0$-cells, and we construct it inductively. To form a $n$-skeleton $X_n$ from $X_{n-1}$ by attaching $n$-cells $e_{\lambda}^n = Int(D_{\lambda}^n)$ by $\partial D_{\lambda}^n = S_{\lambda}^{n-1} \overset{\phi_{\lambda}^n}{X_{n-1}}$ by
+    \[
+    X_n = X_{n-1} \bigsqcup_{\lambda} D_{\lambda}^n/\sim
+    \]
+    where $x\sim \phi_{\lambda}^n(x)$ for all $x\in \partial D_{\lambda}^n$. Then we may know $X_n = X_{n-1}\bigsqcup_{\lambda} e_{\lambda}^n$ where $e_{\lambda}^n$ is the homeomorphic image of $D_{\lambda}^n - \partial D_{\lambda}^n$. Such a construction can be continue for countable times, which is $X = \bigcup_n X_n$ and such a space $X$ is called a CW-complex.
+\end{definition}
+
+\begin{definition}(Characteristic map)\par
+    Each cell $e_{\lambda}^n$ has a characteristic map $\Phi_{\lambda}^n$ defined by
+    \[D_{\lambda}^n \hookrightarrow X_{n-1}\bigsqcup_{\lambda} D_{\lambda}^n \to X_n \hookrightarrow X\]
+    where we know $\Phi_{\lambda}^n|_{Int(D_{\lambda}^n)}$ is homeo onto $e_{\lambda}^n$ and the restriction of it on the boundary is the attaching map.\par
+\end{definition}
+
+\begin{definition}(Topology on CW complex)\par
+    A CW complex is endowed with the weak topology, $A\subset X$ is open iff $A\cap X_n$ is open for all $n$. An $n$-cell is denoted by $e_{\lambda}^n = Int(D_{\lambda}^n)$.\par
+    A CW complex $X$ is \textbf{finite} if it has finitely many cells. A CW complex is of \textbf{finite type} if it has finitely many cells in each dimension. The smallest $n$ for which $X=X_n$ is called the \textbf{dimension} of $X$.
+\end{definition}
+
+\begin{lemma}
+    If $X$ is a CW complex, then
+    \begin{itemize}
+        \item $H_k(X_n,X_{n-1}) = \mathbb{Z}^{\# n\text{-cells}}$ if $k=n$ and $0$ if $k\neq n$.
+        \item $H_k(X_n) = 0$ if $k>n$.
+        \item The inclusion $i:X_n\hookrightarrow X$ induces an isomorphism $H_k(X_n) \cong H_k(X)$ if $k < n$.
+    \end{itemize}
+\end{lemma}
+\Pf\par
+    Firstly, notice if we choose $x_{\lambda}$ from the interior of each $n$-cells, then denote $A:= X_n - \{x_{\lambda}\}$ and we know $A$ deformation retracts to $X_{n-1}$, so
+    \[H_k(X_n,X_{n-1}) \cong H_k(X_n,A)\]
+    since $X_{n-1}$ and its closure is contained in the interior of $A$, then by the excision theorem, we may know
+    \[H_n(X_n,A) = \bigoplus_{\lambda}H_k(D_{\lambda}^n,D_{\lambda}^n-\{x_{\lambda}\})\]
+    since $D_{\lambda}^n$ contractible, then we know
+    \[H_k(D_{\lambda}^n,D_{\lambda}^n-\{x_{\lambda}\}) \cong \widetilde{H}_{k-1}(S_{\lambda}^{n-1})\]
+    which is $\mathbb{Z}$ when $k=n$ and $0$ else and we are done.\par
+    The second conclusion is easy to be checked.\par
+
+\begin{definition}(Cellular Homology)\par
+    The cellular homology $H_*^{CW}(X)$ of a CW complex $X$ is the homology of the cellular chain $(C_*(X),d_*)$ indexed by the cells of $X$, i.e.
+    \[C_n(X):= H_n(X_n,X_{n-1}) = \mathbb{Z}^{\# n\text{-cells}}\]
+\end{definition}
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{References.bib}
+
+% ------------------------------------------------------------------------------
+
+\end{document}

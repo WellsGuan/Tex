@@ -1,0 +1,236 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework03 - MATH 722}
+\author{Boren(Wellss) Guan}
+\date{February 26,2024}
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Chapter.4 Ex.13} 
+Calculate the annulus of convergence for each of the following Laurent series:\par
+a. $\sum_{-\infty}^{\infty}2^{-j}z^j$\par
+d. $\sum_{-\infty,j\neq 0}^{\infty} z^j/j^j$\par
+f. $\sum_{j=-20}^{\infty} j^2z^j$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Notice
+\[
+\limsup_{j\to\infty} |2^{-j}|^{1/j} = 2^{-1}
+\]
+and
+\[
+\limsup_{j\to\infty} |2^{j}|^{1/j} = 2
+\]
+then we may know the convergence annulus of the series is
+\[
+\{z, |z|<1/(2^{-1}), |z^{-1}| < 1/2\} = \emptyset
+\]\par
+d. Notice
+\[
+\limsup_{j\to\infty} |j^{-j}|^{1/j} = 0
+\]
+and
+\[
+\limsup_{j\to\infty} |(-j)^{-j}|^{1/j} = 0
+\]
+then we may know the convergence annulus of the series is
+\[
+\{z, |z|<+\infty, |z^{-1}| < +\infty\} = \C-\{0\}
+\]\par
+f. Notice
+\[
+\limsup_{j\to\infty} |j^2|^{1/j} = 1
+\]
+then we may know the convergence annulus of the series is
+\[
+\{z, |z|<1, |z^{-1}| > 0\} = D(0,1)-\{0\}
+\]\par
+\vspace{0.5em}
+
+\subsection*{Chapter.4 Ex.33} 
+Compute each of the following residues:\par
+a. $Res_f(2i)$,\quad$f(z) = \dfrac{z^2}{(z-2i)(z+3)}$,\par
+c. $Res_f(i+1)$,\quad$f(z) = \dfrac{e^z}{(z-i-1)^3}$,\par
+g. $Res_f(0)$,\quad$f(z) = \dfrac{\sin z}{z^3(z-2)(z+1)}$
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Notice $\dfrac{z^2}{z+3}$ is a holomorphic function in a neighbourhood of $2i$ and we can consider the series expansion of  it at $2i$ as $\sum_{n\geq 0} a_n(z-2i)^n$ with 
+\[a_0 = \dfrac{z^2}{z+3}|_{z=2i} = \dfrac{-4}{2i+3}\]
+and hence $f(z)$ has the Laurent expansion at $2i$:
+\[
+f(z) = \sum_{n\geq -1} a_{n+1}(z-2i)^n
+\]
+which means $Res_f(2i) = a_0 = \dfrac{-4}{3+2i}$.\par
+c. Notice $e^z$ is a holomorphic function in a neighbourhood of $i+1$ and we can consider the series expansion of  it at $i+1$ as $\sum_{n\geq 0} a_n(z-i-1)^n$ with 
+\[a_2 = \Big(\ParZ\Big)^2e^z(z)/2!|_{z=i+1} = e^{i+1}/2\]
+and hence $f(z)$ has the Laurent expansion at $i+1$:
+\[
+f(z) = \sum_{n\geq -3} a_{n+3}(z-2i)^n
+\]
+which means $Res_f(i+1) = a_2 = e^{i+1}/2$.\par
+g. Notice $\sin z/(z-2)(z+1) = \dfrac{e^{iz}-e^{-iz}}{2(z-2)(z+1)}$ is a holomorphic function in a neighbourhood of $0$ and we can consider the series expansion of  it at $0$ as $\sum_{n\geq 0} a_nz^n$ with 
+\[a_2 = \Big(\ParZ\Big)^2\dfrac{e^{iz}-e^{-iz}}{2(z-2)(z+1)}(z)/2!|_{z=0} = 0\]
+and hence $f(z)$ has the Laurent expansion at $0$:
+\[
+f(z) = \sum_{n\geq -3} a_{n+3}z^n
+\]
+which means $Res_f(i+1) = a_2 = 0$.\par
+\vspace{0.5em}
+
+\newpage
+
+Use the calculus of residues to calculate the integrals in the following exercises.\par
+
+\subsection*{Chapter.3 Ex.51} 
+$\int_{0}^{\infty} \dfrac{x\sin x}{1+x^2}dx$. 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider the piecewise $C^1$ curve $\gamma_M$ the segment from $0$ to $M$ and the counter-clockwise half-circle from $M$ to $-M$ centered at $0$, denoted as $p$, and from $-M$ to $0$.
+\[
+Im\Big(\int_{\gamma} \dfrac{z e^{iz}}{1+z^2}dz\Big) = 2\int_0^{M} \dfrac{x\sin x}{1+x^2}dx + Im\Big(\int_{p}\dfrac{ze^{iz}}{1+z^2}dz\Big)
+\]
+and by the calculus of residues, we know
+\[
+2\int_0^{M} \dfrac{x\sin x}{1+x^2}dx + Im\Big(\int_{p}\dfrac{ze^{iz}}{1+z^2}dz\Big) = \pi e^{-1}
+\]
+for any $M>1$. Consider $\tilde{p}$ as $p_1 = \tilde{p}\cap\{z, Im z \geq \sqrt{M}\}$ and $p_2 = \tilde{p}\cap\{z, Im z < \sqrt{M}\}$, then we know
+\[
+\begin{aligned}
+\Big|\int_{p}\dfrac{ze^{iz}}{1+z^2}dz\Big| \leq \int_{p^{-1}(\tilde{p_1})} \Big|\dfrac{ze^{iz}}{1+z^2}\Big| dz + \int_{p^{-1}(\tilde{p_2})} \Big|\dfrac{ze^{iz}}{1+z^2}\Big| dz
+\end{aligned}
+\]
+for $x+yi\in \C$, we know
+\[
+|1+M^2(x+yi)^2|^2 = (M^4(x^2-y^2)+1)^2+4M^4x^2y^2 \geq 2^{-1}((M^4(x^2-y^2))^2+4M^4x^2y^2) = \dfrac{1}{2}|M^2(x+yi)^2|^2
+\]
+for $M$ sufficiently large, so we may let $M-\sqrt{M^2-M}<\sqrt{M}$ and we may get the estimation
+\[
+\int_{p^{-1}(\tilde{p_1})} \Big|\dfrac{ze^{iz}}{1+z^2}\Big| dz \leq 2 \pi(e^{-\sqrt{M}}) 
+\]
+and
+\[
+\int_{p^{-1}(\tilde{p_2})} \Big|\dfrac{ze^{iz}}{1+z^2}\Big| dz \leq 8\sqrt{M}(M^{-1}) 
+\]
+and hence
+\[ 
+\lim_{M\to\infty} \Big|\int_{p}\dfrac{ze^{iz}}{1+z^2}dz\Big| \leq \lim_{M\to\infty}[2\pi (e^{-\sqrt{M}}) + 8\sqrt{M}(M^{-1})] = 0
+\]
+Therefore we know
+\[
+\int_{0}^{\infty} \dfrac{x\sin x}{1+x^2}dx = \dfrac{\pi }{2e} - \dfrac{1}{2}\lim_{M\to\infty} Im\Big(\int_{p}\dfrac{z\sin z}{1+z^2}dz\Big) = \dfrac{\pi}{2e}
+\]
+\par
+\vspace{0.5em}
+
+\subsection*{Chapter.4 Ex.54} 
+$\int_{-\infty}^0 \dfrac{x^{1/3}}{-1+x^5} dx$. 
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know
+\[\int_{-\infty}^0 \dfrac{x^{1/3}}{-1+x^5} dx = \int_{-\infty}^0 \dfrac{3u^3}{u^{15}-1}du = 3\int_0^{+\infty} \dfrac{u^3}{u^{15}+1}du \]
+and let $v = (u^{15}+1)^{-1}$, we have
+\[
+3\int_0^{+\infty} \dfrac{u^3}{u^{15}+1}du = \dfrac{1}{5}\int_0^{1} (1-v)^{-11/15}v^{-4/15}dv =\dfrac{1}{5}B(11/15,4/15) = \dfrac{1}{5}\Gamma(11/15)\Gamma(4/15)
+\]
+and since
+\[\Gamma(1-x)\Gamma(x) = \dfrac{\pi}{\sin(\pi x)}\]
+and we know
+\[
+\int_{-\infty}^0 \dfrac{x^{1/3}}{-1+x^5} dx = \dfrac{\pi}{5\sin(\tfrac{11}{15}\pi)}
+\]
+\vspace{0.5em}
+
+\subsection*{Chapter.4 Ex.59} 
+$\sum\limits_{k=0}^{\infty} \dfrac{1}{k^4+1}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider the function $f(z) = \dfrac{1}{(z^4+1)\tan \pi z}$ and let $D_n = D(0,n+2^{-1})$ for any $n\in\N, n \geq 1$. Notice the only poles of $f$ on $D_n, n\geq 10$ are $e^{i\tfrac{\pi}{4}},e^{i\tfrac{3\pi}{4}},e^{i\tfrac{5\pi}{4}},e^{i\tfrac{7\pi}{4}}, 0 , \pm 1,\pm 2,\cdots, \pm n$. Then let $\gamma_n$ the counterclockwise boundary of $D_n$ and we know
+\[
+0 = \int_{\gamma}f(z)dz = 2\pi i (\sum\limits_{k = -n}^n \dfrac{1}{k^4+1} + Res_f(e^{i\tfrac{\pi}{4}})+Res_f(e^{i\tfrac{3\pi}{4}})+Res_f(e^{i\tfrac{5\pi}{4}})+Res_f(e^{i\tfrac{7\pi}{4}}))
+\]
+so we know
+\[
+\begin{aligned}
+\sum\limits_{k = -n}^n \dfrac{1}{k^4+1} &= -(Res_f(e^{i\tfrac{\pi}{4}})+Res_f(e^{i\tfrac{3\pi}{4}})+Res_f(e^{i\tfrac{5\pi}{4}})+Res_f(e^{i\tfrac{7\pi}{4}})) \\&= -\Big(\dfrac{1}{(z^4+1)\tan(\pi e^{i\pi/4})/(z-e^{i\pi/4})} + \dfrac{1}{(z^4+1)\tan(\pi e^{i3\pi/4})/(z-e^{i3\pi/4})} \\ &\ \ \ \ \ \ \ \ \ \ \dfrac{1}{(z^4+1)\tan(\pi e^{i5\pi/4})/(z-e^{i5\pi/4})} + \dfrac{1}{(z^4+1)\tan(\pi e^{i7\pi/4})/(z-e^{i7\pi/4})}\Big) \\
+&= -\Big(\dfrac{e^{i\sqrt{2}\pi}+e^{\sqrt{2}\pi}}{4e^{i\pi/4}(e^{i\sqrt{2}\pi}-e^{\sqrt{2}\pi})} + \dfrac{e^{-i\sqrt{2}\pi}+e^{\sqrt{2}\pi}}{4e^{i7\pi/4}(e^{-i\sqrt{2}\pi}-e^{\sqrt{2}\pi})}\\ &\ \ \ \ \ +\dfrac{e^{-i\sqrt{2}\pi}+e^{-\sqrt{2}\pi}}{4e^{i5\pi/4}(e^{-i\sqrt{2}\pi}-e^{-\sqrt{2}\pi})}+\dfrac{e^{i\sqrt{2}\pi}+e^{-\sqrt{2}\pi}}{4e^{i3\pi/4}(e^{i\sqrt{2}\pi}-e^{-\sqrt{2}\pi})}\Big)
+\end{aligned}
+\]
+and hence
+\[
+\begin{aligned}
+\sum\limits_{k = 0}^n \dfrac{1}{k^4+1} = &= -\Big(\dfrac{e^{i\sqrt{2}\pi}+e^{\sqrt{2}\pi}}{8e^{i\pi/4}(e^{i\sqrt{2}\pi}-e^{\sqrt{2}\pi})} + \dfrac{e^{-i\sqrt{2}\pi}+e^{\sqrt{2}\pi}}{8e^{i7\pi/4}(e^{-i\sqrt{2}\pi}-e^{\sqrt{2}\pi})}\\ &\ \ \ \ \ +\dfrac{e^{-i\sqrt{2}\pi}+e^{-\sqrt{2}\pi}}{8e^{i5\pi/4}(e^{-i\sqrt{2}\pi}-e^{-\sqrt{2}\pi})}+\dfrac{e^{i\sqrt{2}\pi}+e^{-\sqrt{2}\pi}}{8e^{i3\pi/4}(e^{i\sqrt{2}\pi}-e^{-\sqrt{2}\pi})}\Big)+\dfrac{1}{2}
+\end{aligned}
+\]
+\vspace{0.5em}
+
+\subsection*{Chapter.5 Ex.10} 
+Estimate the number of zeros of the given function in the given region $U$.\par
+a. $f(z) = z^8+5z^7-20,\quad U = D(0,6)$\par
+d. $f(z) = z^{10}+10ze^{z+1}-9,\quad U = D(0,1)$\par
+f. $f(z) = z^2e^z-z,\quad U = D(0,2)$
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Let $g(z) = z^8-20$ and we have
+\[
+|f(z)-g(z)| = |5z^7| = 5\cdot 6^7 \leq 6\cdot 6^7 - 20 \leq |g(z)|+|f(z)|
+\]
+on $\partial D(0,6)$ and we may know the number of zeros with multiplicities of $f$ on $D(0,6)$ equals that of $g$ on $D(0,6)$ which is 8.\par
+d. Let $g(z) = 10ze^{z+1}$ and we have
+\[
+|f(z)-g(z)| = |z^{10}-9| \leq  10 \leq |g(z)|+|f(z)|
+\]
+on $\partial D(0,1)$ and we may know the number of zeros with multiplicities of $f$ on $D(0,1)$ equals that of $g$ on $D(0,1)$ which is $1$.\par
+f. We have already know $f(z) = z(ze^z -1)$ where $0$ is a zero of $f$ but not of $ze^z - 1$, so we only need to estimate the number of zeros of $ze^z - 1$ on $D(0,2)$. Consider the equation
+\[ze^z = 1\]
+and assume $z = x+yi$, we will know
+\[
+(x+iy)e^{x+iy} = e^x(x+iy)(\cos y+i\sin y)
+\]
+and we know
+\[
+y\cos y + x\sin y = 0
+\]
+and hence $x = - y \cot y$. We assume $y\neq 0$ and we know
+\[
+x = - y\cot y
+\]
+since $\sin y$ can not be $0$. Then we know
+\[
+e^{-y\cot y}(-y\cot y\cos y - y \sin y) = -ye^{-y\cot y}(\sin y)^{-1} = 1
+\]
+and if $|y| < \pi$, we know $y/\sin y$ has to be postive and the equation above can not be true. And if $|y|\geq \pi$, we know $|z| \geq |y| \geq \pi$, which is a contradiction, then we know $y$ has to be $0$ if the equation holds on $D(0,2)$, and it is clear that
+\[xe^x = 1\]
+has only one solution if $x\in (-2,2)$, so the numbers of zeros of $ze^z- 1$ is $1$, which is obviously not $0$, so we know $f$ have 2 zeros on $D(0,2)$.
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

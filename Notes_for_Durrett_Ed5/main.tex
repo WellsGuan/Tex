@@ -1,0 +1,899 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Durrett Ed5}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\section{Martingales}
+\begin{quotation}
+p.s. for a probability space.\par
+r.v. for a random variable.\par
+\end{quotation}
+\begin{definition}
+For a p.s. $(\Omega, \F_0,P)$ a $\sigma$-field $\F \subset \F_0$ and a r.v. $X\in\F_0$ with $E|X|<\infty$. We define the $conditional\ expectation$ of $X$ given $\F$, $E(X|\F)$ to be any r.v. $Y$ that has\par
+a. $Y\in\F$.\par
+b. $\int_A X dP = \int_A YdP$ for all $A\in\F$.
+and $Y$ is said to be a $version$ of $E(X|\F)$.
+\end{definition}
+
+\begin{lemma}
+    If $Y$ satisfies (a),(b) above, then it is integrable.
+\end{lemma}
+\begin{proof}\par
+    We know
+    \[
+    \begin{aligned}
+    \int_{\{Y>0\}} YdP = \int_{\{Y>0\}} XdP < \infty
+    \int_{\{Y<0\}} YdP = \int_{\{Y<0\}} XdP <\infty
+    \end{aligned}
+    \]
+    and hence $\int |Y|dP$ finite.\par
+\end{proof}
+\begin{lemma}
+    If $Y'$ also satisfies (a),(b) in Def.1.1., then $Y=Y'$ a.s.
+\end{lemma}
+\begin{proof}\par
+    Assume $E_n = \{Y'-Y > n^{-1}\}, F_n = \{Y-Y' > n^{-1}\}, n\in \N$, then we know
+    \[n^{-1}P(E_n) \leq \int_{E_n} (Y-Y')dP = \int_{E_n}Y dP - \int_{E_n} Y' dP = 0\]
+    and hence $P(E_n)=0$ for any $n\in\N$, similarly, we know $P(F_n) = 0$ for any $n\in\N$, therefore, $Y=Y'$ a.s.
+\end{proof}
+
+\begin{theorem}
+    If $X_1 = X_2$ on $B\in \F$ then $E(X_1|\F) = E(X_2|\F)$ a.s. on $B$.
+\end{theorem}
+\begin{proof}\par
+    For any $E\subset B$, we have
+    \[0 = \int_{\{E(X_1|\F)-E(X_2|\F)>n^{-1}\}\cap E} (X_1-X_2)dP \geq n^{-1}P(\{E(X_1|\F)-E(X_2|\F)>n^{-1}\}\cap E)\]
+    and the rest is similar.\par
+\end{proof}
+
+\begin{theorem}
+    $E(X|\F)$ exists.
+\end{theorem}
+\begin{proof}\par
+    Define $\nu(E) = \int_E XdP$ for $E\in\F$ and we know $\nu \ll P$ and hence there exists $Y\in\F$ such that
+    \[\int_E YdP = \nu(E) = \int_E XdP\]
+    for all $E\in\F$ by Radon-Nikodym's Theorem.
+\end{proof}
+
+\begin{example}
+    a. If $X\in\F$, then $E(X|\F) = X$.\par
+    b. If $X$ is independent to $\F$, i.e. $P(\{X\in B\}\cap A) = P(X\in B)P(A)$, then $X$ is independent to $\chi_A$ for any $A\in\F$ and hence $E(X|\F)= EX$.\par
+    c. Suppose $\Omega_1,\Omega_2,\cdots$ is a finite or infinite partition of $\Omega$ into disjoint sets, with $P(\Omega_i) > 0, i\geq 1$ and then let $\F = \sigma(\Omega_1,\Omega_2,\cdots)$ and then
+    \[E(X|\F) = \dfrac{E(X;\Omega_i)}{P(\Omega_i)}\quad\text{on }\Omega_i\]\par
+    d. Suppose $X,Y$ have joint density $f(x,y)$ i.e.,
+    \[P((X,Y)\in B) = \int_B f(x,y) dxdy\quad\text{ for }B\in\mathcal{R}^2\]
+    then if $E|g(X)|<\infty$, then $E(g(X)|Y) = h(Y)$, where  
+    \[h(y) = \int g(x)f(x,y)dx/\int f(x,y)dx\]
+    on $\{(x,y), \int f(x,y) dx > 0\}$, and hence a.s.\par
+    e. Suppose $X$ and $Y$ are independent, let $\phi$ be a function with $E|\phi(X,Y)|<\infty$ and let $g(x) = E(\phi(x,Y))$, then $E(\phi(X,Y)|X) = g(X)$.
+    \end{example}
+\begin{proof}\par
+c. By the $\pi-\lambda$ theorem, it suffices to show that
+\[\int_A XdP = \int_A YdP\]
+for any $A\in\{\bigcup_{1\leq i \leq n}\Omega_i\}$ where $Y$ was defined as above.\par
+d. Firstly, we recall any simple function $\phi \geq 0$ will cause $\int \phi(x,y)dy$ is measurable since $\int \phi(x,y)dy = \nu(E_y)$ when $\phi = \chi_E$ and then we know for any $g\geq 0$, $\int g(x)f(x,y)dy$ is measurable and then $\int g(x)f(x,y)dy$ is measurable for general $g$, then we will know $h(Y)\in\sigma(Y)$.\par 
+Consider $A\in \sigma(Y)$, where $A = \{Y\in B\}$, then
+\[E(h(Y);A) = \int_{Y\in B} h(y)f(x,y)dx dy = \int_B \int h(y)f(x,y)dxdy = \int_B \int g(x)f(x,y)dxdy = E(g(X);A)\]
+and the conclusion goes.\par
+e. We know $g(X)\in \sigma(X)$ and then for any $A = \{X\in B\}$, we will know
+\[E(g(X);A) = \int_B g(x)dx = \int_B \int \phi(x,y) dy dx = E(\phi(X,Y);A)\]
+and hence $E(\phi(X,Y)|X) = g(X)$.
+\end{proof}
+
+\begin{definition}
+Denote
+\[
+\begin{aligned}
+P(A|\mathcal{G}) &= E(1_A|\mathcal{G}) \\
+P(A|B) &= P(A\cap B)/P(B) \\
+\end{aligned}
+\]
+and $E(X|Y) = E(X|\sigma(Y))$.
+\end{definition}
+
+\begin{theorem}
+    For the first two parts, we assume $E|X|, E|Y|<\infty$.\par
+    (a) $E(aX+Y|\F) = aE(X|\F)+E(Y|\F)$.\par
+    (b) If $X\leq Y$ then $E(X|\F) \leq E(Y|\F)$.\par
+    (c) If $X_n \geq 0$ and $X_n\uparrow X$ with $EX<\infty$ then $E(X_n|\F)\uparrow E(X|\F)$.
+\end{theorem}
+
+\begin{theorem}
+    If $\phi$ is convew and $E|X|,E|\phi(X)|< \infty$ then
+    \[\phi(E(X|\F)) \leq E(\phi(X)|\F)\]
+\end{theorem}
+\begin{proof}\par
+Let $S=\{(a,b):a,b\in\Q, ax+b \leq \phi(x)\text{ for all }x\}$, then $\phi(x) = \sup\{ax+b:(a,b)\in S\}$. And we know
+\[E(\phi(X)|\F)\geq aE(X|\F)+b\]
+and hence $E(\phi(X)|\F) \geq \phi(E(X|\F))$.\par
+\end{proof}
+
+\begin{theorem}
+    $Conditional\ expectation$ is a contraction in $L^p$, $p\geq 1$.\par
+\end{theorem}
+\begin{proof}\par
+By Theorem 1.5., we have $|E|(X|\F)|^p \leq E(|X|^p|\F)$, then we know 
+\[E(|E(X|\F)|^p) \leq E(E(|X|^p|\F)) = E|X|^p\]
+\end{proof}
+
+\begin{theorem}
+    If $\F\subset\mathcal{G}$ and $E(X|\mathcal{G}) \in \F$, then $E(X|\F) = E(X|\mathcal{G})$. 
+\end{theorem}
+
+\begin{theorem}
+    If $\F_1\subset\F_2$ then\par
+    (i) $E(E(X|\F_1)|\F_2) = E(X|\F_1)$\par
+    (ii) $E(E(X|\F_2)|\F_1) = E(X|\F_1)$\par
+\end{theorem}
+\begin{proof}\par
+    For $A\in \F_1$, we know
+    \[
+    \begin{aligned}
+    \int_A E(E(X|\F_1)|\F_2) dP &= \int_A E(X|\F_1) dP = \int_A X dP \\ 
+    \int_A E(E(X|\F_2)|\F_1) dP &= \int_A E(X|\F_2) dP = \int_A X DP
+    \end{aligned}
+    \]
+    therefore, the equalities go.
+\end{proof}
+
+\begin{theorem}
+    If $X\in\F$ and $E|Y|, E|XY| < \infty$ then
+    \[E(XY|\F) = XE(Y|\F)\]
+\end{theorem}
+\begin{proof}\par
+    For any $X,Y\geq 0$, assume $\phi_n \uparrow X$ simple, then we know $\phi_nY \uparrow XY$ and then
+    \[\int_A E(\chi_BY|\F) = \int_A \chi_BY dP = \int_{AB} YdP = \int_{AB} E(Y|\F)dP = \int_A \chi_BE(Y|\F)\]
+    for any $A,B\in\F$ and hence $E(\chi_BY|\F) = \chi_BE(Y|\F)$ for any $B\in\F$, therefore, we know $E(\phi_nY|\F) = \phi_nE(Y|\F)$. By theorem 1.3 we know $E(\phi_nT|\F)\uparrow E(XY|\F)$ and hence $E(XY|\F) = XE(Y|\F)$, so for any $X\in\F, E|Y|<\infty, E|XY|<\infty$, we can consider the positive and negative parts and the conclusion goes.
+\end{proof}
+
+\begin{theorem}
+    Suppose $EX^2 < \infty$. $E(X|\F)$ is the variable $Y\in\F$ that minimizes the "mean square error" $E(X-Y)^2$.
+\end{theorem}
+\begin{proof}\par
+    If $Z\in L^2(\F)$, then
+    \[ZE(X|\F) = E(ZX|\F)\]
+    then we know
+    \[E(ZE(X|\F)) = E(E(ZX|\F)) = E(ZX)\]
+    and hence $E(Z(X-E(X|\F))) = 0$ for any $Z\in L^2(\F)$.\par
+    If $Z = E(X|\F)-Y$, then
+    \[E(X-Y)^2 = E(X-E(X|\F)+Z)^2 = E(X-E(X|\F))^2 + EZ^2\]
+    and hence $E(X-Y)^2$ are minimal when $Y = E(X|\F)$.\par
+\end{proof}
+
+\begin{definition}
+Let $(\Omega, \F, P)$ be a probability space, $X:(\Omega,\F)\to (S,\mathcal{S})$ and $\mathcal{G}$ a $\sigma$-algebra contained by $\F$. $\mu: \Omega\times \mathcal{S} \to [0,1]$ is said to be a $regular\ conditional\ distribution$ for $X$ given $\mathcal{G}$ if\par
+a. For each $A$, $\omega \to \mu(\omega, A)$ is a version of $P(X\in A|\mathcal{G})$.\par
+b. For a.e. $\omega$, $A\to \mu(\omega, A)$ is a probability measure on $(S,\mathcal{S})$.\par
+When $S=\Omega$ and $X$ is the identity map, $\mu$ is called a $regular\ condition\ probability$.
+\end{definition}
+
+\begin{proposition}
+    Suppose $X$ and $Y$ have a joint density $f(x,y)>0$. If
+    \[\mu(y,A) = \int_A f(x,y)dx/\int f(x,y)dx\]
+    then $\mu(Y(\omega),A)$ is a r.c.d for $X$ given $\sigma(Y)$.
+\end{proposition}
+\begin{proof}\par
+    Here we know $X:(\Omega.\F) \to (\R,\mathcal{R})$, so we should check:\\
+    a. $\mu(Y(\omega), A) = \int_A f(x,Y(\omega))dx/\int f(x,Y(\omega))dx$ is a version of $P(X\in A|Y)$.\\
+    b. For a.e. $\omega$, $\mu_{Y(\omega)}(A) = \mu(Y(\omega),A)$ is a probability measure on $(\R,\mathcal{R})$.\par
+    To see the first claim, consider
+    \[
+    \begin{aligned}
+    \int_{Y\in B} P(X\in A|Y) dP &= \int_{Y\in B} \chi_{X\in A} dP = \int_B\int_A f(x,y)dxdy \\&= \int_A \int_B f(x,y)dy dx \\
+    & = \int_B \int_A f(x,y)dx dy \\
+    =\int_B \int \int_A f(x,y) dx / \int f(x,y)dx f(x,y) dx dy 
+    &= \int_{Y\in B} \mu(Y(\omega), A) dP
+    \end{aligned}
+    \]
+    and the second claim is trivial.
+\end{proof}
+\begin{theorem}
+    Let $\mu(\omega,A)$ be a r.c.d for $X$ given $\F$. If $f:(S,\mathcal{S}) \to (\R,\mathcal{R})$ has $E|f(X)|<\infty$ then
+    \[E(f(x)|\F) = \int \mu(\omega,dx)f(x)\quad a.s.\]
+\end{theorem}
+\begin{proof}\par
+    Consider $f= \chi_A$ for some $A$ mrb in $\mathcal{R}$, then $\int \mu(\omega, dx)f(x) = \mu(\omega, A) = P(X\in A|\F)$
+    and hence the equality holds for all simple functions, then the problem goes.\par
+\end{proof}
+
+Here we skip some properties of regular conditional distribution and continue to martingale.\par
+
+\begin{definition}
+    $\F_n$ is a filtration, i.e. an increasing sequence of $\sigma$-fields. A sequence $X_n$ is said to be adapted to $\F_n$ if $X_n\in\F_n$ for all $n$. If $X_n$ is sequence with\par
+    a. $E|X_n| < \infty$.\par
+    b. $X_n$ is adapted to $\F_n$.\par
+    c. $E(X_{n+1}|\F_n) = X_n$ for all $n$
+    then $X$ is said to be a $martingale$ (resp to $\F_n$). If we replace the equality into $\leq$ or $\geq$, then $X$ is said to be a $supermartingale$ or $submartingale$.\par 
+\end{definition}
+
+\begin{example}
+    (Random walk)Let $\xi_1,\xi_2,\cdots$ be independent and id.d, $S_n = S_0 +\sum\limits_{i=1}^n \xi_i$ where $S_0$ is a constant. $\F_n = \sigma(\xi_1,\cdots,\xi_n)$ and take $\F_0 = \{\emptyset,\Omega\}$.\par
+    a. If $\mu = E\xi_i = 0$ then $S_n, n\geq 0$ is a martingale with respect to $\F_n$.\par
+    b. $\mu = E\xi_i = 0$ and $\sigma^2 = \text{var}(\xi_i)<\infty$, then $S_n^2-n\sigma^2$ is a martingale.\par
+\end{example}
+\begin{proof}\par
+    a. Notice $E|S_n| < \infty, n\geq 0$, for any $A \in \F_n$, then notice
+    \[E(S_{n+1}|\F_n) = E(\xi_{n+1}|\F_n) + S_n = E\xi_{n+1} + S_n = S_n\]\par
+    b. Notice that $E|S_n - n\sigma^2|< \infty$, and
+    \[E(S_{n+1}^2-(n+1)\sigma^2|\F) = S_n^2-(n+1)\sigma^2 + \sigma^2 = S_n^2 - n\sigma^2 \]
+\end{proof}
+
+\begin{example}
+Let $Y_1,Y_2,\cdots$ be nonnegative i.i.d r.v.s with $EY_m = 1$. If $\F_n = \sigma(Y_1,\cdots,Y_n)$, then $M_n = \prod_{m\leq n} Y_m$ defines a martingale.\par
+Then assume $\phi(\theta) = Ee^{\theta \xi_i},Y_i = e^{\theta \xi_i}/\phi(\theta)$, then we know $M_n = e^{\theta S_n}/ \phi(\theta)^n$.
+\end{example}
+
+\begin{theorem}
+    If $X_n$ is a (super-/sub-)martingale then for $n>m$, $E(X_n|\F_m)\leq(\geq/=) X_m$.
+\end{theorem}
+\begin{proof}
+    Notice
+    \[E(X_{m+k}|\F_m) = E(E(X_{m+k}|\F_{m+k-1})|\F_m) \leq E(X_{m+k-1}|\F_m)\]
+    the rest proof is similar.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a martingale w.r.t. $\F_n$ and $\phi$ is a convex function with $E|\phi(X_n)| < \infty$ for all $n$ then $\phi(X_n)$ is a submartingale w.r.t. $\F_n$. Consequently, if $p\geq 1$ and $E|X_n|^p < \infty$ for all $n$, then $|X_n|^p$ is a submartingale w.r.t. $\F_n$.
+\end{theorem}
+\begin{proof}
+    Notice
+    \[E(\phi(X_{n+1})|\F_n) \geq \phi(E(X_{n+1})|\F_n) = \phi(X_n)\]
+    and the problem goes.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a submartingale w.r.t. $\F_n$ and $\phi$ is an increasing convex function with $E|\phi(X_n)| < \infty$ for all $n$, then $\phi(X_n)$ is a submartingale w.r.t. $\F_n$. Consequently\par
+    a. If $X_n$ is a submartingale then $(X_n-a)^+$ is a submartingale.\par
+    b. If $X_n$ is a supermartingale then $\min(X_n,a)$ is a supermartingale.
+\end{theorem}
+\begin{proof}
+    Notice
+    \[E(\phi(X_{n+1})|\F_n) \geq \phi(E(X_{n+1})|\F_n) \geq \phi(X_n)\]
+    then (a) is easy to be checked and hence (b) is correct.
+\end{proof}
+
+\begin{definition}
+    Let $\F_n, n\geq 0$ be a filtration. $H_n, n\geq 1$ is said to be a $predictable\ sequence$ if $H_n\in\F_{n-1}$ for all $n\geq 1$.
+\end{definition}
+
+\begin{definition}
+    We denote
+    \[(H\cdot X)_n = \sum\limits_{m=1}^n H_m(X_m-X_{m-1})\]
+\end{definition}
+
+\begin{theorem}
+    Let $X_n, n\geq 0$ be a supermartingale. If $H_n\geq 0$ is predictable and each $H_n$ is bounded then $(H\cdot X)_n$ is a supermartingale.
+\end{theorem}
+\begin{proof}
+    Consider
+    \[E((H\cdot X)_{n+1}|\F_n) = E(\sum\limits_{m=1}^{n+1} H_m(X_m-X_{m-1})|\F_n) = (H\cdot X)_n + E(X_{n+1}|\F_n) - X_n \leq (H\cdot X)_n\]
+\end{proof}
+
+\begin{definition}
+    A r.v. $N$ is said to be a $stopping\ time$ if $\{N=n\}$ in $\F_n$ for all $n>\infty$.
+\end{definition}
+\begin{theorem}
+    If $N$ is a stoppiing time and $X_n$ is a supermartingale, then $X_{N\wedge n}$ is a supermartingale.
+\end{theorem}
+\begin{proof}
+    Consider
+    \[E(X_{N\wedge n+1}|\F_n) = E(X_{n+1}\chi_{N\geq n+1}+\sum\limits_{k=0}^nX_{k}\chi_{N = k}|\F_n) \leq \chi_{N\geq n+1} X_n + \sum\limits_{k=0}^nX_{k}\chi_{N = k} = X_{N\wedge n}\]
+\end{proof}
+
+\begin{definition}
+    Suppose $X_n, n\geq 0$ is a submartingale. Let $a<b, N_0 = -1$ and for $k\geq 1$ let
+    \[
+    \begin{aligned}
+        N_{2k-1} &= \inf\{m>N_{2k-2},X_m\leq a\} \\
+        N_{2k} &= \inf\{m>N_{2k-1}, X_m \geq b\}
+    \end{aligned}
+    \] 
+    The $N_j$ are stopping times so
+    \[
+    H_m = \begin{cases}
+        1\quad\text{ if }N_{2k-1}<m\leq N_{2k}\text{ for some }k\\
+        0\quad\text{ otherwise}
+    \end{cases}
+    \]
+    defines a predictable sequence.
+\end{definition}
+\begin{proof}\par
+    Notice
+    \[\{N_{2k-1} = n\} = \bigcup_{0\leq m \leq n-1}\{N_{2k-2} = m\}\cap(\bigcap_{ n-1-m\geq k\geq 0}\{X_{m+k} > a\})\cap\{X_n \leq a\}\]
+    and
+    \[
+    \{N_{2k} = n\} = \bigcup_{0\leq m \leq n-1}\{N_{2k-1} = m\}\cap(\bigcap_{ n-1-m\geq k\geq 0}\{X_{m+k} < b\})\cap\{X_n \geq b\}
+    \]
+    and hence $N_{2k-1},N_{2k}$ are stopping times by induction.\par
+    And notice
+    \[
+    \{N_{2k-1}<m\leq N_{2k}\text{ for some }k\} = \bigcup_{k\geq 0} \{N_{2k-1} \leq m-1\}\cap\{N_{2k}\geq m\} \in \F_{m-1}
+    \]
+    and hence $H_m$ is predictable.
+\end{proof}
+
+\begin{theorem}
+    (Upcoming inequality) If $X_m,m\geq 0$, is a submartingale then
+    \[(b-a)EU_n \leq E(X_n-a)^+ - E(X_0-a)^+\]
+    where $U_n = \sup\{k, N_{2k} \leq n\}$.
+\end{theorem}
+\begin{proof}\par
+    Here we assume $Y_m = a+(X_m-a)^+$ and we have
+    \[
+    (b-a)U_n \leq (H\cdot Y)_n
+    \]
+    let $K_m = 1-H_m$ and then we know that $(K\cdot X)_n$ is a submartingale and then
+    \[E(K\cdot X)_n \geq E(K\cdot X)_0 = 0\]
+    so we know
+    \[E(H\cdot Y)_n \leq E(Y_n-Y_0) = E(X_n-a)^+ - E(X_0-a)^+\]
+    since $Y_n-Y_0 = (H\cdot Y)_n + (K\cdot Y)_n$
+\end{proof}
+
+\begin{theorem}
+    (Martingale convergence theorem) If $X_n$ is a submartingale with $\sup EX_n^+ < \infty$ then as $n\to\infty$, $X_n$ converges a.s. to a limit $X$ with $E|X|<\infty$.
+\end{theorem}
+\begin{proof}\par
+    We know $(X-a)^+ \leq X^+ +|a|$, then we know
+    \[EU_n \leq (|a|+EX_n^+)/(b-a)\]
+    so $\sup X_n^+$ will imply than $EU < \infty$ where $U = \lim U_n$ and hence for all rational $a,b$, we know
+    \[P(\{\liminf X_n < a < b < \limsup X_n\}) = 0\]
+    and hence $\lim X_n$ exists a.s. and $EX^+ \leq \liminf EX_n^+ <\infty$ and hence $X<+\infty$ a.s. and notice
+    \[EX_n^- = EX_n^+ - EX_n \leq EX_n^+ - EX_0\]
+    and hence $EX^- \leq \liminf EX_n^- \leq \liminf EX_n^+ - EX_0 < \infty$
+    therefore $E|X|<\infty$. 
+\end{proof}
+
+\begin{theorem}
+    If $X_n\geq 0$ is a supermartingale then as $n\to\infty$, $X_n\to X$ a.s. and $EX\leq EX_0$.
+\end{theorem}
+\begin{proof}\par
+    Let $Y_n = -X_n$ and hence a submartingale with $EY_n^+ = 0$, then we know $X_n \to X$ a.s. and we also have
+    \[EX \leq \liminf EX_n^+ \leq EX_0\] 
+\end{proof}
+
+\begin{proposition}
+    The theorem 1.18. provide a method to show that a.s. convergence does not guarantee convergence in $L^1$.
+\end{proposition}
+\begin{proof}\par
+Let $S_n$ be a symmetric simple random walk with $S_0 = 1$ and $P(\xi_i=1) = P(\xi_i = -1) = \tfrac{1}{2}$, let $N = \inf\{n: S_n = 0\}$ and $X_n = S_{N\wedge n}$. Then we know $X_n$ nonnegative and $EX_n = EX_0=1$ since $X_n$ is a martingale, then we know $X_n \to X$ where $X$ is some r.v. and hence $X = 0$, because there is no way to converge to others and hence $X_n$ do not converge to $X$ in $L^1$.
+\end{proof}
+
+\begin{proposition}
+    Convergence in probability do not guarantee convergence a.s.
+\end{proposition}
+\begin{proof}\par
+    Let $X_0 = 0$ and $P(X_k = 1|X_{k-1} = 0) = P(X_k = -1|X_{k-1} = 0) = \tfrac{1}{2k}, P(X_k = 0|X_{k-1} = 0) = 1-\tfrac{1}{k}$ and $P(X_k = kX_{k-1}|X_{k-1} \neq 0) = \tfrac{1}{k}, P(X_k = 0|X_{k-1} \neq 0) = 1-\tfrac{1}{k}$, then we know $X_k \to 0$ in probability, but $P(X_k = 0, k\geq K)$ and it picks discrete values and hence $X_k$ can not converge to $0$ a.s. 
+\end{proof}
+
+\begin{theorem}
+Let $X_1,X_2,\cdots$ be a martingale with $|X_{n+1}-X_n| \leq M < \infty$. Let
+\[
+\begin{aligned}
+    C &= \{\lim X_n\text{ exists and is finite}\} \\
+    D &= \{\limsup X_n = +\infty\text{ and }\liminf X_n = -\infty\} \\
+\end{aligned}
+\]
+Then $P(C\cup D) = 1$.
+\end{theorem}
+\begin{proof}
+    We may assume that $X_0 = 0$ and then for $K\geq 0$ denote
+    \[
+    N = \inf\{n,X_n \leq - K\}
+    \]
+    then we know $X_{n\wedge N}$ is a martingale since
+    \[
+    E(X_{(n+1)\wedge N}|\F_n) = E(X_{n+1}\chi_{N \geq n+1}+X_{N}\chi_{N\leq n}|\F_n) = X_{N}\chi_{N\leq n} + X_n\chi_{N\geq n+1} = X_{n\wedge N}
+    \]
+    and $X_{n\wedge N} \geq -K-M$ and hence $X_{n\wedge N} + K +M \geq 0$ and we may know $X_{n\wedge N}$ will converges to $X$ a.s. with $X$ finite. So if $\liminf X_n > -\infty$, then we know there exists $K$ large enough such that $N = \infty$ and hence $X_n$ will converges to a finite limit on $\{\liminf X_n > -\infty\}$. For $\limsup X_n$ consider $N = \inf\{x, X_n \geq K\}$ with $K+M - X_{n\wedge N}$ will converges and the $\lim X_n$ will exists and be finite on $\{\limsup X_n = +\infty\}$ and hence the conclusion holds.
+\end{proof}
+
+\begin{theorem}
+    (Doob's decomposition) Any submartingale $X_n, n\geq 0$ can be written in a unique way as $X_n = M_n + A_n$ where $M_n$ is a martingale and $A_n$ is a predictable increasing sequence with $A_0 = 0$.    
+\end{theorem}
+\begin{proof}
+    If so we know
+    \[
+    E(X_{n+1}|\F_n) = M_n + A_{n+1} = X_n - A_n + A_{n+1}
+    \]
+    and hence set
+    \[
+    A_n = \sum\limits_{k=1}^{n} (E(X_{k}|\F_{k-1})-X_{k-1})
+    \]
+    and
+    \[
+    M_k = X_k - A_k
+    \]
+    then it is easy to check $A_n$ is predictable increasing sequence and
+    \[
+    E(M_{n+1}|\F_n) = E(X_{n+1}-\sum\limits_{k=1}^{n+1} (E(X_{k}|\F_{k-1})-X_{k-1})|\F_n) = X_n - A_n
+    = M_n
+    \]
+\end{proof}
+
+\begin{theorem}
+    (Second Borel-Cantelli lemma) Let $\F_n,n\geq 0$ be a filtration with $\F_0 = \{\emptyset,\Omega\}$ and let $B_n, n\geq 1$ a sequence of events with $B_n \in \F_n$. Then
+    \[\{B_n,i.o.\} = \{\sum\limits_{n=1}^{\infty}P(B_n|\F_{n-1}) = \infty\}\]
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    \sum\limits_{i=1}^{\infty} \chi_{B_i} = \infty
+    \]
+    on $\{B_n\ i.o.\}$
+    and we know
+    \[
+    \chi_{B_n} = M_n + \sum\limits_{k=1}^n (E(\chi_{B_k}|\F_{k-1})-\chi_{B_{k-1}})
+    \]
+    and hence
+    \[
+    M_n = \sum\limits_{i=1}^n \chi_{B_i} - \sum\limits_{i=1}^{n}E(\chi_{B_i}|\F_{i-1})
+    \]
+    is a martingale. Then we know
+    \[
+    EM_n = EX_0 <\infty
+    \]
+    which means $M_n$ is a martingale with bounded increments and we know
+    \[
+    \{B_n\ i.o.\} = \{\sum P(B_n|\F_{n-1})=\infty\}
+    \]
+    on both part of $\Omega$.
+\end{proof}
+
+\begin{example}
+    (Polya's Urn Scheme) An urn contains $r$ red and $g$ green balls. At each time we draw a ball out, then replact it with $c$ balls with the same color. Let $X_n$ be the fraction of green balls after the $n^{th}$ draw. 
+\end{example}
+\begin{proof}\par
+    $X_n$ is a martingale because assume $\F_n$ is is consisting by $E_{i,j} = \{\text{There are }i\text{ green balls and }j\text{ red balls in the urn.}\}$ and it suffices to show that
+    \[
+    \dfrac{j}{i+j}P(E_{i,j})
+    = \int_{E_{i,j}}E(X_{n+1}|\F_n)
+    \]
+    where we know
+    \[
+    X_{n+1}=\begin{cases}
+        (j+c)/(i+j+c)&\quad\text{ with probability }j/(i+j)\\
+        (j)/(i+j+c)&\quad\text{ with probability }i/(i+j)\\
+    \end{cases}
+    \]
+    and the equality is easy to be checked. Since $X_n \geq 0$, then we know $X_n$ will converges to $X$.
+\end{proof}
+
+\begin{theorem}
+    Assume $\mu$ is a finite measure and $\nu$ a probability measure on $(\omega,\F)$ with $\F_n \uparrow \F$,i.e. $\sigma(\bigcup \F_n) = \F$ and $\mu_n,\nu_n$ are the restrictions on $\F_n$ of $\mu,\nu$. Suppose $\mu_n \leq \nu_n$ for all $n$. Let $X_n = \dfrac{d\mu_n}{d\nu_n}$ and let $X = \limsup X_n$, then
+    \[
+    \mu(A) = \int_A Xd\nu + \mu(A\cap\{X=\infty\})
+    \]
+    for any $A\in\F$.
+\end{theorem}
+\begin{proof}\par
+    We should show a lemma at first.
+    \begin{lemma}
+        $X_n$ defined on $(\Omega,\F,\nu)$ is a martingale w.r.t. $\F_n$.
+    \end{lemma}
+    \begin{proof}\par
+        For any $A\in \F_n$, we know
+        \[
+        \int_A X_n d\nu = \int_A X_n d\nu_n = \mu_n(A) = \mu(A)
+        \]
+        and which means $\int_A X_n d\nu= \int_A X_{n+1} d\nu$
+        for any $A \in \F_n$.
+    \end{proof}
+    Now let's come back to the proof of the original theorem.\par
+    Now we know $X_n$ is a nonnegative martingale on $(\Omega,\F,\nu)$ and hence $X_n \to X$ $\nu$-a.s. Without loss of the generality, we may assume $\mu$ is a probability measure and let $\rho = (\mu+\nu)/2$, then we know $\mu\ll \nu \ll \rho$ and similarly define $\rho_n$ and $Y_n = d\mu_n/d\rho_n, Z_n = d\nu_n/d\rho_n$ and $Y_n+Z_n = 2, Y_n,Z_n \geq 0$ $\rho_n$-a.s. By the lemma, we will know that $Y_n,Z_n$ are bounded martingales and we may assume they have limits $Y,Z$.\par
+    Notice for $A\in \F_n$, we have
+    \[
+    \mu(A) = \int_A Y_n d\rho \to \int_A Y d\rho 
+    \]
+    by the DCT and hence $\mu(A) = \int_A Y d\rho$ for all $A\in \bigcup_{m}\F_m$ and we will know $\mu(A) = \int_A Yd\rho$ for $A\in \F$ by the $\pi-\lambda$ theorem and hence $Y = d\mu/d\rho$, then we will know $Z = d\nu/d\rho$. Then notice
+    \[
+    0 = \int_{\{Z_n = 0\}} Z_n d\rho_n = \nu_n(\{Z_n = 0\})
+    \]
+    and hence $\int_{Z_n = 0}Y_n d\rho_n = \mu_n(\{Z_n = 0\}) = 0$, which means $Y_n = 0$ $\rho$-a.s. on $\{Z_n = 0\}$ which means $Z_n > 0$ a.s. since $\{Y_n = Z_n = 0\}$ is $\rho$-null. Then we know $X_n = Y_n/Z_n$ $\rho$-a.s. and hence $X = Y/Z$ $\rho$-a.s. and hence $\nu$-a.s.\par
+    Let $W = (1/Z)\chi_{Z>0}$ and then $1 = ZW + \chi_{Z=0}$ and we have
+    \[
+    \mu(A) = \int_A YWZ d\rho + \int_A \chi_{Z = 0}Yd\rho = \int_A Xd\nu + \mu(A\cap\{X=\infty\})
+    \]
+    since $\nu(\{Z= 0\}) = \int_{\{Z=0\}} Zd\rho = 0$ and $\{X=\infty\} = \{Z=0\}$ $\rho$-a.s. and hence $\mu$-a.s.
+\end{proof}
+
+\begin{definition}
+    Let $\xi_i^n, i,n\geq 1$ be $i.i.d.$ nonnegative integer-valued r.v.s and define
+    \[
+    Z_{n+1} = \begin{cases}
+    \xi_1^{n+1}+\cdots\xi_{Z_n}^{n+1}\quad&Z_n>0 \\
+    0&Z_n=0
+    \end{cases}
+    \]
+    where $Z_0 = 1$ and $Z_n$ is called a $Galton-Watson$ process, $p_k = P(\xi_i^n = k)$ is called the offspring distribution.
+\end{definition}
+
+\begin{lemma}
+    Let $\F_n = \sigma(\xi_i^m:i\geq 1, 1\leq m \leq n)$ and $\mu = E\xi_i^m \in (0,\infty)$, then $Z_n/\mu^n$ is a martingale w.r.t. $\F_n$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[
+    E(Z_{n+1}/\mu^{n+1}|\F_n) = E(\sum\chi_{Z_n = k}\sum\limits_{i=1}^k \xi_i^{n+1})/\mu^{n+1} = k\chi_{Z_n = k}/\mu^n = Z_n/\mu^n
+    \]
+\end{proof}
+
+\begin{theorem}
+    If $\mu<1$ then $Z_n = 0$ for all $n$ sufficiently large, so $Z_n/\mu^n \to 0$.
+\end{theorem}
+\begin{proof}\par
+    $E(Z_n/\mu^n) = E(Z_0) = 1$ and hence
+    \[
+    P(Z_n > 0) \leq \mu^n
+    \]
+    and hence
+    \[P(Z_n > 0\ i.o.) = 0\]
+    by the Borel-Cantelli's theorem, which means $Z_n = 0$ for all $n$ sufficiently large almost surely.
+\end{proof}
+
+\begin{theorem}
+    If $\mu=1$ and $P(\xi_i^m = 1)<1$, then $Z_n = 0$ for all $n$ sufficiently large.
+\end{theorem}
+\begin{proof}\par
+    $2P(Z_n>1) \leq \mu^n$ and hence $Z_n \leq 1$ for all $n$ sufficiently large almost surely, and the $Z_n = 0$ for all $n$ sufficiently large will not happen iff $Z_n = 1$ for all $n$ sufficiently large, which owns the probability of $0$ and hence the conclusion holds.
+\end{proof}
+
+\begin{definition}
+    For $s\in [0,1]$, let $\phi(s) = \sum_{k\geq 0} p_ks^k$ and $\phi$ is called the $generating\ function$ for the offspring distribution $p_k$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\mu>1$. If $Z_0 = 1$ then $P(Z_n = 0\text{ for some }n) = \rho$ which is the only solution of $\phi(\rho) = \rho$ in $[0,1)$.    
+\end{theorem}
+\begin{proof}\par
+    Firstly let us show the existence. We can calculate
+    \[\phi'(s) = \sum kp_ks^{k-1}\]
+    by some methods in real analysis and hence $\phi'(s) > h+\epsilon$ for some $\epsilon > 0$ near $1$ and hence there have to be a point in $[0,1)$ such that $\phi(\rho) = \rho$ since $\phi(0)\geq 0$. And $\phi'$ is increasing strictly on $[0,1)$ guaranteeing that the point is unique.\par
+    Then consider $\theta_m = P(Z_m = 0)$, then $\theta_m = \phi(\theta_{m-1})$ which can be implied by consider $Z_1 = k$ separately.\par
+    Then notice $\theta_0 = 0$ and then $\theta_m \leq \rho$ may implie that $\theta_{m+1} = \phi(\theta_m) \leq \phi(\rho) \leq \rho$ and hence $\phi(\theta_m) \geq \theta_m$, which means $\theta_m$ is increasing, then we know $\theta_m \uparrow \rho$.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a submartingale and $N$ is a stopping time with $P(N\leq k )= 1$, then 
+    \[
+    EX_0 \leq EX_N \leq EX_k
+    \]
+\end{theorem}
+\begin{proof}\par
+    We know that $X_{N\wedge n}$ is a submartingale, since
+    \[E(X_{N\wedge(n+1)}|\F_n) = \chi_{N>n}E(X_{n+1}|\F_n) + \sum\limits_{i=0}^n \chi_{N = i}X_i \geq \chi_{N>n}X_n + + \sum\limits_{i=0}^n \chi_{N = i}X_i= X_{N\wedge n}\]
+    so
+    \[EX_0 = EX_{N\wedge 0} \leq EX_{N\wedge K} = EX_k\]
+    Similarly, we let $K_n = \chi_{N < n}$ and we know
+    \[
+        E[(K\cdot X)_{n+1}|\F_n] = E[(\sum\limits_{i=1}^{n+1}K_i(X_i-X_{i-1}))|\F_n] = (K\cdot X)_n + K_{n+1}E(X_{n+1}-X_n|\F_n) \geq (K\cdot X)_n
+    \]
+    and hence $(K\cdot X)_m$ becomes a submartingale. And notice $(K\cdot X)_m = X_m - X_{N\wedge m}$ and hence
+    \[EX_k - EX_{N\wedge k} = EX_k - EX_N \geq E(K\cdot X)_0 = 0\]
+\end{proof}
+
+\begin{theorem}
+    (Doob's inequality)Let $X_m$ be a submartingale, 
+    \[\bar{X}_n = \max_{0\leq m \leq n}X_m^+\]
+    and let $\lambda >0, A = \{\bar{X}_n \geq \lambda\}$, then
+    \[\lambda P(A) \leq EX_n\chi_A \leq EX_n^+\]
+\end{theorem}
+\begin{proof}\par
+    Let $N = \inf\{m, X_m \geq \lambda\}\wedge n$ and it is easy to check that $N$ is a stopping time, since we know $X_N \geq \lambda$ on $A$ and by theorem 1.26, we know
+    \[\lambda P(A) \leq EX_N\chi_A \leq EX_n\chi_A\]
+    since
+    \[EX_N\chi_{A^c} = EX_n\chi_{A^c}\]
+    and the second inequality is trivial.
+\end{proof}
+
+\begin{theorem}
+    ($L^p$ maximum inequality) If $X_n$ is a submartingale, then for $1< p < \infty$
+    \[E(\bar{X}_n^p) \leq \Big(\dfrac{p}{p-1}\Big)^p E(X_n^+)^p\]
+    Consequently, if $Y_n$ is a martingale and $Y_n^* = \max_{0\leq m \leq n} |Y_m|$, we have
+    \[E|Y_n^*|^p \leq \Big(\dfrac{p}{p-1}\Big)^p E(|Y_n|^p)\]
+\end{theorem}
+\begin{proof}
+    We may know that
+    \[
+    \begin{aligned}
+    E[(\bar{X}_n\wedge M)^p] &= \int_0^{\infty} p\alpha^{p-1}P(\bar{X}_n\wedge M \geq \alpha)d\alpha     \\
+    &\leq p\int_0^{\infty} \alpha^{p-1}(\alpha^{-1}\int X_n^+\chi_{(\bar{X}_n\wedge M)\geq \alpha}dP)d\alpha \\
+    & = \int p\int\alpha^{p-2}\chi_{(\bar{X}_n\wedge M) \geq \alpha} d\alpha X_n^+ dP \\
+    & = \int\Big(\dfrac{p}{p-1}X_n^+(\bar{X}_n\wedge M)^{p-1}\Big)dP \\
+    &= \Big(\dfrac{p}{p-1}\Big)(E(X_n^+)^p)^{1/p}(E((\bar{X}_n\wedge M)^{p-1})^{p'})^{1/p'}
+    \end{aligned}
+    \]
+    and hence the inequality holds. For the latter consequence, notice we have $|Y_n|$ is a submartingale by the Jensen's inequality, and hence we may use the first inequality to $|Y_n|$ and the inequality holds.
+\end{proof}
+
+\begin{theorem}
+    ($L^p$ convergence theorem) If $X_n$ is a martingale with $\sup E|X_n|^p < \infty$ where $p > 1$, then $X_n \to X$ a.s. and in $L^p$.
+\end{theorem}
+\begin{proof}
+    It is easy to check that $\sup EX_n^+$ is finite and we may use the Martingale convergence theorem to $X_n$ and hence there exists $X$ such  that $X_n \to X$ a.s. Also we may know that
+    \[E(X_n^*)*p \leq \Big(\dfrac{p}{p-1}\Big)^p E|X_n|^p < M\]
+    for some positive constant $M$ and by the MCT, we know $\sup |X_n| \in L^p$ and hence we may use the DCT to $X_n$ and hence $X_n \to X$ in $L^p$.
+\end{proof}
+
+\begin{theorem}
+    (Orthogonality of martingale increments) Let $X_n$ be a martingale with $EX_n^2 < \infty$ for all $n$. If $m\leq n$ and $Y\in\F_m$ has $EY^2 < \infty$ then
+    \[E((X_n-X_m)Y) = 0\]
+    and hence if $l<m<n$
+    \[E((X_n-X_m)(X_m-X_l)) = 0\] 
+\end{theorem}
+\begin{proof}
+    We know
+    \[E|(X_n-X_m)Y| < \infty\]
+    Then we know
+    \[
+    E((X_n-X_m)Y) = E[E((X_n-X_m)Y|\F_m)] = E(YE(X_n-X_m|\F_m)) = 0
+    \]
+\end{proof}
+
+\begin{theorem}
+    (Conditional variance formula) If $X_n$ is a martingale with $EX_n^2 < \infty$ for all $n$,
+    \[E((X_n-X_m)^2|\F_m) = E(X_n^2|F_m) - X_m^2\]
+\end{theorem}
+
+\begin{definition}
+    Assume $X_n$ is a martingale with $X_0 = 0$ and $EX_n^2 < \infty$ for all $n$, then we know $X_n^2$ is a submartingale and by Doob's decomposition we may write
+    \[X_n^2 = M_n+A_n\]
+    with $M_n$ a marignale and
+    \[A_n = \sum\limits_{m=1}^n E((X_m-X_{m-1})^2|F_{m-1})\]
+    and then $A_n$ is called the increasing process associated with $X_n$. 
+\end{definition}
+
+\begin{theorem}
+    $E(\sup_m|X_m|^2) \leq 4EA_{\infty}$ where $A_{\infty} = \lim_{n\to\infty}{A_n}$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    E|X_n^*|^2 \leq 4 E(X_n^2)
+    \]
+    by the $L^p$ maximum inequality and notice
+    \[
+    E(A_n) = E(X_n^2)- E(M_n) = E(X_n^2) - E(X_0^2) = E(X_n^2)
+    \]
+    and the rest is by the MCT.
+\end{proof}
+
+\begin{theorem}
+    $\lim_{n\to\infty} X_n$ exists and is finite a.s. on $\{A_{\infty} < \infty\}$.
+\end{theorem}
+\begin{proof}
+    Let $N = \inf\{n, A_{n+1}>a^2\}$ and $N$ will be a stopping time. Then we know $X_{N\wedge n}$ will be a martingale and we know the increasing process of $X_{N\wedge n}$ will be $A_{N\wedge n}$ and hence
+    \[E(\sup X_{N\wedge n}^2) \leq 4 a^2\]
+    and then we know $X_{N\wedge n}$ converges a.s. and in $L^2$, since on $A_{\infty} < a^2$, there exists $b^2$ such that $X_{N\wedge n} = X_n$, so we know $\lim X_n$ exists a.s. on $A_{\infty} < a^2$, let $n \in \N$ and the conclusion holds.
+\end{proof}
+
+\begin{definition}
+    A collection of r.v.s $X_i, i\in I$ is uniformly integrable if
+    \[
+    \lim_{M\to\infty}\Big(\sup_{i\in I} E(|X_i|;|X_i|>M)\Big) = 0
+    \]
+\end{definition}
+
+\begin{theorem}
+    Given a probability space $(\Omega,\F_0,P)$ and an $X\in L^1$ then $\{E(X|\F), \F\text{ is a }\sigma\text{-field} \subset \F_0\}$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+    For any $\epsilon > 0$, we know there exists $M$ such that $E|X|/M < \delta$, and for any $A,P(A)<\delta$, we have $E(|X|;A)<\epsilon$, now we notice
+    \[
+    |E(X|\F)| \leq E(|X||\F)
+    \]
+    by the Jensen's inequality and hence we know
+    \[
+    E(|E(X|\F)|;|E(X|\F)| > M) \leq E(E(|X||\F);E(|X||\F) > M) = E(|X|;E(|X||\F) > M)
+    \]
+    and then
+    \[
+    P\{E(|X||\F) > M\} \leq E|X|/M < \delta
+    \]
+    and hence
+    \[
+    E(|E(X|\F)|;|E(X|\F)| > M) < \epsilon
+    \]
+    for any $\F$.
+\end{proof}
+
+\begin{theorem}
+    Let $\phi \geq 0$ be any function with $\phi(x)/x \to \infty$ as $x\to\infty$. If $E\phi(|X_i|) \leq C$ for all $i \in I$, then $\{X_i, i\in I\}$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+    Let $\epsilon_M = \sup\{x/\phi(x), x\geq M\}$, then for $i\in I$
+    \[E(|X_i|;|X_i| > M) \leq \epsilon_M E(\phi(|X_i|); |X_i| > M) \leq C\epsilon_M\]
+    and $\epsilon_M \to 0$ as $M\to\infty$.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $E|X_n| <\infty$ for all $n$. If $X_n\to X$ in probability then the following are equivalent\par
+    a. $\{X_n, n\geq 0\}$ is uniformly integrable.\par
+    b. $X_n\to X$ in $L^1$.\par
+    c. $E|X_n| \to E|X| < \infty$.
+\end{theorem}
+\begin{proof}
+    (i)$\implies$(ii). Let $\phi_M(x) = sgn(x)M$ if $|x|>M$ else $\phi_M(x) = x$ and we know
+    \[
+    |\phi_M(Y)-Y| = (|Y|-M)^+ \leq |Y|\chi_{|Y|\geq M}
+    \]
+    and we know
+    \[
+    E|X_n-X| \leq E|\phi_M(X_n)-\phi_M(X)| + E(|X_n|;|X_n| > M) + E(|X|;|X| > M)
+    \]
+    by the triangle inequality. Then it is easy to check $\phi_M(X_n) \to \phi(X)$ in probability, then since $\phi_M(X_n)-\phi(X)$ is bounded, we know
+    \[E|\phi_M(X_n)-\phi_M(X)\]
+    converges to $0$. Then by the Fatou's lemma we know $E|X| < \infty$ and the rest is easy to be check by choosing $M$ large.\par
+    (ii)$\implies$(iii). Trivial\par
+    (iii)$\implies$(i). Let $\phi_M$ be $x$ when $x \in [0,M-1]$ and $0$ on $[M,\infty)$, the rest is linear. We know $E\phi_M(|X|) \to E|X|$ by the DCT and it is easy to check that $E\phi_M(|X_n|) \to E\phi_M(|X|)$. Then
+    \[E(|X_n|; |X_n|>M) \leq E|X_n| - E\phi_M(|X_n|) \leq E|X| - E\phi_M(|X|) < \epsilon\]
+    for $M, n$ large enough.
+\end{proof}
+
+\begin{theorem}
+    For a submartingale, the following are equivalent\par
+    a. It is uniformly integrable\par
+    b. It converges a.s. and in $L^1$.\par
+    c. It converges in $L^1$.
+\end{theorem}
+\begin{proof}
+    (i)$\implies$(ii). We know $\sup E|X_n| < \infty$ so the martingale convergence theorem implies $X_n \to X$ a.s. and hence in probability, which implies that the convergence in $L^1$ by theorem 1.36. (ii)$\implies$(iii) is trivial.\par
+    (iii)$\implies$(i). Convergence in $L^1$ implies convergence in probability, and the rest is due to Theorem 1.36.
+\end{proof}
+
+\begin{lemma}
+    If integrable random variables $X_n\to X$ in $L^1$, then
+    \[E(X_n;A) \to E(X;A)\]
+\end{lemma}
+\begin{proof}
+    We know
+    \[|EX_m\chi_A - EX\chi_A \leq E|X_m\chi_A - X\chi_A| \leq E|X_m - X| \to 0\]
+\end{proof}
+
+\begin{lemma}
+    If a martingale $X_n\to X$ in $L^1$ then $X_n = E(X|\F_n)$.
+\end{lemma}
+\begin{proof}
+    We know
+    \[E(X_m|\F_n) = X_n\]
+    for any $m>n$, and hence for $A\in\F_n$, we know $E(X_n;A) = E(X_m;A)$. However, $E(X_n;A) \to E(X;A)$, so we know $E(X_n;A) = E(X;A)$ for any $A\in\F_n$ and hence $X_n = E(X|\F_n)$.
+\end{proof}
+
+\begin{theorem}
+    For a martingale, the following are equivalent\par
+    a. It is uniformly integrable\par
+    b. It converges a.s. and in $L^1$\par
+    c. It converges in $L^1$\par
+    d. There is an integrable random variable $X$ such that $X_n = E(X|\F_n)$.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $\F_n \uparrow \F_{\infty}$ then
+    \[E(X|\F_n) \to E(X|\F_{\infty})\ a.s.\text{and in }L^1\]
+\end{theorem}
+\begin{proof}
+    We know $Y_n = E(X|\F_n)$ is a martingale and uniformly integrable, so $Y_n$ converges a.s. and in $L^1$ to $Y$ and we know
+    \[
+    \int_A X = \int_A Y
+    \]
+    for any $A\in\F_n$, then we may use the $\pi-\lambda$ theorem to show that for any $A\in\F_{\infty}$ the equality holds, so $Y = E(X|\F_{\infty})$ since $Y$ is $\F_{\infty}$ measurable.
+\end{proof}
+
+\begin{theorem}
+    (Levy 0-1 Law) If $\F_n\uparrow \F_{\infty}$ and $A\in\F_{\infty}$ then $E(\chi_A|\F_n) \to \chi_A$ a.s. 
+\end{theorem}
+
+\begin{theorem}
+    (DCT for conditional expectations) Suppose $Y_n\to Y$ a.s. and $|Y_n| \leq Z$ for all $n$ where $EZ<\infty$. If $\F_n \uparrow\F_{\infty}$ then
+    \[E(Y_n|\F_n) \to E(Y|\F_{\infty})\ a.s.\]
+\end{theorem}
+\begin{proof}
+    Let $W_N = \sup\{|Y_n-Y_m|:n,m\geq N\}$ and we know $W_N \leq 2Z$, and
+    \[
+    \limsup_{n\to \infty}E(|Y_n-Y||\F_n) \leq \lim_{n\to\infty} E(W_N|\F_n) = E(W_N|\F_{\infty})
+    \]
+    since $W_N \downarrow 0$ a.s. and we know
+    \[
+    E(W_N|\F_{\infty}) \downarrow 0
+    \]
+    by theorem 1.3.c and hence
+    \[
+    |E(Y_n|\F_n) - E(Y|\F_n)| \leq E(|Y_n-Y||\F_n) \to 0
+    \]
+    by Jensen's ineq. Also $E(Y|\F_n) \to E(Y|\F_{\infty})$ by theorem 1.39. So the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a uniformly integrable submartingale then for any stopping time $N$, $X_{N\wedge n}$ is uniformly integrable.
+\end{theorem}
+\begin{proof}
+    We know $X_n^+$ is a submartingale and then
+    \[EX_{N\wedge n}^+ \leq EX_n^+\]
+    by theorem 1.26. Notice $X_n^+$ is uniformly integrable and hence
+    \[\sup_{n\geq 0} EX_{N\wedge n}^+ \leq \sup_{n\geq 0}EX_n^+ < \infty\]
+    So we know $X_{N\wedge n} \to X_N$ where $X_{\infty} = \lim X_n$ and $E|X_N| < \infty$. Then
+    \[
+    E(|X_{N\wedge n}|;|X_{N\wedge n}| > K) = E(|X_N|;|X_N>K, N \leq n) + E(|X_n|;|X_n|>K,N>n)
+    \]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $E|X_N| < \infty$ and $X_n\chi_{N>n}$ is uniformly integrable, then $X_{N\wedge n}$ is uniformly integrable and hence $EX_0 \leq EX_N$.
+\end{theorem}
+\begin{proof}
+    Notice
+     \[
+    E(|X_{N\wedge n}|;|X_{N\wedge n}| > K) = E(|X_N|;|X_N>K, N \leq n) + E(|X_n|;|X_n|>K,N>n)
+    \]
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a uniformly integrable submartingale then for any stopping time $N\leq\infty$, we have $EX_0 \leq EX_N \leq EX_{\infty}$, where $X_{\infty} = \lim X_n$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[EX_0 \leq E_{N\wedge n} \leq EX_n\]
+    and since $X_n\to X_{\infty}$ in $L^1$ and $X_{N\wedge n} \to X_{N}$ in $L^1$ and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $X_n$ is a nonnegative supermartingale and $N\leq \infty$ is a stopping time, then $EX_0 \geq EX_N$ where $X_{\infty} = \lim X_n$.
+\end{theorem}
+\begin{proof}
+    $X_[\infty] = \lim X_n$ exists by the martingale convergence theorem. By Fatou's lemma
+    \[
+    EX_0 \geq \liminf EX_{N\wedge n} \geq X_N
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $X_n$ is a submartingale and $E(|X_{n+1}-X_n|\F_n) \leq B$ a.s. If $N$ is a stopping time with $EN < \infty$ then $X_{N\wedge n}$ is uniformly integrable and hence $EX_N \geq EX_0$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[|X_{N\wedge n}| \leq |X_0| + \sum\limits_{m=0}|X_{m+1}-X_m|\chi_{N>m}\]
+    Notice
+    \[
+    E(|X_{m+1}-X_m|;N>m) = E(E(|X_{m+1}-X_m||\F_m); N > m) \leq BP(N>m)
+    \]
+    and hence
+    \[
+    E\sum\limits_{m=0}|X_{m+1}-X_m|\chi_{N>m} = BEN
+    \]
+    and the rest is easy to be checked.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,115 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework04 - MATH 722}
+\author{Boren(Wells) Guan}
+\date{February 26,2024}
+% 本文档命令
+\usepackage{array,url}
+\usepackage[notextcomp]{stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Chapter.5 Ex.18} 
+Let $p_t(Z) = a_0(t)+a_1(t)z+\cdots+a_n(t)z^n$ be a polynomial in which the coefficients depend continuously on $t\in(-1,1)$. Prove that if the roots of $p_{t_0}$ are distinct, for some fixed value of the parameter, then the same is true for $p_t$ when $t$ is sufficiently close to $t_0$ - provided that the degree of $p_t$ remains the same as the degree of $p_{t_0}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Without loss of the generality, we may assume that $a_n(t)\neq 0$ for all $t\in (-1,1)$ since the degree of $p_t$ does not change. We may consider
+\[
+I_{(t,z,r)} = \dfrac{1}{2\pi i}\int_{\partial B(z,r)} \dfrac{p_t'(\xi)}{p_t(\xi)}d\xi 
+\]
+and since $p_{t_0}$ has isolated zeros $z_1,z_2,\cdots,z_n$, then we may find $r_i$ small enough such that $p_{t_0}(\xi) \neq 0$ on $\partial B(z_i,r_i)$ and we may also find $\delta$ small enough such that $p_t(\xi)\neq 0$ on $\partial B(z_i,r_i)$ for any $t\in(t_0-\delta,t_0+\delta)$, so we may know
+\[
+I_{(t,z_i,r_i)} = I_{(t_0,z_i,r_i)} = 1
+\] 
+for any $t\in (t_0-\delta,t_0+\delta)$ and since the degree of $p_t$ is always $n$, then we know $p_t$ has also $n$ distinct zeros if $t$ is sufficiently close to $t_0$.
+\vspace{0.5em}
+
+\subsection*{Chapter.6 Ex.1} 
+Does there exist a holomorphic mapping of the disc onto $\C$?
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider
+\[f(z) = (\dfrac{2}{z-i}-3i)^2\]
+will be a required map.
+\vspace{0.5em}
+
+\subsection*{Chapter.6 Ex.2} 
+Prove that if $f$ is entire and one-to-one, then $f$ must be linear.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider $g(z) = f(1/z)$ is a meromorphic function on $\C-\{0\}$ and $0$ is a pole of $g$ since, if $0$ is removable, then $f$ is constant which is a contradiction. If $0$ is an essential singularity, then we know there exists a small ball $D$ centered at $0$ such that $g(D-\{0\})$ is dense in $\C$, but $g(\C-\overline{D})$ is open and hence $g$ is not one-to-one, which is a contradiction, and consider $f$ has a series expansion at $0$ by
+\[f(z) = \sum\limits_{n\geq 0} a_n z^n\]
+and hence
+\[
+    g(z) = \sum\limits_{n\geq 0}a_n z^{-n}
+\] 
+is a Laurent expansion of $g$, and hence $f$ will become a polynomial on $\C$, however, $f$ cannot have degree greater than $2$, we may always find more than $2$ zeros points or more than $2$ distinct points with the same image around the unique zero of $f$. Therefore, $f$ has to be linear.
+\vspace{0.5em}
+
+
+\subsection*{Chapter.6 Ex.5} 
+Let $\Omega = \C-\{0\}$. Give an explicit description of all the biholomorphic self-maps of $\Omega$. Now let $\Omega$ be $\C-\{P_1,\cdots,P_k\}$. Give an explicit description of all the biholomorphic self-maps of $\Omega$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Firstly, assume $f$ is a conformal map from $\C-\{0\}$ to itself, we refer the proof of Ex.2 and we know $f$ can not have an essential singularity at $0$, similarly $f$ can not have an essential singularity at $\infty$ by considering $f(1/z)$. If $f$ has a removable singularity at $0$, then $\hat{f}(0) \in \{0,\infty\}$ or $f^{-1}\circ\hat{f}(0) = 0$ which is a contradiction. If $\hat{f}(0) = 0$, then we may consider the expansion of $\hat{f}$ at $0$ and hence it becomes a polynomial, with degree less than $1$ according to the proof of Ex.2. If $\hat{f}(0) = \infty$, then consider $g(z) = f^{-1}(1/z)$ and the problem goes. Therefore, $f(z) = az$ or $a/z$ for some $a\in\C-\{0\}$.\par
+Similarly, for $\Omega = \C-\{P_1,\cdots,P_k\}$, we know $f$ have removable singularity or poles at $P_i$, and if $P_i$ is a removable singularity, we know $\hat{f}(P_i)$ will be some $P_j$. Without loss of the generality, we assume $P_1,\cdots,P_m$ are removable singularities with $\hat{f}(P_i) = P_{\phi(i)}$, and $P_{m+1},\cdots,P_k$ are poles, however there can not be more than $2$ pole by consider the preimage of a neighbourhood of $\infty$, and hence we may have only less than $1$ pole in $\{P_1,\cdots,P_k\}$ and the problem is the same with the first part, and hence $f(z) = a(z-P_j)$ or $a/(z-P_j)$ for some $j$.
+\vspace{0.5em}
+
+\subsection*{Chapter.6 Ex.6} 
+Let $\Omega = \C-\{z:|z|\leq 1\}$. Determine all biholomorphic self-maps of $\Omega$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider $f$ is a biholomorphic self-map of $\Omega$ and we know $1/f(1/z)$ is a biholomorphic self-map of $D-\{0\}$. If $g$ is a biholomorphic self-map of $D-\{0\}$, we know $0$ has to be a removable singularity with $\hat{g} = 0$ and hence $\hat(g)(z) = \omega z$ for some $\omega \in \C, |\omega| = 1$. Therefore we know
+\[
+f(z) = \omega zfind . -name '*.gz' -delete
+\]
+for some $|\omega| = 1$.
+\vspace{0.5em}
+
+\subsection*{Addition} 
+Find conformal maps:\par
+a. $D - \{z \in \R, |z|\geq 1/2\}$ onto $D$.\par
+b. $\C_+ - \{z\in i\R, |z| \geq 1\}$ onto $\C_+$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. We consider
+\[f_1(z) = i\dfrac{1-z}{1+z}, f_2(z) = z^2 + 1/9, f_3(re^{i\theta}) = \sqrt{r}e^{i\theta/2},f_4(z) = \dfrac{i-z}{i+z}\]
+and $f_4\circ f_3\circ f_2 \circ f_1$ meets the requirement.\par
+b. Consider
+\[
+f_1(z) = z^{-2}+1, f_2(re^{i\theta}) = \sqrt{r}e^{i\theta/2}
+\]
+and $f_1\circ f_2$ meets the requirement.
+\vspace{0.5em}
+
+
+
+\addappheadtotoc
+
+\end{document}

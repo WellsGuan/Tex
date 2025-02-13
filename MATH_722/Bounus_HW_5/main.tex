@@ -1,0 +1,67 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Bonus 05 - MATH 722}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Problem} 
+If $f:U\to\R$ is merely continuous, we might call $f$ strictly subharmonic if whenever $\overline{D}(P,r) \subset U$, then
+\[f(P) < \dfrac{1}{2\pi} \int_0^{2\pi}f(P+re^{i\theta})d\theta\]
+For $C^2$ functions, is this equivalent to the assertion that $\Delta f >0$? Does one definition imply the other? Can you think of a definition that applies to continuous functions and is equivalent to $\Delta f > 0$ when $f$ is $C^2$?
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We claim that $\Delta f > 0$ may implies that whenever $\overline{D}(P,r)\subset U$, then we have
+\[
+f(P) < \dfrac{1}{2\pi} \int_0^{2\pi} f(P+re^{i\theta}d\theta)
+\]
+Notice that $\inf\{z\in \overline{D}(P,r), \Delta f(z)\} = \delta > 0$, then we know
+\[\Delta(f-\delta|z|^2) \geq 0\]
+on some neighbourhood of $\overline{D}(P,r)$ and hence
+\[
+f(P)-\delta|P|^2 \leq \dfrac{1}{2\pi} \int_0^{2\pi} [f(P+re^{i\theta}) - \delta(|P|^2 + \bar{P}re^{i\theta} + Pre^{-i\theta} + r^2)] d\theta
+\] 
+which means
+\[
+f(P) \leq \dfrac{1}{2\pi}\int_0^{2\pi} f(P+re^{i\theta}) - \delta r^2 < \dfrac{1}{2\pi}\int_0^{2\pi} f(P+re^{i\theta})
+\]
+for any $\overline{D}(P,r)\in U$. Now notice that $\Delta f > 0$ iff for any $\overline{D}(P,r)\subset U$, there exists $\delta > 0$ such that $\Delta (f-\delta|z|^2) \geq 0$ on a neighbourhood of $\overline{D}(P,r)$ iff for any $\overline{D}(P,r)\subset U$, there exists $\delta_{P,r} > 0$ such that
+\[
+f(Q) \leq \dfrac{1}{2\pi} \int_0^{2\pi} f(Q+\rho e^{i\theta})d\theta - \delta_{P,r} \rho^2 
+\]
+for any $\overline{D}(Q,\rho) \subset V$, which is a neighborhood of $\overline{D}(P,r)$. This conclusion can be expressed more generally: for any $K$ a compact subset of $U$, there exists $\delta_K$ and a neighbourhood $V$ of $K$ such that for any $\overline{D}(P,r)\subset V$, we have
+\[f(P) \leq \dfrac{1}{2\pi} f(P+re^{i\theta}) - \delta_Kr^2\]
+which is obviously a definition applies to continuous functions.\par
+Now we claim that the two statements in the problem is not equivalent, consider $f(z) = e^{|z|^2} - |z|^2$ and it is easy to check that $\Delta f(z) > 0$ for all $z\neq 0$ and $\Delta f(0) = 0$. And by the proof above, it is easy to check that the inequality holds for any $z\neq 0$, and 
+\[\dfrac{1}{2\pi} \int_0^{2\pi}f(re^{i\theta})d\theta = e^{r^2}-r^2 > 1 = f(0)\]
+for any $r>0$ and hence it is a counter-example for the suffiency of the equivalence.
+\vspace{0.5em}
+
+\addappheadtotoc
+
+
+\end{document}

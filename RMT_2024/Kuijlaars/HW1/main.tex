@@ -1,0 +1,91 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework0 - Kuijlaars}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Exercise 0.1} Prove that
+\[|x-y| \leq \sqrt{|x|^2+1}\sqrt{|y|^2+1}\]
+holds for every $x,y \in \C$.
+\begin{proof}
+Consider $x= x_1 + ix_2, y = y_1+iy_2$ and we will have
+\[
+|x-y|^2 = |x|^2 + |y|^2 - 2(x_1y_1+x_2 y_2) \leq |x|^2 + |y|^2 + 2|x||y| \leq (|x|^2+1)(|y|^2+1)
+\]
+by Cauchy's inequality.
+\end{proof}
+
+\subsection*{Exercise 0.2} Let $\Sigma \subset \R$ be a closed interval and $V$ an admissible external field on $\Sigma$ with equilibruim measure $\mu_V$.\par
+a. Suppose $V$ is convex on $\Sigma$. Then prove that the support of $\mu_V$ is an interval.\par
+b. Suppose $\Sigma = [0,\infty)$, $V$ is differentiable on $(0,\infty)$ and $x\mapsto xV'(x)$ is increasing on $(0,\infty)$. Prove that the support of $\mu_V$ is an interval containing $0$.
+\begin{proof}
+    a. If not, there will be $c\in [a,b]$ not in the support of $\mu_V$ with $x_1,x_2$ in the support of $\mu_V$, $c= \lambda x_1 + (1-\lambda)x_2$ and we will have
+    \[
+    \begin{aligned}
+    2U^{\mu}(c) + V(c) &\geq l \\ &\geq \lambda (2U^{\mu}(x_1)+V(x_1))+(1-\lambda)(2U^{\mu}(x_2)+V(x_2)) \\ &\geq \lambda 2U^{\mu}(x_1) + (1-\lambda)2U^{\mu}(x_2) + V(c)
+    \end{aligned}
+    \]
+    and hence
+    \[
+    \begin{aligned}
+    \int \log \dfrac{1}{|c-s|}d\mu_V(s) &\geq \int [\lambda \log \dfrac{1}{|x_1-s|} + (1-\lambda)\log \dfrac{1}{|x_2-s|}] d\mu_V(s) \\
+    \end{aligned}
+    \]
+    which is a contradiction since $\log \dfrac{1}{|x-s|}$ is strictly convex.\par
+    b. Consider $G(x) = V(x^2)$ which is also admissible, which correspond with a measure $\mu_G$ and we know $G:\R\to \R\cup\{+\infty\}$ is convex and then we obtain the support of $\mu_G$ is interval contaning $0$, and then we may obtain $supp(\mu_V) = f(supp(\mu_G))$ where $f(x) = x^2$. 
+\end{proof}
+
+\subsection*{Exercise 0.3}Let $V:\R\to \R\cup\{\infty\}$ to be an admissible external field on $\R$ that is even, i.e. $V(-x) = V(x)$.\par
+a. Show that the equilibrium measure $\mu_V$.\par
+b. Let $\mu_V^*$ be the pushforward of $\mu_V$ under the 
+\begin{proof}
+   If $x\notin \text{supp}(\mu)$, we know there exists $\epsilon >0 $ such that $\mu((x_0-\epsilon,x_0+\epsilon)) = 0$ and we will know
+   \[
+   2U^{\mu}(x_0) + V(x_0) 
+   \] 
+\end{proof}
+
+\subsection*{Exercise 0.4}Let $\Sigma \subset \C$ be closed and let $V : \Sigma \to \R\cup\{+\infty\}$ be admissible. Let $\sigma$ be a measure with  $d\sigma > 1$ (it could be $\infty$) and $supp(\sigma) = \Sigma$, with the additional property that that there exist $\mu \in P_{\sigma}(\Sigma)$ for which $I(\mu)$ and $I_V (\mu)$ are finite.
+\begin{proof}
+    We recall the conclusion\par
+    a. If $E_V := \inf_{\mu\in P(\Sigma)}I_V(\mu)$, then $−\infty < E_V < +\infty$.\par
+    b. Any sequence $(\mu_n)$ in $P(\Sigma)$ for which $\sup_n I_V (\mu_n) < +\infty$ is tight.\par
+    c. If $\mu \in P(\Sigma)$ satisfies $I_V (\mu) = E_V$ , then $\mu$ has compact support.\par
+    d. If $\mu_n \to \mu$ weakly in $P(\Sigma)$, then $I_V (\mu) \leq  \liminf_{n\to\infty} I_V (\mu_n)$.\par
+    e. If $\mu$ and $\nu$ have compact support then
+    \[
+    I_V(\dfrac{\mu+\nu}{2}) \leq \dfrac{1}{2}(I_V(\mu)+I_V(\nu))
+    \]
+    with strictly inequality if $\mu\neq \nu$ and both $I_V(\mu)$ and $I_V(\nu)$ are finite. Then similarly we can choose a sequence in $P^{\sigma}(\Sigma)$ and pick a limit from a convergence subsequence, then it suffices to show that $P^{\sigma}(\Sigma)$ is closed under the weak topology.\par
+    b. 
+\end{proof}
+
+\addappheadtotoc
+
+\end{document}

@@ -1,0 +1,204 @@
+\section{Tangent Vector}
+
+\subsection{Tangent Vectors}
+
+\begin{definition}(Derivation at $p$)\par
+    Let $M$ be a smooth manifolds with or without boundary, and let $p$ be a point of $M$. A linear map $v:C^{\infty}(M) \to \mathbb{R}$ is called a \textbf{derivation at }$p$ if it satisfies
+    \[v(fg) = f(p)vg + g(p)vf\]
+    for all $f,g\in C^{\infty}(M)$.\par
+    The set of all derivations of $C^{\infty}(M)$ at $p$ is the \textbf{tangent space of }$M$ at $p$, denoted as $T_pM$.
+\end{definition}
+
+\begin{lemma}
+    Suppose $M$ is a smooth manifold with or without
+    boundary, $p\in M, v\in T_pM$ and $f,g \in C^{\infty}(M)$.
+    \begin{itemize}
+        \item If $f$ is a constant function, then $vf = 0$.
+        \item If $f(p) = g(p) = 0$, then $v(fg) = 0$. 
+    \end{itemize}
+\end{lemma}
+
+\subsection{The Differential of a Smooth Map}
+
+\begin{definition}
+    If $M$ and $N$ are smooth manifolds with or without boundary and $F:M\to N$ is a smooth map, for each $p\in M$ we define a map
+    \[dF_p: T_pM\to T_{F(p)}N\]
+    called the \textbf{differential of} $F$ at $p$ by
+    \[dF_p(v)(f) = v(f\circ F)\]
+    for $v\in T_pM$.
+\end{definition}
+
+\begin{proposition}
+    Let $M,N$ and $P$ be smooth manifolds with or without boundary, let $F:M\to N$ and $G:N\to P$ be smooth maps and let $p\in M$.
+    \begin{itemize}
+        \item $dF_p:T_pM\to T_{F(p)}N$ is linear.
+        \item $d(G\circ F) = dG_{F(p)}\circ dF_p: T_pM\to T_{G\circ F(p)}P$.
+        \item $d(Id_M) = Id_{T_pM}$.
+        \item If $F$ is a diffeomorphism, then $dF_p:T_pM\to T_{F(p)}N$ is an isomorphism and $(dF_p)^{-1} = d(F^{-1})_{F(p)}$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without a boundary, $p\in M$ and $v\in T_pM$. If $f,g\in C^{\infty}$ agree on some neighborhood of $p$, then $vf = vg$.
+\end{proposition}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold with or without boundary, let $U\subset M$ be an open subset, and let $\iota:U\hookrightarrow M$ be the inclusion map. For every $p\in U$, the differential $d\iota_p:T_p U \to T_p M$ is an isomorphism.
+\end{proposition}
+
+\begin{proposition}
+    If $M$ is an $n$-dimensional smooth manifold, then for each $p\in M$, the tangent space $T_pM$ is an $n$-dimensional vector space.
+\end{proposition}
+\Pf\par
+For $p\in M$, let $(U,\phi)$ be a smooth coordinate chart containing $P$, then we know $d\phi_p$ is an isomorphism from $T_pU$ to $T_{\phi(p)}\hat{U}$ and since $T_pM\cong T_pU, T_{\phi(p)}\hat{U}\cong T_{\phi(p)}\mathbb{R}^n$ and we are done.
+
+\begin{lemma}
+    Let $\iota:\mathbb{H}^n\hookrightarrow\mathbb{R}^n$. For any $a\in \partial\mathbb{H}^n$, the differential $d\iota_a:T_a\mathbb{H}^n \to T_a\mathbb{R}^n$ is an isomorphism.
+\end{lemma}
+
+\begin{proposition}
+    Suppose $M$ is an $n$-dimensional smooth manifold with boundary. For each $p\in M$,$T_pM$ is an $n$-dimensional vector space.
+\end{proposition}
+
+\begin{proposition}
+    Suppose $V$ is a finite dimensional vector space with standard smooth manifold structure. For each point $a\in V$, the map $v\mapsto D_v|a$ where
+    \[D_v|_a f = \dfrac{d}{dt}|_{t=0}f(a+tv)\]
+    is a canonical isomorphism from $V$ to $T_aV$ such that for any linear map $L:V\to W$, we have
+    \[
+    \begin{tikzcd}
+    V\arrow[r, "\cong"]\arrow[d,"L"] & T_aV\arrow[d, "dL_a"]\\
+    W\arrow[r,"\cong"] & T_{L_a}W\\
+    \end{tikzcd}
+    \]
+\end{proposition}
+
+\begin{proposition}
+    Let $M_1,\cdots,M_k$ be smooth manifolds, and for each $j$, let $\pi_j:M_1\times\cdots\times M_k \to M_j$ be the projection and for any $p\in M_1\times\cdots\times M_k$, the map
+    \[\alpha:T_p(M_1\times\cdots\times M_k) \to T_{p_1}M_1\oplus\times\oplus T_{p_k}(M_k)\]
+    defined by
+    \[\alpha(v) = (d(\pi_1)_p(v),\cdots,d(\pi_k)_p(v))\]
+    is an isomorphism. The same is true if one of the spaces $M_i$ is a smooth manifold with boundary.
+\end{proposition}
+
+\subsection{Computations in Coordinates}
+
+We denote
+\[
+\dfrac{\partial}{\partial x_i}\Big|_p = (d\phi_p)^{-1}\left(\dfrac{\partial}{\partial x_i}\Big|_{\phi(p)}\right) = d(\phi^{-1})_{\phi(p)}\left(\dfrac{\partial}{\partial x_i}\Big|_{\phi(p)}\right)
+\]
+
+which means
+\[
+\dfrac{\partial}{\partial x_i}\Big|_p = \dfrac{\partial}{\partial x_i}\Big|_{\phi(p)}(f\circ \phi^{-1}) = \dfrac{\partial \hat{f}}{\partial x_i}(\hat{p})
+\]
+
+\begin{proposition}
+    Let $M$ be a smooth $n$-manifold with or without boundary, and let $p\in M$. Then $T_pM$ is an $n$-dimensional vector space, and for any smooth chart $(U,(x^i))$ containing $p$, the coordinate vectors $\partial/\partial_{x_i}\Big|_p$ form a basis for $T_pM$.
+\end{proposition}
+
+\subsection{The Tangent Bundle}
+
+\begin{definition}
+    The \textbf{tangent bundle} of $M$ denoted by $TM$ is defined by
+    \[TM = \bigsqcup_{p\in M} T_pM\]
+    then it comes a natural projection $\pi:TM \to M$.
+\end{definition}
+
+\begin{proposition}
+    For any smooth $n$-manifold $M$, the tangent bundle $TM$ has a natural topology and smooth structure that make it into a $2n$-dimensional smooth manifold. With respect to this structure, the projection $\pi:TM \to M$ is smooth. This smooth struture is called the \textbf{natural coordinates} on $TM$.
+\end{proposition}
+\Pf\par
+    For any smooth chart $(U,\phi)$ for $M$, we may consider $\pi^{-1}(U) \subset TM$ which induce a bijection
+    \[
+    \tilde{\phi}\left(v_i\dfrac{\partial}{\partial x_i}\Big|_{p}\right) = (x_1(p),\cdots,x_n(p),v_1,\cdots,v_n)
+    \]
+    from $\pi^{-1}(U)$ to $\phi(U)\times\mathbb{R}^n$.\par
+    Now it suffices to show that the transtion map is smooth since it is easy to check Hausdorff property. For any $(\pi^{-1}(U),\tilde{\phi}), (\pi^{-1}(V),\tilde{\psi})$ and we will know that
+    \[
+    \tilde{\psi}\circ\tilde{\phi}^{-1} : \tilde{\phi}(\pi^{-1}(U)\cap\pi^{-1}(V)) = \phi(U\cap V) \times \mathbb{R}^n \to \tilde{\psi}(\pi^{-1}(U)\cap\pi^{-1}(V)) = \psi (U\cap V) \times \mathbb{R}^n
+    \]
+    assume
+    \[
+    \tilde{X}_X =
+    \left(\begin{array}{ccc}
+        \dfrac{d\widetilde{x_1}}{dx_1} & \cdots & \dfrac{d\widetilde{x_n}}{dx_1} \\
+        \vdots & \ddots & \vdots \\
+        \dfrac{d\widetilde{x_1}}{dx_n} & \cdots & \dfrac{d\widetilde{x_n}}{dx_n} \\
+    \end{array}\right)
+    \]
+    and
+    \[
+    \begin{aligned}
+        \tilde{\psi}\circ\tilde{\phi}^{-1}(x_1,\cdots,x_n,v_1,\cdots,v_n) &= \tilde{\psi}\left(\sum\limits_{i=1}^n v_i\dfrac{d}{dx_i}\Big|_{\phi^{-1}(x)}\right)\\
+        &= (\psi\circ\phi^{-1}(x), v\tilde{X}_X)
+    \end{aligned}
+    \]
+    is smooth.
+
+\begin{proposition}
+    If $M$ is a smooth $n$-manifold with or without boundary, and $M$ can be covered by a single smooth chart, then $TM$ is diffeomorphic to $M\times \mathbb{R}^n$.
+\end{proposition}
+
+\begin{definition}(Global Differential)\par
+    The \textbf{global differential} is denoted by $dF:TM\to TN$ defined by
+    \[dF|_{T_pM} = dF_p\]
+\end{definition}
+
+\begin{proposition}
+    If $F:M\to N$ is a smooth map, then its global differential $dF:TM\to TN$ is a smooth map.
+\end{proposition}
+\Pf\par
+Consider
+\[
+\begin{aligned}
+    \widetilde{dF}(x_1,\cdots,x_n,v_1,\cdots,v_n) &= \psi\left(dF(\sum\limits_{i=1}^n v_i\dfrac{d}{dx_i}\Big|_{\phi^{-1}(x)})\right) \\
+    &= \sum\limits_{i=1}^nv_i dF_{\phi^{-1}(x)}\left(\dfrac{d}{dx_i}\right) \\
+    &= \sum\limits_{i=1}^n v_i\left(\sum\limits_{j=1}^n\dfrac{d\left(\psi\circ F\circ\phi^{-1}\right)_j}{dx_i}\Big|_{\psi^{-1}(x)}\dfrac{d}{d\widetilde{x_j}}\right)
+\end{aligned}
+\]
+is smooth.
+
+\begin{corollary}
+    Suppose $F:M\to N$ and $G:N\to P$ are smooth maps, then
+    \begin{itemize}
+        \item $d(G\circ F) = dG\circ dF$
+        \item $d(Id_M) = Id_{TM}$
+        \item If $F$ is a diffeomorphism, then $dF:TM\to TN$ is also a diffeomorphism and $(dF)^{-1} = d(F^{-1})$
+    \end{itemize}
+\end{corollary}
+\Pf\par
+    We know
+    \[d(G\circ F)(v|_p) = (G\circ F)_p(v|_p) = dG_{F(p)}\circ dF_p(v|_p) = dG\circ dF(v|_p)\]
+    and similar for the rest conclusions.
+
+\subsection{Velocity Vectors of Curves}
+
+\begin{definition}
+    A \textbf{curve} in $M$ is a continuous map $\gamma: J \to M$ where $J$ is an interval.\par
+    The \textbf{velocity} of $\gamma$ at $t_0$ is the vector
+    \[\gamma'(t_0) = d\gamma(\dfrac{d}{dt}\Big|_{t_0}) \in T_{\gamma(t_0)}M\]
+    where
+    \[
+    \gamma'(t_0) = d\gamma\left(\dfrac{d}{dt}\Big|_{t_0}\right)f = \dfrac{d}{dt}\Big|_{t_0}(f\circ \gamma) = (f\circ \gamma)'(t_0)
+    \]
+\end{definition}
+
+\begin{proposition}
+    Suppose $M$ is a smooth manifold with or without boundary and $p\in M$. Every $v\in T_pM$ is the velocity of some smooth curve in $M$.
+\end{proposition}
+
+\begin{proposition}
+    Let $F:M\to N$ be a smooth map, and let $\gamma:J\to M$ be a smooth curve. For any $t_0 \in J$, the velocity at $t=t_0$ of the composite curve $F\circ \gamma:J\to N$ is given by
+    \[(F\circ \gamma)'(t_0) = dF(\gamma'(t_0))\]
+\end{proposition}
+\Pf\par
+    We know
+    \[
+    (F\circ \gamma)'(t_0) = d(F\circ \gamma)\left(\dfrac{d}{dt}\Big|_{t_0}\right) = d(F\circ\gamma)_{t_0}\left(\dfrac{d}{dt}\right) = dF_{\gamma(t_0)}\circ d\gamma_{t_0}\left(\dfrac{d}{dt}\right) = dF(\gamma'(t_0))
+    \]
+
+\begin{corollary}
+    Suppose $F:M\to N$ is a smooth map, $p\in M$ and $v\in T_pM$. Then
+    \[dF_p(v)=(F\circ \gamma)'(0)\]
+    for any smooth curve $\gamma:J\to M$ such that $0\in J, \gamma(0) = p$ and $\gamma'(0) = v$.
+\end{corollary}

@@ -1,0 +1,229 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\Pf}[1]{$Proof.$\par}
+
+\declaretheoremstyle[name=Definiton,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{definition}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{theorem}
+
+
+\declaretheoremstyle[name=Lemma,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{lemma}
+
+\declaretheoremstyle[name=Corollary,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{corollary}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+
+\declaretheoremstyle[name=Example,]{prcpsty}
+\declaretheorem[style=prcpsty,numberwithin=subsection]{example}
+
+\declaretheoremstyle[name=Ex,]{prcpsty}
+\declaretheorem[style=prcpsty,numberwithin=section]{exercise}
+
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{Notes for ODE}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on lectures provided by Chanwoo Kim on MATH 716 2025 SPRING} \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Author} \\ 
+		Wells Guan \\
+		 \\
+		}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\section{Introduction}
+
+\subsection{Differential equations}
+
+\begin{definition}(General ODE)\par
+    Generally, we consider
+    \[y:\mathbb{R}\to N\]
+    where $t\mapsto y(t)$, $N$ is a vector space such as $\mathbb{R}^d$. Then the general form ODE is
+    \[F(t,y, \dfrac{dy}{dt},\cdots, \dfrac{d^n y}{dt^n}) = 0\]
+    Once we can solve it explicitly by
+    \[
+    \dfrac{d^n y}{dt^n} = G(t,y,y',\cdots,y^{(n-1)})
+    \]
+    and we may convert it into a system of first-order equation by
+    \[
+    \begin{cases}
+        \dfrac{dx_i}{dt} = x_{i+1}\quad i = 1,\cdots,n-1 \\
+
+        \dfrac{dx_n}{dt} = G(t,x_1,\cdots,x_{n-1})
+    \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}(General ODE systems)\par
+    \[\dfrac{dx_i}{dt} = f_i(t,x_1,\cdots,x_n) i = 1, \cdots,n\]
+    or
+    \[\nabla x = f(t,x)\]
+    where $x:\mathbb{R} \to\mathbb{R}^n$ and $f:\mathbb{R}\times\mathbb{R}^n \to \mathbb{R}^n$
+    if $f(t,x) = f(x)$, we call it to be a \textbf{autonomous system}, else a \textbf{nonautonomous system}.\par
+    An \textbf{initial problem} is
+    \[
+    \begin{cases}
+        \nabla x = f(t,x) \\
+        x(t_0) = x_0
+    \end{cases}
+    \]
+    and the \text{general solution}
+    \[
+    \begin{cases}
+        \nabla x(t;c) = f(t,x(t;c)) \\
+        x(0;c) = c
+    \end{cases}
+    \]
+\end{definition}
+
+\begin{example}(Hamiltonian system)\par
+    Consider a $d$-bodies problem in $\mathbb{R}^3$, where denote $q_i$ the locations $i=1,\cdots, d$ and the potential energy to be $V(q) = V(q_1,\cdots,q_n)$ and we will have
+    \[m_iq_i'' = -\dfrac{\partial}{\partial q_i}V(q)\]
+    and for the momentum $p_i = m_iq_i'$ and we will have
+    \[
+    \begin{cases}
+        q_i' = \dfrac{p_i}{m_i} \\
+        p_i' = -\dfrac{\partial}{\partial q_i}V(q_i)
+    \end{cases}
+    \]
+    where ingeneral we define the Hamiltonian function
+    \[
+    H(q,p) = T(p) + V(q)
+    \]
+    where $T$ for kinetic energy and $V$ for potential energy, then
+    \[
+    \begin{cases}
+        q_i' = \dfrac{\partial H}{\partial p_i} \\
+        p_i' = -\dfrac{\partial H}{\partial q_i}
+    \end{cases}
+    \]
+    and hence $H' = 0$.
+\end{example}
+
+\subsection{One-dimensional Dynamics}
+
+Consider Autonomous initial value problem for $x(t)\in \mathbb{R}$
+\[
+\begin{cases}
+    x' = f(x) \\
+    x(0) = x_0
+\end{cases}
+\]
+then
+\[
+\int_0^t \dfrac{x'(s)}{f(x)} ds = \int_0^t ds \implies \int_{x_0}^x \dfrac{ds}{f(u)} du = t
+\]
+
+\begin{example}
+    The logistic equation
+    \[x' = rx(1-x)\]
+    has equilibrium at $x \equiv 0$ and $x \equiv 1$, for the rest
+    \[
+    x(t) = \dfrac{x_0}{x_0 + (1-x_0)e^{-rt}}
+    \]
+    which implies $x\equiv 1$ to be an attractor.
+\end{example}
+
+\subsection{Two-dimensional Dynamics}
+
+Consider $z = (x,y) \in \mathbb{R}^2, z' = [P(x,y),Q(x,y)]^T$ with equilibrium
+\[S = \{(x,y), P(x,y) = Q(x,y) = 0\}\]
+The nullclines, i.e. curves on which a single component vanishes
+\[
+N_x = \{P = 0\},\quad N_y = \{Q= 0\}
+\]
+and hence $S = N_x\cap N_y$.
+
+\begin{definition}
+    Phase curves: determine solutions to
+    \[(x',y') = (P(x,y),Q(x,y))\]
+    as curves in the phase space.
+\end{definition}
+
+Suppose $y = Y(x)$, an orbit is locally a graph, $y' = dY/dx x'$ and hence $dY/dx = y'/x' = Q/P = F(x,Y)$ which is a single, first order nonautonomous ODE.\par
+Also the equation in the defintion can be viewed as
+\[
+\begin{cases}
+    dx = Pdt \\
+    dy = Qdt
+\end{cases} \implies \dfrac{dx}{ P} = \dfrac{dy}{Q} = dt \implies -Q dx + Pdy = \alpha
+\]
+Suppose $\alpha = F(x,y)dH = F H_x dx + FH_y dy$ and hence
+\[
+\begin{cases}
+    x' = F\tfrac{\partial H}{\partial x} \\
+    y' = -F\tfrac{\partial H}{\partial y} 
+\end{cases}
+\]
+
+\section{Matrix ODEs}
+
+Consider $x' = f(x) , x(t) \in \mathbb{R}^n$, if $f(x) = Ax$ where $A \in \mathbb{R}^{n\times n}$, then
+\[
+\dfrac{dx}{dt} = Ax
+\]
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{References.bib}
+
+% ------------------------------------------------------------------------------
+
+\end{document}

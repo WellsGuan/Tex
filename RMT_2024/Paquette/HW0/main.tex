@@ -1,0 +1,84 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework0 - Paquette}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Exercise.1}Show the Woodfury formulam for $n$-dimensional vectors $U,V$ and a square amtrix $A$
+\[R(z;A+UV^T) - R(z;A) = - \dfrac{R(z;A)UV^TR(z;A)}{1+V^TR(z;A)U}\]
+with $z\in \text{Spec}(A+UV^T),\text{Spec}(A)$.
+\begin{proof}
+    Notice
+    \[
+    (A+UV^T-zI)(R(z;A+UV^T) - R(z;A))(A-zI) = -UV^T
+    \]
+    and hence
+    \[
+    (A+UV^T-zI)(R(z;A+UV^T) - R(z;A)) = -UV^TR(z;A)
+    \]
+    and it remains to show
+    \[
+    R(z;A)U = (1+U^TR(z;A)V)R(z;A+UV^T)U
+    \]
+    assume $R(z;A)U = a, R(z;A+UV^T)U = b$ and we may have
+    \[
+    b = a - bV^Ta
+    \]
+    and hence
+    \[
+    b = a/(1+V^Ta)
+    \]
+    and we are done.
+\end{proof}
+
+\subsection*{Exercise.2}Show the directional derivative of $R(z;A)$ in its $A$ variable in the direction of $V$ is
+\[
+\lim_{\epsilon \to 0}\epsilon^{-1}(R(z;A+\epsilon))
+\]
+which there fore gives us an expression for all partial derivatives in $A$.
+\begin{proof}
+    We know
+    \[
+    \epsilon^{-1}(R(z;A+\epsilon B) - R(z;A)) = -R(z;A+\epsilon B)BR(z:A)
+    \]
+    and we are done.
+\end{proof}
+
+\subsection*{Exercise.3}Suppose that $S$ is a symmetric matrix, $G$ is GOE and set $A = SGS$. Show that for $z$ with $h$
+\begin{proof}
+    We know
+    \[
+    \epsilon^{-1}(R(z;A+\epsilon B) - R(z;A)) = -R(z;A+\epsilon B)BR(z:A)
+    \]
+    and we are done.
+\end{proof}
+
+\addappheadtotoc
+
+\end{document}

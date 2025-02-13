@@ -1,0 +1,138 @@
+\section{Submersions, Immersions, and Embeddings}
+
+\subsection{Maps of Constant Rank}
+
+\begin{definition}(Rank)\par
+    Given a smooth map $F:M\to N$ and a point $p\in M$, we define the $rank$ of $F$ at $p$ to be the rank of linear map $dF_p:T_pM \to T_{F(p)N}$, which is the Jacobian matrix of $F$ in any smooth chart.\par
+    If $F$ has the same rank at every point, we call it has \textbf{constant rank}.\par
+    If the rank of $dF_p$ reaches its upper bound $\min\{\dim M,\dim N\}$, we call $F$ has \textbf{full rank} at $p$ and if $F$ has full rank every where, we say $F$ has \textbf{full rank}.
+\end{definition}
+\Pf\par
+    \[
+    \begin{tikzcd}
+        \phi(U)\arrow[d,"\phi^{-1}"]\arrow[r,"\psi\circ F \circ \phi^{-1}"]& \psi(V)\arrow[d,"\psi^{-1}"]  \\
+        U\arrow[r,"F"]\arrow[rd,"f\circ F"] & V\arrow[d,"f"] \\ 
+         & \mathbb{R}
+    \end{tikzcd}
+    \]
+    and we have
+    \[
+    \dfrac{\partial (f\circ F)\circ \phi^{-1}}{\partial{x_j}} = 
+    \sum\limits_{i=1}^n \dfrac{\partial f\circ\psi^{-1}}{d\tilde{x_i}}\dfrac{\partial \tilde{x_i}}{\partial x_j}
+    \]
+    which implies that
+    \[
+    dF_p\left(\dfrac{\partial}{\partial x_j}\right) = \sum\limits_{i=1}^n \dfrac{\partial \tilde{x_i}}{\partial x_j} \dfrac{\partial }{\partial \tilde{x_i}}
+    \]
+    and denote $\partial_M = \left(\dfrac{\partial}{\partial x_i}\right)_{i=1}^n, \partial_N = \left(\dfrac{\partial}{\partial \tilde{x_i}}\right)_{i=1}^n$, we have
+    \[
+    dF_p \partial_M = \left(\dfrac{\partial (\psi\circ F\circ \phi^{-1})_i}{\partial x_j}\right)_{1\leq i,j\leq n}\partial_N
+    \]
+    and hence the rank of $dF_p$ is equals to the Jacobian matrix of $F$ in any smooth chart because the transition between Jacobian matrices are induced by a diffeomorphism.
+
+\begin{definition}(Submersion and Immersion)\par
+    A smooth map $F:M\to N$ is called a \textbf{smooth submersion} if its differetional is surjective (rank$F$ = $\dim N$) at each point and it is called a \textbf{smooth immersion} if its differential is injective (rank$F$ = $\dim M$) at each point.
+\end{definition}
+
+\begin{proposition}
+    Suppose $F:M\to N$ is a smooth map and $p\in M$. If $dF_p$ is surjective, then $p$ has a neighborhood $U$ such that $F|_U$ is a submersion and if $dF_p$ is injective, then $p$ has a  neighborhood $U$ such that $F|_U$ is an immersion.
+\end{proposition}
+
+\begin{definition}
+    If $M$ and $N$ are smooth manifolds with or without boundary, a map $F:M\to N$ is called a \textbf{local diffeomorphism} if every point $p\in M$ has a neighbourhood $U$ such that $F(U)$ is open in $N$ and $F|_U:U\to F(U)$ is a diffeomorphism.  
+\end{definition}
+
+\begin{theorem}(Inverse Function Theorem)\par
+    Suppose $M$ and $N$ are smooth manifolds, and $F:M\to N$ is a smooth map. If $p\in M$ is apoint such that $dF_p$ is invertible, then there are connected neighborhoods $U_0$ of $p$ and $V_0$ of $F(p)$ such that $F|_{U_0}:U_0 \to V_0$ is a diffeomorphism.
+\end{theorem}
+
+\begin{theorem}(Rank Theorem)\par
+    Suppose $M$ and $N$ are smooth manifolds of dimensions $m$ and $n$, and $F:M\to N$ is a smooth map with constant rank $r$. For each $p\in M$ there exist smooth charts $(U,\phi)$ for $M$ centereed at $p$ and $(V,\psi)$ for $N$ centered at $F(p)$ such that $F(U)\subset V$, in which $F$ has a coordinate representation of the form
+    \[\hat{F}(x_1,\cdots,x_r,x_{r+1},\cdots,x_m) = (x_1,\cdots,x_r,0,\cdots,0)\]
+\end{theorem}
+
+\begin{corollary}
+    Let $M$ and $N$ be smooth manifolds, let $F:M\to N$ be a smooth map, and suppose $M$ is conneceted. Then the following are equivalent:
+    \begin{itemize}
+        \item For each $p\in M$ there exist smooth chartss containing $p$ and $F(p)$ in which the coordinate representation of $F$ is linear.
+        \item $F$ has constant rank.
+    \end{itemize}
+\end{corollary}
+\Pf\par
+    Since the linear coordinate representation will induce a constant rank map on a neighbourhood, which means that $F$ admits contant rank on a neighborhood for any point, and hence $F$ has a contant rank on whole $M$ because it is connected.\par
+    Conversely, it comes from the rank theorem.
+
+\begin{theorem}(Global Rank Theorem)\par
+    Let $M$ and $N$ be smooth manifolds, and suppose $F:M\to N$ is a smooth map of constant rank.
+    \begin{itemize}
+        \item If $F$ is surjective m then it is a smooth submersion.
+        \item If $F$ is injective, then it is a smooth immersion.
+        \item If $F$ is bijective, then it is a diffeomorphism.
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+    Suppose $M$ is a smooth $m$-manifold with boundary, $N$ is a smooth $n$-manifold, and $F:M\to N$ is a smooth immersion. For any $p\in\partial M$, there exist a smooth boundary chart $(U,\phi)$ for $M$ centered at $p$ and a smooth coordinate chart $(V,\psi)$ for $N$ centered at $F(p)$ with $F(U)\subset V$, in which $F$ has the coordinate representation
+    \[
+    \hat{F}(x_1,\cdots,x_m) = (x_1,\cdots,x_m,0,\cdots,0)
+    \]    
+\end{theorem}
+
+\subsection{Embeddings}
+
+\begin{definition}(Smooth Embedding)\par
+    If $M$ and $N$ are smooth manifolds with or withour boundary, a \textbf{smooth embedding} of $M$ into $N$ is a smooth immersion $F:M\to N$ that is also a topological embedding, i.e., a homeomorphism onto its image.
+\end{definition}
+
+\begin{lemma}
+    Suppose $X$ and $Y$ are topological spaces, and $F:X\to Y$ is a continuous map that is either open or closed.
+    \begin{itemize}
+        \item If $F$ is surjective, then it is a quotient map.
+        \item If $F$ is injective, then it is a topological embedding.
+        \item If $F$ is bijective, then it is a homeomorphism.
+    \end{itemize}
+\end{lemma}
+\Pf\par
+    If $F$ is surjective, then $F$ is open is equivalent with $F$ is closed, so for any $V\subset Y$, if $p^{-1}(V)$ open, then $V$ is open. If $V$ open, then then $p^{-1}(V)$ obviously open since $F$ is continuous.\par
+    If $F$ is injective, then we know $F$ is a bijection between $X$ to $F(X)$ and we may know it is continuous, and the inverse is also continuous if it is open or close.\par
+    The last conclusion is going on. 
+
+\begin{proposition}
+    Suppose $M$ and $N$ are smooth manifolds with or withour boundary, and $F:M\to N$ is an injective smooth immersion. If any of the following holds, then $F$ is a smooth embedding.
+    \begin{itemize}
+        \item $F$ is an open or closed map.
+        \item $F$ is a proper map.
+        \item $M$ is compact.
+        \item $M$ has empty boundary and $\dim M = \dim N$.
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    The first condition makes $F:M\to F(M)$ a homeomorphism.\par
+    If $F$ is a proper map, assume $K$ is closed in $M$ and $y$ is a limit point of $F(K)$, consider $V$ a precompact neighbourhood of $y$ and we have $\overline{U}$ is compact, which means $F^{-1}(\overline{U})$ is compact in $M$ and hence $K\cap \overline{U}$ compact, so $F(K)\cap \overline{U}$ compact and hence closed, $y$ has to be a limit point of $F(K)\cap \overline{U}$ and we are done.\par
+    If $M$ is compact, similarly we may know the proof above can be still used since $F$ is still proper.\par
+    We may know $F$ is a local diffeomorphism and hence a local diffeomorphism. 
+
+
+\begin{theorem}
+    Suppose $M$ and $N$ are smooth manifolds with orwithout boundary, and $F:M\to N$ is a smooth map. Then $F$ is a smooth immersion if and only if every point in $M$ has a neighbourhood $U\subset M$ such that $F|_U:U\to N$ is a smooth embedding.
+\end{theorem}
+\Pf\par
+    Firstly, if any point has a neighbourhood such that the restriction of $F$ on it is an embedding, then it is full rank there and hence everywhere, then we are done.\par
+    If $F$ is a smooth immersion, then by rank theorem or theorem 4.1.6. there exists $U$ of $p$ such that $F|_{U}$ is injective if $F(p) \in \partial N$, for those $F(p)$ on boundary, we may adopt the inclusion of half-upper space to $\mathbb{R}^n$.\par
+    Now we may assume for any $p\in M$, there exists a neighborhood $U$ such that $F|_U$ is injective, then we choose $V\subset U$ precompact and $F|_{\overline{V}}$ is a smooth embedding by theorem 4.2.2.
+
+\subsection{Submersions}
+
+\begin{definition}(Section)\par
+    If $\pi:M\to N$ is any continuous map, a \textbf{section} of $\pi$ is a continuous right inverse for $\pi$, a \textbf{local section} of $\pi$ is a continuous map $\sigma:U\to M$ on some open subset of $N$ such that $\pi\circ \sigma = Id_U$.
+\end{definition}
+
+\begin{theorem}(Local Section Theorem)\par
+    Suppose $M$ and $N$ are smooth manifolds and $\pi:M\to N$ is a smooth map. Then $\pi$ is a smooth submersion if and only if every point of $M$ is in the image of a smooth local section of $\pi$.
+\end{theorem}
+\Pf\par
+    Firstly, if $p$ is in the image of a smooth local section of $\pi$, then there exists a neighbourhood $U$ of $p$ such that $\pi|_{\sigma(U)} \circ \sigma = Id_U$ and hence $d\pi_p$ is surjective.\par
+    Conversely, we may know for $p$, there exists a chart $(U,\phi)$ such that the coordinate represenation is like that in rank theorem, and consider a small enough neighborhood of $(x_1(p),\cdots,x_k(p))$ and we are done.
+
+
+

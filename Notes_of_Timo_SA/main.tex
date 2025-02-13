@@ -1,0 +1,323 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Basics of Stochastic Analysis Timo}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\section{Stochastic Processes}
+\begin{quotation}
+We always assume the probability measure $P$ is complete.\par
+p.s. short for probability space.\par
+r.v. short for random variables.\par
+\end{quotation}
+\begin{definition}
+A $filtration$ on a p.s. $(\Omega,\F,P)$ is a collection of $\sigma$-fields $\{\F_t:t\in \R_+ = [0,\infty)\}$ such that
+\[\F_s\subset \F_t\subset F\text{ for all }0\leq s<t<\infty\]
+and  we may define 
+\[\F_{\infty} = \sigma(\bigcup_{0\leq t <\infty}\F_t)\]
+naturally.
+\end{definition}
+
+\begin{definition}
+To make $\F_t$ contains all $\F$-measurable $P$-null sets. We may complete $(\Omega,\F,P)$ and replace $\F_t$ with
+\[\bar{\F_t}=\{B\in\F,\exists A\in \F_t\ s.t.\ P(A\triangle B) = 0 \}\]
+The filtration $\{\bar{\F_t}\}$ is called $complete$ or $augmented$ filtration.
+\end{definition}
+\begin{proof}\par
+Actually, there is something we need to check.\par
+Firstly, it is obviously $\F_t$ is a filtraiton in $(\Omega, \bar{\F},P)$ where $\bar{F}$ is the complete $\sigma$-algebra of $\F$.\par
+Then obviously $\bar{\F_t}$ contains $\F_t$ and will become a $\sigma$-algebra since for any $B\in \bar{\F_t}$, assume $A\in\F_t$ and $P(A\triangle B) = 0$
+\[P(A^c\triangle B^c) = P(A\triangle B) = 0\]
+and for $\{B_i\}\subset \bar{\F_t}$ with corresponding $\{A_i\}\in F_t$ we know
+\[ P\big((\bigcup_i B_i) \triangle (\bigcup_i A_i)\big) = P\big((\bigcup_i B_i) \cap (\bigcap_i A_i^c)\big) + P\big((\bigcap_i B_i^c) \cap (\bigcup_i A_i)\big) = 0\]
+and hence $\bar{\F_t}$ is a $\sigma$-algebra, which obviously contains all the $\F$-measurable $P$-null sets and is a filtration.
+\end{proof}
+
+\begin{definition}
+    A $stochastic\ processes$ is a collection of r.v.s $\{X_i,i\in I\}$ where $I$ is most often $\R_+$ or its subset. If $X_t$ take values in a space $S$, we call $X$ is an $S$-valued process, where we treat $S$ as a metric space so that there is $\B_S$ on it and $S$ is most often $\R^n$.
+\end{definition}
+
+\begin{definition}
+    A process $X = \{X_t, t\in\R_+\}$ is $adapted$ to the filtration $\{\F_t\}$ if $X_t$ is $\F_t$-measurable for each $0\leq t < \infty$.
+\end{definition}
+
+\begin{proposition}
+ The smallest filtration to which $X$ is adapted is 
+    \[F_t^X = \sigma\{X_s, 0\leq s \leq t\}\]
+\end{proposition}
+\begin{proof}\par
+It is not hard to check $F_t^X$ satisfy the requirement and it is easy to check $X_s$ are $\F_t$-measurable if $s\leq t$, then we are done.
+\end{proof}
+
+\begin{definition}
+    We call a process $X$ is $measurable$ if $X: \R^+\times \Omega \to S$ is $\B_{\R_+}\otimes \F$-measurable. We call $X$ is $progressively\ measurable$ if the restriction of the function $X$ to $[0,T]$ is $\B_{[0,T]}\otimes \F_T$-measurable for each $T$.
+\end{definition}
+\begin{proposition}
+    If $X$ is progressively measurable then it is also adapted.
+\end{proposition}
+\begin{proof}\par
+Consider $s\leq T$, then we know $X_s^{-1}(A)$ = $X^{-1}(A)_s$ which is measurable for any $A\in \B_S$. Please refer to Folland's Real Analysis for the notation.   
+\end{proof}
+
+\begin{definition}
+    We call two stochastic processes $X,Y$ are $indistinguishable$ if there exists an event $\Omega_0$ such that $P(\Omega_0)=1$ and $X_t = Y_t$ on $\Omega_0$ for all $t\in\R_+$.\par
+    We call $Y$ is a $modification$ or $version$ of $X$ if $X_t = Y_t$ a.s. for each $t$.
+\end{definition}
+
+\begin{definition}
+$Equality\ in\ distribution$ of processes $X,Y$ means that $P(\{X\in A\}) = P(\{Y\in A\})$ for all measurable sets, which follows from the weaker equality of finite-dimensional distributions, i.e.
+\[P(\{X_{t_1}\in B_1,X_{t_2}\in B_2,\cdots,X_{t_n}\in B_n\}) = P(\{Y_{t_1}\in B_1,Y_{t_2}\in B_2,\cdots,Y_{t_n}\in B_n\})\]
+for all finite subsets $t_1,t_2,\cdots,t_n$.
+\end{definition}
+\begin{proof}\par
+Recall what is a $\lambda$-system, we require a $\lambda$-system closed under complement and disjoint countable unions, and containing $\Omega$. So it is easy to use $\pi$-$\lambda$ theorem to show that $P(\{X\in A\}) = P(\{Y\in A\})$ for all sets in $\B_{\R^+}\otimes \F$.
+\end{proof}
+
+\begin{proposition}
+A complete filtration may imply that $Y$ is adapted if $X$ is adapted and $X_t = Y_t$ a.s.
+\end{proposition}
+
+\begin{definition}
+A $stopping\ time$ is a r.v. $\tau:\Omega \to [0,\infty]$ such that $\{\tau \leq t\}\in \F_t$ for each $0\leq t <\infty$ for a filtration $\F_t$.
+\end{definition}
+\begin{proposition}
+If $\sigma$ and $\tau$ are stopping times for the same filtration, then so are $\min\{\sigma,\tau\}$ and $\max\{\sigma,\tau\}$.
+\end{proposition}
+
+\begin{definition}
+    If $\tau$ is a stopping time, the $\sigma$-field of events known at time $\tau$ is defined by
+    \[\F_{\tau} = \{A\in\F,A\cap\{\tau\leq t\}\in \F_t\text{ for all }0\leq t < \infty\}\]
+\end{definition}
+It is easy to check $\F_{\tau}$ is a $\sigma$-algebra and actually a deterministic time is a special case of a stopping time and $\F_{\tau} = \F_u$ if $\tau = u$ on $\Omega$.
+
+\begin{definition}
+    If $\{X_t\}$ is a process and $\tau$ is a stoppping time, $X_{\tau}$ denotes the value of the process at the random time $\tau$,i.e. $X_{\tau}(\omega) = X_{\tau(\omega)}(\omega)$, where $X_{\tau}$ is defined on $\{\tau<\infty\}$. 
+\end{definition}
+
+\begin{lemma}
+    Let $\sigma$ and $\tau$ be stopping times, and $X$ a process.\par
+    (i) For $A\in\F_{\sigma}$, the events $A\cap\{\sigma\leq\tau\},A\cap\{\sigma<\tau\}\in \F_{\tau}$. In particular, $\sigma\leq \tau \implies \F_{\sigma}\subset \F_{\tau}$.\par
+    (ii) Both $\tau$ and $\min\{\sigma,\tau\}$ are $\F_{\tau}$-measurable. the events $\{\sigma\leq \tau\},\{\sigma<\tau\},\{\sigma = \tau\}$ lie in both $\F_{\sigma}$ and $\F_{\tau}$.\par
+    (iii) If the process $X$ is progressively measurable then $X(\tau)$ is $\F_{\tau}$-measurable on the event $\{\tau<\infty\}$.
+\end{lemma}
+\begin{proof}\par
+a. Consider
+\[ A\cap\{\sigma \leq \tau\}\cap\{\tau \leq t\} = (A\cap \{\sigma \leq t\}) \cap \{\min\{\sigma,t\}\leq\min\{\tau,t\}\}\cap \{\tau \leq t\}\]
+and notice $\min\{\sigma,t\}$ is $\F_t$-measurable, so we know
+\[A\cap\{\sigma \leq \tau\}\cap\{\tau \leq t\} \in \F_t\text{ for all }t\in\R_+\]
+and notice $A\cap \{\sigma<\tau\} = \bigcup_{n\geq 1}(A\cap \{\sigma \leq \tau - n^{-1}\})$.\par
+b. $\tau$ is obviously $\F_{\tau}$-measurable. Then we know $\min\{\sigma,\tau\}$ is $\F_{\min\{\sigma,\tau\}}$-measurable and by (a) we know it is $\F_{\tau}$-measurable. We only need to prove that $\{\sigma\leq\tau\}$ in both $\F_{\sigma}$ and $\F_{\tau}$, this can be implied from that
+\[\{\sigma \leq \tau\} = \{\min\{\sigma,\tau\} = \sigma\}\]
+which is $\F_{\tau}$-measurable and $\F_{\tau}$-measurable by (a).\par
+c. We may consider $\{X_{\tau} \in B, \tau \leq t\}$ at first, and 
+\[\{X_{\tau} \in B, \tau \leq t\} = \{X_{\min\{\tau,t\}}\in B\}\cap\{\tau\leq t\}\]
+which may encourage us consider
+\[ \omega \mapsto (\min\{t,\tau(\omega)\},\omega)\mapsto X_{\min\{t,\tau\}}(\omega)\]
+the preimage of the first map of rectangle is always $\F_{t}$-measurable and the second is true for $X$ is $\B_{[0,t]}\otimes \F_t$-measurable and hence $\{X_{\min\{t,\tau\}}\in B\}$ is always in $\F_t$ for any $B$ Borel. Then we know $\{X_{\tau}\in B, \tau < \infty\}$ is in $\F_{\tau}$. notice where $X_{\tau}$ is only defined when $\tau < \infty$.
+\end{proof}
+
+\begin{definition}
+    A stochastic process $X$ is $continuous$ if the path $t\mapsto X_t(\omega)$ is continuous for any $\omega\in\Omega$, and we may define $left$-$continuous$ and $right$-$continuous$ analogously.\par
+    Call an $\R^d$-valued process $X$ is $cadlag$ if it is right continuous with left limits and $caglad$ if it is left continuous with right limits.
+\end{definition}
+
+\begin{definition}
+    $X$ is a $finite\ variation\ process$ if the path $t\mapsto X_t(\omega)$ has bounded varation on each compact interval $[0,T]$ for any $\omega\in\Omega$.
+\end{definition}
+
+\begin{lemma}
+    Let $X$ be adapted to the filtration $\{\F_t\}$ and suppose $X$ is either left-continuous or right-continuous. Then $X$ is progressively measurable. Recall when we say $X$ is left-continuous or right-continuous, it is $\R^d$-valued.
+\end{lemma}
+\begin{proof}\par
+    We assume $X$ is right-continuous firstly and may consider
+    \[X_n(t,\omega) = X(0,\omega)\cdot \chi_{\{0\}}(t)  + \sum\limits_{k=0}^{2^n-1}X(\dfrac{(k+1)T}{2^n},\omega)\cdot\chi_{(kT2^{-n},(k+1)T2^{-n})}(t)\]
+    which is $\B_{[0,T]}\otimes \F_{T}$-measurable functions and $X_n\to X|_{[0,T]}$ since $X$ is right-continuous, and hence $X|_{[0,T]} = \liminf X_n$ is $\B_{[0,T]}\otimes \F_T$-measurable. The case of left-continuity is similar.
+\end{proof}
+
+\begin{lemma}
+Suppose $X$ and $Y$ are right-continuous processes defined on the same probability space. Suppose $X_t = Y_t$ a.s. for all $t$ in some dense countable subset of $\R_+$. Then $X$ and $Y$ are indistinguishable. The same conclusion holds under the assumption of left-continuity if $0$ is in the dense subset above.
+\end{lemma}
+\begin{proof}\par
+Denote the dense set as $S$, and let $X_t = Y_t$ on $\Omega_t\subset\Omega$, then we know $X_s = Y_s$ on $\bigcap_{t\in S} \Omega_t = \Omega_S$ for all $s\in S$. Then by the right-continuity of $X,Y$ and hence $X_s = Y_s$ for any $s\in \Omega_S$. The case of the left-continuity is similar.
+\end{proof}
+
+\begin{definition}
+    We may define the $\sigma$-fields
+    \[\F_{t+} = \bigcap_{s>t} \F_s\]
+    where $\F_{t+}$ is a new filtration and $\F_t \subset \F_{t+}$.\par
+    We call $\F_t$ is $right$-$continuous$ if $\F_t = \F_{t+}$. We may know that $\F_{t++} = \F_{t+}$.
+\end{definition}
+\begin{proof}\par
+    \[\F_{t+} = \bigcap_{s>t}\F_{s} \subset \bigcap_{s>t}\F_{s+} = \bigcap_{s>t,s'>s}\F_{s'} = \F_{t++}\]
+    and hence $\F_{t+} = \F_{t++}$.
+\end{proof}
+
+\begin{definition}
+    Define
+    \[\F_{t-} = \sigma\Big(\bigcup_{s<t}\F_s\Big)\]
+    and $\F_{0-} = \F_0$, then call $\F_t$ is $left$-$continuous$ if $\F_t = \F_{t-}$ for all $t\in\R_+$.
+\end{definition}
+
+\begin{definition}
+    We call $\F_t$ satisfies the $usual$ $conditions$ if $\F_t$ is both complete and right-continuous. 
+\end{definition}
+
+\begin{lemma}
+    A $[0,\infty]$-valued r.v. $\tau$ is a stopping time with respect to $\F_{t+}$ iff $\{\tau < t\}\in \F_t$ for all $t\in \R_+$.
+\end{lemma}
+\begin{proof}\par
+    To show the sufficiency, we know that $\{\tau \leq t-n^{-1}\} \in \F_{(t-{n^{-1}})_+} \subset \F_t$ for all integer $n\geq 1$. And hence $\{\tau < t\} = \bigcup_{n\geq 1}\{\tau \leq t-n^{-1}\} \in \F_{t}$.\par
+    To show the necessity, we know
+    \[\{\tau\leq t\} = \bigcap_{s<t} \{\tau < s\} \in \F_{t+}\]
+    which is the required conclusion.
+\end{proof}
+
+\begin{definition}
+    Given a set $H$, define
+    \[\tau_H(\omega) = \inf\{t\geq 0, X_t(\omega) \in H\}\]
+    which is the $hitting$ $time$ of the set $H$. If the infimum is taken over $t>0$, then call the above time the $first$ $entry$ $time$ into the set $H$.
+\end{definition}
+
+\begin{lemma}
+    Let $X$ be a process adapted to a filtration $\{\F_t\}$ and assume $X$ is left- or right-continuous. If $G$ is an open set, then $\tau_G$ is a stopping time with respect to $\{\F_{t_+}\}$. In particular, if $\{\F_t\}$ is right-continuous, $\tau_G$ is a stopping time with respect to $\{\F_t\}$.
+\end{lemma}
+\begin{proof}\par
+    We notice that
+    \[\{\tau_G < t\} = \{\omega, \inf\{s\geq 0, X_s(\omega) \in G\}<t\} = \{\omega, \exists q\in\Q\cap[0,t)\ s.t.\ X_q(\omega)\in G\} = \bigcup_{q\in \Q\cap[0,t)} X_q^{-1}(G) \in \F_t\]
+\end{proof}
+
+\begin{definition}\
+For a process $X$, let $X_{[s,t]} = \{X(u), s\leq u \leq t\}$ with topological closure $\overline{X_{[s,t]}}$. For a set $H$ define
+\[\sigma_H = \inf\{t\geq 0: \overline{X_{[0,t]}}\cap H \neq \emptyset\}\]
+\end{definition}
+
+\begin{lemma}
+    Suppose $X$ is a cadlag process adapted to $\{\F_t\}$ and $H$ is a closed set. Then $\sigma_H$ is a stopping time.
+\end{lemma}
+\begin{proof}\par
+    Firstly, we know
+    \[\overline{X_{[0,t]}(\omega)} = \overline{\{X_s(\omega), 0\leq s \leq t\}} \supset \{X_s(\omega), 0 \leq s \leq t\}\cup \{X_{s-}(\omega), 0<s\leq t\}\]
+    and for any $y\in \overline{X_{[0,t]}(\omega)}$, there exists $\{t_i\}\subset [0,t]$ such that $X_{t_i}(\omega) \to y$, and we only need to consider a convergent subsequence of $\{t_i\}$ is fine, then we know
+    \[\overline{X_{[0,t]}} = \{X_s, 0\leq s \leq t\}\cup \{X_{s-}, 0< s \leq t\}\]
+    then we consider
+    \[\{\sigma_H\leq t\} = \{\omega, \forall \epsilon > 0, \exists s<t+\epsilon \ s.t.\ X_{s}(\omega) \in H \text{ or }X_{s-}(\omega) \in H\} \supset \{X_0 \in H\}\cup \{X_s \in H \text{ or }X_{s-} \in H\}\]
+    and those may be not in the right set, we know there exists $s_i \downarrow t$ such that $X_{s_i}(\omega) \in H$ or $X_{s_i-}(\omega) \in H$, and we may find $s_i' < s_i$ such that $d(X_{s_i'}(\omega),X_{s_i-}(\omega)) < i^{-1}$ and we know $X_{s_i'}(\omega) \to X_t(\omega)$ and hence $X_{s_i-}\to X_t$, which means $X_t$ has to be in $H$. So $\{\sigma_H\leq t\} = \{X_0 \in H\}\cup\{X_s \in H \text{ or }X_{s-}\in H\}$.\par
+    Then we claim that
+    \[\{\sigma_H \leq t\} = \bigcap_{n=1}^{\infty}\bigcup_{q\in \Q\cap[0,t]\cup\{t\}}\{X_q\in H_n\}\]
+    where $H_n = \{y,\exists x\in H\ s.t.\ d(x,y)<n^{-1}\}$. If $X_{s-}(\omega)\in H$, then we know there exists $s_i\uparrow s$ such that $X_{s_i}(\omega) \to X_{s-}(\omega)$ and then we know for any $n\in \N$, there exists $q\in\Q\cap[0,t]$ such that $X_q \in H_n$ and hence $\omega\in\bigcap_{n=1}^{\infty}\bigcup_{q\in U}\{X_q\in H_n\}$. For any $\omega\in \bigcap_{n=1}^{\infty}\bigcup_{q\in U}\{X_q\in H_n\}$, we know there exists $q_i\in \Q\cap[0,t]\cup\{t\}$ such that $X_{q_i}(\omega) \in H_i$ and it is easy to check $\omega \in \{\sigma_H\leq t\}$.
+    
+\end{proof}
+
+\begin{corollary}
+Assume $X$ is continuous and $H$ is closed. Then $\tau_H$ is a stopping time.
+\end{corollary}
+\begin{proof}\par
+    We know $\sigma_H = \inf\{t\geq 0, X_{[0,t]}\cap H \neq \emptyset\} = \tau_H$ and hence the conclusion goes.
+\end{proof}
+
+\begin{theorem}
+Assume the filtration $\{\F_t\}$ satisfies the usual conditions, and $X$ is a progressively measurable process with values in some metric space. Then $\tau_H$ or the infimum restricted to $t>0$ are stopping times for every Borel set $H$.
+\end{theorem}
+\newpage
+
+\section*{Quadratic variation}
+
+\begin{definition}
+    The $quadratic\ variation\ process\ [Y]=\{[Y]_t:t\in\R_+\}$ of a stochastic process $Y$ is a process such that $[Y]_0 = 0$, the paths $t\mapsto [Y]_t(\omega)$ are nondecreasing for all $\omega$ and
+    \[\lim_{|\pi|\to 0}\sum\limits_{i\geq 0}(Y_{t_{i+1}}-Y_{t_i})^2 = [Y]_t\text{ in probability}\]
+    for all $t\geq 0$ where $|\pi|$ is a partition of $[0,t]$.
+\end{definition}
+
+\begin{definition}
+Let $X$ and $Y$ be two stochastic processes on the same p.s. The covariation process $[X,Y] = \{[X,Y]_t, t\geq 0\}$ where
+\[[X,Y] = [\dfrac{1}{2}(X+Y)]-[\dfrac{1}{2}(X-Y)]\]
+i.e. 
+\[[X,Y]_t = \lim_{|\pi|\to 0}(X_{t_{i+1}}-X_{t_i})(Y_{t_{i+1}}-Y_{t_i})\text{ in probability}\]
+and also we have
+\[\begin{aligned}
+    [X,Y]_t &= \dfrac{1}{2}([X+Y]_t-[X]_t - [Y]_t) a.s.\\
+    [X,Y]_t &= \dfrac{1}{2}([X]_t+[Y]_t - [X-Y]_t) a.s.
+\end{aligned}\]
+\end{definition}
+
+\begin{definition}
+    For any cadlag process $Z$, the $jump\ at\ t$ is denoted by
+    \[\Delta Z(t) = Z(t)-Z(t-)\]
+\end{definition}
+
+\begin{proposition}
+    Suppose $X$ and $Y$ are cadlag processes, and $[X,Y]$ exists as $\tfrac{1}{2}([X]_t+[Y]_t-[X-Y]_t)$ a.s.\par
+\end{proposition}
+\begin{proof}
+    If we know $\Delta [X]_t = (\Delta X_t)^2$ a.s., then
+    \[\Delta [X,Y]_t = \dfrac{1}{2}(\Delta [X]_t+\Delta[Y]_t-\Delta[X-Y]_t) = (\Delta X_t)(\Delta Y_t)\text{ a.s.}\]
+    so it suffices to treat the case $X=Y$.\par
+    Pick $\delta,\epsilon > 0$, $t<u$ and $\eta > 0$ so that
+    \[P(|[X]_u-[X]_t-\sum\limits_{i=0}^{m(\pi)-1} (X_{t_{i+1}- X_{t_i}})^2|<\epsilon) > 1-\delta\]
+    for any partition of $[t,u]$ with $|\pi|<\eta$. Keep $t_1$ fixed, then refine $\pi$ so that
+    \[P(|[X]_u-[X]_{t_1}-\sum\limits_{i=1}^{m(\pi)-1}(X_{t_{i+1}}-X_{t_i})^2|<\epsilon) > 1-\delta\]
+    and we have $1-2\delta$ for the intersection where
+    \[[X]_u-[X]_t \leq \sum\limits_{i=0}^{m(\pi)-1} (X_{t_{i+1}-X_{t_i}})^2 \epsilon  \leq (X_{t_1}-X_t)^2+[X]_u-[X]_{t_1}+2\epsilon\]
+    and hence
+    \[[X]_{t_1} \leq [X]_t + (X_{t_1}-X_t)^2 + 2\epsilon\]
+    which means $P([X]_t \leq [X]_{t+} \leq [X]_t + 3\epsilon) > 1-3\delta$ for any $\epsilon ,\delta > 0$ and hence $[X]_{t+}$ a.s.\par
+    Similarly, we have
+    \[P(\Delta [X]_u \leq (\Delta X_u)^2 + 3\epsilon) > 1-3\delta\]
+    for any $\epsilon,\delta > 0$ and also
+    \[\Delta [X]_u \geq (\Delta X_u)^2 - 3\epsilon\]
+    with probability $\geq 1-3\delta$ and hence $\Delta [X]_u = (\Delta X_u)^2$ a.s.
+\end{proof}
+
+\begin{definition}
+    An $increasing\ process$ $A = \{A_t, 0 \leq t < \infty\}$ is an adapted process such that, for almost every $\omega, A_0(\omega) = 0$ and $s\mapsto A_s(\omega)$ is nondecreasing and right-continuous, which is automatically cadlag.
+\end{definition}
+
+\begin{lemma}
+    Suppose the processes below exist. Then at a fixed $t$,
+    \[|[X,Y]_t| \leq [X]_t^{1/2}[Y]_t^{1/2}\quad a.s.\]
+    and more generally for $0 \leq s < t$
+    \[|[X,Y]_t-[X,Y]_s| \leq ([X]_t-[X]_s)^{1/2}([Y]_t-[Y]_s)^{1/2}\quad a.s.\]
+    furthermore,
+    \[|[X]_t-[Y]_t| \leq [X-Y]_t + 2[X-Y]_t^{1/2}[Y]_t^{1/2}\quad a.s.\]
+    In the cadlag case the inequalities are valid simultaneously at all $s < t\in\R^+$ with probability $1$.
+\end{lemma}
+\begin{proof}
+    We know for any $\pi$ a partition of $[0,t]$,
+    \[(\sum\limits_{i=0}^{m(\pi)-1} (X_{t_{i+1}}-X_{t_i})(Y_{t_{i+1}}-Y_{t_i}))^2 \leq (\sum\limits_{i=0}^{m(\pi)-1} (X_{t_{i+1}}-X_{t_i})^2)(\sum\limits_{i=0}^{m(\pi)-1} (Y_{t_{i+1}}-Y_{t_i})^2)\]
+    then we have for any $\epsilon, \delta > 0$, there exists $\eta > 0$ for any $|\pi| < \delta$, the three distinctions are less than $\epsilon$ with probability $1-\delta$, then we know
+    \[2\epsilon[X,Y]_t + [X,Y]_t^2 \leq [X]_t[Y]_t + \epsilon([X]_t+[Y]_t)\]
+\end{proof}
+
+\end{document}

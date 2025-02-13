@@ -1,0 +1,196 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework06 - MATH 722}
+\author{Boren(Wells) Guan}
+\date{February 26,2024}
+% 本文档命令
+\usepackage{array,url}
+\usepackage[notextcomp]{stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Chapter.7 Ex.53} 
+The Perron method for solving the Dirichlet problem is highly nonconstructive. In practice, the Dirichlet problem on a domain is often solved by conformal mapping. Solve each of the following Dirichlet problems by using a conformal mapping to transform the problem to one on the disc.\par
+a. $\Omega$ is the first quadrant. The boundary function $\phi$ equals $0$ on the positive real axis and $y$ on the positive imaginary axis.\par
+b. $\Omega$ is the upper half of the unit disc. The boundary function is
+\[
+\begin{aligned}
+    \phi(e^{i\theta}) &= \theta, 0 \leq \theta \leq \pi \\
+    \phi(x) &= \pi\dfrac{1-x}{2}, -1 \leq x \leq 1
+\end{aligned}
+\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. Firstly, we know $h(z) = \tfrac{z^2-1}{z^2+1}$ is a conformal map between $\Omega$ and $D$, so let $f = \phi\circ h^{-1}$ and we know
+\[
+f(z) = \begin{cases}
+    -i\sqrt{i\dfrac{1-z}{1+z}}, z\in \partial D \cap \{Imz\geq 0\} \\
+    0, z\in \partial D\cap \{Im z < 0\}
+\end{cases}
+\]
+and we know
+\[u(z) = \begin{cases}
+    \dfrac{1}{2\pi}\int_0^{\pi}f(e^{i\theta})\dfrac{1-|h(z)|^2}{|h(z)-e^{i\theta}|^2} d\theta, z\in D\\
+    f(z), z\in \partial D
+\end{cases}\]\par
+b. Consider $h:\overline{\Omega} \to \overline{D}$ by
+\[h(z) = \dfrac{(1-z)^2-i(1+z)^2}{(1-z)^2+i(1+z)^2}\]
+is a conformal map and let $f = \phi\circ h^{-1}$ and we have
+\[
+f(z) = \begin{cases}
+    Arg\Big(i\dfrac{\sqrt{i\dfrac{1-z}{1+z}}-1}{\sqrt{i\dfrac{1-z}{1+z}}+1}\Big), z\in\partial D \cap \{Im z \geq 0\}\\
+    \dfrac{\pi}{2}\Big(1-i\dfrac{\sqrt{i\dfrac{1-z}{1+z}}-1}{\sqrt{i\dfrac{1-z}{1+z}}+1}z \in \partial D\cap \{Im z<0\}\Big)
+\end{cases}
+\]
+and then we know
+\[
+u(z) = \begin{cases}
+    \dfrac{1}{2\pi}\int_0^{\pi}f(e^{i\theta})\dfrac{1-|h(z)|^2}{|h(z)-e^{i\theta}|^2} d\theta, z\in D\\
+    f(z), z\in \partial D
+\end{cases}
+\]
+which is similar to (a).
+\vspace{0.5em}
+
+\subsection*{Chapter.8 Ex.10} 
+Let $f$ be entire and have a first-order zero at each of the nonpositive integers. Prove that
+\[
+f(z) = ze^{g(z)}\prod_{j=1}^{\infty}\Big[\Big(1+\dfrac{z}{j}\Big)e^{-z/j}\Big]
+\]
+for some entire function $g$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice let $h(z) = (1+z)/e^z$, then we have
+\[
+h'(z) = -z/e^z, h''(z) = -(1-z)/e^z, h'''(z) = z/e^z
+\]
+and hence we may know
+\[
+h(z) = \sum\limits_{k\geq 0} (-1)^{k}z^k/(2k)!
+\]
+and then we know
+\[
+|1- h (z)| \leq |z^2|
+\]
+for $|z| \leq 1$, so then
+\[
+\Big|\Big(1+\dfrac{z}{j}\Big)e^{-z/j} - 1\Big| \leq |z^2|/j^2
+\]
+if $|z| \leq j$, so for any compact set $K$ on $\C$, there exists $N$ such that
+\[
+\Big|\Big(1+\dfrac{z}{j}\Big)e^{-z/j} - 1\Big| \leq |z^2|/n^2
+\]
+for any $n\geq N$ and hence
+\[
+\prod_{j=1}^{\infty}\Big[\Big(1+\dfrac{z}{j}\Big)e^{-z/j}\Big]
+\]
+will be an entire function since $\sum \Big|\Big(1+\dfrac{z}{j}\Big)e^{-z/j} - 1\Big|$ converges. It is easy to check that
+\[
+f/\Big(\prod_{j=1}^{\infty}\Big[\Big(1+\dfrac{z}{j}\Big)e^{-z/j}\Big]\Big)
+\]
+is an nonzero entire function on $\C$ and hence there is some entire function $g$ such that
+\[
+f(z) = ze^{g(z)}\prod_{j=1}^{\infty}\Big[\Big(1+\dfrac{z}{j}\Big)e^{-z/j}\Big]
+\]
+and we are done.
+\vspace{0.5em}
+
+\subsection*{Chapter.9 Ex.6} 
+Construct a convergent Blaschke product $B(z)$ such that no $P\in\partial D$ is a regular point for $B$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Firstly, we construct $b_j$ in $D$ such that $b_j$ has no accumulation in $D$ and for any $p\in\partial D(0,1)$, $p$ is an accumulation point of $b_j$, with $\sum_{j\geq 1} |1-|b_j|| < \infty$.\par
+Define $u_{j,k}, j\geq 1, k \leq 2^{j-1}$ by
+\[u_{j,k} = \{re^{i\theta}, r\in [1-4^{-j},1), \theta \in [2(k-1)\pi/2^{j-1},2k\pi/2^{j-1})\}\]
+by lemma 8.3.2, there is a countable subset of $D$ satisfy the first two conditions above. Since $u_{i,k}$ is a neighbourhood of some $p\in \partial D(0,1)$, $u_{j,k}\cap A$ non empty. Now for every $j,k$, choose $a_{j,k}\in u_{j,k}\cap A$ with
+\[|1-|a_{j,k}|| \leq 4^{1-j}\]
+and hence
+\[
+\sum_{j\geq 1}(\sum\limits_{k=1}^j (1-|a_{j,k}|)) < 2
+\]
+so we know $a_{j,k}$ satisfies all the requirements before.\par
+Resorting $a_{j,k}$ as $b_j$ and we know the Blaschke product
+\[\prod_{j\geq 1}\dfrac{-\bar{b}_j}{b_j}B_{b_j}(z)\]
+converge on $D$. Denote
+\[f(z) = \prod_{j\geq 1}-\dfrac{\bar{b}_j}{b_j}B_{b_j}(z)\]
+and we claim that no $p\in\partial D$ is a regular point of $f$. Assume $p$ is a regular point, since $f(b_j) = 0$ and $p$ is an accumulation point of $b_j$, $\tilde{f} \equiv 0$ and hence $f = 0$ on $D$ which is a contradiction and we are done. 
+\vspace{0.5em}
+
+\subsection*{Chapter.9 Ex.8} 
+Let $B$ be a convergent Blaschke product. Prove that
+\[\sup_{z\in D} |B(z)| = 1\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Write $B(z)$ into
+\[B(z) = \prod_{j\geq 1} -\dfrac{\bar{a}_j}{a_j} B_{a_j}(z)\]
+and define
+\[B_N(z) = \prod_{j=1}^N -\dfrac{\bar{a}_j}{a_j} B_{a_j}(z)\]
+since for any $j>0$, $|B_{a_j}(z)| \leq 1$ for $z\in \overline{D}(0,1), \sup_{z\in D}|B(z)| \leq 1$.\par
+Since $B_N(z)$ is holomorphic on $D$ and continuous on $\overline{D}$, $B_N(z) = 1$ for all $z$ on $\partial D$ and hence for any $\epsilon > 0$, there is $r_0\in(0,1)$ such that $B_N(z) > 1-\epsilon$ for $z\in D(0,1)\cap\{z,|z|\geq r_0\}$. By applying maximal module principle on $\dfrac{B}{B_N}$, we have the following inequality
+\[
+\sup_{z\in D}\Big|\dfrac{B(z)}{B_N(z)}\Big| = \sup_{z\in D\cap \{z,|z|\geq r_0\}}\Big|\dfrac{B(z)}{B_N(z)}\Big| \leq \dfrac{1}{1-\epsilon} \sup_{z\in D}|B(z)|
+\]
+Notice $\epsilon$ is arbitrary, so 
+\[
+\sup_{z\in D}\Big|\dfrac{B(z)}{B_N(z)}\Big| \leq \sup_{z\in D(0,1)}|B(z)|
+\]
+By convergence of $B(z)$, $\tfrac{B(z)}{B_N(z)}$ converge uniformly to $1$ on $D(0,1)$, hence
+\[\sup_{z\in D}|B(z)| \geq 1\]
+and we know $\sup_{z\in D}|B(z)| = 1$.
+\vspace{0.5em}
+
+\subsection*{Chapter.9 Ex.11} 
+Let $\phi$ be a continuous function on $[a,b]$. Let $\alpha \in \R$. Prove that
+\[f(z) = \int_d^b e^{\alpha zt}\phi(t)dt\]
+is an entire function of finite order. Can you compute the order of $f$. Does it depend on $\phi$?
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+To show $f(z)$ is of finite order, we need to show there are $c,r > 0$ such that $|f(z)| \leq e^{|z|^c}$ for $|z| > r$. Since
+\[
+|f(z)| \leq \int_a^b |e^{\alpha zt}\phi(t)|dt \leq \max_{[0,b]}|\phi(t)|\int_a^b|e^{\alpha zt}|dt
+\]
+and $|e^{\alpha zt}| \leq \max\{e^{|\alpha a|z, e^{|\alpha b|z}}\} \leq de^{|z|^t}$ where $t = \max\{|\alpha a|,|\alpha b|\}$. For any $\epsilon > 0$, for some $r\in\R$ large enough, $|f(z)| \leq e^{|z|^{t+\epsilon}}$ for $|z|>r$, and hence $f$ is not of finite order.\par
+The order of $f$ will depends on $\phi$. Let $\phi = 0$ on $[a,b]$ and we know $f=0$ is with order $0$. Let $\phi = 1$ and we know $f(z) > e$ for some $z\in \R$, $z$ large enough and hence $f$ is not of order $0$.
+\vspace{0.5em}
+
+\subsection*{Chapter.12 Ex.2} 
+Construct a sequence $\{g_j\}$ of entire functions with the following propoerty: For each rational number $q$ that lies strictly between $0$ and $2$ the sequence $\{g_j\}$ converges uniformly to $q$ on compact subsets of the set $re^{iq\pi},r>0$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Firstly, we construct a sequence of irrational numbers, let consider $A_0 = \emptyset$, construct $A_j$ by choosing $j$ irrational numbers from $[k2^{-j},(k+1)2^{-j}], 0\leq j \leq 2^j - 1$ and adding them to $A_{j-1}$, then let $A = \bigcup_{j\geq 0}A_j$ and we obtain coutnable many dense irrational numbers, now we consider $B_n = \{Argz/\pi \in (0,2) - \bigcup_{\alpha \in A_n} (\alpha - 10^{-n}), n^{-1} \leq |z| \leq n\}$, and then $B_n$ will be come a compact set, and define $f_n$ such that $f_n(z)$ equals to $Arg \alpha/\pi \in (0,2)$ on any connected component $U$ where $\alpha \in U$. Now we know we may extend $f_n$ to some neighborhood of $B_n$ and obviously $f_n$ is holomorphic, and hence we may find $p_n$ entire such that $|p_n - f_n| < 2^{-n}$ on $B_n$.\par
+Now we claim $p_n$ satisfies the requirement, for any $q\in(0,2)$ rational and a compact set $K$ on $\{re^{iq\pi}, r>0\}$, we may know that there has to be $N$ such that for any $n\geq N$, $K \subset B_n$. Then
+\[
+|p_n - q| \leq |p_n - f_n| + |f_n-q| <2^{n-1}
+\]
+since every connected component will not contain any two elements with there difference of Arg is large than $2^{-n}\pi$ and we are done.
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

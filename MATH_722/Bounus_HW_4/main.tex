@@ -1,0 +1,74 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Bonus 04 - MATH 722}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Problem} 
+Prove if $f$ is a polynomial on $\C$, then the zeros of $f'$ are contained in the closed convex hull of the zeros of $f$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know $f$ can be expressed by
+\[f = C\prod_{i=1}^m (z-z_i)^{n_i}\]
+for some $z_i, 1\leq i \leq m$ complex and $n_i,1\leq i \leq n$ integers. If $m = 1$, then the problem is trivial, we assume $m\geq 2$ and then we may know
+\[
+  f' = C\prod_{i=1}^m (z-z_i)^{n_i-1}\Big[\sum\limits_{i=1}^m n_i\prod_{1\leq j \leq m, j\neq i}(z-z_j)\Big]
+\]
+and it suffices to show that the zeros of
+\[
+\sum\limits_{i=1}^m n_i\prod_{1\leq j \leq m, j\neq i}(z-z_j)
+\]
+are contained in the convex hull of the zeros of $\{z_1,\cdots,z_m\}$, now we consider if $\xi$ is a zero of the polynomial above and not in the convex hull of $\{z_1,\cdots,z_m\}$, then we may find a straight line on the complex plane separting $\xi$ and $z_1,z_2,\cdots,z_m$ and hence if we denote $\theta_i = Arg(z_i - \xi), 1\leq i \leq m$, without loss of the generality, we may assume $\theta_1  \leq \theta_2 \leq \cdots \leq \theta_n$ and
+\[\theta_n-\theta_1 < \pi\]
+Then we let
+\[
+Arg\Big(\dfrac{\prod_{i=1}^m (z_i - \xi)}{(z_j - \xi)}\Big)  = \phi_j
+\]
+for $1\leq j \leq m$ and we have
+\[
+\phi_j \in [\sum\limits_{i=1}^m \theta_i - \theta_n, \sum\limits_{i=1}^m \theta_i - \theta_1] \in (a-\pi/2,a+\pi/2)
+\]
+for some $a \in \R$ and hence
+\[\sum\limits_{i=1}^m n_i\prod_{1\leq j \leq m, j\neq i}(\xi-z_j) \neq 0\]
+which can be implied by considering $\Lambda(z)$ be the image of $z$ by $\C\to\R^2$ and then we know
+\[
+\Lambda\Big[\sum\limits_{i=1}^m n_i\prod_{1\leq j \leq m, j\neq i}(\xi-z_j)\Big] \cdot \Lambda(e^{i\alpha}) < 0
+\]
+since $n_i \geq 1$, which means
+\[\sum\limits_{i=1}^m n_i\prod_{1\leq j \leq m, j\neq i}(\xi-z_j) \neq 0\]
+Therefore, $\xi$ cannot be a zero of
+\[
+\sum\limits_{i=1}^m n_i\prod_{1\leq j \leq m, j\neq i}(z-z_j)
+\]
+and we are done.
+\vspace{0.5em}
+
+\addappheadtotoc
+
+
+\end{document}

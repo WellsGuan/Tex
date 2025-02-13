@@ -1,0 +1,57 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Bonus 06 - MATH 722}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+Let $\overline{D}(a_j,r_j)$ be pairwise disjoint closed disc closed discs in $D(0,1)$ such that the union of discs $\bigcup_{j=1}^{\infty} \overline{D}(a_j,r_j)$ is dense in $\overline{D}(0,1)$. Let $K = \overline{D}(0,1)-(\bigcup_{j=1}^{\infty} D(a_j,r_j))$. Prove that such discs can be chosen so that $\sum_j r_j < 1$ and that in this case the conclusion of Mergelyan's theorem fails on $K$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+The first part is the proof of the existence of $a_j,r_j$ such that $\sum\limits_{r_j} < 1, \overline{a_j,r_j}$ disjoint and $\bigcup_{j=1}^{\infty}\overline{D}(a_j,r_j)$ are dense. Consider the partition $A_n$ of $\overline{D}(0,1)$ by
+\[
+A_{n,k,s} = \{e^{x+iy}, e^x\in [k2^{-n},(k+1)2^{-n}), y\in[s2\pi/2^n, (k+1)2\pi/2^n), 0\leq k < 2^n, 0\leq s < 2^n\}
+\]
+then we may construct $P_n$ by choose $a_{n,k,s} \in A_{n,k,s}^{\circ} - \bigcup_{m<n} \bigcup_{0\leq k,s < 2^m} \overline{D}(a_{m,k,s},r_{m,k,s})$ and \[r_{n,k,s} < \min\{\min\{8^{-n}, d(a_{n,k},\overline{D} - A_{n,k}^{\circ})\}, \min\{|a_{n,k,s}-a_{m,p,q}|, m<n, 0\leq p,q < 2^m\}\},\] then let $P = \bigcup_{n\geq 1}P_n$ and we know $P$ is countable and dense in $\overline{D}$ and hence $\bigcup_{n\geq 0, 0\leq s,t\leq 2^n}\overline{D}(a_{n,s,t},r_{n,s,t})$ will be dense and it is easy to check that
+\[
+\sum_{n,s,t} r_{n,s,t} < 1
+\]
+and we are done by resorting $a_{n,s,t}$.\par
+We consider $f(z) = Re z$, and then we know $f$ is continuous on $K$ and holomorphic on $K^{\circ}$ since it is empty, so we know for any $\epsilon>0$, there exists $p(z)$ polynomial such that
+\[|p(z) - f(z)| < \epsilon\] on $K$ and hence we know let $\gamma$ be $\partial D(0,1)$ with counterclockwise orientation. So we know
+\[
+2\pi \epsilon > \int_{\gamma}|p(z)-f(z)|dz \geq |\int_{\gamma}p(z) - \int_{\gamma}f(z)| = \pi
+\]
+since
+\[
+\int_{\gamma}f(z) = \pi i 
+\]
+and $p$ is holomorphic on $\C$, however, let $\epsilon < 1/2$ and there will be a contradiction, and hence Mergelyan's thoerem fails on $K$.
+\vspace{0.5em}
+\addappheadtotoc
+
+\end{document}

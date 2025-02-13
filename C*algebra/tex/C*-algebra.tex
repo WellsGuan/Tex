@@ -1,0 +1,106 @@
+。lo 0\section{C*-Algebras}
+
+\subsection{Basic Concepts}
+
+\begin{definition}(Involution)\par
+    For a Banach algebra $\mathcal{A}$(which is not required to have an identity), the involution is a map $\mathcal{A} \to \mathcal{A}$ denoted by $a\mapsto a^*$ such that for any $a,b\in\mathcal{A}$
+    \begin{itemize}
+        \item $(a^*)^* = a$
+        \item $(ab)^* = b^*a^*$
+        \item $(\alpha a + b)^* = \overline{\alpha}a^*+b^*$ for any $\alpha \in \mathbb{C}$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}(C*-algebra)\par
+    A \textbf{C*-algebra} is a Banach algebra $\mathcal{A}$ such that
+    \[||a^*a|| = ||a||^2\]
+    for any $a\in\mathcal{A}$.    
+\end{definition}
+
+\begin{proposition}
+    Suppose $\mathcal{A}$ is a C*-algebra, then the involution keeps norm, i.e. for any $a\in \mathcal{A}$ we have $||a^*|| = ||a||$.
+\end{proposition}
+\Pf\par
+    Notice
+    \[
+    ||a||^2 = ||aa^*|| \leq ||a||||a^*||
+    \]
+    which implies $||a|| \leq ||a^*||$ and since $(a^*)^* = a$ and we are done.
+
+\begin{proposition}
+    Suppose $\mathcal{A}$ is a C*-algebra, $a\in\mathcal{A}$, then
+    \[
+    ||a|| = \sup\{||ax||, x\in\mathcal{A}, ||x|| \leq 1\}
+    \]
+\end{proposition}
+\Pf\par
+    Notice
+    \[
+    ||ax|| \leq ||a|||x|| \leq ||a||
+    \]
+    and hence
+    \[
+    ||a|| \leq \sup\{||ax||, x\in\mathcal{A}, ||x|| \leq 1\}
+    \]\par
+    For the other side, we may consider $x = a^*/||a^*||$ then
+    \[
+    \sup\{||ax||, x\in\mathcal{A}, ||x|| \leq 1\} \geq ||ax|| = ||aa^*||/||a^*|| = ||a^*|| = ||a||
+    \]
+    and we are done.
+
+\begin{proposition}
+    If $\mathcal{A}$ is a $C*$-algebra, then there is a 6yC*-algebra $\mathcal{A}_1$ with an identity such that $\mathcal{A}_1$ contains $\mathcal{A}$ as an ideal. If $\mathcal{A}$ does not have an identity, then $\mathcal{A}_1/\mathcal{A}$ is one dimensional. If $\mathcal{C}$ is a C*-algebra with identity, and $v:\mathcal{A} \to \mathcal{C}$ is a $*$-homomorphism, then $v_1:\mathcal{A}_1 \to \mathcal{C}$, defined by $v_1(a+\alpha) = v(a) + \alpha$ for a in $\mathcal{A}$ and $\alpha$ in $\mathbb{C}$ is a $*$-homomorphism.
+\end{proposition}
+
+\subsection{The Positive Elements in a C*-Algebra}
+
+\begin{definition}
+    If $\mathcal{A}$ is a C*-algebra, then $a$ is positive if $a\in \text{Re} \mathcal{A}$(the hermitian elements of $\mathcal{A}$) and $\sigma(a) \subset [0,\infty)$. If $a$ is positive, this is denoted by $a\geq 0$. Let $\mathcal{A}_+$ be the set of all positive elements of $\mathcal{A}$.
+\end{definition}
+
+\begin{proposition}
+    If $a\in\mathcal{s}$
+\end{proposition}
+
+\subsection{Ideals and Quotients of C*-Algebras}
+
+\begin{proposition}
+    If $I$ is a closed left or right ideal in the C*-algebra $\mathcal{A}$, $a\in I$ with $a = a^*$ and if $f\in C(\sigma(a))$ with $f(0) = 0$, then $f(a)\in I$.
+\end{proposition}
+
+\begin{corollary}
+    If $I$ is a closed left or right ideal,$a\in I$ with $a = a^*$ then $a_+,a_-, |a|$ and $|a|^{1/2}\in I$.
+\end{corollary}
+
+\begin{theorem}
+    If $I$ is a closed ideal in the C*-algebra $\mathcal{A}$, then $a^* \in I$ if $a\in I$.
+\end{theorem}
+
+\begin{proposition}
+    If $\mathcal{A}$ is a C*-algebra and $I$ is an ideal of $\mathcal{A}$, then for every $a$ in $I$ there is a sequence $\{e_n\}$ of positive elements in $I$ such that
+    \begin{itemize}
+        \item $e_1\leq e_2\leq \cdots$ and $||e_n|| \leq 1$
+        \item $||ae_n - a|| \to 0$ as $n\to \infty$
+    \end{itemize}
+\end{proposition} 
+
+\begin{lemma}
+    If $I$ is an ideal in a C*-algebra $\mathcal{A}$ and $a\in\mathcal{A}$, then $||a+I||:= \inf\{||a-x||,x\in I\} = \inf\{||a-ax||:x\in I, x\geq 0, ||x||\leq 1\}$.
+\end{lemma}
+\Pf\par
+    We know
+    \[||a+I|| \leq \inf\{||a-ax||, x\geq 0, ||x|| \leq 1\}\]
+    and let $e_n\in I, e_n\leq 1$ such that $||y-ye_n|| \to 0$ for some $y\in I$ then since we know $0\leq 1- e_n \leq 1$, so $||(a+y)(1-e_n)|| \leq ||a+y||$ and hence
+    \[
+    ||a+y|| \geq \liminf ||a-ae_n|| \geq \inf\{||a-ax||, x\geq 0, ||x|| \leq 1, x\in I\}
+    \]
+
+
+\begin{theorem}
+    If $\mathcal{A}$ is a C*-algebra and $I$ is a closed ideal of $\mathcal{A}$, then for each $a+I$ in $\mathcal{A}/I$ define $(a+I)^* = a^*+I$. Then $A/I$ with its quotient norm is a C*-algebra.
+\end{theorem}
+\Pf\par
+    By the lemma 1.3.5. we know
+    \[||a+I||^2 = \inf\{||(1-x)a^*a(1-x)||, x\geq 0, ||x||\leq 1, x\in I\}\leq ||a^*a+I||\]
+    and since $||a^*+I|| = ||a+I||$ by proposition 1.3.4. and we are done.
+    

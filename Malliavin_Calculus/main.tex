@@ -1,0 +1,700 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Durrett Ed5}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\section{Basics of Stochastic Processes}
+
+We will refer $X_t$ to be real or $\R^d$-valued continuous-time stochastic processes defined on a probability space $(\Omega,\F,P)$. For every fixed $\omega\in\Omega$, $t\mapsto X_t(\omega)$ is called a trajectory or sample path of the process.\par
+
+For a real-valued stochastic process, let $-\leq t_1 < \cdots < t_n$ be fixed. Then we know
+\[P_{t_1,\cdots,t_n} = P\circ (X_{t_1},\cdots,X_{t_n})^{-1}\]
+is a probablity distribtuion on $\R^n$, which is called the finite-dimensional marginal distribution of the process.
+
+\begin{theorem}
+    (Kolmogorov's extension theorem) Consider a family of probablity measures
+    \[\{P_{t_1,\cdots,t_n}, t_1<\cdots<t_n, n\geq 1, t_i\geq 0\}\]
+    such that\par
+    a. $P_{t_1,\cdots,t_n}$ is a probablity on $\R^n$.\par
+    b. For $\{t_{k_1}<\cdots<t_{k_m}\} \subset \{t_1<t_2<\cdots<t_n\}$,$P_{t_{k_1},\cdots,t_{k_m}}$ is required to be a marginal of $P_{t_1,\cdots,t_n}$, then there exists a real-valued stochastic process $X_t$ owning finite-dimensional marginal distributions of $\{P_{t_1,\cdots,P_{t_n}}\}$.
+\end{theorem}
+
+\begin{definition}
+    A real-valued process $X_t$ is a second-order process iff $EX_t^2 < \infty, t\geq 0$, define
+    \[m_X(t) = EX_t, \Gamma_X(s,t) = \text{cov}(X_s,X_t)\]
+\end{definition}
+
+\begin{definition}
+    A real-valued process $X_t$ is said to be Gaussian if its finite-dimensional marginal distributions are multidimensional Gaussian laws.
+\end{definition}
+
+\begin{proposition}
+    A Gaussian process is determined by $m_X$ and $\Gamma_X$, conversely, for any $m:\R_+\to\R$ and a symmetric $\Gamma:\R_+\times\R_+\to\R$ which is nonnegative definite, there always exists a Gaussian process with mean $m$ and covariance function $\Gamma$ by Kolmogorov's extension theorem. 
+\end{proposition}
+
+\begin{definition}
+    We call two processes $X,Y$ are  equivalent if for all $t\geq 0$, $X_t = Y_t$ a.s. And we call they indistinguishable if $X_t(\omega) = Y_t(\omega)$ for all $t\geq 0$ and for all $\omega$ in some set with probability $1$.
+\end{definition}
+
+\begin{proposition}
+    Two equivalent processes with right-continuous trajectories are indistinguishable.
+\end{proposition}
+\begin{proof}
+    Let $X_q = Y_q$ on $\Omega_q$ for $q\in\Q$ and let $\Omega' = \bigcap_{q\in\Q}\Omega_q$ and we know $\Omega'$ has the probability $1$. And it is easy to check that $X_t = Y_t$ on $\Omega '$ for all $t$.
+\end{proof}
+
+\begin{theorem}(Kolmogorov's continuity theorem)
+    Suppose that $X = X_t, t\in[0,T]$ satisfies
+    \[ E(|X_t-X_s|^{\beta}) \leq K|t-s|^{1+\alpha}\]
+    for all $s,t\in [0,T]$ and for some constants $\beta,\alpha,K>0$. Then there exists a version $\tilde{X}$ of $X$ such that, if $\gamma < \alpha/\beta$, then
+    \[|\tilde{X_t}|-\tilde{X_s} \leq G_{\gamma}|t-s|^{\gamma}\]
+    for all $s,t\in[0,T]$, where $G_{\gamma}$ is a random variable. The trajectories of $\tilde{X}$ are Holder continuous of $\gamma$ for any $\gamma < \alpha/\beta$.
+\end{theorem}
+
+\begin{definition}
+    $\F_t$ is an increasing family of sub-$\sigma$-field of $\F$. A process $X_t$ is $\F_t$-adapted if $X_t$ is $\F_t$-measurable for all $t\geq 0$.
+\end{definition}
+
+\begin{definition}
+    An adapted process $X_t,t\geq 0$ is a Markov process w.r.t.  a filtration $\F_t$ if for any $s\geq 0, t>0$ and any measurable and bounded function $f:\R\to\R$,
+    \[E(f(X_{s+t})|\F_s) = E(f(X_{s+t})|X_s)\ a.s.\]
+\end{definition}
+
+\begin{proposition}
+    A $\F_t$-Markov process $X_t$ is also a $\F_t^X$-Markov process where
+    \[\F_t^X = \sigma\{X_u, 0\leq u \leq t\}\]
+\end{proposition}
+\begin{proof}
+    Notice
+    \[E(f(X_{s+t}|\F_s^X)) = E(E(f(X_{s+t}|\F_s))|\F_s^X) = E(E(f(X_{s+t}|X_s))|\F_s^X) = E(f(X_{s+t}|X_s))\]
+    since $\sigma(X_s) \subset F_s^X \subset F_t$.
+\end{proof}
+
+\begin{definition}
+    Assume a filtration $\F_t$ on $(\Omega,\F,P)$ satisfies that for any $P(A) = 0,A\in\F$, $A\in\F_0$ and it is right-continuous,i.e.
+    \[\F_t = \cap_{n\geq 1}\F_{t+n^{-1}}\]
+    Then consider a r.v. $T:\Omega\to[0,\infty]$ is a stopping time w.r.t. to the filtration if
+    \[\{T\leq t\in\F_t\}\]
+    for any $t\geq 0$.
+\end{definition}
+
+\begin{proposition}
+    a. $T$ is a stopping time iff $\{T<t\} \in \F_t$ for all $t\geq 0$.\par
+    b. $S\vee T$ and $S\wedge T$ are stopping times.\par
+    c. Givene a stopping time $T$,
+    \[\F_T = \{A, A\cap\{T\leq t\} \in \F_t, \forall t\geq 0\}\]
+    is a $\sigma$-algebra.\par
+    d. If $S\leq T$, then $\F_S\subset \F_T$.\par
+    e. Let $X_t, t\geq 0$ be a continuous and adapted process. The hitting time of a set $A\subset \R$ is defined by
+    \[T_A = \inf\{t\geq 0,X_t \in A\}\]
+    and whether $A$ is open or closed, $T_A$ is a stopping time.\par
+    f. Let $X_t$ be an adapted stochastic process with right-continuous paths and let $T<\infty$ be a stopping time. Then the random variable
+    \[X_T(\omega) = X_{T(\omega)(\omega)}\]
+    is $\F_T$-measurable.
+\end{proposition}
+
+\begin{definition}
+    An adapted process $M = M_t,t\geq 0$ is called a martingale w.r.t. a filtration $\F_t,t\geq 0$ if\par
+    a. for all $t\geq 0$, $E(|M_t|) < \infty$\par
+    b. for each $s\leq t$, $E(M_t|\F_s) = M_s$
+\end{definition}
+
+\begin{proposition}
+    a. For any integrable random varibale $X$, $E(X|\F_t)$ is a martingale.\par
+    b. If $M_t$ is a submartingale then $t\to E(M_t)$ is nondecreasing.\par
+    c. If $M_t$ is a martingale and $\varphi$ is a convex function such that $E|\phi(M_t)| < \infty$ for all $t\geq 0$ then $\phi(M_t)$ is a submartingale. 
+\end{proposition}
+\begin{proof}
+    Only (c) is needed to be proved. Conside $ax+b \leq \phi(x)$ and we know
+    \[E(\phi(M_t)|\F_s) \geq aE(X_t|\F_s) + b \]
+    for any such $a,b$ and hence
+    \[E(\phi(M_t)|\F_s) \geq \phi(M_t)\]
+\end{proof}
+
+\begin{definition}
+    An adapted process $M_t,t\geq 0$ is called a local martingale if there exists a sequence of stopping times $\tau_n\uparrow \infty$ such that, for any $n\geq 1$ $M_{t\wedge\tau_n}$ is a martingale.
+\end{definition}
+
+\begin{theorem}
+    Let $M_t,t\geq 0$ be a continuous local martingale such that $M_0 = 0$. Let $\pi = \{0= t_0 < t_1<\cdots<T_n = t\}$ be a partition of $[0,t]$. Then we have
+    \[\sum\limits_{j=0}^{n-1}(M_{t_{j+1}}-M_{t_j})^2 \to \langle M\rangle_t, |\pi| \to 0\]
+    in probability, where $\langle M\rangle_t, t\geq 0$ is called the quadratics variation of the local martingale. Moreover, if $M_t, t\geq 0$ is a martingale then the convergence holds in $L^1(\Omega)$.
+\end{theorem}
+
+\begin{theorem}
+    The quadratic variation is the unique continuous and increasing process satisfying $\langle M\rangle_0 = 0$ and
+    \[M_t^2 - \langle M\rangle_t\] is a local martingale.\par
+\end{theorem}
+
+
+
+\section{Brownian Motion}
+
+\begin{definition}
+A real-valued stochastic process $B=(B_t)_{t\geq 0}$ defined on a probability space $(\Omega,\F;P)$ is called a Brownian motion if it satisfies the following conditions:\par
+a. Almost surely $B_0 = 0$.\par
+b. For all $0\leq t_1 < \cdots t_n$ the increments $B_{t_n}-B_{t_{n-1}},\cdots,B_{t_2}-B_{t_1}$ are independent random variables.\par
+c. If $0\leq s < t$, the increment $B_t-B_s$ is a Gaussian random variable with mean zero and variance $t-s$.\par
+d. With probability one, the map $t\to B_t$ is continuous.\par
+A $d$-dimensional Brownian motion is defined as an $\R^d$-valued stochastic process $B=(B_t)_{t\geq 0}$, $B_t = (B_t^1,\cdots,B_t^d)$, where $B^1,\cdots,B^d$ are $d$ independent Brownian motions.
+\end{definition}
+
+\begin{proposition}
+    Properties (a),(b),(c) are equivalent to that $B$ is a Gaussian process,i.e. for any finite set of indices $t_1,\cdots,t_n$, $(B_{t_1},\cdots,B_{t_n})$ is a multivariate Gaussian random variable, equivalently, any linear combination of $B_{t_i}$ is normal distributed r.v., with mean zero and covariance function
+    \[\Gamma(s,t) = \min(s,t)\]
+\end{proposition}
+\begin{proof}\par
+    Suppose (a),(b),(c) holds, then we know $(B_{t_1},\cdots,B_{t_n})$ is normal for any finite indices and then
+    \[
+    \begin{aligned}
+        m(t) &= E(B_t) = 0\\
+        \Gamma(s,t)&=E(B_sB_t) =E(B_{\min(s,t)}^2) = \min(s,t) 
+    \end{aligned}
+    \]\par
+    Conversly, we know $E(B_0^2) = 0$ and hence $B_0 = 0$ a.s., then we know $E(B_s^2) = s$ and for any $0<s<t$,
+    \[
+    E(B_s(B_t-B_s)) = 0
+    \]
+    and it is easy to check (c), and (b) is deduced by computing the covariance of the increments, notice that two r.v.s are independent iff $\phi_{(X_1,X_2,\cdots,X_n)} = \phi_{X_1}\phi_{X_2}\cdots\phi_{X_n}$ which implies that normal r.v.s are independent iff they have zero covariances.
+\end{proof}
+
+\begin{theorem}
+    (Kolmogorov's continuity theorem) Suppose that $X= (X_t)_{t\in[0,T]}$ satisfies
+    \[E(|X_t-X_s|^{\beta}) \leq K|t-s|^{1+\alpha}\]
+    for all $s,t\in[0,T]$ and some constant $\beta,\alpha,K>0$. Then there exists a version $\tilde{X}$ of $X$ such that if
+    \[\gamma < \alpha/\beta\]
+    then
+    \[|\tilde{X}_{t}-\tilde{X}_s| \leq G_{\gamma}|t-s|^{\gamma}\]
+    for all $s,t\in[0,T]$ where $G_{\gamma}$ is a random variable. The trajectories of $\tilde{X}$ are Holder continuous of order $\gamma$ for any $\gamma < \alpha/\beta$.
+\end{theorem}
+
+\begin{proposition}
+    There exists a version of $B$ with Holder-continuous trajectories of order $\gamma$ for any $\gamma < (k-1)/2k$ on any interval $[0,T]$.
+\end{proposition}
+\begin{proof}\par
+    Since we know $B_t-B_s$ has the normal distribution $\mathcal{N}(0,t-s)$ and then we know
+    \[
+    E\Big((B_t-B_s)^{2k}\Big) = \dfrac{1}{\sqrt{2\pi(t-s)}}\int_{-\infty}^{\infty}x^{2k} \exp^{-\dfrac{x^2}{2(t-s)}} dx = (2k-1)!!(t-s)^k = \dfrac{(2k)!}{2^kk!}(t-s)^k
+    \]
+    and by the theorem 1.1, the proposition holds.
+\end{proof}
+
+
+\begin{proposition}
+    Brownian motion are basic properties:\par
+    a. For any $a>0$, the process $(a^{-1/2}B_{at})_{t\geq 0}$ is a Brownian motion.\par
+    b. For any $h>0$, the process $(B_{t+h}-B_h)_{t\geq 0}$ is a Brownian motion.\par
+    c. The process $(-B_t)_{t\geq 0}$ is a Brownian motion.\par
+    d. Almost surely $\lim_{t\to\infty} B_t/t = 0$ and the process $X_t = tB_{1/t}$ for $t>0$, $X_t = 0$ for $t=0$ is a Brownian motion.
+\end{proposition}
+\begin{proof}\par
+    a. Consider $0\leq t_1<t_2<\cdots<t_n$ and we may calculate the covariance matrix for
+    \[a^{-1/2}B_{at_n}-a^{-1/2}B_{at_{n-1}},\cdots,a^{-1/2}B_{at_2}-a^{1/2}B_{at_1}\]
+    by
+    \[
+    \begin{aligned}
+    &E[(a^{-1/2}B_{at_j}-a^{-1/2}B_{at_{j-1}})(a^{-1/2}B_{at_k}-a^{-1/2}B_{at_{k-1}})]\\ = &a^{-1}(at_j\wedge at_k)-a^{-1}(at_j\wedge at_{k-1})-a^{-1}(at_{j-1}\wedge at_k) + a^{-1}(at_{j-1}\wedge at_{k-1}) \\
+    = &\begin{cases}
+        t_j-t_{j-1}-t_{j-1}+t_{j-1} = t_j - t_{j-1}\quad&\text{if }j=k \\
+        t_j-t_j - t_{j-1}+t_{j-1} = 0 &\text{if }j<k \\
+        0&\text{if }j>k
+    \end{cases}
+    \end{aligned}
+    \]
+    and hence $(a^{-1/2}B_{at})_{t\geq 0}$ satisfies the property (b) in definition 1.1, a,d are obvious and c is easy to be checked.\par
+    b. Obvious.\par
+    c. Obvious.\par
+    d. Notice $B$ is Holder continuous. Now we only need to check that
+    \[
+    E(tB_{1/t}sB_{1/s}) = ts(1/t\wedge 1/s) = (t\wedge s)
+    \]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    (The law of the iterated logarithm)
+    \[\limsup_{t\to s^+} \dfrac{|B_t-B_s|}{\sqrt{2|t-s|\ln\ln|t-s|}} = 1,\quad a.s.\]
+\end{theorem}
+
+\begin{proposition}
+    Fix a time interval $[0,t]$ and consider the following subvision $\pi$ of this interval:
+    \[0 = t_0 < t_1 < \cdots<t_n = t\]
+    The norm of the subdivision $\pi$ is defined as $|\pi| = \max_{0\leq j \leq n-1}(t_{j+1}-t_j)$. Then
+    \[\lim_{|\pi|\to 0} \sum\limits_{j=0}^{n-1}(B_{t_{j+1}}-B_{t_j})^2 = t\]
+    in $L^2(\Omega)$.
+\end{proposition}  
+\begin{proof}\par
+    Consider let $\xi_j =(B_{t_{j+1}}-B_{t_j})^2 - (t_{j+1}-t_j)$ and we know $\xi_j$ are independent with mean $0$ and hence
+    \[
+    \begin{aligned}
+    E\Big(\sum\limits_{j=0}^{n-1}(B_{t_{j+1}}-B_{t_j})^2-t\Big)^2 = \sum\limits_{j=0}^{n-1}E\xi_j^2 &= \sum\limits_{j=0}^{n-1}(3(t_{j+1}-t_j)^2 - 2(t_{j+1}-t_j)^2+(t_{j+1}-t_j)^2) \\ &= 2\sum\limits_{j=0}^{n-1}(t_{j+1}-t_j)^2 \leq 2t|\pi| \to 0
+    \end{aligned}
+    \]
+\end{proof}
+\begin{proposition}
+    The total variation of Brownian morion on an interval $[0,t]$ defined by
+    \[V = \sup_{\pi} \sum\limits_{i=1}^{n-1} [B_{t_{j+1}-B_{t_j}}]\]
+    where $\pi$ is any partition of $[0,t]$, is infinite with probability $1$.
+\end{proposition}
+\begin{proof}\par
+    Here we know
+    \[
+    \sum\limits_{j=0}^{n-1}(B_{t_{j+1}}-B_{t_j})^2 \leq V\sup_{j}|B_{t_{j+1}}-B_{t_j}|
+    \]
+    and hence if $V<\infty$, then
+    \[
+    \lim_{|\pi|\to 0}\sum\limits_{j=0}^{n-1}(B_{t_{j+1}}-B_{t_j})^2 = 0
+    \]
+    which means $P(V<\infty) = 0$.
+\end{proof}
+
+\begin{definition}
+    (Wiener integral) Let $\mathcal{E}_0$ be the set pf step functions in $\R_+$,i.e.
+    \[\phi(t) = \sum\limits_{j=0}^{n-1}a_j\chi_{t_j,t_{j+1}}(t)\]
+    where $n\geq 1$ is an integer,$a_i \in \R$ and $0 = t_0 < \cdot < t_n$. And we may define Wiener integral of a step function by
+    \[
+    \int_0^{\infty} \phi dB_t = \sum\limits_{i=0}^{n-1}a_i(B_{t_{i+1}}-B_{t_i}) 
+    \]
+\end{definition}
+
+\begin{proposition}
+    The Wiener integral is a linear isometry from $\epsilon_0\subset L^2(\R^+)$ to $L^2(\Omega)$.
+\end{proposition}
+\begin{proof}
+    Notice 
+    \[
+    E[(\int_0^{\infty} \phi dB_t)^2] = \sum\limits_{i=0}^{\infty}a_i^2(t_{i+1}-t_i) = ||\phi||_2    
+    \]
+\end{proof}
+
+\begin{definition}
+    We have already know Wiener integral is a linear isometry from a dense subspace from $L^2(\R_+)$ to $L^2(\Omega)$, and hence we may call the extension of the linear isometry to be the Wiener integral and for any $\phi \in L^2(\R_+)$, denote
+    \[\int_0^{\infty} \phi dB_t\]
+    to be its image of the isometry.
+\end{definition}
+
+\begin{definition}
+    Let $D$ be a Borel subset of $\R^m$, a white noise on $D$ is a centered Gaussian family of random variables
+    \[\{W_A, A\subset \mathcal{B}(\R^m),A\subset D, m(A)<\infty\}\]
+    such that
+    \[E(W_AW_B) = m(A\cap B)\]
+\end{definition}
+
+\begin{proposition}
+    $\chi_A \to W_A$ is a linear isometry from $L^2(D)\to L^2(\Omega)$.
+\end{proposition}
+
+\begin{definition}
+    Similarly, we may define the integral r.s.t. $W$ of $\phi\in\L^2(D)$ denoted by
+    \[\phi \mapsto \int_D \phi W(dx)\]
+    by extending the linear isometry.
+\end{definition}
+
+\begin{definition}
+    Consider a Browian motion $B$ defined on a probability space $(\Omega,\F,P)$. For any time $t\geq 0$, define $\F_t$ the $\sigma$-algebra by $B_s, 0 \leq s \leq t$ and the null events in $\F$., we call $\F_t$ the natural filtration of Browiabn motion on the probability space $(\Omega, \F,P)$. 
+\end{definition}
+
+\begin{lemma}
+    Suppose $X$ and $Y$
+\end{lemma}
+
+\begin{theorem}
+    For any measurable and bounded (or nonnegative) function $f:\R\to\R, s\geq 0$ and $t\geq 0$, we have
+    \[E(f(B_{s+t})|\F_s) = (P_tf)(B_s)\]
+    where
+    \[
+    (P_tf)(x) = \int_{\R}f(y)p_t(x-y)dy
+    \]
+    where
+    \[
+    p_t = \dfrac{1}{\sqrt{2\pi t}} e^{-\tfrac{x^2}{2t}}
+    \]
+\end{theorem}
+Check Durrett Theorem 7.2.1.
+
+\begin{proposition}
+    The familty of operators $P_t$ satifies the semigroup property $P_t\circ P_s = P_{t+s}$ and $P_0 = Id$.
+\end{proposition}
+\begin{proof}
+    \[
+    \begin{aligned}
+    P_t\circ P_s(f)(x) &= \int_{\R} P_sf(y)p_t(x-y)dy \\ & = \int_{\R} \int_{\R} f(z) p_s(y-z)p_t(x-y) dzdy \\
+    & = \int_{\R} f(z) \int_{\R} \dfrac{1}{2\pi \sqrt{st}} e^{-\Big(\tfrac{(y-z)^2}{2s}+\tfrac{(x-y)^2}{2t}\Big)} dydz \\
+    & = \int_{\R} f(z) \int_{\R} \dfrac{1}{2\pi \sqrt{st}} e^{-\Big(\tfrac{(\sqrt{s+t}y-(2tz+2sx)/\sqrt{s+t})^2-(tz+sx)^2/(s+t)+tz^2+sx^2}{2st}\Big)} dydz
+    \end{aligned}
+    \]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    The processes $B_t, (B_t^2-t)$ and $e^{aB_t-a^2t/2}, a\in\R$ are $\F_t$ martingales.
+\end{theorem}
+
+\begin{proof}
+    $B_t$ is obviously a $\F_t$ martingale. Notice
+    \[
+    E[(B_t^2-t)|\F_s] = E[(B_t-B_s)^2+B_s^2+2B_s(B_t-B_s)-t|\F_t] = t-s+B_s^2-t = B_s^2 - s
+    \]
+    and
+    \[
+    E(e^{aB_t-a^2t/2}|\F_s) = e^{-a^2t/2}E(e^{a(B_t-B_s)}e^{aB_s}|\F_s) = e^{aB_s}Ee^{a(B_t-B_s)-a^2t/2} = e^{aB_s-a^2s/2}
+    \]
+\end{proof}
+
+\begin{definition}
+    The Brownian hitting time is defined by
+    \[\tau_a = \inf\{t\geq 0, B_t = a\}\]
+\end{definition}
+
+\begin{proposition}
+    Fix $a>0$. Then, for all $\alpha > 0$
+    \[E(e^{-\alpha\tau_a}) = e^{-\sqrt{2\alpha}a}\]
+\end{proposition}
+
+\section{Stochastic Integrals}
+
+\begin{definition}
+    We say that a stochastic process $u_t$ is progressively measurable if, for any $t\geq 0$ the restriction of $u$ to $\Omega\times [0,t]$ is $\F_t\times B([0,t])$-measurable.
+\end{definition}
+
+\begin{definition}
+    Let $P$ be the $\sigma$-field of sets $A\subset \Omega \times \R^+$ such that $\chi_A$ is progressivelyy measurable. We denote by $L^2(P)$ the Hilbert space $L^2(\Omega\times \R^+, P, P\times m)$ equipped the norm
+    \[
+    ||u||^2 = E(\int_0^{\infty} u_s^2ds) = \int_0^{\infty}Eu_s^2 ds
+    \]
+    bu Fubini's theorem.
+\end{definition}
+
+\begin{definition}
+    A process $u = u_t$ is called a simple process if it is of the form
+    \[u_t = \sum\limits_{j=0}^{n-1}\phi_j \chi_{(t_j,t_{j+1}]}(t)\]
+    where $0\leq t_0 < t_1 < \cdots < t_n$ and the $\phi_j$ are $\F_{t_j}$-measurable random variables such that $E\phi_j^2 < \infty$ and denote the space of simple processes as $\mathcal{E}$.\par
+    We define the stochastic integral of a process $u\in \mathcal{E}$ of $u_t$ as
+    \[
+    I(u) = \int_0^{\infty} u_tdB_t = \sum\limits_{j=0}^{n-1}\phi_j(B_{t_{j+1}}-B_{t_j})
+    \]
+\end{definition}
+Here it is easy to see that $\phi_j \chi_{(t_j,t_{j+1}]}(t)$ is progressively measurable.
+
+\begin{proposition}
+    Here are some properties of stochatic integrals.\par
+    a. For any $a,b\in \R$ and simple process $u,v \in \mathcal{E}$, we know
+    \[
+    \int_0^{\infty}(au_t + bv_t)dB_t = a\int_0^{\infty}u_t dB_t + b\int_0^{\infty} v_tdB_t
+    \]\par
+    b. For any $u\in \mathcal{E}$, we have
+    \[
+    E(\int_0^\infty{u_t}dB_t) = 0
+    \]\par
+    c. For any $u\in\mathcal{E}$, we know
+    \[
+    E\Big(\Big(\int_0^{\infty} u_tdB_t\Big)^2\Big) = E\Big(\int_0^{\infty} u_t^2 dt\Big)
+    \]
+\end{proposition}
+\begin{proof}
+    (a) is trivial. (b) can be shown by the independence of $\phi_j$ and $B_{t_{j+1}}- B_{t_{j}}$. (c) Can be shown by
+    \[
+    E\Big(\Big(\int_0^{\infty} u_tdB_t\Big)^2\Big) = E(\Big(\sum\limits_{j=0}^{n-1} \phi_j (B_{t_{j+1}}- B_{t_j})\Big)^2) = \sum\limits_{j=0}^{n-1} E\phi_j^2(t_{j+1}-t_j)
+    \]
+\end{proof}
+
+\begin{proposition}
+    The space $\mathcal{E}$ of simple processes is dense in $L^2(P)$.
+\end{proposition}
+\begin{proof}
+    For $u \in L^2(P)$, we define
+    \[
+    u_t^{(n)} = n\int_{(t-1/n)\wedge 0}^t u_s ds
+    \]
+    we know $u_t^{(n)}$ is continuous as $\R \to L^2(\Omega)$ and hence we also know
+    \[
+    \lim_{n\to\infty}E\Big(\int_0^{\infty} |u_t - u_t^{(n)}|^2 dt\Big) = 0
+    \]
+    since $\lim_{n\to \infty} u_t^{(n)} = u_t$ a.s. by Lebesgue differential, then we may know the limit above holds by the DCT since
+    \[
+    \int_0^{\infty}|u_t^{(n)}(\omega)|^2 dt = \int_0^{\infty}n^2|\int_{t-1/n}^tu_s(\omega)ds|^2 dt \leq ||u_t||_2^2
+    \]
+    where $f(s,t) = u_s\chi_{(t-1/n,t]}$ by the Minkowski's inequaility of integrals.\par
+    For $u\in L^2(P)$ continuous in $L^2(\Omega)$, we define
+    \[
+    u_t^{(n,N)} = \sum\limits_{j=0}^{(n,N)}u_{t_j}\chi_{(t_j,t_{j+1}]}(t)
+    \]
+    where $t_j = jN/n$. The continuity in $L^2(\Omega)$ implies that
+    \[
+    E\Big(\int_0^{\int}|u_t-u_t^{n,N}|^2 dt\Big) \leq E\Big(\int_N^{\infty} u_t^2 dt\Big) + N\sup_{|t-s| \leq N/n, t,s \leq N}E(|u_t-u_s|^2)
+    \]
+    and we let $N\to\infty$ and $n\to\infty$ we may get the conclusion.
+\end{proof}
+
+\begin{proposition}
+    The stochastic integral can be extended to a linear isometry.
+\end{proposition}
+
+\begin{proposition}
+    Here are some properties, for any $u,v\in L^2(P)$, we know
+    \[
+    E(I(u)) = 0,\quad E(I(u)I(v)) = E(\int_0^{\infty} u_sv_s ds)
+    \]
+    and for any $T$ we set
+    \[
+    \int_0^T u_s dB_s = \int_0^{\infty} u_s\chi_{[0,T]}(s)dB_s
+    \]
+    which is the indefinite integral of $u$ with respect to $B$, where requiring $u\in L^2_T(P)$.
+\end{proposition}
+
+\begin{definition}
+    Define $L^2_{\infty}(P)$ the set of progressively processes such that
+    \[
+    E\Big(\int_0^t u_s^2 ds\Big) < \infty
+    \]
+    for each $t>0$, for any process $u\in L^2_{\infty}(P)$, we can define the indefinite integral process
+    \[
+    \int_0^t u_s dB_s
+    \]
+\end{definition}
+
+\begin{proposition}
+    Here are some properties of indefinite integral process.\par
+    a. For any $a\leq b \leq c$, we have
+    \[
+    \int_a^b u_s dB_s + \int_b^c u_s dB_s = \int_a^c u_s dB_s
+    \]\par
+    b. If $a<b$ and $F$ is a bounded and $\F_a$-measurable random variable then
+    \[
+    \int_a^b Fu_sdB_s = F\int_a^b u_s dB_s
+    \]\par
+    c. Let $u\in L^2{\infty}(P)$, then the indefinite stochastic integral
+    \[
+    M_t = \int_0^t u_sdB_s, t\geq 0
+    \]
+    is a square integrable martingale w.r.t. the filtration $\F_t$ and admits a continuous version.
+\end{proposition}
+
+\begin{proof}
+    (a) is trivial. For (b), we only need to consider $u_t^{(n)}$ simple and converging to $u_t$ in $L^2(P)$, and we have
+    \[
+    \int_a^b Fu_s^{(n)}dB_s = F\sum\phi_{t_j}(B_{t_{j+1}-B_{t_j}}) = F\int_a^b u_s^{(n)}dB_s
+    \]
+    and we are done since $F$ is bounded.\par
+    (c) For a simple process
+    \[
+    u_t = \sum\limits_{j=0}^{n-1}\phi_j \chi_{(t_j,t_{j+1}]}(t)
+    \]
+    then we know
+    \[
+    \begin{aligned}
+    E\Big(\int_0^t u_vdB_v\Big| \F_s\Big) &= \sum\limits_{j=0}^{n-1}E(\phi_j(B_{t_{j+1}\wedge t} - B_{t_j\wedge t})\Big|\F_s) \\
+    &= \sum\limits_{j=0}^{n-1}E(E\Big(\phi_j(B_{t_{j+1}\wedge t} - B_{t_j\wedge t}\Big|\F_{t_j \wedge s}\Big))\Big|\F_s) \\
+    &= \int_0^s u_v dB_v
+    \end{aligned}
+    \]
+    and hence we know $M_t$ is an $\F_t$-martingale if $u$ is simple. For $T>0$, let $u^{(n)}$ converges to $u$ in $L^2_T(P)$, then we know $t\in [0,T]$, we have
+    \[
+    \int_0^t u_s^{(n)} dB_s \to \int_0^t u_s dB_s
+    \]
+    in $L^2(\Omega)$ and we know the convergence of the conditional expectiations by $E(Z(X-E(X\F))) = 0$ for any $Z\in L^2(\F)$ and hence $\int_0^t u_s dB_s$ is a martingale.\par
+    To show that the indefinite integral has a continuous version. Let $u\in L^2$ and fix $T>0$. Consider a sequence of simple processed $u^{(n)}$ which convereges to $u$ in $L^2_T(P)$, by the continuity of the paths of Brownian motion, we know
+    \[
+    M_t^{(n)} = \int_0^t u_s^{(n)}dB_s
+    \]
+    has continuous trajectories. Then  since $M^{(n)}$ is a martingale, so we know
+    \[
+    \begin{aligned}
+    P\Big(\sup_{0\leq t\leq T}|M_t^{(n)} - M_t^{(m)}| > \lambda\Big) &\leq \dfrac{1}{\lambda^2}E\Big(|M_t^{(n)} - M_t^{(m)}|^2\Big) \\
+    & = \dfrac{1}{\lambda^2}E\Big(\int_0^T |u_t^{(n)} - u_t^{(m)}|\Big) \to 0
+    \end{aligned}
+    \]
+    as $n,m \to \infty$ and we may choose $n_k$ such that
+    \[
+    P\Big(\sup_{0\leq t\leq T}|M_t^{(n_{k+1}) - M_t^{(n_k)}}| > 2^{-k}\Big) \leq 2^{-k}
+    \]
+    and we may know that for any $\omega \in \Omega$, there is $k_1(\omega)$ such that
+    \[
+    \sup_{0\leq t\leq T}|M_t^{(n_{k+1})}(\omega) - M_t^{(n_{k})}(\omega)| \leq 2^{-k}
+    \]
+    has probability of $1$ and then we know $M_t^{(n_k)}(\omega)$ is uniformly convergent to a continuous function $J_t(\omega)$ a.s. and then we know $J_t(\omega) = \int_0^t u_s dB_s$ a.s. Then we may choose different $t$ and construct a continuous version of $\int_0^t u_s dB_s$ inductively.
+\end{proof}
+
+\begin{proposition}
+    For any $T,\lambda > 0$ and $u\in L^2_{\infty}(P)$, we know
+    \[
+    P\Big(\sup_{t\in [0,T]} |M_t| > \lambda \Big) \leq \dfrac{1}{\lambda^2}E\Big(\int_0^T u_t^2 dt\Big)
+    \]
+    and
+    \[
+    E\Big(\sup_{t\in [0,T]}|M_t|^2 \leq 4 E(\int_0^T u_t^2 dt)\Big)
+    \]
+    by Doob's inequality and $L^p$ maxmium inequalities.
+\end{proposition}
+
+\begin{proposition}
+    Let $u \in L^2_{\infty}(P)$. Consider a subdivision of the interval $[0,t]$
+    \[
+    \pi = \{0 = t_0 < t_1 < \cdots < t_n = t\}
+    \]
+    then as $|\pi| \to 0$, we have
+    \[
+    S_{\pi}^2(u) = \sum\limits_{j=0}^{n-1}\Big( \int_{t_j}^{t_{j+1}} u_s dB_s\Big)^2 \to \int_0^t u_s^2 ds
+    \]
+    in $L^1(\Omega)$.
+\end{proposition}
+
+\section{Derivative and Divergence Operators}
+
+\begin{definition}
+    For this chapter, we will consider the probability space $(\Omega,\F,P)$ such that $\Omega = \R^n, \F = B(\R^n)$ to be the Borel $\sigma$-field of $\R^n$ and $P$ to be the standard Gaussian probability with density
+    \[
+    p(x) = (2\pi)^{-n/2}e^{-|x|^2/2}
+    \]
+    and we define the derivative operator for differentiable function $F:\R^n \to \R$ as
+    \[
+    \nabla F = \Big(\dfrac{\partial F}{\partial x_1},\cdots,\dfrac{\partial F}{\partial x_n}\Big)
+    \]
+    and the divergence opertor for differentiable veector-valued functions $u:\R^n\to\R^n$ as
+    \[
+    \delta(u) = \sum\limits_{i=1}^n \Big( u_ix_i - \dfrac{\partial u_i}{\partial x_i}\Big) = \langle u,x\rangle - div u
+    \]
+\end{definition}
+
+\begin{proposition}
+    The operator $\delta$ is the adjoint of $\nabla$ that is
+    \[
+    E(\langle u, \nabla F\rangle) = E(F\delta (u))
+    \]
+    for $F:\R^n \to \R$ and $u: \R^n \to \R^n$ continuously differentiable functions satisfying integral by parts.
+\end{proposition}
+\begin{proof}
+    Since $\partial p/\partial x_i = - x_i p $ and we have
+    \[
+    \begin{aligned}
+    \int \langle \nabla F,u\rangle pdx  &=\sum\limits_{i=1}^n \int \dfrac{\partial F}{\partial x_i} u_i pdx \\
+    & = \sum\limits_{i=1}^n \Big(-\int F\dfrac{\partial u_i }{\partial x_i} pdx + \int Fu_i x_i p dx\Big) \\ &= \int F\delta (u) pdx
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}
+    Consider the Hilbert space $h \in H = L^2(\R^+)$ and the Wiener integral
+    \[
+    B(h) = \int_0^{\infty} h(t)dB_t
+    \]
+    and $S$ the set of smooth and cylindrical random variables of the form
+    \[
+    F = f(B(h_1),\cdots,B(h_n))
+    \]
+    where $f\in C_p^{\infty}(\R^n)$ and $h_i \in H$.
+\end{definition}
+
+\begin{definition}
+    For $F \in S$, we define the Malliavin derivative $DF$ to be the $H$-valued random variable defined by
+    \[
+    D_tF = \sum\limits_{i=1}^n \dfrac{\partial f}{\partial x_i}(B(h_1),\cdots,B(h_n))h_i(t)
+    \]
+    which is well-defined and a linear but unbounded operator from $S$ into $L^2(\Omega;H)$.\par
+    Let $S_H$ to be the element $u = (u_t)$ with the form
+    \[
+    u_t = \sum\limits_{j=1}^n F_jh_j(t)
+    \]
+    with $F_j \in S$ and $h_j \in H$. And the divergence of an element $u$ in $S_H$ will be given by
+    \[
+    \delta(u) = \sum\limits_{j=1}^nF_j B(h_j) - \sum\limits_{j=1}^n \langle DF_j, h_j\rangle_H
+    \]
+\end{definition}
+
+\begin{proposition}
+    For $F\in S$ and $u\in S_H$, then
+    \[
+    E(F\delta(u)) = E(\langle DF,u\rangle_H)
+    \]
+\end{proposition}
+\begin{proof}
+    Consider $h_i,h_j$ orthonormal and then we may know that $B(h_i)$ are i.i.d., then for $F = f(B(h_1),\cdots,B(h_n))$ and
+    \[
+    u = \sum\limits_{j=1}^n g_j(B(h_1),\cdots,B(h_n))h_j
+    \]
+    and
+    \[
+    \begin{aligned}
+    E(\langle DF,u\rangle_H) &= \int \sum\limits_{j=1}^n  E(D_tF g_j(B(h_1),\cdots,B(h_n))h_j(t)) \\
+    & = \sum\limits_{i,j=1}^n \int E\Big(\dfrac{\partial f}{\partial x_i}(B(h_1),\cdots,B(h_n))g_j(B(h_1),\cdots,B(h_n)) h_i(t)h_j(t)\Big) \\
+    &
+    = \sum\limits_{i=1}^n E\Big(\dfrac{\partial f}{\partial x_i}(B(h_1),\cdots,B(h_n))g_j(B(h_1),\cdots,B(h_n))\Big) \\
+    &= 
+    \sum\limits_{j=1}^nE\Big(Fg_j(B(h_1),\cdots,B(h_n))B(h_j) - F\dfrac{\partial g_j}{\partial x_j}(B(h_1),\cdots,B(h_n))\Big) \\
+    & = E(F\delta(u))
+    \end{aligned}
+    \]
+    since
+    \[
+    \langle DF_j, h_j\rangle = \dfrac{\partial g_j}{\partial x_j}(B(h_1),\cdots,B(h_n))
+    \]
+\end{proof}
+
+\begin{proposition}
+    Suppose that $u,v \in S_H, F\in S$ and $h \in H$. Then for a complete orthonormal system in $H$ denoted as $e_i$, we have
+    \[
+    \begin{aligned}
+        E(\delta(u)\delta(v)) &= E(\langle u,v\rangle_H) + E(\sum\limits_{i,j=1}^{\infty} D_{e_i}\langle u,e_j\rangle_H D_{e_j}\langle v,e_i\rangle_H) \\
+        D_h(\delta(u)) &= \delta(D_h(u)) + \langle h,u\rangle_H \\
+        \delta(Fu) &= F\delta(u) - \langle DF,u\rangle_H
+    \end{aligned}
+    \]
+\end{proposition}
+\begin{proof}
+    We know
+    \[
+    \begin{aligned}
+    D_h(\delta(u)) &= D_h\Big(\sum\limits_{j=1}^n F_jB(h_j) - \sum\limits_{j=1}^n \langle DF_j,h_j\rangle_H\Big) \\
+    &= \sum\limits_{j=1}^n D_hF_j B(h_j) + \sum\limits_{j=1}^n F_j \langle h,h_j\rangle_H - \sum\limits_{j=1}^n D_h\Big\langle \sum\limits_{i=1}^n \dfrac{\partial F_j}{\partial x_i}(B(h_1),\cdots,B(h_n))h_i, h_j\Big\rangle_H \\
+    & = \sum\limits_{j=1}^n F_j \langle h,h_j\rangle_H + \sum\limits_{j=1}^n \Big(D_h F_jB(h_j) - \langle D_h(DF_j), h_j \rangle_H\Big) \\
+    & = \langle u,h\rangle_H + \delta(D_h u)
+    \end{aligned}
+    \]
+    by Fubini's Theorem.\par
+    Then
+    \[
+    \begin{aligned}
+        E(\delta(u)\delta(v)) &= E\Big(\langle v,D(\delta(u))\rangle_H\Big)\\
+        &= \sum\limits_{n\geq 1}\Big(\langle v,e_i\rangle_H D_{e_i}(\delta(u))) \\
+        &= E(\langle u,v\rangle)_H + \sum\limits_{i=1}^{\infty}E(\langle v,e_i\rangle_H \delta(D_{e_i} u))\\
+        & = E(\langle u,v\rangle)_H + \sum\limits_{i=1}^{\infty}E(\langle D\langle v,e_i\rangle_H, D_{e_i}uyu u \rangle_H)
+    \end{aligned}
+    \]
+\end{proof}
+
+
+
+\end{document}

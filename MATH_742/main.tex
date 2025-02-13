@@ -1,0 +1,504 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\Pf}[1]{$Proof.$\par}
+
+\declaretheoremstyle[name=Definiton,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{definition}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{theorem}
+
+
+\declaretheoremstyle[name=Lemma,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{lemma}
+
+\declaretheoremstyle[name=Corollary,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{corollary}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+
+\declaretheoremstyle[name=Example,]{prcpsty}
+\declaretheorem[style=prcpsty,numberwithin=subsection]{example}
+
+\declaretheoremstyle[name=Ex,]{prcpsty}
+\declaretheorem[style=prcpsty,numberwithin=section]{exercise}
+
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{Notes for Abstract Algebra}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on lectures provided by Dima Arinkin on MATH 742 2025 SPRING} \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Author} \\ 
+		Wells Guan \\
+		 \\
+		}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\section{Rings and Ideals}
+
+\subsection{Rings}
+
+\begin{definition}(Ring)\par
+    A ring $R$ is an abelian group with an associative multiplication distributive over the addition. (We always assume a ring has a multiplicative identity and commutative if not marked)\par
+    A unit is an element $u$ with a reciprocal $1/u$ such that $u\cdot 1/u = 1$, which is also denoted $u^{-1}$ and called a numtiplicative inverse and the units form a multiplicative group, denoted $R^{\times}$.
+\end{definition}
+
+\begin{definition}
+    (Homomorphism)\par
+    A ring homomorphism is a ring map $\phi: R \to R'$ which preserving sums, products and $1$. If $R' = R$ we call $\phi$ an endomorphism and if it is also bijective we call it an automorphism.
+\end{definition}
+
+\begin{definition}
+    (Subring)\par
+    A subset $R'' \subset R$ is a buting if $R''$ is a ring and the inclusion $R'' \hookleftarrow R$ is a ring map. We call $R$ a extension of $R''$ and the inclusion an extension.\par
+\end{definition}
+
+\begin{definition}
+    (Algebra)\par
+    An $R$-algebra is a ring $R'$ that comes equipped with a ring homomorphism $\phi:R\to R'$ called the structure map. An $R$-algebta homormorphism $R'\to R''$ is a ring homomorphism between $R$-algebtas compatible with structure maps.\par
+\end{definition}
+
+\begin{definition}
+    (Group action)\par
+    A group $G $ is said to act on $R$ if there is a homomorphism given from $G$ into the group of automorphisms of $R$. The ring of invariants $R^G$ is the subring defined by
+    \[R^G := \{x\in R|gx = g\text{ for all }g\in G\}\]
+\end{definition}
+
+\begin{definition}
+    (Boolean)\par
+    A ring $B$ is called Boolean if $f^2 = f$ for all $f\in B$, then $2f = 0$ since
+    \[
+    2f = (f+f)^2 = 4f
+    \]
+\end{definition}
+
+\begin{definition}
+    (Polynomial rings)\par
+    Let $R$ be a ring, $P:=R[X_1,\cdots,X_n]$ the polynomial ring in $n$ variables. $P$ has the Universal Mapping Property (UMP), i.e. given a ring homomorphism $\phi:R\to R'$ and given an element $x_i$ of $R'$ for each $i$, there is a unique ring map $\pi:P\to R'$ with $\pi|_{R} = \phi$ and $\pi(X_i) = x_i$.\par
+    Similarly, let $X:= \{X_{\lambda}\}_{\lambda \in \Lambda}$ be any set of variables. Set $P':=R[X]$ the elements of $P'$ are the polynomials in any finitely many of $X$.
+\end{definition}
+
+\begin{definition}
+    (Ideals)\par
+    Let $R$ be a ring. An ideal $I$ is a subset containing $0$ of $R$ such that $xa\in I$ for any $x\in R, a\in I$ and closed under addition.\par
+    For a subset $S\subset R$, $\langle S\rangle$ means the smallest ideal containing $S$.\par
+    Given a single element $a$, we say that the ideal $\langle a \rangle$ is principal. For a number of ideals $I_\lambda$, the sum $\sum I_{\lambda}$ mean the set of all finite linear combinations $\sum x_{\lambda}a_{\lambda}$ for $x_{\lambda} \in R, a_{\lambda}\in I_{\lambda}$. If $\Lambda$ is finite, then the product $\prod I_{\lambda}$ means the ideal generated by all products $\prod a_{\lambda}, a_{\lambda}\in I_{\lambda}$.\par
+    For two ideals $I$ and $J$, the transporter of $J$ into $I$ mean the set
+    \[(I:J):=\{x\in R|xJ\subset I\}\]
+    If $I\subset J$ a subsring such that $I\neq J$, then we call $I$ proper.\par
+    For a ring homomorphism $\phi:R\to R'$, $I\subset R$ a subring, denote by $IR'$ or $I^e$ the ideal of $R'$ generated by $\phi(I)$ can we call it the extension of $I$.\par
+    Given an ideal $J$ of $R'$ and its preimage $\phi^{-1}(J)$ is an ideal of $R$ and we call ti the contraction of $J$ denoted with $J^c$.
+\end{definition}
+
+\begin{definition}
+    (Residue Rings)\par
+    Let $I$ be an ideal of $R$ and the cosets of $I$
+    \[R/I := \{x+I|x\in R\}\]
+    have a ring structure and it will be called the residue ring or quotient ring or factor ring of $R$ modulo $I$ and the quotient map:
+    \[
+    \kappa: R \to R/I,\quad \kappa(x) = x+I
+    \]
+    and $\kappa x$ is called the residue of $x$.
+\end{definition}
+
+\begin{proposition}\ \par
+    For $I\subset R$ a subring and a ring homomorphism from $R$ to $R'$, then $\ker(\phi) \supset I$ implies that is a ring homomorphism $\psi:R/I \to R'$ with $\psi\kappa = \phi$.\par
+    $\psi$ is surjective iff $\phi$ is surjective. $\psi$ is injective iff $I = \ker(\phi)$.
+\end{proposition}
+
+\begin{corollary}
+    $R/\ker(\phi) \cong Im(\phi)$
+\end{corollary}
+
+\begin{proposition}\ \par
+    $R/I$ is universal among $R$-algebras $R'$ such that $IR' = 0$, i.e. for $\phi:R\to R'$ such that $\phi(I) = 0$, there is a unique ring homomorphism $\psi:R/I \to R'$ such that $\psi \kappa = \phi$.
+\end{proposition}
+
+\begin{definition}
+    The UMP serves to determine $R/I$ up to unique isomorphism, i.e. if $R'$ equipped with $\phi:R\to R'$ has the UMP too, then $R'$ is isomorphic to $R/I$.
+\end{definition}
+\Pf\par
+    If $R'$ has the UMP among the $R$-algebras $R''$ such that $IR'' = 0$, then $\phi(I) = 0$ and hence there is a unique $\psi:R/I \to R'$ such that $\psi\kappa = \phi$ and since $\kappa I = 0$, we know there exists unique $\psi'$ such that $\psi'\phi = \kappa$ and then $(\psi'\psi)\kappa = \kappa$ and hence $\psi'\psi = 1$ and we are done by the uniqueness.
+
+\begin{proposition}
+    Let $R$ be a ring, $P:=R[X]$ the polynomial ring in one variable, $a\in R$ and $\pi:P\to R$ the $R$-algebra mao define by $\pi(X):=a$, then
+    \begin{itemize}
+        \item $\ker\pi = \{F(X)\in P|F(a) = 0\} = \langle X-a\rangle$
+        \item $P/\langle X-a\rangle \cong R$
+    \end{itemize}
+\end{proposition}
+
+\begin{definition}
+    (Order of a polynomial)\par
+    Let $R$ be a ring, $P$ the polynomial ring in variables $X_{\lambda}$ for $\lambda \in \Lambda$ and $(x_{\lambda}) \in R^{\Lambda}$ a vector. Let $\phi_{(x_{\lambda})}P\to P$ denote the $R$-algebra homomorphism defined by $\phi_{(x_{\lambda})}X_{\mu} := X_{\mu} + x_{\mu}$.\par
+    The order of $F$ at the vector $(x_{\lambda})$ is defined as the smallest degree of monomials $M$ in $(\phi_{(x_{\lambda})}F)$.\par
+    We know $\text{ord}_{(x_{\lambda})}F = 0$ iff $F(x_{\lambda}) \neq 0$.
+\end{definition}
+
+\begin{definition}
+    Let $R$ be a ring, $I$ an ideal and $\kappa$ the quotient map. Given an ideal $J\supset I$ then the cosets
+    \[
+    J/I:=\{b+I|b\in J\} = \kappa(J)
+    \]
+    and then  $J/I$ is an ideal of $R/I$ and also $J/I = J(R/I)$.
+\end{definition}
+
+\begin{proposition}
+    Given $J\supset I$ and we know
+    \[
+    \phi:R\to R/I\to (R/I)/(J/I)
+    \]
+    then we have the commutative diagram:
+    \[
+    \begin{tikzcd}
+        R\arrow[r]\arrow[d] & R/J\arrow[d,"\cong"] \\
+        R/I\arrow[r] & (R/I)/(J/I) \\
+    \end{tikzcd}
+    \]
+\end{proposition}
+\Pf\par
+    Since $\phi(J) = 0$, so there exists unique $\psi:R/J \to (R/I)/(J/I)$ such that $\psi\kappa_J =\phi$ and since $\kappa_J(I) = 0$ and there exists $p$ such that $p\kappa_I = \kappa_J$ and consider $p(J/I) = 0$ and there exists $h$ such that $h\kappa_{(J/I)} = p$ and it is easy to check $h\psi = 1$ by uniqueness and we are done.
+
+\begin{definition}\par
+    Let $R$ be a ring. Let $e\in R$ be an idempotent, i.e. $e^2 = e$ then $Re$ is a ring with $e$ as multiplication unit, but $Re$ is not a subring unless $e=1$.\par
+    Let $e':= 1-e$, then $e'$ is idempotent and $ee' = 0$ and we call them complementary idempotents.\par
+    Denote $\text{Idem}(R)$ the set of all idempotents, which is close under a ring homomorphism.
+\end{definition}
+
+\begin{proposition}
+    If $e_1,e_2\in R$ such that $e_1+e_2 = 1$ and $e_1e_2 =0$, then they are complementary idempotents.
+\end{proposition}
+
+\begin{definition}
+    Let $R:R'\times R''$ be a product of two rings with componentwise operations.
+\end{definition}
+
+\begin{proposition}
+    Let $R$ be a ring and $e',e''$ complementary idempotents. Set $R' := Re'$ and $R'' = Re''$. Define $\phi:R\to R'\times R''$ by $\phi(x) = (xe',xe'')$ and then $\phi$ is a ring isomorphism. $R' = R/Re''$ and $R'' = R/Re'$.
+\end{proposition}
+\Pf\par
+    Check $\phi$ is surjective and injective.\par
+    There is a natrual isomorphism between $I = \{(0,xe'')\} \subset R'\times R''$ and $R''$, and consider the diagram
+    \[
+    \begin{tikzcd}
+        R\arrow[r] \arrow[d]& R'\times R''\arrow[l]\arrow[d] \\
+        R/R'' & R'\times R''/I \\
+    \end{tikzcd}
+    \]
+    and use the UMP.
+
+\subsection{Prime Ideals}
+
+\begin{definition}
+    (Zerodivisors)\par
+    Let $R$ be a ring. An element $x$ iscalled a zerodivisor if there is a nonzero $y$ such that $xy = 0$; otherwise, $x$ is called a nonzerodivisor. Denote the set of zerodivisors by $\text{z.div}(R)$ and the nonzerodivisors by $S_0$.
+\end{definition}
+
+\begin{definition}
+    (Multiplicative subsets, prime ideals)\par
+    Let $R$ be a ring. A subset $S$ is called multipliccative if $1\in S$ and $x,y\in S$ implies $xy\in S$.\par
+    An ideal $P$ is called prime if its complement $R-p$ is multiplicative, or equivalentely, if $1\neq P$ and $xy\in P$ implies $x\in P$ or $y\in P$.
+\end{definition}
+
+\begin{definition}
+    (Fields,domains)\par
+    A ring is called a field if $1\neq 0$ and if every nonzero element is a unit.\par
+    A ring is called an integral domain, or a domain if $\langle 0 \rangle$ or equivalently, if $R$ is nonzero and has no nonzero zerodivisors.\par
+    Every domain $R$ is a subring of its fraction field $\text{Frac}(R):=\{x/y, x,y\in R\text{ and }y\neq 0\}$.
+\end{definition}
+
+\begin{proposition}
+    Any subring $R$ of a field $K$ is a domain, and for a domain $R$, $\text{Frac}(R)$ has the UMP: the inclusion of $R$ into any field $L$ extends uniquely to an inclusion of $\text{Frac}(R)$ into $L$. 
+\end{proposition}
+\Pf\par
+    For any subring $R$ of a field, $a,b\in R$, if $ab=0$, and $a$ nonzero, then $b = 0$ and we are done.\par
+    If $\phi:R\hookrightarrow L$, then $\phi(x/y) = \phi(x)\phi(y)^{-1}$ is well-defined and obviously a ring homomorphism and we are done.
+
+\begin{definition}
+    (Polynomials over a domain)\par
+    Let $R$ be a domain, $X$ a set of variable. $P:=R[X]$ and then $P$ is a domain, and $\text{Frac}(P)$ is called the rational functions.
+\end{definition}
+
+\begin{definition}
+    (Unique factorization)\par
+    Let $R$ be a domain, $p$ a nonzero nonunit. We call $p$ prime if $p|xy$ implies $p|x$ or $p|y$, which is equivalent with $\langle p\rangle$ is prime.\par
+    For $x,y\in R$, we call $d\in R$ their gcd if $d|x$ and $d|y$ and if $c|x,c|y$ then $c|d$.\par
+    $p$ is irreducible if $p=yz$ implies $y$ or $z$ is a unit. We call $R$ is a UFG if every nonzero nonunit factors into a product of irreducibles and the facrtotization is unique to order and units.
+\end{definition}
+
+\begin{proposition}
+    If every nonzero nonunit factors have a factorization of a product of irreducible elements, then the factorization is unique up to order and units iff every irreducible element is prime.
+\end{proposition}
+\Pf\par
+    
+\begin{lemma}
+    Let $\phi:R\to R'$ be a ring homomorphism, and $T\subset R'$ a subset. If $T$ is multiplicative, then $\phi^{-1}T$ is multiplicative; the converse holds if $\phi$ is surjective.
+\end{lemma}
+\Pf\par
+
+\begin{proposition}
+    Let $\phi:R\to R'$ be a ring map, and $J\subset R'$ an ideal. Set $I:=\phi^{-1}J$. If $J$ is prime, then $I$ is prime; the converse holds if $\phi$ is surjective.
+\end{proposition}
+
+\begin{corollary}
+    Let $R$ be a ring, $I$ an ideal. Then $I$ is prime iff $R/I$ is a domain.
+\end{corollary}
+\Pf\par
+    Consider
+    \[
+    \kappa:R\to R/I
+    \]
+    the quotient map and $I$ prime implies $\langle 0 \rangle$ is prime in $R/I$ and hence $R/I$ is a domain.
+
+\begin{definition}
+    (Maximal ideal)\par
+    Let $R$ be a ring. An ideal $I$ is sai to be maximal if $I$ is proper and there is no proper ideal $J$ such that $I\subset J, I\neq J$.
+\end{definition}
+
+\begin{proposition}
+    A ring $R$ is a field iff $\langle 0 \rangle$ is a maximal ideal.
+\end{proposition}
+
+\begin{corollary}
+    Let $R$ be a ring, $I$ an ideal. Then $I$ is maximal iff $R/I$ is a field.
+\end{corollary}
+\Pf\par
+    Only need to check $\langle 0 \rangle $ is maximal in $R/I$.
+
+\begin{corollary}
+    In a ring, every maximal ideal is prime.
+\end{corollary}
+
+\begin{definition}
+    (Coprime)\par
+    Let $R$ be a ring, and $x,y\in R$. We say $x$ and $y$ are coprime if their ideals $\langle x\rangle$ and $\langle y$ are comaximal.\par
+    $x$ and $y$ are coprime if and only if there are $a,b\in R$ such that $ax+by = 1$.\par
+\end{definition}
+
+\begin{definition}
+    A domain $R$ is called a Principal Ideal Domain if every ideal is principal. A PID is a UFD.
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a PID. Let $P:=R[X]$ be the polynomial ring in one variable $X$, and $I$ a nonzero prime ideal of $P$. Then $P = \langle F\rangle$ with $F$ prime, or $P$ is maximal. Assume $P$ is maximal. Then either $P = \langle F\rangle $ with $F$ prime, or $P=\langle p, G\rangle$ with $p\in R$ prime, $pR = P\cap R$ and $G\in P$ prime with iamge $G'\in (R/pR)[X]$ prime.
+\end{theorem}
+
+\begin{theorem}
+    Every proper ideal $I$ is contained in some maximal ideal.
+\end{theorem}
+
+\begin{corollary}
+    Let $R$ be a ring, $x\in R$. Then $x$ is a unit iff $x$ belongs to non maximal ideal.
+\end{corollary}
+
+\subsection{Radicals}
+
+\begin{definition}
+    (Radical)\par
+    Let $R$ be a ring. Its radical $\text{rad}(R)$ is defined to be the intersection of all its maximal ideals. 
+\end{definition}
+
+\begin{proposition}
+    Let $R$ be a ring, $I$ an ideal, $x\in R$ and $u\in R^{\times}$. Then $x\in \text{rad}(R)$ iff $u-xy\in R^{\times}$ for all $y\in R$. In particular, the sum of an element of $\text{rad}(R)$ and a unit is a unit, and $I\subset \text{rad}(R)$ if $1-I\subset R^{\times}$.
+\end{proposition}
+\Pf\par
+    For a maximal ideal $J$, if $u-xy\in J$, then $u\in J$ which is a contradiction and hence $u-xy$ is a unit. Conversely, if there exists $J$ maximal such that $x\in J$, then $\langle x\rangle + J = R$ and hence there exists $m\in J$ such that $u-xy = m$ for some unit $u$, which is a contradiction.\par
+
+\begin{corollary}
+    Let $R$ be a ring, $I$ an ideal, $\kappa:R\to R/I$ the quotient map. Assume $I\subset \text{rad}(R)$, then $\kappa$ is injective on $\text{Idem}(R)$.
+\end{corollary}
+\Pf\par
+    For $e,e'\in \text{Idem}(R)$ and $x = e-e'$, if $\kappa(x) = 0$, then $x^3 = x$ and hence $x(1-x^2) = 0$, so $1-x^2$ is a unit and hence $x$ is $0$ and we are done.
+
+\begin{definition}
+    (Local ring)\par
+    A ring is called local if it has exactly one maximal ideal, and semilocal if it has at least one and at most finitely many.\par
+    By the residue field of a local ring $A$, we mean the field $A/M$ where $M$ is the maximal ideal of $A$.
+\end{definition}
+
+\begin{lemma}
+    Let $A$ be a ring, $N$ the set of nonunits. Then $A$ is local iff $N$ is an ideal, if so, then $N$ is the maximal idal.
+\end{lemma}
+\Pf\par
+    Only need to check the sufficiency, if $A$ is local, then we know $M$ is contained in $N$, and if there is $y\in M-N$, then $\langle y\rangle$ is a proper ideal and hence $y\in N$, which is a contradiction and hence $M=N$ and we are done.
+
+\begin{proposition}
+    Let $R$ be a ring, $S$ a multiplicative subset, and $I$ an ideal with $I\cap S = \emptyset$. Set $\mathcal{S} :=\{J,J\supset I, J\cap S = \emptyset\}$, then $\mathcal{S}$ has a maximal element $P$ and every such $P$ is prime.
+\end{proposition}
+\Pf\par
+    By Zorn's lemma, their is a maximal element $P$ in $S$, for $x,y \in R - P$, there  exists $p,q\in P, a,b\in R$ such that $p+ax\in S, q+by \in S$ and hence $pq+pby+qax+abxy \in S$, and hence $xy\notin P$ and we are done.
+
+\begin{definition}
+    (Saturated multiplicative subsets)\par
+    Let $R$ be a ring, and $S$ a multiplicative subset. We say $S$ is saturated if for $x,y\in R, xy\in S$, then $x,y\in S$.
+\end{definition}
+
+\begin{lemma}
+    Let $R$ be a ring, $I$ a subset of $R$ that is stable under addition and multiplication, and $P_1,\cdots,P_n$ ideals such that $P_3,\cdots,P_n$ are prime. If $I$ is not contained in $P_j$ for all $j$, then there is an $x\in I$ such that $x\in P_j$ for $j$ or equivalently, if $I\subset \bigcup_{i=1}^n P_i$, then $I\subset I_i$ for some $i$.
+\end{lemma}
+\Pf\par
+    If $n=1$ then we are done. We may use the induction, assume that $n\geq 2$, then by induction, for each $i$, there is $x_i\in I$ such that $x_i$ is not in $P_j, i\neq j$ and $x_i\in P_i$, so then $x_1+x_2\notin P_2$ if $n=2$. For other $n$, we will know $(x_1\cdots,x_{n-1})\notin P_j$ for all $j$.
+
+\begin{definition}
+    Let $R$ be a ring, $S$ a subset, its radical $\sqrt{S}$ is the set
+    \[
+    \sqrt{S}:=\{x\in R|x^n\in S\text{ for some }n\}
+    \]
+    If $I$ is an ideal and $I=\sqrt{I}$, then call $I$ to be radical.\par
+    We call $\sqrt{0}$ is the nilradical and denoted as $\text{nil}(R)$. We call $x\in R$ nilpotent if $x\in \text{nil}(0)$, we call an ideal $I$ nilpotent if $a^n = 0$ for some $n\geq 1$.
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a ring, $I$ an ideal, then
+    \[
+    \sqrt{I} = \cap_{P\supset I,P\text { prime}} P\]
+\end{theorem}
+\Pf\par
+    For $x\notin\sqrt{I}$, let $S$ contains all the expotents of $x$ and $S$ is multiplicative, then $I\cap S = \emptyset$ and then there is an $P$ prime containing $I$ with not containing $x$ and hence $\sqrt{a}$ contains the union.\par
+    Converse direction is easy.
+
+\begin{proposition}
+    Let $R$ be a ring, $I$ an ideal. Then $\sqrt{I}$ is an ideal.
+\end{proposition}
+
+\begin{definition}
+    (Minimal primes)\par
+    Let $R$ be a ring, $I$ an ideal and $P$ prime. We call $P$ a minimal prime of $I$ if $P$ is minimal in the set of primes containing $I$, we all $P$ a minimal prime of $R$ if $P$ is a minimal prime of $\langle 0 \rangle$.
+\end{definition}
+
+\begin{proposition}
+A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial prime iff $R$ is a domain.
+\end{proposition}
+\Pf\par
+    Converse direction is obvious. If $0$ is the only nilpotent elements, $Q$ is a minimal prime ideal, then $Q = 0$ since $0$ is the intersection of all the minimal primes, and we are done. 
+
+\subsection{Modules}
+
+\begin{definition}
+    (Modules)\par
+    Let $R$ be a ring. An $R$-module $M$ is an abelian group with a scalar multiplication
+    $R\times M \to M$ which is
+    \begin{itemize}
+        \item $x(m+n) = xm+xn$ and $(x+y)m = xm + ym$
+        \item $x(ym) = (xy)m$
+        \item $1m = m$
+    \end{itemize}\par
+    A submodule $N$ of $M$ closed under scalar multiplication.\par
+    Given $m\in M$, its annihilator
+    \[
+    \text{Ann}(m):=\{x\in R|xm = 0\}
+    \]
+    and the annilhilator of $M$ is
+    \[
+    \text{Ann}(M):=\{x\in R|xm = 0\text{ for all }m\in M\}
+    \]
+    We call the intersection of all maximal ideals containing $Ann(M)$ the radical of $M$, denoted as $\text{rad}(M)$.\par   
+\end{definition}
+
+\begin{proposition}
+    There is a bijection between the maximal ideals containing $\text{Ann}(M)$ and the maximal ideals of $R/\text{Ann}(M)$, and hence
+    \[
+    \text{rad}(R/\text{Ann}(M)) = \text{rad}(M) /\text{Ann}(M)
+    \]
+\end{proposition}
+
+\begin{proposition}
+    Given a submodule $N$ of $M$, and then $\text{Ann}(M) \subset \text{Ann}(N)$ and we also have $\text{Ann}(M) \subset \text{Ann}(M/N)$.
+\end{proposition}
+
+\begin{definition}
+    (Semilocal)\par
+    We call $M$ semilocal if there are only finitely many maximal ideals containing $\text{Ann}(M)$. If $R$ is semilocal, so is $M$ and we will know $M$ is semilocal iff $R/\text{Ann}(M)$ is a semilocal ring.
+\end{definition}
+
+\begin{definition}
+    (Polynomials)\par
+    The sets of polynomials
+    \[
+    M[X] :=\{\sum\limits_{i=0}^n m_iM_i, M_i\text{ monomials}\}
+    \]
+    and then $M[X]$ is an $R[X]-module$.
+\end{definition}
+
+\begin{definition}
+    (Homomorphisms)\par
+    Let $R$ be aring, $M$ and $N$ modules. A $R$-linear map is a map $\alpha:M\to N$ such that
+    \[
+    \alpha(xm+yn) = x\alpha m + y\alpha n
+    \]
+    Let $\iota:\ker\alpha \to M$ be the inclusion and then $\ker\alpha$ has the UMP: $\alpha\iota = 0$ and for a homomorphism $\beta:K\to M$ with $\alpha\beta = 0$, there is a unique homomorphism $\gamma:K\to \ker\alpha$ with $\iota\gamma = \gamma$ as shown below
+    \[
+    \begin{tikzcd}
+        \ker\alpha\arrow[r,"\iota"] & M\arrow[r,"\alpha"] & N \\
+        &K\arrow[lu,"\gamma"]\arrow[u,"\beta"]\arrow[ru,"0"]& \\
+    \end{tikzcd}
+    \]
+\end{definition}
+
+\begin{definition}
+    (Endomorphism)\par
+    An endomorphism of $M$ a self-homomorphism denoted as $\text{End}_R(M)$.
+\end{definition}
+
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{References.bib}
+
+% ------------------------------------------------------------------------------
+
+\end{document}

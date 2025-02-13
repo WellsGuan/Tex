@@ -1,0 +1,1586 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Greene CA}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+\newcommand{\ParbZ}{\dfrac{\partial}{\partial \bar{z}}}
+\newcommand{\ParX}{\dfrac{\partial}{\partial x}}
+\newcommand{\ParY}{\dfrac{\partial}{\partial y}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+\section*{Fundamental Concepts}
+
+\begin{definition}
+If $U\subset \R^2$ is open and $f:U\to\R$ is a continuous function, then $f$ is called $C^1$ on $U$ if $\partial f/\partial x, \partial f/\partial y$ exist and are continous on $U$.
+\end{definition}
+
+\begin{definition}
+    We define for $f = u+iv:U\to \C$ a $C_1$ function
+    \[
+    \begin{aligned}
+    \dfrac{\partial}{\partial z}f &:=\dfrac{1}{2}(\dfrac{\partial}{\partial x} - i\dfrac{\partial}{\partial y})f \\
+    \dfrac{\partial}{\partial \bar{z}}f &:=\dfrac{1}{2}(\dfrac{\partial}{\partial x} + i\dfrac{\partial}{\partial y})f
+    \end{aligned}
+    \]
+    which is easy to be checked linear and the chain rules.
+\end{definition}
+where we may check let $z = x+iy, \bar{z} = x-iy$, we have
+\[
+\begin{aligned}
+    &\dfrac{\partial}{\partial z} z = 1,\quad \dfrac{\partial}{\partial z}\bar{z} = 0 \\
+    &\dfrac{\partial}{\partial \bar{z}} z = 0,\quad \dfrac{\partial}{\partial \bar{z}}\bar{z} = 1
+\end{aligned}
+\]
+
+\begin{proposition}
+(The Leibniz Rules) We have for any $F,G \in C^1$
+\[
+\begin{aligned}
+\dfrac{\partial}{\partial z}(F\cdot G) &= \dfrac{\partial F}{\partial z}\cdot G + F\cdot \dfrac{\partial G}{\partial z} \\ 
+\dfrac{\partial}{\partial \bar{z}}(F\cdot G) &= \dfrac{\partial F}{\partial \bar{z}}\cdot G + F\cdot \dfrac{\partial G}{\partial \bar{z}} \\ 
+\end{aligned}
+\]
+\end{proposition}
+
+\begin{proposition}
+    We have for $l\leq j, m\leq k$ nonnegative integers and then
+    \[
+    \begin{aligned}
+    (\dfrac{\partial^l}{\partial z^l})(\dfrac{\partial^m}{\partial \bar{z}^m})(z^j\bar{z}^k) = \dfrac{j!}{l!}\dfrac{k!}{m!}z^{j-l}\bar{z}^{k-m}
+    \end{aligned}
+    \]
+\end{proposition}
+
+\begin{proposition}
+    If $p(z,\bar{z}) = \sum a_{lm} z^l\bar{z}^m$ is a polynomaial, then $p$ contains no term with $m>0$ iff $\dfrac{\partial p}{\partial \bar{z}} \equiv 0$. 
+\end{proposition}
+
+\begin{corollary}
+    If $p(z,\bar{z}) = q{z,\bar{z}}$ are polynomials, then they have same coefficients.
+\end{corollary}
+
+\begin{definition}
+    A $C_1$ function $f:U\mapsto \C$ is said to be $holomorphic$ if
+    \[\dfrac{\partial f}{\partial \bar{z}} = 0\]
+    at every point of $U$.
+\end{definition}
+
+\begin{definition}
+    A $C^1$ function $f = u(x,y)+iv(x,y): U \to \C$ is holomorphic if
+    \[
+    \begin{cases}\dfrac{\partial u}{\partial x} = \dfrac{\partial v}{\partial y} \\
+    \dfrac{\partial u}{\partial y} = -\dfrac{\partial v}{\partial x}
+    \end{cases}\]
+    at every point of $U$, which is called the $Cauchy$-$Riemann$ equations.
+\end{definition}
+
+\begin{proposition}
+    If $f:U\to\C$ is $C^1$ and if $f$ satisfies the C-R equations, then
+    \[\ParZ f = \ParX f = -i\ParY f \]
+    on $U$.
+\end{proposition}
+\begin{proof}\par
+    We have
+    \[
+    \begin{aligned}
+    \ParX f &= \ParX u + i\ParX v = (\ParX -i\ParY) u = 2\ParZ u \\
+    \ParX f &= \ParX u + i\ParX v = i(\ParX - i\ParY) v = 2\ParZ iv \\
+    -i\ParY f &= -i\ParY u + \ParY v = (\ParX -i\ParY) u = 2\ParZ u \\
+    -i\ParY f &= -i\ParY u + \ParY v = i(\ParX - i\ParY) v = 2\ParZ iv \\
+    \end{aligned}
+    \]
+    on $U$.
+\end{proof}
+
+\begin{definition}
+If $U\subset \C$ is open and $u\in C^2(U)$, then $u$ is called $harmonic$ if
+\[\dfrac{\partial^2 u}{\partial x^2}+\dfrac{\partial^2 u}{\partial y^2} = 0\]
+where we also denote it as
+\[\Delta u = \dfrac{\partial^2 u}{\partial x^2}+\dfrac{\partial^2 u}{\partial y^2}\]
+where the operator is called the $Laplace\ operator$.
+\end{definition}
+Here we have
+\[4\ParbZ\ParZ u = 4 \ParZ\ParbZ = \Delta u\]
+
+\begin{proposition}
+    The real and imaginary parts of a holomorphic $C^2$ function are harmonic.
+\end{proposition}
+\begin{proof}\par
+    Assume $f = u + iv$ and then according to C-R equations, we have
+    \[\dfrac{\partial^2}{\partial x^2} u = \dfrac{\partial^2}{\partial x\partial y} v = \dfrac{\partial^2}{\partial y\partial x} v = -\dfrac{\partial^2}{\partial y^2} u
+    \]
+    and
+    \[\dfrac{\partial^2}{\partial x^2} v = -\dfrac{\partial^2}{\partial x\partial y} u = -\dfrac{\partial^2}{\partial y\partial x} u = -\dfrac{\partial^2}{\partial y^2} v
+    \]
+\end{proof}
+
+\begin{lemma}
+It $u(x,y)$ is a real-valued polynomial with $\Delta u = 0$, then there exists a (holomorphic) $Q(z)$ such that $Re Q= u$.
+\end{lemma}
+\begin{proof}\par
+    Consider $u(x,y) = u(\dfrac{z+\bar{z}}{2},\dfrac{z-\bar{z}}{2}) = P(z,\bar{z}) = \sum a_{lm}z^l\bar{z}^m$, we know $\Delta u = 0$ and hence
+    \[P(z,\bar{z}) = a_00 + \sum^m a_k z^k + \sum^n b_k \bar{z}^k\]
+    $P$ is real-valued and we know
+    \[a_00 + \sum^m a_k z^k + \sum^n b_k \bar{z}^k = \bar{a_00} + \sum^m \bar{a_k} \bar{z}^k + \sum^n \bar{b_k} z^k\]
+    and hence $a_00\in \R, a_k = \bar{b_k}$ and hence
+    \[
+    u(z) = c + \sum^n a_{k}z^k + \sum^n \bar{a_{k}}\bar{z}^k = Re(c+2\sum^n a_k z^k) = Re(Q)
+    \]
+    where $Q$ is obviously holomorphic.
+\end{proof}
+
+\begin{theorem}
+    If $f,g$ are $C^1$ functions on the rectangle
+    \[\mathcal{R} = \{(x,y)\in \R^2: |x-a|<\delta, |y-b|<\epsilon\}\]
+    and if 
+    \[
+    \dfrac{\partial f}{\partial y} = \dfrac{\partial g}{\partial x}\text{ on }\mathcal{R}
+    \]
+    then there is a function $h\in C^(\mathcal{R})$ such that
+    \[\ParX h =f, \ParY h = g\]
+    on $\mathcal{R}$. If $f,g$ are real-valued, then we may take $h$ to be real-valued also.
+\end{theorem}
+\begin{proof}\par
+    For $(x,y) \in \mathcal{R}$, define
+    \[h(x,y) = \int_a^x f(t,b) dt + \int_b^y g(x,s)ds\]
+    and we know
+    \[
+    \ParY h(x,y) = g(x,y)
+    \]
+    and 
+    \[\ParX h(x,y) = f(x,b) + \ParX \int_b^y g(x,s) ds = f(x,b) + \int_b^y \ParY f(x,s) = f(x,b) + f(x,y)-f(x,b) = f(x,y)\]
+    and hence $h \in C^2(\mathcal{R})$ and real-valued if $f,g$ are.
+\end{proof}
+
+\begin{corollary}
+    If $\mathcal{R}$ is an open rectangle (or open disc) and if $u$ is a real-valued harmonic function on $\R$, then there is a holomorphic function $F$ on $\R$ such that $Re F = u$.
+\end{corollary}
+\begin{proof}\par
+    We know 
+    \[\dfrac{\partial^2}{\partial x^2} u + \dfrac{\partial^2}{\partial y^2} u =0\]
+    and hence there exists $v$ real-valued such taht
+    \[\ParX v = - \ParY u, \ParY v = \ParX u\]
+    and hence $F = u+iv$ is a holomorphic function with $Re(F) = u$.
+\end{proof}
+
+\begin{theorem}
+    If $U\subset \C$ is either an open rectangle or an open disc and if $F$ is holomorphic on $U$, then there is a holomorphic function $H$ on $U$ such that $\partial H/\partial z = F$ on $U$. 
+\end{theorem}
+\begin{proof}\par
+    Consider $H = h_1 + ih_2$ and 
+    we have $F = u(z) + iv(z)$, then we let $f= u ,g = -v$ and we will have
+    \[\ParY f = \ParX g\]
+    and hence we have a real $C^2$ function $h_1$ such that
+    \[\ParX h_1 = u, \ParY h_1 = -v\]
+    and $h_2 \in C^2$ with
+    \[\ParX h_2 = v, \ParY h_2 = u\]
+    Then
+    \[\ParZ H = \dfrac{1}{2}(\ParX h_1 + \ParY h_2)+\dfrac{i}{2}(\ParX h_2 - \ParY h_1) = u+iv = F\]
+\end{proof}
+
+\begin{definition}
+    A function $\phi:[a,b]\to\R$ is called $continuously\ differentiable$ and we write $\phi\in C^1([]a,b)$ if\par
+    (a) $\phi$ is continous on $[a,b]$\par
+    (b) $\phi'$ exists on $(a,b)$\par
+    (c) $\phi'$ has a continuous extension to $[a,b]$, i.e.
+    \[\lim_{t\to a^+} \phi'(t)\text{ and }\lim_{t\to b^-} \phi'(t)\]
+    both exists. Then $\phi(b)-\phi(a) = \int_a^b \phi'(t)dt$.
+\end{definition}
+\begin{proof}\par
+    Here notice that $\phi$ is absolutely continuous on $[a,b]$ respect to $m$, then we know $\phi(b-\epsilon) - \phi(a+\epsilon) = \int_{a+\epsilon}^{b-\epsilon} \phi'(t)dt$ for any $epsilon > 0$, and hence
+    \[\phi(b)-\phi(a) = \int_a^b \phi'(t) dt\]    
+\end{proof}
+
+\begin{definition}
+    A curve $\gamma:[a,b]\to \C$ is said to be $continuous$ on $[a,b]$ if both $\gamma_1$ and $\gamma_2$ are, $\gamma = \gamma_1 + i\gamma_2$. The curve is $C_1$ on $[a,b]$ if $\gamma_1,\gamma_2$ are $C_1$ on $[a,b]$ and then we may denote
+    \[\dfrac{d\gamma}{dt} = \dfrac{d\gamma_1}{dt} + i\dfrac{d\gamma_2}{dt}\]
+\end{definition}
+
+\begin{definition}
+    Let $\varphi:[a,b] \to \C$ be continuous on $[a,b]$. Write $\varphi(t) = \varphi_1(t) + i\varphi_2(t)$. Then we define
+    \[\int_a^b \varphi(t) dt = \int_a^b \varphi_1(t)dt + i\int_a^b \varphi_2(t) dt\]
+\end{definition}
+
+\begin{proposition}
+    Let $U\subset \C$ be open and let $\gamma:[a,b]\to U$ be a $C_1$ curve. If $f:U\to\R$ and $f\in C^1(U)$, then
+    \[f(\gamma(b))-f(\gamma(a)) = \int_a^b\Big(\ParX f(\gamma(t))\dfrac{d\gamma_1}{dt}+\ParY f(\gamma(t))\dfrac{d\gamma_2}{dt}\Big)dt\]
+\end{proposition}
+This is due to the chain rule.
+
+\begin{proposition}
+    Repalce $f$ above as complex-valued and holomorphic, then we have
+    \[f(\gamma(b))-f(\gamma(a)) = \int_a^b \ParZ f(\gamma(t))\cdot \dfrac{d\gamma}{dt}(t)dt\]
+\end{proposition}
+\begin{proof}\par
+    Notice
+    \[
+    \begin{aligned}
+    f(\gamma(b)) - f(\gamma(a))
+    &= \int_a^b \Big(\ParX u(\gamma(t))\dfrac{d\gamma_1}{dt}(t)+ \ParY u(\gamma(t))\dfrac{d\gamma_2}{dt}(t)\Big) +i \Big(\ParX v(\gamma(t))\dfrac{d\gamma_1}{dt}(t)+ \ParY v(\gamma(t))\dfrac{d\gamma_2}{dt}(t)\Big) dt \\ &= \ParX f(\gamma(t))\dfrac{d\gamma}{dt}(t) = \int_a^b\ParZ f(\gamma(t)) \dfrac{d\gamma}{dt}(t) dt
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}
+    If $U\subset \C$ open and $F:U\to\C$ is continuous on $U$ and $\gamma:[a,b]\to U$ is a $C_1$ curve, then we define the $complex\ line\ integral$
+    \[\int_{\gamma} F(z)dz = \int_a^b F(\gamma(t))\dfrac{d\gamma}{dt}dt\]
+\end{definition}
+
+\begin{proposition}
+    Let $U\subset \C$ be open and let $\gamma:[a,b]\to U$ be a $C^1$ curve. If $f$ is a holomorphic function on $U$, then
+    \[f(\gamma(b)) - f(\gamma(a)) = \int_{\gamma} \ParZ f(z)dz\]
+\end{proposition}
+
+\begin{proposition}
+If $\phi:[a,b] \to \C$ is continuous, then
+\[|\int_a^b \phi(t)dt|\leq \int_a^b |\phi(t)|dt\]
+\end{proposition}
+
+\begin{proposition}
+Let $U \subset \C$ be open and $f\in C^0(U)$. If $\gamma:[a,b]\to U$ is a $C^1$ curve, then
+\[|\int_{\gamma} f(z)dz| \leq (\sup_{t\in[a,b]} |f(\gamma(t))|)\cdot l(\gamma)\]
+where
+\[l(\gamma) = \int_a^b |\dfrac{d\gamma}{dt}(t)|dt\]
+\end{proposition}
+
+\begin{proposition}
+    Let $U\subset \C$ be an open set and $F:U\to\C$ a continuous function. Let $\gamma:[a,b]\to U$ be a $C^1$ curve. Suppose that $\theta: [c,d]\to[a,b]$ is a one-to-one, onto, increasing $C^1$ function with a $C^1$ inverse. Let $\tilde{\gamma} = \gamma \circ \phi$. Then
+    \[\int_{\tilde{\gamma}} fdz = \int_{\gamma} fdz\]
+\end{proposition}
+\begin{proof}\par
+    We have
+    \[
+    \begin{aligned}
+        \int_{\tilde{\gamma}} fdz = \int_c^d f(\gamma(\phi(t))) \dfrac{d\gamma(\phi(t))}{dt} dt = \int_a^b f(\gamma(s)) \dfrac{\gamma(s)}{ds} \phi'(\phi^{-1}(s)) (\phi^{-1})'(s)ds = \int_{\gamma} fdz
+    \end{aligned}
+    \]
+    since $\phi'(\phi^{-1}(s))(\phi^{-1})' = 1$.
+\end{proof}
+
+\begin{definition}
+    Let $f$ be a function on the open set $U$ in $\C$ and consider if 
+    \[\lim_{z\to z_0} \dfrac{f(z)-f(z_0)}{z-z_0}\]
+    exists then we say that $f$ has a $complex\ derivative$ at $z_0$. We denote the complex derivative by $f'(z_0)$. 
+\end{definition}
+
+\begin{theorem}
+    Let $U\subset \C$ be an open set and let $f$ be holomorphic on $U$. Then $f'$ exists at each point of $U$ and
+    \[f'(z) = \ParZ f\]
+    for all $z\in U$.
+\end{theorem}
+\begin{proof}\par
+    Consider
+    \[\gamma(t) = (1-t)z_0 + tz\]
+    and then we know
+    \[f(z)-f(z_0) = f(\gamma(1)) - f(\gamma_0) = \int_{\gamma} \ParZ fdz = (z-z_0) \int_0^1 \ParZ f(\gamma(t)) dt = \ParZ f(z_0) + \int_0^1(\ParZ f (\gamma(t))- \ParZ f(z_0))dt\]
+    and hence
+    \[|\dfrac{f(z)-f(z_0)}{z-z_0}- \ParZ f(z_0)| \leq \int |\ParZ f(\gamma(t))- \ParZ f(z_0)|dt \to 0\]
+    when $z\to z_0$.
+\end{proof}
+
+\begin{theorem}
+    If $f\in C^1(U)$ and $f$ has a complex derivative at each point of $U$, then $f$ is holomorphic on $U$. In particular, if a continuous, complex-valued function $f$ on $U$ has a complex derivative at each point and if $f'$ is continuous on $U$, then $f$ is holomorphic on $U$.
+\end{theorem}
+\begin{proof}\par
+    It is easy to check
+    \[\lim_{h\to 0, h\in\R} \dfrac{f(z_0+h)-f(z_0)}{h} = \ParX u (x_0, y_0) + i\ParX v(x_0,y_0)\]
+    and
+    \[
+    \lim_{h\to 0, h\in \R}\dfrac{f(z_0+ih)-f(z_0)}{h} =  - i\ParY u(x_0,y_0) + \ParY v(x_0,y_0)
+    \]
+    and hence $f$ satisfies the C-R equations so holomorphic.\par
+    Notice the continuity of $f'$ may implies that $f\in C^1(U)$ and hence the problem goes.
+\end{proof}
+
+\begin{theorem}
+    Let $f$ be holomorphic in a neighborhood of $P\in\C$. Let $\omega_1,\omega_2$ be complex numbers of unit modulus. Consider the directional derivatives
+    \[D_{\omega_1}f(P) = \lim_{t\to 0}\dfrac{f(P+t\omega_1)-f(P)}{t}\]
+    and
+    \[D_{\omega_2}f(P) = \lim_{t\to 0}\dfrac{f(P+t\omega_2)-f(P)}{t}\]
+    then\par
+    a. $|D_{\omega_1} f(P)| = |D_{\omega_2}f(P)|$\par
+    b. If $f'(P) \neq 0$, then the directed angle from $\omega_1$ to $\omega_2$ equals the directed angle from $D_{\omega_1}f(P)$ to $D_{\omega_2} f(P)$. 
+\end{theorem}
+\begin{proof}\par
+    Notice that
+    \[D_{\omega_j} = f'(P)\omega_j, j= 1,2\]
+    and then the conclusions go.
+\end{proof}
+
+\begin{lemma}
+    Let $(\alpha,\beta)\subset\R$ be an open interval and let $H:(\alpha,\beta)\to\R, F:(\alpha,\beta)\to\R$ be continuous functions. Let $p\in(\alpha,\beta)$ and suppose that $dH/dx$ exists and equals $F(x)$ for all $x\in(\alpha,\beta)-\{p\}$. Then $(dH/dx)(p)$ exists and $(dH/dx)(x) = F(x)$ for all $x\in(\alpha,\beta)$.
+\end{lemma}
+\begin{proof}\par
+    Assume $[a,b]\subset (\alpha,\beta)$ and then $K(x) = H(a) + \int_a^x F(t)dt$ on $[a,b]$, so we know $K-H$ is continuous on $[a,b]$ and constant on $[a,p)\cup(p,b]$, which means $K=H$ on $[a,b]$.
+\end{proof}
+
+\begin{theorem}
+    Let $U\subset \C$ be either an open rectangle or an open disc and let $P\in U$. Let $f$ and $g$ be continuous, real-valued functions on $U$ which are continuously differentiable on $U-\{P\}$. Suppose further that
+    \[\ParY f = \ParX g\text{ on }U-\{P\}\]
+    Then there exists a $C^1$ function $h:U\to\R$ such that
+    \[\ParX = f, \ParY = g\]
+    at every point of $U$.
+\end{theorem}
+\begin{proof}\par
+    Consider a closed rectangle containing $p$ inside in $U$ and define $h(x,y) = \int_a^x f(t,b)dt + \int_b^y g(x,s)ds$ and we know that $\ParY h = g(x,y)$ and $\ParX h = f(x,y)$ for any $x\neq P_x$, then for a fixed $y$, we know $dh(x,y)/dx= f(x,y)$ exists for all points in $U$ except for $(p_x,y)$ and hence $dh(x,y)/dx = f(x,y)$ at $(p_x,y)$. Then we know $\ParX h = f, \ParY h = g$ on $U$.
+\end{proof}
+
+\begin{theorem}
+    Let $U\subset\C$ be either an open rectangle or an open disc. Let $P\in U$ be fixed. Suppose that $F$ is continuous on $U$ and holomorphic on $U-\{P\}$. Then there is a holomorphic $H$ on $U$ such that $U$ such that $\ParZ H = F$.    
+\end{theorem}
+\begin{proof}\par
+    Consider $F = u+iv$, then we have
+    \[\ParY v = \ParX u\text{ and } \ParY u = \ParX (-v)\]
+    on $U-\{P\}$, then we know there exists $h_1,h_2$ on $U$ such that $\ParX h_1 = u, \ParY h_1 = (-v), \ParX h_2 = v, \ParY h_2 = u$
+    and let $H = h_1 + ih_2$, we have
+    \[
+    \ParZ H = \dfrac{1}{2}(\ParX - i\ParY)(h_1+ih_2) = (u+u) + i(v+v) = F
+    \]
+\end{proof}
+
+\begin{definition}
+    The boundary $\partial D(P,r)$ of the disc $D(P,r)$ can be parametrized as a simple closed curve $\gamma:[0,1]\to \C$ by setting
+    \[\gamma(t) = P+re^{2\pi it}\]
+    we call it $counterclockwise$ orientation.
+\end{definition}
+
+\begin{lemma}
+    Let $\gamma$ be the boundary of a disc $D(z_0,r)$ in the complex plane, equipped with counterclockwise orientation. Let $z$ be a point inside the circle $\partial D(z_0,\gamma)$ . Then
+    \[\dfrac{1}{2\pi i} \int_{\gamma} \dfrac{1}{\xi-z}d\xi = 1\]
+\end{lemma}
+\begin{proof}\par
+    Consider $I(z) = \int_{\gamma} \dfrac{1}{\xi-z}d\xi = \int_0^1 \dfrac{1}{(z_0+e^{2\pi it})-z}(2\pi i)e^{2\pi i t}dt$ and since
+    \[\ParX \dfrac{1}{\xi-z} = \dfrac{1}{(\xi-z)^2},\quad \ParY \dfrac{1}{\xi -z} = i\dfrac{1}{(\xi-z)^2}\]
+    and hence we have
+    \[\ParbZ I(z) = \int_{\gamma} \ParbZ(\dfrac{1}{\xi-z})d\xi = 0\quad \ParZ I(z) = \int_{\gamma} \ParZ (\dfrac{1}{\xi-z})d\xi = \int_{\gamma}\dfrac{1}{(\xi-z)^2} d\xi\]
+    where $\dfrac{1}{(\xi-z)^2}$ is the complex derivative of the holomorphic function $\dfrac{-1}{\xi-z}$ and hence 
+    \[\ParZ I(z) = \int_{\gamma} \dfrac{1}{(\xi-z)^2}d\xi = 0\]
+    Therefore, $I(z)$ is holomorphic on $D(z_0,r)$ and $\ParZ I = 0$ which means $I$ is constant on $D(z_0,r)$ and notice
+    \[I(z_0) = 2\pi i\]
+    and hence the equation holds.
+\end{proof}
+
+\begin{theorem}
+    (The Cauchy integral fomula) Suppose that $U$ is an open set in $\C$ and that $f$ is a holomorphic function on $U$. Let $z_0\in U$ and let $r>0$ be such that $\overline{D}(z_0,r) \subset U$. Let $\gamma:[0,1] \to \C$ be the $C^1$ curve $\gamma(t)= z_0+r\cos(2\pi t) + ir \sin(2\pi t)$. Then for each $z\in D(z_0,r)$,
+    \[f(z) = \dfrac{1}{2\pi i}\int_{\gamma} \dfrac{f(\xi)}{\xi-z}d\xi\] 
+\end{theorem}
+\begin{proof}
+    By theorem 1.7, there is $H$ such that
+    \[\ParZ H = \dfrac{f(\xi)-f(z)}{\xi-z}\]
+    if $\xi \neq z$ and $\ParZ H(z) = f'(z)$ holomorphic on $D(z_0,r+\epsilon)$ and hence
+    \[\int_{\gamma} \dfrac{f(\xi)-f(z)}{\xi-z}d\xi = 0\]
+    and the equation holds by the lemma 1.3.
+\end{proof}
+
+\begin{theorem}
+    (The Cauchy integral theorem) If $f$ is a holomorphic function on an open disc $U$ in the complex plane, and if $\gamma:[a,b] \to U$ is a $C^1$ curve in $U$ with $\gamma(a) = \gamma(b)$, then
+    \[\int_{\gamma} f(z)dz = 0\]
+\end{theorem}
+\begin{proof}
+Only need to pick $G$ such that $\ParZ G = f$ on $U$ is fine.
+\end{proof}
+
+\begin{definition}
+    A $piecewise$ $C^1$ curve $\gamma:[a,b]\to\C, a<b,a,b\in\R$ is a continuous function such that there exists a finite set of numbers $a_1\leq a_2 \leq \cdots \leq a_k$ satisfying $a_1=a$ and $a_k=b$ and with the property that for every $1\leq j \leq k-1$, $\gamma|_{[a_j,a_{j+1}]}$ is a $C^1$ curve. As before, $\gamma$ is a piecewise $C^1$ curve in an open set $U$ if $\gamma_{[a,b]}\subset U$.
+\end{definition}
+
+\begin{definition}
+    If $U\subset \C$ is open and $\gamma:[a,b]\to U$ is a piecewise $C^1$ curve in $U$ and if $f:U\to\C$ is a continuous, complex-valued function on $U$, then
+    \[
+    \int_{\gamma} f(z)dz = \sum\limits_{j=1}^k \int_{\gamma|_{[a_j,a_{j+1}]}} f(z)dz
+    \]
+    and the definition is well-defined.
+\end{definition}
+\begin{proof}\par
+    We need to show for any $\{a_j\}_1^k,\{b_i\}_1^m$, the RHS determined by the chosen sequence is the same. Assume $a_{j_t} = b_{i_t}, 1\leq t \leq q$, with $\{a_j\}_{j_t+1}^{j_{t+1}-1} \cap \{b_i\}_{i_t+1}^{j_{i+1}-1} = \emptyset$, then we know $\gamma|_{a_{j_t},a_{j_{t+1}}}$ is a $C_1$ curve and hence the integral over the curve is the same.
+\end{proof}
+
+\begin{lemma}
+    Let $\gamma:[a,b]\to U$ open in $\C$ to be a piece wise $C^1$ curve. Let $\phi:[c,d]\to [a.b]$ be a piecewise $C^1$ strictly monotone increasing function with $\phi(c) = a, \phi(d) = b$. Let $f:U\to \C$ be a continuous function on $U$. Then the function $\gamma\circ \phi:[c,d]\to U$ is a piecewise $C^1$ curve and
+    \[
+        \int_{\gamma} f(z)dz = \int_{\gamma\circ\phi} f(z)dz
+    \]
+\end{lemma}
+\begin{proof}
+    Use the proposition 1.11.
+\end{proof}
+
+\begin{lemma}
+If $f:U\to \C$ is a holomorphic function and if $\gamma:[a,b]\to U$ is a piecewise $C^1$ curve, then
+\[f(\gamma(b))-f(\gamma(a)) = \int_{\gamma} f'dz\]
+\end{lemma}
+\begin{proof}
+    Use the proposition 1.7.
+\end{proof}
+
+\begin{proposition}
+If $f:\C-\{0\} \to \C$ is a holomorphic function, and if $\gamma_r$ describes the circle of radius $r$ around $0$, traversed once around counter-clockwise, then, for any two positive numbers $r_1<r_2$,
+\[\int_{\gamma_{r_1}} f(z)dz = \int_{\gamma_{r_2}} f(z)dz\]
+\end{proposition}
+
+\begin{proposition}
+    Let $0<r<R<\infty$ and define the annulus $\mathcal{A} = \{z\in\C: r < |z| < R\}$. Let $f;\mathcal{A}\to\C$ be a holomorphic function. If $r<r_1<r_2<R$ and if for each $j$ the curve $\gamma_{r_j}$ describes the circle pf radius $r_j$ around $0$, traversed once counter clockwise, then we have 
+    \[
+    \int_{\gamma_{r_1}}fdz = \int_{\gamma_{r_2}}fdz
+    \]
+\end{proposition}
+
+\newpage
+
+\subsection*{Applications of the Cauchy integral}
+\begin{theorem}
+    Let $U\subset \C$ be an open set and let $f$ be holomorphic on $U$. Then $f\in C^{\infty}(U)$. Moreover, if $\overline{D}(P,r)\subset U$ and $z\in D(P,r)$, then
+    \[
+    \Big(\ParZ \big)^k f(z) = \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+1}}d\xi
+    \]
+    for any integer $k$.
+\end{theorem}
+\begin{proof}\par
+    Use the induction to $f$, assume
+    \[
+    (\ParZ \big)^k f(z) = \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+1}}d\xi
+    \]
+    and $(\ParZ \big)^k f(z)$ is holomorphic, then we gonna prove that
+    \[
+    (\ParZ \big)^{k+1} f(z) = \dfrac{(k+1)!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+2}}d\xi
+    \]
+    and $(\ParZ \big)^{k+1} f(z)$ is holomorphic. Consider
+    \[
+    \begin{aligned}
+    \Big|\dfrac{f(\xi)}{(\xi-\omega)^{k+1}}-
+    \dfrac{f(\xi)}{(\xi-z)^{k+1}}\Big| &\leq \sup_{\xi\in \partial D(P,r)}|f(\xi)| \epsilon^{-2k-2}\Big|\sum\limits_{i=1}^{k+1} C_{k+1}^{i}(2r)^{k+1-i}(\omega-z)^i\Big| \\
+    & \leq |\omega-z|(k+1)\Big(\sup_{\xi\in \partial D(P,r)}|f(\xi)| \epsilon^{-2k-2}\Big|\sum\limits_{i=0}^{k} C_{k}^{i}(2r)^{k-i}(\omega-z)^i\Big|\Big)\\
+    & \leq |\omega-z|(k+1)\Big(\sup_{\xi\in \partial D(P,r)}|f(\xi)| \epsilon^{-2k-2}(2r+1)^k\Big)
+    \end{aligned}
+    \]
+    for all $|\omega-z|$ small enough and hence
+    \[
+    \dfrac{f(\xi)}{(\xi-\omega)^{k+1}} \to 
+    \dfrac{f(\xi)}{(\xi-z)^{k+1}}
+    \]
+    uniformly when $\omega \to z$, so may know
+    \[
+    \lim_{\omega \to z} \dfrac{(\ParZ \big)^{k+1} f(\omega) - (\ParZ \big)^{k+1} f(z)}{\omega - z} = \lim_{\omega \to z} \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{\dfrac{f(\xi)}{(\xi-\omega)^{k+1}}-\dfrac{f(\xi)}{(\xi-z)^{k+1}}}{\omega - z}d\xi
+    \]
+    and we know that
+    \[
+    \lim_{\omega \to z} \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\dfrac{\dfrac{f(\xi)}{(\xi-z)^{k+1}}-\dfrac{f(\xi)}{(\xi-z)^{k+1}}}{\omega - z}d\xi =  \dfrac{k!}{2\pi i}\int_{|\xi-P|=r}\lim_{\omega \to z}\dfrac{\dfrac{f(\xi)}{(\xi-\omega)^{k+1}}-\dfrac{f(\xi)}{(\xi-z)^{k+1}}}{\omega - z}d\xi
+    \]
+    by the DCT and hence
+    \[
+    \lim_{\omega \to z} \dfrac{(\ParZ \big)^{k+1} f(\omega) - (\ParZ \big)^{k+1} f(z)}{\omega - z}
+    = \dfrac{(k+1)!}{2\pi i}\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-z)^{k+2}}d\xi
+    \]
+    which means $(\ParZ \big)^k f(z)$ is holomorphic and the equality holds. Then we use the induction, and the conclusion goes.
+\end{proof}
+
+\begin{corollary}
+    If $f:U\to\C$ is holomorphic, then $f':U\to \C$ is holomorphic.
+\end{corollary}
+
+\begin{theorem}
+    If $\phi$ is a continuous function on $\{\xi:|\xi-P| = r\}$, then the function $f$ given by
+    \[
+    f(z) = \dfrac{1}{2\pi i}\int_{|\xi-P|=r}\dfrac{\phi(\xi)}{\xi-z}d\xi
+    \]
+    is defined and holomorphic on $D(P,r)$.
+\end{theorem}
+
+\begin{theorem}
+    (Morera) Suppose that $f:U\to \C$ is a continuous function on a connected open subset $U$ of $\C$. Assume that for every closed, piecewise $C^1$ curve $\gamma:[0,1]\to U$, $\gamma(0) = \gamma(1)$, it holds that
+    \[
+    \int_{\gamma} f(\xi) d\xi = 0
+    \]
+    Then $f$ is holomorphic on $U$.
+\end{theorem}
+\begin{proof}
+    Consider $x\in U$ and define $F(y) = \int_{\phi} fdz$ for any $y\in U$ where $\phi$ is a picewise $C^1$ curve from $x$ to $y$, where we know the integral is well-defined since any integral of $f$ on a closed, piece wise $C^1$ curve is $0$. Then for any $y\in U$, consider a segment from $y+h$ where $|h|$ is small enough and we know
+    \[
+    \lim_{|h|\to 0}\dfrac{F(y+h)-F(y)}{h} = \lim_{|h|\to 0}\dfrac{1}{h}\int_0^h f(y+z) dz = f(y)
+    \]
+    which means $F$ is holomorphic on $U$ and $F' = f$ on $U$, and hence $f$ is holomorphic on $U$.
+\end{proof}
+
+\begin{definition}
+    let $P\in\C$ be fixed. A $complex\ power\ series$ centered at $P$ is an expression of the form
+    \[
+    \sum a_k(z-P)^k
+    \]
+    where $a_k$ is complex valued.
+\end{definition}
+
+\begin{lemma}
+    (Abel) If $\sum a_k(z-P)^k$ converges at some $z$, then the series converges at each $\omega \in D(P,r)$, where $r = |z-P|$.
+\end{lemma}
+\begin{proof}\par
+    Since $\sum a_k(z-P)^k$ converges, we know $a_k(z-P)^k \to 0$ and hence bounded, then we know 
+    \[
+    |a_k| \leq Mr^{-k}
+    \]
+    for some $M>0$ and then for any $\omega \in D(P,r)$, assume $|\omega - P| = \delta < r$, then we know
+    \[
+    |a_k(\omega-P)^k| \leq |a_k|\delta^k \leq M(\delta/r)^{-k}
+    \]
+    and hence
+    \[
+    \sum |a_k(\omega-P)^k| \leq M\sum (\delta/r)^{-k} < \infty
+    \]
+    which means $\sum a_k(\omega-P)^k$ converges.
+\end{proof}
+
+\begin{definition}
+    Let $\sum a_k(z-P)^k$ be a power series. Then
+    \[r = \sup\{|\omega-P|:\sum a_k(\omega-P)^k\text{ converges}\}\]
+    is called the $radius\ of\ convergence$ of the power series.
+\end{definition}
+
+\begin{lemma}
+    If $\sum a_k(z-P)^k$ is a power series with radius of convergence $r$, then the series converges for each $\omega \in D({P,r})$ and diverges for each $\omega$ such that $|\omega-P|>r$.
+\end{lemma}
+
+\begin{lemma}
+    (The root test) The radius of convergence of the power series $\sum a_k(z-P)^k$ is
+    \[\dfrac{1}{\limsup |a_k|^{1/k}}\]
+    if $\limsup |a_k|^{1/k} > 0$ or
+    \[\infty\]
+    if $\limsup |a_k|^{1/k} = 0$.
+\end{lemma}
+\begin{proof}\par
+    Assume $\alpha = \limsup |a_k|^{1/k}$, if $|\omega-P|>1/\alpha$, then denote $|\omega-P| = c/\alpha,c>1$ and we know
+    \[
+    |a_k(z-P)^k| = (c|a_k|^{1/k}/\alpha)^k
+    \]    
+    and we know there are infinitly many $a_k$ such that $|a_k|^{1/k}/\alpha > 1/c$ and hence the series diverge.\par
+    For $|\omega-P|<1/\alpha$, we denote $|\omega-P| = d/\alpha, d<1-\epsilon$ for some $\epsilon >0$ and we have
+    \[
+    |a_k(\omega-P)^k| \leq (|a_k|^{1/k}d/\alpha)^k \leq (1-\epsilon)^k 
+    \]
+    when $k$ is sufficiently large and hence the series is absolutely convergent and the condition for $\alpha = 0$ is similar.
+\end{proof}
+
+\begin{definition}
+    Let $\sum f_k(z)$ be a series of functions on a set $E$. The series is said to be uniformly Cauchy if for any $\epsilon > 0$, these is an integer $N$ such that
+    \[
+    |\sum\limits_{k=m}^{n} f_k(z)| <\epsilon
+    \]
+    on $E$ for any $n\geq m \geq N$.
+\end{definition}
+
+\begin{proposition}
+    Let $\sum a_k(z-P)^k$ be a power series with radius of convergence $r$. Then, for any number $R$ with $0 \leq R < r$ ,the series $\sum |a_k(z-P)|^k$ converges uniformly on $\overline{D}(P,R)$ and hence $\sum a_k(z-P)^k$ converges uniformly and absolutely on $\overline{D}(P,R)$.
+\end{proposition}
+\begin{proof}
+    We know
+    \[\lim_{k\to\infty}|a_kr^k| \to 0\]
+    and hence there exists $M>0$ such that
+    \[|a_k| \leq \dfrac{M}{r^k}\]
+    then we know
+    \[
+    \sum\limits_{k=0}^{n}|a_k(z-P)^k| \leq \sum\limits_{k=0}^n M(r/R)^k
+    \]
+    on $\overline{D}(P,R)$ and hence the series converges uniformly.
+\end{proof}
+
+\begin{lemma}
+    If a power series
+    \[\sum\limits_{j=0}^{\infty}a_j(z-P)^j\]
+    has radius of convergence $r>0$, then the series defines a $C^{\infty}$ function $f(z)$ on $D(P,r)$. The function $f$ is holomorphic on $D(P,r)$. The series obtained by termwise differentiation $k$ times of the original power series,
+    \[
+    \sum\limits_{j=k}^{\infty}\dfrac{j!}{k!}a_j(z-P)^{j-k}
+    \]
+    converges on $D(P,r)$ and its sum is $(\partial/\partial z)^k f(z)$ for each $z\in D(P,r)$. 
+\end{lemma}
+\begin{proof}\par
+    For any $z\in D(P,r)$, we know the series is abosolutely convergent at $z$, and hence
+    \[
+    D_h f(z) = \lim_{d\to 0}\sum\limits_{j=0}^{\infty}a_j\dfrac{(z+dh-P)^j-(z-P)^j}{d} = \sum\limits_{j=0}^{\infty} a_jj(z-P)^{j-1}
+    \]
+    since
+    \[
+    \sum\limits_{j=0}^{\infty} j|a_jr'^{j-1}| \leq C + \sum\limits_{j=m}^{\infty}|a_j(r'+\epsilon)^{j-1}/(r'+\epsilon)^{j}|
+    \]
+    for some $\epsilon > 0$ and integer $m$ big sufficiently, and hence we may exchange the summation and the limit. Then we know $f$ is holomorphic and hence in $C^{\infty}$ and we may use the induction to $\ParZ^k f$.
+\end{proof}
+
+\begin{proposition}
+    If both series $\sum_{j=0}^{\infty} a_j(z-P)^j$ and $\sum_{j=0}^{\infty} b_j(z-P)^j$ converge on a disc $D(P,r), r > 0$ and if $\sum_{j=0}^{\infty}a_j(z-P)^j = \sum_{j=0}^{\infty} b_j(z-P)^j$ on $D(P,r)$, then $a_j = b_j$ for every $j$.  
+\end{proposition}
+\begin{proof}\par
+    Use the lemma 1.9. directly.
+\end{proof}
+
+\begin{theorem}
+    Let $U\subset\C$ be an open set and let $f$ be holomorphic on $U$. Let $P\in U$ and suppose that $D(P,r)\subset U$. Then the comnplex power series
+    \[\sum\limits_{k=0}^{\infty} \dfrac{(\ParZ)^kf(P)}{k!}(z-P)^k\]
+    has radius of convergence at least $r$. It converges to $f(z)$ on $D(P,r)$.
+\end{theorem}
+\begin{proof}\par
+    For $z\in D(P,r)$, we know
+    \[
+    f(z) = \dfrac{1}{2\pi i}\int_{|\xi-P| = r'}\dfrac{f(\xi)}{\xi-z}d\xi = \dfrac{1}{2\pi i}\int_{|\xi-P| = r'}\dfrac{f(\xi)}{\xi-P}\sum\limits_{n\geq 0}((z-P)(\xi-P)^{-1})^nd\xi
+    \]
+    for $r' > |z-P|$ and $D(z,r')\subset D(P,r)$ and then we know
+    \[
+    f(z) = \lim_{N\to\infty}\dfrac{1}{2\pi i}\int_{|\xi-P| = r'}\dfrac{f(\xi)}{\xi-P}\sum\limits_{n= 0}^N((z-P)(\xi-P)^{-1})^nd\xi
+    \]
+    since the series converges uniformly. Then
+    \[
+    f(z) = \lim_{N\to\infty}\sum\limits_{n=0}^N \dfrac{1}{2\pi i }\int_{|\xi-P| = r'}\dfrac{f(\xi)}{(\xi-P)^{n+1}}(z-P)^n = \sum\limits_{k=0}^{\infty} \dfrac{(\ParZ)^kf(P)}{k!}(z-P)^k
+    \]
+\end{proof}
+
+\begin{theorem}
+    (The Cauchy estimates) Let $f:U\to\C$ be a holomorphic function on an open set $U,P\in U$ and assume that the closed disc $\overline{D}(P,r),r>0$ is contained in $U$. Set $M = \sup_{z\in \overline{D}(P,r)}|f(z)|$, then for $k\geq 1$ we have
+    \[
+    \Big|\dfrac{\partial^k f}{\partial z^k}(P) \Big| \leq \dfrac{Mk!}{r^k}
+    \]
+\end{theorem}
+\begin{proof}\par
+    We know
+    \[
+    \Big|\dfrac{\partial^k f}{\partial z^k}(P) \Big| = \Big|\dfrac{k!}{2\pi i}\int_{|\xi-P| = r}\dfrac{f(\xi)}{(\xi-z)^{k+1}}d\xi \Big| \leq \dfrac{Mk!}{r^k} 
+    \]
+\end{proof}
+
+\begin{lemma}
+    Suppose that $f$ is a holomorphic function on a connected open set $U\subset\C$. If $\partial f/\partial z = 0$ on $U$, then $f$ is constant on $U$.
+\end{lemma}
+\begin{proof}
+    Notice $\ParX f = \ParY f =0$ on $U$.
+\end{proof}
+
+\begin{definition}
+    A function $f$ is said to be $entire$ if it is defined and holomorphic on all of $\C$, that is, $f:\C\to\C$ is holomorphic.
+\end{definition}
+
+\begin{theorem}
+    (Liouville's theorem) A bounded entire function is constant.
+\end{theorem}
+\begin{proof}
+    For any $P\in\C$, we may know
+    \[
+    \Big|\ParZ f(P)\Big| \leq M/r
+    \]
+    for any $r>0$ and hence $\ParZ f = 0$ on $\C$ and hence it is a constant on $\C$.
+\end{proof}
+
+\begin{theorem}
+    If $f:\C\to\C$ is an entire function and if for some real number $C$ and some postive integer $k$ it holds that
+    \[|f(z)|\leq C|z|^k\]
+    for all $z$ with $|z|>1$, then $f$ is a polynomial in $z$ of degree at most $k$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    \Big|\Big(\ParZ\Big)^{k+l} f(0)\Big| \leq C(k+l)!/r^l 
+    \]
+    for any $r\geq 0$ and hence $\Big(\ParZ\Big)^{k+l} f(0) = 0$.
+\end{proof}
+
+\begin{theorem}
+    Let $p(z)$ be a nonconstant polynomial. Then $p$ has a root.
+\end{theorem}
+\begin{proof}\par
+    If not, we know $g(z) = 1/p(z)$ is holomorphic on $\C$ and bounded since $|p(z)| \to\infty , |z|\to\infty$, so by the Liouville's theorem, we know $p(z)$ is constant and hence a contradiction.
+\end{proof}
+
+\begin{corollary}
+    If $p(z)$ is a holomorphic polynomial of $\deg k$, then there are $k$ complex numbers $\alpha_1,\cdots,\alpha_k$ and a constant $C$ such that
+    \[p(z) = C\prod_{i=1}^k(z-\alpha_i)\]
+\end{corollary}
+
+\begin{theorem}
+    Le $f_j:U\to\C, j\geq 1$ be a sequence of holomorphic functions on an open set $U$ in $\C$. Suppose that there is a function $f:U\to\C$ such that, for each compact subset $E$ of $U$, the sequence $f_j|_E$ converges uniformly to $f|_E$. Then $f$ is holomorphic on $U$. 
+\end{theorem}
+\begin{proof}\par
+    Firstly, it is easy to check $f$ is continuous on $U$.\par
+    For $z\in U$, we may consider $D_z = \overline{D}(z,r) \subset U$ is a compact set, and we know $f_j\to f$ uniformly on $D_z$, then
+    \[
+    f(z+d) = \lim_{n\to\infty} f_n(z+d) = \lim_{n\to\infty} \dfrac{1}{2\pi i}\int_{|\xi-z| = r}\dfrac{f_n(\xi)}{\xi - (z+d)}d\xi = \dfrac{1}{2\pi i }\int_{|\xi-z| = r}\dfrac{f(\xi)}{\xi - (z+d)}d\xi
+    \]
+    then we know
+    \[
+    f'(z) = \lim_{|d|\to 0} \dfrac{1}{2\pi i}\int_{|\xi-z|=r} f(\xi)\Big(\Big|\dfrac{1}{\xi-(z+d)}-\dfrac{1}{\xi-z}\Big|/d\Big) d\xi = \dfrac{1}{2\pi i}\int_{|\xi-z|=r} \dfrac{f(\xi)}{(\xi-z)^2} d\xi
+    \]
+    and hence $f$ is holomorphic on $U$.
+\end{proof}
+
+\begin{corollary}
+    If $f_j,f,U$ are as in the theorem above, then for any integer $k\geq 0$, we have
+    \[
+    \Big(\ParZ\Big)^k f_j(z) \to \Big(\ParZ\Big)^k f(z)
+    \]
+    uniformly on compact sets.
+\end{corollary}
+\begin{proof}
+    We have
+    \[
+    \Big|\Big(\ParZ\Big)^k f_j(z) -  \Big(\ParZ\Big)^k f(z)\Big| \leq \dfrac{k!}{r^k} \sup_{\overline{D}(z,r)}|f(z)-f_j(z)|
+    \]
+    if $\overline{D}(z,r) \subset U$ and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    Let $U\subset \C$ be a connected open set and let $f:U\to\C$ be holomorphic. Let $Z = \{z\in U, f(z) = 0\}$. If there are a $z_0\in Z$ and $\{z_j\}_{j=1}^{\infty} \in Z-\{z_0\}$ such that $z_j \to z_0$, then $f=0$ on $U$.
+\end{theorem}
+\begin{proof}\par
+    Consider
+    \[E = \{z, \Big(\ParZ\Big)^kf(z) = 0\text{ for any interger } k\geq 0\}\]
+    and we claim $z_0 \in E$, if not there exists $n_0$ such that
+    \[
+    \Big(\ParZ\Big)^n_0 f(z_0) \neq 0
+    \]
+    and hence
+    \[
+    g(z) = \sum\limits_{i=n_0}^{\infty} \Big(\ParZ\Big)^i f(z)\dfrac{(z-z_0)^{i-n_0}}{i!}
+    \]
+    is not $0$ at $z_0$ but $g(z_j) = 0$ for any $z_j$, and hence $g(z_0) = 0$ by the continuity, which is a contradiction and hence $z_0 \in E$.\par
+    Now it is easy to check $E$ is closed about $U$ and also $E$ is open since for any $z\in E$, we we know
+    \[
+    f(z+d) = \sum \partial^{j}f(z)/j! d^j
+    \]
+    for any $d$ in some open call centered at $z$ and hence the ball is in $E$. Notice $U$ is connected and we know $E = U$ and theorem is proved.
+\end{proof}
+
+\begin{corollary}
+    Let $U\subset \C$ be a connected open set and $D(P,r)\subset U$. If $f$ is holomorphic on $U$ and $f|_{D(P,r)} = 0$, then $f= 0$ on $U$.
+\end{corollary}
+
+\begin{corollary}
+    Let $U\subset \C$ be a connected open set and $D(P,r)\subset U$. Let $f,g$ be holomorphic on $U$. If $\{z,f(z)=g(z)\}$ has an accumulation in $U$, then $f=g$ on $U$.
+\end{corollary}
+
+\begin{corollary}
+    Let $U\subset \C$ be a connected open set and $D(P,r)\subset U$. Let $f,g$ be holomorphic on $U$. If $fg = 0$ on $U$, then either $f=0$ on $U$ or $g=0$ on $U$.
+\end{corollary}
+\begin{proof} Choose a point $z,f(z)\neq 0$ is fine.
+\end{proof}
+
+\begin{corollary}
+    Let $U\subset\C$ be connected and open and let $f$ be holomorphic on $U$. If there is a $P\in U$ such that
+    \[
+    \Big(\ParZ\Big)^j f(P) = 0
+    \]
+    for every $j$, then $f = 0$ on $U$.
+\end{corollary}
+
+\begin{corollary}
+    If $f$ and $g$ are entire holomorphic functions and if $f=g$ for all $x\in\R\subset\C$, then $ f= g$.
+\end{corollary}
+
+\begin{definition}
+    Let $U\subset\C$ be an open set and $P\in U$. Suppose that $f:U-\{P\}\to \C$ is holomorphic. In this situation we say that $f$ has an $isolated\ singular\ point$ ar $P$
+\end{definition}
+
+\begin{definition}
+    If $\lim_{z\to P}|f(z)| = +\infty$, then we call $f$ has a pole at $P$. If $P$ is not a pole or a $removable\ singularity$, we call $f$ has an $essential\ singularity$ at $P$.
+\end{definition}
+
+\begin{theorem}
+    (The Riemann removable singularities theorem) Let $f:D(P,r)-\{P\}\to\C$ be holomorphic and bounded. Then\par
+    a. $\lim_{z\to P}f(z)$ exists\par
+    b. the function $\hat{f}: D(P,r)\to\C$ defined by
+    \[
+    \hat{f}(z) = \begin{cases}
+        f(z)\quad&\text{if }z\neq P\\
+        \lim_{\xi\to P}f(\xi)&\text{if }z=P
+    \end{cases}
+    \]
+\end{theorem}
+\begin{proof}\par
+    Consider
+    \[
+    g(z) = \begin{cases}
+        (z-P)^2f(z)\quad&\text{if }z\in D(P,r)-\{P\} \\
+        0&\text{if }z=P 
+    \end{cases}
+    \]
+    we claim that $g\in C^1(D(P,r))$. Since we know
+    \[
+    \dfrac{\partial g}{\partial\bar{z}} = 0
+    \]
+    on $D(P,r)-\{P\}$ and if $g\in C^1(D(P,r))$, then $g$ is holomorphic. Notice
+    \[
+    g'(z) = 2(z-P)f(z) + (z-P)^2f'(z)
+    \]
+    on $D(P,r)\to \C$ and
+    \[
+    \dfrac{\partial g}{\partial x}(P) = \lim_{h\to 0} hf(P+h) = 0 
+    \]
+    and similarly $\partial g/\partial y (P) = 0$ and it suffices to show
+    \[\lim_{z\to P} g'(z) = \lim_{z\to P} 2(z-P)f(z)+(z-P)^2f'(z)\]
+    equals to $0$, which can be implied by the Cauchy estimation. Now we know $g$ is $C^1$ and hence homorphic on $D(P,r)$. Then let
+    \[H(z) = \sum\limits_{n=2}^{\infty} \Big(\ParZ\Big)^ng(P)/n! (z-P)^2\]
+    which has radius convergence at least $r$ and holomorphic on $D(P,r)$, which equals to $f(z)$ on $D(P,r)-\{P\}$ and satisfies the requirements.
+\end{proof}
+
+\begin{theorem}
+    (Casorati-Weierstrass) If  $f:D(P,r_0)-\{P\}$ is holomorphic and $P$ is an $essential\ singularity$ of $f$, then $f(D(P,r)-\{P\})$ is dense in $\C$ for any $0<r<r_0$.
+\end{theorem}
+\begin{proof}\par
+    It suffices to show $r=r_0$, then there is $\lambda \in \C$ and an $\epsilon > 0$ such that
+    \[|f(z)-\lambda|>\epsilon\]
+    for all $z\in D(P,r_0)-\{P\}$. Consider the function $g:D(P,r_0)-\{P\}\to \C$ defined by
+    \[
+    g(z) = \dfrac{1}{f(z)-\lambda}
+    \]
+    then $P$ is a removable singularity for $g$ with
+    \[
+    f(z) = \lambda + \dfrac{1}{\hat{g}(z)}
+    \]
+    on $D(P,r)-\{P\}$ where $\hat{g} \neq 0$, so if $\hat{g}(P) = 0$, then it is easy to check that $P$ is a pole of $f$, which is a contradiction, so $\lim_{z\to P}f(z)$ exists and finite, which means $P$ is a removable singularity of $f$ and hence contradictory.
+\end{proof}
+
+\begin{definition}
+    A $Laurent\ series$ on $D(P,r)$ is a expression of the form
+    \[
+    \sum\limits_{-\infty}^{\infty}a_j (z-P)^j
+    \]
+    and when we say a series with double infinities converges, we mean $\sum_{n\geq 0}\alpha_n$ and $\sum_{n\leq 0}\alpha_n$ converge both.
+\end{definition}
+
+\begin{lemma}
+    If $\sum\limits_{-\infty}^{\infty} a_j(z-P)^j$ converges at $z_1 \neq P$ and $z_2\neq P$ with $|z_1 - P| < |z_2 - P|$, then the series converges for all $z$ such that $|z_1 - P| < |z-P|<|z_2-P|$.
+\end{lemma}
+\begin{proof}\par
+    Assume $S_n(z) = \sum\limits_{j=0}^n a_j(z-P)^j$ and $W_n(z) = \sum\limits_{j=-1}^{-n} a_j(z-P)^j$ and we know $S_n(z_2),W_n(z_1)$ converges and hence there exists $M$ such that
+    \[
+    |a_{-j}||z_1-P|^{-j}, |a_j||z_2-P|^{j} < M
+    \]
+    then for any $z$ in the annulus, we know
+    \[
+    \sum\limits_{j=0}^n |a_j||z-P|^j \leq M\sum\limits_{j=0}^n \Big(\dfrac{|z-P|}{|z_2-P|}\Big)^j
+    \]
+    and
+    \[
+    \sum\limits_{j=1}^{n} |a_{-j}||z-P|^{-j} \leq M\sum\limits_{j=1}^{n} \Big(\dfrac{|z-P|}{|z_1-P|}\Big)^{-j}
+    \]
+    which means $S_n(z),W_n(z)$ are both absolutely convergent and the conclusion holds.
+\end{proof}
+
+\begin{proposition}
+    Let $0\leq r_1<r_2\leq \infty$. If  the Laurent series $\sum\limits_{-\infty}^{\infty}a_j(z-P)^j$ converges on $D(P,r_2)-\overline{D}(P,r_1)$ to a function $f$, then for any $r$ satisfying $r_1<r<r_2$, and each $j\in\Z$,
+    \[a_j = \dfrac{1}{2\pi i }\int_{|\xi-P|=r}\dfrac{f(\xi)}{(\xi-P)^{j+1}}d\xi\]
+\end{proposition}
+\begin{proof}\par
+    We know since the series converges uniformly on the circle $|z-P| = r$, then
+    \[
+    \int_{|\xi-P| = r} \dfrac{f(\xi)}{(\xi-P)^{j+1}}d\xi = \int_{|\xi-P|=r} \sum\limits_{-\infty}^{\infty} a_k(\xi-P)^{k-j-1} d\xi = \sum\limits_{-\infty}^{\infty} a_k\int_{|\xi-P|=r} (\xi-P)^{k-j-1} d\xi 
+    \]
+    and then we know
+    \[
+    \int_{|\xi-P|=r}(\xi-P)^{k-j-1}d\xi = \begin{cases}
+        0\quad&\text{if }k-j-1\neq -1 \\
+        2\pi i&\text{if }k-j-1 = -1
+    \end{cases}
+    \]
+    and hence
+    \[
+    \int_{|\xi-P| = r} \dfrac{f(\xi)}{(\xi-P)^{j+1}}d\xi = 2\pi ia_j
+    \]
+\end{proof}
+
+\begin{theorem}
+    (The Cauchy integral formula for an annulus) Suppose that $0\leq r_1<r_2\leq +\infty$ and that $f:D(P,r_2)-\overline{D}(P,r_1)\to\C$ is holomorphic. Then for each $s_1,s_2$ such that $r_1<s_1<s_2<r_2$ and each $z \in D(P,s_2)-\overline{D}(P,r_1)$, it holds that
+    \[
+    f(z) = \dfrac{1}{2\pi i }\int_{|\xi-P|=s_2}\dfrac{f(\xi)}{\xi-z}d\xi - \dfrac{1}{2\pi i}\int_{|\xi-P|=s_1}\dfrac{f(\xi)}{\xi-z}d\xi
+    \] 
+\end{theorem}
+
+\begin{theorem}
+    (The existence of Laurent expansions) If $0\leq r_1<r_2\leq \infty$ and $f:D(P,r_2)-\overline{D}(P,r_1)\to\C$ is holomorphic, then there exist complex numbers $a_j$ such that
+    \[
+    \sum_{-\infty}^{\infty} a_j(z-P)^j
+    \]
+    converges on $D(P,r_2)-\overline{D}(P,r_1)$ to $f$. If $r_1<s_1<s_2<r_2$, then the series converges absolutely and uniformly on $D(P,s_2)-\overline{D}(P,s_1)$.
+\end{theorem}
+\begin{proof}\par
+    Notice
+    \[
+    \int_{|\xi-P|=s_2}\dfrac{f(\xi)}{\xi-z}d\xi = \int_{|\xi-P|=s_2}\dfrac{f(\xi)}{\xi-P}\dfrac{1}{1-\dfrac{z-P}{\xi-P}} = \dfrac{1}{2\pi i }\int_{|\xi-P|=s_2}\sum_{n\geq 0}\Big(\dfrac{f(\xi)(z-P)^n}{(\xi-P)^{n+1}}\Big)d\xi
+    \]
+    and notice the series converge uniformly on $|\xi-P|=s_2$, so we know
+    \[
+    \int_{|\xi-P|=s_2}\dfrac{f(\xi)}{\xi-z}d\xi = \sum_{n\geq 0}\Big(\int_{|\xi-P|=s_2}\dfrac{f(\xi)}{(\xi-P)^{n+1}}d\xi\Big)(z-P)^n
+    \]
+    and similarly, we may know
+    \[
+     \int_{|\xi-P|=s_1}\dfrac{f(\xi)}{\xi-z}d\xi = 
+    \sum_{n\geq 1}\Big(\int_{|\xi-P|=s_1}\dfrac{f(\xi)}{(\xi-P)^{-n+1}}d\xi\Big)(z-P)^{-n}
+    \]
+    and the rest is by the theorem 1.22.
+\end{proof}
+
+\begin{proposition}
+    If $f:D(P,r)-\{P\}\to\C$ is holomorphic, then $f$ has a unique Laurent series expansion
+    \[f(z) = \sum_{-\infty}^{\infty}a_j(z-P)^j\]
+    which converges absolutely for $z\in D(P,r)-\{P\}$. The convergence is uniform on compact subsets of $D(P,r)-\{P\}$.
+\end{proposition}
+
+\begin{proposition}
+    There are three possibilities for the Laurent series of a holomorphic function $f$,\par
+    a. $a_j = 0$ for all $j<0$;\par
+    b. for some $k>0,a_j=0$ for all $-\infty < j < -k$;\par
+    c. neither (a) or (b).
+\end{proposition}
+\begin{proof}\par
+    (a) implies $P$ is removable is obviously, conversely, consider the series expansion of  the holomorphic expansion $\hat{f}$.\par
+    (b) implies $P$ is a pole can be seen by
+    \[
+    |f(z)| \geq (z-P)^{-k}\Big(|a_{-k}| - \sum\limits_{j=-k+1}{+\infty} |a_j|(z-P)^{j+k}\Big)
+    \]
+    and hence $f(z)\to \infty, z\to P$.\par
+    For the other direction, we may consider there exists $D(P,r)$ such that $f(z)$ is nonzero there and let $g(z) = 1/f(z)$ which is holomorphic on $D(P,r)$ and $P$ is a removable singularity of $g$, hence we may find $\hat{g}$ is holomorphic on $D(P,r)$ and hence
+    \[
+    H(z) = (z-P)^mQ(z)
+    \]
+    for some integer $Q$ and some function $Q$ nonzero at $P$, which measn $Q(z)$ is nonzero on $D(P,r)$ and we may find $1/Q(z)$ holomorphic on $D(P,r)$, then we will find a series of $f$.
+\end{proof}
+
+\begin{definition}
+    If a function $f$ has a Laurent expansion
+    \[f(z) = \sum_{j=-k}^{\infty}a_j(z-P)^j\]
+    for some $k>0$ and $a_{-k}\neq 0$, then we say that $f$ has a pole of $order$ $k$ at $P$.
+\end{definition}
+
+\begin{proposition}
+    Let $f$ be holomorphic on $D(P,r)-\{P\}$ and suppose that $f$ has a pole of order $k$ at $P$. Then the Laurent serues coefficients $a_j$ of $f$ expanded about the point $P$, for $j=-k,-k+1,-k+2,\cdots$ are given by the formula
+    \[
+    a_j = \dfrac{1}{(k+j)!}\Big(\ParZ\Big)^{k+j}((z-P)^k f)|_{z=P}
+    \]
+\end{proposition}
+
+\begin{definition}
+    An open set $U\subset \C$ is holomorphically simply connected if $U$ is connected and if, for each holomorphic function $f:U\to\C$, there is a holomorphic function $F:U\to\C$ such that $F'=f$.
+\end{definition}
+
+\begin{lemma}
+    A connected open set $U$ is holomorphically simply connected if and only if for each holomorphic function $f:U\to\C$ and each piecewise $C^1$ closed curve $\gamma$ in $U$,
+    \[
+    \int_{\gamma} f = 0
+    \]
+\end{lemma}
+
+\begin{definition}
+    If $\gamma:[a,b]\to\C$ is a piecewise $C^1$ curve and if $P\notin \tilde{\gamma} = \gamma([a,b])$, then the index of $\gamma$ with respect to $P$, witten $Ind_{\gamma}(P)$ is defined to be the number
+    \[\dfrac{1}{2\pi i}\int_{\gamma}\dfrac{1}{\xi-P}d\xi\]
+\end{definition}
+
+\begin{lemma}
+    If $\gamma:[a,b]\to\C-\{P\}$ is a piecewise $C^1$ closed curve and if $P$ is a point not on that curvem then
+    \[
+    \dfrac{1}{2\pi i }\int_{\gamma}\dfrac{1}{\xi-P} = \dfrac{1}{2\pi i}\int_a^b\dfrac{\gamma'(t)}{\gamma(t)-P}dt
+    \]
+    is an integer.
+\end{lemma}
+\begin{proof}\par
+    Consider
+    \[
+    g(t) = (\gamma(t)-P)\exp{\Big(-\int_a^t\gamma'(s)/[\gamma(s)-P]ds\Big)} 
+    \]
+    then $g$ is continuous and we also have
+    \[
+    g'(t) = \gamma'(t)\exp{\Big(-\int_a^t \dfrac{\gamma'(s)}{\gamma(s)-P}ds\Big)} + (\gamma(t)-P)\dfrac{-\gamma'(t)}{\gamma(t)-P}\exp{\Big(-\int_a^t\dfrac{\gamma'(s)}{\gamma(s)-P}ds\Big)} = 0
+    \]
+    and it is easy to check $g(a) = g(b)$ and hence
+    \[
+    -\int_a^b \dfrac{\gamma'(s)}{\gamma(s)-P}ds
+    \]
+    must be and integer multiple of $2\pi i$.
+\end{proof}
+
+\begin{definition}
+    The residue of $f$ at $P$, written as $Res_f(P)$ is define by the coefficient of $(z-P)^{-1}$ in the Laurent expansion of $f$ about $P$.
+\end{definition}
+
+\begin{theorem}
+    (The residue theorem) Suppose that $U\subset \C$ is an h.s.c. open set in $C$ and that $P_1,\cdots,P_n$ are distinct points of $U$. Suppose that $f:U-\{P_1,\cdots,P_n\}\to\C$ is a holomorphic function and $\gamma$ is a closed, piecewise $C^1$ curve in $U-\{P_1,\cdots,P_n\}$. Then
+    \[
+    \int_{\gamma}f = \sum\limits_{j=1}^n Res_f(P_j)\Big(\int_{\gamma}\dfrac{1}{\xi-P_j}d\xi\Big)
+    \]
+\end{theorem}
+\begin{proof}\par
+    Let $s_j$ be the negative part of the Laurent series of $f$ at $P_j$ and we know $f-s_j$ is holomorphic on some neighbourhood of $P_j$ and hence we may know 
+    \[
+    \int_{\gamma} (f-\sum s_j) = 0
+    \]
+    and hence
+    \[\int_{\gamma} f = \int_{\gamma} s_j\]
+    where
+    \[\int_{\gamma}s_j(\xi)d\xi = \sum_{k=1}^{\infty} a_{-k}^{(j)}\int_{\gamma}(\xi-P_j)^{-k}d\xi = 2\pi i a_{-1}^{(j)}Ind_{\gamma}(P_j)\]
+\end{proof}
+
+\begin{proposition}
+    Let $f$ be a function with a pole of order $k$ at $P$. Then
+    \[
+    Res_f(P) = \dfrac{1}{(k-1)!}\Big(\ParZ\Big)^{k-1} ((z-P)^kf(z))|_{z=P}
+    \]
+\end{proposition}
+
+\begin{definition}
+    A set $S$ in $\C$ is $discrete$ iff for each $z\in S$ there is a positve number $r$ such that $S\cap D(z,r) = \{z\}$
+\end{definition}
+
+\begin{definition}
+    A $meromorphic$ function $f$ on an open set $U$ with $singular\ set$ $S$ is a function $f:U-\{S\} \to \C$ such that\par
+    a. the set $S$ is closed in $U$ and is discrete.\par
+    b. the function $F$ is holomorphic on $U-\{S\}$.\par
+    c. for each $z\in S$ and $r>0$ such that $D(z.r)\subset U$ and $S\cap D(z,r)= \{z\}$, the function $f|_{D(z,r)-\{z\}}$ has a pole at $z$.
+\end{definition}
+
+\begin{lemma}
+    If $U$ is a connected open set in $\C$ and if $f:U\to\C$ is a holomorphic function with $f\neq 0$, then the function
+    \[F:U-\{z:f(z)=-\to C\}\]
+    define by $F(z) = 1/f(z), z\in U-\{z,f(z) = 0\}$ is a meromorphic function on $U$ with singular set equal to $\{z\in U, f(z) = 0\}$.
+\end{lemma}
+\begin{proof}
+    It is easy to check $S = \{z,f(z) = 0\}$ is closed and discrete by theorem 1.19 and $F$ is obviously holomorphicon $U-S$. The rest is easy to check.(connected open set is for the theorem 1.19)
+\end{proof}
+
+\begin{definition}
+    Suppose that $f:U\to \C$ is a holomorphic function on an open set $U\subset\C$ and that for some $R>0, U\supset \{z:|z|>R\}$. Define
+    $G:\{z:0>|z|<1/R \to \C\}$ by $G(z) = f(1/z)$, then we say that\par
+    a. $f$ has a removable singularity at $\infty$ if $G$ has a removable singularity at $0$.\par
+    b. $f$ has a pole at $\infty$ if $G$ has a pole at $0$.\par
+    c. $f$ has an essential singularity at $\infty$ if $G$ has an essential singularity at $0$.
+\end{definition}
+
+\begin{theorem}
+    Suppose that $f:\C\to\C$ is an entire function. Then $\lim_{|z\|\to +\ infty}$ iff $f$ is a non constant polynomial.
+\end{theorem}
+\begin{proof}\par
+    Consider the series expansion of $f$ which is exactly the Laurent expansion of $G$ and we are done.
+\end{proof}
+
+\begin{definition}
+    Suppose that $f$ is a meromorphic function defined on an open set $U\subset\C$ such that for some $R>0$, we have $U\supset\{z, |z|>R\}$. We say that $f$ is a meromorphic at $\infty$ at $\infty$ if the function $G(z) = f(1/z)$ is meromorphic in the usual sense on $\{z,|z|<1/R\}$.
+\end{definition}
+
+\begin{theorem}
+    A meromorphic function $f$ on $\C$ which is also meromorphic at $\infty$ must be a rational funtion, i.e. a quotient of polynomials in $z$. Conversely, every rational function is meromorphic on $\C$ and at $\infty$.
+\end{theorem}
+\begin{proof}\par
+    We know there has to be $R>0$ such that all finite poles of $f$ is in $\overline{D}(0,R)$, denoted as $P_1,P_2,\cdots,P_k$ and we may know
+    \[F(z) = (z-P_1)^{n_1}\cdots(z-P_k)^{n_k}f(z)\]
+    has removable singularities on $\C$ and then it suffices to show that $F$ is rational. If $\infty$ is a removable singularity or pole of $F$, then the problem goes. If not, we know $F(1/z)$ has an essential singularity at $0$ and then we may find $G(1/z)$ has infinitly many negative items, which is a contradiction. 
+\end{proof}
+
+\begin{definition}
+    Let $f:U\to\C$ be holomorphic and has zeros but not identically zero, then we know $f$ has the series expansion and call the first nonzero term determined by the least positive integer $n$ as the order of $z_0$ as a zero of $f$.
+\end{definition}
+
+\begin{lemma}
+    If $f$ is holomorphic on a neighborhood of a disc $\overline{D}(z_0,r)$ and has a zero of order $n$ at $z_0$ and no other zeros in the closed disc, then
+    \[\dfrac{1}{2\pi i}\int_{\partial D(z_0,r)}\dfrac{f'(\xi)}{f(\xi)}d\xi = n\]
+\end{lemma}
+\begin{proof}
+    We know
+    \[f(z) = (z-z_0)^n\sum\limits_{j=n}^{\infty}\Big[\sum\limits_{j=n}^{\infty}\dfrac{1}{j!}\dfrac{\partial^j f}{\partial z^j}(z_0)(z-z_0)^{j-n}\Big]\]
+    where we define 
+    \[H(z) = \sum\limits_{j=n}^{\infty}\dfrac{1}{j!}\dfrac{\partial^j f}{\partial z^j}(z_0)(z-z_0)^{j-n}\]
+    which is holomorphic on an open disc containing $\overline{D}(z_0,r)$ and nonzero on the closed disc, so we may know that $H'/H$ is holomorphic on some neighbourhood of the closed disc and since
+    \[
+    \dfrac{f'(\xi)}{f(\xi)} = \dfrac{H'(\xi)}{H(\xi)} + \dfrac{n}{\xi - z_0}
+    \]
+    we may know that the integral equals to $n$.
+\end{proof}
+
+\begin{proposition}
+    Suppose that $f:U\to\C$ is a holomorphic on an open set $U\subset\C$ and that $\overline{D}(P,r)\subset U$. Suppose that $f$ is nonvanishing on $\partial D(P,r)$ and that $z_1,z_2,\cdots,z_k$ are the zeros of $f$ in the interior of the disc. Let $n_l$ be the order of the zero of $f$ at $z_l$, then
+    \[\dfrac{1}{2\pi i}\int_{|\xi-P| = r}\dfrac{f'(\xi)}{f(\xi)}d\xi = \sum\limits_{l=1}^k n_l\]
+\end{proposition}
+\begin{proof}
+    Let
+    \[H(z) = \dfrac{f(z)}{(z-z_1)^{n_1}(z-z_2)^{n_2}\cdots(z-z_k)^{n_k}}\]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{lemma}
+    If $f:U-\{Q\} \to \C$ is a nowhere zero holomorphic function on $U-\{Q\}$ wutg a pole of order $n$ at $Q$ and if $\overline{D}(Q,r)\subset U$, then
+    \[\dfrac{1}{2\pi i}\int_{\partial D(Q,r)}\dfrac{f'(\xi)}{f(\xi)} d\xi = -n\]
+\end{lemma}
+\begin{proof}
+    We know $H(z) = (z-Q)^nf(z)$ has a removable singularity at $Q$ where
+    \[\dfrac{H'(\xi)}{H(\xi)} = \dfrac{n}{\xi-Q}+\dfrac{f'(\xi)}{f(\xi)}\]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $f$ is a meromorphic function on an open set $U\subset \C$, that $\overline{D}(P,r) \subset U$
+    and that $f$ has neither poles nor zeros on $\partial D(P,r)$. Then
+    \[\dfrac{1}{2\pi i}\dfrac{f'(\xi)}{f(\xi)} d\xi = \sum\limits_{j=1}^p n_j - \sum\limits_{k=1}^q m_k\]
+    where $n_1,n_2,\cdots,n_p$ are the multiplicities of the zeros $z_1,z_2,\cdots,z_p$ of $f$ in $D(P,r)$ and $m_1,m_2,\cdots,m_p$ are the orders of the poles $w_1,w_2,\cdots,w_q$ of $f$ in $D(P,r)$.
+\end{theorem}
+\begin{proof}
+    Multiplying $(z-P_k)^{m_k}$ for the poles and dividing $(z-z_i)^{n_i}$ for the zeros. 
+\end{proof}
+
+\begin{theorem}
+    (The open mapping theorem) If $f:U\to\C$ is a nonconstant holomorphic function on a connected open set $U$, then $f(U)$ is an open set in $\C$.
+\end{theorem}
+\begin{proof}
+    It suffices to show for any $Q\in f(U)$, there exists $\epsilon > 0$ such that $D(Q,\epsilon) \subset f(U)$. Assume that $f(P) = Q$ let let $g(z) = f(z)-Q$ and we know there exists an $r>0$ such that $g$ can not be zero on $\overline{D}(P,r)-\{P\}$ by considering the series expansion and we know
+    \[
+    \dfrac{1}{2\pi i} \dfrac{f'(\xi)}{f(\xi)-Q}d\xi = n
+    \]
+    where $n$ is the order of $P$ as a zero of $g$, so we know there exists $\epsilon > 0$ such that $|g(\xi)| > \epsilon$ on $\partial D(P,r)$ by the compactness and we claim that $D(Q,\epsilon)$ is in $f(U)$. Define
+    \[N(z) = \dfrac{1}{2\pi i} \int_{\partial D(P,r)} \dfrac{f'(\xi)}{f(\xi) - z}d\xi\]
+    for $z\in D(Q,\epsilon)$ and it is well-defined since
+    \[|f(\xi)-z| \geq |g(\xi)| - |z-Q| > \epsilon - |z-Q| > 0\]
+    and then it is easy to check $N$ is continuous on $D(Q,\epsilon)$, but it is interger-valued and hence it has to be $n$ on $D(Q,\epsilon)$, which means there exists zeros for $f(\xi) - z$ inside the $D(P,r)$ and hence $D(Q,\epsilon) \subset f(D(P,r)) \subset f(U)$.
+\end{proof}
+
+\begin{lemma}
+    Let $f:U\to\C$ be a noncanstant holomorphic function on a connected open set $U\subset\C$. Then the multiple points of $f$ in $U$ are isolated.
+\end{lemma}
+\begin{proof}
+    Since $f$ is noncanstant, the holomorphic function $f'$ is not identically zero, and then we know the zeros of $f'$ is isolated by theorem.1.19. And any multiple point of $f$ is a zero of $f'$ and hence the lemma holds.
+\end{proof}
+
+\begin{theorem}
+    Suppose that $f:U\to\C$ be a nonconstant holomorphic function on a connected open set $U$ such that $P\in U$ and $f(P) = Q$ with order $k$. Then there are numbers $\delta,\epsilon > 0$ such that each $q\in D(Q,\epsilon)-\{Q\}$ has exactly $k$ distinct preimages in $D(P,\delta)$ and each preimage is a simple point of $f$.
+\end{theorem}
+\begin{proof}
+    There exist $\delta_1$ such that $D(P,\delta_1)-\{P\}$ is a simple point of $f$. THen let $\delta,\epsilon > 0$ such that $Q\in f(D(P,\delta)-\{P\})$ and $D(Q,\epsilon) \subset f(D(P,\delta))$ without meeting $f\partial(D(P,\delta))$ since $f(D(P,\delta))$ is open, then for any $q\in D(Q,\epsilon)-\{Q\}$, we know
+    \[\dfrac{1}{2\pi i}\int_{\partial D(P,\delta)} \dfrac{f'(\xi)}{f(\xi)-q}d\xi = k\]
+    since the integral is continuous as a function of $q$ and the problem goes.
+\end{proof}
+
+\begin{theorem}
+    (Rouche's theorem) Suppose that $f,g:U\to\C$ are holomorphic functions on an open set $U\subset\C$. Suppose also that $\overline{D}(P,r)\subset\C$ and that, for each $\xi\in\partial D(P,r)$,
+    \[f(\xi)-g(\xi) < |f(\xi)|+|g(\xi)|\]
+    Then
+    \[
+    \dfrac{1}{2\pi i}\int_{\partial D(P,r)} \dfrac{f'(\xi)}{f(\xi)} d\xi = \dfrac{1}{2\pi i}\int_{\partial D(P,r)} \dfrac{g'(\xi)}{g(\xi)}
+    \]
+\end{theorem}
+\begin{proof}
+    Define
+    \[
+    f_t:U\to\C
+    \]
+    by $f_t = tf+(1-t)g$ and we know $f_t$ is nonzero for $t\in[0,1], \xi \in \partial (P,r)$ since if $f_t(\xi) =  0$ for some $t$, we have
+    \[t(f(\xi)-g(\xi)) = -g(\xi),(1-t)(f(\xi)-g(\xi)) = f(\xi)\]
+    and hence
+    \[|f(\xi)-g(\xi)| = |f(\xi)|+|g(\xi)|\]
+    which is a contradiction, then
+    \[I_t  =\dfrac{1}{2\pi i}\dfrac{f'_t(\xi)}{f_t(\xi)}d\xi, t\in [0,1]\]
+    will be continuous to $t$, however, it takes values in the integers, so $I_t$ has to be constant and hence $I_0 = I_1$.
+\end{proof}
+
+\begin{theorem}
+    (Hurwitz's theorem) Suppose that $U\subset\C$ is a connected open set and that $\{f_j\}$ is a sequence of nowhere vanishing holomorphic functions on $U$. If the sequence of nowhere vanishing holomorphic functions on $U$. If the sequence $\{f_j\}$ converges uniformly on compact subsets of $U$ to a limit function $f_0$, then either $f_0$ is nowhere vanishing or $f_0 = 0$.
+\end{theorem}
+\begin{proof}
+    Consider a contradiction, we supose $f_0$ is not constant $0$ but $f_0(P) = 0$ for some $P\in U$. Then there has to be an $r>0$ such $f_0$ is nonzero on $\overline{D(P,r)} - \{P\}$, then
+    \[I = \dfrac{1}{2\pi i} \int_{|\xi-P| = r} \dfrac{f'_0(\xi)}{f_0(\xi)} d\xi\]
+    is a positive integer, equal to the order of the zero of $f$ at $P$.\par
+    However,
+    \[I_j = \dfrac{1}{2\pi i} \int_{|\xi-P| = r} \dfrac{f'_j(\xi)}{f_j(\xi)} d\xi\]
+    equals to $0$ since $f_j$ is nonzero everywhere, but $I_j \to I$ and there will be a contradiction.
+\end{proof}
+
+\begin{definition}
+    A $domain$ in $\C$ is a connected open set. A $bounded domain$ is a connected open set $U$ such that there is an $R>0$ with $|z|<R$ for all $z\in U$. 
+\end{definition}
+
+\begin{theorem}
+    (The maximum modulus principle) Let $U\subset\C$ be a domain. Let $f$ be a holomorphic function on $U$. If there is a point $P\in U$ such that $|f(P)| \geq |f(z)|$ for all $z\in U$, then $f$ is constant.
+\end{theorem}
+\begin{proof}
+    Assume there is such a $P$ and then if $f$ is not constant, we know $f(U)$ is open and hence there have to be some $ \zeta \in f(U)$ such that $|\zeta| \geq |f(P)|$.
+\end{proof}
+
+\begin{corollary}
+    (Maximum modulus theorem) Let $U\subset\C$ be a bounded domain. Let $f$ be a continuous function on $\overline{U}$ that is holomorphic on $U$. Then the maximum value of $|f|$ on $\overline{U}$ must occur on $\partial U$.
+\end{corollary}
+
+\begin{theorem}
+    Let $U\subset\C$ ba a domain and let $f$ be a holomorphic function on $U$. If there is a point $P\in U$ at which $|f|$ has a local maximum, then $f$ is constant.
+\end{theorem}
+\begin{proof}
+    If $|f|$ do have a local maximum, then we know $f$ is constant on an open ball in $U$ and hence $f$ has to be constant since $U$ is connected.
+\end{proof}
+
+\begin{proposition}
+    Let $f$ be holomorphic on a domain $U\subset\C$. Assume that $f$ never vanishes. If there is a point $P\in U$ such that $|f(P)| \leq |f(z)|$ for all $z\in U$, then $f$ is constant. 
+\end{proposition}
+
+\begin{proposition}
+    (Schwarz's lemma) Let $f$ be holomorphic on the unit disc, assume that $f(z) \leq 1$ on $\C$ and $f(0) = 0$, then $|f(z)| \leq |z|$ and $|f'(0)| \leq 1$.
+    If either $|f(z)|=|z|$ for some $z\neq 0$ or if $|f'(0)| = 1$, then $f$ is a rotation, i.e. $f(z) = \alpha z$ for some complex constant $\alpha$ of unit modulus.
+\end{proposition}
+\begin{proof}
+    Consider $g(z) = f(z)/z$, where $g$ have a removable singularity at $0$ and hence we may consider it as a holomorphic function on unit disc, then notice $g(z) \leq 1/(1-\epsilon)$ on $D(0,1-\epsilon)$ by the maximum modulus theorem and hence we know $g\leq 1$ on $D$, and hence $|f'(0)| \leq 1$.\par
+    If $|f(z)| = |z|$ for some $z\neq 0$, we know $|g(z)| = 1$ with $g$ constant on $D$, and it is the same when $|g(0)| = 1$.
+\end{proof}
+
+\begin{theorem}
+    (Schwarz-Pick) Let $f$ be holomorphic on the unitdisc with $|f(z)| \leq 1$ for all $z\in D$. Then for any $a\in D(0,1)$ and with $f(a) = b$, we have
+    \[|f'(a)| \leq \dfrac{1-|b|^2}{1-|a|^2}\]
+    Moreover, if $f(a_1)= b_1,f(a_2 = b_2)$, then
+    \[\Big|\dfrac{b_2-b_1}{1-\bar{b}_1b_2}\Big| \leq \Big|\dfrac{a_2-a_1}{1-\bar{a}_1a_2}\Big|\]
+    if either the equalies above can be reached, then $f$ is a conformal self-mapping to itself.
+\end{theorem}
+\begin{proof}
+    If $c\in D(0,1)$, define
+    \[\phi_c(z) = \dfrac{z-c}{1-\bar{c}z}\]
+    and notice that
+    \[\Big|\dfrac{z-c}{1-\bar{c}z}\Big| < 1\], iff $|z|<1$ and it follows that $\phi_c$ is a holomorphic mapping from $D(0,1)$ to itself with inverse $\phi_{-c}$, then consider
+    \[g(z) = \phi_b\circ f \circ \phi_{-a}\]
+    and we know
+    \[|g(z)| \leq 1, g(0)=0\]
+    and hence
+    \[g'(0) \leq 1, |g(z)| \leq z\]
+    For the second conlusion, let
+    \[h = \phi_{b_1}\circ f\circ\phi_{-a_1}(z) \leq |z|\]
+    and then we know
+    \[\phi_{b_1}(b_2) \leq |\phi_{a_1}(a_2)|\]
+\end{proof}
+
+\begin{definition}
+    A real-valued function $u:U\to\R$ on an open set $U\subset \C$ is harmonic if it is $C^2$ on $U$ and
+    \[\Delta u = 0\]
+\end{definition}
+
+\begin{lemma}
+    If $u:D\to \R$ is a harmonic function on a disc $D$, then there is a holomorphic function $F:D\to\C$ such that $Re F = u$ on $D$.
+\end{lemma}
+
+\begin{definition}
+    Any function $v$ such that $u+iv$ is holomorphic is called a harmonic conjugate of $u$.
+\end{definition}
+
+\begin{corollary}
+    If $u:U\to\R$ is a harmonic function on an open set $U\subset\C$, then $u\in C^{\infty}$.
+\end{corollary}
+
+\begin{lemma}
+    If $U$ is a holomorphically simply connected open set and if $u:U\to\R$ is a harmonic function, then there is a $C^2$ harmonic function $v$ such that $u+iv:U\to \C$ is holomorphic.
+\end{lemma}
+\begin{proof}
+    Let
+    \[H = \ParX u - i \ParY u\]
+    and we know $H$ is holomorphic on $U$ and hence  there exists $F'$ such that $F' = H$, and it is easy to check that $(ReF) ' = u+c$ for some constant $c$ and then we know $F-C = u + iv'$ is the required funcition.
+\end{proof}
+
+\begin{theorem}
+    (The maximum principle for harmonic functions) If $u:U\to\R$ is harmonic on a connected open set $U$ and if there is a point $P_0 \in U$ with the property that $u(P_0) = \sup_{Q\in U}u(Q)$, then $u$ is constant on $U$.
+\end{theorem}
+\begin{proof}
+    We may show that $\{z, u(z) = u(P_0)\}$ is open by considering $ReH = u$ on $D(P_0,r)$ for $H$ holomorphic and use the maxium modulus principle to $e^H$. And the set is closed in $U$ is easy to be checked.
+\end{proof}
+
+\begin{corollary}
+    (Minimum principle for harmonic functions) If $u:U\to\R$ is harmonic on a connected open set $U$ and if there is a point $P_0 \in U$ with the property that $u(P_0) = \inf_{Q\in U}u(Q)$, then $u$ is constant on $U$.
+\end{corollary}
+
+\begin{corollary}
+    Let $U\subset \C$ be a bounded, connected open set and let $u$ be a continuous, real-valued function on the closure $\overline{U}$ of $U$ that is harmonic on $U$. Then
+    \[\max_{\overline{U}} u = \max_{\partial U} u(\min_{\overline{U}} u = \min_{\partial U} u)\]
+\end{corollary}
+
+\begin{theorem}
+    (The mean value property) Suppose that $u:U\to\R$ is a harmonic function on an open set $U\subset\C$ and that $\overline{D}(P,r) \subset U$ for some $r>0$. Then
+    \[u(P) = \dfrac{1}{2\pi} \int_0^{2\pi} u(P+re^{i\theta})d\theta\]
+\end{theorem}
+\begin{proof}
+    Choose $s>r$ such that $D(P,s)\subset U$ and we may find $H:D(P,s) \to \C$ such that $H= u+iv$ holomorphic and we know
+    \[H(P) = \dfrac{1}{2\pi i }\int_{\gamma}\dfrac{H(\xi)}{\xi-P} = \dfrac{1}{2\pi i}\int_0^{2\pi} H(P+re^{i\theta}) d\theta\]
+    and the rest is easy to be checked.
+\end{proof}
+
+\begin{lemma}
+    Let $a\in D(0,1)$, then the holomorphic function $\phi_a(z) = \dfrac{z-a}{1-\bar{a}(z)}$ has the following properties:\par
+    a. $\phi_a$ is holomorphic and invertible on a neighborhood of $\overline{D}(0,1)$\par
+    b. $\phi_a:D(0,1)\to D(0,1)$ is one-to-one and onto\par
+    c. $(\phi_a)^{-1} = \phi_{-a}$\par
+    d. $\phi_a(a) = 0$
+\end{lemma}
+
+\begin{lemma}
+    If $u:U\to\R$ is harmonic and if $H:V\to U$ is holomorphic, then $u\circ H$ is harmonic.
+\end{lemma}
+\begin{proof}
+    We prove a chain rule for complex functions:
+    \[
+    \begin{aligned}
+    \ParZ(f\circ g) &= \dfrac{1}{2}\Big(\ParX f(g_1,g_2)\ParX g_1+\ParY f(g_1,g_2)\ParX g_2\Big)-\dfrac{i}{2}\Big(\ParX f(g_1,g_2)\ParY g_1+\ParY f(g_1,g_2)\ParY g_2\Big) \\
+    &= \dfrac{1}{2}\Big( \ParZ f(g_1,g_2)\ParX g_1+\ParbZ f(g_1,g_2)\ParX g_1-i^{-1}\ParZ f(g_1,g_2)\ParX g_2+i^{-1}\ParbZ f(g_1,g_2)\ParX g_2\Big)
+    \\ & - \dfrac{1}{2}\Big( i\ParZ f(g_1,g_2)\ParY g_1+i\ParbZ f(g_1,g_2)\ParY g_1-\ParZ f(g_1,g_2)\ParY g_2+\ParbZ f(g_1,g_2)\ParY g_2\Big)
+    \\& = \ParZ f(g)\ParZ g_1+\ParbZ f(g)\ParZ g_1 -i^{-1}\ParZ f(g)\ParZ g_2 + i^{-1}\ParbZ f(g)\ParZ g_2
+    \\& = \ParZ f(g)\ParZ {g} + \ParbZ f(g)\ParZ \bar{g}
+    \end{aligned}
+    \]
+    and similarly we know
+    \[
+    \begin{aligned}
+    \ParbZ(f\circ g) &= \dfrac{1}{2}\Big(\ParX f(g_1,g_2)\ParX g_1+\ParY f(g_1,g_2)\ParX g_2\Big)+\dfrac{i}{2}\Big(\ParX f(g_1,g_2)\ParY g_1+\ParY f(g_1,g_2)\ParY g_2\Big) \\
+    &= \dfrac{1}{2}\Big( \ParZ f(g_1,g_2)\ParX g_1+\ParbZ f(g_1,g_2)\ParX g_1-i^{-1}\ParZ f(g_1,g_2)\ParX g_2+i^{-1}\ParbZ f(g_1,g_2)\ParX g_2\Big)
+    \\ & + \dfrac{1}{2}\Big( i\ParZ f(g_1,g_2)\ParY g_1+i\ParbZ f(g_1,g_2)\ParY g_1-\ParZ f(g_1,g_2)\ParY g_2+\ParbZ f(g_1,g_2)\ParY g_2\Big)
+    \\& = \ParZ f(g)\ParbZ g_1+\ParbZ f(g)\ParbZ g_1 -i^{-1}\ParZ f(g)\ParbZ g_2 + i^{-1}\ParbZ f(g)\ParbZ g_2
+    \\& = \ParZ f(g)\ParbZ {g} + \ParbZ f(g)\ParbZ \bar{g}
+    \end{aligned}
+    \]
+    so
+    \[
+    \Delta u(H) = 4\ParZ\ParbZ u(H) = 4\ParZ\Big(\ParbZ u(H)\ParbZ \bar{H}\Big) = \ParbZ(u(H))\Delta \bar{H} = 0
+    \]
+\end{proof}
+
+\begin{theorem}
+    (The Poisson integral formula) Let $u:U\to\R$ ba a harmonic function on a neighbourhood of $\overline{D(0,1)}$. Then for any $a\in D(0,1)$,
+    \[u(a) = \dfrac{1}{2\pi}\int_0^{2\pi} u^{e^{i\phi}}\dfrac{1-|a|^2}{|a-e^{i\theta}|^2}d\phi\]
+\end{theorem}
+\begin{proof}
+    Consider $u(\phi_a)$ is fine.
+\end{proof}
+
+\begin{theorem}
+    Let $f$ be a continuous function on $\partial D(0,1)$. Define
+    \[
+    u(z) = \begin{cases}
+        \dfrac{1}{2\pi} \int_0^{2\pi} f(e^{\i\theta})\dfrac{1-|z|^2}{|z-e^{i\theta}|^2}d\theta\quad&\text{if}z\in D(0,1)\\
+        f(z)&\text{if}z\in\partial D(0,1)
+    \end{cases}
+    \]
+    then $u$ is continuous on $\overline{D}(0,1)$ and harmonic on $D(0,1)$.
+\end{theorem}
+
+\begin{definition}
+    A continuous function $h:U\to\R$ on an open set $U\subset \C$ has the samll circle mean value property if, for each point $P\in U$ there is an $\epsilon_P>0$ such that $\overline{D}(P,\epsilon_p)\subset U$ and for every $0<\epsilon <\epsilon_P$
+    \[h(P) = \dfrac{1}{2\pi}\int_0^{2\pi}h(P+\epsilon e^{i\theta})d\theta\]
+\end{definition}
+\begin{theorem}
+    If $h:U\to\R$ is a continuous function on an open set $U$ with the SCMV property, then $h$ is harmonic.
+\end{theorem}
+
+\begin{corollary}
+    If $\{h_j\}$ is a sequence of real-valued harmonic functions that converges uniformly on compact subsets of $U$ to a function $h:U\to\R$, then $h$ is harmonic on $U$.
+\end{corollary}
+\begin{proof}
+    By theorem 7.4.2, it is easy to check that $h$ has the SCMV property.
+\end{proof}
+
+\begin{definition}
+    An infinite product
+    \[
+    \prod_{j=1}^{\infty} (1+a_j)
+    \]
+    is said to converge if\par
+    a. only a finite number $a_{j_1},\cdots,a_{j_k}$ equal to 1\par
+    b. if $N_0>0$ is so large that $a_j\neq 1$ for $j>N_0$, then
+    \[
+    \lim_{N\to\ infty} \prod_{j= N_0+1}^N (1+a_j)
+    \]
+    exists and is nonzero. If $\prod_{j\geq 1} (1+a_j)$ converges, then we define its value to be
+    \[
+    \prod_{j=1}^{N_0}(1+a_j) \lim_{N\to\infty}\prod_{j=N_0+1}^N (1+a_j)
+    \]
+\end{definition}
+
+\begin{lemma}
+    If $0\leq x < 1$, then
+    \[1+x \leq e^x \leq 1+2x\]
+\end{lemma}
+\begin{proof}
+    Notice
+    \[1+x \leq e^x \leq 1+x+x(\sum\limits_{j\geq 2}\dfrac{1}{j!}) \leq 1+2x\]
+\end{proof}
+
+\begin{corollary}
+    If $a_j \in \C, |a_j| < 1$, then the partial product $P_N$ for $\sum\limits_{j=1}^{\infty}(1+|a_j)$
+    satisfies
+    \[
+    e^{\dfrac{1}{2}\sum\limits_{j=1}^N|a_j|} \leq  P_N \leq e^{\sum\limits_{j=1}^N|a_j|}
+    \]
+\end{corollary}
+
+\begin{corollary}
+    If $\sum\limits_{j=1}^{\infty} |a_j| < \infty $, then $\prod_{j\geq 0}(1+|a_j|)$ converges.
+\end{corollary}
+\begin{proof}
+    We know $P_N \leq e^{\sum\limits_{j\geq 1}|a_j|}$ and increasing.
+\end{proof}
+
+\begin{corollary}
+    If $\prod_{j\geq 0}(1+|a_j|)$ converges, then $\sum\limits_{j\geq 0}|a_j|$ converges.
+\end{corollary}
+
+\begin{lemma}
+    Let $a_j \in \C$ and $P_N = \prod\limits_{j=1}^N (1+a_j), \tilde{P}_N = \prod\limits_{j=1}^N(1+|a_j|)$ then
+    \[|P_N - 1| \leq \tilde P_N - 1\]
+\end{lemma}
+Expansion will be fine.
+
+\begin{theorem}
+    If the infinite product
+    \[ \prod_{j\geq 1}(1+|a_j|)\]
+    converges, then so dose
+    \[ \prod_{j\geq 1}(1+a_j)\]
+\end{theorem}
+\begin{proof}
+    We know $\lim |a_j| \to 0$, so we can find a $N_0$ such that $a_j\neq 1$ for $j > N_0$.\par
+    Let $Q_J = \prod_{j=N_0+1}^{J}(1+a_j),\tilde{Q}_J = \prod_{j=N_0+1}^{J}(1+|a_j|)$ and we know
+    \[
+    |Q_M - Q_N| \leq |Q_N||\prod_{j=N+1}^M(1+|a_j|)-1| \leq |\tilde{Q}_N|||\prod_{j=N+1}^M(1+|a_j|)-1| = |\tilde{Q}_M-\tilde{Q}_N|
+    \]
+    then we know $Q_N$ converges and since $\lim_{M,N\to\infty} \prod_{j=1+N}^M (1+|a_j|) = 1$ are the rest is easy to be checked.
+\end{proof}
+
+\begin{corollary}
+    If $\sum\limits_{j\geq 1} |a_j| < \infty$, then $\prod_{j\geq 1}(1+a_j)$ converges.
+\end{corollary}
+
+\begin{theorem}
+    Let $U\subset \C$ be open. Suppose that $f_j : U\to\C$ are holomorphic and that
+    \[\sum\limits_{j\geq 1}|f_j|\]
+    converges uniformly on compact sets. Then the sequence of partial products
+    \[F_N(z) = \sum\limits_{j=1}^N(1+f_j(z))\]
+    converges uniformly on compact sets. In particular, the limit of these partial products defines a holomorpphic function $F$ on $U$.\par
+    The function vanished at a point $z_0$ if and onlt if $f_j(z_0) = -1$ for some $j$. The multiplicity of the zero at $z_0$ is the sum of multiplicities of the zeros of the functions $(1+f_j)$ at $z_0$.
+\end{theorem}
+\begin{proof}
+    For any $K\subset U$ compact, we know
+    \[\sum\limits_{j\geq 1}(1+|f_j|)\]
+    are uniformlybounded on $K$ by $e^C$ where $C \geq \sum\limits_{j\geq 1}|f_j|$. For $0<\epsilon < 1$, we may choose $L$ such that
+    \[
+    \sum\limits_{j=N}^M |f_j(z)| < \epsilon
+    \]
+    for all $z\in K$ for any $M>N>L$ and 
+    \[
+    |F_M-F_N| \leq |F_N||\sum\limits_{j=N+1}^{M}(1+|f_j|)-1| \leq e^C(e^{\epsilon} - 1)
+    \]
+    and hence $F_N$ is uniformly Cauchy.\par
+    Suppose $F(z_0) = 0$ and we can find $j_0$ such that $\lim_{N\to\infty} \prod_{j_0+1}^N(1+f_j(z_0)) \neq 0$ and since the limit is holomorphic, we know it is nonzero on some neighborhood $V$ of $z_0$ so we may use the integral for zeros on $V$.
+\end{proof}
+
+\begin{definition}
+    For $0\leq p \in \Z$ define
+    \[E_p(z)  = (1-z)\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j})\]
+\end{definition}
+\begin{lemma}
+    If $|z|\leq 1$, then
+    \[|1-E_p(z)| \leq |z|^{p+1}\]
+\end{lemma}
+\begin{proof}
+    We assume $p\geq 1$ and 
+    \[
+    E_p(z) = 1 + \sum\limits_{n\geq 0} b_n(z)
+    \]
+    and we know
+    \[
+    E'_p(z) = -\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j}) + (1-z)(1+z+z^2+\cdots+z^{p-1})\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j}) = -z^p\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j})
+    \]
+    and hence $b_1 = b_2 = \cdots = b_p = 0$ and $b_{p_k} \leq 0$, then we know
+    \[
+    1 + \sum\limits_{n = p+1}^{\infty} b_n= E_p(1) = 0
+    \]
+    and hence
+    \[
+    \sum\limits_{n\geq p+1} |b_n| = 1 
+    \]
+    and for $|z|\leq 1$,
+    \[
+    |E_p(z) - 1| = |\sum\limits_{n=p+1}^{\infty} b_n z^n|
+    \]
+    then for $|z|\leq 1$, we know
+    \[
+    |E_p(z) - 1| \leq |z|^{p+1}\sum\limits_{n\geq p+1}|b_n||z|^{n-p-1} \leq |z|^{p+1}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Let $\{a_j\}_{j=1}^{\infty}$ be a sequence of nonzero complex numbers with no accumulation point in the complex plane. If $\{p_j\}$ are poistive integers that satisfy
+    \[\sum\limits_{n=1}^{\infty}\Big(\dfrac{r}{|a_n|}\Big)^{p_n+1} < \infty\]
+    for every $r>0$, then the inifinite product
+    \[\prod_{n=1}^{\infty}E_{p_n}\Big(\dfrac{z}{a_n}\Big)\]
+    converges uniformly on compact subsets of $\C$ to an entire function $F$. The zeros of $F$ are precisely the points $\{a_j\}$ counted with multiplicity.
+\end{theorem}
+\begin{proof}
+    For a given $r>0$, there is an $N>0$ such that for $n\geq N$, we have $|a_n| > r$. Thus, for all $n \geq N$ and $z\in \overline{D}(0,r)$, then we know
+    \[
+    \Big|E_{p_n}\Big(\dfrac{z}{a_n}\Big) - 1\Big| \leq \Big|\dfrac{z}{a_n}\Big|^{p_n+1} \leq \Big|\dfrac{r}{a_n}\Big|^{p_n+1}
+    \]
+    and hence
+    \[
+    \sum\limits_{n=N}^{\infty} \Big|E_{p_n}\Big(\dfrac{z}{a_n}\Big) - 1\Big| < \infty
+    \]
+    and by theorem 1.41. we know the infinite product converges uniformly on $\C$.
+\end{proof}
+
+\begin{corollary}
+    Let $a_n$ be any sequence in the plane with no finite accumulation point. Then there exists an entire function $f$ with zero set precisely equal to $\{a_n\}_{n=1}^{\infty}$.
+\end{corollary}
+\begin{proof}
+    Assume $a_1 = a_2 = \cdots = a_m = 0$ and $|a_{n}| > 0$ for $n > k$, then we know
+    \[
+    z^m \prod_{n = m+1}^{\infty}E_{n-1}\Big(\dfrac{z}{a_n}\Big)
+    \]
+    will be fine.
+\end{proof}
+
+\begin{theorem}
+    (Weierstrass factorization theorem) Let $f$ be an entire function. Suppose that $f$ vanished to order $m$ at $0, m\geq 0$. Let $\{a_n\}$ be the other zeros of $f$, listed with multiplicities. Then there is an entire function $g$ such that
+    \[
+    f(z) = z^m e^{g(z)} \prod_{n=1}^{\infty}E_{n-1}\Big(\dfrac{z}{a_n}\Big)
+    \]
+\end{theorem}
+
+\begin{proposition}
+    Let $K\subset \C$ be compact and let $U$ be an open set containing $K$. If $f$ is holomorphic on $U$ and $\epsilon > 0$, then there is a rational function $r(z)$ with all its pole in $\C- K$, with simple poles only and limit $0$ at $\infty$, such that
+    \[
+    \sup_{z\in K}|f(z)-r(z)| < \epsilon
+    \]
+\end{proposition}
+\begin{proof}
+    We may assume that $U$ is bounded and let
+    \[
+    \sigma = \inf\{|z-w|, z\in K, w\in \C-U\} > 0
+    \]
+    then choose $N$ such that $2^{-N+1} < \sigma$ and we may consider the $2^{-N}$ square partition of $\C$ and consider all the squares with joint with $22K$,
+\end{proof}
+
+
+\begin{theorem}
+    (Runge) Let $K\subset\C$ be compact. Let $f$ ne holomorphic on a neighbourhood of $K$. Suppose that $P$ is a subset of $\hat{\C}-K$ containing one point from each connected component of $\hat{C}-K$. Then for any $\epsilon >0$, there is a rational function $r(z)$ with poles in $P$ such that
+    \[
+    \sup_{z\in K}|f(z)-r(z)| < \epsilon
+    \]
+\end{theorem}
+ 
+\end{document}

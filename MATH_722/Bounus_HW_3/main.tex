@@ -1,0 +1,58 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Bonus 03 - MATH 722}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Problem} 
+Prove that the equation
+\[az^3 - z + b = e^{-z}(z+2)\]
+where $a>0, b>2$ has exactly 2 roots in $\{Re z\geq 0\}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider $f(z) = az^3 - z +b$ and $g(z) = e^{-z}(z+2)$, where we know $f(z),g(z)$ are holomorphic on $\C$ and we know
+\[
+|f(z)| \geq a|z|^3 - |z| - b > |z|+2 \geq |g(z)|
+\]
+for $z, |z|>R$ for $R$ large enough, and for $y\in \R$, we know
+\[
+|f(iy)| = (ay^3+y)^2 + b^2 = y^2+b^2 + 2ay^4 + a^2y^6 > y^2+4 = |g(iy)|
+\]
+and hence $f(iy) - g(iy) \neq 0$ on the imaginary axis. Consider the segment from $-Ri$ to $Ri$, we know for any $x\in[-R,R]$, there exists $\delta$ such that for any $|y|<\delta$, $|f(ix+y)| > |g(ix+y)|$. Since $[-R,R]$ is compact, we may find $\delta > 0$ such that $|f(z)| > |g(z)|$ on the rectangle $[0,\delta]\times[-R,R]$, then we may consider $D_r = D(r,r)$, let $r$ large enough such that $\partial D_r\cap D(0,2R) \subset [0,\delta]\cap[-R,R]$, then we know $f(z)> g(z)$ on $\partial D_r$. Then by the Roche's theorem, since
+\[
+|f(z)-(f(z)-g(z))| = |g(z)| < |f(z)|
+\]
+on $\partial D_r$, then we know $f(z)-g(z)$ have the same number of zeros with $f(z)$ inside $D_r$.\par
+Now, notice $\lim_{x\to-\infty} ax^3-x+b = -\infty$ and $f(0) = 0$, so we know there is a real negative root of $f(z)$. By the Vieta's theorem, we know the sum of roots of $f(z)$ is $0$ and the rest two roots are conjuate complex numbers or two real numbers. If the rest two roots are not real, then we may know their real parts have to be postive. If the rest two roots are real, then we know they have the same sign since the product of the three roots is $-b<0$, and hence they are postive, which means $f(z)$ always have two roots on $\{z, Re z > 0\}$, then we may let $r$ large enough so that $D_r$ will contain the two roots of $f(z)$ and then we know for $r$ large enough, $f(z)- g(z)$ will have two roots in $D_r$. Let $r\to\infty$, we know that $f(z)-g(z)$ can have only two roots in $\{z,Re z > 0\}$, or it have more than three roots, which is a contradiction since it will imple that $f$ will have $4$ roots on $\C$.
+\par 
+\vspace{0.5em}
+
+\addappheadtotoc
+
+
+\end{document}

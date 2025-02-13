@@ -1,0 +1,107 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Durrett Ed5}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\EL}{\overline{L}}
+\newcommand{\Hil}{\mathcal{H}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+\chapter{}
+
+\section{06/17}
+
+Focus on the optimization of $||X\theta - \beta||_2$ where $X$ is a $n\times d$ dimensional random matrix with each row iid. \par
+
+Dyson Equation, suupose $A$ is a $d\times d$ random matrix(symmetric and Gaussian). A deterministic equivalent is a deterministic matrix $M=M(z)$ such that for a test matrix we will have
+\[
+|tr(R(z;A)B) - tr(M(z)B)| \overset{prob,d\to\infty}{\rightarrow} 0
+\]\par
+
+E.g. $M(z) = s(z)I$, where $s(z) = \dfrac{\sqrt{z^2-4}-z}{2}$ is a det equiv for $A/\sqrt{d}$ for $A$ GOE.\par
+
+Dyson equation, suppose $L$ is a Faussian matrix and then $L^{-1}$ exusts a.s. and then
+\[
+Id = E(Id) = E(L^{-1}L) = E(L^{-1}EL) + E(L^{-1}(L-EL)) = E(L^{-1}EL - L^{-1}(L'-EL)L^{-1})(L'-EL)
+\]
+where $L'$ is an i.i.d. copy of $L$.\par
+
+How to find a deter equiv, \par a. Find the dominant terms in the Dyson equations $M(EL- S(M)) = Id$ ($S$ is a linear map on matrixs). \par b. Show this has a unique solution.\par c. Show $R(z;A)$ approxiamately satifies the Dyson equation.\par d.Show stability an approximate solution of the Dyson quation is close to the above one.
+
+\section{Deformed MP law}
+Consider $(\dfrac{X^TX}{n} - zI)^{-1}$ and $X$ has i.i.d. rows $EX_j = 0$ and the covariance matrix $\Sigma$ and let
+\[
+L = \left[\begin{array}{cc} -zI & X^T/\sqrt{n} \\ X/\sqrt{n} & -I_n\end{array}\right]
+\]
+and we will have
+\[
+L^{-1} = \left[\begin{array}{cc} (\dfrac{X^TX}{n} - zI)^{-1} & X^T(I_n- XX^T/nz)^{-1}/\sqrt{n} \\ X(X^TX/n-zI_d)^{-1}/\sqrt{n} & -(I_n-XX^T/nz)^{-1}\end{array}\right]
+\]
+to $L$ we apply to the Dyson equation\par
+\[
+\begin{aligned}
+S(M) &= E\left[\left[\begin{array}{cc} 0 & X^T/\sqrt{n} \\ X/\sqrt{n} & 0\end{array}\right]\left[\begin{array}{cc} M_{11} & M_{12} \\ M_{21} & M_{22}\end{array}\right]\left[\begin{array}{cc} 0 & X^T/\sqrt{n} \\ X/\sqrt{n} & 0\end{array}\right]\right] \\
+& = \dfrac{1}{n} \left[\begin{array}{cc} E(X^TM_{22} X) & E(X^TM_{21} X^T) \\ E(XM_{12} X) & E(XM_{11} X^T)\end{array}\right] \\
+& = \dfrac{1}{n} \left[\begin{array}{cc} \Sigma tr(M_{22}) & \Sigma M_{21}^T \\ M_{12}^T\Sigma & tr(M_{11}\Sigma)I_n\end{array}\right]
+\end{aligned}
+\]
+Suppose $||\Sigma||_{op}$ bounded and ind of dimension. And we take
+\[S(M ) = \dfrac{1}{n} \left[\begin{array}{cc} \Sigma tr(M_{22}) &  \\ s & tr(M_{11}\Sigma)I_n\end{array}\right]\]
+Then the related Dyson Equation is 
+\[
+\left[\begin{array}{cc} M_{11} & M_{12}^T \\ M_{21} & M_{22}\end{array}\right]\left[\begin{array}{cc} -zI_d - \Sigma tr(M_{22})/n &  \\  & -I_n(1+tr(M_{11}\Sigma))/n\end{array}\right] = I_{d+n}
+\]
+Then $M_{12} = M_{21}^T = 0$ and $M_11 = (-zI_d - \Sigma tr(M_22)/n)^{-1}$ and $M_22 = -I_n/(1+tr(M_11 \Sigma))$. Let $m(z) = tr(M_22)/n$
+and we will have
+\[m(z) = \dfrac{-1}{1+\dfrac{1}{n}tr(M_{11}\Sigma)} = \dfrac{-1}{1+tr\left(\dfrac{\Sigma}{-zI_d - m(z)\Sigma}\right)}\] 
+So there exists $M$ with $Im M_{11} > 0$.
+
+\section{Frostman A}
+
+Assumption: $\Sigma \subset \C, V:\Sigma \to \R\cup\{+\infty\}$ is l.s.c. There is $\mu \in P(\Sigma)$ such that
+\[
+I(\mu) = \int \log \dfrac{1}{|x-y|}d\mu(x)d\mu(y) < +\infty
+\]
+and $\int Vd\mu < \infty$, then $V(x) - \log(|x|^2+1) \to +\infty$ as $|x|\to \infty, x\in \Sigma$.
+
+\begin{theorem}
+    There is a unique minimium $\mu \in P(\Sigma)$ of $I_V(\mu)$ say $\mu = \mu_V$ is compactly supported.
+\end{theorem}
+
+\begin{theorem}
+    There is $l = l_V$ such that $2U^{\mu} + V  \leq l$ on the support of $\mu_V$ and larger than $l$ q.e. on $\Sigma$ where
+    \[
+    U^{\mu}(x) = \int\log\dfrac{1}{|x-y|}d\mu(y), (I(\mu)) = \int U^{\mu}d\mu
+    \]
+\end{theorem}
+
+\end{document}

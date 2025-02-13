@@ -1,0 +1,154 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework05 - MATH 722}
+\author{Boren(Wells) Guan}
+\date{February 26,2024}
+% 本文档命令
+\usepackage{array,url}
+\usepackage[notextcomp]{stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Chapter.6 Ex.20} 
+Let $\{f_{\alpha}\}$ be a normal family of holomorphic functions on a domain $U$. Prove that $\{f'_{\alpha}\}$ is a normal family.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any sequence $\{f_i'\}$, we know there is a subsequence $f_{n_i}$ converges uniformly to $f$ on any compact subset $K$ of $U$, then we assume $\gamma$ is a piece-wise $C^1$ curve around $K$ and
+\[
+\begin{aligned}
+|f'_{n_i}(z) - f'(z)| = \dfrac{1}{2\pi}\Big|\int_{\gamma}\dfrac{(f_{n_i}-f)(\xi)}{\xi-z}d\xi\Big| \leq \dfrac{d(\gamma,K)|\gamma|}{2\pi}||f_{n_i}-f||_u
+\end{aligned}
+\]
+for any $z\in K$ and hence
+\[
+||f'_{n_i}-f'||_{u(K)} \leq \dfrac{d(\gamma,K)|\gamma|}{2\pi}||f_{n_i}-f||_{u(k)}
+\]
+which means $\{f_{\alpha}'\}$ is a normal family.
+\vspace{0.5em}
+
+\subsection*{Chapter.7 Ex.11} 
+TRUE or FALSE: If $u$ is continuous on $\overline{D}$ and harmonic on $D$ and if $u$ vanished on an open arc in $\partial D$, then $u = 0$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It has to be FALSE, actually, for any $f$ only vanished on a part of $\partial D$, we may use $f$ as the condition of boundary and the solution of the Dirichlet problem for the condition is an counter-example.
+\vspace{0.5em}
+
+\subsection*{Chapter.7 Ex.12} 
+If $u$ is real-valued and harmonic on  a connected open set, and if $u^2$ is also harmonic, then prove that $u$ is constant.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $u,u^2$ is harmonic on $U$, for any $P\in u$, we know for any $\overline{D}(P,r)\subset U$, we have
+\[
+\int_0^{2\pi} u(P+re^{i\theta}) d\theta  = u(P)
+\] 
+and we may find $M$ such that $u+M$ is positive on $\partial D(P,r)$, it is easy to check that $f = u+M, f^2 = (u+M)^2$ is still harmonic on $U$ and we have
+\[
+\Big(\int_0^{2\pi}f(P+re^{i\theta}) d(\theta/2\pi)\Big)^2 = f(P)^2 = \int_0^{2\pi} f^2(P+re^{i\theta})d(\theta/2\pi)
+\]
+by the Cauchy-Schwarz inequality for a probability space we may get
+\[\Big(\int_0^{2\pi}f(P+re^{i\theta}) d(\theta/2\pi)\Big)^2 \geq f(P)^2 = \int_0^{2\pi} f^2(P+re^{i\theta})d(\theta/2\pi)\]
+and the equality can be reached if and only if $f(P+re^{i\theta}) = c$ for some constant $c$ and hence $u$ has to be constant $u(P)$ on any bounded of $D(P,r) \subset U$. Now it is easy to check that if $f(P) = a$ for some $P\in U$, then $\{z,f(z)\in a\}$ is open and closed for $U$, so $\{z,f(z) = a\} = U$ since $U$ is connected and hence $u$ is constant.
+\vspace{0.5em}
+
+\subsection*{Chapter.7 Ex.24} 
+Let $L$ be a partial differential operator of the form
+\[L = a\dfrac{\partial^2}{\partial x^2}+b\dfrac{\partial^2}{\partial y^2}+c\dfrac{\partial^2}{\partial x\partial y}\]
+with $a,b,c$ constant. Assume that $L$ commutes with rotations in the sense that whenever $f$ is a $C^2$ function on $\C$, then $(Lf)\circ \rho_{\theta} = L(f\circ \rho_{\theta})$ for any rotation $\rho_{\theta} (z) = e^{i\theta} z$. Prove that $L$ must be a constant multiple of the Laplacian.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $f\in C^2$ on $\C$, we have
+\[
+(a\dfrac{\partial^2 f}{\partial x^2}+b\dfrac{\partial^2 f}{\partial y^2}+c\dfrac{\partial^2 f}{\partial x\partial y})(e^{i\theta} z) = L(f(e^{i\theta} z))
+\]
+so we may consider let $f(x+iy) = tx^2$, then we have
+\[
+2ta= 2ta\cos^2\theta  + 2tb\sin^2\theta  - 2ci \cos\theta\sin\theta    
+\]
+for any $\theta \in [0,2\pi],t\in\R$ and hence $a = b, c=0$ and conversely, it is easy to check that
+\[t\Delta (f\circ \rho_{\theta}) = t\dfrac{\partial}{\partial z}\Big[\dfrac{\partial f}{\partial z}(\rho_{\theta}(z))\dfrac{\partial \rho_{\theta}}{\partial \bar{z}}+\dfrac{\partial f}{\partial \bar{z}}(\rho_{\theta}(z))\dfrac{\partial \overline{\rho_{\theta}}}{\partial \bar{z}}\Big] = t(\Delta f)(\rho_{\theta}(z))\]
+\vspace{0.5em}
+
+\subsection*{Chapter.7 Ex.46} 
+Let $u$ be a real-valued harmoic function on $U\subset \C$ and let $\phi:\R\to\R$ be a convex function. Prove that $\phi\circ u$ is subharmonic.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice for any $\overline{D}(P,r)\subset U$
+\[
+u(P) = \dfrac{1}{2\pi} \int_{0}^{2\pi} u(P+re^{i\theta}) d\theta
+\]
+and $\phi(x) = \sup\{ax+b,(a,b)\in S\}$ where $S = \{(a,b), ax+b \leq \phi(x)\text{ for all }x\in\R\}$ then we know
+\[
+au(x)+b = \dfrac{1}{2\pi} \int_{0}^{2\pi} (au+b)(P+re^{i\theta}) d\theta \leq \dfrac{1}{2\pi} \int_{0}^{2\pi} (\phi\circ u)(P+re^{i\theta}) d\theta
+\]
+and hence
+\[
+\phi(x) \leq \dfrac{1}{2\pi} \int_{0}^{2\pi} (\phi\circ u)(P+re^{i\theta}) d\theta
+\]
+for any $\overline{D}(P,r) \subset U$.
+\vspace{0.5em}
+
+\subsection*{Chapter.7 Ex.50} 
+If $f$ is holomorphic on an open set $U$ and $p>0$, then prove that $|f|^p$ is subharmonic. Now suppose that $f$ is merely harmonic. Prove that $|f|^p$ is subharmonic when $p\geq 1$ but in general it fails to be subharmonic for $p<1$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+If $f$ holomorphic, then it suffices to show that for $P, f(P) \neq 0, \overline{D}(P,r) \subset U$ 
+\[\Delta |f|^p \geq 0\]
+which can be seen by assume $|f|^p = (u^2+v^2)^{p/2}$ and for $P,f(P)\neq 0$ we have
+\[
+\begin{aligned}
+\Delta |f|^p (P) &= p(p-2)(u^2+v^2)^{p/2-2}(uu_x+vv_x)^2 + p(u^2+v^2)^{p/2-1}(u_x^2+uu_{xx}+v_x^2+vv_{xx}) \\
+& + p(p-2)(u^2+v^2)^{p/2-2}(uu_y+vv_y)^2 + p(u^2+v^2)^{p/2-1}(u_y^2+uu_{yy}+v_y^2+vv_{y}) \\
+&= p(u^2+v^2)^{p/2-2}[
+(u^2+v^2)(u_x^2+u_y^2+uu_{xx}+uu_{yy}+v_x^2+v_y^2+vv_{xx}+vv_{yy}) \\
+&-(2-p)[(uu_x+vv_x)^2+(uu_y+vv_y)^2]
+] \\
+& = p(u^2+v^2)^{p/2-2}[
+(u^2+v^2)(u_x^2+u_y^2+v_x^2+v_y^2) - (2-p)(u^2u_x^2+v^2v_x^2+u^2u_y^2+v^2v_y^2)] \\
+& = p^2(u^2+v^2)^{p/2-2}(u^2u_x^2+v^2v_x^2+u^2u_y^2+v^2v_y^2) \geq 0
+\end{aligned}
+\]
+by Cauchy-Riemann equation and hence by Ex.41. and Ex.69, we know $|f|^p$ is subharmonic.\par
+For $f$ is harmonic, we consider
+\[
+|f|^p = \Big|\int_0^{2\pi}f(P+re^{i\theta}) d(\theta/2\pi)\Big|^p \leq \int_0^{2\pi} |f(P+re^{i\theta})|^p d(\theta/2\pi)
+\]
+by the Holder's inequality since $p\geq 1$. When $p<1$, consider $p'  = 1/p$ and we have
+\[
+|f|^p = \Big|\int_0^{2\pi}f(P+re^{i\theta}) d(\theta/2\pi)\Big|^p = ||f^p||_{p'} \geq ||f^p||_1
+\]
+when $f\geq 0$ by Holder's inequality and the equality can be reached iff $f$ is constant on $\partial D(P,r)$. Consider $f(x,y) = xy, x,y>0$ which is not constant on $\partial D(P,r)$ for any $\overline{D}(P,r)\subset \{(x,y), x,y>0\}$, which is a counter-example that $|f|^p$ is not harmonic when $p<1$.
+
+\vspace{0.5em}
+
+
+
+
+\addappheadtotoc
+
+\end{document}

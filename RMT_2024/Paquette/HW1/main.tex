@@ -1,0 +1,91 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework0 - Paquette}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Exercise.1}Show there is a unique solition of the Dyson equation on $\mathbb{M}^+(n)$ given by
+\[
+M = s(z)I\quad\text{where }s(z):=\dfrac{-z+\sqrt{z-2}\sqrt{z+2}}{2}
+\]
+with $\sqrt{}$ the princial branch of the square root.
+\begin{proof}
+    It is easy to see that $M = f(z)I$ for some $f$ and also
+    \[
+    f(z)(-f(z) - z) = 1
+    \]
+    and hence $f(z)^2 - zf(z) + 1 = 0$ which means
+    \[
+    (f(z) - z/2)^2 = (z-2)(z+2)/4
+    \]
+    for all $z \in \mathbb{H}$.
+\end{proof}
+
+\subsection*{Exercise.2} For the Newton flow, suppose that $s(t) = \dfrac{1}{n}tr(\mathcal{M})(t)$. Show that formally
+\[
+\dfrac{ds(t)}{dt} = \dfrac{e^{-t}\dfrac{1}{n}tr(\xi)}{2s(t)+z}
+\]
+\begin{proof}
+    We know
+    \[
+    \dfrac{d}{dt} \mathcal{M}(t)(-tr(\mathcal{M}(t))/n - zI_n)  = -\mathcal{M}(t)(-tr(\mathcal{M}(t))/n - zI_n)
+    \]
+    and we take the trace of the both side we will have
+    \[
+    \dfrac{d}{dt}(tr(\mathcal{M}(t))(-tr(\mathcal(M)(t)-nz))) = - tr(\mathcal(M)(t))(-tr(\mathcal{M}(t))- nz) 
+    \]
+    and we will have
+    \[
+    \dfrac{d}{dt}(s(t)(-s(t)-z)) = -s(t)(-s(t)-z)
+    \]
+    and hence
+    \[
+    s'(t)= -\dfrac{s(t)^2-zs(t)}{2s(t)+z}
+    \]
+\end{proof}
+
+\subsection*{Exercise.3}Conclude that there is an absolute constant $c>0$ so that for any $z\in\mathbb{H}$ if $|2s(z)+z|^2 > c|\dfrac{1}{n}tr(\xi)|$ then the Newton flow is well-posed for all $t\in [0,\infty)$ and
+\[
+|s(0)- s(\infty)| \leq \dfrac{|\dfrac{1}{n}tr(\xi)|}{\sqrt{|2s(z)+z|^2 - c|\dfrac{1}{n}tr(\xi)|}}
+\] 
+\begin{proof}
+    We have
+    \[
+    d(2s(t)+z)^2/dt = 2e^{-t}\dfrac{1}{n}tr(\xi) 
+    \]
+    and hence
+    \[
+    (2s(t)+z)^2|^{\infty}_0 = -2\dfrac{1}{n}tr(\xi) e^{-t}|^{\infty}_0 = \dfrac{2}{n}tr(\xi)
+    \]
+    and we have $s(0) = $
+\end{proof}
+
+\addappheadtotoc
+
+\end{document}

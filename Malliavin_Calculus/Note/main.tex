@@ -1,0 +1,80 @@
+%!TEX program = xelatex
+\documentclass[lang=cn,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Note for Thesis}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\per}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\proba}[1]{\mathsf{P}(#1)}
+%%%文档
+\newcommand{\cov}{\text{cov}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\WN}{\varepsilon}
+\newcommand{\pushop}{\mathscr{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\Har}{\mathcal{H}}
+\newcommand{\Sar}{\mathcal{S}}
+\newcommand{\ParZ}{\dfrac{\partial}{\partial z}}
+\newcommand{\ParbZ}{\dfrac{\partial}{\partial \bar{z}}}
+\newcommand{\ParX}{\dfrac{\partial}{\partial x}}
+\newcommand{\ParY}{\dfrac{\partial}{\partial y}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+这篇文章主要讲的是Malliavin积分理论，重点关注某些随机变量的密度函数存在性；主要的处理手段还是基本的随机分析，Hormander条件作为一个几何观点很强的性质，将作为最后的一个算例，我们还是主要关注怎么对随机变量定义导数还有之后的应用。\par
+
+我们从这四个大的方面介绍这篇文章。首先是基本的随机分析的内容回顾。\par
+
+这篇文章中并没有用到太多的鞅性质，Malliavin导数的构造只需要懂得基本的实分析和Wiener积分的定义就够了，为了避免歧义我们在这里回顾一下。本质上这两种随机积分的构造手段都是相似的，就是从目标全空间的一个稠密子空间上先定义好，再通过线性延拓定义在全空间上，像Wiener积分，就是在阶梯函数上做定义，这里B是布朗运动，我们的目标是延拓到$L^2(\R^+)$上。\par
+
+类似的，Ito积分是对随机过程做积分，稍微麻烦一些，定义在所谓简单过程空间上，这里会要求$\phi_j$是关于时间有一点马尔可夫性的随机变量，定义在这里。这两个积分的构造都比较相似，只是空间不一样，在上面找合适的稠密子空间是随机分析的惯用手段，而且性质都很好，两个积分都直接在稠密子空间上定义成了线性等距，这样的延拓直接保证了良定义。\par
+
+阶梯函数稠密性是比较简单的，简单过程稍微复杂一点，思路是先证明有一定连续性的过程可测过程就是所谓progressively measurable processes的稠密性，再证明简单过程在这个子空间上的稠密性，详细的部分可以看我的原文。\par
+
+接下来我们可以尝试对随机变量构造导数，先来定义两个算子，在这里，他们有对偶性质，这里在证明时我们只需要用到可以做分部积分，一般称这个函数空间为多项式增长的函数。\par
+
+实际上Malliavin导数的定义也是靠延拓实现的，事实上我们先考虑一些光滑性好的随机变量，尽管我们还没定义光滑性，就是这种所谓smooth and cylindrical random variables。类似的也可以定义空间$S_H$是其导数所在的空间，这里$H$指的是$L^2(\R^+)$，上面的$h_i$也都是这个Hilbert空间里的元素，所以实际上对一个随机变量，他的Malliavin导数是一个随机过程。\par
+
+导数的定义在这里，这里良定义我在附录给了一个简略的证明，类似于前面直接对一般意义上的函数定义的梯度和散度具有的对偶性，这里两个算子也有对偶性。\par
+
+容易验证Malliavin导子是一个线性算子，事实上它也是一个闭算子，这里的闭指的是对一列$F_n$收敛到$0$，如果$DF_n$也收敛，则它一定收敛到$0$，这个性质能帮助我们对$S$做延拓，事实上我们可以考虑这样的范数，令$S$对这个范数取闭包就是所谓的$\mathbb{D}^{1,2}$Sobolev空间。这里的闭包其实本质上是对$(F,DF)$取的，事实上考虑这个范数的右边不一定是完备的，所以在Cauchy列的情况下需要额外的指出，我们要求$DF_n$也在右边的部分下收敛到某一个元素$F'$，然后定义$DF$就是$F'$，倘若右边是完备的，我们可以直接对$S$完备化，而不需要更多的叙述了。\par
+
+类似的我们$p=2$时也有Hilbert空间性质，注意到这里之所以完备了是因为$DF$都已经被定义好了，所以与前面并不矛盾。\par
+
+和一般的梯度类似，$D$也存在特定条件下的链式法则。\par
+
+类似的$\delta$也可以被扩张，思路和Malliavin导数是一样的。\par
+
+和一般导数一样，我们也可以定义高阶导数，但是一般没有可交换求导的性质，然后我们可以定义更多具有更强可微性的空间。\par
+
+下面这个结论有趣且重要，我们由于$\phi_j$自带的Markov性能验证这个等式，然后继续通过稠密把相等延拓到全空间上，含义上说明散度本质是Ito积分的扩张。\par
+
+接下来我们介绍几个$\mathbb{D}^{k,p}$空间上元素自带的密度函数的光滑性的结论，实际上从Radon-Nikodym定理的角度来看，命题3.1.2.已经足够定义出一个密度函数了，只是需要更强的条件来赋予可微性\par
+把条件在加强一点允许我们做一些计算，在由Fubini定理我们能给出一个显式一些的密度函数。连续有界性质通过实分析工具都比较容易验证。\par
+
+下一个定理无非就是研究高维随机变量的情况，有一个分布积分的性质，从形式上也容易看出这是通过归纳证明的\par
+这个定理就是前面命题3.1.2的高维版本，也是用Fubini和一些导数和散度算子的性质就可以做。\par
+剩下时间好像不多了，我们来粗略的介绍一下Diffusion方程，我们直接介绍其相关的密度函数正则性上\par
+这就是本篇文章的中心结论，所谓Hormander条件，就是希望$\sigma$与它的Lie括号所产生的维度能够尽可能大，这样能够给我们更多的估计手段\par
+这一页是用Malliavin导数和散度的一些基本性质给出的恒等关系，基本上证明了光滑系数情况下总有$X_t\in \mathbb{D}^{\infty}$上。\par
+所以事实上根据命题3.2.4，我们只需要证明它的非退化性，所谓非退化就是具有负阶数矩，本质上是帮助我们能够对随机矩阵用逆矩阵的手段处理问题。\par
+这个引理把非退化性化归到这个求这个二次型的分布，第一步通过取光滑函数$V$再用一下Ito公式得到这个恒等式\par
+然后我们取两个向量场张成的空间，Hormander条件就是保证这两个本质上相等的空间张成的维数够高\par
+能够方便我们对这一项做估计，最后的部分是一些概率论上的放缩技巧，具体内容可以看我的论文。这篇文章的内容就到这里了，感谢大家。
+
+\end{document}

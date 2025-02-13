@@ -1,0 +1,919 @@
+
+%%%%%%%%%%%%%%%%中文%%%%%%蓝色标题%%%    
+\documentclass[lang=en, color=blue, ]{elegantbook}
+%%%使用包
+\usepackage{amsmath, amssymb, amstext,mathrsfs}
+
+%%%标题
+\title{Notes for Rudin's Functional Analysis}
+%%%作者
+\author{Wells Guan}
+%%%封面中间色块
+\definecolor{customcolor}{RGB}{102,102,255}
+\colorlet{coverlinecolor}{customcolor}
+%%%封面图
+
+%%%自定义符号区
+    %%% 组合数, 在数学环境中使用
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\inK}{\kappa}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\Sch}{\mathcal{S}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\begin{document}
+
+%%%封面页
+
+%%%正文
+
+%%% Stochastic Processes
+\chapter{}
+
+\begin{quotation}
+m.s. for measure space\par
+mrb. for measurable\par
+t.v.s. for a topological vector space
+\end{quotation}
+
+\section{Topological Vector space}
+
+\begin{definition}
+    A vector space $X$ is said to be a normed space if to every $x\in X$ there is associated a nonnegative real number $||x||$ such that\par
+    a. $||x+y|| \leq ||x||+||y||, x,y\in X$\par
+    b. $||\alpha x|| = |\alpha|||x||$ if $x\in X$ and $\alpha$ is scalar\par
+    c. $||x||>0$ if $x\neq 0$.\par
+    A Banach space is a complete normed space. 
+\end{definition}
+
+\begin{definition}
+    Suppose $\tau$ is a topology on a vector space $X$ such that\par
+    a. every point of $X$ is a closed set, and\par
+    b. the vector space operations are continuous w.r.t. $\tau$
+\end{definition}
+
+\begin{proposition}
+    Let $X$ be a topological vector space. For $a\in X, \lambda \neq 0$, define the translation operator $T_a$ and the multiplication operator $M_{\lambda}$ by
+    \[
+    T_a(x) = a+x, M_{\lambda}(x) = \lambda x
+    \]
+    then $T_a$ and $M_{\lambda}$ are homeomorphisms of $X$ onto $X$.
+\end{proposition}
+It can be induced by the continuity of addition and multiplication, also that of inverse.
+
+\begin{definition}
+    By the proposition above, we know every vector space topology $\tau$ is translation-invariant, i.e. a set $E\subset X$ is open iff $a+E$ is open for any $a\in X$.\par
+    The local base means a collection $\mathscr{B}$ of neighbourhoods of $0$ such that every neighborhood of $0$ contains a member of $\mathscr{B}$, so the open sets of $X$ will be the unions of translates of members of $\mathscr{B}$.\par
+    A metric $d$ on a vector space $X$ will be called invariant if $d(x+z,y+z) = d(x,y)$ for any $x,y,z\in X$.\par
+    A subset $E$ of a topological space is said to be bounded if to every neighborhood $V$ of $0$ in $X$, there is a number $s>0$ such that $E\subset tV$ for any $t>s$.
+\end{definition}
+
+\begin{definition}
+    In the following definitions, $X$ always denotes a topological vector space, with topology $\tau$.\par
+    a. $X$ is locally convex if there is a local base $\mathscr{B}$ whose members are convex.\par
+    b. $X$ is locally bounded if $0$ has a bounded neighbourhood.\par
+    c. $X$ is locally compact if $0$ has a neighborhood whose closure is compact.\par
+    d. $X$ is metrizable if $\tau$ is compatible with some metric $d$.\par
+    e. $X$ is an $F$-space if its topology $\tau$ is induced by a complete invariant metric $d$.\par
+    f. $X$ is a Frechet space if $X$ is a locally convex $F$-space.\par
+    g. $X$ is normable if a norm exists on $X$ such that the metric induced by the norm is compatible with $\tau$.\par
+    h. $X$ has the Heine-Borel property if every closed and bounded subset of $X$ is compact.
+\end{definition}
+
+\begin{theorem}
+    Suppose $K$ and $C$ are subsets of a topological vector space $X$, $K$ is compact, $C$ is closed and $K\cap C = \emptyset$. Then $0$ has a neighbor hood $V$ such that
+    \[
+    (K+V)\cap(C+V) = \emptyset
+    \]
+\end{theorem}
+\begin{proof}
+    For any $W$ a neighbourhood of $0$, we may find $U$ a neighbourhood of $0$ such that $U=-U$ and $U+U = W$, by consider there are $V_1,V_2$ neighbourhoods of $0$ such that $V_1+V_2 \subset W$, then let $U = V_1\cap V_2 \cap (-V_1)\cap(-V_2)$, and then we may find $V$ symmetric such that $V+V\subset U$, then $V+V+V+V \subset W$, now we assume $K$ is nonempty, and then for any $x\in K$, we may find $V_x$ such that $x+V_x+V_x+V_x \cap C =\emptyset$ and then $X+V_x+V_x\cap C+V_x$ is empty since $V_x$ is symmetric, then the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $\mathscr{B}$ is a local base for a topological vector sapce $X$, then every member of $\mathscr{B}$ contains the closure of some member of $\mathscr{B}$.
+\end{theorem}
+\begin{proof}
+    For $V\in \mathscr{B}$,  we may find $U\in \mathscr{B}$ such that $U+U\subset V$ and hence $\overline{U} \subset V$.
+\end{proof}
+
+\begin{theorem}
+    Every topological vector space is a Hausdorff space.
+\end{theorem}
+Can be induced by theorem 1.1. directly.
+
+\begin{theorem}
+    Let $X$ be a t.v.s.\par
+    a. If $A\subset X$ then $\overline{A} = \cap (A+V)$ where $V$ runs through all neighbourhoods of $0$.\par
+    b. If $A\subset X$ and $B\subset X$, then $\overline{A} + \overline{B} \subset \overline{A+B}$.\par
+    c. If $Y$ is a subspace of $X$, so is $\overline{Y}$.\par
+    d. If $C$ is a convex subset of $X$, so are $\overline{C}$ and $C^{\circ}$.\par
+    e. If $B$ is a balanced subset of $X$, so is $\overline{B}$; if also $0\in B^{\circ}$ then $B^{\circ}$ is balanced.\par
+    f. If $E$ is a bounded subset of $X$, so is $\overline{E}$.
+\end{theorem}
+\begin{proof}
+    a. It suffices to show that $\cap (A+V)$ is closed, if for any $V$, $x+V \cap A$ nonempty, then if $x\notin A+ U$ then $x - U \cap A$ empty and hence a contradiction. So $x \in \cap (A+V)$ and we are done.\par
+    b. For any $x\in \overline{A}, y \in \overline{B}, V$ a neighbourhood of $0$, we know there exists $U_1,U_2$ neighbourhood of $0$ such that $x+U_1+y+U_2 \subset x+y + V$ and hence $x+y+V \cap A+B \supset (x+U_1+y+U_2) \cap A+B$ is always nonempty and we are done.\par
+    c. If $x,y\in Y$ is an accumulation, then for any $U,V\in\beta$, we know there will be $x_0,y_0 \in Y\cap U, Y\cap V$ then we know $\lambda x_0 + y_0 \in \lambda x_0 + y_0 + \lambda U+ V$, and since hence the problem goes by choosing $U+V$.\par
+    d. We may know that
+    \[tC^{\circ} + (1-t)C^{\circ} \subset C\]
+    and since the left side is open, so it is easy to check that $tC^{\circ} + (1-t)C^{\circ} \subset C^{\circ}$, and we are done.\par
+    Notice $\alpha \overline{A} = \overline{\alpha A}$ and we may know
+    \[
+    t\overline{C} + (1-t)\overline{C} \subset \overline{C}
+    \] 
+    and we are done.\par
+    e. For $0 \leq |\alpha| \leq 1$, we know $\alpha B \subset B$ and hence $\alpha\overline{B} \subset \overline{\alpha B} \subset \overline{B}$. For $0<|\alpha| \leq 1$, we know $\alpha B^{\circ} \subset (\alpha B)^{\circ}$ and $\alpha^{-1}(\alpha B)^{\circ} \subset B$ and hence $\alpha^{-1}(\alpha B)^{\circ} \subset B^{\circ}$ so we know $\alpha B^{\circ} = (\alpha B)^{\circ}$. And then $\alpha B^{\circ} \subset B^{\circ}$ and if $0\in B^{\circ}$, the equality holds for $\alpha =0 $.\par
+    f.For any $V$, there exists $s>0$ such that $t>s$ implies $E\subset tV$, then we know there exists $W$ such that $\overline{W} \subset V$ and then there exists $s'$ such that $\overline{E}\subset t'\overline{W} \subset t'V$ for any $t'> s'$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    In a topological vector space $X$\par
+    a. every neighbourhood of $0$ contains a balanced neighborhood of $0$\par
+    b. every convex neighborhood of $0$ contains a balanced convex neighbourhood of $0$.
+\end{theorem}
+\begin{proof}
+    a. Suppose $U$ is a neighbourhood of $0$ in $X$. We know there exists $V$ and $\delta > 0$ such that $\alpha V\subset U$ if $|\alpha| < \delta$, then let $W = \bigcup_{|\alpha| <\delta} \alpha V$ and we are done.\par
+    b. Suppose $U$ is a convex neighborhood, consider $V = \cap_{|\alpha = 1|}\alpha U$ and let $W$ be as in (a), then we may check that $W\subset V$, then we know $V$ is balanced by choose $0\leq r \leq 1,|\beta| = 1$ and we have
+    \[
+    r\beta V = \cap_{|\alpha| = 1} r\beta \alpha U = \cap_{|\alpha| = 1}r\alpha U \subset V 
+    \]
+    and hence $V$ balanced, and so is $V^{\circ}$ since which containing $W$ and hence $0$, and it is convex, we are done.
+\end{proof}
+
+\begin{corollary}
+    a. Every topological vector space has a balanced local base.\par
+    b. Every locally convex space has a blanced convex local base.
+\end{corollary}
+
+\begin{theorem}
+    Suppose $V$ is a neighbourhood of $0$ in a topological vector space $X$.\par
+    a. If $0 < r_1<r_2<\cdots$ and $r_n \to \infty$, then
+    \[X = \bigcup_{n=1}^{\infty} r_n V\]\par
+    b. Every compact subset $K$ of $X$ is bounded.\par
+    c. If $\delta_1>\delta_2>\cdots$ and $\delta_n \to 0$, and if $V$ is bounded, then the collection
+    \[\{\delta_n V\}\]
+    is a local base for $X$.
+\end{theorem}
+\begin{proof}
+    a. For $x\in X$ and $V$ a neighbourhood of $0$, since $\alpha \mapsto \alpha x$ is continuous, then we know $\{\alpha, \alpha x \in V\}$ is open and containing $0$, so we may know $(1/r_n)x \in V$ for large $n$ and hence $x\in r_n V$ for some $n$.\par
+    b. We know for any $V$ neighbourhood of $0$, there are finite $r_n$ such that $K \subset \bigcup_{i=1}^n r_i V$.\par
+    c. Let $U$ be a neighbourhood of $0$, then if $V$ is bounded, there exists $s>0$ such that $V\subset tU$ for all $t>s$. Then we know there exists $n$ such that $s\delta_n < 1$ and hence $V\subset (1/\delta_n) U$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    Let $X$ and $Y$ be topological vector spaces. If $\Lambda:X\to Y$ is linear and continuous at $0$, then $\Lambda$ is continuous. In fact, $\Lambda$ is uniformly continuous, i.e. to each neighborhood $W$ of $0$ in $Y$ corresponds a neighborhood $V$ of $0$ in $X$ such that
+    \[y-x \in V \implies \Lambda y - \Lambda x \in W\]
+\end{theorem}
+
+\begin{theorem}
+    Let $\Lambda$ be a linear functional on a topological vector space $X$. Assume $\Lambda \neq 0$ for some $x\in X$. Then each of the following four properties implies the other three\par
+    a. $\Lambda$ is continuous.\par
+    b. $\mathcal{N}(\Lambda)$ is closed.\par
+    c. $\mathcal{N}(\Lambda)$ is not dense in $X$.\par
+    d. $\Lambda$ is bounded in some neighborhood $V$ of $0$.
+\end{theorem}
+\begin{proof}
+    (a) implies (b) is trivial. (b) implies (c) is trivial. Now we consider (c) implies (d), we know there exists $x$ and $V$ balanced such that
+    \[(x+V)\cap \mathcal{N}(\Lambda) = \emptyset\]
+    since $\Lambda V$ is a balanced subset, so $\Lambda V$ is bounded or $\Lambda V = K$ since it is balanced. Then we know if $\Lambda V = K$, there is $y$ such that $\Lambda y = -\Lambda x$ and then $x+y \in \mathcal{N}(\Lambda)$, which is a contradiction.\par
+    (c) implies (d) is trivial.
+\end{proof}
+
+\begin{lemma}
+    If $X$ is a complex topological vector space and $f:\C^n \to X$ is linear, then $f$ is continuous.
+\end{lemma}
+\begin{proof}
+    Let $e_i$ be the standard basis of $\C^n$ and let $u_i = f(e_i)$, then for $z= (z_i) \in C^n$ we know $f(z) = z_1u_1 + \cdots z_nu_n$. And then the continuity is secured by that of addition and scalar multiplication.
+\end{proof}
+
+\begin{theorem}
+    If $n$ is a positive integer and $Y$ is an $n$-dimensional subspace of a complex topological vector space $X$, then\par
+    a. every isomorphism of $\C^n$ onto $Y$ is a homeomorphism and\par
+    b. $Y$ is closed.
+\end{theorem}
+\begin{proof}
+    a. Suppose $f:\C^n \to Y$ is an isomorphism. This means that $f$ is linear, one-to-one, and $f(\C^n) = Y$. Put $K = f(\partial D)$, then we know $K$ is compact since $f$ is continuous, and $f(0) = 0$. So there is a balanced neighborhood $V$ of $0$ in $X$ which does not intersect $K$. Then $f^{-1}(V)$ is therefore disjoint from $S$. Since $f$ is linear, $E$ is balanced and henced connected. So $E\subset D$ and we know $f^{-1}(V\cap Y) \subset D$, so we know $f^{-1}$ is continuous by theorem 1.8.d. \par
+    b. Let $p\in \overline{Y}$ and we know for some $t>0$, $p\in tV$ and then $p$ is in the closure of
+    \[
+    Y\cap (tV) \subset f(tB) \subset f(t\overline{B})
+    \]
+    and then $p\in f(t\overline{B}) \subset Y$.
+\end{proof}
+
+\begin{theorem}
+    Every locally compact topological vector space $X$ has finite dimension.
+\end{theorem}
+\begin{proof}
+    We consider $V$ is a neighbourhood of $0$ and $\overline{V}$ is compact, then we know there exists $x_i$ such that
+    \[
+    \overline{V} \subset \sum (x_i+2^{-1}V)
+    \]
+    and let $Y$ be the subspace generated by $x_i$. We know
+    \[V \subset Y + \dfrac{1}{2}V\]
+    and then we know $\dfrac{1}{2}V\subset Y + \dfrac{1}{4}V$ since $Y$ is a subspace and by induction we know
+    \[
+    V\subset \cap_{n} (Y+2^{-n} V)
+    \]
+    since $V$ is bounded and we know $2^{-n} V$ is a local base and hence $V\subset \overline{Y} = Y$, so then we know $X = \bigcup_{n} nV = Y$ and hence $X$ is finite dimensional.
+\end{proof}
+
+\begin{theorem}
+    If $X$ is a locally bounded topological vector space with the Heine-Borel property, then $X$ has finite dimention.
+\end{theorem}
+\begin{proof}
+    We know there is a neighbourhood $V$ of $0$ is bounded, then we know $\overline{V}$ is bounded and hence compact. So $X$ is locally compact and we are done.
+\end{proof}
+
+\begin{theorem}
+    If $X$ is a topological vector space with a countable local base, then there is a metric $d$ on $X$ such that\par
+    a. $d$ is compatible with the topology of $X$\par
+    b. the open balls centered at $0$ are balanced and\par
+    c. $d$ is invariant\par
+    If $X$ is locally convex, then $d$ can be chosen to satisfy\par
+    d. all open balls are convex.
+\end{theorem}
+\begin{proof}
+    a. We know we may choose balanced local base $V_n$ such that
+    \[V_{n+1}+V_{n+1}+V_{n+1}+V_{n+1} \subset V_n\]
+    when $X$ is locally convex, this local base can be chosen to be convex.\par
+    Let $D$ be the set of all $2$-adic rational numbers $r$ with finite positions to be $1$, let $A(r) = X$ for $r\geq 1$ and
+    \[
+    A(r) = r_1V_1 + \cdots
+    \] 
+    for $0\leq r < 1$
+    and define $f(x) = \inf\{r, x\in A(r)\}$ with $d(x,y) = f(x-y)$, then we know $d$ is a metric by
+    \[A(r)+A(s) \subset A(r+s)\]
+    and then we may know $f(x+y) \leq f(x)+f(y)$. Notice for $x\neq 0$ obviously, there is a $V_{n}$ not containing $x$, and then $f(x) > 0$ and $f(0) = 0$. For $\delta < 2^{-n}$, we may know $B_{\delta}(0) \subset V_n$ and hence $B_{\delta} (0)$ will be a local base of $(x)$. Notice $A(r)$ is balanced, so we know $B$ is balanced and we are done.\par
+    d. If $V_n$ convex, then $A(r)$ convex and we are done.  
+\end{proof}
+
+\begin{definition}
+    a. Suppose $d$ is a metric on a set $X$. $x_n$ is a Cauchy sequence if it is Cauchy under $d$.\par
+    b. For a topological vector space, $x_n$ is Cauchy means for a local base $\mathcal{B}$ and $V\in\mathcal{B}$, there always exists a $N$ such that $x_n-x_m \in V$ if $n,m>N$.\par
+    c. It is easy to check if $\tau$ is compatible to an invariant metric $d$, then a seq is $d$-Cauchy iff it is $\tau$-Cauchy. With corollary thatt $d_1,d_2$ invaiant metrics on a vector space $X$, we know $d_1,d_2$ have the same Cauchy seqs and $d_1$ complete iff $d_2$ complete.
+\end{definition}
+
+\begin{theorem}
+    Suppose that $(X,d_1)$ and $(Y,d_2)$ are metric spaces, and $(X,d_1)$ is complete. If $E$ is a closed set in $X$, $f:E\to Y$ is continuous and
+    \[d_2(f(x'),f(x'')) \geq d_1(x',x'')\]
+    for all $x',x'' \in E$, then $f(E)$ is closed.
+\end{theorem}
+\begin{proof}
+    Choose any accumulation is fine.
+\end{proof}
+
+\begin{theorem}
+    Suppose $Y$ is a subspace of a topological vector space $X$, and $Y$ is an $F$-space. Then $Y$ is a closed subspace of $X$.
+\end{theorem}
+\begin{proof}
+    Let $B_n = \{y:y\in Y, d(y,0) < n^{-1}\}$ amd $U_n$ be a neighbourhood of $0$ in $X$, such that $Y\cap U_n = B_{n}$, and choose symmetric neighrboods $V_n$ of $0$ in $X$ such that $V_n+V_n\subset U_n$ and $V_{n+1}\subset U_{n}$. Then suppose $x\in\overline{Y}$ and $E_n  =Y\cap(x+V_n)$, then if $y_1,y_2\in E_n$, we know $y_1 - y_2 \in U_n$ and hence in $B_{n}$. Then we know $\cap E_n$ is a singelton $\{y_0\}$. By the way, we may consider
+    \[F_n = Y\cap (x+W\cap Y_n)\]
+    and hence $\cap F_n$ is a singleton $y_0$ and then $y_0$ is in all $x+W$, so $y_0  = x$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    a. If $d$ is a translation invariant metricd on a vector space $X$, then
+    \[\d(nx,0) \leq nd(x,0)\]\par
+    b. If $\{x_n\}$ is a seq in a metrizable tvs $X$ and if $x_n \to 0$ as $n\to\infty$, then there are positive scalars $\gamma_n \to \infty$ and $\gamma_n x_n \to 0$.
+\end{theorem}
+\begin{proof}
+    We only prove (b) by considering $n_k \leq n < n_{k+1}$ such that $d(x_{n}, 0) < k^{-2}$.
+\end{proof}
+
+\begin{proposition}
+    Any Cauchy seq is bounded.
+\end{proposition}
+\begin{proof}
+    For any $W$, consider $V$ balanced with $V+V\subset W$, then we may find $N$ such that $x_n - X_N \in V$ and $s>0$ such that $X_N \in sV$, and then $x_n \in sV + V \subset \max{s,1}V \subset \max{s,1}W$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    The following two properties of $E$ in a tvs are equivalent\par
+    a. $E$ is bounded\par
+    b. If $x_n$ is a seq in $E$ and $\alpha_n$ is a seq of scalars such that $\alpha_n \to 0$ as $n\to\infty$, then $\alpha_nx_n \to 0$ as $n\to\infty$.
+\end{theorem}
+\begin{proof}
+    (a) implies (b) is trivial.\par
+    (b) implies (a) find $r_n, V$ such that $r_nV$ does not contain $E$ and there will be a contradiction.
+\end{proof}
+
+\begin{definition}
+    Suppose $X$ and $Y$ are tvss and $\Lambda:X\to Y$ is linear. Then $\Lambda$ is bounded if $\Lambda$ maps bounded sets into bounded sets.
+\end{definition}
+
+\begin{theorem}
+    Suppose $X$ and $Y$ are topological vector spaces and $\Lambda$ is linear. Among the following four properties of $\Lambda$, we have (a)$\implies$(b)$\implies$(c) and if $X$ is metrizable, then also (c)$\implies$(d)$\implies$(a).\par
+    a. $\Lambda$ is continuous\par
+    b. $\Lambda$ is bounded\par
+    c. If $x_n \to 0$, then $\Lambda x_n$ is bounded.\par
+    d. If $x_n \to 0$ then $\Lambda x_n \to 0$. 
+\end{theorem}
+\begin{proof}
+    (a)$\implies$(b), we know that for any bounded $E$, we know for any $V \subset Y$, we have $f^{-1}(V)$ is an open neighbourhood of $0$ in $X$ and there exists $s$ such that $E\subset tf^{-1}V$ for any $t>s$ and then $f(E)\subset tV$ for any $t>s$ and hence $f(E)$ is bounded.\par
+    (b)$\implies$(c), we know $x_n \to 0$ and hence $x_n$ is bounded, and we are done.\par
+    Now we assume that $X$ is metrizable, then we know since $x_n \to 0$, then we may find $\gamma_n \to \infty$ such that $\gamma_nx_n \to 0$ and then $\Lambda(\gamma_nx_n)$ bounded, so $\Lambda x_n\to 0$.\par
+    (d)$\implies$(a), we know for $V$ an neighourhood of $0$ open in $Y$, then if there exists $x_n \in f^{-1}(V)^{c}$ such that $x_n \to 0$, then there will be a contradiction and hence there exists an neighborhood $U$ in $X$ such that $f(U) \subset V$ and we are done by use a union.
+\end{proof}
+
+\begin{definition}
+    A seminorm on a vector space $X$ is a real-valued function $p$ on $X$ such that\par
+    a. $p(x+y) \leq p(x) + p(y)$ and\par
+    b. $p(\alpha x) = |\alpha|p(x)$\par
+    for all $x$ and $y$ in $X$ and all scalars $\alpha = \alpha$.\par
+    A family $P$ of seminorms on $X$ is said to be separating if to each $x\neq 0$ corresponds at least one $p\in P$ with $p(x) \neq 0$.\par
+    Then considering a convex set $A\subset X$ which is absorbing, i.e. for any $x$ there exists some $t = t(x) > 0$ such that $x\in tA$.\par
+    The Minkowski functional $\mu_A$ of $A$ is defined by
+    \[\mu_A(x) = \inf\{t>0, t^{-1}x \in A\}\]
+\end{definition}
+
+\begin{theorem}
+    Suppose $p$ is a seminorm on a vector space $X$. Then\par
+    a. $p(0) = 0$.\par
+    b. $|p(x)-p(y)| \leq p(x-y)$.\par
+    c. $p(x) \geq 0$.\par
+    d. $p(x) = 0$ is a subspace of $X$.\par
+    e. The set $B = \{x,p(x) < 1\}$ is convex, balanced, absorbing, and $p = \mu_B$. 
+\end{theorem}
+\begin{proof}
+    It suffices to show (e). It is obviously $B$ is balanced, absorbing. And since for any $t > p(x)$, we know $p(t^{-1}x) = t^{-1}p(x) < 1$ and hence $\mu_B(x) \leq p(x)$ and similarly we know $\mu_B(x) \geq p(x)$ are we are done.
+\end{proof}
+
+\begin{theorem}
+    Suppose $A$ is a convex absorbing set in a vector space $X$. Then\par
+    a. $\mu_A(x+y) \leq \mu_A(x) + \mu_B(y)$.\par
+    b. $\mu_A(tx) = t\mu_A(x)$ if $t\geq 0$.\par
+    c. $\mu_A$ is a seminorm if $A$ is balanced.\par
+    d. If $B = \{x, \mu_A(x) < 1\}$ and $C = \{x:\mu_A(x) \leq 1\}$, then $B\subset A\subset C$ and $\mu_B = \mu_A = \mu_C$.
+\end{theorem}
+\begin{proof}
+    There is no need to check (a),(b),(c).\par
+    Notice $0 \in A$ and we know for any $x\in X$ and $t>\mu_A(x)$, $t^{-1} \in A$ and and hence $B\subset A \subset C$ and then we know $\mu_B \geq \mu_A \geq \mu_C$. For $x\in X$, choose $s,t$ such that $\mu_C(x) < s < t$ and we know $x/s \in C$ and $\mu_A(x/t) < 1$ and we know $x/t \in B$, so $\mu_B(x) \leq t$ and then $\mu_B(x) \leq \mu_C(x)$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\beta$ is a convex balanced local base in a topological vector space $X$. Associagte to every $V\in\beta$ denote its Minkowski functional $\mu_V$ and then\par
+    a. $V = \{x\in X, \mu_V(x) < 1\}$ for every $V\in\beta$ and\par
+    b. $\{\mu_V, V\in\beta\}$ is a separating family of continuous seminorms on $X$.
+\end{theorem}
+\begin{theorem}
+    a. We know $\{x\in X, \mu_V(x) < 1\} \subset V$ and for any $x\in V$, $x/t \in V$ for some $t\in 1$ since $V$ is open, and then we know $\mu_V(x) < 1$.\par
+    b. We have already know that $\mu_V$ are seminorms and separating since for $x\neq y$, we may find $V$ such that $x-y \notin V$ and then $\mu_V(x-y) \geq 1$. For $r>0$, we know $|\mu_V(x)-\mu_V(y) < r$ if $x-y \in rV$ and hence $\mu_V$ is continuous.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $P$ is a separating famuly of seminorms on a vector space $X$. Associate to each $p\in P$ and to each positive number $n$ the set
+    \[V(p,n) = \{x, p(x)<1/n\}\]
+    Let $\beta$ be the collection of all finite intersections of the sets $V(p,N)$. Then $\beta$ is a convex balanced local baase for a topology $\tau$ on $X$, which turns $X$ into a locally convex space such that\par
+    a. every $p\in P$ is continuous and\par
+    b. a set $E\subset X$ is bounded iff every $p\in P$ is bounded on $E$.
+\end{theorem}
+\begin{proof}
+    Consider the topology to be all unions of translates of members in $\beta$.\par
+    For $x\neq 0$, we know $p(x) > 0$ for some $p\in P$ and hence $\{0\}$ is a closed set and hence all singelton. For $U$ a neighborhood of $0$, we may find $\cap V(p_i,n_i) \subset U$ and hence $V+V\subset U$ where $V = \cap V(p_i,2n_i)$. Also $x\in sV$ for some $s>0$, let $y\in x+tV$ and $|\beta -\alpha| < 1/s$ where $\alpha x\in U$ and $t = s/(1+|\alpha| s)$, we know
+    \[
+    |\beta y - \alpha x| \subset |\beta|tV + |\beta-\alpha|sV \subset V+V\subset U
+    \] 
+    since $|\beta|t\leq 1$ and $V$ balanced. Now we know $(X,\tau)$ is a topological vector space.\par
+    We know that $p$ is continuous by $V(p,n)$ open.\par
+    Now we prove (b), it suffices to show the necessity, which is obvious.
+\end{proof}
+
+\begin{theorem}
+    A tvs $X$ is normable iff its origin has a convex bounded neighborhood.
+\end{theorem}
+\begin{proof}
+    It suffices to show the necessity, $V$ is a convex bounded neighborhood of $0$. Then $V$ containes a convex balanced neighborhood $U$ of $0$ and $U$ is also bounded, define $||x|| = \mu(x)$ where $\mu$ is the Minkowski functional of $U$, then $rU$ form a local base for the topology of $X$. If $x\neq 0$, then $x\in rU$ for some $r>0$ and hence $||x|| > 0$,  then we know $||\cdot||$ is a norm with $\{x,||x|| < 1\} = U$ and we are done.
+\end{proof}
+
+Now we use a proposition to summarize the chapter.
+
+\begin{proposition}
+    Here is a list of some relations between these properties of a topological vector space $X$.\par
+    a. If $X$ is locally bounded, then $X$ has a countable local base.\par
+    b. $X$ is metrizable iff $X$ has a countable local base.\par
+    c. $X$ is normable iff $X$ is locally convex and locally bounded.\par
+    d. $X$ has finite dimension iff $X$ is locally compact.\par
+    e. If a locally bounded space $X$ has the Heine-Borel property, then $X$ has finite dimension.
+\end{proposition}
+\begin{proof}
+    a. $\delta V$ will be a local base.\par
+    b. Consider theorem 1.12.\par
+    c. Consider theorem 1.3.\par
+    d. Consider $|a_i| \leq 1$.\par
+    e. Consider theorem 1.11.
+\end{proof}
+
+\begin{definition}
+    (The spaces $C(\Omega)$) If $\Omega$ is a nonempty open set in $\R^n$, then $\Omega$ is the union of countably many compact sets $K_n \neq \emptyset$ which can be chosen so that $K_n$ lies in the interior of $K_{n+1}$. Then define the topology on $C(\Omega)$ by the seminorms
+    \[p_n(f) = \sup{|f(x)|, x\in K_n}\]
+\end{definition}
+
+\begin{proposition}
+    $C(\Omega)$ is a Frechet space. And $E \subset C(\Omega)$ is bounded iff there are numbers $M_n < \infty$ such that $p_n(f) \leq M_n$ for all $f\in E$. $C(\Omega)$ is not loacally bounded.
+\end{proposition}
+\begin{proof}
+    We may define
+    \[
+    d(f,g) = \max_{n}\dfrac{2^{-n}p_n(f-g)}{1+p_n(f-g)}
+    \]
+    and it is easy to check that $f_i$ converges uniformly on $K_n$ to $f \in C(\Omega)$ and easy to check that $d(f,f_i) \to 0$. And notice $V_n = \{f\in C(\Omega), p_n(f) < n^{-1}\}$.\par
+    A set $E$ is bounded iff there are $M_n$ such that $|f(x)| \leq M_n, x\in K_n$ and since $V_n$ contains $f$ such that $p_{n+1}(f)$ large arbitrarily and we know $C(\Omega)$ is not locally bounded.
+\end{proof}
+
+\chapter{Completeness}
+
+\begin{definition}
+    Let $S$ be a topological space, $E\subset S$ is said to be nowhere dense if its closure $\overline{E}$ has an empty interior. The sets of the first category in $S$ are those countable unions of nowhere dense sets.
+\end{definition}
+
+\begin{theorem}
+    If $S$ is either\par
+    a. a complete metric space, or\par
+    b. a locally compact Hausdorff space.\par
+    then the intersection of every countable collection of dense open subsets of $S$ is dense in $S$.
+\end{theorem}
+
+\begin{definition}
+    Suppose $X,Y$ are tvs and $\Gamma$ is a collection of linear mappings from $X$ to $Y$, we say $\Gamma$ is equicontinuous if to every neighbourhood $W$ of $0$ in $Y$ there corresponds a neighborhood $V$ of $0$ in $X$ such that $\Lambda(V) \subset W$ for all $\Lambda\in \Gamma$
+\end{definition}
+
+\begin{theorem}
+    Suppose $X$ and $Y$ are topological vector spaces, $\Gamma $ is an equicontinuous collection of linear mappings from $X$ into $Y$, and $E$ is a bounded subset of $X$. Then $Y$ has a bounded subset $F$ such that $\Lambda(E)\subset F$ for every $\Lambda \in \Gamma$.
+\end{theorem}
+\begin{proof}
+    Let $F$ be the unions of the sets $\Lambda(E)$ for $\Lambda \in \Gamma$. Let $W$ be a neighborhood of $0$ in $Y$, we know there is $V$ neighborhood of $0$ in$X$ such that $\Lambda(V) \subset W$, then we know $F$ is bounded by $E$ is bounded.
+\end{proof}
+
+\begin{theorem}
+    Suppose $X$ and $Y$ are topological vector spaces, $\Gamma$ is a collection of continuous linear mappings from $X$ into $Y$, and $B$ is the set of all $x\in X$ whose orbits \[\Gamma(x) = \{\Lambda x, \Lambda \in \Gamma\}\]are bounded in $Y$.\par
+    If $B$ is of the second category in $X$, then $B = X$ and $\Gamma$ is equicontinuous.
+\end{theorem}
+\begin{proof}
+    Choose balanced neighborhoods $W$ and $U$ of $0$ in $Y$ such that $\overline{U}+\overline{U} \subset W$. Let $E = \bigcap_{\Lambda \in \Gamma}\Lambda^{-1}(\overline{U})$. If $x\in B$, then $\Gamma(x) \subset nU$ for some $n$, and hence $x\in nE$ and hence
+    \[
+    B \subset \bigcup_{n=1}^{\infty} nE
+    \]
+    so we know $E$ is closed and has an interior point $x$, then we know $x - E$ contains a neighborhood $V$ of $0$ in $X$ and then
+    \[\Lambda (V) \subset \Lambda x - \Lambda(E) \subset W
+    \]
+    and hence $\Gamma$ is equicontinuous.\par
+    Then we know $\Gamma$ is uniformly bounded, which means $\Gamma x$ is bounded in $Y$ and hence $B = X$.
+\end{proof}
+
+\chapter{Distribution theory}
+
+\begin{definition}
+    (The space $\D(\Omega)$)\par
+    Let $\D(\Omega) = \bigcup_{K\subset \Omega, K\text{ compact}}\D_K$.\par
+\end{definition}
+Consider the norms
+\[||\phi||_N = \max\{|D^{\alpha}\phi(x)|, \in \Omega,|\alpha| \leq N\}\]
+for $\phi \in \D(\Omega)$ and we claim the restriction on these norms to any fixed $\D_K$ induce the same topology on $\D_K$ by the seminorms $p_N$. Here we know
+\[
+||\phi_N|| \leq ||\phi_{N+1}||\quad p_N(\phi) \leq p_{N+1}(\phi)
+\]
+and for suffient large $N$, $||\cdot||_N = p_N$ on $\D_K$ and we are done.\par
+For the topology induced by this norms, we know the induced metric is not compact, since consider any $\phi \in \D(\R)$ and let
+\[
+\varphi_m = \sum_{k=1}^m \dfrac{1}{2^k}\phi(x-m)
+\]
+we know the limit exists but does not have compact support, and also the sequence is Cauchy under the metric.
+
+\begin{definition}
+    Let $\Omega$ be a nonempty open set in $\R^n$\par
+    a. For every compact $K\subset \Omega$, $\tau_K$ denotes the Frechet topology of $\D_K$ induced by the norms.\par
+    b. $\beta$ is the collection of all convex balanced sets $W\subset\D(\Omega)$ such that $\D_K\cap W \in \tau_K$ for every compact  $\subset \Omega$.\par
+    c. $\tau$ is the collection of all unions of sets of the form $\phi+W$ with $\phi \in \D(\Omega)$ and $W\in \beta$. 
+\end{definition}
+
+\begin{theorem}
+    a. $\tau$ is a topology in $\D(\Omega)$ and $\beta$ is a local base for $\tau$.\par
+    b. $\tau$ makes $\D(\Omega)$ into a locally convex topological vector space.
+\end{theorem}
+\begin{proof}
+    a. It suffices to show that for $V_1,V_2 \in \tau$ and $\phi \in V_1\cap V_2$, there is $W \in \beta$ such that
+    \[\phi + W \subset V_1\cap V_2\]
+    We know there is $\phi_i\in\D(\Omega)$ and $W_i\in\beta$ such that
+    \[
+    \phi \in \phi_i + W_i\subset V_i
+    \]
+    Choose $K$ so that $D_K$ contains $\phi_1,\phi_2$ and $\phi$. Since $\D_K\cap W_i$ is open, so we know $\phi-\phi_i \in (1-\delta_i)W_i$ for some $\delta_i > 0$. The convexity of $W_i$ implies therefore that
+    \[\phi - \phi_i + \delta_iW_i\subset (1-\delta_i)W_i+\delta_iW_i = W_i\]
+    so that $\phi+\delta_iW_i \subset \phi_i+W_i \subset V_i$ hence $W = (\delta_1W_1)\cap(\delta_2W_2)$ will satisfiy the requirement.\par
+    Suppose next that $\phi_1,\phi_2$ are distinct elements of $\D(\Omega)$ and put
+    \[W = \{\phi \in \D(\Omega), ||\phi||_0 < ||\phi_1-\phi_2||_0\}\]
+    then we know $W\in\beta$ and $\phi_1$ is not in $W$, so we know singelton will be closed. And $(\phi_1 + \dfrac{1}{2}W)+(\phi_2 + \dfrac{1}{2}W) = (\phi_1+\phi_2)+W$ will show the continuity of addition under $\tau$.\par
+    For any $\phi_0 \in \D(\Omega), W\in\beta$, we know there is always some $\D_K$ containing $\phi_0$ and $W\cap \D_K$ is open in $\D_K$, so there exists $\delta > 0$ such that $\delta \phi_0 \in 2^{-1}W$.\par
+    For
+    \[\alpha \phi - \alpha_0\phi_0 = \alpha(\phi-\phi_0)+(\alpha-\alpha_0)\phi_0\]
+    we know
+    \[
+    \alpha\phi - \alpha_0\phi_0 \in \alpha \alpha cW + 2^{-1}W
+    \]
+    for any $|\alpha - \alpha_0| < \delta$ and $\phi-\phi_0 \in cW$, then we know let $c = 1/2(|\alpha_0|+\delta)$ will be fine.
+\end{proof}
+
+\begin{theorem}
+    a. A convex balanced subset $V$ of $\D(\Omega)$ is open iff $V\subset \beta$.\par
+    b. The topology $\tau_K$ of any $\D_K \subset \D(\Omega)$ coincides with the subspace topology that $\D_K$ inherits from $\D(\Omega)$.\par
+    c. If $E$ is a bounded subset of $\D(\Omega)$, then $E\subset \D_K$ for some $K\subset \Omega$ and there are numbers $M_N < \infty$ such that every $\phi \in E$ satisfies the inequalities
+    \[||\phi||_N \leq M_N\]\par
+    d. $\D(\Omega)$ has the Heine-Borel property.\par
+    e. If $\phi_i$ is a Cauchy sequence in $\D(\Omega)$, then $\{\phi_i\} \subset \D_K$ for some compact $K\subset \Omega$ and
+    \[\lim_{i,j\to\infty} ||\phi_i - \phi_j||_N = 0\]\par
+    f. If $\phi_i\to 0$ in the topology of $\D(\Omega)$, then there is a compact $K\subset \Omega$ which contains the support of every $\phi_i$ and $D^{\alpha}\phi_i \to 0$ uniformly.\par
+    g. In $\D(\Omega)$, every Cauchy sequence converges.
+\end{theorem}
+\begin{proof}
+    a. If $V\in \tau$, for $\phi \in \D_K \cap V$, we know $\phi+W \in V$ for some $W\in\beta$ and then
+    \[\phi + (\D_K\cap W) \subset \D_K\cap V\]
+    and hence $\D_K \cap V \in \tau_K$. The opposite direction is trivial.\par
+    b. For any $B = ||\phi||_N < \delta$, we know it is convex and balanced in $\D(\Omega)$ with $B\cap \D_K$ is open in $\D_K$, so we know $\tau_K$ is a subtopology of the subspacce topology inherited from $\D(\Omega)$.\par
+    For any $W$ convex and balanced, we know $W\cap \D_K$ is always open and hence the subspace topology is a subset of $\tau_K$ and we are done.\par
+    c. Consider $E$ bounded but not in $\D_K$ for any $K$, then there are $\phi_m \in E$ wuth $x_m \in \Omega$ with no limit point in $\Omega$ and $\phi_m(x_m) \neq 0$. Let $W$ be the set of $\phi$ such that 
+    \[|\phi(x_m) < m^{-1}|\phi_m(x_m)|\]
+    we know $\D_K \cap W \in \tau_K$ and hence $W\in \beta$, but $\phi_m \in mW$ and hence there is no $rW$ containing $E$.\par
+    Then every bounded $E$ of $\D(\Omega)$ lies in some $\D_K$ and hence for each norm, there exists $M_N$ such that $||\phi||_N \leq M_N$ on $E$.\par
+    d. Follows from $C$.\par
+    e. Since every $\phi_i$ is bounded, we know $\phi\in \D_K$ for some $K$ and hence they are also Cauchy in $\D_K$.\par
+    f. Follows from e.\par
+    g. Follows from $(b),(e)$ and the completeness of $\D_K$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda$ is a linear mapping of $\D(\Omega)$ into a locally convex space $Y$. Then each of the following four properties implies the others\par
+    a. $\Lambda$ is continuous.\par
+    b. $\Lambda$ is bounded .\par
+    c. If $\phi_i \to 0$ in $\D(\Omega)$, then $\Lambda \phi_i \to 0$ in $Y$.\par
+    d. The restrictions of $\Lambda$ to every $\D_K\subset \D(\Omega)$ are continuous.
+\end{theorem}
+\begin{proof}
+    (a) implies (b) follows the conclusion in tvs.\par
+    (b) implies (c), we know $\phi_i$ will be in some $\D_K$ and $\Lambda|_{\D_K}$ is bounded , so $\Lambda \phi_i\to 0$ in $Y$.\par
+    (c) implies (d), for $\phi_i \to 0$ in $\D_K$, we know $\phi_i \to 0$ in $\D(\Omega)$ and then we know $\Lambda$ is continuous by metrilizing $\D_K$.\par
+    (d) implies (a), for any $V$ convex balanced neighborhood of $Y$, we know $\Lambda^{-1}(V)$ is convex and balanced with $\D_K \cap \Lambda^{-1}(V)$ is open, so $\Lambda^{-1}(V)$ is open in $\tau$ and we are done.
+\end{proof}
+
+\begin{corollary}
+    $D^{\alpha}$ is a continuous mapping of $\D(\Omega)\to\D(\Omega)$.
+\end{corollary}
+
+\begin{definition}
+    A linear functional on $\D(\Omega)$ which is continuous is called a distribution.
+\end{definition}
+
+\begin{theorem}
+    If $\Lambda$ is a linear functional on $\D(\Omega)$, the following two conditions are equivalent\par
+    a. $\Lambda \in \D'(\Omega)$.\par
+    b. To every $K\subset \Omega$, corresponds a nonnegative ineger $N$ and $C<\infty$ such that
+    \[|\Lambda \phi| \leq C||\phi_N||\]
+    on $\D_K$.
+\end{theorem}
+\begin{proof}
+    (a) implies (b), if all images of $\{||\phi_N|| < 1\}$ is unbounded on $\D_K$, then we know any images of open set is unbounded, which is a contradiction.\par
+    (b) implies (a), we know $\Lambda$ is continuous on any $\D_K$ by consider the preimage of $(-1,1)$.
+\end{proof}
+
+\begin{definition}
+    If $\Lambda$ is such that one$N$ will do for all $K$, then the smallest $N$ is called the order of $\Lambda$. Else, call $\Lambda$ to have infinite order.\par
+    Then we may define $\delta_x(\phi) = \phi(x)$, and we know $\delta_x$ is a distribution of order $0$.
+\end{definition}
+
+\begin{definition}
+    We define the differentiation of distributions
+    \[(D^{\alpha\Lambda})(\phi) = (-1)^{|\alpha|}\Lambda(D^{\alpha} \phi)\]\par
+    And the multiplication by functions, for $f \in C^{\infty}(\Omega)$ define
+    \[
+    (f\Lambda)(\phi) = \Lambda(f\phi)
+    \]
+    by the Leibniz formula
+    \[
+    D^{\alpha}(fg) = \sum_{\beta \leq \alpha}(D^{\alpha-\beta}f)(D^{\beta }g)
+    \]
+\end{definition}
+
+\begin{definition}
+    For $\D'(\Omega)$, define the topology on it to be the weak*-topology.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\Lambda_i \in \D'(\Omega)$, and $\Lambda \phi = \lim \Lambda_i \phi$ exists for every $\phi \in \D(\Omega)$, then $\Lambda \in \D'(\Omega)$ and $D^{\alpha}\Lambda_i \to D^{\alpha}\Lambda$ in $\D'(\Omega)$.
+\end{theorem}
+\begin{proof}
+    It suffices to show $\Lambda \in \D'(\Omega)$. We only need to check that $\Lambda$ is continuous on $\D_K$, since $\D_K$ is a complete metric space, then we know $\Lambda_i$ is uniformly bounded and hence $\Lambda$ is bounded, so it is continuous.\par
+    For the second conclusion, only need to check that there will be an $N$ and $C$ such that $|D^{\alpha}\Lambda \phi| \leq C||\phi||_{N+|\alpha|}$ for any $K$ compact and hence $D^{\alpha}$ will be continuous as well.
+\end{proof}
+
+\begin{theorem}
+    If $\Lambda_i \to \Lambda$ in $\D'(\Omega)$ and $g_i \to g$ in $C^{\infty}(\Omega)$, then $g_i\Lambda_i \to g\Lambda$ in $\D'(\Omega)$.
+\end{theorem}
+\begin{proof}
+    We need to show that for any $\phi$, $\Lambda_i(g_i \phi) \to \Lambda(g\phi)$, which can be seen by
+    \[
+    |\Lambda_i(g_i \phi) - \Lambda(g\phi)| \leq |\Lambda_i((g_i-g)\phi)| + |\Lambda_i(g\phi) - \Lambda(g\phi)|
+    \]
+    since $\Lambda_i$ is uniformly bounded as a map from $\D_K \to R$, and then we know for any $\epsilon > 0$, there exists $W$ a neighbourhood of $0$ such that $\Lambda_i(W) \in (-\epsilon,\epsilon)$ for any $i$, so let $i$ large enough let $(g_i-g)\phi \in W$ and we are done. 
+\end{proof}
+
+\begin{definition}
+    Suppose $\Lambda_i\in \D'(\Omega)$ and $\omega$ is an open subset of $\Omega$, then $\Lambda_1 = \Lambda_2$ on $\omega$ means $\Lambda_1 \phi = \Lambda_2 \phi$ for every $\phi \in \D(\omega)$.
+\end{definition}
+
+\begin{theorem}
+    If $\Gamma$ is a collection of open sets in $\R^n$ whose union is $\Omega$ then there exists a sequence $\phi_i \in \D(\Omega)$ with $\phi_i \geq 0$, such that\par
+    a. each $\phi_i$ has its support in some member of $\Gamma$\par
+    b. $\sum\limits_{i=1}^{\infty} \phi_i = 1$ for every $x\in \Omega$\par
+    c. to every compact $K\subset\Omega$ correspond an integer $m$ and an open set $W\supset K$ such that
+    \[\phi_1(x) + \cdots \phi_m(x) = 1\]
+    for all $x\in W$.\par
+    Such $\phi_i$ is called a locally finite partition of unity in $\Omega$.
+\end{theorem}
+\begin{proof}
+    Let $S$ be a countable dense subset of $\Omega$. Let $B_i$ be all the closed ball $B_i$ with center in $S$ and with rational radius such that it will lie in some member of $\Gamma$. Let $V_i$ be the open ball with center $p_i$ and radius $r_i/2$ where $r_i$ was assume to be sufficent close to $\max d(p_i, \omega^c)$, such that $\bigcup_{i} V_i = \Omega$.\par
+    Then we know there are $\phi_i \in \D(\Omega)$ such that $0\leq \phi 1$ and $\phi_i = 1$ in $V_i$ and $0$ outside of $B_i$ define $\varphi_1 = \phi_1$ and inductively
+    \[
+    \varphi_{i=1} = (1-\phi_1)\cdots(1-\phi_i)\phi_{i+1}
+    \]
+    and then we know $\varphi_i = 0$ outside of $B_i$ and
+    \[
+    \varphi_1 + \cdots \varphi_i = 1 - (1-\phi_1)\cdots(1-\phi_i)
+    \] 
+    which equals to $1$ for $ x \in V_1\cup \cdots \cup V_m$. For compact set, we know $K\subset \bigcup_{1\leq i \leq m}V_i$ for some $m$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Gamma$ is an open cover of an open set $\Omega \subset \R^n$ and suppose that to each $\omega \in \Gamma$ corresponds a distribution $\Lambda_{\omega} \in \D'(\omega)$ such that
+    \[
+    \Lambda_{\omega_1} = \Lambda_{\omega_2}
+    \]
+    on $\omega_1\cap\omega_2$ for $\omega_1,\omega_2\in \Gamma$ with nonemptyset disjoint. Then there exists a unique $\Lambda \in \D'(\Omega)$ such that $\Lambda = \Lambda_{\omega}$ on $\omega$ for every $\omega \in \Gamma$.
+\end{theorem}
+\begin{proof}
+    Let $\phi_i$ be a locally finite partition of unity w.r.t. $\Gamma$ and we know there exists $\omega_i$ containing the suppose of $\phi_i$, if $f \in \D(\Omega)$, then $f = \sum\limits_{n\geq 0}\phi_n f$ and define
+    \[
+    \Lambda f = \sum_{n\geq 0}\Lambda_{\omega_i}(\phi_i f)
+    \]
+    then we know $\Lambda \in \D'(\Omega)$ easily. For any $h \in \D(\omega)$, we know $\phi_ih\in\D(\omega_i\cap \omega)$ so
+    \[
+    \Lambda h = \sum\Lambda_{\omega_i}(\phi_ih) = \Lambda_{\omega}(\sum \phi_i h) = \Lambda_{\omega}(h)
+    \]
+    and we are done. The uniqueness is easy to be checked.
+\end{proof}
+
+\begin{definition}
+    Suppose $\Lambda \in \D'(\Omega)$, if $\omega$ is a open subset of $\Omega$ and if $\Lambda \phi = 0$ for every $\phi \in \D(\Omega)$, we say $\Lambda$ vanished in $\omega$. Let $W$ be the union of all open subset of $\Omega$ where $\Lambda$ vanished on, and $W^c$ is the support of $\Lambda$.\par
+    It is easy to check $\Lambda$ vanished in $W$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega)$ and $S_{\Lambda}$ is the support of $\Lambda$.\par
+    a. If the support of some $\phi \in \D(\Omega)$ does not intersect $S_{\Lambda}$, then $\Lambda \phi = 0$.\par
+    b. If $S_{\Lambda}$ is empty, the n $\Lambda = 0$.\par
+    c. If $\varphi \in C^{\infty}(\Omega)$ and $\varphi = 1$ in some open set $V$ containing $S_{}\Lambda$, then $\varphi \Lambda = \Lambda$.\par
+    d. If $S_{\Lambda}$ is a compact subset of $\Omega$, then $\Lambda$ has finite order i.e. there is a constant $C < \infty$ and a nonnegative integer $N$ such that
+    \[
+    |\Lambda \phi| \leq C||\phi||_N
+    \]
+    for any $\phi \in \D(\Omega)$. Then $\Lambda$ extends in a unique way to a continuous linear functional on $C^{\infty}(\Omega)$.
+\end{theorem}
+\begin{proof}
+    (a),(b),(c) trivial.\par
+    (d) If $S_{\Lambda}$ is compact, then we know there exists $\varphi \in \D(\Omega)$ such that $\varphi\Lambda = \Lambda$ and let the support of $\varphi$ to be $K$. Then we know there exists $c_1,N$ such that $|\Lambda \phi| \leq c_1||\phi||_N$ for all $\phi \in \D_K$. And $c_2$ such that $||\varphi\phi|| \leq c_2||\phi||_N$ for every $\phi \in \D(\Omega)$. Then
+    \[
+    |\Lambda \phi| = |\Lambda(\varphi\phi)| \leq c_1c_2||\phi||_N
+    \]
+    for every $\phi \in \D(\Omega)$, then for $f\in C^{\infty}(\Omega)$, define $\Lambda f = \Lambda(\varphi f)$ to be the extension and we know the extension is continuous. However, notice $\D(\Omega)$ is dense in $C^{\infty}(\Omega)$ and then the extension should be unique.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega), p\in \Omega, \{p\}$ is the support of $\lambda$ and $\lambda$ has order $N$. Then there are constants $c_{\alpha}$ such that
+    \[
+    \Lambda = \sum\limits_{|\alpha| \leq N} c_{\alpha}D^{\alpha}\delta_p
+    \]
+    Conversly, it is easy to check that the distribution of the form $(1)$ has $\{p\}$ for its support.
+\end{theorem}
+\begin{proof}
+    Assume $p = 0$ and $\phi \in \D(\Omega)$ such that
+    \[
+    (D^{\alpha})(0) = 0, |\alpha| \leq N
+    \]
+    If $\eta > 0$, there is a compact ball $K\subset \Omega$ centered at $0$ such that
+    \[|D^{\alpha} \phi| \leq \eta\]
+    on $K$ if $|\alpha| = N$, then we claim that
+    \[
+    |D^{\alpha} \phi(x)| \leq \eta n^{N-|\alpha|}|x|^{N-|\alpha|}
+    \]
+    we know 
+    \[|\nabla D^{\beta}| \leq n\cdot \eta n^{N-i}|x|^{N-i}\]
+    by induction and we are done.\par
+    Choose $\varphi \in \D(\R^n)$ which is $1$ in some neighbourhood of $0$ and whose support is in the unit ball $B$ of $\R^n$, define
+    \[
+    \varphi_r(x) = \varphi(x/r)
+    \]
+    and we know
+    \[
+    ||\varphi_r||_N \leq \eta C||\varphi||_N
+    \]
+    for $r$ small enough since $\Lambda$ has order $N$, there is $C_1$ such that $|\Lambda \varphi| \leq C_1||\varphi||_N$ for all $\varphi \in \D_k$ and we know
+    \[
+    |\Lambda \phi| 
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega)$ and $K$ is a compact subset of $\Omega$, then there is a continuous function $f$ in $\Omega$ and $\alpha$ such that
+    \[\Lambda \phi = (-1)^{|\alpha|} \int_{\Omega}f(x)(D^{\alpha}\phi)(x) dx\]
+    for every $\phi \in \D_K$.
+\end{theorem}
+\begin{proof}
+    Firstly assume $K\subset Q$ the unit cube in $\R^n$ and we know
+    \[
+    |\phi| \leq \max_{x\in Q}|(D_i \phi)(x)|
+    \]
+    for $\phi \in \D_Q$, let $T = D_1D_2\cdots D_n$ and we know
+    \[
+    \phi(y) = \int_{x \leq y}(T\phi)(x)dx
+    \]
+    and we know
+    \[
+    ||\phi||_N \leq \max_{x\in Q}|(T^N\phi)| \leq \int_Q|(T^{N+1}\phi)|
+    \]
+    Since $\Lambda \in \D'(\Omega)$, there exists $N$ and $C$ such that
+    \[|\Lambda \phi| \leq C||\phi||_N\]
+    and hence
+    \[
+    |\Lambda| \leq C\int_K|(T^{N+1} \phi)(x)| dx
+    \]
+    Since $T$ is one-to-one on $\D_Q$  and hence $\D_K$, we know $T^{N+1}: D_K \leftrightarrow D_K$ is one-to-one, so we can let $\Lambda_1 T^{N+1}\phi = \Lambda \phi$ for $\phi \in \D_K$ and a linear functional of $\D_K$ with
+    \[
+    |\Lambda_1\phi| \leq C\int_K|\phi|
+    \]
+    for $y$ in the range of $T^{N+1}$ and then we may use the Hahn-Banach to extends $\Lambda_1$ to a bounded linear functional on $L^1(K)$. In other words, there is a bounded Borel function $g$ on $K$ such that
+    \[
+    \Lambda \phi = \Lambda_1T^{N+1}\phi = \int_K g(x)(T^{N+1} \phi)(x)dx
+    \]
+    Define $g(x) = 0$ outside $K$ and let 
+    \[f(y) = \int_{-\infty}^{y_1}\cdots\int_{-\infty}^{y_n}g(x) dx\]
+    then $f$ is continuous and use the integrations by parts we know
+    \[
+    \Lambda \phi = (-1)^n \int_{\Omega}f(x)(T^{N+2}\phi)(x)
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $K$ is compact, $V$ and $\Omega$ are open in $\R^n$ and $K\subset V\subset \Omega$. Suppose also that $\Lambda \in \D'(\Omega)$, that $K$ is the support of $\Lambda$, and that $\Lambda$ has order $N$. Then there exists finitely many continuous functions $f_{\beta}$ in $\Omega$ with supports in $V$ such that
+    \[\Lambda = \sum_{\beta}D^{\beta}f_{\beta}\] 
+\end{theorem}
+\begin{proof}
+    Choose an open $W$ with compact closure, such that $K\subset W, \overline{W}\subset V$, then we lmpw there is a continuous function $f$ in $\Omega$ such that
+    \[\Lambda \phi = (-1)^{|\alpha|} \int_{\Omega}f(x)(D^{\alpha}\phi)(x) dx\]
+    We may multiply $f$ with a continuous function equaling $1$ on $\overline{W}$ with support in $V$.\par
+    Fix $\varphi \in \D(\Omega)$, with support in $W$ such that $\varphi = 1$ on some open set containing $K$, then
+    \[
+    \Lambda \phi = \Lambda(\varphi\phi) = (-1)^{|\alpha|}\int_{\Omega} f\sum_{\beta \leq \alpha}c_{\alpha\beta}D^{\alpha-\beta}\varphi D^{\beta}\phi
+    \]
+    and let $f_{\beta} = (-1)^{\alpha-\beta||}c_{\alpha\beta}f\cdot D^{\alpha-\beta}\varphi$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega)$ There exists continuous functions $g_{\alpha}$ in $\Omega$, for each multi-index $\alpha$.\par
+    a. each compact $K\subset \Omega$ intersects the supports of only finitely many $g_{\alpha}$\par
+    b. $\Lambda = \sum D^{\alpha} = \sum_{\alpha} D^{\alpha}g_{\alpha}$.\par
+    If $\Lambda$ has finite order, the n the functions $g_{\alpha}$ can be chosen so that only finitely many are nonzero.
+\end{theorem}
+
+\begin{definition}
+    For $u\in \D$, define
+    \[
+    (\tau_x u)(y) = u(y-x), \check{u}(y) = u(-y) 
+    \]
+    and for $u \in \D'$ Define
+    \[
+    (u*\phi)(x) = u(\tau_x\check{\phi})
+    \]
+    and $\tau_x u(\phi) = u(\tau_{-x}\phi)$ for $u\in\D'$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $u\in\D',\phi,\varphi\in\D$, then\par
+    a. $\tau_x(u*\phi) = (\tau_xu)*\phi = u*(\tau_x\phi)$ for all $x\in \R^n$.\par
+    b. $u*\phi \in C^{\infty}$ and
+    \[D^{\alpha}(u*\phi) = (D^{\alpha} u)*\phi = u*(D^{\alpha} \phi)\]\par
+    c. $u*(\phi*\varphi) = (u*\phi)*\varphi$.
+\end{theorem}
+
+\begin{definition}
+    The term approximate identity on $\R^n$ will denote a sequence of functions $h_j$ of the form
+    \[h_j(x) = j^nh(jx)\]
+    for $h\in \D$ and $\int h = 1$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $h_j$ is an approximate identity on $\R^n, \phi \in \D$ and $u\in \D'$, then\par
+    a. $\lim_{j\to\infty} \phi*j_j = h$ in $\D$.\par
+    b. $\lim_{j\to\infty} u*h_j = u$ in $\D'$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    |f-f*h_j|(x) \leq \int |f(x)h_j(t)-f(x-t)h_j(t)|dt \leq \max_{t\in j^{-1}K}|f(x) - f(x-t)| 
+    \]
+    and hence $f*h_j \to f$ uniformly on compact sets, then it is easy to check that $D^{\alpha}(\phi*h_j) \to D^{\alpha \phi}$ uniformly on compact sets.\par
+    It is easy to verify (b) and then any distribution i s a limit in the topology of $\D'$ is a seq of infinitely differentiable functions.
+\end{proof}
+
+\begin{theorem}
+    a. If $u\in\D'$ and
+    \[L\phi = u*\phi\]
+    for $\phi \in \D$, then $L$ is a continuous linear mapping of $\D$ into $C^{\infty}$ which satisfies
+    \[\tau_xL = L\tau_x\]\par
+    b. Conversly, if $L$ is a continuous linear mapping of $\D$ into $C(\R^n)$ and if $L$ satisfies $\tau_x L = L\tau_x$, then there is a unique $u\in\D'$ such that $L\phi = u*\phi$.
+\end{theorem}
+\begin{proof}
+    a. The second equality holds automatically, to prove $L$ is continuous, we only need to show that $L|_{\D_K}$ is continuous, assume $\phi_i \to \phi$ in $\D_K$ and then we know
+    \[
+    |(u*\phi_i)-(u*\phi)|(x) = |u(\tau_x\phi_i - \tau_x\phi)| \to 0
+    \]
+    and
+    \[
+    |D^{\alpha}(u*\phi_i - u*\phi)|(x) = |u*(D^{\alpha}\phi_i - D^{\alpha}\phi)|(x) \to 0 
+    \]\par
+    b. Define $u(\phi) = (L\check{\phi})(0)$ and the rest is easy to be checked.
+\end{proof}
+
+\begin{definition}
+    The convolution of $u$ with compact support and any $\phi\in C^{\infty}$ is define by
+    \[
+    (u*\phi)(x) = u(\tau_x\check{\phi})
+    \]
+\end{definition}
+\begin{theorem}
+    Suppose $u\in\D'$ has compact support, and $\phi \in C^{\infty}$. Then\par
+    a. $\tau_x(u*\phi) = (\tau_x u)*\phi = u*(\tau_x\phi)$ if $x\in\R^n$.\par
+    b. $u*\phi \in C^{\infty}$ and
+        \[D^{\alpha}(u*\phi) = (D^{\alpha}u)*\phi = u*(D^{\alpha}\phi)\]\par
+    If $\varphi \in \D$, then\par
+    c. $u*\varphi \in \D$\par
+    d. $u*(\phi*\varphi) = (u*\phi)*\varphi = (u*\varphi)*\phi$.
+\end{theorem}
+
+\begin{definition}
+    If $u,v\in \D'$ and at least one of there two distributions has compact support, define
+    \[L\phi = u*(v*\phi)\]
+    for $\phi \in \D$, we have $\tau_xL = L\tau_x$ and we will denote $u*v$ to be this distribution.
+\end{definition}
+
+\begin{theorem}
+    Suppose $u \in \D', v\in \D', w\in \D'$\par
+    a. If at leasst one of $u,v$ has compact support, then $u*v = v*u$.\par
+    b. If $S_u, S_v$ are the supports of $u$ and $v$, and if at least one of these is compact, then
+    \[S_{u*v} \subset S_u + S_v\]\par
+    c. If at least two of the supports $S_u,S_v,S_w$ are compact, then
+    \[(u*v)*w = u*(v*w)\]\par
+    d. If $\delta$ is the Dirac measure, then
+    \[
+    D^{\alpha}u = (D^{\alpha}\delta)*u
+    \]\par
+    e. If at least one of the sets $S_u,S_v$ is compact, then
+    \[D^{\alpha}(u*v) = (D^{\alpha}u)*v = u*(D^{\alpha} v)\]
+\end{theorem}
+
+\chapter{Fourier Transform}
+
+\begin{theorem}
+    Suppose $f,g \in L^1(\R^n), x\in \R^n$, then\par
+    a. $(\tau_x f)^{\wedge} = e_{-x}\hat{f}$.\par
+    b. $(e_x f)^{\wedge} = \tau_x\hat{f}$.\par
+    c. $(f*g)^{\wedge} = \hat{f}\hat{g}$.\par
+    d. If $\lambda > 0$ and $h(x) = f(x/\lambda)$, then $\hat{h}(t) = \lambda^n\hat{f}(\lambda t)$.
+\end{theorem}
+
+\begin{definition}
+    (Rapidly decreasing functions)\par
+    The functions $f\in\C^{\infty}$ such that
+    \[
+    \sup_{|\alpha| \leq N}\sup(1+|x|^2)^N|(D_{\alpha} f)(x)| < \infty
+    \]
+    for any $N$, the space is denoted by $\Sch_n$ and the norms defines a locally convex topology.
+\end{definition}
+
+\begin{theorem}
+    a. $\Sch_n$ is a Frechet space.\par
+    b. If $P$ is a polynomial, $g\in \Sch_n$, then
+    \[f\mapsto Pf,\quad f\mapsto gf,\quad f\mapsto D^{\alpha}f\]
+    is a continuous linear mapping of $\Sch_n$ to $\Sch_n$.\par
+    c. If $f\in \Sch_n$ and $P$ is a polynomial, then
+    \[
+    (P(D)f)^{\wedge} = P\hat{f},\quad (Pf)^{\wedge} = P(-D)\hat{f}
+    \]\par
+    d. The Fourier transform is a continuous linear mapping of $\Sch_n$ to $\Sch_n$.quad
+\end{theorem}
+
+\end{document}

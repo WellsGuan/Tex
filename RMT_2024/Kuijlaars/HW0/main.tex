@@ -1,0 +1,89 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework0 - Kuijlaars}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure,listings}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\F}{\mathcal{F}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Exercise 0.1} The semi-circle law is given by
+\[
+d\mu_{sc} = \dfrac{1}{2\pi}\sqrt{4-x^2}dx\quad\text{on }[-2,2]
+\]\par
+a. Compute its Stieltjes transform $F(z):=\int_{-2}^2 \dfrac{d\mu_{sc}(x)}{z-x}$ for $z \in \C-[-2,2]$ by the means of contour integration.
+\begin{proof}
+a.We know
+\[
+\begin{aligned}
+    F(z) = \int_{-2}^2 \dfrac{d\mu_{sc}(x)}{z-x} = \dfrac{1}{2\pi}\int_{-2}^2 \dfrac{\sqrt{4-x^2}}{z-x}dx
+\end{aligned}
+\]
+and hence
+\[
+F(z) = \dfrac{z+\sqrt{z^2-4}}{2}
+\]\par
+b. We know
+\[
+\begin{aligned}
+\lim_{\epsilon\to 0^+}\text{Im}F(x-i\epsilon) &= \lim_{\epsilon \to 0}\text{Im}\left(\dfrac{x-i\epsilon+\sqrt{x^2-4-\epsilon^2-2ix\epsilon}}{2}\right) \\
+&= Im\left(\dfrac{\sqrt{x^2-4}}{2}\right) \\
+& = \dfrac{\sqrt{}{}}{}
+\end{aligned}
+\]
+\end{proof}
+
+\subsection*{Exercise 0.2} Let $\mu$ be a measure on $\C$ with compact support. Show that $U^{\mu}$ is superharmonic on $\C$ and harmonic on $C - \text{supp}(\mu)$
+\begin{proof}
+We know by Fubini's theorem
+\[
+\begin{aligned}
+\dfrac{1}{2\pi}\int_0^{2\pi}U^{\mu}(z_0+re^{i\theta})d\theta &= \dfrac{1}{2\pi} \int_0^{2\pi}\int \ln\dfrac{1}{|z_0+re^{i\theta}-s|}d\mu(s)d\theta \\
+& = \int \dfrac{1}{2\pi} \int_0^{2\pi}\ln\dfrac{1}{|z_0+r^{i\theta} - s|}d\theta d\mu(s) \\
+& \leq \int \ln \dfrac{1}{|z_0-s|} d\mu(s) \\ & = U^{\mu}(z_0)
+\end{aligned}
+\]
+when $z_0 \in$
+\end{proof}
+
+\subsection*{Exercise 0.3}In our study of equilibrium measures we will associate with a function $V:\R \to \R\cup\{+\infty\}$ a probablity measure $\mu$ on $\R$ and a constant $l$ such that
+\[
+\begin{aligned}
+    2U^{\mu}+V &= l,\quad\text{on the support of }\mu\\
+    2U^{\mu}+V&\geq l,\quad\text{on }\R
+\end{aligned}
+\]
+Suppose that $\mu$ is a probability measure satisfying the equations above for some constant $l$. Let $x_0$ be a point where $V$ assumes its minimum on $\R$, prove that $x_0 \in \text{supp}(\mu)$.
+\begin{proof}
+   If $x\notin \text{supp}(\mu)$, we know there exists $\epsilon >0 $ such that $\mu((x_0-\epsilon,x_0+\epsilon)) = 0$ and we will know
+   \[
+   2U^{\mu}(x_0) + V(x_0)
+   \] 
+\end{proof}
+
+\addappheadtotoc
+
+\end{document}

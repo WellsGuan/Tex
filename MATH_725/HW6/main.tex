@@ -1,0 +1,181 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework06 - MATH 725}
+\author{Boren(Wells) Guan}
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\dstrb}[1]{\lambda_{#1}}
+\newcommand{\Sch}{\mathcal{S}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+
+\subsection*{Section 8.4 Ex.25} 
+For $0<\alpha\leq 1$, let $\Lambda_{\alpha}(\mathbb{T})$ be the space of Holder continuous functions on $\mathbb{T}$ of exponent $\alpha$. Suppose $1<p<\infty$ and $p^{-1}+q^{-1} = 1$.\par
+a. If $f$ satisfies the hypotheses of Them 8.33, then $f\in \Lambda_{1/q}(\mathbb{T})$, but $f$ need not lie in $\Lambda_{\alpha}(\mathbb{T})$ for any $\alpha > 1/q$.\par
+b. If $\alpha < 1$, $\Lambda_{\alpha}(\mathbb{T})$ contains functions that are not of bounded variation and hence are not abosolutely continuous.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. If suffices to show that
+\[\sup_{x,y\in\mathbb{T},x\neq y}\dfrac{|f(x)-f(y)|^q}{|x-y|} < \infty\]
+We may assume $x<y$ and then we know
+\[
+|f(x)-f(y)|^q = |\int_x^y f'(t)dt|^q \leq ||f'||_p^q||\chi_{[x,y]}||_q^q = ||f'||_p^q|x-y|
+\]
+by the Fundamental Theorem of Calculus and the Holder's inequality, so we have
+\[
+\dfrac{|f(x)-f(y)|^q}{|x-y|} \leq ||f'||_p^q < \infty
+\]
+and hence $f\in \Lambda_{1/q}(\mathbb{T})$.\par
+We may assume $\phi(x) = (\sum\limits_{k\geq 0}2^{-2k}x^{-1+2^{-k}})^{1/p}$ which convereges on $(0,1]$, then define $f(x) = \int_0^x \phi(t)dt$, which is easy to be checked finite and since $\phi\in L^p$, we know $f\in\Lambda_{1/q}(\mathbb{T})$, but for $\alpha > 1/q$, we assume $\alpha < 1$ firstly and we let $K$ such that $(-1+2^{-K})\alpha'/p < -1$ where $\alpha'$ is the conjugate exponent of $\alpha^{-1}$. We have
+\[
+\dfrac{|f(x)|}{|x|^{\alpha}} = \dfrac{\int_0^x \phi(t)dt}{x^{\alpha}} \geq \dfrac{\int_0^x t^{(-1+2^{-K})/p} dt}{x^{\alpha}} = (1+(-1+2^{-K})/p)^{-1}x^{1+(-1+2^{-K})/p-\alpha}
+\]
+where we know $1+(-1+2^{-K})/p - \alpha < 0, (1+(-1+2^{-K}/p))>0$ and hence
+\[
+\sup_{x>0}\dfrac{|f(x)|}{|x|^{\alpha}} = \infty
+\]
+so $f\notin \Lambda_{\alpha}$ for any $\alpha > 1/q$.\par
+b. Let $f(x) = \sum_{n\geq 0}K^{-n\alpha}\cos(\pi (K^n x))$ and let $\pi_k = \{t_i = i/K^{-k}\}_0^{K^k}$ a partition where $K$ is an odd integer and $\alpha < 1$, then we know
+\[
+\begin{aligned}
+|f(t_i)-f(t_{i-1})| &= |\sum_{n\geq 0} K^{-n\alpha}[\cos(\pi (K^{n-k}i))-\cos(\pi(K^{n-k}(i-1)))]| \\
+&= |\sum_{j=0}^k K^{-j\alpha}[\cos(\pi(K^{j-k}i))-\cos(\pi(K^{j-k}(i-1)))]|\\
+&\geq 2\cdot K^{-k\alpha} - \pi\sum\limits_{j=0}^{k-1}(K^{j(1-\alpha)-k})
+\geq 2\cdot K^{-k\alpha}-\pi\dfrac{K^{-k\alpha }}{K^{1-\alpha}-1} = cK^{-k\alpha} 
+\end{aligned}
+\]
+where choose $K$ large sufficiently such that $c = 2-\pi/(K^{1-\alpha}-1)>0$, then
+\[
+\sum\limits_{i=1}^{K^k}|f(t_i)-f(t_{i-1})| \geq cK^{k(1-\alpha)} \to \infty, k\to\infty
+\]
+and hence $f$ is not bounded variation. For any $\alpha<1$, we know for any $x<y, |x-y|\leq 1$
+\[
+\begin{aligned}
+\dfrac{|f(x)-f(y)|}{|x-y|^{\alpha}} &\leq \sum\limits_{n\geq 0}K^{-n\alpha}|\dfrac{\cos(\pi(K^nx))-\cos(\pi(K^ny))}{|x-y|^{\alpha}}| \\ &= \sum\limits_{n\geq 0}|\dfrac{\cos(\pi(K^nx))-\cos(\pi(K^ny))}{|K^n x-K^n y|^{\alpha}}| \\
+& \leq \pi\sum\limits_{n = 0}^M|K^{n}x-K^n y|^{1-\alpha} + \pi \sum\limits_{n\geq M} \dfrac{2}{|K^nx-K^ny|^{\alpha}} \\
+&= \pi\Big(|x-y|^{1-\alpha}\sum\limits_{n = 0}^M [K^{1-\alpha}]^n + 2\dfrac{1}{|x-y|^{\alpha}} \sum\limits_{n\geq M}(K^{-\alpha})^n\Big) \\
+&\leq \pi\Big(|x-y|^{1-\alpha}\dfrac{(K^{1-\alpha})^{M+1}}{K^{1-\alpha}-1} + 2\dfrac{K^{-M\alpha}}{|x-y|^{\alpha}(1-K^{-\alpha})} \Big)
+\end{aligned}
+\]
+for any integer $M$, so we may choose $M$ such that $ K|x-y|^{-1} \geq K^{M} \geq |x-y|^{-1}$ and we will have
+\[
+\dfrac{|f(x)-f(y)|}{|x-y|^{\alpha}} \leq \pi\Big(\dfrac{K^{1-\alpha}}{K^{1-\alpha}-1}K + \dfrac{2}{1-K^{-\alpha}}\Big) < \infty
+\]
+and notice $f$ is bounded, so we know if suffices to show
+\[
+\sup_{|x-y|\leq 1, x\neq y, x,y\in[0,1]}\dfrac{|f(x)-f(y)|}{|x-y|^{\alpha}} <\ infty\]
+and we are done.
+\prvd
+
+\subsection*{Section 8.5 Ex.34} 
+If $D_m$ is the $m$th Dirichlet kernel, then $||D_m||_1 \to \infty$ as $m\to\infty$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+We know
+\[
+\begin{aligned}
+\lim_{m\to\infty}||D_m||_1 &= \lim_{m\to\infty}\int_0^1 \Big|\dfrac{\sin (2m+1)\pi x}{\sin\pi x}\Big| dx = \lim_{m\to\infty}\dfrac{1}{\pi}\int_0^{(2m+1)\pi} \Big|\dfrac{\sin y}{(2m+1)\sin y/(2m+1)}\Big| dy \\ &\geq \lim_{m\to\infty}\dfrac{1}{\pi}\int_0^{(2m+1)\pi} \Big|\dfrac{\sin y}{y}\Big| dy = \infty
+\end{aligned}
+\]
+by the Ex 59.a on the Page 77, Folland.
+\prvd
+\vspace{0.5em}
+
+\subsection*{Section 8.5 Ex.35} 
+a. Define $\phi_m(f) = S_mf(0)$. Then $\phi_m\in C(\mathbb{T})^*$ and $||\phi_m|| = ||D_m||_1$.\par
+b. The set of all $f\in C(\mathbb{T})$ such that the sequence $\{S_mf(0)\}$ converges is meager in $C(\mathbb{T})$.\par
+c. There exists $f\in C(\mathbb{T})$ such that $\{S_mf(x)\}$ diverges for every $x$ in a dense subset of $\mathbb{T}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+a. For $f,g\in C^{\mathbb{T}}$, we know
+\[
+\phi_m(f+\lambda g) = S_m(f+\lambda g)(0) = (f+\lambda h)*D_m(0) = f*D_m(0) + \lambda g*D_m(0) = \phi_m(f)+\lambda \phi_m(g)
+\]
+for any $\lambda \in \C$ and
+\[
+|\phi_m(f)| = |f*D_m(0)| \leq ||f||_u||D_m||_1
+\]
+by the Holder's inequality and hence $\phi_m \in C(\mathbb{T})^*$.\par
+Let $f(x) = sgn(D_m(-x))$ on $\mathbb{T}$, then we know $||f||_u = 1$ and
+\[
+|\phi_m(f) = |\int_{\mathbb{T}} sgn(D_m(-y))D_m(-y) dy| = ||D_m||_1
+\]
+and hence $||\phi_m|| = ||D_m||_1$.\par
+b. Consider if the set is nonmeager, then we know $\sup_{m\geq 0}||\phi_m(f)|| = \sup_{m\geq 0}||S_mf(0)|| < \infty$ for all $f$ in the set, since $S_mf(0)$ converges. Then by the Uniform Boundedness Principle, we know $\sup_{m\geq 0}||\phi_m|| < \infty$, which is contradictory to that $\lim_{m\to\infty} ||\phi_m|| = \lim_{m\to\infty} ||D_m||_1 = \infty$. Therefore, the set has to be meager.\par
+c. Denote the $E_x$ the set of all $f\in C(\mathbb{T})$ such that $\{S_mf(x)\}$ converges. Then we know $\tau_xE_x = E_0$, notice for a nowhere dense subset $F$ of $C(\mathbb{T})$, $\tau_yF$ is nowhere dense and hence $E_x$ is meager for any $x\in \mathbb{T}$. Then consider $\phi_{m,q} = S_mf(q), q\in\Q\cap\mathbb{T}, m\in \N$ and then we know
+\[
+\phi_{m,q}(f) = \phi_m(\tau_{-q}f)
+\]
+and hence $\phi_{m,q} \in C(\mathbb{T})^*$.\par
+Then we know for any $q\in\Q$, $E_q$ is meager and hence $\sup_{m\geq 0}||\phi_{m,q}(f)|| =\infty$ is not empty, so by the Ex.40 at Page 165,Folland, there exists $f$ such that $\sup_{m\geq 0}||\phi_{m,q}(f)|| =\infty$ for any $q\in\Q\cap\mathbb{T}$.
+\prvd
+
+\subsection*{Section 8.5 Ex.36}
+The Fourier transform is not surjective from $L^1(\mathbb{T})$ to $C_0(\Z)$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    We have already know $\mathcal{F}:L^1(\mathbb{T}) \to C_0(\Z)$ is a continuous map by the Young's inequality, if $\mathcal{F}(L^1(\mathbb{T})) = C_0(\Z)$, then $\mathcal{F}$ becomes a surjective continuous linear map and hence open by the Open Mapping Theorem. Then we may find $C$ constant such that for any $f\in L^1(\mathbb{T})$, $||f||_1 \leq C||\hat{f}||_u$, consider $D_m$, then it should be
+    \[
+    ||D_m||_1 \leq C||\hat{D_m}||_u = C
+    \]
+    since
+    \[
+    \hat{D_m}(k) = \int D_m(x) e^{-2\pi i kx}dx = \sum_{-m}^m \langle E_{\kappa},E_k\rangle = \begin{cases}
+    1\quad\text{if }k\in[-m,m] \\
+    0\quad\text{if }k\notin[-m,m] 
+    \end{cases}
+    \]
+    which is a contradiction by Ex.34.
+\prvd
+
+\subsection*{Section 8.6 Ex.39}
+If $\mu$ is a positive Borel measure on $\mathbb{T}$ with $\mu(\mathbb{T})=1$, then $|\widehat{\mu}(k)| < 1$ for all $k\neq 0$ unless $\mu$ is a linear combination, with nonnegative cofficients of the point masses at $\dfrac{\alpha}{m},\dfrac{\alpha+1}{m},\cdots,\dfrac{m+\alpha-1}{m}$ for some integer $m, \alpha \in [0,1)$, in with case $\widehat{\mu}(jm) = e^{-2\pi ij\alpha}$ for all $j\in\Z$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    Here we know
+    \[
+    ||\widehat{\mu}||_u \leq ||\mu|| = 1
+    \]
+    and also
+    \[
+    |\widehat{\mu}(\xi)| = |\int_{\mathbb{T}} e^{-2\pi i \xi \cdot x} d\mu(x)| \leq \int_{\mathbb{T}}|e^{-2\pi i \xi \cdot x}|d\mu(x) = 1 
+    \]
+    and the equality can be reached iff $\alpha e^{-2\pi i \xi\cdot x}$ is nonnegative real number a.e. on $\mathbb{T}$, where $\alpha = \overline{sgn(\hat{\mu}(\xi))}$ and hence it is $1$. So if $|\widehat{\mu}(k)| = 1$ for some $k\neq 0$, assume $sgn(\hat{\mu}(k)) = e^{2\pi i a}$ for some $a\in[0,1)$ and we know
+    \[
+    e^{2\pi i(a - k \cdot x)} = 1
+    \]
+    almost everywhere on $\mathbb{T}$, which means $\mu(\{x \neq (m+a)/k\text{ for some }m\in\Z\}) = 0$, which means
+    \[\mu(\Big(\bigcup_{q\in\Z}\{x = \dfrac{q+sgn(k)a}{|k|}\}\Big)\cap\mathbb{T}) = 1\]
+    and hence $\mu$ is a linear combination with nonnegative coefficients of the point masses at \[\dfrac{\alpha}{m},\dfrac{\alpha+1}{m},\cdots,\dfrac{m+\alpha-1}{m}\] if $k>0,\alpha > 0$ or at \[\dfrac{1-\alpha}{m},\dfrac{1-\alpha}{m},\cdots,\dfrac{m+\alpha-1}{m}\] if $k<0,\alpha > 0$ or at \[0,\dfrac{1}{m},\cdots,\dfrac{m-1}{m}\] if $\alpha = 0$, where $m = |k|$. Assume we $\mu$ is the linear combination required, we know
+    \[
+    \widehat{\mu}(jm) = \int e^{-2\pi i jm\cdot x}d\mu(x) = e^{-2\pi i j \alpha}\mu(\mathbb{T}) = e^{-2\pi i j \alpha}
+    \]
+\addappheadtotoc
+
+\end{document}
