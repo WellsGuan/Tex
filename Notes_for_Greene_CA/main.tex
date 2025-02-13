@@ -1396,4 +1396,191 @@ If $f:\C-\{0\} \to \C$ is a holomorphic function, and if $\gamma_r$ describes th
     By theorem 7.4.2, it is easy to check that $h$ has the SCMV property.
 \end{proof}
 
+\begin{definition}
+    An infinite product
+    \[
+    \prod_{j=1}^{\infty} (1+a_j)
+    \]
+    is said to converge if\par
+    a. only a finite number $a_{j_1},\cdots,a_{j_k}$ equal to 1\par
+    b. if $N_0>0$ is so large that $a_j\neq 1$ for $j>N_0$, then
+    \[
+    \lim_{N\to\ infty} \prod_{j= N_0+1}^N (1+a_j)
+    \]
+    exists and is nonzero. If $\prod_{j\geq 1} (1+a_j)$ converges, then we define its value to be
+    \[
+    \prod_{j=1}^{N_0}(1+a_j) \lim_{N\to\infty}\prod_{j=N_0+1}^N (1+a_j)
+    \]
+\end{definition}
+
+\begin{lemma}
+    If $0\leq x < 1$, then
+    \[1+x \leq e^x \leq 1+2x\]
+\end{lemma}
+\begin{proof}
+    Notice
+    \[1+x \leq e^x \leq 1+x+x(\sum\limits_{j\geq 2}\dfrac{1}{j!}) \leq 1+2x\]
+\end{proof}
+
+\begin{corollary}
+    If $a_j \in \C, |a_j| < 1$, then the partial product $P_N$ for $\sum\limits_{j=1}^{\infty}(1+|a_j)$
+    satisfies
+    \[
+    e^{\dfrac{1}{2}\sum\limits_{j=1}^N|a_j|} \leq  P_N \leq e^{\sum\limits_{j=1}^N|a_j|}
+    \]
+\end{corollary}
+
+\begin{corollary}
+    If $\sum\limits_{j=1}^{\infty} |a_j| < \infty $, then $\prod_{j\geq 0}(1+|a_j|)$ converges.
+\end{corollary}
+\begin{proof}
+    We know $P_N \leq e^{\sum\limits_{j\geq 1}|a_j|}$ and increasing.
+\end{proof}
+
+\begin{corollary}
+    If $\prod_{j\geq 0}(1+|a_j|)$ converges, then $\sum\limits_{j\geq 0}|a_j|$ converges.
+\end{corollary}
+
+\begin{lemma}
+    Let $a_j \in \C$ and $P_N = \prod\limits_{j=1}^N (1+a_j), \tilde{P}_N = \prod\limits_{j=1}^N(1+|a_j|)$ then
+    \[|P_N - 1| \leq \tilde P_N - 1\]
+\end{lemma}
+Expansion will be fine.
+
+\begin{theorem}
+    If the infinite product
+    \[ \prod_{j\geq 1}(1+|a_j|)\]
+    converges, then so dose
+    \[ \prod_{j\geq 1}(1+a_j)\]
+\end{theorem}
+\begin{proof}
+    We know $\lim |a_j| \to 0$, so we can find a $N_0$ such that $a_j\neq 1$ for $j > N_0$.\par
+    Let $Q_J = \prod_{j=N_0+1}^{J}(1+a_j),\tilde{Q}_J = \prod_{j=N_0+1}^{J}(1+|a_j|)$ and we know
+    \[
+    |Q_M - Q_N| \leq |Q_N||\prod_{j=N+1}^M(1+|a_j|)-1| \leq |\tilde{Q}_N|||\prod_{j=N+1}^M(1+|a_j|)-1| = |\tilde{Q}_M-\tilde{Q}_N|
+    \]
+    then we know $Q_N$ converges and since $\lim_{M,N\to\infty} \prod_{j=1+N}^M (1+|a_j|) = 1$ are the rest is easy to be checked.
+\end{proof}
+
+\begin{corollary}
+    If $\sum\limits_{j\geq 1} |a_j| < \infty$, then $\prod_{j\geq 1}(1+a_j)$ converges.
+\end{corollary}
+
+\begin{theorem}
+    Let $U\subset \C$ be open. Suppose that $f_j : U\to\C$ are holomorphic and that
+    \[\sum\limits_{j\geq 1}|f_j|\]
+    converges uniformly on compact sets. Then the sequence of partial products
+    \[F_N(z) = \sum\limits_{j=1}^N(1+f_j(z))\]
+    converges uniformly on compact sets. In particular, the limit of these partial products defines a holomorpphic function $F$ on $U$.\par
+    The function vanished at a point $z_0$ if and onlt if $f_j(z_0) = -1$ for some $j$. The multiplicity of the zero at $z_0$ is the sum of multiplicities of the zeros of the functions $(1+f_j)$ at $z_0$.
+\end{theorem}
+\begin{proof}
+    For any $K\subset U$ compact, we know
+    \[\sum\limits_{j\geq 1}(1+|f_j|)\]
+    are uniformlybounded on $K$ by $e^C$ where $C \geq \sum\limits_{j\geq 1}|f_j|$. For $0<\epsilon < 1$, we may choose $L$ such that
+    \[
+    \sum\limits_{j=N}^M |f_j(z)| < \epsilon
+    \]
+    for all $z\in K$ for any $M>N>L$ and 
+    \[
+    |F_M-F_N| \leq |F_N||\sum\limits_{j=N+1}^{M}(1+|f_j|)-1| \leq e^C(e^{\epsilon} - 1)
+    \]
+    and hence $F_N$ is uniformly Cauchy.\par
+    Suppose $F(z_0) = 0$ and we can find $j_0$ such that $\lim_{N\to\infty} \prod_{j_0+1}^N(1+f_j(z_0)) \neq 0$ and since the limit is holomorphic, we know it is nonzero on some neighborhood $V$ of $z_0$ so we may use the integral for zeros on $V$.
+\end{proof}
+
+\begin{definition}
+    For $0\leq p \in \Z$ define
+    \[E_p(z)  = (1-z)\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j})\]
+\end{definition}
+\begin{lemma}
+    If $|z|\leq 1$, then
+    \[|1-E_p(z)| \leq |z|^{p+1}\]
+\end{lemma}
+\begin{proof}
+    We assume $p\geq 1$ and 
+    \[
+    E_p(z) = 1 + \sum\limits_{n\geq 0} b_n(z)
+    \]
+    and we know
+    \[
+    E'_p(z) = -\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j}) + (1-z)(1+z+z^2+\cdots+z^{p-1})\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j}) = -z^p\exp(\sum\limits_{j=1}^p \dfrac{z^j}{j})
+    \]
+    and hence $b_1 = b_2 = \cdots = b_p = 0$ and $b_{p_k} \leq 0$, then we know
+    \[
+    1 + \sum\limits_{n = p+1}^{\infty} b_n= E_p(1) = 0
+    \]
+    and hence
+    \[
+    \sum\limits_{n\geq p+1} |b_n| = 1 
+    \]
+    and for $|z|\leq 1$,
+    \[
+    |E_p(z) - 1| = |\sum\limits_{n=p+1}^{\infty} b_n z^n|
+    \]
+    then for $|z|\leq 1$, we know
+    \[
+    |E_p(z) - 1| \leq |z|^{p+1}\sum\limits_{n\geq p+1}|b_n||z|^{n-p-1} \leq |z|^{p+1}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Let $\{a_j\}_{j=1}^{\infty}$ be a sequence of nonzero complex numbers with no accumulation point in the complex plane. If $\{p_j\}$ are poistive integers that satisfy
+    \[\sum\limits_{n=1}^{\infty}\Big(\dfrac{r}{|a_n|}\Big)^{p_n+1} < \infty\]
+    for every $r>0$, then the inifinite product
+    \[\prod_{n=1}^{\infty}E_{p_n}\Big(\dfrac{z}{a_n}\Big)\]
+    converges uniformly on compact subsets of $\C$ to an entire function $F$. The zeros of $F$ are precisely the points $\{a_j\}$ counted with multiplicity.
+\end{theorem}
+\begin{proof}
+    For a given $r>0$, there is an $N>0$ such that for $n\geq N$, we have $|a_n| > r$. Thus, for all $n \geq N$ and $z\in \overline{D}(0,r)$, then we know
+    \[
+    \Big|E_{p_n}\Big(\dfrac{z}{a_n}\Big) - 1\Big| \leq \Big|\dfrac{z}{a_n}\Big|^{p_n+1} \leq \Big|\dfrac{r}{a_n}\Big|^{p_n+1}
+    \]
+    and hence
+    \[
+    \sum\limits_{n=N}^{\infty} \Big|E_{p_n}\Big(\dfrac{z}{a_n}\Big) - 1\Big| < \infty
+    \]
+    and by theorem 1.41. we know the infinite product converges uniformly on $\C$.
+\end{proof}
+
+\begin{corollary}
+    Let $a_n$ be any sequence in the plane with no finite accumulation point. Then there exists an entire function $f$ with zero set precisely equal to $\{a_n\}_{n=1}^{\infty}$.
+\end{corollary}
+\begin{proof}
+    Assume $a_1 = a_2 = \cdots = a_m = 0$ and $|a_{n}| > 0$ for $n > k$, then we know
+    \[
+    z^m \prod_{n = m+1}^{\infty}E_{n-1}\Big(\dfrac{z}{a_n}\Big)
+    \]
+    will be fine.
+\end{proof}
+
+\begin{theorem}
+    (Weierstrass factorization theorem) Let $f$ be an entire function. Suppose that $f$ vanished to order $m$ at $0, m\geq 0$. Let $\{a_n\}$ be the other zeros of $f$, listed with multiplicities. Then there is an entire function $g$ such that
+    \[
+    f(z) = z^m e^{g(z)} \prod_{n=1}^{\infty}E_{n-1}\Big(\dfrac{z}{a_n}\Big)
+    \]
+\end{theorem}
+
+\begin{proposition}
+    Let $K\subset \C$ be compact and let $U$ be an open set containing $K$. If $f$ is holomorphic on $U$ and $\epsilon > 0$, then there is a rational function $r(z)$ with all its pole in $\C- K$, with simple poles only and limit $0$ at $\infty$, such that
+    \[
+    \sup_{z\in K}|f(z)-r(z)| < \epsilon
+    \]
+\end{proposition}
+\begin{proof}
+    We may assume that $U$ is bounded and let
+    \[
+    \sigma = \inf\{|z-w|, z\in K, w\in \C-U\} > 0
+    \]
+    then choose $N$ such that $2^{-N+1} < \sigma$ and we may consider the $2^{-N}$ square partition of $\C$ and consider all the squares with joint with $22K$,
+\end{proof}
+
+
+\begin{theorem}
+    (Runge) Let $K\subset\C$ be compact. Let $f$ ne holomorphic on a neighbourhood of $K$. Suppose that $P$ is a subset of $\hat{\C}-K$ containing one point from each connected component of $\hat{C}-K$. Then for any $\epsilon >0$, there is a rational function $r(z)$ with poles in $P$ such that
+    \[
+    \sup_{z\in K}|f(z)-r(z)| < \epsilon
+    \]
+\end{theorem}
+ 
 \end{document}

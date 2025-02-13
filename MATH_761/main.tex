@@ -1,0 +1,141 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\Pf}[1]{$Proof.$\par}
+
+\declaretheoremstyle[name=Definiton,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{definition}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{theorem}
+
+
+\declaretheoremstyle[name=Lemma,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{lemma}
+
+\declaretheoremstyle[name=Corollary,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{corollary}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{Notes for Differential Manifold}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on the notes provided by Alex Waldron on MATH 761 2024 FALL} \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Author} \\ 
+		Wells Guan \\
+		 \\
+		}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+\section{Immersions, submersions, submanifolds}
+
+\subsection{The Inverse Function Theorem}
+
+\begin{theorem}(Inverse Function Theorem)\par
+    Let $F:M\to N$ be a smooth map and $p\in M$. Suppose $dF_p:T_pM\to T_{F(p)}N$ is an isomorphism. Then there exist neighborhoods $U_0$ of $p$ and $V_0$ of $F(p)$ such that $F|_{U_0}:U_0 \to V_0$ is a diffeomorphism.
+\end{theorem}
+
+\subsection{Locall Diffeomorphisms and Covering Maps}
+
+\begin{definition}(Local Diffeomorphism)\par
+    A smooth map $F:M\to N$ is called a \textbf{local diffeomorphism} if $dF_x$ is an isomorphism for all $x\in M$.
+\end{definition}
+
+\begin{definition}
+    A map $\pi:X\to Y$ between two topological spaces is called a covering map is every point $y\in Y$ there is a neighborhood $V$ that is evenly covered.
+\end{definition}
+
+\begin{proposition}
+    Let $F:M\to N$ be a local diffeomorphism which is \textbf{proper} (i.e. the inverse image of compact subset is compact) and assume $N$ is connected. Then $F$ is a covering map.
+\end{proposition}
+\Pf\par
+    The fiber is consisted of discrete points by local diffeomorphism, then we know it has to be finite, and then we may find the covering by choose finite intersection of neighborhoods of $b$. The connectness of $N$ secure $F$ to be surjective.
+
+\begin{proposition}
+    Suppose $\pi:X\to N$ is a covering map, with $N$ a smmoth manifold. There exists a unique smooth structure on $X$ such that $\pi$ is a local diffeomorphism.
+\end{proposition}
+
+\subsection{Immersions and Embeddings}
+
+\begin{definition}
+    A smooth map $F:M\to N$ is an \textbf{immersion} if $dF_x$ is injective for all $x\in M$.
+\end{definition}
+
+\begin{proposition}
+    Suppose $dF_p$ is injective. There exists a coordinate system on $N$ near $F(p)$ such that $F$ takes the form
+    \[F(x_1,\cdots,x_m) = (x_1,\cdots, x_m, 0,\cdots, 0)\]
+\end{proposition}
+
+\section{Vector Fields}
+
+\subsection{Integral Curves and Flows}
+
+\begin{definition}
+    Let $X\in\mathfrak{X}(M)$ and $J\subset \mathbb{R}$ an open interval. A path $\gamma:J\to M$ is said to be an integral curve of $X$ if
+    \[\gamma'(t) = X_{\gamma(t)}\]
+    for all $t\in J$.
+\end{definition}
+
+
+
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{References.bib}
+
+% ------------------------------------------------------------------------------
+
+\end{document}
