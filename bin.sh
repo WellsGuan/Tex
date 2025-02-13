@@ -14,3 +14,7 @@ do
     find . -name '*.toc' -delete
     find . -name '*.pdf' -delete
 done
+
+git add .
+git commit -m "Added New contents"
+git push origin main
