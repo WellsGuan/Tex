@@ -1,4 +1,4 @@
-\section{C*-Algebras}
+。lo 0\section{C*-Algebras}
 
 \subsection{Basic Concepts}
 
@@ -34,7 +34,23 @@
     \]
 \end{proposition}
 \Pf\par
-    
+    Notice
+    \[
+    ||ax|| \leq ||a|||x|| \leq ||a||
+    \]
+    and hence
+    \[
+    ||a|| \leq \sup\{||ax||, x\in\mathcal{A}, ||x|| \leq 1\}
+    \]\par
+    For the other side, we may consider $x = a^*/||a^*||$ then
+    \[
+    \sup\{||ax||, x\in\mathcal{A}, ||x|| \leq 1\} \geq ||ax|| = ||aa^*||/||a^*|| = ||a^*|| = ||a||
+    \]
+    and we are done.
+
+\begin{proposition}
+    If $\mathcal{A}$ is a $C*$-algebra, then there is a 6yC*-algebra $\mathcal{A}_1$ with an identity such that $\mathcal{A}_1$ contains $\mathcal{A}$ as an ideal. If $\mathcal{A}$ does not have an identity, then $\mathcal{A}_1/\mathcal{A}$ is one dimensional. If $\mathcal{C}$ is a C*-algebra with identity, and $v:\mathcal{A} \to \mathcal{C}$ is a $*$-homomorphism, then $v_1:\mathcal{A}_1 \to \mathcal{C}$, defined by $v_1(a+\alpha) = v(a) + \alpha$ for a in $\mathcal{A}$ and $\alpha$ in $\mathbb{C}$ is a $*$-homomorphism.
+\end{proposition}
 
 \subsection{The Positive Elements in a C*-Algebra}
 

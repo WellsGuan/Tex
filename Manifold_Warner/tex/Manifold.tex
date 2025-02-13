@@ -1,0 +1,39 @@
+\section{Manifolds}
+
+\subsection{Differentiable Manifolds}
+
+\begin{definition}
+    A \textbf{locally Euclidean space} $M$ of dimension $d$ is a Hausdorff topological space $M$ for which each point has a neighborhood homeomorphic to an open subset of Euclidean space $\mathbb{R}^d$. If $\phi$ is a homeomorphism of connected open set $U\subset M$ onto an open subset of $\mathbb{R}^d$, then it is called a \textbf{coordinate map} and the functions $x_i = r_i\circ \phi$ are called the \textbf{coordinate functions} and the pair $(U,\phi)$ is called a \textbf{coordinate system}. 
+\end{definition}
+
+\begin{definition}
+    A \textbf{differentiable structure} $\mathcal{F}$ of class $C^k$ on a locallt Euclidean space $M$ is a collection of coordinate systems $\{(U_{\alpha},\phi_{\alpha}):\alpha \in A\}$ satisfying
+    \begin{itemize}
+        \item $\bigcup_{\alpha \in A} U_{\alpha} = M$
+        \item $\phi_{\alpha} \circ \phi_{\beta}^{-1}$ is $C^k$ for all $\alpha,\beta \in A$
+        \item $\mathcal{F}$ is maximal, i.e. if $(U,\phi)$ is a coordinate system such that $\phi\circ \phi_{\alpha}^{-1}$ and $\phi_{\alpha} \circ \phi^{-1}$ are $C^k$ for all $\alpha \in A$, then $(U,\phi) \in \mathcal{F}$
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    If $\mathcal{F}_0$ is any collection of coordinate systems satisfying properties (i) and (ii), then there is a unique differentiable struture containing $\mathcal{F}_0$
+    \[\mathcal{F} = \{(U,\phi):\phi\circ\phi_{\alpha}^{-1}\text{ and }\phi_{\alpha}\circ\phi^{-1}\text{ are }C^k\text{ for all }(U_{\alpha},\phi_{\alpha}) \in \mathcal{F}_0\}\]
+\end{proposition}
+
+Here are some examples of differentiable manifolds. For a \textbf{finite dimensional real vector space} $V$, consider any basis $\{e_1,\cdots,e_n\}$ and then the canonical map induced by the basis from $V$ to $\mathbb{R}$ is a chart because of the uniqueness of the topology induced by coordinates.\par
+For $\mathbb{C}^n$, it is a real $2n$-dimensional veector space. For $S^d$, we may refer the stereographic projections.\par
+An open subset $U$ of a differentiable manifold $M$ is naturally a manifold because of
+\[\mathcal{F}_U = \{(U_{\alpha}\cap U, \phi_{\alpha}|_{U_{\alpha \cap U}}), (U_{\alpha},\phi_{\alpha}) \in \mathcal{F}_M\}\]
+will become a chart natrually.\par
+The \textbf{general linear group} $GL(n,\mathbb{R})$ is the set of all $n\times n$ non-singular real-matrices, which is an open subset of $\mathbb{R}^{n\times n}$.\par
+
+\begin{definition}(Product Manifolds)\par
+    Let $(M_1,\mathcal{F}_1)$ and $(M_2,\mathcal{F}_2)$ be differentiable manifolds of dimensions $d_1$ and $d_2$ respectively, then $M_1\times M_2$ will become a $d_1+d_2$-dimensional differentiable manifold naturally and the chart is given by
+    \[
+    \{(U_{\alpha} \times V_{\beta}, \phi_{\alpha} \times \psi_{\beta}):U_{\alpha} \times V_{\beta} \to \mathbb{R}^{d_1}\times\mathbb{R}^{d_2}, (U_{\alpha},\phi_{\alpha})\in \mathcal{F}_1, (V_{\beta},\psi_{\beta})\in \mathcal{F}_2\}
+    \] 
+\end{definition}
+
+\begin{definition}
+    Let $U\subset M$ be open. We call $f:U\to\mathbb{R}$ is a $C^{\infty}$ function on $U$ if $f\circ \phi^{-1}:\mathbb{R}^d \to \mathbb{R}$ is $C^{\infty}$ for each coordinate chart. A continuous map $\psi:M\to N$ is said to be differentiable of class $C^{\infty}$ if $g\circ \psi$ is a $C^{\infty}$ function on $\psi^{-1}(\text{Dom} g)$ for all $C^{\infty}$ functions $g$ defined on open sets in $N$. Equivalently, $\phi\circ \psi \circ \tau^{-1}$ is $C^{\infty}$ for each coordinate map $\tau$ and $\phi$ on $N$.
+\end{definition}

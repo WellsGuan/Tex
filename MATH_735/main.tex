@@ -1,0 +1,279 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\Pf}[1]{$Proof.$\par}
+\newcommand{\F}{\mathcal{F}}
+
+\declaretheoremstyle[name=Definiton,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{definition}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=subsection]{theorem}
+
+
+\declaretheoremstyle[name=Lemma,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{lemma}
+
+\declaretheoremstyle[name=Corollary,]{thmsty}
+\declaretheorem[style=thmsty,numberlike=theorem]{corollary}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{Notes for Stochastic Analysis}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on the notes provided by \\ Timo Seppalainen} \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Author} \\ 
+		Wells Guan \\
+		 \\
+		}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\section{Stochastic Process}
+
+\subsection{Path Spaces}
+
+\begin{definition}(Coordinate Variables and Shift maps)
+    On the path space $D$, the \textbf{coordinate variables} are defined by $X_t(\omega)$ = $\omega(t)$ for $\omega\in D$ and it can generate the natrual filtration $\F_t = \sigma(X_s, s\leq t)$.\par
+    The \textbf{shift maps} $\theta_s :D\to D$ are defined by $(\theta_s w)(t) = \omega(s+t)$, for an event $A \in \mathcal{B}_D$, the inverse image
+    \[\theta_s^{-1}(A) = {\theta_s\omega\in A}\]
+\end{definition}
+
+\begin{definition}(Markov Process)\par
+    An $\mathbb{R}^d$-valued Markov process is a collection $\{P^x, x\in \mathbb{R}^d\}$ of probability measures on $D$ such that
+    \begin{itemize}
+        \item $P^x(X_0 = x) = 1$.
+        \item For each $A\in\mathcal{B}_D$, $x\mapsto P^x(A)$ is measurable on $\mathbb{R}^d$.
+        \item $P^x[\theta_t^{-1}A|\F_t](\omega) = P^{X_t(\omega)}(A)$ for $P^x$-almost every $\omega$, any $x,A$.
+    \end{itemize}
+\end{definition}
+
+\subsection{Brownian Motion}
+
+\begin{definition}(Brownian Motion)\par
+    For a probability space $(\Omega,\F,P)$, let $\F_t$ be a filtration and $B = \{B_t, 0\leq t < \infty\}$ an adapted real-valued stochastic process. Then $B$ is a one-dimensional \textbf{Brownian motion} w.r.t. $\{\F_t\}$ if
+    \begin{itemize}
+        \item $t\mapsto B_t(\omega)$ is continuous for a.s. $\omega$.
+        \item For $0\leq s < t$, $B_t - B_s$ is independent of $\F_s$ and has normal distribution with mean zero and variance $t-s$.
+        \item If $B_0 = 0$ a.s., then call $B$ a standard BM.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    The second property is equivalent with
+    \[
+    E[Zh(B_t-B_s)] = E(Z)\cdot \dfrac{1}{\sqrt{2\pi(t-s)}}\int_{\mathbb{R}} h(x) \exp\left\{-\dfrac{x^2}{2(t-s)}\right\}dx
+    \]
+    for some any bounded r.v. $Z \in \F_s$ and bounded borel function $h$.
+\end{proposition}
+\Pf\par
+We know for any $h = \chi_B, Z = \chi_D$, $B$ is Borel and $D \in \F_s$, the equality holds. Then we may use the DCT to obtain the conclusion.
+
+\begin{proposition}
+    The Brownian motion has stationary, independent increments.
+\end{proposition}
+
+\begin{definition}(Multi-dimensional BM)\par
+    A $d$-dimensional standard Brownian motion is an $\mathbb{R}^d$-valued process $B_t = (B_t^1,\cdots,B_t^d)$ with the property that each component $B_t^i$ is a one-dimensional standard Brownian motion and coordinates $B_1,B_2,\cdots,B_d$ are independent.
+\end{definition}
+
+\begin{theorem}
+    There exists a Borel probability measure $P^0$ on the path space $C = C_{\mathbb{R}}[0,\infty)$, which is metrized by
+    \[r(\eta,\xi) = \sum\limits_{k=1}^{\infty}2^{-k}(1\wedge \sup_{0\leq t \leq k} |\eta - \xi|)\]
+    such that $B$ the coordinate process on $(C,\mathcal{B}_C, P^0)$ is a standard one-dimensional Brownian motion w.r.t. $\{\F_t^B\}$.
+\end{theorem}
+
+\begin{proposition}
+    Suppose $B = \{B_t\}$ is a Brownian motion w.r.t. $\{\F_t\}$ on $(\Omega,\F,P)$. Then $B_t$ and $B_t^2 - t$ are martingales w.r.t. $\F_t$.
+\end{proposition}
+\Pf\par
+    We know for $0\leq s <t$,
+    \[E(B_t|\F_s) = E(B_t-B_s+B_s|\F_s) = B_s\]
+    and
+    \[
+    E(B_t^2 -t|\F_s) = E((B_t-B_s)^2 -B_s^2 + 2B_tB_s -t|\F_s) = B_s^2 - s
+    \]
+
+\begin{proposition}
+    Suppose $B = \{B_t\}$ is a Brownian motion w.r.t. $\{\F_t\}$ on $(\Omega,\F,P)$.\par
+    \begin{itemize}
+        \item We can assume that $\F_t$ contains every set $A$ for which there exists $N\in \F$ such that $A\subset N$ and $P(N) =0$. Furthermore, $B= \{B_t\}$ is also a Brownian motion w.r.t. $\{\F_{t^+}\}$.
+        \item Fix $s\in \mathbb{R}_+$ and define $Y_t = B_{s+t}-B_s$, then $Y$ is independent of $\F_{s+}$ and it is a standard Brownian motion w.r.t. $\mathcal{G} = \{\mathcal{G}_{t} = \F_{(s+t)+}\}$.
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    It remains to check that $B_t - B_s$ is independence of $\overline{F}_{s}$. For any $G \in \overline{F}_{s}$, there exists $A$ such that $P(A\triangle G) = 0$ and hence $P(GB) = P(AB) = P(A)P(B) = P(G)P(B)$ for any $B\in \sigma(B_t-B_s)$ and we are done.\par
+    For any $Z\in \F_{s+}$ bounded and $h$ Borel bounded, we have for any $0\leq s < s' <t$,
+    \[E[Zh(B_t-B_s')] = E(Z)\cdot\dfrac{1}{\sqrt{2\pi(t-s')}}\int h(x)\exp\left\{-\dfrac{x^2}{2(t-s')}\right\}dx\]
+    and use DCT to let $s'\to s$ and we are done.\par
+    The rest part is easy to be checked.
+
+\begin{lemma}
+    Suppose $X$ is a right-continuous process adapted to a filtration $\{\F_t\}$ and for all $s<t$ the increment $X_t-X_s$ is independent of $\F_s$, then $X_t - X_s$ is independent of $\overline{\F}_{s+}$.
+\end{lemma}
+
+\begin{definition}(Path Space)\par
+    In the following part, we will consider the path space $C$
+and the coordinate process $B_t(\omega) = \omega(t)$ and the filtration $\F_t^B$ generated by $B$. For any $x$ there exists a probability measure $P^x$ such that $B$ is a Brownian motion started at $x$. Expectation under $P^x$ is denoted by $E^x$. 
+\end{definition}
+\Pf\par
+We know $\omega \mapsto x+\omega$ is a homeomorphism on $C$ and hence we may define $P^x(A) = P^0(-x+A)$ and then $P^x(B_0 = x) = P^0(-x+\{B_0 = x\}) = P^0(\{B_0 = 0\}) = 1$. The rest is similar to be checked.
+
+\begin{definition}(Shift map)\par
+    The shift maps $\{\theta_s: 0 \leq s < \infty\}$ defined by $(\theta_x \omega)(t) = \omega(s+t)$, the shift acts on $B$ is defined by $\theta_sB = \{B_{s+t}, t\geq 0\}$.
+\end{definition}
+
+\begin{proposition}
+    Let $H$ be a bounded $\mathcal{B}_C$-measurable function on $C$.\par
+    \begin{itemize}
+        \item $E^x[H]$ is a Borel measurable function of $x$.\par
+        \item For each $x\in \mathbb{R}$
+            \[E^x[H\circ \theta_s|\F_{s+}^B](\omega) = E^{B_s(\omega)}[H]\quad\text{ for }P^x-\text{ almost every }\omega\] 
+    \end{itemize}
+    In particular, $\{P^x\}$ on $C$ is a Markov process w.r.t. $\F_t^B$. 
+\end{proposition}
+
+\section{Martingales}
+
+\subsection{Basic Conclusions}
+
+\begin{proposition}\ \par
+    \begin{itemize}
+        \item If $M$ is a martingale and $\phi$ is a convex function such that $\phi(M_t)$ is integrable for all $t\geq 0$, then $\phi(M_t)$ is a submartingale.
+        \item If $M$ is a submartingable and $\phi$ a decreassing convex function such that $\phi(M_t)$ is integrable for all $t\geq 0$, then $\phi(M_t)$ is a submartingale.
+    \end{itemize}
+\end{proposition}
+\Pf\par
+We only need to consider $S_{\phi} = \{l(x) = ax+b, l(x) \leq \phi(x)\text{ for any }x\}$ and $\phi(x) = \sup_{l \in S_{\phi}} l(x)$, then
+\[E(\phi(M_t)|\F_s) = E(\sup l(M_t)|\F_s) \geq \sup l(E(M_t|\F_s)) = \phi(M_s)\]
+and for $M$ is submartingale, we have
+\[E(\phi(M_t)|\F_s) = E(\sup l(M_t)|\F_s) \geq \sup l(E(M_t|\F_s)) = \phi(E(M_t|\F_s)) \geq \phi(M_s)\]
+
+\begin{definition}(Uniformly Integrable)\par
+    Let $\{X_{\alpha}\}_{\alpha \in A}$ be a collection of random variables, call them \textbf{uniformly integrable} if
+    \[\lim_{M\to\infty} \sup_{\alpha \in A} E[|X_{\alpha}|;|X_{\alpha}|\geq M] = 0\] 
+\end{definition}
+
+\begin{lemma}
+    Let $X$ be an integrable random variable, then $\{E(X|\mathcal{A})\}_{\mathcal{A} \subset \F\text{ sub-}\sigma\text{-algebra}}$ is uniformly integrable.
+\end{lemma}
+\Pf\par
+    Recall that if $X$ is integrable, we may know that $E(|X|;|X|\geq M) \to 0$ with $M\to\infty$, and $P(|X|\geq M) \to 0$, so for any $\epsilon >0$, we may choose $M$ such that $E(|X|;|X|\geq M) < \epsilon/2$ and then $\delta = \epsilon/2M$ will satisfy that for any $A, P(A) < \delta$, $E(|X|;A) < \epsilon$.\par
+    With the fact above, we know that since
+    \[|E(X|\mathcal{A})| \leq E(|X||\mathcal{A})\]
+    then
+    \[P(|E(X|\mathcal{A})| \geq M) \leq M^{-1}E(|E(X|\mathcal{A})|) \leq M^{-1}E|X|\]
+    and for any $\epsilon > 0$, let $M$ such that $M^{-1}E|X| < \delta$, then
+    \[E(|E(X|\mathcal{A})|;|E(X|\mathcal{A})| \geq M) \leq E(|X|; |E(X|\mathcal{A})| \geq M) < \epsilon\]
+    and we are done.
+
+\begin{lemma}
+    Suppose $X_n\to X$ in $L^1$, for any sub-$\sigma$-algebra $\mathcal{A} \subset \F$, there exists $\{n_j\}$ such that $E[X_{n_j}|\mathcal{A}] \to E[X|\mathcal{A}]$ a.s.
+\end{lemma}
+\Pf\par
+    It suffices to show that $E(X_n|\mathcal{A}) \to E(X|\mathcal{A})$ in $L^1$, which is because
+    \[E(\left|E(X_n|\mathcal{A})-E(X|\mathcal{A})\right|) = E(|E(X_n-X|\mathcal{A})|) \leq E|X_n-X|\]
+    and we are done.
+
+\begin{proposition}
+    Suppose $M$ is a right-continuous submartingale w.r.t. a filtration $\{\F_t\}$, then $M$ is a submartingale also w.r.t. $\{\F_{t+}\}$.
+\end{proposition}
+\Pf\par
+    To show this conclusion, we shall consider $M\vee c$ is a submartingale and then \[E[M_t\vee c|\F_{s+}] \geq E[M_{s+n^{-1}}\vee c |\F_{s+}]\]
+    for some $n$, since $M_{s+n^{-1}}\vee c \to M_s \vee c$, then by lemma 2.1.2, we will have this is also a convergence in $L^1$ and hence we will find a subsequence such that $E(M_{s+n_j^{-1}}\vee c|\F_{s+}) \to E(M_s\vee c|\F_{s+})$ and we have
+    \[E[M_t\vee c|\F_{s+}] \geq M_s\]
+    and let $c\to \infty$, we are done.
+
+\begin{proposition}
+    Suppose the filtration $\{\F_t\}$ satisfies the usual events, in other words $\F$ is complete and $\F_t = \F_{t+}$. Let $M$ be a submartingale, such that $t\to EM_t$ is right-continuous. Then there exists a cadlag modification of $M$ that is an $\F_t$-submartingale.
+\end{proposition}
+
+\subsection{Optimal Stopping}
+
+\begin{lemma}
+    Let $M$ be a submaringale. Let $\sigma, \tau$ two stopping times whose values lie in an ordered countable set $\{s_1<s_2<s_3<\cdots\}\cup\{\infty\}$ where $s_j$ increases to $\infty$. Then for any $T<\infty$,
+    \[E[M_{\tau\wedge T}\F_{\sigma}] \geq M_{\sigma \wedge \tau \wedge T}\]
+\end{lemma}
+\Pf\par
+ \newpage
+
+\subsection{Ito diffusions}
+
+\begin{definition}
+    A (time-homeneous) Ito diffusion is
+    \[dX_t = b(X_t)dt+\sigma(X_t)dB_t, x_0 = \xi\]
+\end{definition}
+
+It is fundamental for many applications that we can associate a second order partial differential operator $A$ to an Ito diffusion $X_t$. 
+
+\begin{definition}
+    The operator $A$ is called a generator operator of $X_t$
+    \[Af(x) = \lim_{t\to 0} \dfrac{E_x[f(X_t)]-f(x)}{t}\]
+    where $D_A$ denote the set of functions such that the limit exists for any $x$.
+\end{definition}
+
+\begin{lemma}
+    If $f\in C_0^2$, i.e. has two continuous derivatives and the second one has compact suppor, then $f\in D_A$ and \[Af(x) = \sum b_i(x) \dfrac{\partial f}{\partial x_i}(x) + \dfrac{1}{2} \sum(\sigma\sigma^T)_{i,j}(x)\dfrac{\partial^2 f}{\partial x_i\partial x_j}(x)\]
+\end{lemma}
+
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{References.bib}
+
+% ------------------------------------------------------------------------------
+
+\end{document}

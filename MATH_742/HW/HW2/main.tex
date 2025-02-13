@@ -1,0 +1,126 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework02 - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1(3.34 on AK)} 
+Let $e,e'\in\text{Idem}(R)$. Assume $\sqrt{\langle e \rangle} = \sqrt{\langle e'\rangle}$, then $e=  e'$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+There exists $n\in\mathbb{N}$ such that $e^n = e'$ and hence $e= e'$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.2(3.35 on AK)} 
+Let $R$ be a ring, $I_1,I_2$ comaximal ideals with $I_1I_2\subset \text{nil}(R)$. Show there are complementary idempotents $e_1,e_2$ with $e_i\in I_i, i = 1, 2$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+There exists $a\in I_1,b\in I_2$ such that $a+b = 1$ and $n\in \mathbb{N}$ such that $a^nb^n =0$, then we may know
+\[
+(a+b)^{2n} = (a^{2n}+p_1a^{2n-1}b+\cdots+p_{n-1}a^{n+1}b^{n-1})+(b^{2n}+q_1b^{2n-1}a+\cdots+q_{n-1}b^{n+1}a^{n-1}) = 1
+\]
+where $p_i,q_i\in\mathbb{N}$, and it is easy to check
+\[
+(a^{2n}+p_1a^{2n-1}b+\cdots+p_{n-1}a^{n+1}b^{n-1})(b^{2n}+q_1b^{2n-1}a+\cdots+q_{n-1}b^{n+1}a^{n-1}) := AB =0
+\]
+since $A \in a^nR,B\in b^nR$ and we are done, let $e_1 = A,e_2 = B$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.3(3.36 on AK)} 
+Let $R$ be a ring, $I$ an ideal, $\kappa:R\to R/I$ the quotient map. Assume $I\subset \text{nil}(R)$, then $\text{Idem}(\kappa)$ is bijective.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Since any ideal is contained in some maximal ideal, then we may know $\text{nil}(R) \subset \text{rad}(R)$ and hence $\text{Idem}(\kappa)$ is injective by 3.3 on AK. Notice $\kappa(\text{Idem}(R))$ is contained in the idempotents sets of $R/I$. If $a(1-a) \in I$, then there exists $n\in\mathbb{N}$ such that $a^n(1-a)^n = 0$, by proof of Ex.2., there exists $e_1$ idempotent such that $e_1 - a^{2n} \in I$ and hence $e_1+I = a^{2n}+I = a+I$ and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.4(3.37 on AK)} 
+Let $R$ be a ring. Prove the followings are quivalent:
+\begin{itemize}
+    \item $R$ has exactly one prime $P$.
+    \item Every element of $R$ is either nilpotent or a unit.
+    \item $R/\text{nil}(R)$ is a field.
+\end{itemize}
+\vspace{0.5em}
+\textbf{Sol.} \par
+(1) implies (2): Since every maximal ideal is prime, then we know $R$ is local and hence
+\[
+\text{nil}(R) = P  = R-R^{\times}
+\]
+and we are done.\par
+(2) implies (1): Notice
+\[
+\text{nil}(R) = \cap_{P\text{ prime}}P \subset \cup_{M\text{ maximal}}M = R-R^{\times}
+\]
+and we may know that there is only one prime $P$ which is the unique maximal ideal in $R$.\par
+(1) implies (3): We know if $R$ has only one prime $P$, then $P$ is maximal and $P = \text{nil}(R)$ and we are done by corollary 2.13 on AK.\par
+(3) implies (1): Also by the above corollary, we may know $\text{nil}(R)$ is a maximal ideal, which means it is the unique prime ideal in $R$ and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(3.42 on AK)} 
+Let $R$ be a ring, $X$ a variable, $F:=a_0+a_1X+\cdots+a_nX^n$.
+\begin{itemize}
+    \item Prove $F$ is nilpotent if and only if $a_0,\cdots,a_n$ are nilpotent.
+    \item Prove $F$ is a unit iff $a_0$ is a unit and $a_1,\cdots,a_n$ are nilpotent.
+\end{itemize}
+\vspace{0.5em}
+\textbf{Sol.} \par
+(1) To show the sufficiency, we may use the induction to $n$, it is obvious when $n=0$ and for $n\geq 1$, if $F^k = 0$ for some integer $k$, then we may know $a_n^k = 0$ and hence $F-a_nX^n, a_n$ are nilpotent, which means $a_0,\cdots,a_{n-1}$ are nilpotent and we are done. The necessity can be shown by the nilpotents form an ideal.\par
+(2) To show the necessity, consider $F = a_0 - G$ where we know $G$ is nilpotent and assume $G^k = 0$, then $F(G^{k-1}+a_0G^{k-2}+\cdots + a_0^{k-1}) = a_0^{k}$ is a unit and hence $F$ is a unit. For the other direction, we know if there is another polynomial $P$ such that $FP = 1$, then $a_0P(0) = FP(0) = 1$ and hence $a_0$ is unit. Assume $G = b_0+b_1X+\cdots+b_mX^m$, for any $P$ prime, since $FG = 1$, we know $a_nb_m \in P$ and hence if $a_n\notin P$, then $b_j \in P$ for any $j\geq 1$ and similarly we may know $b_j \in P, j\geq 1$ or $a_i \in P, i\geq 1$. If $b_j \in P, j\geq 1$, then $FG + P = b_0F + P = F+P = 1+P$, which means $b_0(F-a_0) \in P$. To sum up $b_(F-a_0) \in P$ for any $P$ prime and hence $b_0(F-a_0)$ is nilpotent and we are done by (1).
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.6} 
+    If $I\subset R$ is nilpotent, then $I\subset \text{nil}(R)$. Conversely, show that if $I\subset \text{nil}(R)$ is finitely generated, then $I$ is nilpotent.  
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    The first direction is trivial since for any $a\in I$, $a^n \in I^n$ for any integer $n$.\par
+    For the second part, there exists $a_1,\cdots,a_n\in I$ such that $I = \langle a_1,\cdots,a_n\rangle$ and consider $a_i^m = 0$ for all $1\leq i \leq n$, then it is easy to check $I^{m(n-1)+1} = 0$ since every product is in $\langle a_i^m\rangle$ for some $i$ and hence $I$ is nilpotent. 
+\vspace{0.5em}
+
+\subsection*{Ex.7} 
+Give an example of a ring $R$ and an ideal $I\subset\text{nil}(R)$ that is not a nilpotent ideal.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    Consider $R = \mathbb{R}[x_1,\cdots]/\langle x_1,x_2^2,\cdots\rangle$
+    and then we know $x_i$ are all nilpotent and hence $(x_1,\cdots)\subset \text{nil}(R)$, however $I$ is not nilpotent since $\prod_{i=2}^k x_i$ is nonzero for any integer $k$. 
+\vspace{0.5em}
+
+
+\addappheadtotoc
+
+\end{document}
