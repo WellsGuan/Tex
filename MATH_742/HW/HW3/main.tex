@@ -52,81 +52,121 @@ by (1). For $F\in\text{rad}(R[X])$, we know $G-FM$ is a unit for any unit $G$ an
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.2(3.35 on AK)} 
-Let $R$ be a ring, $I_1,I_2$ comaximal ideals with $I_1I_2\subset \text{nil}(R)$. Show there are complementary idempotents $e_1,e_2$ with $e_i\in I_i, i = 1, 2$.
+\subsection*{Ex.2(4.26 on AK)} 
+Let $L,M,N$ be modules and there is a diagram
+\[
+\begin{tikzcd}
+L\arrow[r,"\alpha"] & M\arrow[r,"\beta"]\arrow[l,"\rho"] & N\arrow[l,"\sigma"]
+\end{tikzcd}
+\]
+Prove that
+\[M = L\oplus N,\alpha= \iota_L,\beta = \pi_N,\sigma = \iota_N, \rho = \pi_L\]
+iff
+\[
+\beta\alpha = 0, \beta\sigma = 1,\rho\sigma = 0, \rho\alpha = 1, \alpha\rho+\sigma\beta = 1
+\]
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-There exists $a\in I_1,b\in I_2$ such that $a+b = 1$ and $n\in \mathbb{N}$ such that $a^nb^n =0$, then we may know
+It is quite easy to check the sufficiency, we only need to check the necessity.\par
+Notice by the UMP of $L\oplus N$, there exists $\gamma,\delta$ such that the diagram
 \[
-(a+b)^{2n} = (a^{2n}+p_1a^{2n-1}b+\cdots+p_{n-1}a^{n+1}b^{n-1})+(b^{2n}+q_1b^{2n-1}a+\cdots+q_{n-1}b^{n+1}a^{n-1}) = 1
+\begin{tikzcd}
+    L\arrow[rd,"\iota_L"]\arrow[r,"\alpha"] & M & N\arrow[ld,"\iota_N"]\arrow[l,"\sigma"] \\
+     & L\oplus N\arrow[u,"\gamma"] & \\
+\end{tikzcd}
 \]
-where $p_i,q_i\in\mathbb{N}$, and it is easy to check
+and
 \[
-(a^{2n}+p_1a^{2n-1}b+\cdots+p_{n-1}a^{n+1}b^{n-1})(b^{2n}+q_1b^{2n-1}a+\cdots+q_{n-1}b^{n+1}a^{n-1}) := AB =0
+\begin{tikzcd}
+    L & M\arrow[l,"\rho"]\arrow[r,"\beta"]\arrow[d,"\delta"] & N \\
+     & L\oplus N\arrow[lu,"\pi_L"]\arrow[ru,"\pi_N"] & \\
+\end{tikzcd}
 \]
-since $A \in a^nR,B\in b^nR$ and we are done, let $e_1 = A,e_2 = B$.
+commute and hence
+\[
+\begin{aligned}
+    &\pi_N\delta\gamma\iota_L = \pi_L\delta\gamma\iota_N = 0,  \\
+    &\pi_N\delta\gamma\iota_N = \pi_N\delta\gamma\iota_N = 1,
+    \\
+    &\gamma\iota_L\pi_L\delta + \gamma\iota_N\pi_N\delta = \gamma\delta = 1
+\end{aligned}
+\]
+which means $\delta\gamma = 1, \gamma\delta = 1$ and we are done.
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.3(3.36 on AK)} 
-Let $R$ be a ring, $I$ an ideal, $\kappa:R\to R/I$ the quotient map. Assume $I\subset \text{nil}(R)$, then $\text{Idem}(\kappa)$ is bijective.
-\vspace{0.5em}\\
-\textbf{Sol.} \par
-Since any ideal is contained in some maximal ideal, then we may know $\text{nil}(R) \subset \text{rad}(R)$ and hence $\text{Idem}(\kappa)$ is injective by 3.3 on AK. Notice $\kappa(\text{Idem}(R))$ is contained in the idempotents sets of $R/I$. If $a(1-a) \in I$, then there exists $n\in\mathbb{N}$ such that $a^n(1-a)^n = 0$, by proof of Ex.2., there exists $e_1$ idempotent such that $e_1 - a^{2n} \in I$ and hence $e_1+I = a^{2n}+I = a+I$ and we are done.
-\par 
-\vspace{0.5em}
-
-\subsection*{Ex.4(3.37 on AK)} 
-Let $R$ be a ring. Prove the followings are quivalent:
-\begin{itemize}
-    \item $R$ has exactly one prime $P$.
-    \item Every element of $R$ is either nilpotent or a unit.
-    \item $R/\text{nil}(R)$ is a field.
-\end{itemize}
-\vspace{0.5em}
-\textbf{Sol.} \par
-(1) implies (2): Since every maximal ideal is prime, then we know $R$ is local and hence
+\subsection*{Ex.3(4.27 on AK)} 
+Let $L$ be a module, $\Lambda$ a nonempty set, $M_{\lambda}$ a module. Prove the injections $\iota_{\kappa}:M_{\kappa} \to \bigoplus M_{\lambda}$ induce an injection
 \[
-\text{nil}(R) = P  = R-R^{\times}
+\bigoplus \text{Hom}(L,M_{\lambda}) \hookrightarrow \text{Hom}(L,\bigoplus{M_{\lambda}})
 \]
-and we are done.\par
-(2) implies (1): Notice
+and that it is an isomorphism if $L$ is finitely generated.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For $(\alpha_{\lambda})$, its image $\phi((\alpha_{\lambda}))$ is $\sum \iota_{\kappa}\alpha_{\kappa}$ and if is zero, then $\alpha_{\lambda} = 0$ for any $\lambda$ and hence $\ker\phi = 0$, which means $\phi$ is an injection.\par
+If $L$ has generated $l_i, 1\leq i \leq n$, then $(\alpha_{\lambda})$ is determined by $(\alpha_{\lambda}l_i), 1\leq i \leq n$ uniquely and for any $\psi:L\to\oplus(M_{\lambda})$, let $(\alpha_{\lambda}(l_i)) = (\pi_{\lambda}\psi(l_i))$ and then the induced vector $(\beta_{\lambda})$ will have
 \[
-\text{nil}(R) = \cap_{P\text{ prime}}P \subset \cup_{M\text{ maximal}}M = R-R^{\times}
+\sum\iota_{\kappa}\beta_{\lambda}(l_i) = \iota_{\kappa}\pi_{\lambda}\psi(l_i) = \psi(l_i)
 \]
-and we may know that there is only one prime $P$ which is the unique maximal ideal in $R$.\par
-(1) implies (3): We know if $R$ has only one prime $P$, then $P$ is maximal and $P = \text{nil}(R)$ and we are done by corollary 2.13 on AK.\par
-(3) implies (1): Also by the above corollary, we may know $\text{nil}(R)$ is a maximal ideal, which means it is the unique prime ideal in $R$ and we are done.
+and hence the map between the homomorphism becomes a surjection.
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.5(3.42 on AK)} 
-Let $R$ be a ring, $X$ a variable, $F:=a_0+a_1X+\cdots+a_nX^n$.
-\begin{itemize}
-    \item Prove $F$ is nilpotent if and only if $a_0,\cdots,a_n$ are nilpotent.
-    \item Prove $F$ is a unit iff $a_0$ is a unit and $a_1,\cdots,a_n$ are nilpotent.
-\end{itemize}
+\subsection*{Ex.4(4.28 on AK)} 
+Let $I$ be an ideal, $\Lambda$ a nonempty set, $M_{\lambda}$ a module for $\lambda \in \Lambda$. Prove $I(\bigoplus M_{\lambda}) = \bigoplus IM_{\lambda}$. Prove $I(\prod M_{\lambda}) = \prod I M_{\lambda}$ if $I$ is finitely generated.\par
 \vspace{0.5em}
 \textbf{Sol.} \par
-(1) To show the sufficiency, we may use the induction to $n$, it is obvious when $n=0$ and for $n\geq 1$, if $F^k = 0$ for some integer $k$, then we may know $a_n^k = 0$ and hence $F-a_nX^n, a_n$ are nilpotent, which means $a_0,\cdots,a_{n-1}$ are nilpotent and we are done. The necessity can be shown by the nilpotents form an ideal.\par
-(2) To show the necessity, consider $F = a_0 - G$ where we know $G$ is nilpotent and assume $G^k = 0$, then $F(G^{k-1}+a_0G^{k-2}+\cdots + a_0^{k-1}) = a_0^{k}$ is a unit and hence $F$ is a unit. For the other direction, we know if there is another polynomial $P$ such that $FP = 1$, then $a_0P(0) = FP(0) = 1$ and hence $a_0$ is unit. Assume $G = b_0+b_1X+\cdots+b_mX^m$, for any $P$ prime, since $FG = 1$, we know $a_nb_m \in P$ and hence if $a_n\notin P$, then $b_j \in P$ for any $j\geq 1$ and similarly we may know $b_j \in P, j\geq 1$ or $a_i \in P, i\geq 1$. If $b_j \in P, j\geq 1$, then $FG + P = b_0F + P = F+P = 1+P$, which means $b_0(F-a_0) \in P$. To sum up $b_(F-a_0) \in P$ for any $P$ prime and hence $b_0(F-a_0)$ is nilpotent and we are done by (1).
+Obviously $I(\bigoplus M_{\lambda}) \subset \bigoplus IM_{\lambda}$ since both the sets are submodules of $\bigoplus M_{\lambda}$. For $(m_{\lambda}) \in \bigoplus IM_{\lambda}$, assume $m_{\lambda_i}, 1\leq i \leq n$ are the only nonzero elements and since $m_{\lambda_i} \in IM_{\lambda_I}$, so $(0,\cdots,m_{\lambda_i},\cdots) \in I(\bigoplus M_{\lambda})$ and hence $I(\bigoplus M_{\lambda}) \supset \bigoplus IM_{\lambda}$ and we are done.\par
+If $I$ has generators $a_i, 1\leq i\leq k$, then by similar proof of the first part of the above conclusion, we only need to check $I(\prod M_{\lambda}) \supset \prod I M_{\lambda}$, then assume $(m_{\lambda}) \in \prod I M_{\lambda}$, then $m_{\lambda} \in IM_{\lambda}$ and hence there exists $m_{\lambda}^{(i)}$ such that $m_{\lambda} = \sum a_i\sum r_{\lambda}^{(j)}m_{\lambda}^{(j)}$, $r_{\lambda}^{(j)} \in R$, and $a_i\sum r_{\lambda}^{(j)}m_{\lambda}^{(j)} \in I(\prod M_{\lambda})$ and notice the summation is finite and we are done. 
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.6} 
-    If $I\subset R$ is nilpotent, then $I\subset \text{nil}(R)$. Conversely, show that if $I\subset \text{nil}(R)$ is finitely generated, then $I$ is nilpotent.  
-\vspace{0.5em}\\
+\subsection*{Ex.5(A)} 
+Let $R_1,R_2$ be two rings, and set $R = R_1\times R_2$. Prove that any $R$-module $M$ is of the form $M_1\times M_2 \cong M$ where $M_i$ is a $R_i$-module and $R$ acts on $M_1,M_2$ componentwise.
+\vspace{0.5em}
 \textbf{Sol.} \par
-    The first direction is trivial since for any $a\in I$, $a^n \in I^n$ for any integer $n$.\par
-    For the second part, there exists $a_1,\cdots,a_n\in I$ such that $I = \langle a_1,\cdots,a_n\rangle$ and consider $a_i^m = 0$ for all $1\leq i \leq n$, then it is easy to check $I^{m(n-1)+1} = 0$ since every product is in $\langle a_i^m\rangle$ for some $i$ and hence $I$ is nilpotent. 
+Consider $R_1,R_2$ as subring of $R$ canonically and let $M_i = \text{Ann}(R_i)$, then consider
+\[
+\phi:M_1\times M_2 \to M
+\]
+by $(m_1,m_2)\mapsto m_1+m_2$. If $m_1+m_2 = 0$, then $m_1 = -m_2 \in M_1\cap M_2$ and hence $1m_1 = 0$ since $R = R_1+R_2$, which means $\phi$ is injective. For any $m\in M$, let $m_1 = m - (1,0)m, m_2 = m-(0,1)m$ and then $m_1\in M_1,m_2\in M_2$ and $m_1+m_2 = 2m - (1,1) m = m$ and we have shown $\phi$ is surjective and we are done.
+\par 
 \vspace{0.5em}
 
-\subsection*{Ex.7} 
-Give an example of a ring $R$ and an ideal $I\subset\text{nil}(R)$ that is not a nilpotent ideal.
+\subsection*{Ex.6(B)} 
+    Define a natural morphism $R[[t]] \to R$ and show the restriction along this morphsim gives a bijection between the maximal ideals of $R$ and $R[[t]]$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-    Consider $R = \mathbb{R}[x_1,\cdots]/\langle x_1,x_2^2,\cdots\rangle$
-    and then we know $x_i$ are all nilpotent and hence $(x_1,\cdots)\subset \text{nil}(R)$, however $I$ is not nilpotent since $\prod_{i=2}^k x_i$ is nonzero for any integer $k$. 
+    sss
+\vspace{0.5em}
+
+\subsection*{Ex.7(C)} 
+Let $R$ be a ring and $R'$ be an $R$-algebra. It is easy to see that any $R'$-module $M$ becomes an $R$-module via 'restriction of scalars': the product map $R\times M$ is the composition
+\[R\times M \to R'\times M \to M\]
+Let $N$ be an $R$-module and consider all possible ways to turn it into an $R'$-module. Show that the set of all such $R'$-module structures is identified with the set of homomorphisms of $R$-algeras
+\[R' \to \text{End}_R(N)\]
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    Define
+    \[
+    \phi:R' \to \text{End}_R(N)
+    \]
+    by
+    \[
+    \phi(r') = \mu_{r'} \in \text{End}_R(N)
+    \]
+    where $\mu_{r'}$ is the scalar multiplication with $r'$, and we only need to check the diagram
+    \[
+    \begin{tikzcd}
+        R'\arrow[r] & \text{End}_R(N) \\
+        R\arrow[hookrightarrow]{u}\arrow[hookrightarrow]{ru} & \\
+    \end{tikzcd}
+    \]
+    commutes, where we know
+    \[
+    \mu_r = \mu_{\phi(r)}
+    \]
+    where $\phi$ is the structure map of $R'$, since the $R'$-module structure is compatiable with the $R$-module structure of $N$ and we are done.
 \vspace{0.5em}
 
 
