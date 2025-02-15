@@ -137,7 +137,9 @@ by $(m_1,m_2)\mapsto m_1+m_2$. If $m_1+m_2 = 0$, then $m_1 = -m_2 \in M_1\cap M_
     Define a natural morphism $R[[t]] \to R$ and show the restriction along this morphsim gives a bijection between the maximal ideals of $R$ and $R[[t]]$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-    sss
+    For an ideal $I\subset R[[t]]$, we define $\phi(I):=\{a,\text{ there is }F\in I\text{ such that }a = F(0)\}$ and then $\phi(I)$ is an ideal, since it is trivial that $\phi(I)$ is closed under addition and multiplication since if $a,b\in \phi(I)$, then there exist $F,G \in I$ such that $F(0) = a, G(0) =b$ and $ab = FG(0)$.\par
+    For a maximal ideal $M$ of $R[[t]]$ and we show $\phi(I)$ still a maximal ideal. If there exists $J \supset \phi(I)$, then there exists $b\in R$ such that $b\in J - \phi(I)$ and then we will know $bR[[t]] + I \supset I$ and hence it is $R[[t]]$, and there exists $F\in R[[t]], G\in I$ such that $F+G$ is a unit, with a unit constant term and hence $bF(0)+G(0)$ is a unit in $R$ and hence there is a unit in $\phi(I)$, which is a contradiction.\par
+    Now we only need to check $\phi$ is injective and surjective. For a maximal ideal $N$ in $R$, we consider $\phi^{-1}(R)$ which means all the series with constant term in $N$, which is easy to be checked an ideal and if there is a larger ideal $J$, consider $\phi(J)$ will be an ideal in $R$ and it has to be $I$, so $J\subset N$ and hence $\phi$ is a surjection. Then we may know any maximal ideal $M$ in $R[[t]]$ it has to be $\phi^{-1}\phi(M)$ by the maximal property, and hence $\phi$ is injective and we are done.
 \vspace{0.5em}
 
 \subsection*{Ex.7(C)} 
