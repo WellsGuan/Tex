@@ -12,7 +12,6 @@ do
     find . -name '*.blg' -delete
     find . -name '*.xdv' -delete
     find . -name '*.toc' -delete
-    find . -name '*.pdf' -delete
 done
 
 git add .

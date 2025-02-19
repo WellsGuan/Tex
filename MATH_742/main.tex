@@ -584,6 +584,62 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
     \[\text{Hom}(\bigoplus, N) \to \prod \text{Hom}(M_{\lambda, N})\]
 \end{proposition}
 
+\subsection{Exact Sequences}
+
+\begin{definition}
+    (Exact)\par
+    A sequence of module homomorphisms
+    \[
+    \cdots \to M_{k-1}\overset{\alpha_{k-1}}{\to} M_k \overset{\alpha_k}{\to} M_{k+1} \to \cdots
+    \]
+    is said to be exact at $M_k$ if $\ker\alpha_k = \text{Im}(\alpha_k)$. The sequence is said to be exact if it is exact at every $M_k$, except an initial source of final target.
+\end{definition}
+
+\begin{definition}
+    (Short exact sequences)\par
+    A sequence $0\to L \overset{\alpha}{\to} M \overset{\beta}{\to} N \to 0$ is exact if and only if $\alpha$ is injective and $N \cong \text{Coker}\alpha$ or dually if and only if $\beta$ is surjective and $L =\ker\beta$. Then the sequence is called short exact and we often regard $L$ as a submodule of $M$ and $N$ the quotient $M/L$.
+\end{definition}
+\Pf\par
+
+\begin{proposition}
+    For $\lambda \in \Lambda$, let $M_{\lambda}' \to M_{\lambda} \to M_{\lambda}''$ be sequence of module homomorphisms. If every sequence is exact, then so are the two induced sequences
+    \[
+    \bigoplus M_{\lambda}' \to \bigoplus M_{\lambda} \to \bigoplus M_{\lambda}'', \quad \prod M_{\lambda}' \to \prod M_{\lambda} \to \prod M_{\lambda}'' 
+    \]
+    Conversely, if either induced sequence is exact then so is every original one.
+\end{proposition}
+\Pf\par
+
+\begin{proposition}
+    Let $0\to M'\overset{\alpha}{\to} M \overset{\beta}{\to} M'' \to 0$ be a short exact sequence, and $N\subset M$ a submodule. Set $N':=\alpha^{-1}(N)$ and $N'':= \beta(N)$. Then the induced sequence $0 \to N' \to N \to N'' \to 0$ is short exact.
+\end{proposition}
+
+\begin{definition}
+    (Retraction, section, splits)\par
+    A linear map $\rho: M \to M'$ is a retraction of another $\alpha:M'\to M$ if $\rho\alpha = 1_{M'}$, then $\alpha$ is injective and $\rho$ is surjective.\par
+    Dually, we call $\sigma:M''\to M$ a section of another $\beta:M\to M''$ if $\beta\sigma = 1_{M''}$, then $\beta$ is surjective and $\sigma$ is injective.\par
+    We call a $3$-term exact sequence $M' \overset{\alpha}{\to} M \overset{\beta}{\to} M''$ splits if there is an isomorphism $\phi:M\cong M'\oplus M''$ with $\phi\alpha = \iota_{M'}$ and $\beta = \pi_{M''}\phi$.
+\end{definition}
+    
+\begin{proposition}
+    Let $M'\overset{\alpha}{\to}M\overset{\beta}{\to}M''$ be a $3$-term exact sequence. Then the following conditions are equivalent
+    \begin{itemize}
+        \item The sequence splits
+        \item There exists a retraction $\rho:M\to M'$ of $\alpha$ and $\beta$ is surjective.
+        \item There exists a section $\sigma:M'' \to M$ of $\beta$ and $\alpha$ is injective
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    Assume the sequence is splits, then we have the commuting diagram
+    \[
+    \begin{tikzcd}
+        M'\arrow[r,"\alpha"]\arrow[rd,"\iota_{M'}"] & M\arrow[r,"\beta"]\arrow[d,"\phi(\cong)"] & M'' \\
+        & M'\oplus M''\arrow[ru,"\pi_{M''}"] & \\
+    \end{tikzcd}
+    \]
+    then let $\rho = \pi_{M'}\phi$, then $\rho\alpha = \pi_{M'}\phi \phi^{-1}\iota_{M'} = 1_{M'}$. Let $\sigma = \phi^{-1}\iota_{M''}$ and then $\beta\sigma = \pi_{M''}\phi\phi^{-1}\iota_{M''} = 1_{M''}$ and then $\beta$ is surjective and $\alpha$ is injective.\par
+    Now assume there is such a retraction $\rho$ and $\beta$ is surjective, then define $\sigma = 1_M - \alpha\rho$ and $\phi: M \to M'\oplus M''$ by $m\mapsto (\rho(m),\beta\sigma(m))$., if $\phi(m) = 0$, then $\rho(m) = 0$ and $\sigma(m) = m$, which means $\beta(m) = 0$. There exists $a\in M'$ such that $m = \alpha(a)$ and hence $a = 0$ which means $m = 0$, so $\ker\phi = 0$. For $(a,b)\in M'\oplus M''$, assume $\beta(m) = b$, then $\phi(\alpha(a) + \sigma(m)) = (a+\rho(m-\alpha\rho(m)), \beta(\alpha(a)) + \beta(\sigma(m))) = (a,b)$ and hence $\phi$ is surjective. And $\phi\alpha(a) = (a,\beta\sigma\alpha(a)) = (a,0)$ and $\pi_{M''}\phi(m) = \beta(\sigma(m)) = \beta(m)$ and we are done.\par
+    
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
