@@ -571,17 +571,17 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
     which is a module under componentwise addition and scalar multiplication.\par
     The direct sum of $M_{\lambda}$ is the subset of restricted vectors:
     \[
-    \bigoplus M_{\lambda} := \{(m_{m_{\lambda}}), m_{\lambda}\text{ nonzero for only finite elements}\}
+    \bigoplus M_{\lambda} := \{({m_{\lambda}}), m_{\lambda}\text{ nonzero for only finite elements}\}
     \]
 \end{definition}
 
 \begin{proposition}
-    $\prod M_{\lambda}$ has the UMP,  for $R$-homomorphism $\alpha_{\kappa}:L\to M_{kappa}$, there is a unique $R$-homomorphism $L\to \prod M_{\lambda}$ such that $\pi_{\kappa}\alpha = \alpha_{\kappa}$, in other words, $\pi_{\lambda}$ induce a bijection of
+    $\prod M_{\lambda}$ has the UMP,  for $R$-homomorphism $\alpha_{\kappa}:L\to M_{\kappa}$, there is a unique $R$-homomorphism $L\to \prod M_{\lambda}$ such that $\pi_{\kappa}\alpha = \alpha_{\kappa}$, in other words, $\pi_{\lambda}$ induce a bijection of
     \[\text{Hom}(L,\prod M_{\lambda}) \cong \prod \text{Hom}(L,M_{\lambda})\]
     Similarly, the direct sum comes equipped with injections
     \[\iota_{\kappa} \to \bigoplus M_{\lambda}\]
-    and it has the UMP: given $\beta_{\kappa}:M_{\kappa} \to N$, there is a unique $R$-homomorphism $\beta:\bigoplus M_{\lambda} \to N$ such that $\beta \iota_{\kappa} = \beta_{\kappa}$ and $\iota_{\kappa}$ iduce the bijection:
-    \[\text{Hom}(\bigoplus, N) \to \prod \text{Hom}(M_{\lambda, N})\]
+    and it has the UMP: given $\beta_{\kappa}:M_{\kappa} \to N$, there is a unique $R$-homomorphism $\beta:\bigoplus M_{\lambda} \to N$ such that $\beta \iota_{\kappa} = \beta_{\kappa}$ and $\iota_{\kappa}$ induce the bijection:
+    \[\text{Hom}(\bigoplus, N) \to \bigoplus \text{Hom}(M_{\lambda, N})\]
 \end{proposition}
 
 \subsection{Exact Sequences}
@@ -639,10 +639,116 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
     \]
     then let $\rho = \pi_{M'}\phi$, then $\rho\alpha = \pi_{M'}\phi \phi^{-1}\iota_{M'} = 1_{M'}$. Let $\sigma = \phi^{-1}\iota_{M''}$ and then $\beta\sigma = \pi_{M''}\phi\phi^{-1}\iota_{M''} = 1_{M''}$ and then $\beta$ is surjective and $\alpha$ is injective.\par
     Now assume there is such a retraction $\rho$ and $\beta$ is surjective, then define $\sigma = 1_M - \alpha\rho$ and $\phi: M \to M'\oplus M''$ by $m\mapsto (\rho(m),\beta\sigma(m))$., if $\phi(m) = 0$, then $\rho(m) = 0$ and $\sigma(m) = m$, which means $\beta(m) = 0$. There exists $a\in M'$ such that $m = \alpha(a)$ and hence $a = 0$ which means $m = 0$, so $\ker\phi = 0$. For $(a,b)\in M'\oplus M''$, assume $\beta(m) = b$, then $\phi(\alpha(a) + \sigma(m)) = (a+\rho(m-\alpha\rho(m)), \beta(\alpha(a)) + \beta(\sigma(m))) = (a,b)$ and hence $\phi$ is surjective. And $\phi\alpha(a) = (a,\beta\sigma\alpha(a)) = (a,0)$ and $\pi_{M''}\phi(m) = \beta(\sigma(m)) = \beta(m)$ and we are done.\par
+
+\begin{lemma}
+    Consider this commutative diagram with exact rows:
+    \[
+    \begin{tikzcd}
+        & M'\arrow[r,"\alpha"]\arrow[d,"\gamma'"] & M\arrow[r,"\beta"]\arrow[d,"\gamma"] & M''\arrow[r]\arrow[d,"\gamma''"] & 0\\
+        0\arrow[r]& N'\arrow[r,"\alpha'"] & N\arrow[r,"\beta'"] & N'' & \\
+    \end{tikzcd}
+    \]
+    It yields the following exact sequence:
+    \[\ker\gamma' \overset{\varphi}{\to} \ker\gamma \overset{\psi}{\to} \ker\gamma'' \overset{\partial}{\to} \text{coker}\gamma' \overset{\varphi'}{\to} \text{coker}\gamma \overset{\psi'}{\to} \text{coker}\gamma''\]
+    Moreover, if $\alpha$ is injective, then so is $\varphi$; dually, if $\beta'$ is surjective, then so is $\psi'$.
+\end{lemma}
+\Pf\par
+    Notice $\alpha'\gamma' = \gamma\alpha, \beta'\gamma = \gamma''\beta$ and let $\varphi = \alpha|_{\ker\gamma'},\psi = \beta|_{\ker\gamma}$ and we know $\varphi(\ker\gamma') \subset\ker\gamma, \psi(\ker\gamma) \subset \ker\gamma''$. Obviously, $\text{Im}(\varphi) \subset \ker\psi$ and for any $b\in \ker\psi$, it is in $\ker\gamma \cap \text{Im}\alpha$, since $\alpha'$ is injective and hence its preimage has to be contained in $\ker\gamma'$ and hence it is in $\text{Im}(\varphi)$.\par
+    $\alpha',\beta'$ will induce natural $\varphi',\psi'$ on $\text{coker}\gamma',\text{coker}\gamma$ by defining $n'+\text{Im}\gamma'\mapsto \alpha'(n')+\text{Im}\gamma, n+\text{Im}\gamma \mapsto \beta'(n)+\text{Im}\gamma''$, which is well-defined since $\alpha'(\text{Im}\gamma') \subset \text{Im}\gamma, \beta'(\text{Im}\gamma)\subset \text{Im}\gamma''$ and the exactness is similarly checked.\par
+    Define $\partial$ by the following, if $\gamma'' m'' = 0$, consider $m$ is one of preimage of $m''$ and let $a$ to be the preimage of $\gamma(m)$, then let $\partial m'' = a+\text{Im}\gamma'$. It is well-defined since if $\beta m = \beta n = m''$, then $m-n\in \ker\beta $, which means the preiamges of $\gamma m, \gamma n$ are in the same coset. For $m\in \ker \gamma$, $\partial(\psi(m)) = \alpha'^{-1}\gamma(m) + \text{Im}\gamma' = 0$ and if $\partial(m'') = 0$, then assume $\beta m =m''$ and we know $\alpha^{-1}\gamma(m) \in \text{Im}\gamma'$ and hence there exists $x\in M'$ such that $\gamma\alpha x = \gamma m$ and we know $ \beta(m-\alpha(x)) = m''$ and $\gamma(m-\alpha x) = 0$, which means $\ker \partial = \text{Im}\psi$. If $a = \alpha'^{-1}(\gamma(m))$ with $m'' = \beta m \in \ker \gamma''$, then $\varphi'(a+\text{Im}(\gamma')) = \alpha' a + \text{Im} \gamma = 0$ and if $\varphi'(a+\text{Im}(\gamma')) = 0$, then there exists $m$ such that $\alpha'(a) = \gamma m$ and then $\partial(\beta(m)) = a+\text{Im}\gamma'$ and we are done.
+
+    \begin{theorem}
+        (Left exactness of Hom)\par
+        \begin{itemize}
+            \item Let $M' \to M \to M'' \to 0$ be a sequence of linear maps. Then it is exact iff for all modules $N$, the following induced sequence is exact
+            \[0 \to \hom(M'',N) \to \hom(M,N) \to \hom(M',N)\]
+            \item Let $0\to N' \to N \to N''$ be as sequence of linear maps. Then it is exact iff for all modules $M$, the following induced sequence is exact.
+            \[0 \to \hom(M,N') \to \hom(M,N) \to \hom(M,N'')\]
+        \end{itemize}
+    \end{theorem}
+    \Pf\par
+        Assume $M'\overset{\phi}{\to} M \overset{\psi}{\to} M''$ and then the induced map will be $\tilde{\psi}: f\mapsto f\circ \psi$ and $\tilde{\phi}:g\mapsto g\circ \phi$. If $\psi$ is surjective, then $\tilde{\psi}$ will be an injective since $f\circ\psi = 0$ implies $f = 0$, and if $g\circ\phi = 0$, then $ \ker \psi = \text{Im} \phi \subset \ker{g}$ and hence there will be $g':M'' \cong M/\ker\psi \to N$ such that $g'\psi = g$ by the UMP and we are done. We know for $g:M \to N, g\circ \phi = 0$, equivalently  $\text{Im}\phi \subset \ker g$ iff there exists unique $g':M''\to N$ such that $g' \circ \psi = g$, which means $M''\cong \text{coker}\phi$ and the diagram
+        \[
+        \begin{tikzcd}
+            M'\arrow[r,"\phi"] & M\arrow[r,"\psi"]\arrow[rd,"\kappa"] & M''\arrow[d]\arrow[r] & 0 \\
+            & & \text{coker}\phi\arrow[u]\arrow[ru] & \\
+        \end{tikzcd}
+        \]
+        commutes and we are done.\par
+        Similarly assume that $N'\overset{\phi}{\to} N \overset{\psi}{\to} N''$, then $\tilde{\phi}: f\mapsto \phi\circ f$ and $\tilde{\psi}: g\mapsto \psi\circ g$, which means $\ker\psi = N'\hookrightarrow N$. It is easy to check $\ker\tilde{\phi} = 0$ and $\text{Im}\tilde{\phi} \subset \ker\tilde{\psi}$. For $g\in\ker \tilde{\psi}$, since $\text{Im}g \subset \ker\psi = \text{Im}\phi$, then let $g' = g|_N$ will satisfy that $\phi\circ g' = g$. For the converse direction, we know for any $g:M\to N$, $\text{Im}g\subset \ker\psi$ iff there exists a unique $g':M\to N'$ such that $\phi \circ g' = g$, then we may, which is 
+        \[
+        \begin{tikzcd}
+            0\arrow[r]\arrow[rd] & N'\arrow[r,"\phi"] & N\arrow[r,"\psi"] & N'' \\
+              & \ker\psi\arrow[hookrightarrow]{ru} & & \\
+        \end{tikzcd}
+        \]
+
+    \begin{definition}
+        (Presentation)\par
+        A (free) presentation of a module $M$ is an exact sequence
+        \[G\to F \to M \to 0\]
+        with $G$ and $F$ free. If $G$ and $F$ are free of finite rank, then the presentation is called finite. If $M$ has a finite presentation, then call $M$ finitely presented.
+    \end{definition}
+
+    \begin{proposition}
+        Let $R$ be a ring, $M$ a module, $m_{\lambda}$ generators. Then there is an  exact sequence $0\to K \to R^{\oplus\Lambda} \overset{\alpha}{\to} M \to 0$ with $\alpha e_{\lambda} = m_{\lambda}$ where $e_{\lambda}$ the standard basis and there is a presentation.
+    \end{proposition}
+    $Remark.$\par
+    Choose $K = \ker \alpha$ and $k_{\sigma}, \sigma\in\Sigma$ to be generators of $K$, then 
+    \[R^{\oplus \Sigma} \to R^{\oplus\Lambda} \to M \to 0\]
+    is a presentation.
+
+    \begin{definition}
+        (Projective Module)\par
+        A module $P$ is called projective if given any surjective linear map $\beta:M\to N$, every linear map $\alpha:P\to N$ lifts to one $\gamma:P\to M$, i.e. $\alpha = \beta\gamma$.
+    \end{definition}
+
+    \begin{theorem}
+        The following conditions on an $R$-module $P$ are equivalent
+        \begin{itemize}
+            \item The module $P$ is projective
+            \item Every short exact sequence $0\to K \to M \to P \to 0$ splits
+            \item There is a module $K$ such that $K\oplus P$ is free
+            \item Every exact sequence $N'\to N \to N''$ induces an exact sequence
+            \[\hom(P,N) \to \hom(P,N) \to \hom(P,N'')\]
+            \item Every surjective homomophism $\beta:M \to N$ induces a surjection
+            \[\hom(P,\beta):\hom(P,M)\to \hom(P,N)\]
+        \end{itemize}
+    \end{theorem}
+    \Pf\par
+    By considering the $P\cong M/\ker \phi$ it will induce a section of $\psi:M\to P$ and obviously $\phi:K\to M$ is injective and we are done for (1) implies (2). Use proposition 1.5.6. and we will know there exists $K$ such that $K\oplus P \cong R^{\oplus \Lambda}$ which is free, which is for (2) implies (3). Assume (3), then there exists $\Lambda$ such that $K\oplus P \cong R^{\oplus \Lambda}$. Also notice that we will have
+    \[\prod N_{\lambda}' \to \prod N_{\lambda} \to \prod N_{\lambda}''\]
+    is exact, which implies that
+    \[\hom(R^{\oplus \Lambda}, N') \to \hom(R^{\oplus \Lambda}, N) \to \hom(R^{\oplus \Lambda}, N'')\]
+    is exact since $\hom(R^{\oplus \Lambda},N) \cong \prod N_{\lambda}$ and hence
+    \[
+    \hom(K\oplus P, N') \to \hom(K\oplus P, N) \to \hom(K\oplus P, N'')
+    \]
+    which implies
+    \[
+    \hom(K,N')\oplus\hom(P,N') \to \hom(K,N)\oplus\hom(P,N) \to \hom(K,N'')\oplus\hom(P,N'')
+    \]
+    by isomorphism and hence the conclusion goes.\par
+    Assume (4), we know $M \to N \to 0$ is exact and we are done.\par
+    Assume (5), which is exactly the definition of projective module.
+
+    \begin{lemma}
+        (Schanuel)\par
+        Any two short exact sequences
+        \[0\to L \overset{i}{\to} P \overset{\alpha}{\to} M \to 0,\quad 0 \to L' \overset{i'}{\to} P' \overset{\alpha'}{\to} M \to 0\]
+        with $P$ and $P'$ projective are essentially isomorphic; i.e. there is the following commutative diagram
+        \[
+        \begin{tikzcd}
+            0\arrow[r] & L\oplus P'\arrow[r,"i\oplus 1_{P'}"] & P\oplus P' & M & 0 \\
+            0\arrow[r] & P\oplus L'\arrow[r,"1_P\oplus i'"] & P\oplus P' & M & 0
+        \end{tikzcd}
+        \]
+    \end{lemma} 
     
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
+\newpage
 
 \bibliographystyle{IEEEtran}
 \bibliography{References.bib}
