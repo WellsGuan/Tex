@@ -739,12 +739,23 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
         with $P$ and $P'$ projective are essentially isomorphic; i.e. there is the following commutative diagram
         \[
         \begin{tikzcd}
-            0\arrow[r] & L\oplus P'\arrow[r,"i\oplus 1_{P'}"] & P\oplus P' & M & 0 \\
-            0\arrow[r] & P\oplus L'\arrow[r,"1_P\oplus i'"] & P\oplus P' & M & 0
+            0\arrow[r] & L\oplus P'\arrow[r,"i\oplus 1_{P'}"]\arrow[d,"\cong\ \beta"] & P\oplus P'\arrow[r,"\alpha\oplus 0"]\arrow[d,"\cong\ \gamma"] & M\arrow[d,"="]\arrow[r] & 0 \\
+            0\arrow[r] & P\oplus L'\arrow[r,"1_P\oplus i'"] & P\oplus P'\arrow[r,"0\oplus\alpha'"] & M\arrow[r] & 0
         \end{tikzcd}
         \]
     \end{lemma} 
-    
+    \Pf\par
+        Firstly, it is easy to check the two exact sequences are exact. Then consider
+        \[
+        0 \to K:=\ker(\alpha\oplus\alpha') \to P\oplus P' \to M \to 0
+        \]
+        which is exact, there exists $\pi:P'\to P$ such that $\alpha\pi = \alpha'$, so we may define $\phi:P\oplus P' \to P\oplus P'$ by $\left(\begin{array}{cc}
+        1_P & \pi \\
+        0 & 1_P' 
+        \end{array}\right)$ which means $(p,p')\mapsto (p+\pi p',p')$ and then $\alpha p+\alpha' p' = (\alpha\oplus 0)\phi(p,p') = (\alpha\oplus\alpha')(p,p')$ where the inverse of $\phi$ will be $\left(\begin{array}{cc}
+        1_P & -\pi \\
+        0 & 1_P' 
+        \end{array}\right)$ and hence $\phi$ is an automorphism.
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
