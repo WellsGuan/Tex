@@ -1,0 +1,120 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework04 - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1(5.23 on AK)} 
+(Five lemma) Consider this commutative diagram:
+\[
+\begin{tikzcd}
+    M_4\arrow[r,"\alpha_4"]\arrow[d,"\gamma_4"] & M_3\arrow[r,"\alpha_3"]\arrow[d,"\gamma_3"] & M_2\arrow[r,"\alpha_2"]\arrow[d,"\gamma_2"] & M_1\arrow[r,"\alpha_1"]\arrow[d,"\gamma_1"] & M_0\arrow[d,"\gamma_0"] \\
+    N_4\arrow[r,"\beta_4"] & N_3\arrow[r,"\beta_3"] & N_2\arrow[r,"\beta_2"] & N_1\arrow[r,"\beta_1"] & N_0 \\
+\end{tikzcd}
+\]
+
+Assume it has exact rows. Via a chase, prove there two statements:
+\begin{itemize}
+    \item If $\gamma_3$ and $\gamma_1$ are surjective and if $\gamma_0$ is injective, then $\gamma_2$ is surjective.
+    \item If $\gamma_3$ and $\gamma_1$ are injective and if $\gamma_4$ is surjective, then $\gamma_2$ is injective.
+\end{itemize}
+\vspace{0.5em}
+\textbf{Sol.} \par
+(1) For any $n_2\in N_2$, there exists $m_1\in M_1$ such that $\gamma_1(m_1) = \beta_2(n_2)$ and $\beta_1\beta_2 n_2 = 0$ and hence $\gamma_0 \alpha_1 m_1 = 0$, which means $\alpha_1 m_1 = 0$ since $\gamma_0$ is injective, and there exists $m_2\in M_2$ such that $\alpha_2 m_2 = m_1$, then $\beta_2(\gamma_2 m_2 - n_2) = \gamma_1\alpha_2 m_2 - \beta_2 n_2 = \gamma_1 m_1 - \beta_2 n_2 = 0$ and hence there exists $n_3$ such that $\beta_3  n_3 = \gamma_2 m_2 - n_2$. Since $\gamma_3$ is surjective, we know there exists $m_3\in M_3$ such that $\gamma_3 m_3 = n_3$ and hence $\gamma_2 \alpha_3 m_3 = \beta_3\gamma_3 m_3 = \gamma_2 m_2 - n_2$ and hence $n_2 = \gamma_2(m_2 - \alpha_3 m_3)$ and hence $\gamma_2$ is surjetive.\par
+(2) For any $m_2 \in M_2$, if $\gamma_2 m_2 = 0$, then $\gamma_1 \alpha_2 m_2 = \beta_2 \gamma_2 m_2 = 0$ and hence $\alpha_2 m_2 = 0$ since $\gamma_1$ is injective, and there exists $m_3\in M_3$ such that $\alpha_3 m_3 = m_2$. Then $\beta_3\gamma_3 m_3 = \gamma_2 \alpha_3 m_3 =  \gamma_2 m_2 =0$ and hence there exists $n_4\in N_4$ such that $\beta_4 n_4 = \gamma_3 m_3$, so there is $m_4\in M_4$ such that $\gamma_4 m_4 = n_4$ and then $\gamma_3 \alpha_4 m_4 = \beta_4 \gamma_4 m_4 = \beta_4 n_4 = \gamma_3 m_3$, which means $\alpha_4 m_4 = n_3$ and hence $m_2 = \alpha_3 \alpha_4 m_4 = 0$, which means $\gamma_2$ is injective.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.2(5.28 on AK)} 
+Let $R$ be a ring, $P$ and $N$ finitely generated modules with $P$ projective. Prove $\hom(P,N)$ is finitely generated and it is finitely presented if $N$ is.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $R^n\to P$ any surjections and then there is an exact sequence
+\[0\to K \to R^n \to P \to 0\]]
+which splits and hence $\hom(P,N) \oplus \hom(K,N) \cong \hom(R^n,N)$ and hence $\hom(P,N)$ finitely generated since $\hom(R^n,N)$ finitely generated.\par
+Assume $G\to F\to N \to 0$ a finite presentation of $N$ and we know
+\[
+\hom(R^n,G) \to \hom(R^n,F) \to \hom(R^n,N) \to 0
+\]
+exact where the first two modules are free of finite rank hance $\hom(R^n,N)$ is finitely presented and obviously we have
+\[
+0\to \hom(K,N) \to \hom(R^n,N) \to \hom(P,N) \to 0
+\]
+exact and hence $\hom(P,N)$ finitely presented since $\hom(K,N)$ finitely generated.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.3(5.29 on AK)} 
+Let $R$ be a ring, $X_i$ infinitely many variables and let $P:=R[X]$ and $M:=P/\langle X_1,\cdots\rangle$. Is $M$ finitely presented?
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+No. Consider $0 \to K \to P \to M \to 0$ to be exact, where $K = \langle X_1,\cdots\rangle$ anbd if $M$ is finitely presented, we know $K$ is finitely generated, which means there are $p_1,\cdots,p_n \in P$ generating $K$ as $P$ a $P$-module. Consider all the term $X_i$ can be contained in $p_j$ and we may know $\langle p_1,\cdots, p_n\rangle \subset \langle X_1,\cdots, X_m\rangle$ for some $m$, which is a contradiction and we are done. 
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.4(5.30 on AK)} 
+Let $0\to L\overset{\alpha}{\to} M \overset{\beta}{\to} N \to 0$ be a short exact sequence with $M$ finitely generated and $N$ finitely presented. Prove $L$ is finitely generated.\par
+\vspace{0.5em}
+\textbf{Sol.} \par
+Assume $\mu:R^m\to M$ a surjection and $\lambda: = \beta\mu, K = \ker \lambda, \psi = \mu|_K$ and  we have the diagram
+\[
+\begin{tikzcd}
+    0\arrow[r] & K\arrow[r]\arrow[d,"\psi"] & R^m\arrow[r,"\lambda"]\arrow[d,"\mu"] & N\arrow[r]\arrow[d,"1_N"] & 0 \\
+    0\arrow[r] & L\arrow[r,"\alpha"] & M\arrow[r,"\beta"] & N\arrow[r] & 0 \\
+\end{tikzcd}
+\]
+commutes. Then the snake lemma yields that $\text{coker}\psi = 0$ and hence $\psi$ is a surjection. Notice $N$ finitely presented implies that $K$ finitely generated and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(5.42 on AK)} 
+Criticize the following misstatement: given a $3$-term exact sequence $M'\overset{\alpha}{\to} M \overset{\beta}{\to} M''$, there is an isomorphism $M\cong M'\oplus M''$ iff there is a section $\sigma:M''\to M$ of $\beta$ and $\alpha$ is injective.\par
+Moreover, show that this construction yields a counterexample: For each integer $n\geq 2$ let $M_n$ be the direct sum of coutably many copies of $\mathbb{Z}/\langle n\rangle$. Set $M:= \bigoplus M_n$. Then let $p$ be a prime number, and take $M'$ to be a cyclic subgroup of order $p$ of one of the components of $M$ isomorphic to $\mathbb{Z}/\langle p^2\rangle$.
+\vspace{0.5em}\par
+\textbf{Sol.} \par
+This misstatement does not require the isomorphism should be compatible with the exact sequence of a direct sum decomposition form. Actually, when the isomorphism is given too weird, the exactness may not be assured.\par
+For the counterexample, we need to find different direct sum decompositions. Denoted by 
+\[M:= \bigoplus_{n=2}^\infty\bigoplus_{i=1}^\infty(\mathbb Z/n\mathbb Z)\]
+ and by the finite abelian group classification theorem, $M'$ is a finite direct summand of cyclic groups. So, $M'\oplus M\cong M$. 
+
+However, there is no retraction from $\mathbb Z/p^2\mathbb Z$ to $M'$. This is easy, since $\mathbb Z/p\mathbb Z\oplus \mathbb Z/p\mathbb Z$ is not isomorphic to $\mathbb Z/p^2\mathbb Z$, by classification of finite Abelian group, so there is no retraction from $M$ to $M'$ that compatible with the embedding of $M'\rightarrow M$.
+However, we know $M\cong M/M'\oplus M'$, since there is naturally a copy of $\mathbb Z/p\mathbb Z$ by definition, so the exact sequence makes sense. But there is no retraction from $M$ to $M'$.
+\par 
+\vspace{0.5em}
+
+
+
+\addappheadtotoc
+
+\end{document}

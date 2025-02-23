@@ -755,7 +755,44 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
         \end{array}\right)$ which means $(p,p')\mapsto (p+\pi p',p')$ and then $\alpha p+\alpha' p' = (\alpha\oplus 0)\phi(p,p') = (\alpha\oplus\alpha')(p,p')$ where the inverse of $\phi$ will be $\left(\begin{array}{cc}
         1_P & -\pi \\
         0 & 1_P' 
-        \end{array}\right)$ and hence $\phi$ is an automorphism.
+        \end{array}\right)$ and hence $\phi$ is an automorphism.\par
+        Notice $L$ is $\ker \alpha$, and for $(p,p') \in L\oplus P'$, denoted $\psi:L\oplus P' \to K$ the induced map by $\phi^{-1}$ and then $\psi(p,p') = (p-\pi p' ,p')$ which is in $\ker(\alpha\oplus \alpha')$ and it has inverse obviously, and hence $L\oplus P' \cong K$, and use the similar construction to $P\oplus L'$ and we are done.
+    \begin{proposition}
+        Let $R$ be a ring, and $0\to M \to N \to M' \to 0$ an exact sequence. Prove $M,M'$ are finitely generated implies $N$ is finitely generated.    
+    \end{proposition}
+    
+    \begin{proposition}
+        Let $R$ be a ring, and $0\to L \to R^n\to M \to 0$ an exact sequence. Prove $M$ is finitely generated iff $L$ is finitely presented.    
+    \end{proposition}
+    
+    \begin{proposition}
+        Let $0\to L \overset{\alpha}{\to} M \overset{\beta}{\to} N \to 0$ be a short exact sequence with $L$ finitely generated and $M$ finitely presented. Then $N$ is finitely presented.
+    \end{proposition}
+    \Pf\par
+        There exists $G\to F \to M \to 0$ exact with $G,F$ free of finite rank. Let $\mu:R^m \to M$ any surjection and $\nu:= \beta\mu$, let$K = \ker \nu$ and $\lambda = \mu|_K$, then the diagram
+        \[
+        \begin{tikzcd}
+            0\arrow[r] & K\arrow[r]\arrow[d,"\lambda"] & R^m\arrow[r,"\nu"]\arrow[d,"\mu"] & N\arrow[r]\arrow[d,"1_N"] & 0 \\
+            0\arrow[r] & L\arrow[r,"\alpha"] & M\arrow[r,"\beta"] & N\arrow[r] & 0 \\
+        \end{tikzcd}
+        \]
+        commutes and the snake lemma ensure that $\ker\lambda \cong \ker\mu$, however $\ker\mu$ is finitely generated and hence $\ker\lambda$ is finitely generated, and snake lemma ensured that $\text{coker}\lambda = 0$ and hence $0\to \ker\lambda \to K \to L \to 0$ is exact and hence $K$ is finitely generated and hence $N$ is finitely presented.
+
+    \begin{proposition}
+        Let $0\to L \overset{\alpha}{\to} M \overset{\beta}{\to} N \to 0$ be a short exact sequence with $L,N$ finitely presented. Then $M$ is finitely presented.
+    \end{proposition}
+    \Pf\par
+        Let $\lambda:R^l \to L, \nu:R^n \to N$ any two surjections and define $\gamma: = \alpha\lambda$ and since $R^n$ is projective, then define $\delta:R^n \to M$ by lifting $\nu$ and $\mu:R^l\oplus R^n \to M$ by $\gamma+\delta$ and the diagram
+        \[
+        \begin{tikzcd}
+            0\arrow[r] & R^l\arrow[r]\arrow[d,"\lambda"] & R^l\oplus R^n\arrow[r,"\nu"]\arrow[d,"\mu"] & R^n\arrow[r]\arrow[d,"\nu"] & 0 \\
+            0\arrow[r] & L\arrow[r,"\alpha"] & M\arrow[r,"\beta"] & N\arrow[r] & 0 \\
+        \end{tikzcd}
+        \]
+        commutes, and the snake lemma yields that
+        \[0\to \ker \lambda \to \ker\mu \to \ker\nu \to 0\]
+        exact and $\text{coker}\mu = 0$ and $\ker\lambda,\ker\mu$ are finitely generated and hence $\ker \mu$ is ginitely generated and hence $M$ is finitely presented.
+        
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
