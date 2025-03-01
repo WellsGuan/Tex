@@ -1,0 +1,102 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework05 - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1(8.21 on AK)} 
+Let $R$ be a ring, $R'$ an $R$-algebra and $M$ an $R'$-module. Set $M':= R'\otimes_R M$.Define $\alpha:M\to M'$ by $\alpha m:= 1\otimes m$ and $\rho:M'\to M$ by $\rho(x\otimes m) = xm$. Prove $M$ is a direct summand of $M'$ with $\alpha = \iota_M$ amd $\rho = \pi_M$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+If $\alpha(m) = 0$, then $1\otimes m = 0$, which means there exists $x_{\lambda}, m_{\lambda}$ such that $\sum\limits x_{\lambda}m_{\lambda} = m$ and $x\lambda = 0$ and hence $m = 0$, which means $\alpha$ is an injection. $\rho\alpha(m) = m$ and hence
+\[0 \to M \to M' \to M'/M \to 0 \]
+is exact and splits and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.2(8.22 on AK)} 
+Let $R$ be a domain, $I$ a nonzero ideal. Set $K:=\text{Frac}(R)$. Show that $I\otimes_R K = K$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Define $\phi: I\otimes_R K \to K$ by $a\otimes p \mapsto ap$. Then $\phi$ is a surjection since for any $p,q\in R$, let $a\in I$ and $a\otimes p/aq \mapsto p/q$ since $R$ is a domain.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.3(8.29 on AK)} 
+Show $\mathbb{Z}/\langle m\rangle\otimes_{\mathbb{Z}}\mathbb{Z}/\langle n\rangle = 0$ if $m$ and $n$ are relatively prime.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It suffices to show that $1\otimes 1 = 0$. WLOG we may assume $n>m$ and notice $1 \otimes m = m\otimes 1 = 0$, assume $am+bn = 1$ and hence $1\otimes 1 = a(1\otimes m) = 0$ and we are done. If $\phi(a,p/q) = ap/q = 0$, then $a = 0$ or $p=0$ and hence $\phi$ is an injection and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.4(Problem A)} 
+Show that both torsion and torsion-free modules are stable under extension: if in a short exact sequence
+\[0\to L\to M \to N \to 0\]
+the module $L$ and $N$ belong to the class, then so does $M$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $m\in M$ nonzero, if $m\in L$, then if $L$ is torsion(torsion-free) then there (does not) exists $r$ nonzero such that $rm = 0$ in $L$ and hence $rm = 0$ in $M$. For any $m\in L$ nonzero, consider $m+L \in N$, then if $L,N$ are torsion, then there exists $r\in R$ nonzero such that $rm+L = L$, which means $rm \in L$ and hence there exists $s$ nonzero such that $rsm = 0$, where $R$ is a domain implies that $rs$ nonzero and hence $M$ torsion. If $L,N$ are torsion-free, then if there exists $r$ nonzero such that $rm = 0$, then $rm \in L$ and hence $m+L = L$, so $m \in L$ and hence $m = 0$ and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(Problem B)} 
+Show that a projective module is torsion-free.
+\vspace{0.5em}\par
+\textbf{Sol.} \par
+Firstly we claim that a free module is torsion free. Let $e_\lambda$ to be a free basis a module $M$, and then if $r$ nonzero such that $\sum\limits_{\lambda} rr_{\lambda}e_{\lambda} = 0$ for some $r_{\lambda}$, then $rr_{\lambda} = 0$ and hence $r_{\lambda} = 0$ since $R$ is a domain and hence $M$ is torsion-free. Assume $P$ is projective, then their exists an $R$-module $K$ such that $K\oplus P$ torsion free, and $P$ is torsion-free since there exists a injection $P\to K\oplus P$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.6(Problem C)} 
+Show that if $M$ and $N$ are torsion, then so is $M\otimes_R N$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $m\in M, n\in N$, assume $r_m,r_n$ such that $r_m  m = r_n n = 0$, then $r_mr_n (m\otimes n) = (r_m m)\otimes(r_n n) = 0$. Therefore we know there are torsion generators of $M\otimes N$. For any two torsion elements $a,b$ where $r_a a = r_b b =0$, we know $r_ar_b(m+n) = 0$ and hence $M\otimes_R N$ is torsion.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.7(Problem D)} 
+By contrast, show that if $M$ and $N$ are torsion-free, $M\otimes_R N$ need not be torsion free, by considering $R = \mathbb{Q}[x,y], M,N = (x,y)$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice $xy(x\otimes y - y\otimes x) = xy\otimes xy - xy\otimes xy = 0$ and $x\otimes y\neq y\otimes x$ and we are done. To show $x\otimes y - y\otimes x = 0$, notice $x,y$ are generators of $M,N$ and hence it equals to $0$ iff there exists $F_i,G_i\in \mathbb{Q}_{x,y}, P_i \in M$ such that  $F_1 y + G_1 x = F_2 y + G_2 x = 0, F_1P_1 + F_2P_2 = x,  G_1P_1 + G_2P_2 = -y$. If $G_1(0) = G_2(0) = 0$, then $y^2| (G_1P_1+G_2P_2)(0,y)$ which is a contradiction and we may assume $G_1(0) \neq 0$, however $y|G_1x$ which means $G_1(0) = 0$ and hence a contradiction and we are done.
+\par 
+\vspace{0.5em}
+
+
+
+\addappheadtotoc
+
+\end{document}
