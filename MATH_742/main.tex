@@ -1007,6 +1007,49 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
 \begin{definition}
     Let $R$ and $R'$ be rings. An abelian group $N$ is an $(R,R')$-bimoudle if it is both an $R$-module and an $R'$-module if $x(x'n) = x'(xn)$ for all $x\in R,x'\in R'$ and $n\in N$.
 \end{definition}
+
+\subsection{Flatness}
+
+\begin{lemma}
+    Let $R$ be a ring, $\alpha:M\to N$ a homomorphism of modules. Then there is a commutative diagram with two short exacct sequences involving $N'$
+    \[
+    \begin{tikzcd}
+        0\arrow[r] & M'\arrow[r] & M\arrow[rd,"\alpha'"]\arrow[rr,"\alpha"] & & N\arrow[r]& N''\arrow[r] & 0 \\
+          & & 0\arrow[r] & N'\arrow[r]\arrow[ru,"\alpha''"]\arrow[ru] & 0 \\      
+    \end{tikzcd}
+    \]
+    iff $M' = \ker\alpha$ and $N' = \text{Im}\alpha$ and $N'' = \text{Coker}\alpha$. 
+\end{lemma}
+
+\begin{definition}
+    (Exact Functors)\par
+    Let $R$ be a ring , $R'$ an algebra, $F$ a linear functor from (($R$-mod)) to (($R'$-mod)). Call $F$ faithful if the associated map
+    \[
+    \hom_R(M,N) \to \hom_{R'}(FM,FN)
+    \]
+    is injective, or equivalently, if $F\alpha = 0$ implies $\alpha = 0$. Call $F$ exact if it preserves exact sequences, left exact if it preserves kernels and right exact if it preserves cokernels.
+\end{definition}
+
+\begin{proposition}
+    Let $R$ be a ring, $R'$ an algebra, $F$ an $R$-linear functor from (($R$-mod)) to (($R'$-mod)). Then the following conditions are equivalente
+    \begin{itemize}
+        \item $F$ is exact
+        \item $F$ preserves short exact sequences
+        \item $F$ preserves kernels and surjections.
+        \item $F$ preserves cokernels and injections
+        \item $F$ preserves kernels and images
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    (1) implies (2),(3),(4) is trivial. (3) implies (2) and (4) implies (2) are trivial. (2) implies (5) by lemma and assume (5), let $M'\to M \to M''$ exact, then $\ker(\beta) = \text{Im}(\alpha)$ and then $\ker(F(\beta)) = F(\ker(\beta)) = F(\text{Im}(\alpha)) = \text{Im}F\alpha$ and we are done.
+
+\begin{definition}
+    (Flatness)\par
+    We say an $R$-module $M$ is flat over $R$ or is $R$-flat if $M\otimes_R \cdot$ is exact. It is equivalent with that $M\otimes_R \cdot$ preserve injection since it preserves cokernels.\par
+    We say  $M$ is faithfully if $M\otimes_R \cdot$ is exact and faithful.\par
+    We say an $R$-algebra is falt or faithfully flat if it is so as an $R$-module.
+\end{definition}
+
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
