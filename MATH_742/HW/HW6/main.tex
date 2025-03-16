@@ -1,0 +1,142 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework06 - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1(6.20 on AK)} 
+Let $R$ be a ring, $M$ a module. Define the map
+\[D(M): M \to \hom(\hom(M,R),R)\quad\text{by }(D(M)(m))(\alpha):=\alpha(m)\]
+If $D(M)$ is an isomorphism, call $M$ reflexive. Show
+\begin{itemize}
+    \item $D:1_{((R\text{-module}))} \to \hom(\hom(\cdot,R),R)$ is a natural transformation.
+    \item Let $M_i, 1\leq i\leq n$ be modules. Then $D(\bigoplus_{i=1}^n M_i) = \bigoplus_{i=1}^n D(M_i)$
+    \item Assume $M$ is finitely generated and projective. Then $M$ is reflexive.
+\end{itemize}
+\vspace{0.5em}
+\textbf{Sol.} \par
+    (1) We only need to check for any $R$-modules $M,N$ and $\alpha:M\to N$, there have
+    \[
+    \alpha'D(M) = D(N)\alpha
+    \]
+    where $\alpha':\hom(\hom(M,R),R)\to\hom(\hom(N,R),R) $ is the image of $\alpha$ under functor $\hom(\hom(\cdot,R),R)$ which is defined by
+    \[\alpha'(A)(\gamma \in \hom(N,R)) = A(\gamma\alpha\in \hom(M,R))\]
+    for $A\in \hom(\hom(M,R),R)$. Therefore
+    \[
+    \alpha' D(M)(m)(\beta) =  D(M)(m)(\beta\alpha) = \beta\alpha(m),\quad D(N)\alpha(m)(\beta) = D(N)(\alpha(m))(\beta) = \beta\alpha(m) 
+    \]
+    and hence $D$ is a natural transformation.\par
+    (2) For $\alpha: \hom(\bigoplus_{i=1}^n M_i,R) \to R$, we have for any $m_i \in M_i$
+    \[D(\bigoplus_{i=1}^n M_i)(\bigoplus_{i=1}^n m_i)(\alpha) = \alpha(\bigoplus_{i=1}^n m_i) = \sum\limits_{i=1}^n \alpha_i (m_i)\]
+    where
+    \[
+    \begin{tikzcd}
+        M_i\arrow[rd,"\alpha_i"]\arrow[hookrightarrow]{r} & \bigoplus_{i=1}^n M_i\arrow[d,"\alpha"] \\
+            & R
+    \end{tikzcd}
+    \]
+    commutes and since $\hom(\bigoplus_{i=1}^n M_i, R) \cong \bigoplus_{i=1}^n \hom(M_i,R)$ we have for $\beta_i,\in \hom(M_i,R)$
+    \[
+    \bigoplus_{i=1}^n D(M_i)(\bigoplus_{i=1}^n m_i)(\bigoplus_{i=1}^n \beta_i) = \sum\limits_{i=1}^n \beta_i(m_i)
+    \]
+    and since $\alpha = \bigoplus_{i=1}^n \alpha_i$ and we are done.\par
+    (3)There exists a surjection $\beta: R^n \to m$ for some integer $n$ and $\alpha:M\to R^n$ such that $\beta\alpha = 1_M$ since $M$ is projective. It is easy to check $R^n$ is reflexive and consider
+    \[
+    \begin{tikzcd}
+        M\arrow[r,"D(M)"]\arrow[d,"\alpha"] & \hom(\hom(M,R),R)\arrow[d,"\alpha'"] \\
+        R^m\arrow[r]\arrow[d,"\beta"] & \hom(\hom(R^n,R),R)\arrow[d,"\beta'"] \cong R^n \\
+        M\arrow[r,"D(M)"] & \hom(\hom(M,R),R)
+    \end{tikzcd}
+    \]
+    commutes and hence $\beta\phi\alpha'D(M) = 1_M,D(M)\beta\phi\alpha' = 1_{\hom(\hom(M,R),R)}$ for some automorphism on $R^n$ and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.2(Problem A)} 
+Let $M$ be an $R$-module. Show that the functors $\hom_R(M,\cdot)$ and $\cdot \otimes_R M$ from the category of $R$-modules to itself are adjoint to each other, and figure out which is the left adjoint and which is the right adjoint.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $R$-module $N,K$, for any $\alpha \in \hom(N,\hom(M,K))$, we may know $\alpha(n)(m)\in K$ and then we may consider $(n,m)\mapsto \alpha(n)(m)$ is a bilinear map, and for any bilinear $\beta$, we may know $(n\mapsto \beta(n,\cdot))\in \hom(N,\hom(M,K))$ and hence there is canonical isomorphism between $\hom(N,\hom(M,K))$ and $\text{Bil}_K(N,M)\cong \hom(N\otimes M, K)$.\par
+For any $\gamma:  N'\to N$ and $\gamma':K\to K'$ we would like to check
+\[
+\begin{tikzcd}
+    \hom(N,\hom(M,K))\arrow[r,"\cong"]\arrow[d] & \hom(N \otimes M, K)\arrow[d] \\
+    \hom(N',\hom(M,K'))\arrow[r,"\cong"] & \hom(N'\otimes M, K') \\
+\end{tikzcd}
+\]
+assume $\gamma: \hom(N,\hom(M,N))\to \hom(K,\hom(M,K))$ and then we may know 
+\[F(\gamma,\gamma')(\alpha) = \gamma'\alpha(\gamma(\cdot)),\quad F'(\gamma,\gamma')(\beta) = \gamma'\beta(\gamma(\cdot),\cdot)\]
+and then it is easy to check for any $n\in N,M\in m, K\in k$
+\[
+\gamma'(\alpha(\gamma(n))(m)) = \gamma'\alpha'(\gamma(n),(m))
+\]
+and hence the diagram commutes and hence $\cdot \otimes_R M$ is the left adjoint and $\hom(M,\cdot)$ is the right adjoint.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.3(Problem B)} 
+Let $\mathcal{C}$ be an arbitrary category. Consider the category of functors $\text{Fun}(\mathcal{C,\text{Sets}})$. Prove that this category admits products: for any family of functors $F_{\alpha}\in \text{Fun}(\mathcal{C},\text{Sets})$ the product exists.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For $F_{\alpha}$, define $\prod F_{\alpha}: \mathcal{C} \to (\text{Sets})$ for any object $M\in\mathcal{C}$ define $\prod F_{\alpha}: M \mapsto \prod_{\alpha} F_{\alpha}(M)$ and for $\gamma:M\to N$, define $\prod F_{\alpha}: \gamma\mapsto \prod_{\alpha} F_{\alpha}(\gamma)$ and then assume $\delta:N\to K$ and we know
+\[
+\left(\prod F_{\alpha}\right)(\gamma\circ \delta) = \prod_{\alpha} F_{\alpha}(\gamma\circ \delta) = \prod_{\alpha} \left(F_{\alpha}(\gamma) F_{\alpha}(\delta)\right) = \prod_{\alpha} F_{\alpha}(\gamma)\prod_{\alpha} F_{\alpha}(\delta) = \left(\prod F_{\alpha}\right)(\gamma)\left(\prod F_{\alpha}\right)(\delta) 
+\]
+and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.4(Problem C)} 
+Show that the Yoneda embedding send
+\[
+a\mapsto h_a
+\]
+sends the coproducts in $\mathcal{C}$ to products in $\text{Fun}(\mathcal{C},\text{Sets})$
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $\Lambda \to a_{\lambda}$ a family of objects in $\mathcal{C}$ 
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(Problem D)} 
+Suppose $a_{\alpha}$ is an arbitrary familty of elements in $\mathcal{C}$. Show that the coproducts $\amalg a_{\alpha}$ exists iff the functor $\prod h_{a_{\alpha}}$ is representable.
+\vspace{0.5em}\par
+\textbf{Sol.} \par
+
+\par 
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

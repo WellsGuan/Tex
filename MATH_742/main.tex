@@ -792,7 +792,155 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
         commutes, and the snake lemma yields that
         \[0\to \ker \lambda \to \ker\mu \to \ker\nu \to 0\]
         exact and $\text{coker}\mu = 0$ and $\ker\lambda,\ker\mu$ are finitely generated and hence $\ker \mu$ is ginitely generated and hence $M$ is finitely presented.
-        
+
+\subsection{Direct Limits}
+
+\begin{definition}
+    (Categories)\par
+    A category $\mathcal{C}$ is a collection of elements, called objects. Each pair of objects $A,B$ is equipped with a set $\hom_{\mathcal{C}}(A,B)$ called maps or morphisms. For objects $A,B,C$, there is a composition law
+    \[\hom_{\mathcal{C}}(A,B) \times \hom_{\mathcal{C}}(B,C) \to \hom_{\mathcal{C}}(A,C),\quad (a,\beta) \to \beta\alpha\]
+    and there is a distinguished map $1_B \in \hom_{\mathcal{C}}(B,B)$ such that
+    \[
+    \gamma(\beta\alpha) = (\gamma\beta)\alpha\text{ for any }\gamma:C\to D,\quad\text{ and }1_B\alpha= \alpha, \beta 1_B = \beta
+    \]
+    and we say $\alpha$ is an isomorphism with inverse $\beta:B\to A$ such that $\alpha\beta = 1_B$ and $\beta\alpha = 1_A$.
+\end{definition}
+
+\begin{definition}
+    (Functors)\par A map of categories is known as a functor. Namely, given categories $\mathcal{C}$ and $\mathcal{C}'$, a functor $F:C\to \mathcal{C}'$ is a rule that assigns to each object $A$ of $\mathcal{C}$ and $F(A)$ of $\mathcal{C}'$ and to each map $\alpha$ such that $F(\alpha):F(A)\to F(B)$
+    \[
+    F(\beta\alpha) = F(\beta)F(\alpha),\quad F(1_A) = 1_{F(A)}
+    \]\par
+    A map of functors is known as a matural transformation. Given two functors $F,F':\mathcal{C} \to \mathcal{C}'$, a natrual transformation $\theta:F\to F'$ is a collection of maps $\theta(A):F(A) \to F'(A)$ such that $\theta(B)F(\alpha) = F'(\alpha)\theta(A)$ for any $\alpha$ and $1_{F(A)}$ trvially form a natrual transformation $1_F$. We call $F$ and $F'$ isomorphic if there are natural transformation $\theta:F\to F'$ and $\theta' : F'\to F$ such that $\theta'\theta = 1_F$ and $\theta\theta' = 1_{F'}$.\par
+    A contravariant functor $G$ from $C$ to $C'$ is a rule similar to $F$ but $G(\alpha):G(B)\to G(A)$ with analogous properties with functors.
+\end{definition}
+
+\begin{definition}
+    (Adjoint)\par
+    Let $F:\mathcal{C} \to  \mathcal{C}'$ and $F':\mathcal{C}' \to  \mathcal{C}$ be functors. We call $(F,F')$ an adjoint pair , $F$ the left adjoint of $F'$ and $F'$ the right-adjoint of $F$ if for any $A\in\mathcal{C}$ and $A'\in\mathcal{C'}$, there is given a natural bijection
+    \[\hom_{\mathcal{C'}}(F(A),A') \cong \hom_{\mathcal{C}}(A,F'(A'))\]
+    here natural means that maps $B\to A$ and $A'\to B'$ induce a commutative diagram:
+    \[
+    \begin{tikzcd}
+        \hom_{\mathcal{C'}}(F(A),A')\arrow[d]\arrow[r,"\cong"]& \hom_{\mathcal{C}}(A,F'(A'))\arrow[d] \\
+        \hom_{\mathcal{C'}}(F(B),B')\arrow[r,"\cong"] & \hom_{\mathcal{C}}(B,F'(B'))
+    \end{tikzcd}
+    \]
+\end{definition}
+
+\begin{proposition}
+    Naturality serves to determine an adjoint up to canonical isomorphism. Namely, let $F$ and $G$ be two left adjoints of $F'$ and then $F$ and $G$ are isomorphic.
+\end{proposition}
+\Pf\par
+    Define $\theta(A):G(A) \to F(A)$ by the image of $1_{F(A)}$ under the isomorphism
+    \[\hom(F(A),F(A))\cong \hom(A,F'F(A)) \cong \hom(G(A),F(A))\]
+    for $\alpha:A\to B$ it will induce the commutative diagram
+    \[
+    \begin{tikzcd}
+        \hom_{\mathcal{C'}}(F(A),F(A))\arrow[d]\arrow[r,"\cong"]& \hom_{\mathcal{C}}(A,F'F(A))\arrow[d]\arrow[r,"\cong"]& \hom_{\mathcal{C'}}(G(A),F(A))\arrow[d] \\
+        \hom_{\mathcal{C'}}(F(A),F(B))\arrow[r,"\cong"]&\hom_{\mathcal{C}}(A,F'F(B))\arrow[r,"\cong"] & \hom_{\mathcal{C'}}(G(A),F(B)) \\
+        \hom_{\mathcal{C'}}(F(B),F(B))\arrow[u]\arrow[r,"\cong"]&\hom_{\mathcal{C}}(B,F'F(B))\arrow[r,"\cong"]\arrow[u] & \hom_{\mathcal{C'}}(G(B),F(B))\arrow[u] 
+    \end{tikzcd}
+    \]
+    where we may know $\theta(B)G(\alpha) = F(\alpha)\theta_A$ and hence $\theta$ is a natural transformation, similarly, define $\theta':F\to G$ and we will have
+    \[
+    \begin{tikzcd}
+        \hom_{\mathcal{C'}}(F(A),F(A))\arrow[d]\arrow[r,"\cong"]& \hom_{\mathcal{C}}(A,F'F(A))\arrow[d]\arrow[r,"\cong"]& \hom_{\mathcal{C'}}(G(A),F(A))\arrow[d] \\
+        \hom_{\mathcal{C'}}(F(A),G(A))\arrow[r,"\cong"]&\hom_{\mathcal{C}}(A,F'G(A))\arrow[r,"\cong"] & \hom_{\mathcal{C'}}(G(A),G(A)) \\ 
+    \end{tikzcd}
+    \]
+    which is induced by $\theta'(A)$ and then $\theta'(A)\theta(A) = 1_G(A)$ and we are done.
+
+    \begin{definition}
+        (Direct limits)\par
+        Let $\Lambda,\mathcal{C}$ categories and $\Lambda$ is small, i.e. its objects form a set. Given a functor $\lambda \mapsto M_{\lambda}$ from $\Lambda$ to $\mathcal{C}$, its direct limit denoted with $\varinjlim M_{\lambda}$ is defined to be the object of $\mathcal{C}$ universal among objects $P$ equipped with maps $\beta_{\mu}:M_{\mu} \to P$ what are compatible with the transition map $\alpha_{\mu}^{\kappa}:M_{\kappa} \to M_{\mu}$, i.e. there is a unique map $\beta$ such that all the diagrams
+        \[
+        \begin{tikzcd}
+            M_{\kappa}\arrow[r,"\alpha_{\mu}^{\kappa}"]\arrow[d,"\beta_{\kappa}"] & M_{\mu}\arrow[r,
+            "\alpha_{\mu}"]\arrow[d,"\beta_{\mu}"] & \varinjlim M_{\lambda}\arrow[d,"\beta"] \\
+            P\arrow[r,"1_P"] & P\arrow[r,"1_P"] & P
+        \end{tikzcd}
+        \]
+        where $\lambda\mapsto M_{\lambda}$ is often called a direct system. We know the limit is determined up to unique isomorphism.\par
+        We say $\mathcal{C}$ has direct limits indexed by $\Lambda$ if for every functor $\lambda \mapsto M_{\lambda}$, the direct limit exists. We say that $\mathcal{C}$ has direct limits if it has direct limites indexed by every small category.\par
+        Given a functor $F:C\to C'$, note that a functor  $\lambda\mapsto M_{\lambda}$ from $\Lambda$ to $\mathbb{C}$ yields a functor from $\Lambda$ to $\mathcal{C}'$. Furthermore, whenever the corresponding two direct limits exist, the maps $F(\alpha_{\mu}):F(M_{\mu}) \to F(\varinjlim M_{\lambda})$ induce a canonical map
+        \[\phi_F:\varinjlim F(M_{\lambda}) \to F(\varinjlim M_{\lambda})\]
+        If $\phi_F$ is always an isomorphism, we say $F$ preserves direct limits.
+    \end{definition}
+
+    \begin{proposition}
+        Assume $\mathcal{C}$ has direct limits indexed by $\Lambda$. Then, given a natural transformation from $\lambda \mapsto M_{\lambda}$ to $\lambda \mapsto N_{\lambda}$, universality yields unique commutative diagrams
+        \[
+        \begin{tikzcd}
+            M_{\mu}\arrow[r]\arrow[d] & \varinjlim M_{\lambda}\arrow[d] \\
+            N_{\mu}\arrow[r] & \varinjlim N_{\lambda} 
+        \end{tikzcd}
+        \]
+    \end{proposition}
+    \Pf\par
+        We know 
+        \[\theta(\mu):M_{\mu} \to N_{\mu}, \theta(\mu)\alpha^{\lambda}_{\mu} = \beta^{\lambda}_{\mu}\theta(\lambda)\]
+        and hence consider
+        \[
+        \begin{tikzcd}
+             M_{\lambda}\arrow[r]\arrow[d] & M_{\mu}\arrow[r]\arrow[d] & \varinjlim M_{\lambda}\arrow[d,"\alpha"] \\
+             N_{\lambda}\arrow[r]\arrow[d] & N_{\mu}\arrow[r]\arrow[d] & \varinjlim N_{\lambda}  \\
+             P\arrow[r,"="] & P\arrow[r,"="] & P \\
+        \end{tikzcd}
+        \]
+    \begin{definition}
+        (Functor category)\par
+        The functor category $\mathcal{C}^{\Lambda}$, i.e. a category with objects to be the functors from $\Lambda$ to $\mathcal{C}$ and the maps are the natrual transformation, then $\varinjlim$ yields a functor from $C^{\Lambda}$ to $C$.\par
+        The direct  limit functor is the left adjoint of the diagonal function $\Delta:\mathcal{C} \to \mathcal{C}^{\Lambda}$ which send $M$ to the constant functor $\Delta M$ which has the same value $M$ at every $\Lambda$ and $1_M$ at every map of $\Lambda$; for $\gamma:M\to N$ it caarries $\gamma$ to $\Delta \gamma: \Delta M \to \Delta N$ which has the same value $\gamma$ at every $\lambda$.
+    \end{definition}
+    \Pf\par
+        By proposition 1.6.2. we assume $\lambda\mapsto M_{\lambda},\lambda\mapsto N_{\lambda}$ and $\theta$ a natural transformation, then
+        \[\varinjlim(\theta): \varinjlim M_{\lambda} \to \varinjlim N_{\lambda}\]
+        which is uniquely determined.\par
+        Notice
+        \[\varinjlim: \mathcal{C}^{\Lambda} \to \mathcal{C},\quad \Delta: \mathcal{C} \to \mathcal{C}^{\Lambda}\]
+        and we want to check
+        \[\hom (\varinjlim (\lambda\mapsto M_{\lambda}), N) \cong \hom(\lambda\mapsto M_{\lambda},\Delta N)\]
+        assume $\gamma: \varinjlim (\lambda\mapsto M_{\lambda}) \to N$ and then we would like $\gamma \mapsto \Delta \gamma$ is an isomorphism, which is obviously an injection and assume $\delta:\lambda\mapsto M_{\lambda} \to \Delta N$ where we know $\delta(\lambda):M_{\lambda} \to N$ which satisfies some commutative diagram and hence there exists a unique $\gamma: \varinjlim (\lambda\mapsto M_{\lambda}) \to N$.
+
+    \begin{definition}
+        (Coproduct)\par
+        Let $\mathcal{C}$ be a category, $\Lambda$ a set and $M_{\lambda}$ an object for each $\lambda\in\Lambda$. The coproduct $\prod_{\lambda\in\Lambda} M_{\lambda}$ is defined as the object of $\mathcal{C}$ universal among objects $P$ equipped with a map $\beta_{\mu}:M_{\mu} \to P$ and the maps $\iota_{\lambda}: M_{\lambda} \to \prod M_{\lambda}$ is call the inclusions.\par
+        If $\Lambda$ is empty then $B$ is an object with a unique map $\beta$ to other $P$ and such $B$ is called an initial object.
+    \end{definition}
+
+    \begin{definition}
+        (Coequalizers)\par
+        Let $\alpha,\alpha':M \to N$ their coequalizer is the object universal among $P$ with $\eta: N\to P$ such that $\eta\alpha = \eta\alpha'$.
+    \end{definition}
+
+    \begin{lemma}
+        A category has direct limits iff it has coproducts and coqualizers. If a category has direct limits, then a functor preserves them iff it preserves coproduct and coequalizers.
+    \end{lemma}
+    \Pf\par
+        Let $\Lambda \mapsto M_{\lambda}$ where $\hom(\mu,\nu)$ is empty for any $\mu \neq \nu$ and then the corresponding direct limit is the coproduct. For $M,N\in\mathcal{C}$ and two morphsims, then the inclusion of them two is a small category and the direct limit will be the coequalizer. If $F$ preserves direct limits, since we have shown that coproduct and coequalizer is special direct limits and we are done.\par
+        Conversely, if $\mathcal{C}$ has coproducts and coequalizers. Assume $\Lambda$ a small category and $\lambda \mapsto M_{\lambda}$ a functor, let $\Sigma$ all transition maps and for each  $\sigma = \alpha^{\lambda}_{\mu} \in \Sigma$, set $M_{\Sigma} := M_{\lambda}$ and let $M:= \prod M_{\sigma}$ and $N = \prod M_{\lambda}$, for each $\sigma$, there are two maps $M_{\sigma} \to N$ which is $\iota_{\lambda}$ and the composition $\iota_{\mu}\alpha_{\mu}^{\lambda}$, then let $C$ be the coequalizer of corresponding maps $\alpha,\alpha':M\to N$ aand $\eta: N \to C$ the insertion. So if $\beta_{\lambda}: M_{\lambda} \to P$ compatible with the transition maps, then there is a unique $\beta: N \to P$  such that $\beta\iota_{\lambda} = \beta_{\lambda}$ and hence $\beta\alpha = \beta\alpha'$ and we are done.\par
+        If $F$ preserves coproduct and coeqqualizers, then $F$ preserves the construction and we are done.
+
+    \begin{theorem}
+        The categories $R$-module and sets have direct limits.
+    \end{theorem}
+
+    \begin{theorem}
+        Every left adjoint $F:\mathcal{C}\to \mathcal{C'}$ preserves direct limits.
+    \end{theorem}
+
+    \begin{proposition}
+        Let $\mathcal{C}$ be a category, $\Lambda$ and $\Sigma$ small categories. Assume $\mathcal{C}$ has direct limits indexed by $\Sigma$. Then the functor category $\mathcal{C}^{\Lambda}$ does too.
+    \end{proposition}
+
+    \begin{theorem}
+        Let $\mathcal{C}$ be a category with direct limits indexed by small categories $\Sigma$ and $\Lambda$. Let $\sigma\mapsto (\lambda\mapsto M_{\sigma \lambda})$ be a functor from $\Sigma$ to $\mathcal{C}^{\Lambda}$. Then
+        \[\varinjlim_{\sigma} \varinjlim_{\lambda} M_{\sigma\lambda} = \varinjlim_{\lambda} \varinjlim_{\sigma}  M_{\sigma\lambda}\]
+    \end{theorem}
+    \begin{corollary}
+        Let $\Lambda$ be a small category, $R$ a ring, and $\mathcal{C}$ is sets or $R$-modules. Then functor $\varinjlim:\mathcal{C}^{\Lambda} \to \mathcal{C}$ preserves coproduces and coequalizers.
+    \end{corollary}
 \subsection{Tensor Products}
 
 \begin{definition}
@@ -845,8 +993,20 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
     \end{itemize}
 \end{proposition}
 \Pf\par
-    
+    The switch map induces an isomorphism between $M\otimes_RN = N\otimes_R M$.\par
+    Define $\beta:R\times M \to M$ by $\beta(x,m):= xm$, then $\beta$ is bilinear and we have
+    for any $\alpha:R\times M\to P$, define $\gamma:M\to P$ by $\gamma(m) = \alpha(1,m)$ and then $\alpha = \gamma\beta$, where $\gamma$ is unique since $\beta$ surjective and hence $M\cong R\otimes M$ since
+    \[
+    \begin{tikzcd}
+        R\times M\arrow[r,"\beta'"]\arrow[d]\arrow[rd,"\beta"] & P \\
+        R\otimes M\arrow[ru,"\beta''"] & M \arrow[u,"\gamma"]\\
+    \end{tikzcd}
+    \]
+    let $P$ be $M$ and $R\otimes M$ and we are done.
 
+\begin{definition}
+    Let $R$ and $R'$ be rings. An abelian group $N$ is an $(R,R')$-bimoudle if it is both an $R$-module and an $R'$-module if $x(x'n) = x'(xn)$ for all $x\in R,x'\in R'$ and $n\in N$.
+\end{definition}
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
