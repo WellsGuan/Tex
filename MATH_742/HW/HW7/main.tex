@@ -2,7 +2,7 @@
 \documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
 
 % 标题
-\title{Homework06 - MATH 742}
+\title{Homework07 - MATH 742}
 \author{Boren(Wells) Guan}
 
 % 本文档命令
@@ -35,121 +35,99 @@
 To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
 And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
 
-\subsection*{Ex.1(6.20 on AK)} 
-Let $R$ be a ring, $M$ a module. Define the map
-\[D(M): M \to \hom(\hom(M,R),R)\quad\text{by }(D(M)(m))(\alpha):=\alpha(m)\]
-If $D(M)$ is an isomorphism, call $M$ reflexive. Show
-\begin{itemize}
-    \item $D:1_{((R\text{-module}))} \to \hom(\hom(\cdot,R),R)$ is a natural transformation.
-    \item Let $M_i, 1\leq i\leq n$ be modules. Then $D(\bigoplus_{i=1}^n M_i) = \bigoplus_{i=1}^n D(M_i)$
-    \item Assume $M$ is finitely generated and projective. Then $M$ is reflexive.
-\end{itemize}
-\vspace{0.5em}
+\subsection*{Ex.1(9.20 on AK)} 
+Show that a ring of polynomials $P$ is flat.
+\vspace{0.5em}\\
 \textbf{Sol.} \par
-    (1) We only need to check for any $R$-modules $M,N$ and $\alpha:M\to N$, there have
+    Assume $N,K$ is another $R$-module and we would like to show if $\alpha:N\to K$ is injection, then the induced map $\alpha':P\otimes_R N \to P\otimes_R Q$ is still injection where
     \[
-    \alpha'D(M) = D(N)\alpha
+    \alpha'(p,n) = (p,\alpha n)
     \]
-    where $\alpha':\hom(\hom(M,R),R)\to\hom(\hom(N,R),R) $ is the image of $\alpha$ under functor $\hom(\hom(\cdot,R),R)$ which is defined by
-    \[\alpha'(A)(\gamma \in \hom(N,R)) = A(\gamma\alpha\in \hom(M,R))\]
-    for $A\in \hom(\hom(M,R),R)$. Therefore
+    If $(p,\alpha n) = 0$, let $\{1,X,X^2,\cdots\}$ be a set of generators of $P$ and then we may know $(p,\alpha n) = 0$ implies that there exists $n_{\sigma} \in N, x_{\sigma k}\in R$ such that
     \[
-    \alpha' D(M)(m)(\beta) =  D(M)(m)(\beta\alpha) = \beta\alpha(m),\quad D(N)\alpha(m)(\beta) = D(N)(\alpha(m))(\beta) = \beta\alpha(m) 
+    \sum_{\sigma} x_{\sigma k}m_{\sigma} = n_{k}, \quad \sum_k x_{\sigma k}X^k = 0 \quad
+    \sum_k p_{k}n_k = \alpha n
     \]
-    and hence $D$ is a natural transformation.\par
-    (2) For $\alpha: \hom(\bigoplus_{i=1}^n M_i,R) \to R$, we have for any $m_i \in M_i$
-    \[D(\bigoplus_{i=1}^n M_i)(\bigoplus_{i=1}^n m_i)(\alpha) = \alpha(\bigoplus_{i=1}^n m_i) = \sum\limits_{i=1}^n \alpha_i (m_i)\]
-    where
-    \[
-    \begin{tikzcd}
-        M_i\arrow[rd,"\alpha_i"]\arrow[hookrightarrow]{r} & \bigoplus_{i=1}^n M_i\arrow[d,"\alpha"] \\
-            & R
-    \end{tikzcd}
-    \]
-    commutes and since $\hom(\bigoplus_{i=1}^n M_i, R) \cong \bigoplus_{i=1}^n \hom(M_i,R)$ we have for $\beta_i,\in \hom(M_i,R)$
-    \[
-    \bigoplus_{i=1}^n D(M_i)(\bigoplus_{i=1}^n m_i)(\bigoplus_{i=1}^n \beta_i) = \sum\limits_{i=1}^n \beta_i(m_i)
-    \]
-    and since $\alpha = \bigoplus_{i=1}^n \alpha_i$ and we are done.\par
-    (3)There exists a surjection $\beta: R^n \to m$ for some integer $n$ and $\alpha:M\to R^n$ such that $\beta\alpha = 1_M$ since $M$ is projective. It is easy to check $R^n$ is reflexive and consider
-    \[
-    \begin{tikzcd}
-        M\arrow[r,"D(M)"]\arrow[d,"\alpha"] & \hom(\hom(M,R),R)\arrow[d,"\alpha'"] \\
-        R^m\arrow[r]\arrow[d,"\beta"] & \hom(\hom(R^n,R),R)\arrow[d,"\beta'"] \cong R^n \\
-        M\arrow[r,"D(M)"] & \hom(\hom(M,R),R)
-    \end{tikzcd}
-    \]
-    commutes and hence $\beta\phi\alpha'D(M) = 1_M,D(M)\beta\phi\alpha' = 1_{\hom(\hom(M,R),R)}$ for some automorphism on $R^n$ and we are done.
+    and hence $\alpha n =0$. Since $\alpha$ is injection and we will know that $n=0$ and hence $\alpha'(p,n) = 0$, so $\alpha'$ is injection. 
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.2(Problem A)} 
-Let $M$ be an $R$-module. Show that the functors $\hom_R(M,\cdot)$ and $\cdot \otimes_R M$ from the category of $R$-modules to itself are adjoint to each other, and figure out which is the left adjoint and which is the right adjoint.
+\subsection*{Ex.2(9.21 on AK)} 
+Let $R$ be a ring, $M$ and $N$ flat modules. Show that $M\otimes_R N$ is flat.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-For any $R$-module $N,K$, for any $\alpha \in \hom(N,\hom(M,K))$, we may know $\alpha(n)(m)\in K$ and then we may consider $(n,m)\mapsto \alpha(n)(m)$ is a bilinear map, and for any bilinear $\beta$, we may know $(n\mapsto \beta(n,\cdot))\in \hom(N,\hom(M,K))$ and hence there is canonical isomorphism between $\hom(N,\hom(M,K))$ and $\text{Bil}_K(N,M)\cong \hom(N\otimes M, K)$.\par
-For any $\gamma:  N'\to N$ and $\gamma':K\to K'$ we would like to check
+For any $\alpha: P\to Q$ injections, we would like to show the induced
+\[
+\alpha': (M\otimes N) \otimes P \to (M\otimes N) \otimes Q
+\]
+is injection, however we know the diagram
 \[
 \begin{tikzcd}
-    \hom(N,\hom(M,K))\arrow[r,"\cong"]\arrow[d] & \hom(N \otimes M, K)\arrow[d] \\
-    \hom(N',\hom(M,K'))\arrow[r,"\cong"] & \hom(N'\otimes M, K') \\
+    M \otimes (N \otimes P)\arrow[d]\arrow[r] & M\otimes (N \otimes Q)\arrow[d] \\
+(M\otimes N) \otimes P\arrow[r] & (M\otimes N) \otimes Q \\
 \end{tikzcd}
 \]
-assume $\gamma: \hom(N,\hom(M,N))\to \hom(K,\hom(M,K))$ and then we may know 
-\[F(\gamma,\gamma')(\alpha) = \gamma'\alpha(\gamma(\cdot)),\quad F'(\gamma,\gamma')(\beta) = \gamma'\beta(\gamma(\cdot),\cdot)\]
-and then it is easy to check for any $n\in N,M\in m, K\in k$
-\[
-\gamma'(\alpha(\gamma(n))(m)) = \gamma'\alpha'(\gamma(n),(m))
-\]
-and hence the diagram commutes and hence $\cdot \otimes_R M$ is the left adjoint and $\hom(M,\cdot)$ is the right adjoint.
+commutes and the induced map $N\otimes P \to N\otimes Q$ is injection and hence $M\otimes(N\otimes P) \to M\otimes (N\otimes Q)$ injection, and since there are isomorphisms and we are done.
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.3(Problem B)} 
-Let $\mathcal{C}$ be an arbitrary category. Consider the category of functors $\text{Fun}(\mathcal{C,\text{Sets}})$. Prove that this category admits products: for any family of functors $F_{\alpha}\in \text{Fun}(\mathcal{C},\text{Sets})$ the product exists.
+\subsection*{Ex.3(9.22 on AK)} 
+Let $R$ be a ring, $M$ a flat module, $R'$ an algebra. Show that $M\otimes_R R'$ is flat over $R'$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-For $F_{\alpha}$, define $\prod F_{\alpha}: \mathcal{C} \to (\text{Sets})$ for any object $M\in\mathcal{C}$ define $\prod F_{\alpha}: M \mapsto \prod_{\alpha} F_{\alpha}(M)$ and for $\gamma:M\to N$, define $\prod F_{\alpha}: \gamma\mapsto \prod_{\alpha} F_{\alpha}(\gamma)$ and then assume $\delta:N\to K$ and we know
-\[
-\left(\prod F_{\alpha}\right)(\gamma\circ \delta) = \prod_{\alpha} F_{\alpha}(\gamma\circ \delta) = \prod_{\alpha} \left(F_{\alpha}(\gamma) F_{\alpha}(\delta)\right) = \prod_{\alpha} F_{\alpha}(\gamma)\prod_{\alpha} F_{\alpha}(\delta) = \left(\prod F_{\alpha}\right)(\gamma)\left(\prod F_{\alpha}\right)(\delta) 
-\]
-and we are done.
-\par 
-\vspace{0.5em}
-
-\subsection*{Ex.4(Problem C)} 
-Show that the Yoneda embedding send
-\[
-a\mapsto h_a
-\]
-sends the coproducts in $\mathcal{C}$ to products in $\text{Fun}(\mathcal{C},\text{Sets})$
-\vspace{0.5em}\\
-\textbf{Sol.} \par
-Assume $\Lambda \to a_{\lambda}$ a family of objects in $\mathcal{C}$ and $P_{\lambda}$ all the objects equipped with a map from each $a_{\lambda}$ to them and $M$ the corresponding coproduct. Then we claim that $h_M = \prod_{\lambda} h_{a_{\lambda}}$, which is easy to check. Notice for any $x\in\mathcal{C}$, $h_M(x)$ is empty iff $\prod_{\lambda} h_{a_{\lambda}}(x)$ and assume $\gamma_{\lambda}:a_{\lambda} \to M$ and define $\theta(x):h_M(x) \to \prod_{\lambda} h_{a_{\lambda}}(x)$ by $\theta(x)(\beta) = \prod \gamma_{\lambda}\beta$ and $\theta'(x):\prod_{\lambda} h_{a_{\lambda}}(x) \to M$ by $\theta'(x)\left(\prod \beta_{\lambda}\right)$ for any object $x\in\mathcal{C}$ the $\beta$ induced by the UMP and we would like to check that for any $\delta:x\to y$
+Assume $N,L$ $R'$-modules and $\gamma: N\to L$ injection and we would like to check that the induced $\gamma':(M\otimes_R R')\otimes_{R'} N \to (M\otimes_R R')\otimes_{R'} L$ is injective. We consider the commutative diagram, which is easy to check and
 \[
 \begin{tikzcd}
-    \hom(M,x)\arrow[r,"F(\delta)"]\arrow[d,"\theta(x)"] & \hom(M,y)\arrow[d,"\theta(y)"] \\
-    \prod \hom(a_{\lambda}, x)\arrow[d,"\theta'(x)"]\arrow[r,"F'(\delta)"] & \prod \hom(a_{\lambda}, y)\arrow[d,"\theta'(y)"] \\
-    \hom(M,x)\arrow[r,"F(\delta)"] & \hom(M,y)
+    (M\otimes_R R')\otimes_{R'} N\arrow[d,"\cong"]\arrow[r] & (M\otimes_R R')\otimes_{R'} L\arrow[d,"\cong"] \\
+M \otimes_R N\arrow[r] & M\otimes_R L \\
 \end{tikzcd}
 \]
-commutes, consider $\phi:M\to x$ and then
-\[
-\theta(y)(F(\delta)(\phi)) = \prod \gamma_{\lambda}\phi\delta = F'(\delta)(\prod \gamma_{\lambda}\phi) = F'(\delta)\theta(x)(\phi)
-\]
-and
-\[
-\theta'(y)(F'(\delta)\prod \beta_{\lambda}) = \theta'(y)(\prod \beta_{\lambda}\delta) = \beta\delta = F(\delta)(\theta'(x)(\prod \beta_{\lambda}))
-\]
-by the UMP, which always induce that $\theta\theta' = 1_{\prod h_{a_{\lambda}}}, \theta'\theta  = 1_{h_M}$ and we are done.
+where $\gamma''(m,n) \mapsto \gamma'((m,1),n) = ((m,1),\gamma n)\mapsto (m,\gamma_n)$
+which means the map $M\otimes_R N \to M\otimes_R L$ in the commutative diagram is exact the induced map $\gamma''$ and which is injective by $M$ is flat and hence $(M\otimes_R R')\otimes_{R'} N\to (M\otimes_R R')\otimes_{R'} L$ is injective.
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.5(Problem D)} 
-Suppose $a_{\alpha}$ is an arbitrary familty of elements in $\mathcal{C}$. Show that the coproducts $\amalg a_{\alpha}$ exists iff the functor $\prod h_{a_{\alpha}}$ is representable.
+\subsection*{Ex.4(9.27 on AK)} 
+Let $R$ be a ring, $I$ an ideal. Assume $R/I$ is flat, then show $I = I^2$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider $I\hookrightarrow R$ the inclusion and then we know $R/I \otimes I \to R/I \otimes I$ inclusion and hence we consider $(a+I,l)$ as an element in $R/I\otimes R$ which is $0$ and hence $R/I \otimes I$ is zero, which is isomorphic to $I/I^2$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(Problem A)} 
+Let $F$ be a functor from a category $\mathcal{C}$ to $((\text{Sets}))$. Show that the functor is represented by $a\in\mathcal{C}$ iff there exists an element $\alpha\in F(a)$ with the following property: for any $b\in\mathcal{C}$ and any $\beta$ in $F(b)$, there exists unique $f:a\to b$ such that $F(f)(\alpha) = \beta$.
 \vspace{0.5em}\par
 \textbf{Sol.} \par
-By Problem C we only need check the necessity. Assume $h_M \cong \prod h_{a_{\lambda}}$, then for any $p$ an object in $\mathcal{C}$ with $beta_{\lambda}:a_{\lambda} \to p$ and then we know there exists $\beta \in \hom(M,p)$ as the image of $\prod a_{\lambda}$ and $\prod \beta_{\lambda} \in \prod \hom(\alpha_{\lambda},M)$ as the image of $1_M$ and the UMP is satified by the existence of the natural transformation.
+If $F = \hom(a,\cdot)$, then conclusion is trivial. Conversely, assume $F$ satisfies the property, then we may consider $\theta(b):\hom(a,b) \to F(b)$ by $\theta(b)(\gamma) = F(\gamma)(\alpha)$ and $\theta'(b):F(b) \to \hom(a,b)$ as $\theta(b)(\beta)$ to be the unique $\gamma$ such that $F(\gamma)(\alpha) = \beta$, then consider the diagram
+\[
+\begin{tikzcd}
+    \hom(a,m)\arrow[r]\arrow[d,"\theta(m)"] & \hom(a,n)\arrow[d,"\theta(n)"] \\    
+    F(m)\arrow[r]\arrow[d,"\theta'(m)"] & F(n)\arrow[d,"\theta'(n)"] \\
+    \hom(a,m)\arrow[r] & \hom(a,n) \\
+\end{tikzcd}
+\]
+which we may know that for any $\gamma:a\to m$ and $\delta: m\to n$, we have
+\[
+\theta(n)(\delta(\gamma)) = F(\delta\gamma)(\alpha) = (F(\delta)F(\gamma))(\alpha) = F(\delta)(F(\gamma)(\alpha))
+\]
+and for any $\beta \in F(m)$
+\[
+\gamma\theta'(m)(\beta) = \gamma\phi = \theta'(n)(F(\gamma\phi)(\alpha)) = \theta'(n)(F(\gamma)(\beta))
+\]
+where $\phi$ is the unique map from $a$ to $m$ such that $F(\phi)(\alpha) = \beta$ and we are done by checking that $\theta'\theta = 1_{\hom(a,\cdot)}$ and $\theta\theta' = 1_F$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.6(Problem B)} 
+Show that the algebra $\mathbb{C}\otimes_{\mathbb{R}}\mathbb{C}$ is isomorphic to $\mathbb{C}\times\mathbb{C}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice that we have $1\otimes i, i\otimes 1, 1\otimes 1, i\otimes i$ is a free basis of $\mathbb{C}\otimes \mathbb{C}$. Define
+\[
+\phi: (a+bi)\otimes(c+di) \to (ac + bdi, ad+bci)
+\]
+where it is easy to check $\phi$ is well-defined and a lienar map, which is obviously a surjection and if $ac = bd = 0, ad = bc = 0$, we may know three of $a,b,c,d$ are $0$ and hence it is an injection and we are done.
 \par 
 \vspace{0.5em}
 
