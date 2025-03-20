@@ -1,0 +1,122 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework01 - MATH 833}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Problem 1} 
+Suppose $X_n,Y_n,Z_n, n\geq 1$ and $Y$ are random variables defined on the same proability space. Suppose $P(X_n\leq Y_n\leq Z_n) = 1$ for all $n\geq 1$ and $X_n\overset{P}{\to} Y,Z_n\overset{P}{\to} Y$. Show $Y_n\overset{P}{\to} Y$ as well.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+For any $\epsilon > 0$, we have
+\[
+\begin{aligned}
+    P(|Y_n - Y| > \epsilon) &= P(Y_n > Y+\epsilon) + P(Y_n < Y-\epsilon) \\&\leq P(Z_n > Y+\epsilon) + P(X_n < Y-\epsilon)\\  &< P(|X_n-Y| > \epsilon) + P(|Z_n-Y| > \epsilon)
+\end{aligned}
+\]
+and hence
+\[
+\limsup P(|Y_n - Y| > \epsilon)  \leq \limsup \left[P(|X_n-Y| > \epsilon) + P(|Z_n-Y| > \epsilon)\right] = 0
+\]
+and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 2} 
+A triangle $T$ in a graph $(V,E)$ is a collection of three vertices $i,j,k\in V$ such that there is an edge between any two of the edges and we say $T=\{i,j,k\}$ in this case.\par
+Show that $p^*_n = \tfrac{1}{n}$ is a threhold, but not a shart threhold, for the existence of a triangle in $G(n,p)$ as follows:
+\begin{itemize}
+    \item Let $X_n = X_{n,p} = \#\{\text{triangles in }G(n,p_n)\}$. Show that $EX_n \to 0$ if $np_n \to 0$ and $EX_n \to \infty$ if $np_n \to \infty$. Explain why this shows that if $p_n/p_n^* \to 0$ then $P(X_n= 0) \to 1$.
+\end{itemize}
+\vspace{0.5em}
+\textbf{Sol.} \par
+Denote $Y_n$ as the number of cycles with length at most $k$ containing the $n^{th}$ vertex and we will know
+\[
+\sum\limits_{i=1}^n Y_i = \sum\limits_{m=3}^k mX_n(m)
+\]
+and then we may know
+\[
+P(U_n\text{ is contained in a cycle of length at most }k ) = P(Y_{U_n} \geq 1) \leq E(Y_{U_n})
+\]
+and
+\[
+E(Y_{U_n}) = \dfrac{1}{n}E\left[\sum\limits_{i=1}^n Y_i\right] = \dfrac{1}{n}E\left[\sum\limits_{m=3}^k mX_n(m)\right] 
+\]
+and hence
+\[
+\limsup_{n\to\infty} E(Y_{U_n}) \leq \limsup_{n\to\infty}\dfrac{1}{n}E\left[\sum\limits_{m=3}^k mX_n(m)\right]  = 0.
+\]
+Then we have
+\[
+\limsup_{n\to\infty} P(U_n\text{ is contained in a cycle of length at most }k ) \leq \limsup_{n\to\infty} E(Y_{U_n}) = 0
+\]
+and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 3} 
+Suppose that $(G_n, n\geq 1)$ are collection of random graphs $G_n = ([n],E_n)$ on $n$ vertices. Let $U_n \sim \text{Unif}([n])$ be a randomly selected vertex in $G_n$, independent of the internal structure of the graph $G_n$. A cycle of length $k\geq 3$ is a collection of $k$ distinct vertices $v_1,\cdots,v_k$ such that $v_l \sim v_{l+1}$ for $1\leq l\leq k-1$ and $v_k\sim v_1$ and viewd as equivalent up-to the natural symmetries. Let $X_n(k)$ be the number of distinct cycles of length $k$ in $G_n$.\par
+Show that if
+\[\limsup_{n\to\infty} E[X_n(k)] < \infty\]
+for all $k\geq 3$, then
+\[\lim_{n\to\infty} P(U_n\text{ is contained in a cycle of length at most }k ) = 0\]
+\vspace{0.5em}
+\textbf{Sol.} \par
+Denote $Y_n$ as the number of cycles with length at most $k$ containing the $n^{th}$ vertex and we will know
+\[
+\sum\limits_{i=1}^n Y_i = \sum\limits_{m=3}^k mX_n(m)
+\]
+and then we may know
+\[
+P(U_n\text{ is contained in a cycle of length at most }k ) = P(Y_{U_n} \geq 1) \leq E(Y_{U_n})
+\]
+and
+\[
+E(Y_{U_n}) = \dfrac{1}{n}E\left[\sum\limits_{i=1}^n Y_i\right] = \dfrac{1}{n}E\left[\sum\limits_{m=3}^k mX_n(m)\right] 
+\]
+and hence
+\[
+\limsup_{n\to\infty} E(Y_{U_n}) \leq \limsup_{n\to\infty}\dfrac{1}{n}E\left[\sum\limits_{m=3}^k mX_n(m)\right]  = 0.
+\]
+Then we have
+\[
+\limsup_{n\to\infty} P(U_n\text{ is contained in a cycle of length at most }k ) \leq \limsup_{n\to\infty} E(Y_{U_n}) = 0
+\]
+and we are done.
+\par 
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}
