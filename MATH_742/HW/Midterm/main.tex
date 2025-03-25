@@ -1,0 +1,117 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Midterm - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Problem.2} 
+Let $R\to S$ be a homomorphism of rings. Suppose $S$ is projective as an $R$-module, and $M$ is a projective $S$-module. Show that $M$ is projective as an $R$-module.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    We know there exists an $R$-module $K$ such that $K\oplus S \cong R^{\Lambda}$ for some index set $\Lambda$ and an $S$-module $K'$ such that $K'\oplus M \cong S^{\Sigma}$ for some index set $\Sigma$, then we may know that \[(K^{\Sigma} \oplus K')\oplus M \cong K^{\Sigma} \oplus (K'\oplus M) \cong K^{\Sigma} \oplus S^{\Sigma} \cong (K\oplus S)^{\Sigma} \cong R^{\Lambda \times \Sigma}\] 
+    and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.2(9.21 on AK)} 
+Let $R$ be a ring, $M$ and $N$ flat modules. Show that $M\otimes_R N$ is flat.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.3(9.22 on AK)} 
+Let $R$ be a ring, $M$ a flat module, $R'$ an algebra. Show that $M\otimes_R R'$ is flat over $R'$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $N,L$ $R'$-modules and $\gamma: N\to L$ injection and we would like to check that the induced $\gamma':(M\otimes_R R')\otimes_{R'} N \to (M\otimes_R R')\otimes_{R'} L$ is injective. We consider the commutative diagram, which is easy to check and
+\[
+\begin{tikzcd}
+    (M\otimes_R R')\otimes_{R'} N\arrow[d,"\cong"]\arrow[r] & (M\otimes_R R')\otimes_{R'} L\arrow[d,"\cong"] \\
+M \otimes_R N\arrow[r] & M\otimes_R L \\
+\end{tikzcd}
+\]
+where $\gamma''(m,n) \mapsto \gamma'((m,1),n) = ((m,1),\gamma n)\mapsto (m,\gamma_n)$
+which means the map $M\otimes_R N \to M\otimes_R L$ in the commutative diagram is exact the induced map $\gamma''$ and which is injective by $M$ is flat and hence $(M\otimes_R R')\otimes_{R'} N\to (M\otimes_R R')\otimes_{R'} L$ is injective.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.4(9.27 on AK)} 
+Let $R$ be a ring, $I$ an ideal. Assume $R/I$ is flat, then show $I = I^2$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Consider $I\hookrightarrow R$ the inclusion and then we know $R/I \otimes I \to R/I \otimes I$ inclusion and hence we consider $(a+I,l)$ as an element in $R/I\otimes R$ which is $0$ and hence $R/I \otimes I$ is zero, which is isomorphic to $I/I^2$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(Problem A)} 
+Let $F$ be a functor from a category $\mathcal{C}$ to $((\text{Sets}))$. Show that the functor is represented by $a\in\mathcal{C}$ iff there exists an element $\alpha\in F(a)$ with the following property: for any $b\in\mathcal{C}$ and any $\beta$ in $F(b)$, there exists unique $f:a\to b$ such that $F(f)(\alpha) = \beta$.
+\vspace{0.5em}\par
+\textbf{Sol.} \par
+If $F = \hom(a,\cdot)$, then conclusion is trivial. Conversely, assume $F$ satisfies the property, then we may consider $\theta(b):\hom(a,b) \to F(b)$ by $\theta(b)(\gamma) = F(\gamma)(\alpha)$ and $\theta'(b):F(b) \to \hom(a,b)$ as $\theta(b)(\beta)$ to be the unique $\gamma$ such that $F(\gamma)(\alpha) = \beta$, then consider the diagram
+\[
+\begin{tikzcd}
+    \hom(a,m)\arrow[r]\arrow[d,"\theta(m)"] & \hom(a,n)\arrow[d,"\theta(n)"] \\    
+    F(m)\arrow[r]\arrow[d,"\theta'(m)"] & F(n)\arrow[d,"\theta'(n)"] \\
+    \hom(a,m)\arrow[r] & \hom(a,n) \\
+\end{tikzcd}
+\]
+which we may know that for any $\gamma:a\to m$ and $\delta: m\to n$, we have
+\[
+\theta(n)(\delta(\gamma)) = F(\delta\gamma)(\alpha) = (F(\delta)F(\gamma))(\alpha) = F(\delta)(F(\gamma)(\alpha))
+\]
+and for any $\beta \in F(m)$
+\[
+\gamma\theta'(m)(\beta) = \gamma\phi = \theta'(n)(F(\gamma\phi)(\alpha)) = \theta'(n)(F(\gamma)(\beta))
+\]
+where $\phi$ is the unique map from $a$ to $m$ such that $F(\phi)(\alpha) = \beta$ and we are done by checking that $\theta'\theta = 1_{\hom(a,\cdot)}$ and $\theta\theta' = 1_F$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.6(Problem B)} 
+Show that the algebra $\mathbb{C}\otimes_{\mathbb{R}}\mathbb{C}$ is isomorphic to $\mathbb{C}\times\mathbb{C}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Notice that we have $1\otimes i, i\otimes 1, 1\otimes 1, i\otimes i$ is a free basis of $\mathbb{C}\otimes \mathbb{C}$. Define
+\[
+\phi: (a+bi)\otimes(c+di) \to (ac + bdi, ad+bci)
+\]
+where it is easy to check $\phi$ is well-defined and a lienar map, which is obviously a surjection and if $ac = bd = 0, ad = bc = 0$, we may know three of $a,b,c,d$ are $0$ and hence it is an injection and we are done.
+\par 
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}
