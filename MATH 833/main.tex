@@ -58,30 +58,73 @@ A triangle $T$ in a graph $(V,E)$ is a collection of three vertices $i,j,k\in V$
 Show that $p^*_n = \tfrac{1}{n}$ is a threhold, but not a shart threhold, for the existence of a triangle in $G(n,p)$ as follows:
 \begin{itemize}
     \item Let $X_n = X_{n,p} = \#\{\text{triangles in }G(n,p_n)\}$. Show that $EX_n \to 0$ if $np_n \to 0$ and $EX_n \to \infty$ if $np_n \to \infty$. Explain why this shows that if $p_n/p_n^* \to 0$ then $P(X_n= 0) \to 1$.
+    \item Let $T=\{i,j,k\}$ and $T' = \{i',j',k'\}$ be two possible triangle in $G(n,p_n)$. Compute
+    \[E[1_{\{T\text{ is a triangle}\}}1_{\{T'\text{ is a triangle}\}}]\]
+    based on the size of the set $T\cap T'$ and the value $p$.
+    \item Show \[\begin{aligned}EX_n^2 &= C_n^3E[1_{\{\{1,2,3\}\text{ is a triangle}\}}X_n] \\ &= C_n^3(p^3+3(n-3)p^5+3C_{n-3}^2p^6 + C_{n-3}^3p^6)\end{aligned}\]
+    \item Show that $P(X_n\geq 1) \to 1$ whenever $np\to\infty$.
+    \item Show that if $np_n \to \lambda$ then
+    \[\dfrac{\lambda^3}{\lambda^3+6} \leq \liminf_{n\to\infty} P(X_n\geq 1)\leq \limsup_{n\to\infty} P(X_n\geq 1)\leq \dfrac{\lambda^3}{6}\]
+    and explain why this implies that $1/n$ is not a sharp threhold.
 \end{itemize}
 \vspace{0.5em}
 \textbf{Sol.} \par
-Denote $Y_n$ as the number of cycles with length at most $k$ containing the $n^{th}$ vertex and we will know
+(1) Notice 
 \[
-\sum\limits_{i=1}^n Y_i = \sum\limits_{m=3}^k mX_n(m)
+EX_n = E\left[\sum\limits_{i,j,k} 1_{\{i,j,k\}\text{ is a triangle}}\right] = C_n^3 p_n^3
 \]
-and then we may know
-\[
-P(U_n\text{ is contained in a cycle of length at most }k ) = P(Y_{U_n} \geq 1) \leq E(Y_{U_n})
+and we are done. Since $P(X_n = 0) = 1 - P(X_n \geq 1)$ where $P(X_n \geq 1) \leq E X_n$ and we have if $p_n/p_n^* \to 0$ induces that $P(X_n = 0) \to 1$.\par
+(2) Assume $\# T\cap T' \in  \{0,1\}$, then
+\[E[1_{\{T\text{ is a triangle}\}}1_{\{T'\text{ is a triangle}\}}] = p_n^6\]
+and assume $\# T\cap T' = 2$, we will know
+\[E[1_{\{T\text{ is a triangle}\}}1_{\{T'\text{ is a triangle}\}}] = p_n^5.
 \]
-and
+If assume $\# T\cap T' = 3$, we will know
 \[
-E(Y_{U_n}) = \dfrac{1}{n}E\left[\sum\limits_{i=1}^n Y_i\right] = \dfrac{1}{n}E\left[\sum\limits_{m=3}^k mX_n(m)\right] 
+E[1_{\{T\text{ is a triangle}\}}1_{\{T'\text{ is a triangle}\}}] = p_n^3
+\]\par
+(3) Notice
+\[
+\begin{aligned}
+EX_n^2 &= E\left[\sum\limits_{i,j,k} 1_{\{i,j,k\}\text{ is a triangle}}\right]^2 \\
+&=  \sum\limits_{i,j,k} E(1_{\{i,j,k\}}X_n) \\
+&= C_n^3E[1_{\{\{1,2,3\}\text{ is a triangle}\}}X_n] \\
+&= C_n^3 \sum\limits_{i,j,k} E[1_{\{\{1,2,3\}\text{ is a triangle}\}}1_{\{\{i,j,k\}\text{ is a triangle}\}}] \\
+&= C_n^3 (p^3 + C_{n-3}^3 p^6 + 3C_{n-3}^2 p^6 + 3(n-3)p^5)
+\end{aligned}
+\]\par
+(4) Notice for integer $k\geq 1$ we have
+\[
+P(X_n\geq 1)E(X_n^2) = \left(\sum\limits_{k=1}^n P(X_n = k)\right)\left(\sum\limits_{k=1}^n k^2P(X_n = k)\right) \geq \left(\sum\limits_{k=1}^n kP(X_n = k)\right)^2 = EX_n^2
 \]
 and hence
 \[
-\limsup_{n\to\infty} E(Y_{U_n}) \leq \limsup_{n\to\infty}\dfrac{1}{n}E\left[\sum\limits_{m=3}^k mX_n(m)\right]  = 0.
+P(X_n\geq 1) \geq (C_n^3C_n^3 p^6)/\left(C_n^3 (p^3 + C_{n-3}^3 p^6 + 3C_{n-3}^2 p^6 + 3(n-3)p^5)\right).
 \]
-Then we have
+We have
 \[
-\limsup_{n\to\infty} P(U_n\text{ is contained in a cycle of length at most }k ) \leq \limsup_{n\to\infty} E(Y_{U_n}) = 0
+\begin{aligned}
+\liminf_{n\to\infty} P(X_n\geq 1) &\geq \liminf_{n\to\infty}(C_n^3C_n^3 p^6)/\left(C_n^3 (p^3 + C_{n-3}^3 p^6 + 3C_{n-3}^2 p^6 + 3(n-3)p^5)\right)\\
+&= \liminf_{n\to\infty} (0+1+0+0)^{-1} = 1
+\end{aligned}
 \]
-and we are done.
+and we are done.\par
+(5) Use the inequality in (4) we have
+\[
+\begin{aligned}
+\liminf_{n\to\infty} P(X_n\geq 1) &\geq \liminf_{n\to\infty}(C_n^3C_n^3 p^6)/\left(C_n^3 (p^3 + C_{n-3}^3 p^6 + 3C_{n-3}^2 p^6 + 3(n-3)p^5)\right)\\
+&= \liminf_{n\to\infty} (6\lambda^{-3} + 1 + 0 + 0)^{-1} = \dfrac{\lambda^3}{6+\lambda^3}
+\end{aligned}
+\]
+and since 
+\[
+P(X_n \geq 1) \leq EX_n
+\]
+and notice $p\to 0$, we have
+\[
+\limsup_{n\to\infty}P(X_n \geq 1) \leq \limsup_{n\to\infty}C_n^3 p^3 = \dfrac{\lambda^3}{6}
+\]
+and we have proved the inequality. Notice if $p_n^* = (1\pm\epsilon)/n$, then $\lambda = 1\pm \epsilon$, which implies $1/n$ is not a sharp threhold.
 \par 
 \vspace{0.5em}
 
