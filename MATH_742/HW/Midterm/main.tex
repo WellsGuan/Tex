@@ -44,12 +44,21 @@ Let $R\to S$ be a homomorphism of rings. Suppose $S$ is projective as an $R$-mod
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.2(9.21 on AK)} 
-Let $R$ be a ring, $M$ and $N$ flat modules. Show that $M\otimes_R N$ is flat.
-\vspace{0.5em}\\
+\subsection*{Problem 3} 
+Consider the ring $R = \mathbb{Q}[x]$ and $S = \mathbb{Q}[t]$. Turn $S$ into an $R$-algebra using the homomorphism
+\[\phi:R\to S:f(x) \mapsto f(t^2)\]
+\begin{itemize}
+\item Fix $a\in\mathbb{Q}$ and consider the ring
+    \[S_a = S \otimes_R R/(x-a)\]
+    How many maximal ideals does the ring have.
+\item Find values of $a\in\mathbb{Q}$ for which $S_a$ is not reduced and describe the nilradical $\text{nil}(S_a)$.
+\end{itemize}
+\vspace{0.5em}
 \textbf{Sol.} \par
-
-\par 
+    (1) We claim that
+    \[S_a \cong S/(t^2-a)\]
+    where define $\phi:S_a \to S/(t^2 - a)$ by $f\otimes r \mapsto [rf]$, which is obviously a well-defined linear homomorphism because $(f,r) \mapsto [rf]$ is bilinear. If $[rf] = 0$, then $ f\in (t^2 - a)$ or $r=0$, and we have $f\otimes r = 0$, which means $\phi$ is injective and obviously it is surjective, so the claim goes. Then we may know that if $a$ is not a square of some rational number, then $S_a$ has no maximal ideal and if else, $S_a$ will have only one maximal ideal.\par
+    (2)
 \vspace{0.5em}
 
 \subsection*{Ex.3(9.22 on AK)} 
