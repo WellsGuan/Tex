@@ -42,7 +42,7 @@ Suppose $X_n,Y_n,Z_n, n\geq 1$ and $Y$ are random variables defined on the same 
 For any $\epsilon > 0$, we have
 \[
 \begin{aligned}
-    P(|Y_n - Y| > \epsilon) &= P(Y_n > Y+\epsilon) + P(Y_n < Y-\epsilon) \\&\leq P(Z_n > Y+\epsilon) + P(X_n < Y-\epsilon)\\  &< P(|X_n-Y| > \epsilon) + P(|Z_n-Y| > \epsilon)
+    P(|Y_n - Y| > \epsilon) &= P(Y_n > Y+\epsilon) + P(Y_n < Y-\epsilon) \\&\leq P(Z_n > Y+\epsilon) + P(X_n < Y-\epsilon)\\  &\leq P(|X_n-Y| > \epsilon) + P(|Z_n-Y| > \epsilon)
 \end{aligned}
 \]
 and hence
@@ -136,7 +136,7 @@ for all $k\geq 3$, then
 \[\lim_{n\to\infty} P(U_n\text{ is contained in a cycle of length at most }k ) = 0\]
 \vspace{0.5em}
 \textbf{Sol.} \par
-Denote $Y_n$ as the number of cycles with length at most $k$ containing the $n^{th}$ vertex and we will know
+Denote $Y_m$ as the number of cycles with length at most $k$ containing the $m^{th}$ vertex and we will know
 \[
 \sum\limits_{i=1}^n Y_i = \sum\limits_{m=3}^k mX_n(m)
 \]

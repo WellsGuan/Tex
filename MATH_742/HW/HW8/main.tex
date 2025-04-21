@@ -1,0 +1,105 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework08 - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Ex.1(1.1 on JSM)} 
+Let $E = \mathbb{Q}[\alpha]$ where  $\alpha^3 - \alpha^2 + \alpha + 2 = 0$. Express $(\alpha^2+\alpha+1)(\alpha^2 - \alpha)$ and $(\alpha-1)^{-1}$ in the form $a\alpha^2 + b\alpha + c$ with $a,b,c\in\mathbb{Q}$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    It is easy to check 
+    \[
+    (\alpha^2+\alpha+1)(\alpha^2 - \alpha) = - 4\alpha -2
+    \]
+    and
+    \[
+    (\alpha - 1)^{-1} = -\dfrac{1}{3}(\alpha^2 + 1)
+    \]
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.2(1.2 on JSM)} 
+Determine $[\mathbb{Q}(\sqrt{2},\sqrt{3}):\mathbb{Q}]$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+It is sufficient to show that $\{1,\sqrt{2},\sqrt{3},\sqrt{6}\}$ is linear independent. Consider
+\[
+a + b\sqrt{2}+c\sqrt{3}+d\sqrt{6} = 0,\quad a,b,c,d\in\mathbb{Q}
+\]
+and hence
+\[
+a^2 + 2b^2 + 2ab\sqrt{2} = 3c^2 + 6d^2 + 6cd\sqrt{3}
+\]
+which implies $ab = 3cd$. Also we have
+\[
+a^2 + 3c^2 + 2ac\sqrt{3} = 2b^2 + 6d^2 + 4bd\sqrt{3}
+\]
+which implies $ac = 2bd$, and
+\[
+a^2 + 6d^2 + 2ad\sqrt{6} = 2b^2 + 3c^2 + 2bc\sqrt{6}
+\]
+which implies $ad = bc$ and we have $2bd^2= acd = bc^2$. So we have $b = 0$ or $c = d = 0$ and wwe always have $a=b=c=d=0$ and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.3(1.5 on JSM)} 
+Let $f(X)$ be an irreducible polynomial over $F$ of degree $n$, and let $E$ a field extension of $F$ with $[E:F] = m$. If $gcd(m,n) = 1$, show that $f$ is irreducible over $E$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+    Assume $g$ irreducible in $E[X]$ such that $g|f$ in $E[X]$ and we consider $G:E[X]/(g)$ as an extension of $E$ and hence an extension of $F$. Let $\alpha \in G$ such that $g(\alpha) = 0$ and hence $f(\alpha) = 0$. Then it is easy to check $f$ is the minimal polynomial of $\alpha$ as $F[X] \to G$ and $g$ as $E[X] \to G$ and we have $G \cong E[\alpha]$, $F[X]/(f) \cong F[\alpha]$ and hence we may consider $[E[\alpha]:F[\alpha]]$ an integer $k$ and $[E[\alpha]:F] = kn$, however $[E[\alpha]:F] = [G:F] = [G:E][E:F] = m\deg g$ and hence $\deg g$ has to be some multiplis of $n$, which means $g = f$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.4(Problem A)} 
+Let $F , E_1,$ and $E_2$ be subfields of $K$. Suppose $E_1 \supset F$ and $E_2 \supset F$ . Show that if $E_1/F$ is a finite extension, then so is $E_1E_2/E_2$, and moreover,
+$[E_1E_2 : E_2] \leq [E_1 : F ]$.
+\vspace{0.5em}\\
+\textbf{Sol.} \par
+Assume $\mathcal{E} = \{e_i\}$ a finite basis of $E_1$ as $F$-vector space and then consider $E_2[\mathcal{E}]$ which is a field by lemma 1.23 on JSM and hence $E_1E_2$ is a finite extension of $E_2$ since $E_1E_2 \subset E_2[\mathcal{E}]$ with $[E_1E_2:E_2]$ since $E_2 \supset F$ which means the maximal independet set of the products of elements in $\mathcal{E}$ as $E_2$-vector space is less than $|\mathcal{E}| = [E_1:F]$ and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Ex.5(Problem B)} 
+In the situation of the previous problem, show that if $E_1/F$ is algebraic, then so is $E_1E_2/E_2$.
+\vspace{0.5em}\par
+\textbf{Sol.} \par
+    Consider $E_2[E_1]$ which is consisting of $E_2$ linear combination of elements in $E_1$, then we may consider for $\alpha \in E_2[E_1]$ which is a linear combination of $e_k, 1\leq k \leq m \in E_1$ and then since we may know that $E_2[e_1,\cdots,e_m]$ is a finite extension of $E_2$, so it is algebraic to $E_2$ and also $E_2[E_1]/ E_2[e_1,\cdots,e_k]$ which means $\alpha$ is algebraic to $E_2$ and hence $E_2[E_1]$ is algebraic, so does $E_1E_2$.
+\par 
+\vspace{0.5em}
+
+
+\addappheadtotoc
+
+\end{document}

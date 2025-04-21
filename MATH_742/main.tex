@@ -1050,6 +1050,240 @@ A ring $R$ is reduced, i.e. $0$ is the only nilpotent, and has only one minial p
     We say an $R$-algebra is falt or faithfully flat if it is so as an $R$-module.
 \end{definition}
 
+\subsection{Cayley-Hamilton Theorem}
+
+\begin{theorem}
+    (Cayley-Hamilton Theorem)\par
+    Let $R$ be a ring, and $M:= (a_{i,j})$ with $a_{i,j} \in R$, Then characteristic polynomial of $M$ is
+    \[P_M(T) := T^n + a_1T^{n-1}+\cdots + a_n := \det(TI_n - M)\]
+    Let $A$ be an ideal. If $a_{ij} \in A$ for all $i,j$, then $a_k \in A^k$ for all $k$.\par
+    The Cayley-Hamilton Theorem asserts that in the ring of matrices,
+    \[P_M(M) = 0\]
+\end{theorem}
+
+\subsection{Localization}
+
+\begin{definition}
+    (Localization)\par
+    Let $R$ be a ring, and $S$ a multiplicative subset. Define a relation on $R\times S$ by $(x,s) \sim (y,t)$ if there is a $u\in S$ such that $xtu = ysu$, which is an quivalence relation. Denote $S^{-1}R$ the set of equivalence classes, and by $x/s$ the class of $(x,s)$ and defined $x/s \cdot y/t:= xy/st$ and $x/s+y/t = (tx+sy)/st$, and then $S^{-1}R$ wil be a ring, which is called the localization at $S$. $\phi_S:R\to S^{-1}R$ by $\phi_S(x):= x/1$.
+\end{definition}
+
+\section{Fields and Galois Theory}
+
+\subsection{Definitions and Results}
+
+\begin{definition}
+    A field is a set $F$ with binary operations $+$ and $\cdot$ such that
+    \begin{itemize}
+        \item $(F,+)$ is a commutative group
+        \item $(F^{\times},\cdot)$ where $F^{\times} = F - \{0\}$ is a commutative group
+        \item the distributive law holds
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}
+    A nonzero commutative ring $R$ is a field iff it has no ideals other than $(0)$ and $R$.
+\end{lemma}
+
+\begin{definition}
+    An $F$-algebra for a field $F$ is finite if it is a finite-dimensional $F$-vector space.
+\end{definition}
+
+\begin{definition}
+    (Characteristic of a Field)\par
+    Consider $Z\to F$ by $n\mapsto n 1_F$, if the kernel of this map is $(0)$, then there exists $Q\hookrightarrow F$ and we say it has characteristic zero.\par
+    If the kernel is not zero, then the smallest integer in the kernel has to be a prime $p$ and we know $F_p\hookrightarrow F$ and we call it has caracteristic $p$. A field isomorphic to $F_p$ or $Q$ is called a prime field.
+\end{definition}
+
+\begin{definition}
+    (Frobenius endomorphism)\par
+    Assume $R$ a commutative ring has characteristic $p$ if it contains a prime field of characteristic $p$ as a subring, then the prime field is unique and contains $1_R$, it is easy to qcheck that $(a+b)^p = a^p + b^p$ for any $a,b\in R$ if $p$ is nonzero and hence $a\mapsto a^p$ us a homomorphism and it is called the frobenius endomorphism of $R$. The charaacteristic exponent of a field $F$ is 1 if $F$ has characteristic $0$ and $p$ if $F$ has characteristic $p\neq 0$.
+\end{definition}
+
+\begin{proposition}
+    (Gauss's Lemma)\par
+    Let $f(X) \in \mathbb{Z}[X]$. If $f(X)$ factors nontrivially in $\mathbb{Q[X]}$, then it factors nontrivially in $\mathbb{Z}[X]$.
+\end{proposition}
+
+\begin{proposition}
+    If $f\in \mathbb{Z}[X]$ is monic, then every monic factor of $f$ in $\mathbb{Q}[X]$ lies in $\mathbb{Z}[X]$.
+\end{proposition}
+
+\begin{proposition}
+    (Eisenstein's Criterion)\par
+    Let $f = a_m X^m + a_{m-1}X^{m-1}+\cdots + a_0, a_i \in \mathbb{Z}$
+    suppose that there is a prime number $p$ such that
+    \begin{itemize}
+        \item $p$ does not divide $a_m$
+        \item $p$ divides $a_{m-1},\cdots,a_0$
+        \item $p^2$ does not divide $a_0$
+    \end{itemize}
+    then $f$ is irreducible in $\mathbb{Q}[X]$.
+\end{proposition}
+
+\subsubsection{Extensions}
+
+\begin{definition}
+    (Extensions)\par
+    Let $F$ be a field. An \textbf{extension} of $F$ is field containing $F$ as a subfield. An extension $E$ of $F$ is an $F$-vector space, whose dimension is called the \textbf{degree} $[E:F]$ of $E$ over $F$. An extension is said to be finite if its degree is finite.\par
+    When $E$ and $E'$ are extensions of $F$, an $F$-homomorphism $E\to E'$ is a homomorphism $\phi:E\to E'$ such that $\phi|_F\circ id|_F = id_F$ and an $F$-isomorphism is a bijective $F$-homomorphism.
+\end{definition}
+
+\begin{proposition}
+    Consider fields $F\supset E \supset F$. Then $L/F$ is of finite degree if and only if $L/E$ and $E/F$ are both of finite degree, in which case
+    \[[L:F] = [L:E][E:F]\]
+\end{proposition}
+\Pf\par
+    To see the sufficiency, obviously $[L:F] \geq [L:E]$ and assume $\{l_i\}_{i=1}^m$ a basis of $L$ as an $F$-vector space and then $E$ as an $F$-vector space will satisfy that $[E:F] \leq [L:F]$. Assume $\{e_i\}_{i=1}^k$ and $\{l'_j\}_{j=1}^r$ are relatively bases of $E$ as an $F$-vector space and $L$ as an $E$-space. Then we may know that $\{e_il'_j\}$ will generate $L$ and will become a basis since if
+    \[
+    \sum\limits_{1\leq i \leq k,1\leq j \leq r} f_{ij}e_il_j' = 0 
+    \]
+    will implies that $\sum\limits_{i=1}^k f_{ij}e_i = 0$ for each $j, 1\leq j\leq r$ and then $f_{ij} = 0$ for any $i,j$ and we are done.
+
+\begin{definition}
+    (Generated subring)\par
+    Let $F$ be a subfield of a field $E$ and $S$ a subset of $E$. The intersection of all subrings of $E$ containing $F$ and $S$ is called the subring of $E$ \textbf{generated by} $F$ and $S$ and denoted by $F[S]$.
+\end{definition}
+
+\begin{lemma}
+    The ring $F[S]$ consists of the elements of $E$ that can be expressed as $F$-linear combanation of finite product of elements in $S$ (including $0$ elements, i.e. $1_F$).
+\end{lemma}
+
+\begin{lemma}
+    Let $R$ be a finite $F$-algebra. If $R$ is an integral domain, then it is a field.
+\end{lemma}
+\Pf\par
+    Let $\alpha \in R$ nonzero, and consider $x\to \alpha x$ which is an injective linear map and hence surjective since $R\to R$ finite-dimensional and we are done.
+
+\begin{definition}
+    (Generated subfield)\par
+    Let $F$ be a subfield of a field $E$ and $S$ a subset of $E$. The intersection of all subfields of $E$ containing $F$ and $S$ is called the subfield of $E$ \textbf{generated by} $F$ and $S$ and denoted by $F(S)$,which is the field of fractions of $F[S]$.
+\end{definition}
+
+\begin{definition}
+    (Simple extension and composite)\par
+    An extension $E$ of $F$ is said to be \textbf{simple} if $E = F(\alpha)$ for some $\alpha \in E$. Let $F$ and $F'$ be subfields of a field $E$. We call the intersection of subfields of $E$ containing both $F$ and $F'$ as the \textbf{composite} of $F$ and $F'$ in $E$. 
+\end{definition}
+
+\begin{proposition}
+    For a monic irreducible polynomial $f(X)$ of degree $m$ in $F[X]$, then $F[x] := F[X]/(f)$ is a field of degree $m$ over $F$.
+\end{proposition}
+
+\begin{definition}
+    (Stem fields)\par
+    Let $f$ be a monic irreducible polynomial in $F[X]$. A pair $(E,\alpha)$ cconsisting of an extension $E$ of $F$ and an $\alpha \in E$ is called a \textbf{stem field} for $f$ if $E = F[\alpha]$ and $f(\alpha) = 0$, which is $F$-isomorphic to $(F[X]/(f),x)$.
+\end{definition}
+
+\subsubsection{Algebraic and Transcendental Elements}
+
+\begin{definition}
+    (Algebraic and Transcendental Elements)\par
+    Let $F$ be a field and $E$ an integral domain containing $F$ as a subring. An element $\alpha$ of $E$ defines a homomorphism $f(X)\mapsto f(\alpha): F[X] \to E$.\par
+    If the kernel of the map is zero, then we call $\alpha$ \textbf{transcendental} over $F$.\par
+    If the kernel is nonzero, then we say $\alpha$ is \textbf{algebraic} over $F$. We call the monic, irreducible polynomial $f$ generating the kernel the \textbf{minimal polynomial} of $\alpha$ over $F$, and then $F[\alpha]$ is a stem field for $f$.
+\end{definition}
+
+\begin{definition}
+    (Algebraic extension)\par
+    An extension $E$ of $F$ is said to be \textbf{algebraic} if every element of $E$ is algebraic over $F$, otherwise it is said to be \textbf{transcendental}.
+\end{definition}
+
+\begin{proposition}
+    Let $E\supset F$ be fields. If $E/F$ is finite, then $E$ is algebraic and finitely generated over $F$; conversely, if $E$ is generated over $F$ by a finite set of algebraic elements, then it is of finite degree over $F$.
+\end{proposition}
+\Pf\par
+    If $\alpha$ is transcendental over $F$, then we know $1,\alpha,\alpha^2,\cdots$ are linearly independent over $F$, which is a contradiction. And if $E = F$, then $E$ is generated by the empty set. Or there is an element in $E-F$ and we will have
+    \[[F[\alpha_1]:F] < [F[\alpha_1,\alpha_2]:F]<\cdots<[E:F]\]
+    which means $E = F[\alpha_1.\alpha_2,\cdots,\alpha_n]$ for some integer $n$ and $\alpha_i \in E$.\par
+    Notice $F[\alpha_1]$ is finite generated since $\alpha_1$ is algebraic and hence $F[\alpha_1] = F(\alpha_1)$, which means $F(\alpha_1)/F$ is finite. Then notice $\alpha_2$ is algebraic over $F(\alpha_1)$ and repeating the argument.
+
+\begin{corollary}
+    Consider fields $L\supset E \supset F$. If $L$ is algebraic over $E$ and $E$ is algebraic over $F$, then $L$ is algebraic over $F$.
+\end{corollary}
+\Pf\par
+    Consider $l\in L$ is a root of $\sum\limits_{i=0}^m a_iX^i$ and then $F[a_0,\cdots,a_m]$ is finite over $F$ and $F[a_0,\cdots,a_m,l]$ is finite over $F$ and hence $l$ is algebraic oveer $F$.
+
+\begin{proposition}
+    Let $F$ be a field and $R$ an integral domain containing $F$ as a subring. If $R$ is generated as an $F$-algebra by elements algebraic over $F$, then it is a field algebraic over $F$.
+\end{proposition}
+\Pf\par
+    For any $r\in R$, there exists $\{\alpha_i\}_{i=1}^m$ such that $r \in F[\alpha_1,\cdots,\alpha_m]$ (as a fraction) and then since for any $\alpha_i$, there exists $a_j\in F$ such that $\alpha_i^{m} = a_0 + a_1\alpha_i+\cdots+a_m\alpha_i^{m-1}$ and we may know that $F[\alpha_1,\cdots,\alpha_m]$ is finite and hence algebraic, which means $r$ is algebraic over $F$.
+
+\subsubsection{Algebraically Closed Fields}
+
+\begin{definition}
+    Let $F$ be a field. A polynomial is said to \textbf{split} in $F[X]$ if it is a product of polynomials of degree at most $1$ in $F[X]$.
+\end{definition}
+
+\begin{proposition}
+    For a field $\Omega$, the following statemetns are equivalent:\par
+    \begin{itemize}
+        \item Every nonconstant polynomial in $\Omega[X]$ splits in $\Omega[X]$
+        \item Every nonconstant polynomial in $\Omega[X]$ has at least one root in $\Omega$
+        \item The irreducible polynomials in $\Omega[X]$ are those of degree $1$
+        \item Every field of finite degree over $\Omega$ equals $\Omega$.
+    \end{itemize}
+\end{proposition}
+\Pf\par
+    (a) to (b) to (c) are obvious.\par
+    (c) to (a) by UFD. (c) to (d), consider $E$ a finite extension and hence algebraic, for $\alpha \in E$ the minimal polynomial of $\alpha$ has degree $1$ and we are done.\par
+    (d) to (c) consider $\Omega[X]/(f)$ and its degree has to be $1$ and we are done.
+
+\begin{definition}
+    (Algebraic Closure)\par
+    A field $\Omega$ is \textbf{algebraically closed} if it satisfies the equivalent statements above. A field $\Omega$ is an \textbf{algebraic closure} of a subfield $F$ if it is algebraically closed and algebraic over $F$.
+\end{definition}
+
+\begin{proposition}
+    If $\Omega$ is algebraic over $F$ and every polynomial $f$ splits in $\Omega[X]$, then $\Omega$ is algebraically closed.
+\end{proposition}
+\Pf\par
+    Let $f\in \Omega[X]$ and we want to show $f$ has a root in $\Omega$. Since $f$ has a root $\alpha$ insome finite extension $\Omega'$ of $\Omega$ and consider
+    \[F\subset F[a_0,\cdots,a_n]\subset[a_0,\cdots,a_n,\alpha]\]
+    which is finite since they are all generated by finite algebraic elements and hence $\alpha$ is algebraic over $F$ and hence it is a root of some polynomial in $F$ and then $\alpha \in \Omega$ and we are done.
+
+\begin{proposition}
+    Let $F$ be a field and $\Omega$ an integral domain containing $F$ as a subring. Then $\bar{F}:= \{\alpha \in \Omega, \alpha\text{ algebraic over }F\}$ is a field.
+\end{proposition}
+\Pf\par
+    Notice $F[\alpha,\beta]$ is finite over $F$.
+
+\begin{corollary}
+    Let $\Omega$ be an algebraically closed field. For any subfield $F$ of $\Omega$, the algebraic closure $E$ of $F$ in $\Omega$ is an algebraic closure of $F$.
+\end{corollary}
+\Pf\par
+    For $f\in F[X]$ we know it splits in $\Omega[X]$ and is has its roots in $E$, so splits in $E[X]$ and we are done.
+
+\subsection{Splitting Fields; Multiple Roots}
+
+\begin{proposition}
+    Let $F(\alpha)$ be a simple extension of $F$ and $\Omega$ a second extension of $F$.\par
+    \begin{itemize}
+        \item Suppose $\alpha$ is transcendental over $F$. For every $F$-homomorphism $\phi:F(\alpha) \to \Omega$, $\phi(\alpha)$ is transcendental over $F$, and the map $\phi\mapsto \phi(\alpha)$ defines a one-to-one correspondence
+        \[\{F\text{-homomorphisms } F(\alpha) \to \Omega \}\leftrightarrow \{\text{elements of } \Omega \text{ transcendental over }F\}\]
+        \item Suppose $\alpha$ is algebraic over $F$, and let $f(X)$ be its minimal polynomial. For every $F$-homomorphism $\phi:F[\alpha]\to \Omega$, $\phi(\alpha)$ is a root of $f(X)$ in $\Omega$, and the map $\phi \mapsto \phi(\alpha)$ defines a one-to-one correspondence
+        \[\{F\text{-homomorphisms } F(\alpha) \to \Omega \}\leftrightarrow \{\text{roots of } f \text{ in }\Omega\}\]
+        In particular, the number of such maps is the number of distinct roots of $f$ in $\Omega$.
+    \end{itemize}
+\end{proposition}
+\Pf\par
+
+\begin{definition}
+    Let $f$ be a polynomial with coefficients in $F$. A field $E$ contaning $F$ is said to \textbf{split} $f$ if $f$ splits in $E[X]$ and we call $E$ a \textbf{splitting} or \textbf{root field} for $f$ if it is generated by the roots of $f$.
+\end{definition}
+
+\begin{proposition}
+    Every polynomial $f\in F[X]$ has a splitting field $E_f$ and $[E_f:F] \leq (\deg f)!$.
+\end{proposition}
+\Pf\par
+    WLOG assume $f(X) =\prod_{i=1}^n(X-c_i), c_j \in E, 0\leq j \leq n$ and let $F_k = F_{k-1}[\alpha_k], F_0 = F$, then we know $F_1$ is a stem field for some monic irreducible factor of $f$ and $F_k$ will be a stem field for some monic irreducible factor of $f(X)/\prod_{k=1}^{k-1}(X-\alpha_{k_j})$ which is absolutely in $F_{k-1}[X]$, where $[F_k:F_{k-1}] \leq n+1-k$ and we are done.
+
+\begin{proposition}
+    Let $f\in F[X]$. Let $E$ be an extension of $F$ generated by the roots of $f$ in $E$ and $\Omega$ an extension of $F$ splitting $f$. There exists an $F$-homomorphism $\phi:E\to \Omega$ the number of such homomorphisms is at most $[E:F]$ an dequials $[E:F]$ if $f$ has distinct roots in $\Omega$.
+\end{proposition}
+\Pf\par
+    
+
 % ------------------------------------------------------------------------------
 % Reference and Cited Works
 % ------------------------------------------------------------------------------
