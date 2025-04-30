@@ -1,0 +1,105 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{Homework10 - MATH 742}
+\author{Boren(Wells) Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+
+% 标题
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
+And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+
+\subsection*{Problem A}
+\vspace{0.5em}
+\textbf{Sol.} \par
+    The roots of $f$ is $\pm \alpha$, $\pm\beta$, where $\alpha=\sqrt{\frac{1}{2}(1+\sqrt{5})}$ and $\beta=\sqrt{\frac{1}{2}(1-\sqrt{5})}$. We have $\alpha\beta=\sqrt{-1}.$ 
+
+Since $f$ is irreducible, $\deg_\Q\alpha=\deg_{\Q}\beta=4, \deg_\Q\sqrt{5}=2$. Let $K=\Q(\alpha,\beta)=\Q(\alpha,\sqrt{-1})$. So the degree is $8$.Define $\sigma: \alpha\rightarrow \beta=i\alpha^{-1}$, $\sigma(i)=-i$; and $\tau: \alpha\rightarrow\alpha$, $i\rightarrow -i$. 
+We see $\sigma^4=\tau^2=\sigma\tau\sigma\tau=\text{id}$. So $\text{Gal}(K/\mathbb Q)=D_8$.
+
+\par 
+
+
+\subsection*{Problem B}
+\textbf{Sol.} \par
+Need to show $[E:F]$ is normal, separable, and finite. 
+
+\begin{enumerate}
+    \item Separability: Obvious. Since $\text{Char}(\mathbb C)=0$.
+    \item Finiteness: Consider the algebraic extension $E[y]/(m_{x,F}(y))$, which gives precisely $F$. Notice that $y^n-x^n$ annihilates $x$, so $m_F(x)\ |\ y^n-x^n$, must be finite degree. So this is a finite extension.
+    \item Normality: we show $F$ is a splitting field of a polynomial over $E$. Indeed, since $y^n-x^n$ has $n$ distinct roots: $e^{\frac{2\pi i}{n}}x$.
+\end{enumerate}
+Therefore, it is a Galois extension. We claim $1,x,x^2,\dots,x^{n-1}$ are linearly independent. 
+
+We first need to express the rational functions in terms of a linear combination of these elements.
+
+Indeed, if $a_i\in \mathbb C(x^n)$ satisfies 
+$$a_0+\dots+a_{n-1}x^{n-1}=0,$$
+we take the least common multiplier of the denominators of $a_0,\dots, a_n$, say $d\in \mathbb C[x^n]$. 
+Then, 
+$$a_0d+\dots+a_{n-1}dx^{n-1}=0.$$
+It is in $\mathbb C[x^n]$, hence the degree is a multiple of $n$. Hence, $a_{i}d=0$. $d$ is never $0$, hence it has to be $a_i=0$. Hence they are linearly independent. Consequently, we must have $y^n-x^n$ is irreducible over $\mathbb C(x^n)$, otherwise $\deg_F x<n$.
+
+Clearly, $\sigma: x\rightarrow xe^{\frac{2\pi i}{n}}$ generates a group of order $n$. By definition, $\text{Gal}(E/F)=\mathbb Z/n\mathbb Z$. 
+\par 
+
+
+\subsection*{Problem C}
+\textbf{Sol.} \par
+    We still need to verify three things:
+\begin{enumerate}
+\item Separability is trivial, since $\text{Char}(\mathbb C)=0$.
+\item Finiteness: We find the minimal polynomial of $x$ over $F$, and show it has finite degree. 
+We see $$(x^n+x^{-n})^2-4=x^{2n}+x^{-2n}-2\in \mathbb C(x).$$
+Therefore, $E'=F(x^n-x^{-n})=F[y]/(m_{x^{n}-x^{-n}, F}(y))$ is a finite extension over $F$, since $m_{x^{n}-x^{-n}, F}\ |\ (x^n+x^{-n})^2-4$. Therefore, we have $x^n\in E'$, and $E/E'$ is finite, hence $[E:F]=[E:E'][E':E]$ is finite.
+\item Normality: Denote $\alpha=x^n+x^{-n}$. We claim that $E$ is the splitting field of $y^{2n}-\alpha y^n+1$. Indeed, $x^\frac{\pi i}{n}$ are $2n$ solutions. So it splits.
+\end{enumerate}
+So $E/F$ is a Galois extension. 
+
+We define the extension: $$\sigma: x\rightarrow xe^{\frac{2\pi i}{n}}, x^{n}-x^{-n}\rightarrow x^{n}-x^{-n},$$ $$\tau:x\rightarrow x, x^{n}-x^{-n}\rightarrow -x^{n}+x^{-n}.$$
+Notice that $\sigma^n=\tau^2=\sigma\tau\sigma\tau=\text{id}$, we have $\text{Gal}(E/F)=D_{2n}$.
+\par 
+
+
+\subsection*{Problem D}
+\textbf{Sol.} \par
+$E/F$ is a Galois extension of prime degree $p$, hence the Galois group is $\mathbb Z/p\mathbb Z$. Let $\sigma\in \text{Gal}(E/F)$.
+We know $\sigma^p=\text{id}$. So the minimal polynomial of $\sigma$ acts on $E$ over $F$ divides $x^p-1$. Choose $\alpha_1,\alpha_2,\dots,\alpha_p$ such that $\sigma(\alpha_i)=\lambda_i\alpha_i$. Clearly, $\det(\sigma)=1$. So, $\prod_{i=1}^p\lambda_i=1$. We also know $\lambda_i\in F$ since $\sigma$ is diagonalizable. We also know $\sigma^p(\alpha_i)=\alpha_i$, hence $\lambda_i^p=1$. Hence, $\lambda_i$ are roots of $1$. Since $\sigma$ is not trivial, not all $\lambda_i$ are 1. So, there is a $p$-th primitive root of $1$, say $\lambda$, which is an eigenvalue. Hence, the $p$-th cyclotomic extension of $F$ is contained in $F$.
+
+Then, let's pick an eigenvector $\alpha$ of $\sigma$. We have $\sigma(\alpha^p)=(\sigma(\alpha))^p=(\lambda\alpha)^p=\alpha^p$. So, $\sigma$ fixes $\alpha^p$. Since $\sigma$ generates $\text{Gal}(E/F)$, we have $\alpha^p\in F$. Let $a=\alpha^p$. 
+
+So, $F(\alpha)$ is a subextension of $E$. However, it is of degree $p$. Hence, we have $E=F(\alpha)$, and $\alpha$ satisfies $x^p-a=0$. 
+
+By our previous calculation, every root of $x^p-a$, lies in $F(\alpha)$. Hence, $E=F(\alpha)$ is the splitting field of $x^p-a$.
+\par 
+\vspace{0.5em}
+
+\addappheadtotoc
+
+\end{document}

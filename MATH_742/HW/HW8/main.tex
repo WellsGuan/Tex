@@ -78,7 +78,7 @@ which implies $ad = bc$ and we have $2bd^2= acd = bc^2$. So we have $b = 0$ or $
 Let $f(X)$ be an irreducible polynomial over $F$ of degree $n$, and let $E$ a field extension of $F$ with $[E:F] = m$. If $gcd(m,n) = 1$, show that $f$ is irreducible over $E$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-    Assume $g$ irreducible in $E[X]$ such that $g|f$ in $E[X]$ and we consider $G:E[X]/(g)$ as an extension of $E$ and hence an extension of $F$. Let $\alpha \in G$ such that $g(\alpha) = 0$ and hence $f(\alpha) = 0$. Then it is easy to check $f$ is the minimal polynomial of $\alpha$ as $F[X] \to G$ and $g$ as $E[X] \to G$ and we have $G \cong E[\alpha]$, $F[X]/(f) \cong F[\alpha]$ and hence we may consider $[E[\alpha]:F[\alpha]]$ an integer $k$ and $[E[\alpha]:F] = kn$, however $[E[\alpha]:F] = [G:F] = [G:E][E:F] = m\deg g$ and hence $\deg g$ has to be some multiplis of $n$, which means $g = f$.
+    Assume $g$ irreducible in $E[X]$ such that $g|f$ in $E[X]$ and we consider $G:E[X]/(g)$ as an extension of $E$ and hence an extension of $F$. Let $\alpha \in G$ such that $g(\alpha) = 0$ and hence $f(\alpha) = 0$. Then it is easy to check $f$ is the minimal polynomial of $\alpha$ as $F[X] \to G$ and $g$ as $E[X] \to G$ and we have $G \cong E[\alpha]$, $F[X]/(f) \cong F[\alpha]$ and hence we may consider $[E[\alpha]:F[\alpha]]$ , where $E[\alpha]$ is absolutely an extension of $F[\alpha]$ and which is an integer $k$ and $[E[\alpha]:F] = kn$, however $[E[\alpha]:F] = [G:F] = [G:E][E:F] = m\deg g$ and hence $\deg g$ has to be some multiplis of $n$, which means $g = f$ or $g$ is a constant, which means $f$ is irreducible on $E[X]$.
 \par 
 \vspace{0.5em}
 
@@ -87,7 +87,7 @@ Let $F , E_1,$ and $E_2$ be subfields of $K$. Suppose $E_1 \supset F$ and $E_2 \
 $[E_1E_2 : E_2] \leq [E_1 : F ]$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
-Assume $\mathcal{E} = \{e_i\}$ a finite basis of $E_1$ as $F$-vector space and then consider $E_2[\mathcal{E}]$ which is a field by lemma 1.23 on JSM and hence $E_1E_2$ is a finite extension of $E_2$ since $E_1E_2 \subset E_2[\mathcal{E}]$ with $[E_1E_2:E_2]$ since $E_2 \supset F$ which means the maximal independet set of the products of elements in $\mathcal{E}$ as $E_2$-vector space is less than $|\mathcal{E}| = [E_1:F]$ and we are done.
+Assume $\mathcal{E} = \{e_i\}$ a finite basis of $E_1$ as $F$-vector space and then consider $E_2[\mathcal{E}]$ which is a field since $\mathcal{E}$ is a finite set of algebraic elements over $F$ and hence $E_1E_2$ is a finite extension of $E_2$ since $E_1E_2 \subset E_2[\mathcal{E}]$ with $[E_1E_2:E_2]$ since $E_2 \supset F$ which means the maximal independet set of the products of elements in $\mathcal{E}$ as $E_2$-vector space is less than $|\mathcal{E}| = [E_1:F]$ and we are done.
 \par 
 \vspace{0.5em}
 
