@@ -36,26 +36,38 @@ To make the proof more readable, I will miss or gap some natural or not importan
 And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
 
 \subsection*{Ex.1(2.3 on JSM)}
-\vspace{0.5em}
+Construct a splitting field for $X^5-2$ over $\mathbb{Q}$. What is its degree over $\mathbb{Q}$?
+\vspace{0.5em}\\
 \textbf{Sol.} \par
+\iffalse 
     It is $\mathbb Q(\sqrt[5]{2},e^{\frac{2\pi i}{5}})$. Clearly $\sqrt[5]{2},\sqrt[5]{2}e^{\frac{2\pi i}{5}}$ are in the splitting field, so $e^{\frac{2\pi i}{5}}$ is in the splitting field. However, $\sqrt[5]{2}(e^{\frac{2\pi i}{5}})^j$ for $j=0,1,2,3,4$ are all the roots. 
 
 Clearly, $[\mathbb Q(\sqrt[5]{2}):\mathbb Q]=5$ since $x^5-2$ is irreducible over $\mathbb Q$. 
 
 On the other hand, $[\mathbb Q(e^{\frac{2\pi i}{5}}):\mathbb Q]=4$, as it is the root to $x^4+x^3+x^2+x+1$. Since $\gcd(4,5)=1$, we have $$[\mathbb \mathbb Q(\sqrt[5]{2},e^{\frac{2\pi i}{5}}):\mathbb Q]=20.$$
+\fi
+    We have $X^5-2 = \prod_{i=0}^4 (X - 2^{1/5}e^{\tfrac{2\pi}{5}i}) \in \mathbb{C}[X]$ which means $\mathbb{Q}[2^{1/5},e^{2\pi i/5}]$ will be a splitting field since $e^{2^{1/5},2\pi i/5}$ are algebraic over $\mathbb{Q}$, whose degree is less than $25$. Also notice that $[\mathbb {Q}(e^{\frac{2\pi i}{5}}):\mathbb {Q}]=4$, since it is the root of $x^4+x^3+x^2+x+1$ which is irreducible and hence $[\mathbb {Q}(e^{\frac{2\pi i}{5}}):\mathbb {Q}]\cong \mathbb{Q}/(x^4+x^3+x^2+x+1)$. Then we know that $[\mathbb{Q}[2^{1/5},e^{2\pi i/5}],\mathbb{Q}]$ has to be a multiple of $20$ and hence it is $20$, we are done.
 \par 
 \vspace{0.5em}
 
 \subsection*{Ex.2(2.5 on JSM)}
+Let $f\in F[X]$, where $F$ is a field of characteristic $0$. Let $d(X) = gcd(f,f')$. Show that $g(X):=f(X)d(X)^{-1}$ has the same roots as $f(X)$, and these are all simple roots of $g(X)$.
+\vspace{0.5em}\\
 \textbf{Sol.} \par
+\iffalse
 Since char$(F)=0$, $F$ is perfect.  Clearly, all roots of $g(x)$ are roots of $f(x)$. 
 
 Notice that in the splitting field of $f=\prod_{i=1}^k(x-x_i)^{n_i}$, we have $f'=\sum_{i=1}^k n_i\frac{f(x)}{x-x_i}$, so $\gcd(f,f')=\prod_{n_i>1}(x-x_i)^{n_i-1}$. By comparing the roots, we see every root of $f(x)$ will be a root of $g(x)$, and every root of $g(x)$ has single multiplicity because its degree is 1.
+\fi
+Consider $f(X) = \prod_{i=1}^k (X-\alpha_i)\prod_{j=1}^m (X-\beta_j)^{m_j}$ with $\alpha_i,\beta_j$ distinct in some splitting field $E$ of it where $m_j \geq 2$ and then we will know that $\prod_{j=1}^m (X-\beta_j)^{m_j-1}| f,f$ in $E[X]$ and hence $g(X)$ will only have simple roots since $gcd(f,f')$ does not change with the extension. Then it is easy to check $\alpha_i$ is not a root of $f'$ and hence a root of $g$ and it is easy to check $(X-\beta_j)^{m_j}$ do not divide $f'$ and hence $(X-\beta_j)|g$ and hence $\beta_j$ is a root of $g$. Since any root of $g$ will be a root of $f$ and hence we know $g$ have the same roots with $f$ with all simple and we are done.
 \par 
 \vspace{0.5em}
 
 \subsection*{Ex.3(2.6 on JSM)}
+Let $f(X)$ be an irreducible polynomial in $F[X]$, where $F$ has characteristic $p$. Show that $f(X)$ can be written $f(X) = g(X^p)$ where $g(X)$ is irreducible and separable. Deduce that every root of $f(X)$ jas the same multiplicity $p^e$ in any splitting field.
+\vspace{0.5em}\\
 \textbf{Sol.} \par
+\iffalse
     If $f(x)$ is irreducible, then $\gcd(f,f')=1$ unless $f'=0$.
 \begin{enumerate}[\text{Case }1.]
 \item $\gcd(f,f')=1$. Then, $f$ is separable and irreducible, hence $g(x^{p^e})=f(x)$ for $g=f$ and $e=0$.
@@ -65,6 +77,7 @@ Similarly, $g_1$ is irreducible. Since $\deg g_0<\deg f$, in finite steps, we mu
 Then, we know $g(x)=\prod_{i=1}^{n}(x-x_i)$ in the splitting field of $g$ for some distinct roots $x_i$, where $n=\deg g$. For every $i$, let $\alpha_i$ be a root of $x^{p^e}-x_i$, then as a consequence of char$(F)=p$, we have $$(x-\alpha_i)^{p^e}=x^{p^e}-\alpha_i^{p^e}=x^{p^e}-x_i.$$ So,$$f(x)=\prod_i(x-\alpha_i)^{p^e}.$$
 This proves the claim.
 \end{enumerate}
+\fi
 \par 
 \vspace{0.5em}
 
