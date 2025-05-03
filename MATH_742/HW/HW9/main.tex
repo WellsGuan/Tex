@@ -59,12 +59,12 @@ Since char$(F)=0$, $F$ is perfect.  Clearly, all roots of $g(x)$ are roots of $f
 
 Notice that in the splitting field of $f=\prod_{i=1}^k(x-x_i)^{n_i}$, we have $f'=\sum_{i=1}^k n_i\frac{f(x)}{x-x_i}$, so $\gcd(f,f')=\prod_{n_i>1}(x-x_i)^{n_i-1}$. By comparing the roots, we see every root of $f(x)$ will be a root of $g(x)$, and every root of $g(x)$ has single multiplicity because its degree is 1.
 \fi
-Consider $f(X) = \prod_{i=1}^k (X-\alpha_i)\prod_{j=1}^m (X-\beta_j)^{m_j}$ with $\alpha_i,\beta_j$ distinct in some splitting field $E$ of it where $m_j \geq 2$ and then we will know that $\prod_{j=1}^m (X-\beta_j)^{m_j-1}| f,f$ in $E[X]$ and hence $g(X)$ will only have simple roots since $gcd(f,f')$ does not change with the extension. Then it is easy to check $\alpha_i$ is not a root of $f'$ and hence a root of $g$ and it is easy to check $(X-\beta_j)^{m_j}$ do not divide $f'$ and hence $(X-\beta_j)|g$ and hence $\beta_j$ is a root of $g$. Since any root of $g$ will be a root of $f$ and hence we know $g$ have the same roots with $f$ with all simple and we are done.
+It is trivial when $f$ is constant. Consider $f(X) = \prod_{i=1}^k (X-\alpha_i)\prod_{j=1}^m (X-\beta_j)^{m_j}$ with $\alpha_i,\beta_j$ distinct in some splitting field $E$ of it where $m_j \geq 2$ and then we will know that $\prod_{j=1}^m (X-\beta_j)^{m_j-1}| f,f$ in $E[X]$ and hence $g(X)$ will only have simple roots since $gcd(f,f')$ does not change with the extension. Then it is easy to check $\alpha_i$ is not a root of $f'$ and hence a root of $g$ and it is easy to check $(X-\beta_j)^{m_j}$ do not divide $f'$, since $F$ has $0$ characteristic and hence $(X-\beta_j)|g$ and hence $\beta_j$ is a root of $g$. Since any root of $g$ will be a root of $f$ and hence we know $g$ have the same roots with $f$ with all simple and we are done.
 \par 
 \vspace{0.5em}
 
 \subsection*{Ex.3(2.6 on JSM)}
-Let $f(X)$ be an irreducible polynomial in $F[X]$, where $F$ has characteristic $p$. Show that $f(X)$ can be written $f(X) = g(X^p)$ where $g(X)$ is irreducible and separable. Deduce that every root of $f(X)$ jas the same multiplicity $p^e$ in any splitting field.
+Let $f(X)$ be an irreducible polynomial in $F[X]$, where $F$ has characteristic $p$. Show that $f(X)$ can be written $f(X) = g(X^{p^e})$ where $g(X)$ is irreducible and separable. Deduce that every root of $f(X)$ has the same multiplicity $p^e$ in any splitting field.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
 \iffalse
@@ -78,11 +78,20 @@ Then, we know $g(x)=\prod_{i=1}^{n}(x-x_i)$ in the splitting field of $g$ for so
 This proves the claim.
 \end{enumerate}
 \fi
+    If $f$ is separable, then it is obvious that $e=0$. Assume $f$ has multiple root, then we will know $f(X) = g(X^p)$ for some $g\in F[X]$ which has to be irreducible since if not, we will know $f(X) = p(X^p)q(X^p)$ for some $p,q\in F[X]$ which is a contradiction. We know $\deg g = \deg f/p$, so we continue this process and then we will some $h$ such that $f(X) = h(X^{p^e})$ for some integer $e$ and $\deg h<p$, then $h$ can not have multiple roots or $\deg h \geq p$ and then we know $h$ is irreducible and separable and we are done.
 \par 
 \vspace{0.5em}
 
 \subsection*{Ex.4(Problem A)}
+Let $E\supset F$ be an algebraic extension. Choose an algebraic closure $\overline{F}$ of $F$ such that $E \subset \overline{F}$. Prove that the following conditions are equivalent:\par
+\begin{enumerate}
+    \item $E$ is the splitting field of a family of polynomials $S \subset F[x] - \{0\}$;
+    \item For any $F$-homomorphism $\phi : E \to \overline{F} , \phi(E) \subset E$;
+    \item The minimal polynomial of every $a \in E$ over $F$ splits over $E$ 
+\end{enumerate}
+\vspace{0.5em}
 \textbf{Sol.} \par
+\iffalse
 1 $\Rightarrow$ 2: If $E$ is the splitting field of a family of polynomials $S\subset F[x]-\{0\}$, then any $\alpha\in E$ is a linear combination of roots of polynomials in $S\subset F[x]-\{0\}$. Therefore, any $F$-homomorphism fixing $F$ doesn't change $S$, which sends roots of polynomials to some roots of the same polynomials. Since $E$ is the splitting field, all these roots are in $E$, hence $\phi(E)\subset E$.
 
 2 $\Rightarrow$ 3: For $a\in E$, the minimal polynomial over $F$, denoted by $m_{a, F}$ is irreducible. Since $a\in E$, we may regard $E$ as an extension of $F(a)$. Since $\phi$ sends $E$ to $E$, we know the conjugates of $a$, i.e. other roots of $m_{a,F}$, are in $E$ as well. Therefore, $m_{a,F}$ splits over $E$.
@@ -90,23 +99,27 @@ This proves the claim.
 3 $\Rightarrow$ 1: Since for any $a\in E$, $m_{\alpha, F}$ splits over $F$, we may regard $E$ as the splitting field of $m_{a, F}$ for all $a\in E$.
 
 We are done.
+\fi
+(1) implies (2): Assume $E$ is the splitting field of a polynomial $f\in F[X]-\{0\}$ with roots $\{\alpha_i\}_{i=1}^k$ and then we know $0 = \phi(f(\alpha_i)) = f(\phi(\alpha_i))$ and hence $\phi(\alpha_i) = \alpha_j$ for some $j$ for any $F$-homomorphism. Therefore any element in $E$ will be mapped to an element in $E$. Then since any element $E$ is contained in some splitting field contained in $E$ for general $E$, so we are done.\par
+(2) implies (3): Assume $a\in E$ and $f$ the minimal polynomial and $f(X) = \prod_{i=1}^m (X-\alpha_i) \in \overline{F}[X]$ where $\alpha_1 = a$. We know there exists $\phi_i:F[a] \to\overline{F}$ $F$-homomorphisms with $\phi_i(a) = \alpha_i$ and we know there exists $\varphi_i:E\to \overline{F}$ such that $\varphi_i|_{F[a]} = \phi_i$ and hence we know any $\alpha_i \in E$ and we are done.\par
+(3) to (1) is obvious and we are done.
 \par 
 \vspace{0.5em}
 
-\subsection*{Ex.5(Problem B)}
+\subsection*{Ex.5(Problem B)}\vspace{0.5em}
+Let $F$ be a field of characteristic $p$. Prove that if $ a\in  F - F^p$, then
+$X^p - a$ is irreducible.
+\vspace{0.5em}\\
 \textbf{Sol.} \par
-   Denote $f(x)=x^p-a$. So we need to prove that if $f$ is reducible, then $x^p-a$ has a root in $F$.
-
-If $f$ reducible, then there is $g\ |\ f$ and $\deg g<\deg f$. In the splitting field of $F$, we may write $f=\prod_{i=1}^p (x-x_i)$. We also know $\prod_{i=1}^p(-x_i)=-a.$ 
-
-On the other hand, $g=\prod_{j=1}^k (x-x_j)$ divides $f$. We also have $g(0)=\prod_{j=1}^k(-x_j)=b$. We also know that $b^p=\prod_{j=1}^k(-x_j)^p=(-1)^p\prod_{j=1}^k(x_j)^p=(-1)^pa^k,$ i.e. $a^k=(-b)^p$. 
-
-We also know that $k=\deg g<\deg f=p$, hence $\gcd(k,p)=1$, so there are $m,n$ such that $km+pn=1$. We have $a=a^{km+pn}=a^{np}(-b)^{mp}=((-b)^ma^n)^p$, so $a\in F^p$. Contradiction.
+   If $\alpha$ is a root of $X^p - a$ in some extension of $F$ and then $\alpha^p = a$ and we know $(X-\alpha)^p = X^p -\alpha^p = X^p - a$ and hence all roots of $X^p - a$ should be $\alpha$. If it is reducible, then we know there exist $1\leq k<p$ integer such that $(X-\alpha)^k \in F[X]$. Notice that if $f,g\in F[X], g|f$ then $f/g \in F[X]$ and hence there exists $X-\alpha \in F[X]$ since there are integers $m,n$ such that $km+(p-k)n = 1$ and then $X-\alpha = (X-\alpha)^{km+(p-k)n}\in F[X]$. Therefore, $\alpha \in F$ which is a contradiction.
 \par 
 \vspace{0.5em}
 
 \subsection*{Ex.6(Problem C)}
+Let $F$ be a perfect field. Prove that all finite extensions $E \supset F$ are perfect as well.
+\vspace{0.5em}\\
 \textbf{Sol.} \par
+\iffalse
 If char$(F)=0$, then $E/F$ is perfect automatically. Now assume char$(F)=p$. 
 
 We prove that $E$ is perfect if and only if for any $\alpha$, we have $\sqrt[p]{\alpha}\in F$. For the ``$\Leftarrow$'', consider an irreducible polynomial over $F$, say $p(x)$. Assume $p$ is not separable, then we know that $p(x)=a_nx^{np}+a_{n-1}x^{(n-1)p}+\dots+a_1x^p+a_0$. For each $i$, find $b_i\in F$ such that $b_i^p=a_i$, then $f(x)=(b_nx^n+\dots+b_1x+b_0)^p$, then $f$ cannot be irreducible. 
@@ -114,6 +127,8 @@ Conversely, if $E$ is perfect, and $f(x)=x^p-a$ has no root in $E$, then it is n
 
 Since $F$ is perfect, $F^p=F$. Now, consider $F(a)$ for $a\in E$. We find $m_{a, F}$, the minimal polynomial of $a$ over $F$, then it is irreducible. Since $F$ is perfect, $m_{\alpha, F}$ is separable. \par
 If $F$ is perfect, then every algebraic extension is separable. For any $\alpha\in E$, we have $m_{\alpha, E}\ |\ m_{\alpha, F}$, and since $m_{\alpha, F}$ is separable, so is $m_{\alpha, E}$. So, $\alpha$ is separable over $E$.
+\fi
+Assume $F$ has zero characteristic. Then $E/F$ obviously have zero characteristic. Then we assume $F$ has characteristic of $p$ and $E$ has a basis $\{e_i\}_{i=1}^n$. If there are $a_i \in F[X]$ such that $a_1e_1^p+a_2e_2^p+\cdots+a_ne_n^p = 0$, then assume $\beta_i^p = a_i$ and we have $(\beta_1e_1+\beta_2e_2+\cdots+\beta_ne_n)^p = 0$ which means $\beta_1e_1+\beta_2e_2+\cdots+\beta_ne_n = 0$ and hence a contradiction, so $e_1^p,\cdots,e_n^p$ is also a basis and hence $E$ is perfect by Frobenius homomorphism. 
 \par 
 \vspace{0.5em}
 
