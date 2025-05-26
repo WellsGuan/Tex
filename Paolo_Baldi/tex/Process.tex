@@ -1,0 +1,91 @@
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\PR}{\mathbb{R}^+}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\Borel}{\mathcal{B}}
+
+\section{Stochastic Processes}
+
+\subsection{General facts}
+
+\begin{definition}
+    (Stochastic Process)\par
+    A \textbf{stochastic process} is an object of the form
+    \[
+    X = (\Omega,\F,(\F_t)_{t\in T}, (X_t)_{t\in T},P)
+    \]
+    where
+    \begin{itemize}
+        \item $(\Omega,\F,P)$ is a probability space
+        \item $T$ is a subset of $\PR$
+        \item $(\F_t)_{t\in T}$ is a filtration, i.e. an increasing family of sub-$\sigma$-algebras of $\F$
+        \item $(X_t)_{t\in T}$ is a family of r.v.'s on $(\Omega,\F)$ taking values in a measurable space $(E,\mathcal{E})$ \textbf{adapted} to $(\F_t)$.
+    \end{itemize}
+    The \textbf{natural filtration} $(\G_t)_t$ is defined as
+    \[\G_t = \sigma(X_s,s\leq t)\]
+    and the \textbf{augmented natural filtration} $(\overline{\G}_t)$ is defined by
+    \[
+    \overline{\G}_t = \sigma(\G_t,\mathcal{N})
+    \]
+    where $\mathcal{N} = \{A;A\in \F,P(A) = 0\}$. Denote $\F_{\infty} = \sigma(\bigcup_t \F_t)$ for a filtration $(\F_t)_t$
+\end{definition}
+
+\begin{definition}
+    (Space of paths)\par
+    $\Omega$ can be considered as a subset of $E^T:=\{\text{all functions }T\to E\}$ by the map \[\omega\mapsto(t\mapsto X_t(\omega))\]
+    and hence is called the \textbf{space of paths} and $E$ is called the \textbf{state space}.
+\end{definition}
+
+\begin{definition}
+    (Equivalent and modification)\par
+    For two processes $(\Omega,\F,(\F_t)_{t\in T}, (X_t)_{t\in T},P)$ and $ (\Omega',\F',(\F'_t)_{t\in T}, (X_t')_{t\in T},P')$, they are \textbf{equivalent} if for any $t_1,\cdots,t_m\in T,(X_{t_1},\cdots,X_{t_m})$ and $(X_{t_1}',\cdots,X_{t_m}')$ have the same law.\par
+    $X$ is called a \textbf{modification} of $X'$ if $(\Omega,\F,(\F_t)_{t\in T},P) = (\Omega',\F',(\F_t')_{t\in T},P')$ and for every $t\in T$, $X_t = X_t', P$-a.s., and they are \textbf{indistinguishable} if $X$ is a modification of $X'$ and 
+    \[P(X_t = X_t'\text{ for every }t\in T) = 1\]
+\end{definition}
+
+\begin{example}
+    Here is a counter example that if $X$ is a modification of $X'$, then $X$ and $X'$ are not necessarily indistinguishable. Let $\Omega = [0,1]$ and $\F = \Borel([0,1])$ and $P$ the Lebesgue measure, and
+    \[X_t(\omega) = 1_{\{\omega\}}(t),\quad X_t'(\omega) = 0\]
+\end{example}
+
+\begin{definition}
+    (Topological state space)\par
+    Assume the state space is a topological space endowed with its Borel $\sigma$-algebra $\Borel(E)$ and $T$ an intercal of $\PR$.\par
+    A process is said to be (a.s.) \textbf{continuous} if for every (a.e.) $\omega$ the map $t\mapsto X_t(\omega)$ is continuous. And the definitions of one side continuity is similar.\par
+    $X$ is \textbf{measurable} if the map $(t,\omega)\mapsto X_t(\omega)$ is measurable $(T\times \Omega,\Borel (T)\otimes \F) \to (E,\Borel(E))$. It is said to be \textbf{progressively measurable} if for every $u \in T$ the map $(t,\omega) \to X_t(\omega)$ is measurable $([0,u]\times\Omega, \Borel([0,u])\otimes \F_u) \to (E,\Borel(E))$.
+\end{definition}
+
+\begin{proposition}
+    Let $X = (\Omega,\F,(\F_t)_{t\in T},(X_t)_t,P)$ be a right-continuous process. Then it is progressively measurable.
+\end{proposition}
+\Pf\par
+    For a fixed $u\in T$, we define $X^{(n)}$ by
+    \[
+    X_s^{(n)} = X_{(k+1)u/2^n}\text{ for }s\in [ku/2^n,(k+1)u/2^n)\quad\text{ and }X_s^{(n)} = X_u\text{ if }s\geq u
+    \]
+    and then we know $X_s^{(n)} = X_{s_n}$ for some $s_n > s$ and $|s_n - s| \leq u/2^n$ if $s \leq u$ and then we know $X_s^{(n)} \to X_s$ as $n\to \infty$ for $s\leq u$ since $s_n \downarrow s$. Consider $B \in \Borel(E)$ and then
+    \[
+    \begin{aligned}
+       & \{X^{(n)} \in B\}\cap \{s\leq u\} \\ =& \left(\bigcup_{k=0}^{2^n-1}\{X^{(n)} \in B\}\cap \{s\in [ku/2^n,(k+1)u/2^n)\}\right) \cup \left(\{X^{(n)} \in B\}\cap \{s=u\}\right)\\
+        =& \left(\bigcup_{k=0}^{2^n-1} [ku/2^n,(k+1)u/2^n)\times\{X_{(k+1)u/2^n} \in B\}\right) \cup \left(\{u\}\times \{X_u \in B\}\right)\in \Borel([0,u],\F_u)\\
+    \end{aligned}
+    \]
+    which means $X^(n)$ is progressively measurable and hence $X$ is progressively measurable.
+
+    \begin{definition}
+        (Standard process)\par
+        Denote $\F_{t+} = \cap_{\epsilon > 0} \F_{t+\epsilon}$ and we say the filtration is \textbf{right-contunuous} if $\F_{t+} = \F_t$ for every $t$.\par
+        A process is said to be \textbf{standard} if $(\F_t)$ is right-continuous and $\F_t$ contains the negligible events of $\F$ for each $t$.
+    \end{definition}
+
+    \subsection{Kolmogorov's continuity theorem}
+
+    \begin{theorem}
+        (Kolmogorob's continuity theorem)\par
+        Let $D\subset \mathbb{R}^m$ an open set and $(X_y)_{y\in D}$ a family of $d$-dimensional r.v.'s on $(\Omega,\F,P)$ such that there exists $\alpha > 0, \beta > 0, c>0$ such that
+        \[
+        E[|X_y - X_z|^{\beta}] \leq c|y-z|^{m+\alpha}
+        \]
+        Then there exists a family $(\widetilde{X}_y)_t$ of $\mathbb{R}^d$-valued r.v.'s such that
+        \[X_y = \widetilde{X}_y\]
+        a.s. for every $y\in D$ and that the map $y\mapsto \widetilde{X}_y(\omega)$ is Holder continuous with exponent $\gamma$ for every $\gamma < \alpha/\beta$ on every compaact subset of $D$ for every $\omega \in \Omega$.
+    \end{theorem}
