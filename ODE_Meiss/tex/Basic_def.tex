@@ -1,0 +1,48 @@
+\section{Existence and Uniqueness Theorems}
+
+\subsection{Basic definitions}
+
+\begin{definition}
+    (Lipschitz continuity)\par
+    Suppose $(X,\rho_X), (Y,\rho_Y)$ are metric spaces. A function $f:X\to Y$ is \textbf{Lipschitz} if for all $x_1,x_2\in X$, there is a $K$ such that $\rho_Y(f(x_1),f(x_2)) \leq K\rho_X(x_1,x_2)$, then the mallest such $K$ is called the \textbf{Lipschitz constant} for $f$ on $X$.\par
+    $f$ is \textbf{locally Lipschitz} if for every $x\in X$, there is a neighborhood $N(x)$ such that $f$ is Lipschitz on $N(x)$.
+\end{definition}
+
+\begin{lemma}
+    A Lipschitz function is uniformly continuous. If $f$ is locally Lipschitz, then it is Lipschitz on any compact set.
+\end{lemma}
+
+\begin{lemma}
+    Suppose that $A\subset \mathbb{R}^n$ is compact and convex and $f\in C^1(A,\mathbb{R}^n)$. Then $f$ is Lipschitz with constant $K = \max_{x\in A}||Df||$.
+\end{lemma}
+\Pf\par
+    For any $x,y\in A$, we know $\xi (s) = x+s(y-x) \in A$ for any $0\leq s \leq 1$. Then
+    \[
+    f(y)-f(x) = \int_0^1 \dfrac{d}{ds}(f(\xi(s)))ds = \int_0^1 Df(\xi(s))(y-x)ds
+    \]
+    (since
+    \[
+    \dfrac{d}{ds}(f(\xi(s))) = \lim_{t\to 0}\dfrac{f(\xi(s)+t\sum\limits_{i=1}^n (y-x)_i) - f(\xi(s))}{t}
+    \]
+    and then) we have
+    \[
+    |f(y)-f(x)| \leq \int_0^1 ||Df(\xi(s))|||y-x|ds \leq K|y-x|
+    \]
+    and we are done.
+
+\begin{corollary}
+    If $E\subset \mathbb{R}^n$ is open and $f\in C^1(E,\mathbb{R}^n)$, then $f$ is locally Lipschitz.
+\end{corollary}
+
+\begin{lemma}
+    Suppose $f \in C^k(E,\mathbb{R}^n)$ where $E$ is some subset $E$ of $\mathbb{R}^n$ for $k\geq 0 $ and $x\in C^0(J,E), J = [t_0-a,t_0+a]$ is a solution of the integral equation
+    \[
+    x(t) = x_0 + \int_{t_0}^t f(x(\tau))d\tau
+    \]
+    Then $x\in C^{k+1}(J,E)$ and a solution to
+    \[
+    x' = f(x), x(t_0) = x_0
+    \]
+\end{lemma}
+\Pf\par
+    
