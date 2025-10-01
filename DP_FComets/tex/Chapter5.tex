@@ -1,0 +1,392 @@
+\section{Semimartingable Approach}
+
+\subsection{Checklist}
+\begin{itemize}
+    \item The theorem that square integrabl martingale converges a.s. on the event $\langle M\rangle < \infty$.
+    \item $M_n /\langle M\rangle_n \to 0$.
+\end{itemize}
+
+\subsection{Useful Conclusions}
+
+\begin{theorem}
+    (Helly's selection Theorem)\par
+    For every sequence $F_n$ of distribution functions, there is a subsequence $F_{n_k}$ and a right continuous nondecresing function $F$ so that $F_n$ converges to $F$ vaguely, i.e. $\lim\limits_{k\to\infty} F_{n_k}(y) = F(y)$ at all continuity points $y$ of $F$.
+\end{theorem}
+\begin{proof}
+    Consider $q_i$ to be all the rational numbers and then we know there has to be a subsequence of $F_n$ such that $F_n(q_1)$ converge to some value, denoted with $F(q)$ and by recursive constructing we will have a function $F$ such that there is a subsequence $F_{n_k}(q_i) \to F(q_i)$ for all the rational numbers. It is easy to check for any $q_i < q_j$, since $F_{n_k}(q_i) \leq F_{n_k}(q_j)$, we know
+    \[
+    F(q_i) = \lim_{k\to\infty} F_{n_k}(q_i) \leq \lim_{k\to\infty} F_{n_k}(q_j) \leq F(q_j)
+    \]
+    and hence we may contruct $F$ bye choose
+    \[F(x) = \inf\{F(q), q\in\mathbb{Q}, q>x\}\]
+    which is easy to be checked nondecreasing and right continuous.\par
+    For any point $y$ such that $F$ is continuous at $y$, then notice for any $\epsilon > 0$, we have $q_1,q_2$ rational numbers such that $q_1 < y <q_2$ and
+    \[
+    F(y)-\epsilon < F(q_1) \leq F(x) \leq F(q_2) < F(y)+\epsilon
+    \] 
+    and let $n_k$ large enough we may have
+    \[
+    F(y)-\epsilon < F_{n_k}(q_1) \leq F_{n_k}(y) \leq F_{n_k}(q_2) < F(y)+ \epsilon
+    \]
+    and we are done.
+\end{proof}
+
+\begin{theorem}
+    Every subsequential limit is the distribution function of a probability measure if and only if the sequence $F_n$ is \textbf{tight}, i.e. for all $\epsilon > 0$ there is an $M_{\epsilon}$ so that
+    \[
+    \limsup\limits_{n\to\infty} (1 - F_n(M_{\epsilon}) + F_n(-M_{\epsilon})) \leq \epsilon
+    \]
+\end{theorem}
+\begin{proof}
+    To see the sufficiency, assume $F_n$ is tight and $F_{n_k} \overset{v}{\Rightarrow} F$ for some $F$, let $r < -M_{\epsilon}, s > M_{\epsilon}$ be continuity point of $F$ and then we know
+    \[
+    1 - F(s) + F(r) \leq \limsup_{k\to\infty} 1 - (F_n(M_{\epsilon}) - F_n(-M_{\epsilon})) \leq \epsilon
+    \]
+    whcih means $\limsup_{x\to\infty} F(x) - F(-x) = 1$ and hence $F$ is a distribution function.\par
+    To see the necessity, we may see if $F_n$ not tight, there is an $\epsilon > 0$ and a subsequence $n_k \to \infty$ such that
+    \[
+    1 - F_{n_k}(k) + F_{n_k}(-k) \geq \epsilon
+    \]
+    for all $k$, assume $F_{n_{k_j}}$ converges to $F$ a distribution function weekly, and let $r < 0 <s$ continuity points of $F$, then
+    \[
+    1 - F(s) + F(r) = \lim_{j\to\infty} 1 - F_{n_{k_j}} (s) + F_{n_{k_j}} (r) \geq \liminf_{j\to\infty} 1 - F_{n_{k_j}} (k_j) + F_{n_{k_j}} (k_j) \geq \epsilon 
+    \]
+    and let $-r,s\to\infty$ will induce a contradiction.
+\end{proof}
+
+\begin{theorem}
+    Consider a sequence of random variables $X_n, 0\leq n\leq \infty$, if for any $n$ integer $EX_k^n \to EX_{\infty}^n$, then $X_n$ converges weakly in $X_{\infty}$.
+\end{theorem}
+\begin{proof}
+    We know $EX_k^2 \to EX^{\infty} = T$ finite, we have
+    \[
+    1 - P(-M \leq X_k \leq M) \leq EX_k^2/M^2 \to T/M^2
+    \]
+    and hence let $M \geq \sqrt{T/\epsilon}$
+    \[
+    \limsup_{k\to\infty} (1 - P(-M \leq X_k \leq M)) \leq \lim_{k\to\infty}EX_k^2/M^2 \leq \epsilon
+    \]
+    which means $F_k$ is tight where $F_k$ is the distribution function of $X_k$. Then for any bounded $g$, we may consider $\delta > 0$ and let $M$ such that 
+    \[
+    \limsup_{k\to\infty}(1 - P(-M \leq X_k \leq M)) \leq \delta/|g|_{L^{\infty}}
+    \]
+    and we may find polynomials $p_n$ converges to $g$ uniformly on $[-M,M]$, where we know
+    \[\lim_{k\to\infty}Ep_n(X_k;|X_k|\leq M) = Ep_n(X_{\infty};|X_{\infty} \leq M|)\]
+    and hence
+    \[
+    \lim_{k\to\infty}Eg(X_k;|X_k| \leq M) = Eg(X_{\infty};|X_{\infty}| \leq M) 
+    \]
+    since $p_n \to g$ uniformly and then
+    \[
+    |\liminf_{k\to\infty}Eg(X_k) - Eg(X_{\infty})| < 2\delta
+    \]
+    for any $\delta > 0$ and hence $\liminf_{k\to\infty}Eg(X_k) = E(g)(X_{\infty})$ for any bounded and continuous function $g$, so as for $\limsup$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    (Doob's Decomposition)\par
+    Any $\mathcal{G}_n$-adapted process $X = \{X_n\}_{n\geq 0} \subset L^1(\mathbb{P})$ can be decomposed in a unique way as
+    \[
+    X_n = M_n(X) + A_n(X),\quad n\geq 1
+    \]
+    where $M(X)$ is an $\mathcal{G}_n$-martingale and $A(X)$ is predictable, i.e. $A_n(X)$ is $\mathcal{G}_{n-1}$ measurable with $A_0 = 0$.
+\end{theorem}
+\begin{proof}
+    We know if this decomposition exists, then
+    \[
+    \triangle A_n = \mathbb{E}(\triangle X_n|\mathcal{G}_{n-1})
+    \]
+    and
+    \[
+    \triangle M_n = \triangle X_n - \mathbb{E}(\triangle X_n|\mathcal{G}_{n-1})
+    \]
+    and then
+    \[
+    A_n = \sum\limits_{i=1}^n \mathbb{E}(\triangle X_i|\mathcal{G}_{i-1}),\quad M_n = X_n - \sum\limits_{i=1}^n \mathbb{E}(\triangle X_i|\mathcal{G}_{i-1})
+    \]
+\end{proof}
+
+\begin{proposition}
+    If $N$ is a square integrable martingable, then the compensator $A(N^2)$ is denoted by $\langle N\rangle_n$ and is given by
+    \[
+    \triangle\langle N \rangle_n = E(N^2_n - N^2_{n-1}|\mathcal{G}_{n-1}) = E((\triangle N_n)^2|\mathcal{G}_{n-1})
+    \]
+\end{proposition}
+
+\subsection{Semimartingable Decomposition}
+
+\begin{definition}\ \par
+    We care about the Doob's decomposition of $X_n = -\ln W_n = M_n+A_n$. Then $-\ln W_n$ is a submartingable and $A_n$ is increasing about $n$.
+\end{definition}
+\begin{proof}
+    We know $-\ln$ is convex and then
+    \[
+    \mathbb{E}(-\ln W_n|\mathcal{G}_{n-1}) = \mathbb{E}(\sup\{aW_n+b\}|\mathcal{G}_{n-1}) \geq -\ln(W_{n-1})
+    \]
+    and hence a submartingable, then
+    \[
+    \mathbb{E}(M_n+A_n|\mathcal{G}_{n-1}) = M_{n-1}+A_n \geq M_{n-1} + A_{n-1}
+    \]
+    and hence $A_n$ increasing.
+\end{proof}
+
+\begin{definition}
+    \ \par
+    We introduce
+    \[
+    U_n = E^{\beta,\omega}_{n-1}\exp(\beta\omega(n,S_n)-\lambda(\beta))-1
+    \]
+    and we will have
+    \[
+    U_n + 1 = W_n/W_{n-1}
+    \]
+    and then
+    \[
+    W_n = \prod_{t=1}^n(1+U_t)
+    \]
+    and hence
+    \[
+    \begin{aligned}
+    \triangle A_n &= - \mathbb{E}(\ln(1+U_n)|\mathcal{G}_{n-1}) \\
+    \triangle M_n &= -\ln(1+U_n) + \mathbb{E}(\ln(1+U_n)|\mathcal{G}_{n-1})
+    \end{aligned}
+    \]
+\end{definition}
+\begin{proof}
+    We have
+    \[
+    \begin{aligned}
+        W_n =& E\exp(\beta H_n(S) - n\lambda(\beta)) \\ =& E\exp(\beta H_{n-1}(S) - (n-1)\lambda(\beta))\exp(\beta\omega(n,S_n) - \lambda(\beta)) \\
+        =& E_{n-1}^{\beta,\omega}\exp(\beta\omega(n,S_n)-\lambda(\beta))W_{n-1}
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}\ \par
+    Define
+    \[I_n = \sum\limits_{x\in\mathbb{Z}^d} P_{n-1}^{\beta,\omega}(S_n = x)^2\]
+    and then consider $\tilde{S}$ an independent copy of $S$, where $S$ and $\tilde{S}$ are called \textbf{replica} and then
+    \[
+    I_n = (P_{n-1}^{\beta,\omega})^{\otimes 2}(S_n = \tilde{S}_n)
+    \]
+\end{definition}
+
+\begin{theorem}
+    Let $\beta \neq 0$. Then
+    \[
+    \{W_{\infty} = 0\} = \left\{\sum\limits_{n\geq 1}I_n = \infty\right\},\quad\mathbb{P}\text{-a.s.}
+    \]
+    Moreover, if $\mathbb{P}(W_{\infty} = 0)= 1$, there exists $c_1,c_2 \in (0,\infty)$ depending on $\beta,\mathbb{P}$ such that for $\mathbb{P}$-a.s.
+    \[
+    c_1 \sum\limits_{k=1}^n I_k \leq -\ln W_n \leq c_2\sum\limits_{k=1}^n I_k\quad\text{for large enough }n
+    \]
+    and also
+    \[
+    \lim_{n\to\infty}\dfrac{-\ln W_n}{A_n} = 1\text{ a.s.}
+    \]
+\end{theorem}
+\begin{lemma}
+    Let $e_i, 1\leq i \leq m$ be positive, nonconstant i.i.d. random variables on a probability space such that
+    \[
+\mathbb{P}(e_1) = 1,\quad \mathbb{P}(e_1^3 + \ln^2 e_1) < \infty
+    \]
+    For $\{\alpha_i\}_{i=1}^m$ nonnegative such that $\sum\limits_{i=1}^m \alpha_i = 1$, define a centered random variable $U > -1$ by $U = \sum\limits_{i=1}^m \alpha_i e_i - 1$. Then, there exists a constant $c\in (0,\infty)$ independent of $m$ and of $\{\alpha_i\}_{i=1}^m$ such that
+    \[
+    \begin{aligned}
+        \dfrac{1}{c}\sum\limits_{i=1}^m \alpha_i^2 \leq &\mathbb{E}\left(\dfrac{U^2}{2+U}\right) \\
+        \dfrac{1}{c}\sum\limits_{i=1}^m \alpha_i^2 \leq &-\mathbb{E}\left(\ln(1+U)\right) \leq c\sum\limits_{i=1}^m \alpha_i^2
+        \\ 
+        &\mathbb{E}\left(\ln^2(1+U)\right) \leq c\sum\limits_{i=1}^m \alpha_i^2
+    \end{aligned}
+    \]
+\end{lemma}
+\begin{proof}
+    Notice
+    \[
+    \mathbb{E}(U^2) = \mathbb{E}((\sum\limits_{i=1}^m(a_ie_i))^2 - 1) =var(e_1)\sum\limits_{i=1}^m \alpha_i^2
+    \]
+    and
+    \[
+    \begin{aligned}
+        \mathbb{E}(U^3)=& \mathbb{E}(\sum\limits_{i=1}^m a_ie_i)^2(\sum\limits_{i=1}^m a_ie_i-1) \\ =& \mathbb{E}(\sum\limits_{i=1}^m a_ie_i)^3 - var(e_1)\sum\limits_{i=1}^m \alpha_i^2\\
+        \leq& (\mathbb{E}(e_1^3)+4)\sum\limits_{i=1}^m \alpha_i^2
+    \end{aligned}
+    \]
+    and then
+    \[
+    \begin{aligned}
+        c_1\sum\limits_{i=1}^m \alpha^2 =& \mathbb{E}\left(\dfrac{U}{\sqrt{2+U}}U\sqrt{2+U}\right) \\
+        \leq& \mathbb{E}\left(\dfrac{U^2}{2+U}\right)^{1/2}\mathbb{E}(2U^2+U^3)^{1/2}\\
+        \leq& c_3\left(\sum\limits_{i=1}^m \alpha_i^2\right)^{1/2}\mathbb{E}\left(\dfrac{U^2}{2+U}\right)^{1/2}.
+    \end{aligned}
+    \]
+    Define $\phi(u) = u - \ln(1+u)$ and then
+    \[\mathbb{E}\ln(1+U) = - \mathbb{E}(\phi(U))\]
+    for all $u>-1$. Notice
+    \[
+    \left(\phi(u) - \dfrac{1}{4}\dfrac{u^2}{2+u}\right)' = \dfrac{3}{4} - \left(\dfrac{1}{(u+1)(u+2)^2} + \dfrac{1}{u+2}\right)
+    \] and we know $\phi(u) \geq \dfrac{1}{4}\dfrac{u^2}{2+u}$ which implies the LHS of the second inequality. For the RHS, notice
+    \[
+    \begin{aligned}
+        \mathbb{E}(\phi(U)) &= \mathbb{E}(\phi(U); 1+U\geq \epsilon) + \mathbb{E}(\phi(U); 1+U < \epsilon) \\
+        &= \mathbb{E}(\phi(U); 1+U\geq \epsilon) - \mathbb{E}(\ln(1+U); 1+U < \epsilon) + \mathbb{E}(U;1+U < \epsilon) \\
+        &\leq\mathbb{E}(\phi(U); 1+U\geq \epsilon) - \mathbb{E}(\ln(1+U); 1+U < \epsilon)
+    \end{aligned}
+    \]
+    for $\epsilon \in (0,1)$, notice $\phi(u) \leq \dfrac{1}{2}(u/\epsilon)^2$ for $1+u \geq \epsilon$ and then
+    \[
+    \mathbb{E}(\phi(U); 1+U\geq\epsilon) \leq \dfrac{1}{2}\epsilon^{-2}\mathbb{E}U^2 = \dfrac{1}{2}\epsilon^{-2}c_1\sum\limits_{i=1}^m \alpha_i^2
+    \]
+    Let $\gamma = -\mathbb{E}\ln(e_1) \geq 0$( which is by the Chebyshev's inequality) and choose $\epsilon$ such that $\ln(1/\epsilon) - \gamma \geq 1$. Define
+    \[
+    V = \sum\limits_{i=1}^m \alpha_i(\ln e_i + \gamma)
+    \]
+    and by Chebyshev, we have
+    \[
+    V - \gamma \leq \ln(1+U) \leq \ln \epsilon
+    \]
+    and hence
+    \[
+    -\mathbb{E}(\ln(1+U);1+U\leq \epsilon) \leq \mathbb{E}(-V; -V \geq 1) + \gamma\mathbb{P}(-V\geq 1) \leq (1+\gamma)\mathbb{E}(V^2)
+    \]
+    where
+    \[
+    \mathbb{E}V^2 = \mathbb{E}(\ln e_1+\gamma)^2 \sum\limits_{i=1}^m \alpha_i^2
+    \]
+    similarly, we have
+    \[
+    \mathbb{E}(\ln^2(1+U); 1+U\leq \epsilon) \leq (2+2\gamma^2)\mathbb{E}(V^2)
+    \]
+    and it is easy to check $|\ln(1+U)| \leq \dfrac{-\ln\epsilon}{\epsilon}|u|$ if $\epsilon |leq 1+u$ and hence
+    \[
+    \mathbb{E}(\ln^2(1+U); \epsilon \leq 1+U) \leq \epsilon^{-2}\ln^2{\epsilon^{-1}}\mathbb{E}(U^2)
+    \]
+    and we are done.
+\end{proof}
+
+\begin{proof}
+    Use the Lemma 3.3.2. and consider $\alpha^n_x = P_{n-1}^{\beta, \omega}(S_n = x)$ and $e_x^n = \exp(\beta\omega(n,x) - \lambda(\beta))$ which is independent with $\mathcal{G}_{n-1}$ and $\alpha_x^n$ is measurable in $\mathcal{G}_{n-1}$ and hence we may use $\mathbb{P}(|\mathcal{G}_{n-1})$ in the lemma. Notice
+    \[
+    \begin{aligned}
+        U_n = &\sum a^n_x e^n_x - 1 \\
+        \dfrac{1}{c}I_n \leq \triangle A_n = &-\mathbb{E}(\ln(1+U_n)|\mathcal{G}_{n-1}) \leq cI_n \\
+        &\ \mathbb{E}(\ln^2(1+U_n)|\mathcal{G}_{n-1}) \leq cI_n
+    \end{aligned}
+    \]
+    Then if $\sum\limits_{n\geq 1} I_n < \infty$, then we know $\sum\ln^2(1+U_n)$ is integrable and hence $M_n^2$ is integrable by
+    \[
+    \mathbb{E}(\triangle M_n)^2 \leq \mathbb{E}\ln(1+U_n)^2
+    \]
+    by the projection property of conditional expectation. Then we will have
+    \[
+    \triangle \langle M\rangle_n \leq cI_n
+    \]
+    and hence we have $A_{\infty} < \infty$ and $\langle M \rangle_{\infty} < \infty$, which means $\lim_{n\to\infty} M_n$ exists and finite, which implies $\lim \ln W_n$ exists and finite, so $W_{\infty} > 0$.\par
+    By the approximation above, we have
+    \[
+    \{\sum I_n = \infty\} = \{A_{\infty} = \infty\}
+    \]
+    then if $\lambda M \rangle_{\infty} < \infty$, then we know $M_{\infty}$ exists and finite. If $\langle M\rangle_{\infty} = \infty$, then we may know $M_n/\langle M\rangle_n \to 0$ a.s. and it is easy to check that for both cases we have
+    \[-\dfrac{\ln W_n}{A_n} \to 1\]
+    for $\mathbb{P}$-a.s. and we are done.
+\end{proof}
+
+\begin{corollary}
+    We have $\mathbb{P}$-a.s.
+    \[
+    p(\beta) = \lim_{n\to\infty}\dfrac{1}{n}\sum\limits_{t=1}^n \mathbb{E}(\ln E_{t-1}^{\beta,\omega}\exp{(\beta\omega(t,S_t))}|\mathcal{G}_{t-1})
+    \]
+\end{corollary}
+\begin{proof}
+    We have
+    \[
+    p(\beta) = \lim_{n\to\infty}\dfrac{1}{n} (\ln(W_n) + n\lambda(\beta)) = \lim_{n\to\infty}\dfrac{1}{n}(-A_n + n\lambda(\beta))
+    \]
+    and we are done.
+\end{proof}
+
+\subsection{Size-Biasing Bounds}
+
+\begin{definition}
+    Define
+    \[
+    \beta_{sb} = \sup\{\beta \geq 0: E^{\otimes 2}(\exp(\lambda_2(\beta)N_{\infty}(S,\tilde{S}))|\tilde{S}) < \infty\text{ for }\tilde{S}\text{-a.s.}\}
+    \]
+    where the event $\{ E^{\otimes 2}(\exp(\lambda_2(\beta)N_{\infty}(S,\tilde{S}))|\tilde{S}) < \infty\}$ belongs to the tail $\sigma$-field of $\tilde{S}$, and therefore it has probability $0$ or $1$.\par
+    We also have
+    \[\beta_{sb} \geq \beta_{L^2}\]
+\end{definition}
+
+\begin{proposition}
+    Consider $P,\tilde{P},\mathbb{P},\tilde{\mathbb{P}}$ to be independent copies pairs and let $\hat{\omega}$ be an i.i.d. environment and $\hat{e}(i,x) = \exp(\beta\hat{\omega}(i,x) - \lambda(\beta))$ and similarly define $e(i,x)$. Now we define
+    \[
+    \hat{e}_{\tilde{S}(i,x)} = \begin{cases}
+        \hat{e}(i,x)\quad\text{if }\tilde{S}_i = x,\\
+        e(i,x)\quad\text{if }\tilde{S}_i \neq x
+    \end{cases}
+    \]
+    and
+    \[
+    \hat{W}_n^{e,\hat{e},\tilde{S}} = E\prod_{i=1}^n \hat{e}_{\tilde{S}}(i,S_i)
+    \]
+    Then for $f:[0,\infty) \to \mathbb{R}$ bounded measurable,
+    \[
+    \mathbb{E} W_nf(W_n) = \mathbb{E}\hat{\mathbb{E}} \tilde{E}f( \hat{W}_n^{e,\hat{e},\tilde{S}})
+    \]
+\end{proposition}
+\begin{proof}
+    We have
+    \[
+    \begin{aligned}
+        \mathbb{E}W_n f(W_n) &= \mathbb{E}\left(\tilde{E}\left(\prod_{i=1}^n e(i,\tilde{S_i})\right)f\left(E\prod_{i=1}^n e(i,S_i)\right)\right) \\
+        & = \tilde{E}\left(\mathbb{E}\left(\prod_{i=1}^n e(i,\tilde{S}_i) f\left(\prod_{i=1}^n e(i,S_i)\right)\right)\right)
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{theorem}
+    $W_{\infty} > 0$ when $\beta < \beta_{sb}$ and hence
+    \[
+    \beta_{sb} \leq \bar{\beta}_c \leq \beta_c
+    \]
+\end{theorem}
+
+\subsection{Localization v.s. Delocalization}
+
+\begin{definition}
+    (The probability of the favourite endpoint)
+    \[
+    J_n = \max_{x\in\mathbb{Z^d}}P_{n-1}^{\beta,\omega}\{S_n = x\}
+    \]
+    and we have
+    \[
+    J_n^2 \leq I_n \leq J_n
+    \]
+\end{definition}
+
+\begin{definition}
+    We call the polymer is \textbf{localized} if
+    \[
+    \liminf_{n\to\infty}\dfrac{1}{n}\sum\limits_{t=1}^n J_t > 0,\mathbb{P}\text{-a.s.}
+    \]
+    and \textbf{delocalized} if
+    \[
+    \liminf_{n\to\infty}\dfrac{1}{n}\sum\limits_{t=1}^n J_t = 0,\mathbb{P}\text{-a.s.}
+    \]
+\end{definition}
+
+\begin{theorem}
+    let $\beta \neq 0$. The polymer is localized iff $p<\lambda$ and delocalized iff $p=\lambda$.
+\end{theorem}
+\begin{proof}
+    We have
+    \[
+    \left(\dfrac{1}{n}\sum\limits_{t=1}^n I_t\right)^2 \leq \left(\dfrac{1}{n}\sum\limits_{t=1}^n J_t\right)^2 \leq \dfrac{1}{n}\sum\limits_{t=1}^n J_t^2 \leq \dfrac{1}{n}\sum\limits_{t=1}^n I_t \leq \dfrac{1}{n}\sum\limits_{t=1}^n J_t
+    \]
+    which implies that
+    \[
+    c_1\left(\dfrac{\ln W_n}{n}\right)^2 \leq \left(\dfrac{1}{n}\sum\limits_{t=1}^n J_t\right)^2 \leq \dfrac{1}{n}\sum\limits_{t=1}^n J_t^2 \leq c_2 \dfrac{\ln W_n}{n} \leq c_3 \dfrac{1}{n}\sum\limits_{t=1}^n J_t
+    \]
+    and we are done.
+\end{proof}
+

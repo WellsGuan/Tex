@@ -1,0 +1,440 @@
+\section{Martingale Approach and L2 Region}
+
+\subsection{Checklist}
+
+\begin{itemize}
+    \item Proof of Kol 01 law in thm 2.2.1
+    \item Proof of $H_n/n - \lambda'(\beta)$ converges to 0 in $L^1_{P_n^{\beta,\omega}}$.
+    \item Proof of $W_n^{\delta}$ uniformly integrable
+    \item Proof of $\partial/\partial \beta \mathbb{E}W_n^{\delta}$
+    \item Proof of $s = \infty$
+    \item compute $\varphi, \psi$ in 3.3
+\end{itemize}
+
+\subsection{Useful Conclusions}
+
+\begin{theorem}
+    (Martingale Convergence Theorem)\par
+    If $X_n$ is a submartingale with $\sup EX_n^+ < \infty$, then $X_n$ converges to some $L^1$ limit $X$ a.s. as $n\to\infty$.
+\end{theorem}
+
+\begin{theorem}
+    (Kolmogorov's 0-1 Law)\par
+    If $X_1,X_2,\cdots$ are independent and $A \in \mathcal{T}: = \cap \mathcal{F}_n'$ then $P(A) = 0$ or $1$, where $\mathcal{F}_n' = \sigma(X_n, X_{n+1},\cdots)$.
+\end{theorem}
+
+\begin{proposition}
+    Every convex function $f:\mathbb{R} \to \mathbb{R}$ is continuous. 
+\end{proposition}
+\begin{proof}
+    For any $x$, let $y < x$ and $z >x$, we know that for any $t\in (y,z)$
+    \[
+    \dfrac{f(x)-f(y)}{x-y} \geq \dfrac{f(x)-f(t)}{x-t} \geq \dfrac{f(x)-f(z)}{x-z}
+    \]
+    and hence
+    \[
+    |f(x) - f(t)| \leq \max\left\{\left|\dfrac{f(x)-f(z)}{x-z}\right|,\left|\dfrac{f(x)-f(y)}{x-y}\right|\right\}|x-t|
+    \]
+    and we are done.
+\end{proof}
+
+\begin{definition}
+    (Uniformly Integrable)\par
+    A collection of r.v.s $X_i, i\in I$ is \textbf{uniformly integrable} if
+    \[\lim_{M\to\infty} \left(\sup_{i\in I} E(|X_i|;|X_i| > M)\right) = 0\]    
+\end{definition}
+
+\begin{proposition}
+    Suppose that $E|X_n| < \infty$ for all $n$. If $X_n \to X$ in probability then the following are equivalent:
+    \begin{itemize}
+        \item $\{X_n\}_{n\geq 0}$ is uniformly integrable.
+        \item $X_n \to X$ in $L^1$.
+        \item $E|X_n| \to E|X| < \infty$.
+    \end{itemize}
+\end{proposition}
+
+\begin{theorem}
+    ($L^p$ convergence theorem)\par
+    If $X_n$ is a martingale with $\sup E|X_n|^p$ fintie and $p>1$, then $X_n \to X$ a.s. and in $L_p$, where $X$ is given by the martingale convergence theorem.
+\end{theorem}
+
+\begin{theorem}
+    (Skorokhod Representation Theorem)\par
+    For some distribution functions $F_n$, if $F_n$ converges to some $F_{\infty}$, then there are random variables $Y_n, 1\leq n \leq \infty$ such that $Y_n \to Y_{\infty} $ a.s.
+\end{theorem}
+\begin{proof}
+    Let $\Omega = (0,1)$ and $P$ to be the Lebegues measure, and let $Y_n(y) = \sup\{x, F_n(x)< y\}$ and we know $Y_n$ is nondecreasing, then if $Y_n(y) \leq a$,  notice $F_n(Y_n(y)) \geq y$, then we have $y \leq F_n(a)$, which means
+    \[
+    P(Y_n \leq a) \leq F_n(a)
+    \]
+    and if $P(Y_n \leq a) < F_n(a)$, then if $Y_n(z) \leq a$, we know $z < F_n(a)$, however $Y_n(F_n(a)) = a$ which means $F_n(a) < F_n(a)$ and hence a contradiction, so $Y_n$ has the distribution function of $F_n$.\par
+    Let $a_x = Y_{\infty}(x) = \sup\{y, F(y) < x\}$ and $b_x = \inf \{y, F(y) > x\}$, then we know $a_x \leq b_x$ and define $\Omega_0 = \{x, (a_x,b_x) \neq \emptyset\}$, then $\Omega_0$ is at most countable and we prove for any $x \in \Omega - \Omega_0$, we have $Y_n(x) \to Y_{\infty}(x)$. Firstly, for these $x$ consider $y < Y_{\infty}(x)$ for some $y$ such that $F$ is continuous at $y$, then $F_n(y) \to F(y)$ and notice there is some $y' > y$ such that $F(y')  <x$ and hence $F(y) < x$, so there is some $N$ such that for any $m\geq N$ we have $F_m(y) < x$ and hence $y \leq Y_m(x)$ and then
+    \[
+    y \leq \liminf_{n\to\infty} Y_n(x)
+    \]
+    for any $y < Y_{\infty}(x)$, which means
+    \[
+    \liminf_{n\to\infty} Y_n(x) \geq Y_{\infty}(x)
+    \]
+    Similarly for any $z$ such that $z > Y_{\infty}(x)$ and using the assumption that $a_x = b_x$.
+\end{proof}
+
+\begin{theorem}
+    $X_n$ converges to $X_{\infty}$ weakly if and only if
+    \[Eg(X_n) \to Eg(X_{\infty})\]
+    for any bounded and continuous function $g$.
+\end{theorem}
+\begin{proof}
+    To see the sufficiency, we know we may find $X_n \overset{d}{=} Y_n$ for $1\leq \infty$ and $Y_n \to Y_{\infty}$ a.s. in some probability space, then  we have $Eg(X_n) = Eg(Y_n)$ and by the DCT, we know $Eg(Y_n) \to Eg(Y_{\infty})$ for any bounded and continuous function $g$.\par
+    For the necessity, we know
+    \[
+    P(X_n \leq a) = E(\chi_{(-\infty,a]}(X_n))
+    \]
+    and we consider some slope continuous approaching $\delta_{\epsilon}$ for $\chi_{(-\infty,a]}$, now we have
+    \[
+    P(X_n \leq a)\leq E\delta_{\epsilon}(X_n) \leq P(X_n \leq a+\epsilon)
+    \]
+    and if there is $q > 0$ such that $|F_n(a) - F_{\infty}(a)| > q$ infinitely often, then notice
+    \[
+    |F_n(a) - F_{\infty}(a)| \leq|F_n(a) - F_{n}(a+\epsilon)| + |F_{\infty}(a) - F_{\infty}(a+\epsilon)| + |E\delta_{\epsilon}(X_n)-E\delta_{\epsilon}(X_{\infty})|
+    \]
+    and then there will be a contradiction and we are done.
+\end{proof}
+
+\begin{theorem}
+    ($L^p$ maximum inequality)\par
+    If $X_n$ is a submartingale then for $1 < p < \infty$, we have
+    \[
+    E(\bar{X}_n^p) \leq \left(\dfrac{p}{p-1}\right) E(X_n^p)^p
+    \]
+    where $\bar{X}_n = \max_{0\leq m\leq n} X_m^+$.
+\end{theorem}
+
+\subsection{Phase Transition of Weak Disorder and Strong Disorder Phase}
+
+\begin{definition}
+    (Normalized Partition Function)\par
+    \[W_n = Z_n(\omega,\beta)\exp{(-n\lambda(\beta))}\]
+    where $\lambda(\beta) = \mathbb{E}\exp{\left(\beta \omega(n,x)\right)}$ which is not related to $n,x$.
+\end{definition}
+
+\begin{theorem}
+    The limit
+    \[W_{\infty} = \lim\limits_{n\to\infty} W_n\]
+    exists $\mathbb{P}$-a.s. and either the limit $W_{\infty}$ is a.s. positive or it is a.s. zero.
+\end{theorem}
+$Remark$. We will show $W_n$ is a martingale and use martingale convergence theorem and Kolmogorov's 0-1 law for $W_{\infty}$.
+\begin{proof}
+    Firstly, notice for a fixed path $x$,
+    \[
+    \xi_n = \exp{(\beta H_n(x)- n\lambda(\beta))}
+    \]
+    is a positive martingale w.r.t. the filtration $G_n = \sigma\{\omega(j,x), j\leq n\}$. And then we know
+    \[
+    W_n = E \exp(\beta H_n(S) - n\lambda(\beta)) = \sum\limits_{n\text{-length paths }x}(2d)^{-1} \xi_n(x)
+    \]
+    is a positive martingale w.r.t. Also, consider
+    \[
+    \mathbb{E}\xi_n = 1 
+    \]
+    and hence we may know $\mathbb{E}W_n = 1$ and hence we may apply the martingale convergence theorem and get
+    \[
+    W_{\infty} = \lim_{n\to\infty} W_n
+    \]
+    exists and nonnegative $\mathbb{P}$-a.s. and $\mathbb{E}W_{\infty} < \infty$. Now assueme $\mathcal{F}'_n = \sigma\{\omega(j,x), \geq n\}$ and let $\mathcal{F}' = \cap \mathcal{F}'_n$. Then we will check $\{W_{\infty} = 0\} \in \mathcal{F}$ and apply Kolmogorov's 0-1 Law.
+\end{proof}
+
+\begin{definition}
+    (Phase Transition)\par
+    The polymer is the \textbf{weak disorder} phase when $\mathbb{P}(W_{\infty} > 0) = 1$ and the \textbf{strong disorder} phase when $\mathbb{P}(W_{\infty} = 0) = 1$.
+\end{definition}
+
+\begin{proposition}
+    If $W_{\infty} > 0$, then $p(\beta) = \lambda(\beta)$, since
+    \[
+    p(\beta) = \lambda(\beta) + \lim_{n\to\infty} n^{-1}\ln W_n.
+    \]
+    Furthermore, we have
+    \[
+    \lim_{n\to\infty} n^{-1}E_n^{\beta,\omega}H_n = \lambda'(\beta)
+    \]
+    or
+    \[
+    E_n^{\beta,\omega} |H_n/n- \lambda'(\beta)| \to 0
+    \]
+    with $n\to\infty$ expect an at most countable set.
+\end{proposition}
+\begin{proof}
+    Notice that we have
+    \[p(\beta) = \lim_{n\to\infty} p_n(\beta) = \lim_{n\to\infty}n^{-1}\ln W_n + \lambda(\beta)\quad\mathbb{P}\text{-a.s.}\]
+    so if $W_{\infty} > 0$, then we will have $p(\beta) = \lambda(\beta)$ but there is no other arguments if $W_{\infty} = 0$.\par
+    Since we have already know $p,\lambda$ convex, so continuous, and hence $p(\beta) = \lambda(\beta)$ for all $\beta, \mathbb{P}$-a.s. for by choosing $\beta$ rational and make the union. So we only need to find $p'(\beta)$. Notice
+    \[
+    p_n'(\beta) = \dfrac{\partial}{\partial \beta} \dfrac{1}{n}\ln(\sum\limits_{x} (2d)^{-n} \exp(\beta H_n(x))) = \dfrac{1}{nZ_n}EH_n \exp(\beta H_n(x)) = \dfrac{1}{n}E_{n}^{\beta,\omega}H_n
+    \]
+    and we know for the region where $p$ is differential, we have
+    \[
+    \lim_{n\to\infty} n^{-1} E_n^{\beta,\omega} p'(\beta) = \lambda'(\beta)
+    \]
+\end{proof}
+
+\begin{proposition}
+    There exists $\bar{\beta}_c(\mathbb{P},d) \in [0,\infty]$ such that
+    \[
+    \begin{cases}
+        W_{\infty} > 0, \mathbb{P}\text{-a.s.}\quad\text{if }\beta\in[0,\bar{\beta}_c) \\
+        W_{\infty} = 0, \mathbb{P}\text{-a.s.}\quad\text{if }\beta>\bar{\beta}_c
+    \end{cases}
+    \]
+\end{proposition}
+\begin{proof}
+    We know $W_n^{\delta}$ is uniformly integrable and hence we have
+    \[
+    \lim\limits_{n\to\infty} \mathbb{E}W_n^{\delta} = \mathbb{E}W_{\infty}^{\delta}
+    \]
+    which is either $0$ or strictly positive. Now consider
+    \[
+    \begin{aligned}
+        \dfrac{\partial}{\partial \beta} \mathbb{E}W_{n}^{\delta} & = \mathbb{E}(\delta W_n^{\delta-1} \dfrac{\partial}{\partial \beta} \sum\limits_{x} (2d)^{-n} \exp{(\beta H_n(x) - n\lambda(\beta))})\\
+        & = \mathbb{E}(\delta W_n^{\delta-1}E((H_n-n\lambda'(\beta))\xi_n))
+    \end{aligned}
+    \]
+\end{proof}
+
+\subsection{$L^2$ Region}
+
+\begin{proposition}
+    The return probability
+    \[\pi_d:= P(S_n = 0\text{ for some }n\geq 1) \text{ is } \begin{cases}
+        1\quad\text{if }d\leq 2 \\ <1\quad\text{if }d\geq 3
+    \end{cases}\]
+    and $\pi_{d+1} < \pi_d$ for all $d\geq 3$.
+\end{proposition}
+
+\begin{theorem}
+    Suppose that $d\geq 3$ and the $L^2$ condition:
+    \[
+    \lambda_2(\beta) := \lambda(2\beta) - 2\lambda(\beta) < \ln(1/\pi_d)
+    \]
+    holds, then $W_{\infty} >0\ \mathbb{P}$-a.s.
+\end{theorem}
+$Remark$. We will show $W_n$ is a $L^2$ martingale under the condition, and implies that $W_{\infty}$ have a positive expectation.
+\begin{proof}
+    We will use the $L^2$ martingale to compute $\mathbb{E} W_{\infty}^2$ and see if $W_{\infty} = 0\ \mathbb{P}$-a.s. Since
+    \[
+    W_n = \exp{(-n\lambda(\beta))}E(\exp{(\beta H_n(S))})
+    \] 
+    we may know that consider an independent copy of $S$ and the product $(\Omega^2, \mathcal{F}^{\otimes 2})$ and then
+    \[
+    E_{P^{\otimes 2}}\exp{\left(\beta\left[H_n(S) + H_n(S')\right]-2n\lambda(\beta)\right)}
+    \]
+    and then by Fubini
+    \[
+    \begin{aligned}
+    \mathbb{P}W_n^2 &= E_{P^{\otimes 2}} \mathbb{E} \prod_{t=1}^n \exp{\left( \beta(\omega(t,S_t)+\omega(t,S_t')-2\lambda(\beta))\right)} \\
+    &= E_{P^{\otimes 2}} \mathbb{E} \prod_{t=1}^n \left(\exp{\lambda(2\beta)}\chi_{(S_t = S_t')} + \chi_{(S_t \neq S_t')}\right) \\
+    &= E_{P^{\otimes 2}} \exp{\left(\lambda_2(\beta) N_n\right)}
+    \end{aligned}
+    \]
+    where $N_n$ denotes the intersections of $S,S'$ up to time $n$. Notice $N_n$ increases to $N_{\infty}$ and and hence $\mathbb{E}W_n^2$ will increase to $E_{P^{\otimes 2}} \exp{\left(\lambda_2(\beta) N_{\infty}\right)}$. Consider a simple symmetric random walk $\tilde{S}$ with increment $\tilde{s}_{2k+1} = s_{k+1}, \tilde{s}_{2k+2} = -s'_{k+1}$ and then we know that
+    \[
+    \{\tilde{S}\text{ return}\} = \{S-S'\text{ return}\}
+    \]
+    and hence $N_{\infty}$ must have the geometrically distributed with $p = \pi_d$. Then
+    \[
+    E_{P^{\otimes 2}} \exp{\left(\lambda_2(\beta) N_{\infty}\right)} = \sum\limits_{k=0}^{\infty}(1-\pi_d)\pi_d^k \exp{(k\lambda_2(\beta))}
+    \]
+    which is
+    \[E_{P^{\otimes 2}} \exp{\left(\lambda_2(\beta) N_{\infty}\right)}  =
+    \begin{cases}
+        \dfrac{1-\pi_d}{1-\pi_d\exp{(\lambda_2(\beta))}}\quad&\text{if }\lambda_2(\beta) < -\ln \pi_d \\
+        \infty&\text{if }\lambda_2(\beta) \geq -\ln \pi_d
+    \end{cases}
+    \]
+    So we have $\sup_n \mathbb{E}W_n^2$ is finite if and only if $\lambda_2(\beta) < -\ln \pi_d$, then we will have the convergence in $L^2$ and hence \[\mathbb{E} W_{\infty}^2 = \dfrac{1-\pi_d}{1-\pi_d\exp(\lambda_2(\beta))} > 0,\] which means $W_{\infty} > 0\ \mathbb{P}$-a.s.
+\end{proof}
+
+\begin{definition}
+    ($L_2$ Region)\par
+    The set of $\beta$'s defined by the $L_2$ condition is called the $L_2$ region. For $d\geq 3$, there will be a non-empty interval $(0,\beta_{L_2})$ is in the $L_2$ region.
+\end{definition}
+\begin{proof}
+    Notice
+    \[
+    \lambda_2'(\beta) = 2[\lambda'(2\beta) - \lambda'(\beta)]
+    \]
+    which is nonnegative, and hence increasing on the postive axis and nonpositive, and hence decreassing on the negative axis. Notice
+    \[1/\pi_d > 1\]
+    iff $d\geq 3$, and $\lambda_2(\beta) = 0$ at $\beta = 0$, so we may know for $d\geq 3$ we have a nonnegative
+    \[
+    \beta_{L_2} = \sup \{\beta \geq 0,\lambda_2(\beta) \leq(1/\pi_d)\} > 0
+    \]
+    and we know $p = \lambda$ when $\beta \leq \beta_ {L_2}$. 
+\end{proof}
+
+\begin{corollary}
+    Let $s= ess\sup_{\mathbb{P}}\omega(t,x)$. We have
+    \[
+    \lim_{\beta\to\infty} \lambda_2(\beta) = -\ln\mathbb{P}(\omega(t,x) = s)
+    \]
+    where $s = \infty$ makes the sense that $\mathbb{P}(\omega(t,x) = \infty) = 0$.
+\end{corollary}
+\begin{proof}
+    Let $q$ be a measure defined by
+    \[q(A) = \mathbb{P}(\omega \in A)\]
+    for borel set $A$, and then assume $s$ finite, we have
+    \[
+    \mathbb{E}(e^{\beta \omega};\omega = s) \leq \mathbb{E}(e^{\beta \omega}) = \mathbb{E}(e^{\beta\omega}; \omega \leq s-h) + \mathbb{E}(e^{\beta\omega; \omega \in [s-h,s]})
+    \]
+    and hence
+    \[
+    \begin{aligned}
+        \beta s + \ln q(\{s\}) \leq \lambda (\beta) &\leq \ln(e^{\beta s}q([s-h,s]) + e^{\beta s -\beta h})\\ &= \beta s +\ln q(\{s\}) + \ln\left(\dfrac{q([s-h,s])+e^{-\beta h}}{q(\{s\})}\right)
+    \end{aligned}
+    \]
+    Therefore we have
+    \[
+    - 2\ln\left(\dfrac{q([s-h,s])+e^{-\beta h}}{q(\{s\})}\right) \leq \lambda_2(\beta) + \ln q(\{s\}) \leq \ln\left(\dfrac{q([s-h,s])+e^{-2\beta h}}{q(\{s\})}\right)
+    \]
+    and then
+    \[
+    \begin{aligned}
+        \limsup_{\beta\to\infty}\lambda_2(\beta) + \ln q(\{s\}) &\leq \inf_{h}\ln\left(\dfrac{q([s-h,s])}{q(\{s\})}\right) = 0 \\
+        \liminf_{\beta\to\infty}\lambda_2(\beta) + \ln q(\{s\}) &\geq -2\inf_{h}\ln\left(\dfrac{q([s-h,s])}{q(\{s\})}\right) = 0
+    \end{aligned}
+    \]
+    and we are done.
+\end{proof}
+
+\begin{theorem}
+    Under the assumptions that $d\geq 3$ and the $L_2$ condition holds, we have
+    \[
+    \lim\limits_{n\to\infty} E_{P^{\beta,\omega}_n} \dfrac{|S_n|^2}{n} = 1
+    \]
+    for $\mathbb{P}$-a.s. and for all $f\in C(\mathbb{R}^d)$ with at most polynomial growth at infinity
+    \[
+    \lim\limits_{n\to\infty} E_{P^{\beta,\omega}_n} f(S_n/\sqrt{n}) = (2\pi)^{-d/2} \int_{\mathbb{R}^d} f(x/\sqrt{d})\exp(-|x|^2/2) dx
+    \]
+    for $\mathbb{P}$-a.s. and in particular, with $Z$ a $d$-dimensional gaussian vector $Z\sim \mathcal{N}_d(0,d^{-1}I_d)$, we have
+    \[
+    P^{\beta,\omega}_n(S_n/\sqrt{n} \in A) \to P(Z\in A)
+    \]
+    for any borel set $A$ in $\mathbb{P}$-a.s.
+\end{theorem}
+
+$Remark.$ We introduce a family of martingales $(M_n)_{n\geq 1}$ on $(\Omega,\mathcal{G},\mathbb{P})$ of the form
+\[M_n = E \varphi(n,S_n)\exp(\beta H_n(S)-n\lambda(\beta))\]
+for a path $x$ and $\varphi: \mathbb{N}\times \mathbb{Z}^d \to\mathbb{R}$ is a function for which we assume
+\begin{itemize}
+    \item there are constants $C_i, p\in\mathbb{N},i=0,1,2$ such that
+    \[|\varphi(n,x)| \leq C_0 + C_1|x|^p + C_2 n^{p/2}\]
+    for all $(n,x)\in\mathbb{N}\times \mathbb{Z}^d$
+    \item $\Phi_n := \varphi(n,S_n)$ is a martingale on $(\Omega_{traj},\mathcal{F},P)$ w.r.t the filtration
+    \[\mathcal{F}_n = \sigma(S_j;j\leq n)\]
+\end{itemize}
+Now consider
+\[
+\begin{aligned}
+    \mathbb{E}(M_{n+1}|\mathcal{G}_n) &= \mathbb{E}(E\varphi(n+1,S_{n+1})\exp(\beta H_{n+1}(S) - {(n+1)}\lambda(\beta))|\mathcal{G}_n) \\
+    &= E\varphi(n+1,S_{n+1})\exp(\beta H_n(S)-n\lambda(\beta)) \\
+    &= EE(\varphi(n+1,S_{n+1})\exp(\beta H_n(S)-n\lambda(\beta))|\mathcal{F}_n) \\
+    &= M_n
+\end{aligned}
+\]
+by $\Phi_n$ is a martingale.\par
+Also we will have a proposition
+\begin{proposition}
+    Suppose that $d\geq 3$ and $L_2$ condition holds, and we have the martingales above with the two properties hold, then there exists $\kappa \in [0,p/2)$ such that
+    \[
+    \max_{0\leq j\leq n}|M_j| = O(n^{\kappa})
+    \]
+    with $n\to\infty, \mathbb{P}$-a.s. In addition, $p < \dfrac{1}{2}d-1$, then
+    \[
+    \lim\limits_{n\to\infty} M_n\text{ exists }\mathbb{P}\text{-a.s. and in }L^2(\mathbb{P}) 
+    \]
+    if the second property above does not hold, we will have the sequence $M_n$ have a larger bound
+    \[
+    M_n = O(n^{p/2})
+    \]
+    for $n\to\infty, \mathbb{P}$-a.s.
+\end{proposition}
+
+\begin{proof}
+    Let $\varphi(n,x) = |x|^2 - n$ and then we may know $p = 2$ and then by the proposition above, mytrgstheree exist $0\leq \kappa < 1$ such that
+    \[
+    \max_{0\leq j \leq n} |M_n| = O(n^{\kappa}) = o(n)
+    \]
+    and notice
+    \[
+    M_n = E(|S_n|^2 - n)\exp(\beta H_n(S) - n\lambda(\beta)) = E_{P^{\beta,\omega}}(|S_n|^2 - n)W_n
+    \]
+    and hence
+    \[
+    E_{P^{\beta,\omega}}|S_n|^2 - n = M_n/W_n = o(n)
+    \]
+    for $\mathbb{P}$-a.s. and hence we have proved the first conclusion.\par
+    For the further conclusion, we consider the multi-index $a$ and prove for $f(x) = x^a$ with using the induction on $|a|_1$. Denote
+    \[
+    \begin{aligned}
+        \varphi(n,x) &= \left(\dfrac{\partial}{\partial \theta}\right)^a\exp\left(\theta\cdot x - n\rho(\theta)\right)|_{\theta = 0} \\
+        \psi(n,x) &= \left(\dfrac{\partial}{\partial \theta}\right)^a\exp\left(\theta\cdot x - n\dfrac{|\theta|^2}{2d}\right)|_{\theta = 0} \\
+    \end{aligned}
+    \]
+    where $\rho(\theta) = \ln\left(\dfrac{1}{d}\sum\limits_{j = 1}^d\cosh(\theta_j)\right)$, we have $\varphi(n,x) = x^a + \varphi_0(n,x)$ and $\psi(n,x) = x^a + \psi_0(n,x)$ where
+    \[
+    \varphi_0(n,x) = \sum\limits_{j\geq 1, |b|_1+2j \leq |a|_1} A_a(b,j)x^bn^j,\quad \psi_0(n,x) = \sum\limits_{j\geq 1, |b|_1+2j = |a|_1} A_a(b,j)x^bn^j
+    \]
+    for some $A_a(b,j) \in \mathbb{R}$ and hence
+    \[
+    \begin{aligned}
+        (x/\sqrt{n})^a &= \varphi(n,x)n^{-|a|_1/2} - \varphi_0(n,x) n^{-|a|_1/2} + \psi_0(n,x)n^{-|a|_1/2} - \psi_0(n,x)n^{-|a|_1/2} \\
+        &= \varphi(n,x)n^{-|a|_1/2} - \psi_0(1,x/\sqrt{n}) + (\psi_0(n,x) - \varphi_0(n,x))n^{-|a|_1/2}
+    \end{aligned}
+    \]
+    since where we have
+    \[
+    \begin{aligned}
+        \psi_0(n,x)n^{-|a|_1/2} &= \sum\limits_{j\geq 1, |b|_1+2j = |a|_1} A_a(b,j)x^bn^jn^{(-|b|_1/2 - j)} \\ &= \sum\limits_{j\geq 1, |b|_1+2j = |a|_1} A_a(b,j)(x/\sqrt{n})^{b} \\
+        &= \psi_0(1,x/\sqrt{n}).
+    \end{aligned}
+    \]
+    To sum up, we have
+    \[
+    \begin{aligned}
+        E_{P^{\beta,\omega}_n}(S_n/\sqrt{n})^a =& E_{P^{\beta,\omega}_n} \varphi(n,S_n)n^{-|a|_1/2} - E_{P^{\beta,\omega}_n}(\psi_0(1,S_n/\sqrt{n})) \\
+        &+ E_{P^{\beta,\omega}_n}(\psi_0(n,S_n) - \phi_0(n,S_n))n^{-|a|_1/2} \\
+        =& \dfrac{1}{W_n}E\varphi(n,S_n)\xi_n n^{-|a|_1/2} - \dfrac{1}{W_n}E(\psi_0(1,S_n/\sqrt{n})\xi_n) \\
+        &+ \dfrac{1}{W_n}E(\psi_0(n,S_n) - \phi_0(n,S_n))\xi_n n^{-|a|_1/2}
+    \end{aligned}
+    \]
+    where $\xi_n = \exp(\beta H_n(S)- n\lambda(\beta))$ and the first term and the third term will vanish for $n \to \infty$, since we may check that $\varphi, \psi$ satifies the first condition in the above proposition with $p= |a|_1$ and then we use the last conclusion in the proposition 2.4.5 and we will see that the third term vanishes. By induction hypothesis, we will know that the second term converges to
+    \[
+    (2\pi)^{-d/2}\int (x/\sqrt{d})^a e^{-|x|^2/2}dx
+    \]
+\end{proof}
+
+Now we will go through the proof of the proposition 2.4.5.
+
+\begin{proof}
+    Firstly, we assume that we have
+    \[
+    \mathbb{E} M_n^2 = O(b_n),\quad b_n = \sum\limits_{j=1}^n j^p-{d/2}
+    \]
+    and setting $M_n* = \max_{0\leq j\leq n} |M_j|$, and it is sufficent to show that for any $\delta ? 0$, we have
+    \[
+    M_n^* = O(n^{\delta}\sqrt{b_n})
+    \]
+    for $n\to\infty, \mathbb{P}$-a.s., for $k> 1/\delta$, we have
+    \[
+    \begin{aligned}
+        \mathbb{P}(M_{n^k}^* > n^{k\delta \sqrt{b_{n^k}}}) &\leq \mathbb{P}(M_{n^k}^* > n\sqrt{b_n^k}) \\
+        &\leq \mathbb{E}(M_{n^k}^*)^2 / n^2b_{n^k} \\
+        &\leq 4\mathbb{E}M_{n^k}^2 / (n^2b_{n^k}) \leq Cn^{-2}
+    \end{aligned}
+    \]
+    and hence we know by the BC lemma that
+    \[
+    M_{n^k}^* \leq n^{k\delta} \sqrt{b_{n^k}}\text{ for large enough }n
+    \]
+    is almost sure
+\end{proof}

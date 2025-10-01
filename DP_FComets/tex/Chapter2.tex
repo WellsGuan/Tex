@@ -1,0 +1,146 @@
+\section{Thermodynamics and Phase Transition}
+
+\subsection{Checklist}
+\begin{itemize}
+    \item Deal the non-differential point of $p$ in Thm 1.3.3.
+\end{itemize}
+
+\subsection{Useful Conclusions}
+
+\begin{definition}
+    $f:\mathbb{R}^k \to \mathbb{R}^k$ is increasgin if $f(x) < f(y)$ iff $x_i < y_i$. 
+\end{definition}
+
+\begin{definition}
+    (Positively Associated)\par
+    A family $X = (X_i)_{i=1}^k$ of real r.v.s on the same probability space are \textbf{postive associated} if for any $f,g:\mathbb{R}^k \to \mathbb{R}$ bounded, increasing
+    \[
+    Ef(X)g(X) \geq Ef(X) Eg(X)
+    \]
+\end{definition}
+
+\begin{proposition}
+    (FKG-Harris Inequality)\par
+    A family of independent, real random variables is positively associated.
+\end{proposition}
+\subsection{Markov Property and the Partition Function}
+
+\begin{definition}(Partition Function)\par
+For $n,m\geq 1, x\in \mathbb{Z}^d$, the r.v. on $(\Omega = \mathbb{R}^{\mathbb{N}\times \mathbb{Z}^d}, \mathbb{P})$
+\[
+Z_m^{\beta} \circ \theta_{n,x}(\omega) = Z_m(\theta_{n,x}\omega, \beta) = E_x\exp{\left(\sum\limits_{t=1}^m \beta \omega(t+n, S_t)\right)}\quad(\text{finite and definitely positive})\]
+is the partition function of the polymer of length $m$ starting at $x$ at time $n$.
+\end{definition}
+
+\begin{proposition}
+    $Z_m\circ \theta_{n,x} \overset{d}{=} Z_m$.
+\end{proposition}
+
+\begin{proposition}
+    Let $\mathcal{F}_n = \sigma\{S_t, t \leq n\}$ and we will have
+    \[
+    Z_m \circ \theta_{n,x}(\omega) = E(\exp{\beta(H_{n+m}(S)- H_n(S))}| \mathcal{F}_n)
+    \]
+    on the event $\{S_n = x\}$, i.e.
+    \[
+    \begin{aligned}
+        Z_m\circ \theta_{n,x}(\omega)\chi_{S_n = x} &= E(\exp{\left(\beta(H_{n+m}(S)- H_n(S))\right)}\chi_{S_n = x}| \mathcal{F}_n)\\ &= E(\exp{\left(\beta(H_{n+m}(S)- H_n(S))\right)}| \mathcal{F}_n)\chi_{S_n = x}
+    \end{aligned}
+    \]
+\end{proposition}
+
+\begin{proposition}
+    We will have
+    \[
+    Z_{n+m} = E(\exp{\beta H_n(S)}Z_m\circ \theta_{n,S_n})
+    \]
+    which is referred to the Markov property, and we will have
+    \[
+    Z_{n+m} = Z_n \times E_{n}^{\beta,\omega}(Z_m \circ \theta_{n,S_n})
+    \]
+    where $E_n^{\beta,\omega}$ referes the expectation under the polymer measure.
+\end{proposition}
+
+\subsection{Markov Chain under the Polymer Measure}
+
+\begin{proposition}
+    $S$ is a Markov chain, with transition probabilities
+    \[
+    P_n^{\beta,\omega}(S_{i+1} = y|S_i = x) = \dfrac{\exp{\beta\omega_{i+1,y}} Z_{n-i-1}\circ \theta_{i+1,y}}{Z_{n-i}\circ \theta_{i,x}} P(S_1 = y|S_0 = x)
+    \]
+\end{proposition}
+
+\begin{proposition}
+    For all $\beta \in \mathcal{D} : = \{\beta, p\text{ differentiable at }\beta\}$ and almost every environment $\omega$, we have
+    \[
+    \lim_{n\to\infty}E_{P^{\beta,\omega}_n}(H_n(S)/n) = \lim_{n\to\infty} \mathbb{E}(E_{P_n^{\beta,\omega}}(H_n(S)/n)) = p'(\beta)
+    \]
+    Moreover, for all $\beta \in \mathbb{R}$ we have
+    \[
+    p'(\beta - ) \leq \liminf\limits_{n\to\infty}E_{P^{\beta,\omega}_n}(H_n(S)/n) \leq \limsup\limits_{n\to\infty} E_{P^{\beta,\omega}_n} (S_n(S)/n) \leq p'(\beta +)
+    \]
+\end{proposition}
+\begin{proof}
+    Notice that we have already have $p_n,p$ are convex and hence we know $p'(\beta-),p'(\beta +)$ always exists. Let take a look of $p_n'(\beta)$ again:
+    \[
+    p_n'(\beta) = \dfrac{1}{nZ_n} \dfrac{\partial}{\partial \beta} \int \exp{(\beta H_n(x))} P(dx) = \dfrac{1}{n}E_{P^{\beta,\omega}_n}(H_n(S))
+    \]
+    since $\int f(x)P(dx)$ is a finite summation of $f(x)$. Now consider
+    \[
+    (\mathbb{E}p_n)'(\beta) = \dfrac{\partial}{\partial \beta} \mathbb{E} p_n = \mathbb{E} p_n'(\beta)
+    \]
+    since $\sum_{x}(2d)^{-n}\max\{1,\exp{(T H_n(x))}\}$ is $L^1$ and we may apply the DCT for any $\beta \in [0,T)$. Notice $Ep_n \to p$ a.s. for all $\beta$, then we know
+    \[
+    p'(\beta-) = \inf_{\epsilon > 0}\dfrac{p(\beta) - p(\beta-\epsilon)}{\epsilon} = \inf_{\epsilon > 0} \lim\limits_{n\to\infty} \dfrac{\mathbb{E}p_n(\beta)-\mathbb{E}p_n(\beta-\epsilon)}{\epsilon} \leq \liminf_{n\to\infty}\mathbb{E}p_n'(\beta)
+    \]
+    and we can obtain the second inequality similarly. Now, for somewhere $p'(\beta)$ exists, we mya know $\lim\limits_{n\to\infty} \mathbb{E}p_n'(\beta)$ exists and then we may replace $\mathbb{E}p_n$ above with $p_n$ in the view of $\mathbb{P}$-a.s. which means for almost every $\omega$.
+\end{proof}
+
+\begin{theorem}
+    The functions $\beta \mapsto \lambda(\beta) - \mathbb{E}p_n$ and $\beta \mapsto \lambda(\beta) - p(\beta)$ are non-decreasing on $\mathbb{R}^+$ and non-increasing on $\mathbb{R}^-$.
+\end{theorem}
+\begin{proof}
+    We will conmpute
+    \[
+    \begin{aligned}
+        \dfrac{\partial}{\partial \beta} \mathbb{E} \ln Z_n &= \mathbb{E} EZ_n^{-1}H_n(S)\exp(\beta H_n(S))\\
+        &= E \mathbb{E} Z_n^{-1}H_n(S)\exp{(\beta H_n(S))} 
+    \end{aligned}
+    \]
+    by Fubini, and we notice
+    \[
+    \begin{aligned}
+    Z_n &= \sum\limits_{x} (2d)^{-n} \exp(\beta \sum\limits_{t=1}^n \omega(t,x_t)) = f(\omega(t,y))_{1\leq t\leq n, |y|_1 \leq n}\\
+    H_n(x) &= \sum\limits_{t=1}^n \omega(t,x_t) = g(\omega(t,y))_{1\leq t\leq n, |y|_1 \leq n}\\
+    \exp(\beta H_n(x)) &= \prod_{t=1}^n \exp{(\beta \omega(t,x_t))} = h(\omega(t,y))_{1\leq t\leq n, |y|_1 \leq n}
+    \end{aligned}
+    \]
+    and define
+    \[
+    f_M = sgn(f)\min\{|f|,M\}, g_M = sgn(g)\min\{|g|,M\}, h_M = sgn(h)\min\{|h|,M\}
+    \]
+    then for $\beta \geq 0$, we have $f,g,h$ increasing and $\beta \leq 0$ $f,h$ decreasing, and it is easy to check $h/f$ is increasing with $\beta \geq 0$. Now we may use the FKG-Harris and we will have for fixed $x, \beta \geq 0$,
+    \[
+    \mathbb{E}Z_n^{-1} H_n(x)\exp{(\beta H_n(x))} = \mathbb{E} (h/f)gh h^{-1} =
+    \]
+    where $f^{-1}gh$ is integrable, so we may use $DCT$ and we will have
+    \[
+    \mathbb{E} f^{-1}gh = \lim_{M\to\infty} f_M^{-1} g_M h_M \leq \lim_{M\to\infty} \mathbb{E} 1/h_M \mathbb{E} h_M/f_M \mathbb{E} g_Mh_M = \mathbb{E} 1/h \mathbb{E} h/f \mathbb{E} gh 
+    \]
+    since $1/h_M$ decreasing, and we will get an oppositive inequality if $\beta \leq 0$ since $h/f$ decreasing and $g_Mh_M$ decreasing. Then
+    \[
+    \dfrac{\partial}{\partial \beta} \mathbb{E} \ln Z_n \leq n\lambda'(\beta) E\mathbb{E}Z_n^{-1}\exp{(\beta H_n(S))} = n\lambda'(\beta)
+    \]
+    and with the opposite inequality when $\beta \leq 0$, so we have
+    \[
+    \mathbb{E}p_n'(\beta) \leq \lambda'(\beta)
+    \]
+    on $\mathbb{R}^+$ and the opposite on $\mathbb{R}^{-}$. Then we may always have $\lambda(\beta) - p(\beta)$ will have a nonnegative left deriative on $\mathbb{R}^+$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $d \geq 3$ and the $L_2$ condition holds, then
+    \[
+    \lim\limits_{n\to\infty} P_{n}^{\beta,\omega} 
+    \]
+\end{theorem}
