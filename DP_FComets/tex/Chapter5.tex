@@ -318,9 +318,12 @@
 \end{definition}
 
 \begin{proposition}
-    Consider $P,\tilde{P},\mathbb{P},\tilde{\mathbb{P}}$ to be independent copies pairs and let $\hat{\omega}$ be an i.i.d. environment and $\hat{e}(i,x) = \exp(\beta\hat{\omega}(i,x) - \lambda(\beta))$ and similarly define $e(i,x)$. Now we define
+    Consider $P,\tilde{P},\mathbb{P},\tilde{\mathbb{P}}$ to be independent, where
     \[
-    \hat{e}_{\tilde{S}(i,x)} = \begin{cases}
+    \hat{P}(\hat\omega(i,x) \in \cdot) = \mathbb{E}(e(i,x); \omega(i,x)\in \cdot)
+    \] and let $\hat{\omega}$ be an i.i.d. environment and $\hat{e}(i,x) = \exp(\beta\hat{\omega}(i,x) - \lambda(\beta))$ and similarly define $e(i,x)$. Now we define
+    \[
+    \hat{e}_{\tilde{S}}(i,x) = \begin{cases}
         \hat{e}(i,x)\quad\text{if }\tilde{S}_i = x,\\
         e(i,x)\quad\text{if }\tilde{S}_i \neq x
     \end{cases}
@@ -339,10 +342,13 @@
     \[
     \begin{aligned}
         \mathbb{E}W_n f(W_n) &= \mathbb{E}\left(\tilde{E}\left(\prod_{i=1}^n e(i,\tilde{S_i})\right)f\left(E\prod_{i=1}^n e(i,S_i)\right)\right) \\
-        & = \tilde{E}\left(\mathbb{E}\left(\prod_{i=1}^n e(i,\tilde{S}_i) f\left(\prod_{i=1}^n e(i,S_i)\right)\right)\right)
+        & = \tilde{E}\left(\mathbb{E}\left(\prod_{i=1}^n e(i,\tilde{S}_i) f\left(E\prod_{i=1}^n e(i,S_i)\right)\right)\right) \\
+        &=\tilde{E}\left(\mathbb{E}\left(\prod_{i=1}^n e(i,\tilde{S}_i) f\left(\sum_{x} P(x)\prod_{i=1}^n e(i,x_i)\right)\right)\right) \\
+        \hat{\mathbb{E}}f\left(\sum_{x} P(x)\prod_{i=1}^n \hat{e}_{\tilde{S}}(i,x_i)\right)
     \end{aligned}
     \]
 \end{proof}
+
 
 \begin{theorem}
     $W_{\infty} > 0$ when $\beta < \beta_{sb}$ and hence
