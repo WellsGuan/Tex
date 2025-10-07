@@ -1,0 +1,31 @@
+\section{The Localized Phase}
+
+\subsection{Checklist}
+
+\subsection{Useful Conclusions}
+
+\subsection{Path Localization}
+
+\begin{definition}
+    In this chapter, we consider Gaussian environment
+    \[
+    \omega(t,x) \sim \mathcal{N}(0,1)
+    \]
+    and for $y:\mathbb{N}\to\mathbb{Z}^d$ and $S$ a path, we define
+    \[
+    N_n(S,y) = \sum\limits_{t=1}^n \chi_{\{S_t = y_t\}}
+    \]
+    and
+    \[\mathcal{F} = \{\beta > 0, p\text{ is differentiable at }\beta,p'(\beta) < \lambda(\beta)\}\]
+\end{definition}
+
+\begin{theorem}
+    Assume that the environment is Gaussian. There exists $y^{(n)}:[0,n] \to\mathbb{Z}^d$ such that
+    \[
+    \liminf_{n\to\infty} \mathbb{E}E_n^{\beta,\omega}\left(\dfrac{N_n()S,y^{(n)}}{n}\right) \geq 1 - \dfrac{p'}{\lambda'}(\beta) > 0
+    \]
+    for all $\beta \in \mathcal{F}$. Moreover,
+    \[
+    \lim_{\beta\to\infty} \liminf_{n\to\infty} \mathbb{E}E_n^{\beta,\omega}\left(\dfrac{N_n()S,y^{(n)}}{n}\right) = 1
+    \]
+\end{theorem}
