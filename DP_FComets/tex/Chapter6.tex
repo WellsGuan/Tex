@@ -1,9 +1,32 @@
 \section{The Localized Phase}
 
 \subsection{Checklist}
-
+\begin{itemize}
+    \item Check the tail behavior of $F$ in Theorem 4.3.1.
+    \item Chernov's bound
+\end{itemize}
 \subsection{Useful Conclusions}
 
+\begin{lemma}
+    (Integration by Part)\par
+    If $X$ is centered normal, and $f$ is smooth with
+    \[
+    \lim_{|x|\to\infty} f(x)\exp(-x^2/(2EX^2)) = 0,
+    \]
+    then
+    \[E(Xf(X)) = E(X^2)E(f'(X))\]
+\end{lemma}
+
+\begin{corollary}
+    (Integration by Part for Gaussian Vectors)\par If $(X,X-1,\cdots,X_n)$ is a centered, gaussian vector , and $F$ is smooth with
+    \[
+    \lim_{||x||\to\infty} F(x)\exp(-ax^2) = 0
+    \]
+    for all $a>0$, then
+    \[
+    E(XF(X_1,\cdots,X_n)) = \sum\limits_{i=1}^n E(XX_i)E(F_{x_i}(X_1,\cdots,X_n))
+    \]
+\end{corollary}
 \subsection{Path Localization}
 
 \begin{definition}
@@ -29,3 +52,133 @@
     \lim_{\beta\to\infty} \liminf_{n\to\infty} \mathbb{E}E_n^{\beta,\omega}\left(\dfrac{N_n(S,y^{(n)})}{n}\right) = 1
     \]
 \end{theorem}
+\begin{proof}
+    We have
+    \[
+    \begin{aligned}
+    \dfrac{d}{d\beta}\mathbb{E}p_n(\omega,\beta) &= \dfrac{1}{n}\dfrac{d}{d\beta}\mathbb{E}\ln\left(\sum\limits_{x}P(S^{(n)} = x) \exp(\beta H_n(x))\right) \\
+    & = \dfrac{1}{n}\mathbb{E}\dfrac{1}{Z_n}\sum\limits_{x}P(S^{(n)} = x)\exp(\beta H_n(x))H_n(x) \\
+    &= \dfrac{1}{n}\sum\limits_{t\leq n,x}\mathbb{E}\left(P_n^{\beta,\omega}(S_t = x)\omega(t,x)\right)
+    \end{aligned}
+    \]
+    which has a uniform $L_1$ bound. Notice
+    \[
+    \begin{aligned}
+    P_n^{\beta,\omega}(S_t = x) &= \dfrac{1}{Z_n}\sum\limits_{x, x_t = x}P(S^{(n)} = x)\exp(\beta H_n(x)) \\ &= \dfrac{Z_nP_n^{\beta,\omega}(S_t = x)}{Z_nP_n^{\beta,\omega}(S_t = x)+(Z_n - Z_nP_n^{\beta,\omega}(S_t = x))} 
+    \end{aligned}
+    \]
+    and hence
+    \[
+    \begin{aligned}
+        \dfrac{dP_n^{\beta,\omega}(S_t = x)}{d\beta} &= \dfrac{1}{Z_n^2}\left(\beta Z_n P_n^{\beta,\omega}(S_t = x)Z_n - \beta Z_n^2P_n^{\beta,\omega}(S_t = x)^2\right) \\
+        & = \beta(P_n^{\beta,\omega}(S_t = x)-P_n^{\beta,\omega}(S_t = x)^2)
+    \end{aligned}
+    \]
+    so we have
+    \[
+    \begin{aligned}
+    \dfrac{d}{d\beta}\mathbb{E}p_n(\omega,\beta) &= \dfrac{\beta}{n} \sum\limits_{t\leq n, x} \mathbb{E}(P_n^{\beta,\omega}(S_t = x)-P_n^{\beta,\omega}(S_t = x)^2) \\
+    &=\beta\dfrac{1}{n}\mathbb{E}(\sum\limits_{t\leq n} {P_n^{\beta,\omega}}^{\otimes 2}(S,\tilde{S}\text{ do not coincide at time }t)) \\
+    & = \beta(1 - \dfrac{1}{n}\mathbb{E}\sum\limits_{t\leq n}{ P_n^{\beta,\omega}}^{\otimes 2}(S,\tilde{S}\text{ coincide at time }t))   
+    \end{aligned}
+    \]
+    and consider how many contributions to ${P_n^{\beta,\omega}}^{\otimes 2}(S,\tilde{S}\text{ coincide at }t_1,\cdots,t_k)$ is $k$ times and hence
+    \[
+    \beta\left(1 - \mathbb{E}{ E_n^{\beta,\omega}}^{\otimes 2}\left(\dfrac{N_n(S,\tilde{S})}{n}\right)\right)
+    \]
+    Since $\lambda(\beta) = \beta^2/2$ and we have
+    \[
+    \lim_{n\to\infty}\mathbb{E}{E_n^{\beta,\omega}}^{\otimes 2}\left(\dfrac{N_n(S,\tilde{S})}{n}\right) = 1 - p'(\beta)/\beta = 1 -\dfrac{p'}{\lambda '}(\beta)
+    \]
+    For fixed $n,\beta,\omega$, we may define
+    \[
+    y^{(n)}(t) = arg\max_{x} P_n^{\beta,\omega}(S_t = x)
+    \]
+    and then
+    \[
+    {P_n^{\beta,\omega}}^{\otimes 2}(S_t = \tilde{S}_t) \leq P_n^{\beta,\omega}(S_t = y_t^{(n)})
+    \]
+    and then
+    \[
+    \mathbb{E}{E_n^{\beta,\omega}}^{\otimes 2}\left(\dfrac{N_n(S,\tilde{S})}{n}\right) \leq \mathbb{E}P_n^{\beta,\omega}\left(\dfrac{N_n(S,y^{(n)})}{n}\right)
+    \]
+    Recall that $p$ is convex and $p$ is almost linear by
+    \[
+    p(\beta) \leq \beta\inf_{b\in(0,\beta]}\dfrac{\lambda(b)+\ln(2c)}{b} - \ln(2d)
+    \]
+    and hence $p'(\beta)$ should be bounded when $\beta$ is large and hence
+    \[
+    1\geq \lim_{\beta\to\infty} \liminf_{n\to\infty} \mathbb{E}E_n^{\beta,\omega}\left(\dfrac{N_n(S,y^{(n)})}{n}\right) \geq \lim_{\beta\to \infty} 1 - \dfrac{C}{\beta}
+    \]
+    for some constant $C$.
+\end{proof}
+
+\begin{theorem}
+    Assuem $d = 1$ or $d=2$. Then for all $\beta \neq 0, p(\beta) < \lambda(\beta)$ and therefore $W_{\infty} = 0$.
+\end{theorem}
+\begin{proof}
+    Notice for all $z\in \mathbb{Z}^d$, we have
+    \[
+    {P_{t-1}^{\beta,\omega}}^{\otimes 2}(S_t = \tilde{S_t}+z) = \sum\limits_{x} P_{t-1}^{\beta,\omega}(S_t= x)P_{t-1}^{\beta,\omega}(S_t= x+z) \leq {P_{t-1}^{\beta,\omega}}^{\otimes 2}(S_t = \tilde{S_t}) = I_t 
+    \]
+    Notice when $d=1$,
+    \[
+    1 = \sum_{z, 2|z,|z| \leq 2t} {P_{t-1}^{\beta,\omega}}^{\otimes 2}(S_t = \tilde{S_t}+z) \leq 2t+1 I_t
+    \]
+    and hence $\sum I_t$ diverge, by
+    \[
+    -\ln W_n \sim \sum I_t
+    \]
+    and we know $W_{\infty} = 0$.\par
+    For $d=2$, if $W_{\infty} > 0$ a.s., then let
+    \[
+    A_n = \{|S_n^{(1)}|\leq K\sqrt{n\ln n},|S_n^{(2)}|\leq K\sqrt{n\ln n}\}
+    \]
+    and
+    \[
+    X_n = E(\exp(\beta H_{n-1} - (n-1)\lambda(\beta)); A_n^c).
+    \]
+    Then
+    \[
+    \mathbb{E}\left(X_n \geq \exp(-K^2\ln n/4)\right) \leq e^{K^4 \ln n /4} \mathbb{E}(X_n) = \leq e^{K^4 \ln n /4}P(A_n^c),
+    \]
+    and by the Chernov's bound:
+    \[
+    P(\pm S_n^{(1)} > K\sqrt{n\ln n}) \leq \exp(-n\gamma^*(K\sqrt{n\ln n}))
+    \]
+    and $\gamma^*$ is the LF transform of
+    \[
+    \gamma(u):=\ln E\exp(uS_n^{(1)}) = \ln\dfrac{1+\cosh u}{2} \leq u^2/2
+    \]
+    and hence
+    \[
+    \gamma^*(v) \geq \v^2/2
+    \]
+    and then
+    \[
+    \mathbb{E}(X_n \geq \exp(-K^2\ln n /4)) \leq 4e^{-K^2 \ln n/4}.
+    \]
+    By BC-lemma, we have $X_n \to 0$ $\mathbb{P}$-a.s., which implies
+    \[
+    Y_n:= P_{n-1}^{\beta,\omega} = X_n/W_n \to 0/W_{\infty} = 0
+    \]
+    for $\mathbb{P}$-a.s. Denote $\mathcal{C}(n,K) = [-K\sqrt{n\ln n}, K\sqrt{n\ln n}]^2$ and
+    \[
+    \begin{aligned}
+        (1-Y_n)^2 &= \sum\limits_{x,y\in \mathcal{C}(n,K)}{P_{n-1}^{\beta,\omega}}^{\otimes 2}(S_n = x, \tilde{S}_n = y) \\
+        &\leq \sum\limits_{z\in \mathcal{n,2K}}{P_{n-1}^{\beta,\omega}}^{\otimes 2}(S_n = \tilde{S}_n + z) \\
+        &\leq (4K\sqrt{n\ln n})^2I_n
+    \end{aligned}
+    \]
+    and hence $\sum I_n$ diverge and we are done.
+\end{proof}
+
+\begin{theorem}
+    Assume $\omega(t,x)$ has mean $0$ and variance $1$. For $d = 1$, as $\beta \to 0$ we have
+    \[
+    \lambda(\beta) - p(\beta) = O(\beta^4)
+    \]
+    and $d= 2, \beta \to 0$, we have
+    \[\lambda(\beta) - p(\beta) = \exp(-\pi\beta^{-2}(1+o(1)))\]
+\end{theorem}
+
