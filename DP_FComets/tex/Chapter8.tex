@@ -1,0 +1,26 @@
+\section{KPZ Equation and Universality}
+
+\subsection{Checklist}
+
+\subsection{Useful Conclusions}
+
+\subsection{KPZ Equation}
+
+\begin{definition}
+    (KPZ Equation)\par
+    \[
+    \dfrac{\partial h}{\partial t}(t,x) = \dfrac{1}{2}\dfrac{\partial^2 h}{\partial x^2}(t,x) + \dfrac{1}{2}\left(\dfrac{\partial h}{\partial x}(t,x)\right)^2 + \beta W(t,x)
+    \]
+    where $W$ is a space-time gaussian white noise $(t\geq 0, x\in\mathbb{R})$. The noise is a distribution-valued Gaussian field on $\mathbb{R}^+\times\mathbb{R}$ with mean $0$ and covariance
+    \[
+    \mathbb{E}[W(t,x)W(s,y)] = \delta(t-s)\delta(x-y)
+    \]
+    which means the random variables
+    \[
+    \left\{\int W(t,x)(f)dtdx|f \in C^{\infty}_c(\mathbb{R}^+\times\mathbb{R})\right\}
+    \]
+    is a Gaussian family with mean $0$ and
+    \[
+    \mathbb{E} \left(\int_{\mathbb{R}^+\times\mathbb{R}} W(f)\int_{\mathbb{R}^+\times\mathbb{R}} W(g)\right) = \int_{\mathbb{R}^+\times\mathbb{R}} fg
+    \]
+\end{definition}
