@@ -3,7 +3,6 @@
 \subsection{Checklist}
 
 \begin{itemize}
-    \item Proof of Kol 01 law in thm 2.2.1
     \item Proof of $H_n/n - \lambda'(\beta)$ converges to 0 in $L^1_{P_n^{\beta,\omega}}$.
     \item Proof of $W_n^{\delta}$ uniformly integrable
     \item Proof of $\partial/\partial \beta \mathbb{E}W_n^{\delta}$
@@ -22,6 +21,18 @@
     (Kolmogorov's 0-1 Law)\par
     If $X_1,X_2,\cdots$ are independent and $A \in \mathcal{T}: = \cap \mathcal{F}_n'$ then $P(A) = 0$ or $1$, where $\mathcal{F}_n' = \sigma(X_n, X_{n+1},\cdots)$.
 \end{theorem}
+\begin{proof}
+    We prove by some steps, first we show that for $A \in \sigma(X_1,\cdots,X_k)$ and $B\in \sigma(X_{k+1},X_{k+2},\cdots)$, we have $A, B$ independent. If $B\in \sigma(X_{k+1},\cdots,X_{k+j})$, we have $A,B$ independent. And we know $\cup_j \sigma(X_{k+1},\cdots,X_{k+j})$ is a $\pi$-system. And we only need to check $\{B, P(A)P(B) = P(A)P(B)\}$ is a $\lambda$-system. $\Omega$ is obviously in it firstly and for $B\subset B'$, we have
+    \[
+    P(A(B'-B)) = P(AB')-P(AB) = P(A)(P(B')-P(B)) = P(A)P(B'-B)
+    \]
+    and if $B_n$ increases to $B$, we have
+    \[
+    P(AB) = \lim_{n\to\infty}P(AB_n) = \lim_{n\to\infty} P(A)P(B_n) = P(A)P(B)
+    \]
+    and we are done.\par
+    So we know $A\in\sigma(X_1,\cdots,X_k)$ is independent with $B$ if $B \in \mathcal{T}$ the tail algebra, and similarly we may check that for any $A\in\sigma(X_1,\cdots,X_n)$ is independent with $B$ and hence $B$ is independent with itself, which means $P(B) = 0$ or $1$.\par  
+\end{proof}
 
 \begin{proposition}
     Every convex function $f:\mathbb{R} \to \mathbb{R}$ is continuous. 
@@ -141,7 +152,20 @@ $Remark$. We will show $W_n$ is a martingale and use martingale convergence theo
     \[
     W_{\infty} = \lim_{n\to\infty} W_n
     \]
-    exists and nonnegative $\mathbb{P}$-a.s. and $\mathbb{E}W_{\infty} < \infty$. Now assueme $\mathcal{F}'_n = \sigma\{\omega(j,x), \geq n\}$ and let $\mathcal{F}' = \cap \mathcal{F}'_n$. Then we will check $\{W_{\infty} = 0\} \in \mathcal{F}$ and apply Kolmogorov's 0-1 Law.
+    exists and nonnegative $\mathbb{P}$-a.s. and $\mathbb{E}W_{\infty} < \infty$. Now assueme $\mathcal{F}'_n = \sigma\{\omega(j,x), j \geq n, |x|_1 \leq j\}$ and let $\mathcal{F}' = \cap \mathcal{F}'_n$. Then for any $A \in F'$, we have $\mathbb{P}(A)\in\{0,1\}$ since we may apply the proof of Kolmogorov's 0-1 Law by replacing $\sigma(X_k,\cdots,X_{k+j})$ by some family of $\sigma$-algebras $\mathcal{F}_i$ and consider $\sigma(\mathcal{F}_k,\cdots,\mathcal{F}_{k+j})$. Now we only need to check$\{W_{\infty} = 0\} \in \mathcal{F}$, which coms form 
+    \[
+    \begin{aligned}
+        W_{\infty} &= \lim_{m\to\infty} W_{n+m} \\
+        &= E(\xi_n(S)\times \lim_{m\to\infty}W_m \circ \theta_{x,S_n}) \\
+        &= \sum\limits_{x} P(dx)\exp({\beta H_n(x) -n\lambda(\beta)})W_{\infty}\circ \theta_{n,x_n}\ \\
+        &= W_n \sum_{x} P_n^{\beta,\omega}(S_n = x) W_{\infty} \circ \theta_{n,x}
+    \end{aligned}
+    \]
+    and hence
+    \[
+    \{W_{\infty} = 0\} = \cap_{P(S_n = x) > 0} \{W_{\infty}\circ_{m,x} = 0\} \in \mathcal{F}_n 
+    \]
+    for any $n$ and we are done.
 \end{proof}
 
 \begin{definition}
