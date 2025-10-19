@@ -2,9 +2,9 @@
 
 \subsection{Checklist}
 \begin{itemize}
-    \item Check the tail behavior of $F$ in Theorem 4.3.1.
-    \item Chernov's bound
+    \item Prove the integration by parts for Gaussian.
 \end{itemize}
+
 \subsection{Useful Conclusions}
 
 \begin{lemma}
@@ -27,6 +27,32 @@
     E(XF(X_1,\cdots,X_n)) = \sum\limits_{i=1}^n E(XX_i)E(F_{x_i}(X_1,\cdots,X_n))
     \]
 \end{corollary}
+
+\begin{theorem}
+    (Chernoff's bound)\par
+    For a r.v., assume all the required moment exist, then
+    \[
+    P(X\geq a) \leq \inf_{t>0}E(e^{tX})e^{-ta}
+    \]
+\end{theorem}
+
+\begin{definition}
+    (Legendre-Fenchel Transform)\par
+    Consider a function $f:\mathbb{R}\to\mathbb{R}$, we define
+    \[
+    f^*(k) = \sup_{x\in \mathbb{R}}(kx-f(x))
+    \]
+\end{definition}
+
+\begin{definition}
+    (Supporting Line)\par
+    We call $f:\mathbb{R}\to\mathbb{R}$ has a supporting line at $x$ if there exists $\alpha \in \mathbb{R}$
+\end{definition}
+
+\begin{proposition}
+    
+\end{proposition}
+
 \subsection{Path Localization}
 
 \begin{definition}
@@ -61,7 +87,15 @@
     &= \dfrac{1}{n}\sum\limits_{t\leq n,x}\mathbb{E}\left(P_n^{\beta,\omega}(S_t = x)\omega(t,x)\right)
     \end{aligned}
     \]
-    which has a uniform $L_1$ bound. Notice
+    which has a uniform $L_1$ bound.\par
+    Let \[\begin{aligned}F(\omega(t,x))_{t\leq n, x} &= P_n^{\beta,\omega}(S_t = x) \\
+    &= \sum\limits_{S_t = x} P(S)\exp(\beta\sum\limits_{i=1}^n \omega(i,S_i))
+    \end{aligned}\]
+    and
+    \[
+    \lim_{x\to\infty} \exp(\beta \sum\limits_{i=1}^n x_{i,S_i} - a|x|^2) \leq \lim_{x\to\infty}\exp(|x|(\beta n-a|x|)) = 0
+    \]
+    which means we may use the integration by parts. Notice
     \[
     \begin{aligned}
     P_n^{\beta,\omega}(S_t = x) &= \dfrac{1}{Z_n}\sum\limits_{x, x_t = x}P(S^{(n)} = x)\exp(\beta H_n(x)) \\ &= \dfrac{Z_nP_n^{\beta,\omega}(S_t = x)}{Z_nP_n^{\beta,\omega}(S_t = x)+(Z_n - Z_nP_n^{\beta,\omega}(S_t = x))} 
@@ -140,11 +174,15 @@
     \]
     Then
     \[
-    \mathbb{E}\left(X_n \geq \exp(-K^2\ln n/4)\right) \leq e^{K^4 \ln n /4} \mathbb{E}(X_n) = \leq e^{K^4 \ln n /4}P(A_n^c),
+    \mathbb{P}\left(X_n \geq \exp(-K^2n\ln n/4)\right) \leq e^{K^2 n\ln n /4} \mathbb{E}(X_n) = e^{K^2 n\ln n /4}P(A_n^c),
     \]
     and by the Chernov's bound:
     \[
-    P(\pm S_n^{(1)} > K\sqrt{n\ln n}) \leq \exp(-n\gamma^*(K\sqrt{n\ln n}))
+    \begin{aligned}
+        P(\pm S_n^{(1)} > K\sqrt{n\ln n}) &\leq \inf_{t>0} E(\exp(tS_n^{(1)}))e^{-tK(\sqrt{n\ln n})} \\
+        &=\exp\left[\inf_{t\geq 0} \left(\ln E\exp(tS_n^{(1)}) - tK(\sqrt{n\ln n})\right)\right] \\
+        &=\exp\left(- \gamma^*(K\sqrt{n\ln n})\right)
+    \end{aligned}
     \]
     and $\gamma^*$ is the LF transform of
     \[
@@ -152,21 +190,25 @@
     \]
     and hence
     \[
-    \gamma^*(v) \geq \v^2/2
+    \gamma^*(v) \geq v^2/2
     \]
     and then
     \[
-    \mathbb{E}(X_n \geq \exp(-K^2\ln n /4)) \leq 4e^{-K^2 \ln n/4}.
+    P(A_n^c) \leq \exp(-K^2 n\ln n)
+    \]
+    and
+    \[
+    \mathbb{P}(X_n \geq \exp(-K^2 n \ln n /4)) \leq e^{-3K^2 n\ln n/4}.
     \]
     By BC-lemma, we have $X_n \to 0$ $\mathbb{P}$-a.s., which implies
     \[
-    Y_n:= P_{n-1}^{\beta,\omega} = X_n/W_n \to 0/W_{\infty} = 0
+    Y_n:= P_{n-1}^{\beta,\omega}(A_n^c) = X_n/W_n \to 0/W_{\infty} = 0
     \]
     for $\mathbb{P}$-a.s. Denote $\mathcal{C}(n,K) = [-K\sqrt{n\ln n}, K\sqrt{n\ln n}]^2$ and
     \[
     \begin{aligned}
         (1-Y_n)^2 &= \sum\limits_{x,y\in \mathcal{C}(n,K)}{P_{n-1}^{\beta,\omega}}^{\otimes 2}(S_n = x, \tilde{S}_n = y) \\
-        &\leq \sum\limits_{z\in \mathcal{n,2K}}{P_{n-1}^{\beta,\omega}}^{\otimes 2}(S_n = \tilde{S}_n + z) \\
+        &\leq \sum\limits_{z\in \mathcal{C}(n,2K)}{P_{n-1}^{\beta,\omega}}^{\otimes 2}(S_n = \tilde{S}_n + z) \\
         &\leq (4K\sqrt{n\ln n})^2I_n
     \end{aligned}
     \]
