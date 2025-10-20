@@ -1,0 +1,116 @@
+\section{Some Paper Conclusion by Stefan Junk 1}
+
+\subsection{Main Theorem}
+
+\begin{theorem}
+    Let $(M_n,\mathcal{F}_n)$ be a non-negative martingable with $M_0 = 1$. Assume that for every $k,l\in\mathbb{N}$ and $f:\mathbb{R}^+\to \mathbb{R}$ convex,
+    \[
+    E\left(f\left(\dfrac{M_{k+l}}{M_k}\right)|\mathcal{F}_k\right) \leq Ef(M_l)
+    \]
+    Denote $M_n^* = \sup_{k\leq n} M_k$ and $M_{\infty} = \lim_{n\to\infty} M_n$. Then we have
+    \begin{enumerate}
+        \item If $P(M_{\infty} > 0)>0$, then $E[M^*_{\infty}] < \infty$.
+        \item If $P(M_{\infty} > 0) >0$ and exists $K>1$ such that
+        \[P(M_{n+1} \leq KM_n) = 1\]
+        for all $n\in\mathbb{N}$, then there exists $p>1$ such that
+        \[
+        \sup ||M_n||_p < \infty
+        \]
+        Moreover, the set of $p$'s satisfying the above inequality is open.
+        \item If $P(M_{\infty} = 0) = 1$ and if $P(M_{n+1} \leq KM_n) = 1$ for all $n\in\mathbb{N}$, we have
+        \[P(M_{\infty}^*>t) > \dfrac{1}{4K^2t} \]
+        \item If $P(M_{\infty} > 0) = 1$ and if there exists $K>1$ such that
+        \[P(M_{n+1} \geq M_n/K) = 1\text{ for all }n\in\mathbb{N}\]
+        then there exists $p>0$ such that
+        \[
+        \sup_n EM_n^{-p} < \infty
+        \]
+        and similarly the set of $p$'s satisfying the above inequality is open.
+    \end{enumerate}
+\end{theorem}
+$Remark$. According to the Martingable Convergence Theorem, since $EM_n = EM_0 = 1$ and then we know $\sup EM_n$ is always bounded, and hence $M_{\infty}$ always exists.
+\begin{proof}
+    (First step) If we may find $\epsilon, \eta > 0$ such that for any $n$ integer and $t>1$, we have
+    \[
+    P(M_n^* > t) \leq P(M_n > t\epsilon)/\eta
+    \]
+    then we know
+    \[
+    \begin{aligned}
+        E(M_n^*) &= \int_0^{\infty} P(M_N^* >t) dt \\
+        &\leq 1 + \int_1^{\infty} P(M_n^*>t) dt \\
+        &\leq \dfrac{1}{\eta}\int_1^{\infty}P(M_n>t\epsilon)dt + 1 \\
+        &\leq \dfrac{1}{\epsilon\eta} + 1
+    \end{aligned}
+    \]
+    Since the LHS converges to $EM_{\infty}^*$ by MCT, then we have $E[M^*_{\infty}] < \infty$.\par
+    We consider
+    \[
+    f_{\delta,\epsilon} := \delta(x/\epsilon - 1)\wedge 1
+    \]
+    for $\delta, \epsilon > 0$ and then $f_{\delta,\epsilon}$ concave and
+    \[
+    \chi_{(\epsilon,\infty)}(x)\geq f_{\delta,\epsilon}(x) \geq \chi_{[(1/\delta + 1)\epsilon,\infty)}(x) - \delta\chi_{[0,\epsilon]} (x)
+    \]
+    (which is actually doing some floor to $f_{\delta,\epsilon}$ by intervals) Let $\tau(t):=\inf\{n\in \mathbb{N}: M_n > t\}$ and then $M_{\tau(t)} > 0$ on $\{\tau<\infty\}$. So
+    \[
+    \begin{aligned}
+        P(M_n > t\epsilon) &\geq P(\tau \leq n, M_n/M_{\tau} > \epsilon) \\
+        &= \sum\limits_{k=1}^n E\left(\chi_{(\tau(t) = k)}E(\chi_{(M_n/M_k>\epsilon)}|\mathcal{F}_k)\right) \\
+        &\geq \sum\limits_{k=1}^n E\left(\chi_{\tau(t) = k}E\left(f_{\delta,\epsilon}\left(\dfrac{M_n}{M_k}\right)|\mathcal{F}_k\right)\right) \\
+        &\geq \sum\limits_{k=1}^n E\left(\chi_{\tau(t) = k}E\left(f_{\delta,\epsilon}(M_{n-k})\right)\right) \\
+        &\geq P(\tau\leq n)\inf_{k< n} E(f_{\delta,\epsilon} M_k)
+    \end{aligned}
+    \]
+    For any $\delta > 0$, we have
+    \[
+    \begin{aligned}
+        \inf_{k\in\mathbb{N}}E(f_{\delta,\epsilon}(M_k)) &\geq E(\inf_k f_{
+       \delta,\epsilon}(M_k)) \\
+        &=E(f_{
+       \delta,\epsilon}(\inf_k M_k)) \\
+        &\geq P(\inf_k M_k\geq (\delta^{-1}+1)\epsilon) - \delta P(\inf_k M_k \leq \epsilon) \\
+    \end{aligned}
+    \]
+    where the RHS converges to $P(M_{\infty} > 0)- \delta(M_{\infty} = 0)$ when $\epsilon = 0$, since we always have
+    \[
+    E(M_{n+1}\chi_{M_n = 0}|\mathcal{F_n}) = (M_n)\chi_{M_n = 0} = 0
+    \]
+    and hence $M_{n+1} = 0$ on $\{M_n = 0\}$ by $M$ nonnegative and hence
+    \[
+    \{M_{\infty} > 0\} = \{\inf_k M_k > 0\}
+    \]
+    If $P(M_{\infty} > 0) > 0$, we may find $\delta,\epsilon > 0$ such that $\inf_{k} E(f_{\delta,\epsilon}(M_k)) =: \eta >0$
+    and then we are done since$
+    \{\tau \leq n\} = \{M_n^* > t\}$.\par
+    (Second step) We know $M_n \leq tK\dfrac{M_n}{M_{\tau}} \Leftrightarrow \{M_{\tau} \leq tK\}$ on $\{\tau \leq n\}$, then for any $\epsilon > 0$, we have
+    \[
+    \begin{aligned}
+        E(M_n^{1+\epsilon}) &\leq t^{1+\epsilon} + E(\chi_{(\tau\leq n)}M_n^{1+\epsilon}) \\
+        &\leq t^{1+\epsilon}+ (Kt)^{1+\epsilon}\sum\limits_{k=1}^nE\left(\chi_{\tau(t) = k}E\left(\left(\dfrac{M_n}{M_k}\right)^{1+\epsilon}|\mathcal{F}_k\right)\right) \\
+        &\leq t^{1+\epsilon}+ (Kt)^{1+\epsilon}\sum\limits_{k=1}^nE\left(\chi_{\tau(t) = k}E(M_{n-k})^{1+\epsilon}\right) \\
+        &\leq t^{1+\epsilon} + (Kt)^{1+\epsilon}P(\tau\leq n)E(M_n)^{1+\epsilon}
+    \end{aligned}
+    \]
+    by Chebyshev's inequality at the final step. Since
+    \[
+    E(M_{\infty}^{\infty}) = 1 + \int_1^{\infty}P(M_{\infty}^* > t) dt < \infty
+    \]
+    we may find $t$ such that
+    \[
+    P(\tau \leq n) \leq P(M_{\infty}^* > t) \leq \dfrac{1}{4K^2 t}
+    \]
+    and let $\epsilon$ such that $t^{\epsilon \leq 2}$, then we have
+    \[
+    E(M_n^{1+\epsilon}) \leq 2t^{1+\epsilon}
+    \]
+    where $1+\epsilon$ is a required $p$ in question 2. If $\sup_n ||M_n||_p < \infty$ for some $p>1$. We infer the Doob's maximal inequality and we know $||M_{\infty}^*||$ finite by MCT, so there exists $t>1$ such that
+    \[
+    P(M_{\infty}^* > t) \leq \dfrac{1}{4K^{p+1}t^p}
+    \]
+    and for $q\in [p,p+1]$, we have
+    \[
+    E(M_n^q) \leq t^q + (Kt)^qP(\tau\leq n)E(M_n^q) \leq t^q + \dfrac{t^{q-p}}{4}E(M_n^q)
+    \]
+    and choose $q\in (p,p+1)$ such that $t^{q-p} \leq 2$ and then we have $\sup_n ||M_n||_q < \infty$.
+\end{proof}

@@ -1,11 +1,5 @@
 \section{Semimartingable Approach}
 
-\subsection{Checklist}
-\begin{itemize}
-    \item The theorem that square integrabl martingale converges a.s. on the event $\langle M\rangle < \infty$.
-    \item $M_n /\langle M\rangle_n \to 0$.
-\end{itemize}
-
 \subsection{Useful Conclusions}
 
 \begin{theorem}
@@ -362,7 +356,13 @@
     \beta_{sb} \leq \bar{\beta}_c \leq \beta_c
     \]
 \end{theorem}
-
+\begin{proof}
+    Notice
+    \[
+    \mathbb{E}(W_nf(W_n)) = \mathbb{E}\hat{\mathbb{E}}
+\tilde{P}(f(\hat{W}_n^{e,\hat{e},\tilde{S}}))    \]
+    and we will know if $\hat{W}_n^{e,\hat{e},\tilde{S}}$ is tight, then for any bounded continuous $f$, the expectation above will converges and assume $f(x)$ to be some modified $sgn(x)\chi_{(|x| \geq M)}$ and then we know $\mathbb{E}(|W_n|;|W_n| \geq M)$ will converges to some bounded expectaion only related to $M$, and let $M$ approch infinity we will have $W_n$ uniformly integrable and hence $W_{\infty}$ positive. And then 
+\end{proof}
 
 \subsection{Localization v.s. Delocalization}
 
