@@ -3,9 +3,6 @@
 \subsection{Checklist}
 
 \begin{itemize}
-    \item Proof of $H_n/n - \lambda'(\beta)$ converges to 0 in $L^1_{P_n^{\beta,\omega}}$.
-    \item Proof of $W_n^{\delta}$ uniformly integrable
-    \item Proof of $\partial/\partial \beta \mathbb{E}W_n^{\delta}$
     \item Proof of $s = \infty$
     \item compute $\varphi, \psi$ in 3.3
 \end{itemize}
@@ -55,6 +52,10 @@
     \[\lim_{M\to\infty} \left(\sup_{i\in I} E(|X_i|;|X_i| > M)\right) = 0\]    
 \end{definition}
 
+\begin{theorem}
+    Let $\phi \geq 0$ be some function with $\phi(x)/x \to \infty$ as $x\to\infty$. If $E\phi(|X_i|) \leq C$ for all $i\in I$, then $X_i$ is uniformly integrable.
+\end{theorem}
+
 \begin{proposition}
     Suppose that $E|X_n| < \infty$ for all $n$. If $X_n \to X$ in probability then the following are equivalent:
     \begin{itemize}
@@ -63,6 +64,15 @@
         \item $E|X_n| \to E|X| < \infty$.
     \end{itemize}
 \end{proposition}
+
+\begin{theorem}
+    For a submartingale, the following are equivalent:
+    \begin{itemize}
+        \item It is uniformly integrable.
+        \item It converges a.s. and in $L^1$
+        \item It converges in $L^1$.
+    \end{itemize}
+\end{theorem}
 
 \begin{theorem}
     ($L^p$ convergence theorem)\par
@@ -163,7 +173,7 @@ $Remark$. We will show $W_n$ is a martingale and use martingale convergence theo
     \]
     and hence
     \[
-    \{W_{\infty} = 0\} = \cap_{P(S_n = x) > 0} \{W_{\infty}\circ_{m,x} = 0\} \in \mathcal{F}_n 
+    \{W_{\infty} = 0\} = \cap_{P(S_n = x) > 0} \{W_{\infty}\circ\theta_{m,x} = 0\} \in \mathcal{F}_n 
     \]
     for any $n$ and we are done.
 \end{proof}
@@ -182,11 +192,7 @@ $Remark$. We will show $W_n$ is a martingale and use martingale convergence theo
     \[
     \lim_{n\to\infty} n^{-1}E_n^{\beta,\omega}H_n = \lambda'(\beta)
     \]
-    or
-    \[
-    E_n^{\beta,\omega} |H_n/n- \lambda'(\beta)| \to 0
-    \]
-    with $n\to\infty$ expect an at most countable set.
+    with $n\to\infty$.
 \end{proposition}
 \begin{proof}
     Notice that we have
@@ -196,10 +202,7 @@ $Remark$. We will show $W_n$ is a martingale and use martingale convergence theo
     \[
     p_n'(\beta) = \dfrac{\partial}{\partial \beta} \dfrac{1}{n}\ln(\sum\limits_{x} (2d)^{-n} \exp(\beta H_n(x))) = \dfrac{1}{nZ_n}EH_n \exp(\beta H_n(x)) = \dfrac{1}{n}E_{n}^{\beta,\omega}H_n
     \]
-    and we know for the region where $p$ is differential, we have
-    \[
-    \lim_{n\to\infty} n^{-1} E_n^{\beta,\omega} p'(\beta) = \lambda'(\beta)
-    \]
+    and we know for the region where $p$ is differential, which is the whole set since $p = \lambda$.
 \end{proof}
 
 \begin{proposition}
@@ -212,7 +215,7 @@ $Remark$. We will show $W_n$ is a martingale and use martingale convergence theo
     \]
 \end{proposition}
 \begin{proof}
-    We know $W_n^{\delta}$ is uniformly integrable and hence we have
+    We know $W_n^{\delta}$ is uniformly integrable since let $\phi = |x|^{1/\delta}$ and we know $E\phi(|W_n|^\delta) = 1$ for all $\delta \in (0,1)$ and hence we have
     \[
     \lim\limits_{n\to\infty} \mathbb{E}W_n^{\delta} = \mathbb{E}W_{\infty}^{\delta}
     \]
@@ -223,7 +226,31 @@ $Remark$. We will show $W_n$ is a martingale and use martingale convergence theo
         & = \mathbb{E}(\delta W_n^{\delta-1}E((H_n-n\lambda'(\beta))\xi_n))
     \end{aligned}
     \]
+    where since
+    \[
+    W_n^{\delta}E(H_n-n\lambda')\xi_n \leq W_n^{\delta} + Z_n^{\delta}\sum(2d)^{-1} H_n(x)\xi_n \exp(-n(\delta-1)\lambda(\beta))
+    \]
+    and notice
+    \[
+    H_i(x)H_j(x)\exp(\beta(H_i+H_j)(x))
+    \]
+    are all integrable and the derivative is correct. THeen
+    \[
+     \begin{aligned}
+        \dfrac{\partial}{\partial \beta} \mathbb{E}W_{n}^{\delta} 
+        & = \mathbb{E}(\delta W_n^{\delta-1}E((H_n-n\lambda'(\beta))\xi_n))
+        \\
+        & = \delta E\mathbb{E}(\xi_n W_n^{\delta - 1}(H_n-n\lambda')) \\
+        &\leq \delta E(\mathbb{E}W_n^{\delta-1} \mathbb{E}(\xi_n(H_n - n\lambda')))\quad\text{(by FKG)}\\
+        &=0
+    \end{aligned}
+    \]
+    since
+    \[
+    \mathbb{E}(\exp(\beta\omega)(\omega - \lambda')) = \mathbb{E}(\omega\exp(\beta\omega)) - \mathbb{E}(\omega\exp(\beta\omega)) = 0
+    \]
 \end{proof}
+which means $\mathbb{E}W_n^{\delta}$ is decreasing and hence $\mathbb{E}W_{\infty}^{\delta}$ non-increasing
 
 \subsection{$L^2$ Region}
 
@@ -291,7 +318,7 @@ $Remark$. We will show $W_n$ is a $L^2$ martingale under the condition, and impl
     \[1/\pi_d > 1\]
     iff $d\geq 3$, and $\lambda_2(\beta) = 0$ at $\beta = 0$, so we may know for $d\geq 3$ we have a nonnegative
     \[
-    \beta_{L_2} = \sup \{\beta \geq 0,\lambda_2(\beta) \leq(1/\pi_d)\} > 0
+    \beta_{L_2} = \sup \{\beta \geq 0,\lambda_2(\beta) \leq \ln(1/\pi_d)\} > 0
     \]
     and we know $p = \lambda$ when $\beta \leq \beta_ {L_2}$. 
 \end{proof}
@@ -306,28 +333,30 @@ $Remark$. We will show $W_n$ is a $L^2$ martingale under the condition, and impl
 \begin{proof}
     Let $q$ be a measure defined by
     \[q(A) = \mathbb{P}(\omega \in A)\]
-    for borel set $A$, and then assume $s$ finite, we have
+    for borel set $A$, and then for any $t$ we have
     \[
-    \mathbb{E}(e^{\beta \omega};\omega = s) \leq \mathbb{E}(e^{\beta \omega}) = \mathbb{E}(e^{\beta\omega}; \omega \leq s-h) + \mathbb{E}(e^{\beta\omega; \omega \in [s-h,s]})
+    e^{\beta(t-h)} q([t-h,t])\leq \mathbb{E}(e^{\beta,\omega} \omega \in [t-h,t]) \leq e^{\lambda(\beta)}
+    \]
+    and
+    \[
+    \beta(t) + \ln q([t,t+h]) \leq \lambda (\beta)
+    \]
+    On the other hand, we have if $\epsilon > 0$, then for some $r$,
+    \[
+    e^{\lambda(\beta)} -\epsilon \leq \mathbb{E}(e^{\beta\omega};\omega \in [r-h,r]) +\mathbb{E}(e^{\beta\omega};\omega \leq r-h)
     \]
     and hence
     \[
-    \begin{aligned}
-        \beta s + \ln q(\{s\}) \leq \lambda (\beta) &\leq \ln(e^{\beta s}q([s-h,s]) + e^{\beta s -\beta h})\\ &= \beta s +\ln q(\{s\}) + \ln\left(\dfrac{q([s-h,s])+e^{-\beta h}}{q(\{s\})}\right)
-    \end{aligned}
+    \lambda(\beta) - o(\epsilon) \leq \ln(e^{\beta r} q([r-h,r])+e^{\beta(r-h)}) \leq \beta r + \ln(q([r-h,r])+e^{-\beta h})
     \]
-    Therefore we have
-    \[
-    - 2\ln\left(\dfrac{q([s-h,s])+e^{-\beta h}}{q(\{s\})}\right) \leq \lambda_2(\beta) + \ln q(\{s\}) \leq \ln\left(\dfrac{q([s-h,s])+e^{-2\beta h}}{q(\{s\})}\right)
-    \]
-    and then
+    Now we have for any $\epsilon > 0$, there exists $r$ such that
     \[
     \begin{aligned}
-        \limsup_{\beta\to\infty}\lambda_2(\beta) + \ln q(\{s\}) &\leq \inf_{h}\ln\left(\dfrac{q([s-h,s])}{q(\{s\})}\right) = 0 \\
-        \liminf_{\beta\to\infty}\lambda_2(\beta) + \ln q(\{s\}) &\geq -2\inf_{h}\ln\left(\dfrac{q([s-h,s])}{q(\{s\})}\right) = 0
+        \lambda_2(\beta) &\leq \ln(q([r-h,r])+e^{-2\beta h}) + o(\epsilon) - 2\ln(q[r,r+h']) \\
+        \lambda_2(\beta) & \geq  - 2\ln(q([r-h,r]) + e^{-\beta h}) - 2o(\epsilon) + \ln(q[r,r+h']).
     \end{aligned}
     \]
-    and we are done.
+    So if $s$ is finite, we can let $r = s$ and $h \to 0$. If not, define $\omega_n = \min\{\omega,n\}$ then we may know $\lambda_2^{(n)}(\beta) \to -\ln(q{[n,\infty)})$ and since for any $\beta$ we have $\lambda_2^{(n)}(\beta) \to \lambda_2(\beta)$ by DCT, so we may know by $\lambda_2$ is increasing that $\lambda_2$ is infinite.
 \end{proof}
 
 \begin{theorem}
