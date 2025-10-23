@@ -1,0 +1,301 @@
+\section{Gaps in Critical Temperatures}
+
+Thoerem B d=3.
+
+\subsection{Preliminaries}
+
+\begin{theorem}(From F.Comets and N.Yoshida 2006)\par
+    \begin{itemize}
+        \item There exists $\beta_c \in [0,\infty]$ such that weak disorder, i.e. $W_{\infty}^{\beta} > 0$ a.s., holds for $\beta < \beta_c$ and strong disorder,i.e. $W_{\infty}^{\beta} = 0$ a.s., holds for $\beta > \beta_c$.
+        \item The function
+        \[\beta\mapsto f(\beta):= \lim_{n\to\infty} \dfrac{1}{n}\mathbb{E}(\ln W_n^{\beta}) = p(\beta) - \lambda(\beta)\]
+        is non-increasing. There exists $\bar{\beta}_c \in [0,\infty]$ such that very strong disorder, i.e. $f(\beta) < 0$, holds iff $\beta > \bar{\beta}_c$.
+    \end{itemize}
+\end{theorem}
+\begin{definition}
+    (The P2P partition function)\par
+    \[
+    \widehat{W}^{\beta}_n(x):=E(\exp(\beta H_n(X))\chi({X_n = x}))
+    \]
+    and then endpoint distribution $\mu_n^{\beta}$ is defined by
+    \[
+    \mu_n^{\beta}(x):= P^{\beta,\omega}_n(X_n = x) = \dfrac{\widehat{W}^{\beta}_n(x)}{Z^{\beta}_n}
+    \]
+\end{definition} 
+
+\begin{proposition}
+    \[
+    P^{\beta,\omega}_{n-1}(X_n = x) = \sum\limits_{y} \dfrac{\chi(|x-y|=1)}{2d}\mu_{n-1}^{\beta}(y) = D\mu_{n-1}^{\beta}(x)
+    \]
+    where $D$ is the transition matrix of SRW on $\mathbb{Z}^d$.
+\end{proposition}
+
+\begin{definition}
+    (The end-point replica overlap)\par
+    Define \[I_n : = \sum\limits_x D\mu_{n-1}^{\beta}(x)^2\] and we will have
+    \[
+    \mathbb{E}[(W_n^{\beta} - W_{n-1}^{\beta})^2|\mathcal{F}_n] = \xi(\beta)(W_{n-1}^{\beta})^2 I_n
+    \]
+    where $\xi(\beta) := \exp(\lambda_2(\beta)) - 1$.
+\end{definition}
+\begin{proof}
+    We have
+    \[\begin{aligned}
+        \mathbb{E}[(W_n^{\beta} - W_{n-1}^{\beta})^2|\mathcal{F}_n] &= (W_{n-1}^{\beta})^2 \mathbb{E}\left[\left(\dfrac{W_n}{W_{n-1}}\right)^2 - 1| \mathcal{F}_n\right] \\
+        &= (W_{n-1}^{\beta})^2 \mathbb{E}\left[\left(\dfrac{1}{W_{n-1}}\sum\limits_x \dfrac{1}{2d} \exp(\beta\omega H_n(x) - n\lambda(\beta))\right)^2 - 1| \mathcal{F}_n\right] \\
+        &= (W_{n-1}^{\beta})^2 \mathbb{E}\left[(E^{\beta,\omega}_{n-1})^{\otimes 2}(e^{\beta(\omega(n,S_n)+\omega(n,\tilde{S}_n)) - 2\lambda(\beta)}-1)| \mathcal{F}_n\right] \\
+        &= \xi(\beta)(W_{n-1}^{\beta})^2I_n
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}
+    We set $L:=\text{ess}\sup(\exp(\beta\omega -\lambda(\beta)))$ and we will have a.s.
+    \[
+    W_{n+1}^{\beta} \leq L W_n^{\beta}
+    \]
+\end{definition}
+
+\begin{definition}
+    (The $L^2$-regime)\par
+    We know
+    \[
+    \lim_{n\to\infty} E (W_n^{\beta})^2 = E^{\otimes 2}\exp(\lambda_2(\beta) N(S,\tilde{S}))
+    \]
+    where $N$ is the intersection times between $S,\tilde{S}$.
+\end{definition}
+
+\begin{proposition}
+    The limit above exists iff
+    \[
+    \exp(\lambda(2\beta) - 2\lambda(\beta)) < \dfrac{1}{E^{\otimes 2} N(S,\tilde{S})} + 1
+    \]
+\end{proposition}
+\begin{proof}
+    Notice $N$ is geometrically distributed and we may assume
+    \[
+    P^{\otimes 2}(N = k) = p^k(1-p)
+    \]
+    and then we have $E^{\otimes 2} N = p/(1-p)$. And 
+    \[
+    E^{\otimes 2}(\exp(\lambda_2 N)) = \sum\limits_{k=0}^{\infty}(\exp{\lambda_2})^kp^k(1-p)
+    \]
+    is finite iff $\exp(\lambda_2(\beta)) < 1/p = \dfrac{1}{E^{\otimes 2}N(S,\tilde{S})} + 1$.
+\end{proof}
+
+\begin{definition}
+    We know $(W_n^{\beta})$ is bounded in $L^2$ iff $\beta < \beta_2$ where
+    \[
+    \beta_2 := \sup\{\beta: \xi(\beta)E^{\otimes 2}(N(S,\tilde{S})) < 1\} \in (0,\infty]
+    \]
+    so for any $\beta < \beta_2$, we know $W_n^{\beta}$ converges in $L^2$ and hence $W_{\infty} > 0$ and then $\beta \leq \beta_c$, so $\beta_2 \leq \beta_c$.
+\end{definition}
+
+\begin{theorem}(M.Birkner and R.Sun for $d\geq 4$, )
+    In dimension $d\geq 3$, we have $\beta_c > \beta_2$.
+\end{theorem}
+$Remark$. To sum up, we have
+\[\beta_{L^2} \leq \beta_c \leq \bar{\beta}_c\]
+
+\begin{proposition}
+    If there exists $n$ such that
+    \[
+    \mathbb{E}[\sqrt{W_n}] < (2n+1)^{-d}
+    \]
+    then very strong disorder holds.
+\end{proposition}
+\begin{proof}
+    We have`
+    \[
+    f(\beta) = \lim_{m\to\infty} \dfrac{1}{nm}\mathbb{E}(\ln W_{nm}) \leq \limsup_{m\to\infty} \dfrac{2}{nm} \ln \mathbb{E}(\sqrt{W_{nm}})
+    \]
+    Given $x_1,\cdots,x_m \in\mathbb{Z}^d$ and define
+    \[
+    \widehat{W}_{nm}(x_1,\cdots,x_m) := E\exp(H_{nm}(\omega, X))\chi(X_{ni} = x_i, i\in[1,m])
+    \]
+    then we know
+    \[
+    \begin{aligned}
+           \mathbb{E}\sqrt{W_{nm}} &= \mathbb{E} \sqrt{\sum\limits_{(x_1,\cdots,x_m)\in (\mathbb{Z}^d)^m} \widehat{W}_{nm}(x_1,\cdots,x_m)} \\
+           &\leq \sum\limits_{(x_1,\cdots,x_m)\in (\mathbb{Z}^d)^m} \mathbb{E}\sqrt{\widehat{W}_{nm}(x_1,\cdots,x_m)} \\
+           &=  \sum\limits_{(x_1,\cdots,x_m)\in (\mathbb{Z}^d)^m}\mathbb{E}\sqrt{E\prod_{i=1}^m \exp(\omega(ni,x_i))\chi(X_{ni} = x_i)} \\
+           &= \sum\limits_{(x_1,\cdots,x_m)\in (\mathbb{Z}^d)^m}\mathbb{E}\sqrt{\widehat{W}_n(x_i-x_{i-1})} \\
+           &= \left(\sum_x \mathbb{E}\sqrt{\widehat{W}_n(x)}\right)^m
+    \end{aligned}
+    \]
+    and since $\widehat{W_n}(x) \leq W_n$ and we have
+    \[
+    \sum_x \mathbb{E}\sqrt{\widehat{W}_n(x)} = \sum_{|x|\leq n}\mathbb{E}\sqrt{\widehat{W}_n(x)} \leq (2n+1)^d \mathbb{E}\sqrt{W_n}
+    \]
+    and hence
+    \[
+    f(\beta) \leq \dfrac{2}{n}\ln\left(\sum_x \mathbb{E}\sqrt{\widehat{W}_n(x)}\right) \leq \dfrac{2}{n}\ln\left((2n+1)^d\mathbb{E}\sqrt{W_n}\right)
+    \]
+    and we are done.
+\end{proof}
+
+\begin{lemma}
+    For any measurable event $A$, it holds that
+    \[
+    \mathbb{E}\sqrt{W_n^{\beta}} \leq \sqrt{\mathbb{P}(A)} + \sqrt{\tilde{\mathbb{P}}_n(A^c)} 
+    \]
+\end{lemma}
+\begin{proof}
+    For any measurable positive function $f$, we have
+    \[
+    \mathbb{E}(\sqrt{W_n^{\beta}})^2 \leq \mathbb{E}(W_n^{\beta}f(\omega))\mathbb{E}(f(\omega)^{-1}) = \widetilde{\mathbb{E}}_n(f(\omega))\mathbb{E}(f(\omega)^{-1})
+    \]
+    and we consider $f$ to be some $\alpha \chi(A) + \alpha^{-1}\chi(A^c)$ and we will have
+    \[
+    \begin{aligned}
+        \widetilde{E_n}(f(\omega))\mathbb{E}(f(\omega)) &= (\alpha \widetilde{\mathbb{P}}_n(A) + \alpha^{-1}\widetilde{\mathbb{P}}_n(A^c))(\alpha^{-1}\mathbb{P}_n(A) + \alpha\mathbb{P}(A^c)) \\
+        &\leq (\alpha + \alpha^{-1}\widetilde{\mathbb{P}}_n(A^c))(\alpha^{-1}\mathbb{P}_n(A) + \alpha) \\
+        &= \alpha^2 +\alpha^{-2}\widetilde{\mathbb{P}}_n(A^c)\mathbb{P}_n(A) + \mathbb{P}_n(A) + \widetilde{\mathbb{P}}_n(A^c)
+    \end{aligned}
+    \]
+    and let $\alpha = (\widetilde{\mathbb{P}}_n(A^c)\mathbb{P}(A))^{1/4}$, we will have
+    \[
+    \widetilde{E_n}(f(\omega))\mathbb{E}(f(\omega)) \leq \left(\sqrt{\mathbb{P}(A)}+\sqrt{\widetilde{\mathbb{P}}_n(A^c)}\right)^2
+    \]
+    and we are done.
+\end{proof}
+
+
+\begin{definition}
+    (Size-Biased measure)\par
+    \[
+    \tilde{P}_n(d\omega):= W_n^{\beta}\mathbb{P}(d\omega)
+    \]
+\end{definition}
+
+\begin{definition}
+    (Size-biased environment)\par
+    Define $(\hat{\omega}_i)$ a sequence of i.i.d random variable with distribution given by
+    \[
+    \hat{\mathbb{P}}(\hat{\omega} \in \cdot) = \mathbb{E}(\exp(\beta\omega - \lambda)\chi(\omega \in \cdot))
+    \]
+    and with a random walk $X$ we may define $\tilde{\omega} = \tilde{\omega}(X,\omega,\hat{\omega})$ by
+    \[
+    \tilde{\omega}_{i,x} := \begin{cases}
+        \omega_i,x\quad&\text{if }x\neq X_i,\\
+        \hat{\omega}_{i,x}&\text{if }x=X_i
+    \end{cases}
+    \]
+\end{definition}
+
+\begin{lemma}
+    It holds that
+    \[
+    \tilde{P}_n((\omega_{i,x})_{i\in[1,n],x\in\mathbb{Z}^d}\in \cdot) = P\otimes \mathbb{P}\otimes\widehat{\mathbb{P}}
+    \]
+\end{lemma}
+\begin{proof}
+    Given a bounded measurable function $f$ which depends only on the first $n$ time environments and then
+    \[
+    \tilde{\mathbb{P}}_n(f(\omega)) = \mathbb{E}(W_n^{\beta}f(\omega)) = E\mathbb{E}(\exp(\beta H_n(\omega,X) - \lambda(\beta)f(\omega)))
+    \]
+    by Fubini. Let $\tilde{P}_{n,X}(\omega) = \exp(\beta H_n(\omega,X) - \lambda(\beta))\mathbb{P}(d\omega)$ and we have
+    \[
+    \tilde{\mathbb{P}}(f(\omega)) = E\tilde{\mathbb{E}}_{n,X}(f(\omega))
+    \]
+    and the distribution of $(\omega_{i,X_i})$ is given by $\hat{\mathbb{P}}$ and the original one for the rest.
+\end{proof}
+\newpage
+\subsection{Main results}
+
+\begin{proposition}
+    Assume that strong disorder holds. Then there exist $C>0, n_0\in\mathbb{N}$ such that for all $n\geq n_0$ there exists $s = s_n \in [0,C\ln n]$ such that
+    \[
+    A_n:= \{\exists (m,y)\in[0,n]\times[-n,n]^d, \theta_{m,y} W_s^{\beta} \geq n^{4d}\}
+    \]
+    it holds that
+    \[
+    \mathbb{P}(A_n) \leq \dfrac{1}{8(2n+1)^{2d}},\quad \tilde{\mathbb{P}}_n(A_n^c) \leq \dfrac{1}{8(2n+1)^{2d}}
+    \]
+\end{proposition}
+
+\begin{theorem}
+    For any $d\geq 3$, if the environment is bounded from above, then strong disorder and very strong disorder are equivlent. That is \begin{enumerate}
+        \item $\beta_c = \bar{\beta}_c$
+        \item $W_{\infty}^{\beta_c} > 0$ for $\mathbb{P}$ a.s.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We have if the strong disorder holds, then
+    \[
+    \mathbb{E}(\sqrt{W_n^{\beta}}) \leq \sqrt{\mathbb{P}(A_n)} + \sqrt{\tilde{\mathbb{P}}_n(A_n^c)} \leq \dfrac{1}{\sqrt{2}(2n+1)^d} 
+    \]
+    and hence by the propostion 7.2.1, we have for any $\beta > \beta_c$, the very strong disorder holds and hence $\beta_c = \bar{\beta}_c$. If $W_{\infty}^{\beta_c} = 0$, then the very strong disorder holds and which contradiction that $f(\beta_c) = 0$.
+\end{proof}
+
+\subsection{Proof of proposition 7.2.1}
+
+\begin{proposition}
+    If strong disorder holds then for any $\epsilon > 0$ there exists $C(\epsilon), u_0(\epsilon) > 0$ such that every $u\geq u_0$, there exists $s\in [0,C\ln u]$ such that
+    \[
+    \mathbb{P}(W_s^{\beta} \geq u) \geq u^{-(1+\epsilon)}
+    \]
+\end{proposition}
+
+Let $u = n^{4d}$ and $\epsilon = 1/(12d)$ and we consier $s\in[0,4C\ln n]$, which is such that
+\[
+\mathbb{P}(W_s^{\beta} \geq n^{4d}) \geq n^{-4d(1+\epsilon)}
+\]
+which means
+\[
+\tilde{\mathbb{P}}_s(W_s^{\beta} \geq n^{4d}) = \mathbb{E}(W_s^{\beta} \chi(W_s^{\beta} \geq n^{4d})) \geq n^{4d}\mathbb{P}(W_s^{\beta} \geq n^{4d}) \geq n^{-4d\epsilon} = n^{-1/3}
+\]
+and we introduce
+\[
+A_{m,n}:= \{\max_{x\in[-n,n]^d}\theta_{m-s,x}W_s^{\beta} \geq n^{4d}\}
+\]
+
+\begin{lemma}
+    For any $m \in [s,n]$, we have a.s.
+    \[
+    \tilde{\mathbb{P}}_n(A_{m,n}|\mathcal{F}_{m-s}) \geq n^{-1/3}
+    \]
+\end{lemma}
+
+With this lemma, we know
+\[
+\tilde{\mathbb{P}}_n(\bigcap_{i=1}^j A_{is,n}^c) = \tilde{\mathbb{P}}_n(\bigcap_{i=1}^j A_{is,n}^c|\mathbb{F}_{(j-1)_s}) \leq (1-n^{-1/3})\tilde{\mathbb{P}}_n(\bigcap_{i=1}^{j-1} A_{is,n}^c) \leq (1-n^{-1/3})^j
+\]
+for any $js\leq m$.\par
+Since $A_n = \cup_{m=s}^n A_{m,n}^c$, we have
+\[
+\tilde{\mathbb{P}}_n(A_n^c) \leq \tilde{P_n}(\cap_{i=1}^{[n/s]}A_{is,n}^c) \leq (1-n^{1/3})^{[n/s]} \leq \exp(-[n/s]n^{-1/3}) \leq e^{-n^{1/2}}
+\]
+for $n$ sufficently large, and then choose $n$ sufficently large such that $e^{-n^{1/2}} \leq \dfrac{1}{8(2n+1)^{2d}}$.\par
+For $\mathbb{P}(A_n)$, we have
+\[
+\begin{aligned}
+    \mathbb{P}(A_n) &\leq \sum\limits_{(m,y) \in [0,n]\times[-n,n]^d} \mathbb{P}(\theta_{m,y}W_s^{\beta} \geq n^{4d}) \\ &= (n+1)(2n+1)^d\mathbb{P}(W_s^{\beta} \geq n^{4d}) \\  &\leq (n+1)n^{-4d}(2n+1)^d
+\end{aligned}
+\]
+and let $n$ large enought such that
+\[
+(n+1)n^{-4d}(n+1/2)^{3d} \leq 1
+\]
+we will have the bound for $\mathbb{P}(A_n)$ in proposition 7.2.1.\par
+\vspace{0.5em}
+
+Now we begin the proof of \textbf{lemma 7.3.2}.\par
+\begin{proof}
+    Let $(\mathcal{G}_n)$ denote the natural filtration of $(\omega,\hat{\omega},X)$. We let $\tilde{W}_s^{\beta}$ the partition function constructed from $\tilde{\omega}$ and then $\widetilde{\mathbb{P}}_s(A_{m,n})$
+    \[
+    P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\tilde{\omega}\in A_{m,n}|\mathcal{G}_{m-s}) \geq P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\theta_{m-s},X_{m-s}\widetilde{W}_s^{\beta}\geq n^{4d}|\mathcal{G}_{m-s})
+    \]
+    Notice \[\theta_{k,X_k}\tilde{\omega}(m,x) = \tilde{\omega}(m+k,x+X_k) = \begin{cases}
+        \hat{\omega}(m+k,x+X_k)\quad&\text{if }X_{m+k} - X_k= x\\
+        \omega(m+k,x+X_k)&\text{if }X_{m+k} - X_k\neq x
+    \end{cases}\]
+    which will have the same distribution with $\tilde{\omega}$ and hence
+    \[
+    \begin{aligned}
+        P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\theta_{m-s},X_{m-s}\widetilde{W}_s^{\beta}\geq n^{4d}|\mathcal{G}_{m-s}) &= P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\widetilde{W}_s^{\beta}\geq n^{4d}|\mathcal{G}_{m-s}) \\
+        &=\widetilde{\mathbb{P}}_s(W_s^{\beta} \geq n^{4d}) \geq n^{-1/3}
+    \end{aligned}
+    \]
+\end{proof}
+
