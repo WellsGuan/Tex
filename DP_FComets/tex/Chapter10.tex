@@ -164,20 +164,20 @@ $Remark$. To sum up, we have
 \begin{definition}
     (Size-Biased measure)\par
     \[
-    \tilde{P}_n(d\omega):= W_n^{\beta}\mathbb{P}(d\omega)
+    \widetilde{\mathbb{P}}_n(d\omega):= W_n^{\beta}\mathbb{P}(d\omega)
     \]
 \end{definition}
 
 \begin{definition}
     (Size-biased environment)\par
-    Define $(\hat{\omega}_i)$ a sequence of i.i.d random variable with distribution given by
+    Define $(\widehat{\omega}_i)$ a sequence of i.i.d random variable with distribution given by
     \[
-    \hat{\mathbb{P}}(\hat{\omega} \in \cdot) = \mathbb{E}(\exp(\beta\omega - \lambda)\chi(\omega \in \cdot))
+    \widehat{\mathbb{P}}(\hat{\omega} \in \cdot) = \mathbb{E}(\exp(\beta\omega - \lambda)\chi(\omega \in \cdot))
     \]
-    and with a random walk $X$ we may define $\tilde{\omega} = \tilde{\omega}(X,\omega,\hat{\omega})$ by
+    and with a random walk $X$ we may define $\widetilde{\omega} = \widetilde{\omega}(X,\omega,\hat{\omega})$ by
     \[
     \tilde{\omega}_{i,x} := \begin{cases}
-        \omega_i,x\quad&\text{if }x\neq X_i,\\
+        \omega_{i,x}\quad&\text{if }x\neq X_i,\\
         \hat{\omega}_{i,x}&\text{if }x=X_i
     \end{cases}
     \]
@@ -186,19 +186,23 @@ $Remark$. To sum up, we have
 \begin{lemma}
     It holds that
     \[
-    \tilde{P}_n((\omega_{i,x})_{i\in[1,n],x\in\mathbb{Z}^d}\in \cdot) = P\otimes \mathbb{P}\otimes\widehat{\mathbb{P}}
+    \widetilde{P}_n((\omega_{i,x})_{i\in[1,n],x\in\mathbb{Z}^d}\in \cdot) = P\otimes \mathbb{P}\otimes\widehat{\mathbb{P}}((\widetilde{\omega}_{i,x})_{i\in[1,n],x\in\mathbb{Z^d}}\in \cdot)
+    \]
+    which means for any bounded measurable $f:\mathbb{R}^{\mathbb{N}\times \mathbb{Z}^d}\to \mathbb{R}$ we have
+    \[
+    \widetilde{E}_n f(\omega) = E\otimes \mathbb{E}\otimes\widehat{\mathbb{E}} f(\widetilde{\omega})
     \]
 \end{lemma}
 \begin{proof}
     Given a bounded measurable function $f$ which depends only on the first $n$ time environments and then
     \[
-    \tilde{\mathbb{P}}_n(f(\omega)) = \mathbb{E}(W_n^{\beta}f(\omega)) = E\mathbb{E}(\exp(\beta H_n(\omega,X) - \lambda(\beta)f(\omega)))
+    \widetilde{\mathbb{P}}_n(f(\omega)) = \mathbb{E}(W_n^{\beta}f(\omega)) = E\mathbb{E}(\exp(\beta H_n(\omega,X) - \lambda(\beta)f(\omega)))
     \]
     by Fubini. Let $\tilde{P}_{n,X}(\omega) = \exp(\beta H_n(\omega,X) - \lambda(\beta))\mathbb{P}(d\omega)$ and we have
     \[
-    \tilde{\mathbb{P}}(f(\omega)) = E\tilde{\mathbb{E}}_{n,X}(f(\omega))
+    \widetilde{\mathbb{P}}(f(\omega)) = E\tilde{\mathbb{E}}_{n,X}(f(\omega))
     \]
-    and the distribution of $(\omega_{i,X_i})$ is given by $\hat{\mathbb{P}}$ and the original one for the rest.
+    and the distribution of $(\omega_{i,X_i})$ is given by $\hat{\mathbb{P}}$ and the original one for the rest. Extend the RHS from finite dimension to the all dimensions.
 \end{proof}
 \newpage
 \subsection{Main results}
@@ -284,7 +288,7 @@ Now we begin the proof of \textbf{lemma 7.3.2}.\par
 \begin{proof}
     Let $(\mathcal{G}_n)$ denote the natural filtration of $(\omega,\hat{\omega},X)$. We let $\tilde{W}_s^{\beta}$ the partition function constructed from $\tilde{\omega}$ and then $\widetilde{\mathbb{P}}_s(A_{m,n})$
     \[
-    P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\tilde{\omega}\in A_{m,n}|\mathcal{G}_{m-s}) \geq P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\theta_{m-s},X_{m-s}\widetilde{W}_s^{\beta}\geq n^{4d}|\mathcal{G}_{m-s})
+    P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\tilde{\omega}\in A_{m,n}|\mathcal{G}_{m-s}) \geq P\otimes\mathbb{P}\otimes\widehat{\mathbb{P}}(\theta_{m-s,X_{m-s}}\widetilde{W}_s^{\beta}\geq n^{4d}|\mathcal{G}_{m-s})
     \]
     Notice \[\theta_{k,X_k}\tilde{\omega}(m,x) = \tilde{\omega}(m+k,x+X_k) = \begin{cases}
         \hat{\omega}(m+k,x+X_k)\quad&\text{if }X_{m+k} - X_k= x\\
@@ -299,3 +303,32 @@ Now we begin the proof of \textbf{lemma 7.3.2}.\par
     \]
 \end{proof}
 
+\subsection{Proof of proposition 7.3.1}
+
+\begin{theorem}
+    If strong disorder holds, then there exists $c>0$ such that for all $u\geq 1$
+    \[
+    \mathbb{P}(\max_{n\geq 0, x\in\mathbb{Z}^d}\widehat{W}_n^{\beta}(x) \geq u) \geq \dfrac{c}{u}
+    \]
+\end{theorem}
+
+\begin{proposition}
+    If strong disorder holds. For $\epsilon > 0$, there exist $C(\epsilon), u_0(\epsilon) > 0$ such that for all $u\geq u_0$
+    \[
+    \mathbb{P}(\max_{(n,x)\in [0,C\ln u]\times\mathbb{Z}^d}\widehat{W}_n^{\beta}(x) \geq u) \geq u^{-(1+\epsilon)}
+    \]
+\end{proposition}
+
+Then with the above proposition, we will know
+\[
+ \mathbb{P}(\max_{(n,x)\in [0,C\ln u]\times\mathbb{Z}^d}\widehat{W}_n^{\beta}(x) \geq u) \leq \mathbb{P}(\max_{n\in[0,C\ln u]} W_n^{\beta}) \leq C\ln u \max_{n\in [0,C\ln u]}\mathbb{P}(W_n^{\beta}\geq u)
+\]
+then we have for all $u\geq u_0$ we have there is some $s\in[0,C\ln u]$ such that
+\[
+\mathbb{P}(W_s^{\beta} \geq u) \geq u^{-1+\epsilon}/(C\ln u)
+\]
+and we may let $\epsilon' = \epsilon/2$ and then there is some $u_0'(\epsilon')$ such that $C\ln u \leq u^{\epsilon'}$ for $u\geq u_0(\epsilon')$ and we will have
+\[
+\mathbb{P}(W_s^{\beta} \geq u) \geq u^{-1+\epsilon}/(C\ln u) \geq u^{-1+\epsilon'}
+\]
+for all $u\geq u_0(\epsilon')$ where $C(\epsilon) = C(\epsilon')$.
