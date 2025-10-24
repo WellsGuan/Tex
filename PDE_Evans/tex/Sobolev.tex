@@ -1,0 +1,180 @@
+\section{Sobolev Spaces}
+
+\subsection{Definitions}
+
+\begin{definition}
+    (Sobolev Space)\par
+    The Sobolev space $W^{k,p}(\Omega)$ is the set of distributions on $\Omega$ whose weak partial derivatives up to order $k$ are in $L^p(\Omega)$, i.e. for $f\in C^{\infty}_c(\Omega)$, there is always some $u_\alpha \in L^p, |\alpha| \leq k$ such that
+    \[
+    \partial^{\alpha}u(f) = \int_{\Omega} u_{\alpha}f
+    \]
+    Then $W^{k,p}$ is a Banach space under the norm
+    \[
+    ||u||^p_{W^{k,p}(\Omega)}:= \sum\limits_{|\alpha|\leq k}||\partial^{\alpha} u||^p_{L^p(\Omega)}
+    \]
+    where $||\partial_{\alpha} u||_{L^p(\Omega)} = ||u_{\alpha}||_{L^p(\Omega)}$ where $u_{\alpha}$ is the function satisfying the requirement above.
+\end{definition}
+
+\begin{definition}
+    The Sobolev space $\widetilde{W}^{k,p}(\Omega)$ is the completion in the $W^{k,p}$ norm of $C^k(\Omega)$ with finite norm.
+\end{definition}
+
+\begin{proposition}
+    If $k\in \mathbb{N}_0$ and $p\in[1,\infty)$,then $W^{k,p} = \widetilde{W}^{k,p}$
+\end{proposition}
+
+\begin{definition}
+    For $p=2$, we can make $W^{k,2}$ a Hilbert space and use $H^k:= W^{k,2}$. The inner product is defined by
+    \[
+    \langle u,v\rangle_{H^k(\Omega)}:=\sum\limits_{|\alpha|\leq k}\langle \partial^{\alpha} u, \partial^{\alpha} v\rangle_{L^2(\Omega)} = \sum\limits_{|\alpha| \leq k} \int_{\Omega} \partial^{\alpha} u \partial^{\alpha} v
+    \]
+\end{definition}
+
+\begin{theorem}
+    (Caccioppoli Inequality)\par
+    Let $u\in C^(B_R)$ satisfy $\Delta u = 0$. Then there is a constant $C(d) > 0$ such that for all $r\in[0,R)$,
+    \[
+    \int_{B_r}|\nabla u|^2 \leq \dfrac{C}{(R-r)^2}\int_{B_R} u^2
+    \]
+\end{theorem}
+\begin{proof}
+    Let $0\leq \phi \leq 1$ be a smooth function that is supported in $B_R$ and equals one on $B_r$. We know
+    \[
+    \Delta(\phi u) = \phi\Delta u + 2\nabla\phi \cdot\nabla u + u\Delta \phi = 2\nabla \phi\cdot \nabla u +u\Delta \phi
+    \]
+    and we may multiply both sides by $-\phi u$ and integrate by parts:
+    \[
+    \begin{aligned}
+        \int_{B_R} -(\phi u)\Delta(\phi u) &= \int_{B_R} |\nabla(\phi u)|^2 + \int_{\partial B_R (\phi u)}(\phi u)\dfrac{\partial (\phi u)}{\partial\nu} dS \\
+        &= - \dfrac{1}{2}\int_{B^R} \nabla(\phi^2)\cdot \nabla(u^2) - \int_{B_R} u^2 \phi \Delta \phi  \\
+        &= \dfrac{1}{2}\int_{B_R}\Delta(\phi^2)u^2 - \int_{\partial B_R} u^2 \dfrac{\partial (\phi^2)}{\partial \nu} dS - \int_{B_R} u^2 \phi \Delta \phi
+    \end{aligned}
+    \]
+    which means
+    \[
+    \begin{aligned}
+        \int_{B_R}|\nabla(\phi u)|^2 = \int_{B_R}\left(\dfrac{1}{2}\Delta(\phi^2) - \phi\Delta \phi\right)u^2 = \int_{B_R}|\nabla \phi|^2 u^2
+    \end{aligned}
+    \]
+    and we may arrange $|\nabla \phi| \leq \dfrac{C(d)}{R-r}$ and hence we are done.
+\end{proof}
+
+\begin{corollary}
+    For all $k\in\mathbb{N}$, if $u \in C^{k+1}(B_R)$ satisfies $\Delta u = 0$, then there is a constant $C(d,k)>0$ such that for all $r\in[0,R)$,
+    \[
+    \int_{B_r}|D^k u|^2 \leq \dfrac{C}{(R-r)^{2k}}\int_{B_R}u^2
+    \]
+\end{corollary}
+\begin{proposition}
+    We may devide $[r,R]$ to $k$ subintervals of $\dfrac{R-r}{k}$. 
+\end{proposition}
+
+\subsection{Sobolev Embedding}
+
+\begin{theorem}
+    There exists a constant $C(d) > 0$ such that for all $u \in W^{1,1}(\mathbb{R}^d)$, we have
+    \[
+    ||u||_{L^{\tfrac{d}{d-1}}(\mathbb{R}^d)} \leq C||\nabla u||_{L^1(\mathbb{R}^d)}
+    \]
+\end{theorem}
+
+\begin{corollary}
+    For each $p\in[1,d)$, there exists $C(d,p) > 0$ such that for all $u\in W^{1,p}(\mathbb{R}^d)$, we have
+    \[
+    ||u||_{L^{p^*}(\mathbb{R}^d)} \leq C||\nabla u||_{L^p(\mathbb{R}^d)}
+    \]
+    where $p^* = \dfrac{dp}{d-p}$.
+\end{corollary}
+
+\begin{theorem}
+    (Morrey's Inequality)\par
+    If $p\in(d,\infty]$, there exists $C(d,p) > 0$ such that for all $u\in W^{1,p}(\mathbb{R}^d)$, and
+    \[
+    [u]_{C^{1-d/p}(\mathbb{R}^d)} \leq C||\nabla u||_{L^p(\mathbb{R}^d)}
+    \]
+    where
+    \[
+    [u]_{C^{\alpha}(\mathbb{R}^d)}:= \sup_{x\neq y}\dfrac{|u(x)-u(y)|}{|x-y|^{\alpha}}
+    \]
+    and $u$ is some "version" which means a function.
+\end{theorem}
+\begin{proof}
+    For all $x\in\mathbb{R}^d$ and $R>0$, we have
+    \[
+    \begin{aligned}
+        \left|\dfrac{1}{|\partial B_R|}\int_{\partial B_R(x)}(u-u(x))\right| &= \dfrac{1}{|S^{d-1}|} \int_{S^{d-1}} |u(x+R\theta) - u(x)|d\theta \\
+        &\leq \dfrac{1}{|S^{d-1}|} \int_{S^{d-1}}\int_0^{R}|\nabla u(x+r\theta)|drd\theta \\
+        &= \dfrac{1}{|S^{d-1}|} \int_{B_R(x)}|\nabla u(y)||y-x|^{-(d-1)}dy \\
+        &\leq \dfrac{1}{|S^{d-1}|} ||\nabla u||_{L^p(B_R(x))} \left(\int_{B_R} r^{-(d-1)p/(p-1)}\right)^{(p-1)/p} \\
+        &= ||\nabla u||_{L^p(B_R(x))} \dfrac{p-d}{p-1}R^{(p-d)/p} \\
+        &=C(d,p)R^{1-d/p}||\nabla u||_{L^p(B_R(x))} 
+    \end{aligned}
+    \]
+    Suppose $|x-z| \leq R/2$ and we have
+    \[
+    \begin{aligned}
+        \left|\dfrac{1}{|\partial B_R|}\int_{\partial B_R(z)}(u-u(x))\right| &= \dfrac{1}{|S^{d-1}|} \int_{S^{d-1}} |u(z+R\theta) - u(x)|d\theta \\
+        &\leq \dfrac{1}{|S^{d-1}|} \int_{S^{d-1}}\int_0^{3R/2}|\nabla u(x+r\phi)|dr\left|\det \dfrac{D\theta}{D\phi}\right|d\phi \\
+        &\leq C(d,p)R^{1-d/p}||\nabla u||_{L^p(B_{3R/2}(x))}
+    \end{aligned}
+    \]
+    Now for $x\neq y$ in $\mathbb{R}^d$ and $R:=|x-y|, z= (x+y)/2$ and then
+    \[
+    |u(x)-u(y)| \leq |u(x) - \dfrac{1}{\partial B_R}\int_{\partial B_R(z)} u| + |u(y) - \dfrac{1}{\partial B_R}\int_{\partial B_R(z)} u| \leq CR^{1-d/p}||\nabla u||_{L^p(\mathbb{R}^d)}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Let $U$ be a bounded open subset of $\mathbb{R}^d$ and suppose $\partial U$ is $C^1$. Assume $d < p \leq \infty$ and $u\in W^{1,p}(U)$. Then $u$ has a version $u^* \in C^{\gamma}(\overline{U})$ for $\gamma = 1 - n/p$ with the estimate
+    \[
+    ||u^*||_{C^{\gamma}(\overline{U})} \leq C||u||_{W^{1,p}(U)}
+    \]
+    where $C = C(p,n,U)$
+\end{theorem}
+
+\begin{corollary}
+    If $p\in(d,\infty)$, there exists $C(d,p) > 0$ such that for all $u\in W^{1,p}(\mathbb{R}^d)$ we have
+    \[
+    ||u||_{C^{1-d/p}(\mathbb{R}^d)} \leq C||u||_{W^{1,p}(\mathbb{R}^d)}
+    \]
+    In particular, $W^{1,p} \hookrightarrow C^{1-d/p}$. The same holds for $p = \infty$ and then we replace $C^{0,1}$ the Lipschitz functions instead of $C^1$.
+\end{corollary}
+\begin{proof}
+    We know that
+    \[
+    \left|\dfrac{1}{| B_R|}\int_{ B_R(z)}(u-u(x))\right| \leq CR^{1-d/p}||\nabla u||_{L^p(B_R(x))}
+    \]
+    and let $R=1$ and we have
+    \[
+    |u(x)|\leq C|\int_{B_1(x)} u| + C ||\nabla u||_{L^p(B_1(x))} \leq C ||u||_{W^{1,p}(\mathbb{R}^d)}
+    \]
+    by Holder.
+\end{proof}
+
+\begin{proposition}
+    (General Sobolev Inequality)\par
+    Let $\Omega$ be a bounded $C^1$ domain. If $p\in[1,d)$, there exists a constant $C(d,p,\Omega) > 0$ such that for all $u\in W^{1,p}(\Omega)$,
+    \[
+    ||u||_{L^{p^*}(\Omega)} \leq C||u||_{W^{1,p}(\Omega)}
+    \]
+    and if $p\in(d,\infty]$, we sinilarly have
+    \[
+    ||u||_{C^{1-d/p}(\Omega)} \leq C||u||_{W^{1,p}(\Omega)}
+    \]
+\end{proposition}
+
+\begin{theorem}
+    (Rellich-Kondrachov)\par
+    Let $\Omega$ be a bounded $C^1$ domain. If $1\leq p < d$ and $1\leq q < p^*$, then $W^{1,p}(\Omega)$ is compactly embedded in $L^q(\Omega)$. THat is, closed bounded sets in $W^{1,p}(\Omega)$ are cinoact in $L^q(\Omega)$.
+\end{theorem}
+
+\begin{corollary}
+    Let $\Omega$ be $\mathbb{R}^d$ or a bounded $C^1$ domain. Then there exists a constant $l(d) \in \mathbb{N}$ such that for all $k\in \mathbb{N}$, $H^{k+l(\Omega)} \hookrightarrow C^k(\Omega)$. 
+\end{corollary}
+
+\begin{proof}
+    If $u\in C^2(B_R)$ is harmonic, then for all $k\in\mathbb{N}$ and $r\in (0,R]$, there exists $C(d,k,r,R)>0$ such that
+    \[
+    ||u||_{C^k(B_r)} \leq C||u||_{L^2(B_R)}
+    \]
+\end{proof}
