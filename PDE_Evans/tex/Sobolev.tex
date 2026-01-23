@@ -172,9 +172,66 @@
     Let $\Omega$ be $\mathbb{R}^d$ or a bounded $C^1$ domain. Then there exists a constant $l(d) \in \mathbb{N}$ such that for all $k\in \mathbb{N}$, $H^{k+l(\Omega)} \hookrightarrow C^k(\Omega)$. 
 \end{corollary}
 
-\begin{proof}
-    If $u\in C^2(B_R)$ is harmonic, then for all $k\in\mathbb{N}$ and $r\in (0,R]$, there exists $C(d,k,r,R)>0$ such that
+\begin{proposition}
+    If $u\in C^2(B_R)$ is harmonic, then for all $k\in\mathbb{N}$ and $r\in (0,R]$, there exists \[C(d,k,r,R)>0\] such that
     \[
     ||u||_{C^k(B_r)} \leq C||u||_{L^2(B_R)}
     \]
+\end{proposition}
+\begin{proof}
+    Assume $u\in C^{\infty}(B_R)$ and fix $k$ and take $l(d)$, then since
+    \[
+    ||u||_{H^{k+l}(B_r)} \leq C(d,k,R,r)||u||_{L^2}(B_R)
+    \]
+    and we are done by$H^{k+l}(\Omega)$ is compactly embedded in $C^k(\Omega)$.
 \end{proof}
+
+\begin{proposition}
+    (Weyl's Lemma)\par
+    If $u\in L^2(B_1)$ is harmonic in a distributional sense, then $u \in C_{loc}^{\infty}(B_1)$ and $\Delta u = 0$ classically.
+\end{proposition}
+
+\subsection{Traces}
+
+\begin{proposition}
+    Let $\mathbb{H} = \mathbb{R}\times\mathbb{R}^+$. There is a bounded operator $\text{Tr}:H^1(\mathbb{H}) \to L^2(\partial \mathbb{H})$ such that for all $u\in H^1(\mathbb{H})\cap C(\overline{\mathbb{H}}),\text{Tr} u = u|_{\partial \mathbb{H}}$.
+\end{proposition}
+\begin{proof}
+    By density, we may only prove the bound on $H^1(\mathbb{H})\cap C(\overline{\mathbb{H}})$. GIven $x\in \mathbb{R}$ and $y\in [0,1]$,we have
+    \[
+    u(x,0) = u(x,y) - \int_0^y \partial_y(x,z)dz
+    \]
+    and we will have
+    \[
+    u(x,0)^2 \leq 2u(x,y)^2 + 2y\int_0^y |\partial_yu(x,z)|^2 dz
+    \]
+    by Cauchy and then
+    \[
+    ||u||^2_{L^2(\partial \mathbb{H})} \leq 2\int_{\mathbb{R}\times[0,1]}u^2 + 2 \int_{\mathbb{R} \times[0,1]}|\nabla u|^2 \leq 2||u||^2_{H^1(\mathbb{H})}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Let $\Omega \subset \mathbb{R}^d$ be a bounded Lipschitz domain. Then there is a well-defined trace operator $\text{Tr}:H^1(\Omega) \to L^2(\partial\Omega)$ as above.
+\end{theorem}
+
+\begin{definition}
+    Let $\Omega$ be open, $p\in [1,\infty]$ and $k$ some integer. Then $W^{k,p}_0(\Omega)$ is the completion in the $W^{k,p}$ norm of $C_c^k(\Omega)$.
+\end{definition}
+
+\begin{proof}
+    Let $\Omega$ be a bounded Lipschitz domain and $p\in [1,\infty]$. Then $W^{1,p}_0(\Omega)$ is the kernel of the trace operator.
+\end{proof}
+
+\begin{theorem}
+    (Poincare Inequality)\par
+    Let $\Omega$ be bounded and Lipschitz and $p\in[1,\infty]$. Then there exists a constant $C(p,\Omega) > 0$ such that if $u\in W_0^{1,p}(\Omega)$,
+    \[||u||_{L^p(\Omega)} \leq C||\nabla u||_{L^p(\Omega)}\]
+\end{theorem}
+
+\begin{theorem}
+    Let $\Omega$ be bounded and Lipschitz and $p\in[1,\infty]$. Then there exists a constant $C(p,\Omega) > 0$ such that if $u\in W^{1,p}(\Omega)$, then
+    \[
+    ||u - \dfrac{1}{|\Omega|}\int_{\Omega} u||_{L^p(\Omega)} \leq C||\nabla u||_{L^p(\Omega)}
+    \]
+\end{theorem}

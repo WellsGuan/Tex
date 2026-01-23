@@ -1,0 +1,23 @@
+\section{Mathematical Fundamentals}
+
+\subsection{White Noise and Stochastic Integration in 1+1 dimensions}
+
+\begin{definition}
+    (Time-Space White Noise)\par
+    White noise $\xi(t,x), t\geq 0, x\in\mathbb{R}$ is the distribution valued Gaussian process with mean zero and covariance
+    \[
+    E[\xi(t,x)\xi(s,y)] = \delta(t-s)\delta(x-y)
+    \]
+    which means we have a family of random variables
+    \[
+    \left\{\int \xi(t,x)f(t,x) dxdt\right\}_{f\in L^2(\mathbb{R}^+\times\mathbb{R})}
+    \]
+\end{definition}
+
+\begin{proposition}
+    For an \hyperlink{HilBasis}{orthonormal basis} $f_1,f_2,\cdots$ of $L^2(\mathbb{R}^+\times\mathbb{R})$ and independent Gaussian random variables $Z_1,Z_2,\cdots$ each with mean zero and variance $1$, and then
+    \[
+    \xi(t,x) = \sum\limits_{n=1}^{\infty}Z_nf_n(t,x)
+    \]
+    is a \hypertarget{TSWhiteNoiseConstruct}{time-space white noise} required in above defintion.
+\end{proposition}
