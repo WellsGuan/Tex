@@ -1,0 +1,143 @@
+\section{Preliminary}
+
+\subsection{Manifolds}
+
+\begin{definition}
+    A topological space $M$ is locally Euclidean of dimension $n$ if for every point $p$ in $M$, there is a homeomorphism $\phi$ of a neighborhood $U$ of $p$ with an open subset of $\mathbb{R}^n$. Such a pair $(U, \phi: U \to \mathbb{R}^n)$ is called a coordinate chart or simply a chart. If $p \in U$, then we say that $(U,\phi)$ is a chart about $p$. A collection of charts $\{(U_{\alpha},\phi_{\alpha}: U_{\alpha} \to \mathbb{R}^n)\}$ is $C^{\infty}$ compatible if for every $\alpha$ and $\beta$, the transition function
+    \[\phi_{\alpha}\circ \phi^{-1}_{\beta}: \phi_{\beta}(U_{\alpha}\cap U_{\beta}) \to \phi_{\alpha}(U_{\alpha}\cap U_{\beta})\]\
+    is $C^{\infty}$. A collection of $C^{\infty}$ compatible charts $\{(U_{\alpha},\phi_{\alpha} : U_{\alpha} \to \mathbb{R}^n)\}$ that cover $M$ is
+called a $C^{\infty}$ atlas. A $C^{\infty}$ atlas is said to be maximal if it contains every chart that is
+$C^{\infty}$ compatible with all the charts in the atlas.
+\end{definition}
+
+\begin{definition}
+    A topological manifold is a Hausdorff, second countable, locally Euclidean topological space. A smooth manifold is a pair consisting of a
+topological manifold M and a maximal $C^{\infty}$ atlas $\{(U_{\infty},\phi_{\alpha})\}$ on $M$. 
+\end{definition}
+
+\begin{definition}
+    A function $f:M\to\mathbb{R}^n$ on a manifold $M$ is said to be smooth if there is a chart $(U,\phi)$ about $p$ in the maximal atlas of $M$ such that the function \[
+    f\circ \phi^{-1}: \mathbb{R}^m \supset \phi(U) \to \mathbb{R}^n
+    \]
+    is smooth. The function $f:M\to \mathbb{R}$ is said to be smooth on $M$ if it is smooth at every
+point of $M$. Recall that an algebra over $\mathbb{R}$ is a vector space $A$ together with a bilinear
+map $\mu: A\times A \to A$, called multiplication, such that under addition and multiplication, $A$ becomes a ring. Under addition, multiplication, and scalar multiplication, the set of all smooth functions $f : M \to R$ is an algebra over $\mathbb{R}$, denoted by $C^{\infty}(M)$.
+\end{definition}
+
+\begin{definition}
+    A map $F: N\to M$ between two manifolds is smooth at $p\in N$ if there is a chart $(U,\phi)$ about $p$ in $N$ and a chart $(V,\psi)$ about $F(p)$ in $M$ with $V \supset F(U)$ such that the composite map 
+    \[\psi\circ F \circ \phi^{-1}: \mathbb{R}^n \supset \phi(U) \to \psi(V) \subset\mathbb{R}^n\]
+    is smooth at $\phi(p)$. It is smooth on $N$ if it is smooth at every point of $N$. A smooth map $F: N \to M$ is called a diffeomorphism if it has a smooth inverse, i.e., a smooth map $G: M \to N$ such that $F \circ G=\mathds{1}_M $ and $G\circ F = \mathds{1}_N$.
+\end{definition}
+
+\subsection{Tangent Vectors}
+
+\begin{definition}
+    For two $C^{\infty}$ functions $f: U \to \mathbb{R}$ and $g: V \to \mathbb{R}$ defined on neighborhoods $U$ and $V$ of $p$ to be equivalent if there is a neighborhood $W$ of $p$ contained in both $U$ and $V$ such that $f$ agrees with $g$ on $W$. The equivalence class of $f : U \to R$ is called the germ of $f$ at $p$. \par The set $C^{\infty}_p(M)$ of germs of $C^{\infty}$ real-valued functions at $p$ in $M$ is an algebra over $\mathbb{R}$.
+\end{definition}
+
+\begin{definition}
+    A tangent vector (point-derivation) at a point $p$ of a manifold $M$ is a linear map $D:C^{\infty}_p(M) \to \mathbb{R}$ such that for any $f,g \in C^{\infty}_p(M)$
+    \[ D(fg) = (Df)g(p) + f(p)Dg.\]
+    The set of all tangent vectors at $p$ is a vector space $T_p(M)$ called the tangent space of $M$ at $p$. 
+\end{definition}
+
+\begin{definition}
+    At a point $p$ in a coordinate chart $(U,\phi) = (U,x^1,\cdots,x^n)$ where $x^i = r^i \circ \phi$ is the $i$th component of $\phi$, we define the coordinate vectors $\partial/\partial x^i|_p \in T_p M$ by
+    \[\left.\dfrac{\partial}{\partial x^i}\right|_p f = \left.\dfrac{\partial}{\partial r^i}\right|_{\phi(p)}f\circ \phi^{-1}\]
+    for each $f\in C^{\infty}_p(M)$.
+\end{definition}
+
+\begin{proposition}
+    The coordinate vectors $\partial/\partial x^i|_p$ form a basis of the tangent space $T_p M$.
+\end{proposition}
+
+\begin{definition}
+    If $F:N\to\ M$ is a smooth map, then at each point $p\in N$ its differential
+    \[
+    F_{*,p}:T_pN\to T_{F(p)} M
+    \]
+    is the linear map defined by
+    \[
+    (F_(*,p) X_p)(h) = X_p(h\circ F)
+    \]
+    for $X_p \in T_pN$ and $h\in C^{\infty}_{F(p)}(M)$.
+\end{definition}
+
+\begin{proposition}
+    If $F: N \to M$ abd $G: M \to P$ are $C^{\infty}$ maps, then for any $p\in N$,
+    \[(G\circ F)_{*,p} = G_{*,F(p)} \circ F_{*,p}\]
+\end{proposition}
+\begin{proof}
+    For any $X_p \in T_pN, h\in C^{\infty}_{G\circ F(p)}(M)$, we have
+    \[
+        \begin{aligned}
+            (G\circ F)_{*,p}(X_p)(h) =& X_p(h\circ (G\circ F)) \\ =& X_p((h\circ G) \circ F) = F_{*,p}X_p(h\circ G) \\ =& (G_{*,p} \circ F_{*,p} )X_p(h)
+        \end{aligned}
+    \]
+\end{proof}
+
+\begin{definition}
+    Let $\phi:M\to N$ be a smooth map from smooth manifold $M$ to $N$, then
+    \begin{enumerate}
+        \item[(a)] $\phi$ is an immersion if $d\phi_m$ is injective for each $m\in M$.
+        \item[(b)] The pair $(M,\phi)$ is submanifold of $N$ if $\phi$ is an injective immersion.
+        \item[(c)] $\phi$ is an imbedding if $\phi$ is an injective immesrsion which is also a homeomorphism into $\phi(M)$, that is $\phi$ is open with $\phi(M)$ equipped with the relative topology.
+        \item[(d)] $\phi$ is a diffeomorphism if $\phi$ maps $M$ injectively onto $N$ and $\phi^{-1}$ is smooth.
+    \end{enumerate}    
+\end{definition}
+
+\begin{definition}
+    A set $f_1,\cdots,f_j$ of smooth functions defined on some neighborhood of $m$ in $M$ is called an independent set at $m$ if the differentials $df_1,\cdots,df_j$ form an independent set in $T_mM^*$.
+\end{definition}
+
+\begin{theorem}
+    (Inverse Function Theorem) Let $U\subset \mathbb{R}^d$ be open, and let $f:U\to\mathbb{R}^d$ be smooth. If the Jacobian matrix is nonsingular at $p \in U$, then there exists an open set $V$ with $p\in V\subset U$ such that $f|V$ maps $V$ injectively onto the open set $f(V)$ and $(f|V)^{-1}$ is smooth.
+\end{theorem}
+
+\begin{corollary}
+    Assume that $\phi: M\to N$ is smooth, that $m\in M$, and $d\phi:T_mM \to T_{\phi(m)}N$ is an isomorphism. Then there is a neighbourhood $U$ of $m$ such that $\phi: U \to \phi(U)$ is a diffeomorphism onto the open set $\phi(U)$ in $N$.
+\end{corollary}
+\begin{proof}
+    Since $d\phi$ is an isomorphism, we know dim $M =$ dim $N$, Consider $(U,\psi)$ a chart containing $m$ and $(V,\tau)$ a chart containing $\phi(m)$, then we know $\psi:U\to\psi(U), \tau:V\to\tau(V)$ are both diffeomorphisms and hence $(\tau \circ \phi \circ \psi^{-1})_{*,m}:T_{\psi(m)} \psi(U) \to T_{\tau(\phi(m))}\tau(V)$ is an isomorphism and hence the Jacobian matrix is non-singular, so there is an open set $W\subset \psi(U)$ such that $\tau \circ \phi \circ \psi^{-1}: W \to \tau \circ \phi \circ \psi^{-1}(W)$ is a diffeomorphism and hence induce a map $\psi^{-1}(W)\to \tau^{-1}(\tau \circ \phi \circ \psi^{-1}(W)) = \phi(\psi^{-1}(W))$ is a diffeomorphism.
+\end{proof}
+
+\begin{corollary}
+    Suppose that dim $M=d$ and that $f_1,\cdots,f_d$ is an independent set of functions at $m_0 \in M$. Then the functions $f_1,\cdots,f_d$ form a coordinate system on a neighborhood of $m_0$. 
+\end{corollary}
+
+
+\subsection{Vector Fields}
+
+\begin{definition}
+    A vector field $X$ on a manifold $M$ is the assignment of a tangent vector $X_p \in T_p M$ to each point $p$, then we can have
+    \[
+        X_p = a^i(p)\left.\dfrac{\partial}{\partial x^i}\right|_p\quad\text{with }a^i(p)\in\mathbb{R}
+    \]
+    and $X$ is said to be smooth if $M$ has a smooth atlas such that on each chart $(U,x^i)$ $a^i$ are smooth. We denote the set of all $C^{\infty}$ vector fields on $M$ by $\mathscr{X}(M)$.\par
+    A frame of vector fields on an open set $U\subset M$ is a collection of vector fields $X_1,\cdots, X_n$ on $U$ such that at each point $p \in U$, the vectors $(X_i)_p$ form a basis for $T_p M$.
+\end{definition}
+
+\begin{proposition}
+    For some $f\in C^{\infty}(M)$, we have the induced function on $M$ by
+    \[
+    (Xf)(p) = X_pf
+    \]
+    which is still in $C^{\infty}(M)$.
+\end{proposition}
+\begin{proof}
+    For a chart $(U,x^i)$, we have
+    \[
+    (Xf)(p) = a^i(p) \partial f/\partial x_i|_p
+    \]
+    which is smooth on $U$.
+\end{proof}
+\
+\begin{definition}
+    The Lie bracket of two vector fields $X,Y \in \mathscr{X}(M)$ is the vector field $[X,Y]$ defined by
+    \[[X,Y]_p f = X_p(Yf) - Y_p(Xf)\quad\text{for }p\in M\text{ and }f\in C^{\infty}_p(M)\]
+    which is still in $\mathscr{X}(M)$.
+\end{definition}
+
+\subsection{Differential Forms}
+
