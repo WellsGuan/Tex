@@ -1,6 +1,7 @@
 \newcommand{\htk}{\mathcal{G}}
 \newcommand{\tr}{\text{tr}}
 \newcommand{\Lip}{\text{Lip}}
+\newcommand{\ropV}{\mathcal{V}^{\sigma,\rho}}
 
 \section{Setup}
 
@@ -62,6 +63,38 @@ attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma
     \]
     which means
     \[
-    v_t^\rho{x} = \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)*[\sigma(v_r^{\rho})(x-y)dW_r(x-y)]
+    \begin{aligned}
+        v_t^\rho{x} &= \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
+        &=\htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
+        &=\htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int\left(\int_s^t G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)\right)dy 
+    \end{aligned}
     \]
+    which can be interpreted as an Ito integral. We only look for the solution $v_t^{\rho}$ in the spaces $\mathscr{X}_t^l$ of $\mathbb{R}^m$-valued random fields $z$ on $\mathbb{R}^2$ that are $\mathcal{F}_t$-measurable and 
+    \[||z||_l:=\sup_{x\in\mathbb{R}^2}(\mathbb{E}|z(x)|^l)^{1/l} < \infty\]
 \end{definition}
+
+\begin{proposition}
+    For any $l\geq 2$, there is a family of random operators $(\ropV_{s,t})_{s<t}$ such that if $v_s \in \mathscr{X}_s^l$, then $v_t^{\rho} = \ropV_{s,t} v_s$ is a mild solution of $\eqref{semiSHE}$ for $t\geq s$. We oftten write $\ropV_t := \ropV_{0,t}$.
+\end{proposition}
+
+Shown by some standard fixed-point arguments.
+
+\begin{definition}
+    (Forward-backward SDE)\ \par
+    The system of SDE:
+    \[
+    \begin{aligned}
+        d\Gamma^{\sigma}_{a,Q}(q) &= J_{\sigma}(Q-q,\Gamma^{\sigma}_{a,Q}(q))dB(q),\quad &a\in\mathbb{R}^m, 0 < q <Q \\
+        \Gamma^{\sigma}_{a,Q}(0) &= a, &a\in\mathbb{R}^m,Q\geq0 \\
+        J_{\sigma}(q,b) &= [\mathbb{E}\sigma^2(\Gamma^{\sigma}_{a,Q}(q))]^{1/2},&q\geq 0,b\in \mathbb{R}^m
+    \end{aligned}
+    \]
+    for $B$ a standard $\mathbb{R}^m$-valued Brownian motion and $A^{1/2}$ is the unique positive-definite matrix square root of $A\in \mathcal{H}^{m}_+$.
+\end{definition}
+
+
+
+\subsection{Main Result}
+
+
+
