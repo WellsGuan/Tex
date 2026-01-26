@@ -9,7 +9,7 @@
 We consider the semilinear stochastic heat equation
 \[du^{\rho}_t = \dfrac{1}{2}\Delta u_t^{\rho}dt + \gamma_{\rho}\sigma(u_t^{\rho})dW_t^{\rho},\quad t>0, x\in\mathbb{R}^2\label{semiSHE}\]
 Here $\sigma$ is a Lipschitz nonlinearity and $dW_t^{\rho}(x)$ is a Gaussian noise that is white in time and correlated in space at scale $\rho^{1/2} << 1$. We are interested in the pointwise behavior of $u_t^{\rho}(x)$ as $\rho \to 0$, which calls for an attenuation factor $\gamma_{\rho}\sim |\ln \rho|^{-1/2}$ due to critical scaling in two dimensions. In fact, we devote most of our
-attention to a variation on $\eqref{semiSHE}$ in which we first multiply and then smooth the noise:
+attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma$ and then smooth the noise:
 \[dv_t^{\rho} = \dfrac{1}{2}\Delta v_t^{\rho}dt + \gamma_{\rho}\htk_{\rho}[\sigma(v_t^{\rho})dW_t] \label{spde}\]
 
 \begin{definition}\ \par
@@ -52,4 +52,16 @@ attention to a variation on $\eqref{semiSHE}$ in which we first multiply and the
     \[L(\tau) = \ln (1+\tau)\quad\text{for }\tau\geq 0\]
     and set
     \[\gamma_{\rho} = \sqrt{\dfrac{4\pi}{L(1/\rho)}}\]
+\end{definition}
+
+\begin{definition}\ \par
+    (Mild Solution 1)\par
+    A mild solution for $\eqref{spde}$ is a predictable random field $v^{\rho}$ such that for all $s<t$, we have
+    \[
+    v^{\rho}_t(x) = \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t\htk_{t+\rho-r}[\sigma(v_r^{\rho})dW_r](x)
+    \]
+    which means
+    \[
+    v_t^\rho{x} = \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)*[\sigma(v_r^{\rho})(x-y)dW_r(x-y)]
+    \]
 \end{definition}
