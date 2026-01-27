@@ -141,3 +141,25 @@ map $\mu: A\times A \to A$, called multiplication, such that under addition and 
 
 \subsection{Differential Forms}
 
+
+\section{Riemann Metrics}
+
+\subsection{Definitions}
+
+\begin{definition}\ \par
+    (Riemannian Metric)\par
+    Let $M$ be a smooth manifold. $g$ is a smoothly real inner product on the tangent spaces of $M$ in the sense that if $X$ and $Y$ are smooth vector fields on $M$, then $p\mapsto \langle X_p,Y_p\rangle_p$ is a smooth function on $M$.\par 
+    A smooth manifold endowed with a Riemannian metric is called a Riemannian manifold.
+\end{definition}
+
+\begin{definition}\ \par
+    (Length and Angle)\par
+    Given a Riemannian metric $g$ on $M$, we can speak about the length
+    \[
+    |v| = |v|_g = \sqrt{g_x(v,v)}
+    \]
+    of a tangent vector $v\in T_xM$, and about the angle between two nonzero tangent vectors $v,w \in T_xM$, we have
+    \[
+    \theta = \arccos g_x(\dfrac{v}{|v|}, \dfrac{w}{|w|})
+    \]
+\end{definition}
