@@ -1,100 +1,11 @@
-\newcommand{\htk}{\mathcal{G}}
-\newcommand{\tr}{\text{tr}}
-\newcommand{\Lip}{\text{Lip}}
-\newcommand{\ropV}{\mathcal{V}^{\sigma,\rho}}
+\section{Stochastic Integrals}
 
-\section{Setup}
+\subsection{Wiener Integral}
 
-\subsection{Semilinear SHE}
-
-We consider the semilinear stochastic heat equation
-\[du^{\rho}_t = \dfrac{1}{2}\Delta u_t^{\rho}dt + \gamma_{\rho}\sigma(u_t^{\rho})dW_t^{\rho},\quad t>0, x\in\mathbb{R}^2\label{semiSHE}\]
-Here $\sigma$ is a Lipschitz nonlinearity and $dW_t^{\rho}(x)$ is a Gaussian noise that is white in time and correlated in space at scale $\rho^{1/2} << 1$. We are interested in the pointwise behavior of $u_t^{\rho}(x)$ as $\rho \to 0$, which calls for an attenuation factor $\gamma_{\rho}\sim |\ln \rho|^{-1/2}$ due to critical scaling in two dimensions. In fact, we devote most of our
-attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma$ and then smooth the noise:
-\[dv_t^{\rho} = \dfrac{1}{2}\Delta v_t^{\rho}dt + \gamma_{\rho}\htk_{\rho}[\sigma(v_t^{\rho})dW_t] \label{spde}\]
-
-\begin{definition}\ \par
-    (Space-time White Noise)\par
-    Let $dW = (dW_t(x))_{t\in\mathbb{R},x\in\mathbb{R}^2}$ be a standard $\mathbb{R}^m$-valued space-time white noise generating a temporal filtration $\{\mathcal{F}_t\}_{t\in\mathbb{R}}$. Writing $dW = (dW^1,\cdots,dW^m)$ in components, then
-    \[\mathbb{E}[dW_t^i(x)dW_{t'}^{i'}(x')] = \delta_{i,i'} \delta(t-t')\delta(x-x')\]
-\end{definition}
-
-\begin{proposition}
-    Construction a space-time white noise.
-\end{proposition}
-
-\begin{definition}\ \par
-    Let $(\Omega,\mathcal{F},\mathbb{P})$ be a proability space and fix a target dimension $m\in\mathbb{N}$. The solution $v^{\rho}:\Omega\times\mathbb{R}\times\mathbb{R}^2 \to \mathbb{R}^m$ is a random vector-valued function parametrized by the correlastion parameter $\rho > 0$. We suppress the dependence of $v^p$ on $\omega \in \Omega$.\par
-    Since $v$ is vector-valued, our nonlinearity $\sigma: \mathbb{R}^m \to \mathbb{R}^{m\times m}$ is matrix-valued. Let $\mathcal{H}^m_+$ dentoe the set of nonnegative-definite symmetric real $m\times m$ matrices, equipped with the metric induced by the Frobenius norm
-    \[
-    |A|^2_F := \text{tr}(AA^T) = \text{tr}(A^2)
-    \]
-    Let $\sigma$ belong to the space $\Lip(\mathbb{R}^m, \mathcal{H}^m_+)$.
-\end{definition}
+Let $T$ be a set and $X := \{X(t)\}_{t\in T}$ a $T$-indexed stochastic process. We recall that $X$ is a Gaussian random field (process when $T \subset \mathbb{R}$) if $(X_{t_1} ,\cdots,X_{t_m})$ is a Gaussian random vector for all $t_1,\cdots,t_m \in T$.\par
 
 \begin{definition}
-    Given $\tau \geq 0$, we define the heat operator
-    \[
-    \htk_{\tau} v = G_{\tau} * v
-    \]
-    where $G_{\tau} = (2\pi\tau)^{-1}\exp{(-\dfrac{|x|^2}{2\tau})}$ denotes the standard heat kernel. Define the spatially-smoothed noise $dW_t^{\rho} = G_{\rho} * dW_t$.
+Let $\mathscr{L}(\mathbb{R}^m)$ denote the collection of all Borel-measurable subsets of $\mathbb{R}^m$ that have finite Lebesgue measure. White noise on $\mathbb{R}^m$ is a mean-zero set-indexed Gaussian random field ${\xi(A)}_{A\in \mathscr{L}(\mathbb{R}^m)}$ with covariance function
+\[E[\xi(A_1)\xi(A_2)] := |A_1 \cap A_2| \quad\text{ for all } A_1, A_2 \in \mathscr{L}(\mathbb{R}^m), \]
+where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
 \end{definition}
-
-\begin{proposition}
-    We have
-    \[\mathbb{E}[dW_t^{\rho,i}(x)dW_{t'}^{\rho,i'}(x') = \delta_{i,i'}\delta(t-t')G_{2\rho}(x-x')\]
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-
-\begin{definition}
-    Define
-    \[L(\tau) = \ln (1+\tau)\quad\text{for }\tau\geq 0\]
-    and set
-    \[\gamma_{\rho} = \sqrt{\dfrac{4\pi}{L(1/\rho)}}\]
-\end{definition}
-
-\begin{definition}\ \par
-    (Mild Solution 1)\par
-    A mild solution for $\eqref{spde}$ is a predictable random field $v^{\rho}$ such that for all $s<t$, we have
-    \[
-    v^{\rho}_t(x) = \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t\htk_{t+\rho-r}[\sigma(v_r^{\rho})dW_r](x)
-    \]
-    which means
-    \[
-    \begin{aligned}
-        v_t^\rho{x} &= \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
-        &=\htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
-        &=\htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int\left(\int_s^t G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)\right)dy 
-    \end{aligned}
-    \]
-    which can be interpreted as an Ito integral. We only look for the solution $v_t^{\rho}$ in the spaces $\mathscr{X}_t^l$ of $\mathbb{R}^m$-valued random fields $z$ on $\mathbb{R}^2$ that are $\mathcal{F}_t$-measurable and 
-    \[||z||_l:=\sup_{x\in\mathbb{R}^2}(\mathbb{E}|z(x)|^l)^{1/l} < \infty\]
-\end{definition}
-
-\begin{proposition}
-    For any $l\geq 2$, there is a family of random operators $(\ropV_{s,t})_{s<t}$ such that if $v_s \in \mathscr{X}_s^l$, then $v_t^{\rho} = \ropV_{s,t} v_s$ is a mild solution of $\eqref{semiSHE}$ for $t\geq s$. We oftten write $\ropV_t := \ropV_{0,t}$.
-\end{proposition}
-
-Shown by some standard fixed-point arguments.
-
-\begin{definition}
-    (Forward-backward SDE)\ \par
-    The system of SDE:
-    \[
-    \begin{aligned}
-        d\Gamma^{\sigma}_{a,Q}(q) &= J_{\sigma}(Q-q,\Gamma^{\sigma}_{a,Q}(q))dB(q),\quad &a\in\mathbb{R}^m, 0 < q <Q \\
-        \Gamma^{\sigma}_{a,Q}(0) &= a, &a\in\mathbb{R}^m,Q\geq0 \\
-        J_{\sigma}(q,b) &= [\mathbb{E}\sigma^2(\Gamma^{\sigma}_{a,Q}(q))]^{1/2},&q\geq 0,b\in \mathbb{R}^m
-    \end{aligned}
-    \]
-    for $B$ a standard $\mathbb{R}^m$-valued Brownian motion and $A^{1/2}$ is the unique positive-definite matrix square root of $A\in \mathcal{H}^{m}_+$.
-\end{definition}
-
-
-
-\subsection{Main Result}
-
-
-
