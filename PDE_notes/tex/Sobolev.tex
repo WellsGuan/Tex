@@ -1,11 +1,12 @@
-\section{Stochastic Integrals}
+\newcommand{\Tst}{\mathcal{D}}
 
-\subsection{Wiener Integral}
+\section{Sobolev Spaces}
 
-Let $T$ be a set and $X := \{X(t)\}_{t\in T}$ a $T$-indexed stochastic process. We recall that $X$ is a Gaussian random field (process when $T \subset \mathbb{R}$) if $(X_{t_1} ,\cdots,X_{t_m})$ is a Gaussian random vector for all $t_1,\cdots,t_m \in T$.\par
+\subsection{Sobolev Spaces}
 
 \begin{definition}
-Let $\mathscr{L}(\mathbb{R}^m)$ denote the collection of all Borel-measurable subsets of $\mathbb{R}^m$ that have finite Lebesgue measure. White noise on $\mathbb{R}^m$ is a mean-zero set-indexed Gaussian random field ${\xi(A)}_{A\in \mathscr{L}(\mathbb{R}^m)}$ with covariance function
-\[E[\xi(A_1)\xi(A_2)] := |A_1 \cap A_2| \quad\text{ for all } A_1, A_2 \in \mathscr{L}(\mathbb{R}^m), \]
-where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
+    Denote $\Tst(U)$ to be the test functions. Let $u \in \Tst'(U )$, where $U \subset \mathbb{R}^d$ is open. The $k$-th order $L^p$-based Sobolev norm of $u$ is
+    \[||u||_{W^{k,p}(U)}: = \sum_{|\alpha|\leq k} ||D^{\alpha}u||_{L^p},\quad 1 \leq p < \infty\]
+    where we are using the distributional derivative and assume that $D^{\alpha}u$ is an $L^p$ function.
 \end{definition}
+
