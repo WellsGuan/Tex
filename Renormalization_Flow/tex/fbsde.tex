@@ -1,0 +1,111 @@
+\section{Well-posedness of the FBSDE}
+
+\subsection{Main Goal}
+
+The main result is
+\begin{definition}
+    Let $\sigma \in \Lip(\mathbb{R}^m,\mathcal{H}_+^m)$. For any $Q\in [0,\Qbar(\sigma))$, we have
+    \[\Qbar(\sigma) \geq Q + \Lip(J_{\sigma}(Q,\cdot))^{-2}\] 
+\end{definition}
+
+\begin{theorem}
+    $\mathcal{X}$ is the Banach space of $\mathcal{H}_+^m$-valued continuous functions on $\mathbb{R}^m$ with the norm (and this norm is finite)
+    \[
+    ||\sigma||_{\mathcal{X}}  := \sup_{x\in\mathbb{R}^m}\dfrac{|\sigma(x)_F|}{\langle x\rangle} 
+    \]
+\end{theorem}
+
+\begin{proposition}
+    Prove $\mathcal{X}$ is a Banach space.
+\end{proposition}
+
+\begin{proposition}
+    $\Lip(\mathbb{R}^m;\mathcal{H}_+^m) \subset \mathcal{X}$.
+\end{proposition}
+
+\subsection{SDE Solution Theory}
+
+\begin{definition}
+    Given a $\mathbb{R}^m$-valued Brownian motion $(B(q))_{q\geq 0}$ adapted to a filtration $\{\mathscr{G}_q\}_{q\geq 0}$. For an adapted process $Y$ on $[0,Q]$, a function $g:[0,Q] \times \mathbb{R}^m \to \mathcal{H}_+^m$ and a constant $a\in\mathbb{R}^m$, we define a new adapted process $\mathcal{R}^g_{a,Q}Y$ on $[0,Q]$ by
+    \[\mathcal{R}^g_{a,Q}Y(q):= a + \int_0^q g(Q-p,Y(p))dB(q)\]
+    whenever this stochastic integral is defined. For $Q>0$, define
+    \[
+    \mathcal{A}_Q:=\left\{J:[0,Q]\times \mathbb{R}^m \to \mathcal{H}_+^m\text{ continuous}: \sup_{q\in [0,Q]}\Lip(J(q,\cdot))<\infty\right\}
+    \]
+\end{definition}
+
+\begin{proposition}
+    Fix $L<\infty$ and $Q\in(0,\infty)$ and suppose that $g \in \mathcal{A}_Q$ satisfies \[
+    \sup\limits_{q\in[0,Q]} \Lip(g(q,\cdot)) \leq L\]
+    Then, for any $a\in\mathbb{R}^m$, there is a unique strong solution $\Theta^g_{a,Q}$ to the SDE
+    \[
+    \begin{aligned}
+        d\Theta^g_{a,Q}(q) &= g(Q-q,\Theta^g_{a,Q}(q))dB(q),\quad q\in[0,Q] \\
+        \Theta^g_{a,Q}(0) &= a \label{ssol}
+    \end{aligned}
+    \]
+The solution $\Theta^g_{a,Q}$ satisfies the moment bound
+    \[
+    \sup_{q\in[0,Q]} \mathbb{E}|\Theta^g_{a,Q}(q)|^l<\infty\quad\text{ for all }l\in[1,\infty)
+    \]
+Moreover, there exists a constant $C=C(L,Q)$ such that for any $Q' \in [0,Q]$ and any adapted process
+$\Gamma$ on $[0,Q']$, we have
+    \[
+    \sup_{q\in[0,Q']} \mathbb{E}|\Gamma(q) - \Theta^g_{a,Q}(q)|^2 \leq C \sup_{[0,Q']}\mathbb{E}|\Gamma(q) - \mathcal{R}^g_{a,Q}\Gamma(q)|^2
+    \]
+    and
+    \[
+    \mathbb{E}|\Theta^g_{a,Q}(q) - \Theta^g_{\widetilde{a},Q}(q)|^2 \leq C|a-\widetilde{a}|^2
+    \]
+\end{proposition}
+\begin{proof}
+    Define $\mathcal{K}_{L,Q'}$ on adapted processes on $[0,Q']$ by \[\sup\limits_{q\in [0,Q']} e^{-L^2q}\left(\mathbb{E}|\Gamma(q)|^2\right)^{1/2},\] which makes $\mathcal R_{a,Q}^g$ a contraction.
+\end{proof}
+
+\subsection{Local Solution}
+
+\begin{definition}
+     Let $Q>0$ and let $\sigma\in\Lip(\mathbb{R}^m;\mathcal{H}_+^m)$. We say that $J\in \mathcal{A}_Q$ is a root decoupling function for FBSDE on $[0,Q]$ if, for all $q \in [0,Q]$ and all $a \in \mathbb{R}^m$, we have
+     \[J(q,a) = [\mathbb{E}\sigma(\Theta^J_{a,q}(q))]^{1/2}\]
+    In this case, we also call $J^2$ the decoupling function. In the equation above, $\Theta^J_{a,q}$ is as in $\eqref{ssol}$.
+\end{definition}
+
+\begin{definition}
+    For $\lambda \in (0,\infty)$, we define the set of functions
+    \[
+    \Lambda(\lambda):= \{\sigma \in \Lip(\mathbb{R}^m;\mathcal{H}_+^m):\Lip(\sigma) \leq \lambda\}
+    \]
+\end{definition}
+
+\begin{proposition}
+     Suppose that $\lambda \in (0,\infty), \sigma \in \Lambda(\lambda),Q_0 > 0$ and that $J$ is a root decoupling function for FBSDE on $[0,Q_0]$. Then for all $Q \in [0,Q_0 \wedge \lambda^{−2})$, we have
+    $\Lip(J(Q,\cdot)) \leq (\lambda^{−2} - Q)^{−1/2}$.
+\end{proposition}
+
+\begin{lemma}
+    Suppose that $c\in (0,\infty), \overline{Q}<c^{-2}$ and $f:[0,\overline{Q}] \to [c^2,\infty)$ satisfies
+    \[f(Q) \leq c^2\exp\left\{\int_0^Q f(q)dq\right\}\]
+    for all $Q \in [0,\overline{Q}]$. Then
+    \[
+    f(Q) \leq (c^{-2}-Q)^{-1}\quad\text{for all }Q\in[0,\overline{Q}]
+    \]
+\end{lemma}
+\begin{proof}
+    Define $g(Q) = \int_0^Q f(q)dq$ and we have
+    \[
+    g'(q) = f(q),
+    \]
+    then
+    \[
+    (1 - e^{-g(q)})' = g'(q)e^{-g(q)} = f(q)e^{-g(q)} 
+    \]
+    and hence
+    \[
+    1 - e^{-g(Q)} = \int_0^Q f(q)e^{-g(q)}dq \leq c^2Q 
+    \]
+    Therefore, we have
+    \[
+    f(Q) \leq c^2e^{g(Q)} \leq \dfrac{c^2}{1-c^2Q}
+    \]
+    T 
+\end{proof}

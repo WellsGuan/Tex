@@ -1,0 +1,34 @@
+\appendix
+
+\section{Fundamentals}
+
+\subsection{Wiener Integral}
+
+Let $T$ be a set and $X := \{X(t)\}_{t\in T}$ a $T$-indexed stochastic process. We recall that $X$ is a Gaussian random field (process when $T \subset \mathbb{R}$) if $(X_{t_1} ,\cdots,X_{t_m})$ is a Gaussian random vector for all $t_1,\cdots,t_m \in T$.\par
+
+\begin{definition}
+Let $\mathscr{L}(\mathbb{R}^m)$ denote the collection of all Borel-measurable subsets of $\mathbb{R}^m$ that have finite Lebesgue measure. White noise on $\mathbb{R}^m$ is a mean-zero set-indexed Gaussian random field ${\xi(A)}_{A\in \mathscr{L}(\mathbb{R}^m)}$ with covariance function
+\[E[\xi(A_1)\xi(A_2)] := |A_1 \cap A_2| \quad\text{ for all } A_1, A_2 \in \mathscr{L}(\mathbb{R}^m), \]
+where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
+\end{definition}
+
+\subsection{Useful Approximations}
+
+\begin{proposition}\ \par
+    (Bihari-LaSalle Inequality)\par
+    Let $u$ and $f$ be non-negative continuous functions defined on the half-infinite ray $[0,\infty)$ and let $w$ be a continuous non-decreasing function defined on $[0,\infty)$ and $w(u) > 0$ on $(0,\infty)$. For $u$ we have
+    \[
+    u(t) \leq \alpha + \int_0^t f(s)w(u(s)) ds,\quad t\in[0,\infty),
+    \]
+    where $\alpha$ is a non-negative constant, then
+    \[u(t) \leq G^{-1}\left(G(\alpha)+\int_0^t f(s) ds\right),\quad t\in[0,T]\]
+    where the function $G$ is defined by
+    \[
+    G(x) = \int_{x_0}^x \dfrac{dy}{w(y)},\quad x\geq 0, x_0 \geq 0,
+    \]
+    and $G^{-1}$ is the inverse function of $G$ and $T$ is chosen so that
+    \[
+    G(\alpha) + \int_0^t f(s)ds\in\text{Dom}(G^{-1}),\quad \forall t\in[0,T]
+    \]
+\end{proposition}
+
