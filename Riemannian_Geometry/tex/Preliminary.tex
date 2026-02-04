@@ -172,3 +172,100 @@ map $\mu: A\times A \to A$, called multiplication, such that under addition and 
     g(X,Y) = X^iY^jg_{ij}
     \] 
 \end{proposition}
+
+\begin{definition}
+    Given a piecewise smooth path $\gamma ∶ [a, b] \to M$, the length of $\gamma$ is given by
+    \[
+    L(\gamma) = \int_a^b |\gamma'(t)|_gdt
+    \]
+    and for two points $x,y\in M$, the Riemannian distance between them is given by
+    \[
+    d_g(x,y) = \inf_{\gamma|\gamma(a)=x,\gamma(b) = y} L(\gamma)
+    \]
+\end{definition}
+
+\begin{proposition}
+    A reparametrization is a diffeomorphism $\phi:[c,d]\to [a,b]$ and prove the length is independent of the parametrization, i.e. the length is invariant under a reparametrization.
+\end{proposition}
+
+\begin{theorem}
+    $d_g$ is a metric and the metric topology on $M$ induced by $d_g$ coincides with the topology of $M$.
+\end{theorem}
+
+\begin{theorem}\ \par
+    (Hopf-Rinow)\par
+    Suppose $M$ is connected. If $(M,d_g)$ is complete, then any two points $x$ and $y$ are connected by a length-minimizing smooth path.
+\end{theorem}
+
+\begin{definition}
+    A path that is locally length-minimizing is called a geodesic.
+\end{definition}
+
+\begin{definition}\ \par
+    (Curvature)\par
+    For $\dim(M) = 1$, suppose first that $M = C$ is a curve embedded in $\mathbb{R}^2$, i.e. the image of map $\gamma:[a,b] \to \mathbb{R}^2$ with the unit speed parametrization and $\nu(t)$ is the unit normal vector field along $\gamma(t)$, the curvature of $C$ is given by
+    \[
+    \kappa_{\gamma}(t) = \gamma''(t)\cdot \nu(t)
+    \]
+    For $\dim(M) = 2$, consider an embedded surface $\Sigma\subset\mathbb{R}^3$ with the induced metric and normal vector field $\nu(x)$ along $\Sigma$. The principal curvatures are defined by
+    \[
+    \kappa_1(x):=\sup_P \kappa_{\gamma_P}(x),\quad \kappa_2(x):=\inf_P \kappa_{\gamma_P}(x)
+    \]
+    where $P$ is a plane containing both $x$ and $\nu(x)$ and $\gamma_P : = \Sigma\cap P$. Then we may define the mean curvature
+    \[
+    H_x = \dfrac{\kappa_1(x)+\kappa_2(x)}{2}
+    \]
+    and the Gauss curvature
+    \[
+    K_x = \kappa_1(x)\cdot\kappa_2(x)
+    \]
+\end{definition}
+
+\subsection{Some Constructions with Metrics}
+
+\begin{definition}
+    Let $V$ be a finite dimensional vector space equipped with an inner product $g$, we have an isomorphism
+    \[
+    (\cdot)^{\flat}:V\to V^*, X\mapsto X^{\flat}:=g(\cdot,X)
+    \]
+\end{definition}
+\begin{proof}
+    Consider an orthonormal basis $\{e_1,\cdots,e_n\}$, then $P$ is uniquely determined by $Pe_i, 1\leq i \leq n$., so we may know that
+    \[P = \sum_{i=1}^n (Pe_i) e_i^{\flat} \]
+    and we know $(\cdot)^{\flat}$ is a surjection and easy to be check an injection.
+\end{proof}
+
+\begin{definition}
+    Fix a basis $\{e_1, \dots, e_n\}$ of $V$, and let $\{e^1, \dots, e^n\}$ be the dual basis, satisfying
+\[
+e^j(e_i) = \delta^j_i.
+\]
+For $X \in V$, we will write $X = X^i e_i$, and for $\alpha \in V^*$, we will write $ \alpha = \alpha_j e^j $.
+The components $X^i$ or $\alpha_j$ can be picked out by evaluation on the basis/dual basis elements:
+\[
+X^i = e^i(X) \quad \text{and} \quad \alpha_j = \alpha(e_j).
+\]
+Also define
+\[
+g_{ij} := \langle e_i, e_j \rangle .
+\]
+and denote the inverse of $(\cdot)^{\flat}$ by
+\[ (\cdot)^{\sharp}:V^*\to V\]
+and $\{g^{ij}\}$ to be the inverse matrix of $\{g_{ij}\}$ defined by
+\[
+g^{ik}g_{kj} = \delta^i_j
+\]
+\end{definition}
+
+\begin{proposition}\ \par
+    \begin{itemize}
+        \item $(X^{\flat})_j = X^i g_{ij}$
+        \item $(\alpha^{\sharp})^i = g^{ij}\alpha_j$
+    \end{itemize}
+\end{proposition}
+\begin{proof}
+    (a) Notice
+    \[
+    (X^{\flat})_j = X^{\flat}(e_j) = X^i
+    \]
+\end{proof}
