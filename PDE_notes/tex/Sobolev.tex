@@ -1,12 +1,431 @@
-\newcommand{\Tst}{\mathcal{D}}
-
-\section{Sobolev Spaces}
-
-\subsection{Sobolev Spaces}
-
+\section{Introduction to Sobolev Spaces}
+\subsection{Sobolev spaces}
 \begin{definition}
-    Denote $\Tst(U)$ to be the test functions. Let $u \in \Tst'(U )$, where $U \subset \mathbb{R}^d$ is open. The $k$-th order $L^p$-based Sobolev norm of $u$ is
-    \[||u||_{W^{k,p}(U)}: = \sum_{|\alpha|\leq k} ||D^{\alpha}u||_{L^p},\quad 1 \leq p < \infty\]
-    where we are using the distributional derivative and assume that $D^{\alpha}u$ is an $L^p$ function.
+Let \(u\in D^{\prime}(U)\) , where \(U\subset \mathbb{R}^{d}\) is open. The \(k\) - th order \(L^{p}\) - based Sobolev norm of \(u\) is
+\[
+\| u\|_{W^{k,p}(U)} := \sum_{|\alpha |\leq k} \| D^{\alpha} u\|_{L^{p}}, \quad 1 \leq p < \infty ,
+\]
+where we are using the distributional derivative and assume that \(D^{\alpha} u\) is an \(L^{p}\) function.
 \end{definition}
 
+
+Expressions of the form \(\| D^{\alpha} u\|_{L^{p}}\) arise in the energy method for PDEs with \(p = 2\) .
+
+\begin{definition}
+Let \(U\) be an open subset of \(\mathbb{R}^{d}\) . The \(L^{p}\) - based Sobolev space of order \(k\) on \(U\) is
+\[
+W^{k,p}(U) = \{u\in D'(U):\| u\|_{W^{k,p}(U)}< \infty \} .
+\]
+Note that \(C_{c}^{\infty}(U) \subseteq W^{k,p}(U)\) . This allows us to introduce the following definition:
+\end{definition}
+
+\begin{definition}
+The set of \(u \in W^{k,p}(U)\) that vanish (to appropriate orders) on \(\partial U\) is
+\[
+W_{0}^{k,p}(U) = \overline{C_{c}^{\infty}(U)}^{\| \cdot \|}_{W^{k,p}2}\subset W^{k,p}(U).
+\]
+When \(p = 2\) , we introduce the notation
+\[
+H^{k}(U) = W^{k,2}(U), \qquad H_{0}^{k}(U) = W_{0}^{k,2}(U).
+\]
+We can define an inner product on \(H^{k}\) by
+\[
+\langle u,v\rangle_{H^{k}} = \sum_{|\alpha |\leq k}\langle D^{\alpha}u,D^{\alpha}v\rangle_{L^{2}}.
+\]
+\end{definition}
+
+\begin{proposition}
+1. For all \(k \in \mathbb{Z}_{\geq 0}\) and \(1 \leq p \leq \infty\) , the following Sobolev spaces \((W^{k,p}(U), \| \cdot \|_{W^{k,p}})\) and \((W_{0}^{k,p}(U), \| \cdot \|_{W^{k,p}})\) are Banach spaces.
+
+2. For all \(k \in \mathbb{Z}_{\geq 0}\) , \((H^{k}(U), \langle \cdot , \cdot \rangle_{H^{k}})\) and \((H_{0}^{k}(U), \langle \cdot , \cdot \rangle_{H^{k}})\) are Hilbert spaces.
+
+3. (Fourier-analytic characterization of \(H^{k}\) ) Given \(u \in H^{k}(U)\)
+\[
+\| u\|_{H^{k}} \simeq \| \hat{u} \|_{L^{2}} + \| \xi |^{k} \hat{u} \|_{L^{2}} \simeq \| (1 + |\xi |^{2})^{k / 2} \hat{u} \|_{L^{2}},
+\]
+where \(A \simeq B\) means \(A \lesssim B\) and \(B \lesssim A\) .
+\end{proposition}
+
+\section{A Priori Estimates and Approximation Theorems}
+\subsection{Relationship between a priori estimates, existence, and uniqueness}
+Here is a concrete thing to keep in mind: Often, we prove a priori estimates for a PDE, i.e. if \(u\in X\) with \(P u = f\) , then
+\[
+\| u\|_{X}\leq C\| f\|_{Y}.
+\]
+
+\begin{proposition}
+Let \(X,Y\) be Banach spaces, and let \(P:X\to Y\) be a bounded, linear operator. Denote by \(P^{*}:Y^{*}\to X^{*}\) the adjoint of \(P\) , i.e.
+\[
+\langle v,P u\rangle = \langle P^{*}v,u\rangle \quad \mathrm{for~all~}u\in X,v\in Y^{*}.
+\]
+Suppose there exists a constant \(C > 0\) such that
+\[
+\| u\|_{X}\leq C\| Pu\|_{Y}\quad \mathrm{for~all~}u\in X.
+\]
+Then:
+1. (Uniqueness for \(P u = f\) ) If \(u\in X\) and \(P u = 0\) , then \(u = 0\) .
+
+2. (Existence for \(P^{*}v = g\) ) For all \(g\in X^{*}\) , there exists a \(v\in Y^{*}\) such that \(P^{*}v = g\) and
+\[
+\| v\|_{Y^{*}}\leq C\| g\|_{X^{*}}.
+\]
+\end{proposition}
+
+\begin{proof}
+The proof of 1. is clear, since \(\| u\|_{X}\leq 0\) implies \(u = 0\) since \(X\) is normed. We proceed with the proof of the second part 2., via the Hahn- Banach theorem. In particular, our objective is to find \(v\in Y^{*}\) such that \(P^{*}v = g\) , which is equivalent to
+\[
+\langle P^{*}v,u\rangle = \langle v,P u\rangle = \langle g,u\rangle \quad \mathrm{for~all~}u\in X.
+\]
+Define \(\ell :P(X)\to \mathbb{R}\) by
+\[
+\ell (P u):= \langle g,u\rangle .
+\]
+Since \(P\) is injective (by 1. ), this is well- defined. Moreover,
+\[
+\begin{array}{r l}
+& {|\ell (P u)| = |\langle g,u\rangle |}\\
+& {\qquad \leq \| g\|_{X^{*}}\| u\|_{X}}\\
+& {\qquad \leq C\| g\|_{X^{*}}\| P u\|_{Y}}\\
+& {\qquad \leq C\| g\|_{X^{*}}}
+\end{array}
+\]
+so \(\ell\) is bounded. By the Hahn- Banach theorem, there exists \(v\in Y^{*}\) such that
+\[
+\langle v,P u\rangle = l(p u) = \langle g,u\rangle \quad \forall u\in X,
+\]
+and \(\| v\|_{Y^{*}}\leq C\| g\|_{X^{*}}\).
+\end{proof}
+
+\subsection{Approximation by smooth functions and smooth partition of unity}
+\begin{lemma}
+Let \(\phi\) be smooth, compactly supported i.e. \(\phi \in C_{0}^{\infty}(U)\) , and have
+\[
+\int \phi dx = 1.
+\]
+Let \(u\in L^{p}(\mathbb{R}^{d})\) with \(1\leq p< \infty\) . Denote mollifiers
+\[
+\phi_{\epsilon}(x) = \frac{1}{\epsilon^{d}}\phi (x / \epsilon)\quad (\mathrm{so}\int \phi_{\epsilon} = 1).
+\]
+Then
+\[
+\| \phi_{\epsilon}*u - u\|_{L^{p}}\xrightarrow[\epsilon\to0]{}\mathbb{0},
+\]
+where
+\[
+\phi_{\epsilon}*u = \int \phi_{\epsilon}(x - y)u(y)dy.
+\]
+\end{lemma}
+
+\begin{proof}
+The key ingredient is the continuity of the translation operator on \(L^{p}\) . Define for \(z \in \mathbb{R}^{d}\) and \(u \in L^{p}\) the translation operator
+\[
+\tau_{z}u(x) = u(x - z).
+\]
+Then
+\[
+\lim_{|z|\to 0}\| \tau_{z}u - u\|_{L^{p}} = 0,
+\]
+which you can check. Now
+\[
+\phi_{\epsilon}*u(x) - u(x) = \int u(x - y)\phi_{\epsilon}(y)dy - u(x).
+\]
+Since \(\int \phi_{\epsilon} = 1\)
+\[
+= \int (u(x - y) - u(x))\phi_{\epsilon}(y)dy.
+\]
+Taking the \(L^{p}\) norm, we have
+\[
+\| \phi_{\epsilon}*u(x) - u(x)\|_{L^{p}} = \left\| \int (u(x - y) - u(x))\phi_{\epsilon}(y)dy\right\|_{L^{p}}
+\]
+\[
+\qquad \leq \int \| u(\cdot -y) - u(\cdot)\|_{L^{p}}|\phi_{\epsilon}(y)|dy.
+\]
+Since \(\phi\) has compact support, \(\operatorname {supp}\phi_{\epsilon}\to \{0\}\) as \(\epsilon \to 0\) . Thus, the integrand goes to 0 as \(\epsilon \to 0\) So we may apply the dominated convergence theorem to get
+\[
+\| \phi_{\epsilon}*u - u\|_{L^{p}}\xrightarrow[\epsilon\to 0]{}0.
+\]
+\end{proof}
+
+\begin{lemma}
+Suppose \(\{U_{\alpha}\}_{\alpha \in A}\) be an open covering of \(U\) in \(\mathbb{R}^{d}\) . There exists a smooth partition of unity \(\{\chi_{\alpha}\}_{\alpha \in A}\) on \(U\) subordinate to \(\{U_{\alpha}\}_{\alpha \in A}\) , i.e.
+1. \(\sum_{\alpha}\chi_{\alpha}(x) = 1\) on \(U\) and for all \(x\in U\) there exist only finitely many nonzero \(\chi_{\alpha}(x)\)
+2. \(\operatorname {supp}\chi_{\alpha}\subseteq U_{\alpha}\)
+3. \(\chi_{\alpha}\) is smooth.
+\end{lemma}
+
+\begin{proof}
+Start from a continuous partition of unity and apply the previous lemma to approximate by smooth functions.
+\end{proof}
+
+\section{Approximation in Bounded Domains and the Extension Theorem}
+\subsection{Approximation theorems in bounded domains}
+\begin{theorem}
+Let \(k \geq 0\) be an integer and \(1 \leq p < \infty\).
+(i) \(C^{\infty}(\mathbb{R}^{d})\) is dense in \(W^{k,p}(\mathbb{R}^{d})\).
+(ii) \(C^{\infty}_{c}(\mathbb{R}^{d})\) is dense in \(W^{k,p}(\mathbb{R}^{d})\).
+\end{theorem}
+
+\begin{proof}
+(a) This is an application of mollification.
+(b) Approximate by \(f\chi(1/R)\), letting \(R \to \infty\), where \(\chi \in C^{\infty}_{c}(\mathbb{R}^{d})\) is such that \(\chi(0) = 1\).
+\end{proof}
+
+\begin{theorem}
+Let \(k \geq 0\) be an integer, \(1 \leq p < \infty\), and \(U\) an open subset of \(\mathbb{R}^{d}\). Then \(C^{\infty}(U)\) is dense in \(W^{k,p}(U)\).
+\end{theorem}
+
+\begin{proof}
+Let \(u \in W^{k,p}(U)\), and fix \(\epsilon > 0\) . We want to find \(v \in C^{\infty}(U)\) such that
+\[
+\| u - v\|_{W^{k,p}} \leq \epsilon .
+\]
+Define
+\[
+U_{j}:= \{x\in U:\operatorname {dist}(x,\partial U) > 1 / j\} ,\qquad V_{j} = U_{j}\backslash \overline{U_{j + 1}}.
+\]
+Then \(U \subset \bigcup_{j = 1}^{\infty} V_{j}\) , so there is a smooth partition of unity \(\chi_{j}\) subordinate to \(V_{j}\) .
+
+Now split
+\[
+u = \sum_{j = 1}^{\infty} u \chi_{j} := \sum_{j = 1}^{\infty} u_{j}.
+\]
+Then, as \(\operatorname {supp} \chi_{j} \subset V_{j}\) , we have \(\operatorname {supp} u_{j} = \operatorname {supp}(u \chi_{j}) \subset V_{j}\) . Moreover, \(u_{j} \in C_{c}^{\infty}(\mathbb{R}^{d})\) .
+
+If we let \(\phi \in C_{c}^{\infty}(\mathbb{R}^{d})\) with \(\int \phi = 1\) and \(\operatorname {supp} \phi \subset B_{1}(0)\) be a mollifier, let \(v_{j} = \phi_{\epsilon_{j}} * u_{j}\) , where \(\epsilon_{j}\) is chosen to achieve
+\[
+\| u_{j} - v_{j}\|_{W^{k,p}} \leq 2^{-j} \epsilon , \qquad \operatorname {supp} v_{j} \subset \widetilde{V}_{j} = U_{j - 1} \backslash \overline{U_{j + 2}}.
+\]
+Here, we make use of the fact that
+\[
+\operatorname {supp}(f * g) \subseteq \operatorname {supp} f + \operatorname {supp} g = \{x + y \in \mathbb{R}^{d}: x \in \operatorname {supp} f, y \in \operatorname {supp} g\}.
+\]
+Now take
+\[
+v = \sum_{j = 1}^{\infty} v_{j}.
+\]
+This is well- defined, as \(\widetilde{V}_{j}\) is locally finite. This is also smooth, so \(v \in C^{\infty}(U)\) . On the other hand,
+\[
+\| v - u\|_{W^{k,p}} \leq \sum_{j = 1}^{\infty} \| v_{j} - u_{j}\|_{W^{k,p}} \leq \sum_{j = 1}^{\infty} 2^{-j} \epsilon = \epsilon .
+\]
+\end{proof}
+
+\subsection{The extension theorem}
+\begin{theorem}[Extension theorem]
+Let \(k\geq 0\) be a nonnegative integer, \(1\leq p< \infty\) , and \(U\) a bounded domain with \(C^k\) boundary. Let \(V\) be an open set such that \(V\supseteq \bar{U}\) . Then there exists an operator
+\[
+\mathcal{E}:W^{k,p}(U)\to W^{k,p}(\mathbb{R}^{d})
+\]
+such that
+(i) (Extension) \(\mathcal{E}u|_U = u\)
+(ii) (Linear and bounded) \(\mathcal{E}\) is linear, and \(\| \mathcal{E}u\|_{W^{k,p}(\mathbb{R}^{d})} \leq C\| u\|_{W^{k,p}(U)}\) .
+(iii) (Support prescription) \(\operatorname{supp} \mathcal{E}u \subseteq V\) .
+\end{theorem}
+
+\begin{proof}
+Observe that, by the previous approximation theorem, it suffices to consider \(u \in C^{\infty}(\bar{U})\) (by density and the boundedness property (ii)).
+
+Remark (what we will actually construct). We first build an extension locally near each boundary chart. The resulting locally extended functions will have support in a small neighborhood of the boundary chart. We then glue all pieces together (using a partition of unity) and finally multiply by a cutoff supported in \(V\) to enforce the support condition (iii).
+
+Step 1 (Reduction to the half- ball case). As in Step 1 in the proof of the previous theorem, construct the open sets \(U_{0}, U_{1}, \ldots , U_{K}\) and the partition of unity \(\chi_{0}, \chi_{1}, \ldots , \chi_{K}\) .
+
+Define \(u_{k} := \chi_{k} u\) , and observe that
+\[
+\bullet u_{0}\mathrm{~is~already~in~}W^{k,p}(\mathbb{R}^{d})\mathrm{~and~}\operatorname {supp}u_{0}\subseteq U_{0}\subseteq V,
+\]
+\[
+\bullet u_{k}\in C^{\infty}(U)\mathrm{~and~}\operatorname {supp}u_{k}\subseteq B_{r_{0}}\subseteq U_{k}\cap U.
+\]
+
+What the boundary chart means: For each \(k \geq 1\) , because \(\partial U\) is \(C^{k}\) , after a rigid motion of coordinates (translation and rotation) we may assume that in \(U_{k}\) the boundary is given by a graph
+\[
+\partial U\cap U_{k} = \{(x^{\prime},x_{d}):x_{d} = \gamma (x^{\prime})\} ,\qquad U\cap U_{k} = \{(x^{\prime},x_{d}):x_{d} > \gamma (x^{\prime})\} ,
+\]
+where \(x^{\prime} = (x^{1}, \ldots , x^{d - 1})\) and \(\gamma \in C^{k}\) . The point \(x_{0} = (x_{0}^{\prime}, x_{0}^{\prime}) \in \partial U\) is chosen in that chart. The purpose is to "flatten" this graph.
+
+The way we do this flattening is via the following change of variables
+\[
+y^{\prime} = x^{\prime} - x_{0}^{\prime},\qquad y_{d} = x_{d} - \gamma (x^{\prime}),
+\]
+then \(U_{k} \cap U\) gets mapped into \(\{y \in B_{\tilde{r}}(0): y^{d} > 0\}\) .
+
+One can wonder why this is the right change of variables? It might sound like over explaining but this is the idea: The map \(x \mapsto y\) is designed so that the boundary graph becomes flat: if \(x_{d} = \gamma (x^{\prime})\) (a boundary point), then \(y_{d} = 0\) . If \(x_{d} > \gamma (x^{\prime})\) (an interior point), then \(y_{d} > 0\) . Thus the image of \(U \cap U_{k}\) is a region above the hyperplane \(\{y_{d} = 0\}\) . The translation \(y^{\prime} = x^{\prime} - x_{0}^{\prime}\) just moves the boundary point to the origin. Because we work in a small ball around \(x_{0}\) and \(\gamma\) is \(C^{k}\) , the image is contained in a half- ball \(B_{\tilde{r}}(0) \cap \{y_{d} > 0\}\) for some \(\tilde{r} > 0\) .
+
+In fact \(x \mapsto y\) is a \(C^{k}\) diffeomorphism (locally). Write \(\Phi (x^{\prime}, x_{d}) = (y^{\prime}, y_{d}) = (x^{\prime} - x_{0}^{\prime}, x_{d} - \gamma (x^{\prime}))\) . Then
+\[
+D\Phi = \begin{pmatrix} I_{d-1} & 0 \\ -\nabla \gamma & 1 \end{pmatrix}.
+\]
+Hence \(D\Phi\) is invertible everywhere in the chart, and \(\Phi\) is locally bijective with explicit inverse
+\[
+\Phi^{-1}(y^{\prime},y_{d}) = (y^{\prime} + x_{0}^{\prime},y_{d} + \gamma (y^{\prime} + x_{0}^{\prime})),
+\]
+which is also \(C^{k}\) . So \(\Phi\) is a \(C^{k}\) diffeomorphism between the chart neighborhood and its image.
+
+Note that the change of variables \(x \mapsto y\) is \(C^{k}\) , and \(u_{k}\) is smooth, so \(\tilde{u}_{k}(y) = u_{k}(x(y))\) satisfies, by the chain rule,
+\[
+\| \tilde{u}_{k}\|_{W_{y}^{k,p}(\tilde{U})}\leq C\| u_{k}\|_{W_{x}^{k,p}}.
+\]
+
+Step 2 (Extension in the half- ball case). Now we have \(U = B_{r}^{+}(0)\) , \(W = B_{r / 2}^{+}(0)\) , and \(\operatorname {supp}u\subseteq W\) , and we want to extend \(u\) . The idea is the higher order reflection method. After flattening, we may assume \(u\) is defined on the upper half- ball
+\[
+B_{r}^{+}(0) = \{x\in B_{r}(0):x_{d} > 0\} ,
+\]
+and moreover \(\operatorname {supp}u\subset B_{r / 2}^{+}(0)\) so it stays away from the spherical boundary \(\partial B_{r}(0)\) . We only need to extend across the flat boundary \(\{x_{d} = 0\}\) , while keeping \(W^{k,p}\) regularity up to order \(k\) .
+
+Define
+\[
+\tilde{u}(x) = \sum_{j=0}^{k} \alpha_j u(x', -\beta_j x_d), \quad x_d < 0,
+\]
+where the scaling factor \(0< \beta_{j}< 1\) is chosen so that \((x^{1},\ldots ,x^{d - 1}, - \beta_{j}x^{d})\in B_{r}^{+}(0)\).
+
+Remark: Why we must "shrink" (the role of \(\beta_{j}< 1\) ). If \(x\in B_{r}(0)\) has \(x_{d}< 0\) , then the reflected point \((x^{\prime}, - x_{d})\) might lie outside \(B_{r}(0)\) when \(x\) is close to the spherical boundary. Choosing \(0< \beta_{j}< 1\) ensures that \(- \beta_{j}x_{d}\) is smaller in magnitude than \(- x_{d}\) , i.e. it moves the point closer to the plane \(\{x_{d} = 0\}\) . Because \(\operatorname {supp}u\subset B_{r / 2}^{+}(0)\) , we can choose a fixed finite set of \(\beta_{j}\in (0,1)\) so that whenever \(x\in B_{r}(0)\) and \(x_{d}< 0\) , all points \((x^{\prime}, - \beta_{j}x_{d})\) remain inside \(B_{r}^{+}(0)\) (indeed inside the region where \(u\) is defined). This is the local reason for the shrink: it avoids leaving the chart.
+
+We need to match the normal derivatives on \(\{x^{d} = 0\}\) up to order \(k\) . Observe that
+\[
+\partial_{x^{d}}^{j}(u(x^{1},\ldots ,x^{d - 1}, - \beta_{j}x^{d})) = (-\beta_{j})^{j}(\partial_{x^{d}}^{j}u)(x^{1},\ldots ,x^{d - 1}, - \beta_{j}x^{d}).
+\]
+Deriving the matching conditions carefully. For \(x_{d}< 0\) , we define
+\[
+\tilde{u} (x^{\prime},x_{d}) = \sum_{m = 0}^{k}\alpha_{m}u(x^{\prime}, - \beta_{m}x_{d}).
+\]
+Fix \(\ell \in \{0,1,\ldots ,k\}\) . Differentiate \(\ell\) times in the normal variable:
+\[
+\partial_{x_{d}}^{\ell}\tilde{u} (x^{\prime},x_{d}) = \sum_{m = 0}^{k}\alpha_{m}\partial_{x_{d}}^{\ell}\Big(u(x^{\prime}, - \beta_{m}x_{d})\Big) = \sum_{m = 0}^{k}\alpha_{m}(-\beta_{m})^{\ell}\left(\partial_{x_{d}}^{\ell}u\right)(x^{\prime}, - \beta_{m}x_{d}).
+\]
+Now take the limit \(x_{d}\to 0^{- }\) : then \(- \beta_{m}x_{d}\to 0^{+}\) , so
+\[
+\partial_{x_{d}}^{\ell}\tilde{u} (x^{\prime},0^{-}) = \sum_{m = 0}^{k}\alpha_{m}(-\beta_{m})^{\ell}\left(\partial_{x_{d}}^{\ell}u\right)(x^{\prime},0^{+}).
+\]
+On the other hand, for \(x_{d} > 0\) , \(\tilde{u} = u\) , hence
+\[
+\partial_{x_{d}}^{\ell}\tilde{u} (x^{\prime},0^{+}) = (\partial_{x_{d}}^{\ell}u)(x^{\prime},0^{+}).
+\]
+To ensure \(\tilde{u}\in W^{k,p}\) across the interface, we impose equality of these traces:
+\[
+\partial_{x_{d}}^{\ell}\tilde{u} (x^{\prime},0^{-}) = \partial_{x_{d}}^{\ell}\tilde{u} (x^{\prime},0^{+}),\qquad \ell = 0,\ldots ,k.
+\]
+Since \((\partial_{x_{d}}^{\ell}u)(x^{\prime},0^{+})\) is common to both sides, it is enough to require
+\[
+\sum_{m = 0}^{k}\alpha_{m}(-\beta_{m})^{\ell} = 1,\qquad \ell = 0,\ldots ,k.
+\]
+This is equivalent to
+\[
+\begin{pmatrix}
+1 & 1 & \cdots & 1 \\
+-\beta_0 & -\beta_1 & \cdots & -\beta_k \\
+(-\beta_0)^2 & (-\beta_1)^2 & \cdots & (-\beta_k)^2 \\
+\vdots & \vdots & \ddots & \vdots \\
+(-\beta_0)^k & (-\beta_1)^k & \cdots & (-\beta_k)^k
+\end{pmatrix}
+\begin{pmatrix}
+\alpha_0 \\ \alpha_1 \\ \vdots \\ \alpha_k
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 \\ 1 \\ \vdots \\ 1
+\end{pmatrix}.
+\]
+Written in matrix form, this is a linear system involving a Vandermonde matrix. So the \(\beta_{j}\) are known and then we want to solve for the \(\alpha\) 's this system is solvable (explicit determinant), because the matrix is a Vandermonde matrix with nodes \(t_{j} = - \beta_{j}\) . Its determinant is
+\[
+\operatorname*{det}V = \prod_{0\leq i< j\leq k}(t_j - t_i) = \prod_{0\leq i< j\leq k}((-\beta_j) - (-\beta_i)) = \prod_{0\leq i< j\leq k}(\beta_i - \beta_j).
+\]
+If the \(\beta_{j}\) are pairwise distinct, then \(\operatorname*{det}V\neq 0\) , so \(V\) is invertible and the system has a unique solution \((\alpha_{0},\ldots ,\alpha_{k})\) . Importantly, these coefficients depend only on the chosen \(\beta_{j}\) (hence only on \(k\) ), not on \(u\) .
+
+Why this produces a \(W^{k,p}\) extension. Because the matching conditions hold for \(\ell = 0,\ldots ,k\) the traces of \(\partial_{x_{d}}^{\ell}\tilde{u}\) from above and below coincide at \(x_{d} = 0\) up to order \(k\) . Away from \(x_{d} = 0\) , \(\tilde{u}\) is a finite sum of smooth compositions of \(u\) , hence has the same \(W^{k,p}\) regularity. The only potential problem is the interface \(x_{d} = 0\) ; the derivative matching prevents the creation of distributional boundary terms when taking weak derivatives. Concretely, if you test \(\partial_{x_{d}}^{\ell}\tilde{u}\) against a smooth compactly supported test function and integrate by parts separately on \(\{x_{d} > 0\}\) and \(\{x_{d}< 0\}\) , the boundary terms at \(x_{d} = 0\) cancel precisely because the traces match. Therefore all weak derivatives of \(\tilde{u}\) up to order \(k\) lie in \(L^{p}\) , so \(\tilde{u}\in W^{k,p}(B_{r}(0))\) . Moreover, since the construction is linear and involves only finitely many terms,
+\[
+\| \tilde{u}\|_{W^{k,p}(B_r(0))}\leq C\| u\|_{W^{k,p}(B_r^+ (0))},
+\]
+with \(C\) depending on \(k,p\) and the chosen \(\beta_{j}\) .
+
+Now use the fact that if all the \(\beta_{j}\) are distinct, then this matrix is invertible. This means that there is a choice of \((\alpha_{0},\ldots ,\alpha_{K})\) so that these equations hold. This defines \(\tilde{u}\) on \(B_{r}(0)\) , which extends \(u\) and matches all derivatives up to order \(K\) on the boundary \(\{x^{d} = 0\}\) .
+
+Step 3 (Extension to \(\mathbb{R}^{d}\) ). Final localization and support in \(V\) . At this stage, \(\tilde{u}\) is defined only in the local chart ball \(B_{r}(0)\) . To obtain a global extension in \(\mathbb{R}^{d}\) and enforce \(\operatorname {supp}(\mathcal{E}u)\subset V\) , we proceed as follows:
+
+1 Extend \(\tilde{u}\) by zero outside \(B_{r}(0)\) . Because \(\operatorname{supp}u\subset B_{r / 2}^{+}(0)\) and we may choose a cutoff later, this does not create boundary issues (the cutoff makes the function vanish near \(\partial B_{r}(0)\) ). Choose a smooth cutoff \(\chi_{V}\in C_{c}^{\infty}(V)\) such that \(\chi_{V}\equiv 1\) on \(\overline{U}\) (or at least on a neighborhood containing all supports of the glued pieces inside \(U\) ). Define \(\mathcal{E}u:= \chi_{V}\tilde{u}\) (and similarly for each localized boundary piece). This forces the global support to lie inside \(V\) while preserving the values on \(U\) because \(\chi_{V}\equiv 1\) there.
+
+Finally, put an appropriate smooth cutoff \(\chi_{V} = 1\) on \(U\) with \(\operatorname{supp}\chi_{V}\subseteq V\) to define \(\mathcal{E}u\) , i.e.
+\[
+\mathcal{E}u = \chi_{V}\tilde{u}.
+\]
+(How the full operator is obtained). Repeat the construction for each boundary chart \(U_{k}\) (with its own flattening map \(\Phi_{k}\) ), extend each \(u_{k} = \chi_{k}u\) , and then sum the finitely many extended pieces together with the interior extension \(u_{0}\) . Linearity is clear at every step, and the global \(W^{k,p}\) bound follows from summing finitely many estimates. \(\square\)
+\end{proof}
+
+\section{Trace and Extension Theorems and Introduction to Sobolev Inequalities}
+\subsection{The trace theorem}
+\begin{definition}
+For \(u\in C^{1}(\overline{U})\) , we define the trace to be
+\[
+\mathrm{tr}_{\partial U}u:= u|_{\partial U}.
+\]
+We wish to extend this operation to all of \(W^{1,p}(U)\) . Note that \(\mathrm{tr}_{\partial U}\) is linear, so we can extend it if we know it is bounded.
+\end{definition}
+
+\begin{theorem}[Trace theorem, non- sharp]
+Let \(U\) be a bounded open subset of \(\mathbb{R}^{d}\) with \(C^{1}\) boundary \(\partial U\) , and let \(1< p< \infty\) . Then for \(u\in C^{1}(\overline{U})\)
+\[
+\| \mathrm{tr}_{\partial U}u\|_{L^p (\partial U)}\leq C\| u\|_{W^{1,p}(U)}.
+\]
+(i) As a consequence, \(\mathrm{tr}_{\partial U}\) extends uniquely by continuity (and density of \(C^{1}(\overline{U})\subset W^{1,p}(U)\) ) to a bounded linear map
+\[
+\mathrm{tr}_{\partial U}:W^{1,p}(U)\to L^p (\partial U).
+\]
+(ii) Moreover, \(u\in W_{0}^{1,p}(U)\) if and only if \(\mathrm{tr}_{\partial U}u = 0\).
+\end{theorem}
+
+The map \(\mathrm{tr}_{\partial U}:W^{1,p}(U)\to L^{p}(\partial U)\) is not surjective.
+
+\begin{theorem}[Sharp trace theorem]
+For \(u \in C^{\infty}(\overline{\mathbb{R}_{+}^{d}}) \cap H^{1}(\mathbb{R}_{+}^{d})\) ,
+\[
+\| \operatorname {tr}_{\partial U}u\|_{H^{1 / 2}(\mathbb{R}^{d - 1})}\leq C\| u\|_{H^{1}(\mathbb{R}_{+}^{d})}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let \(u \in C^{\infty}(\overline{\mathbb{R}_{+}^{d}}) \cap H^{1}(\mathbb{R}_{+}^{d})\) .
+
+Step 0 (What the extension procedure is, and why we use it). The trace we want to estimate is the boundary value \(u(x^{\prime},0)\) , which lives on \(\mathbb{R}^{d - 1}\) . The Fourier proof below is most transparent if we can treat \(u\) as a function on all of \(\mathbb{R}^{d}\) , because then we can use the full Fourier transform in \(\xi = (\xi^{\prime},\xi_{d})\) and identify the \(H^{1}\) norm with \(\| (1 + |\xi |^{2})^{1 / 2}\tilde{u}\|_{L_{\xi}^{2}}\) . So we first extend \(u\) from the half- space \(\mathbb{R}_{+}^{d}\) to a function \(\tilde{u}\) on \(\mathbb{R}^{d}\) with a controlled \(H^{1}\) norm.
+
+Extension procedure (for the half- space). Define the even reflection across the boundary \(\{x_{d} = 0\}\) by
+\[
+\tilde{u} (x^{\prime},x_{d}):= u(x^{\prime},|x_{d}|),\qquad (x^{\prime},x_{d})\in \mathbb{R}^{d - 1}\times \mathbb{R}.
+\]
+Then \(\tilde{u} \in H^{1}(\mathbb{R}^{d})\) and \(\tilde{u} = u\) on \(\mathbb{R}_{+}^{d}\) . Moreover,
+\[
+\| \tilde{u}\|_{L^{2}(\mathbb{R}^{d})}^{2} = \int_{\mathbb{R}^{d - 1}}\int_{\mathbb{R}}|\tilde{u} (x^{\prime},x_{d})|^{2}d x_{d}d x^{\prime} = 2\int_{\mathbb{R}^{d - 1}}\int_{0}^{\infty}|u(x^{\prime},x_{d})|^{2}d x_{d}d x^{\prime} = 2\| u\|_{L^{2}(\mathbb{R}_{+}^{d})}^{2},
+\]
+and for tangential derivatives \(\partial_{x_{j}}\) , \(j \leq d - 1\) ,
+\[
+\| \partial_{x_{j}}\tilde{u}\|_{L^{2}(\mathbb{R}^{d})}^{2} = 2\| \partial_{x_{j}}u\|_{L^{2}(\mathbb{R}_{+}^{d})}^{2}.
+\]
+For the normal derivative, observe that for \(x_{d} \neq 0\) ,
+\[
+\partial_{x_{d}}\tilde{u} (x^{\prime},x_{d}) = \operatorname {sgn}(x_{d})\partial_{x_{d}}u(x^{\prime},|x_{d}|),
+\]
+hence
+\[
+\| \partial_{x_{d}}\tilde{u}\|_{L^{2}(\mathbb{R}^{d})}^{2} = 2\| \partial_{x_{d}}u\|_{L^{2}(\mathbb{R}_{+}^{d})}^{2}.
+\]
+Therefore
+\[
+\| \tilde{u}\|_{H^{1}(\mathbb{R}^{d})}\leq C\| u\|_{H^{1}(\mathbb{R}_{+}^{d})}, \quad (1)
+\]
+and the extension procedure is justified: it is linear, preserves the boundary values (since \(\tilde{u} (x^{\prime},0) = u(x^{\prime},0)\) ), and gives a uniform \(H^{1}\) bound.
+
+Step 1 (Write the trace using Fourier in the normal variable). Since \(\tilde{u}\) is defined on \(\mathbb{R}^{d}\) and \(\tilde{u} (x^{\prime},0) = u(x^{\prime},0)\) , we have
+\[
+\operatorname {tr}_{\partial U}u(x^{\prime}) = u(x^{\prime},0) = \tilde{u} (x^{\prime},0).
+\]
+Using the inverse Fourier transform in the \(x_{d}\) variable (with the convention \(\mathcal{F}_{x_{d}}f(\xi_{d}) = \int_{\mathbb{R}}e^{- i x_{d}\xi_{d}}f(x_{d})d x_{d}\) ), we obtain
+\[
+\tilde{u} (x^{\prime},0) = \int_{\mathbb{R}}\mathcal{F}_{x_{d}}\tilde{u} (x^{\prime},\xi_{d})\frac{d\xi_{d}}{2\pi}.
+\]
+Taking the Fourier transform in \(x^{\prime}\) , Fubini gives
+\[
+\mathcal{F}_{x^{\prime}}(\operatorname {tr}_{\partial U}u)(\xi^{\prime}) = \int_{\mathbb{R}}\tilde{\tilde{u}} (\xi^{\prime},\xi_{d})\frac{d\xi_{d}}{2\pi},
+\]
+where \(\tilde{\tilde{u}} = \mathcal{F}_{x}\tilde{u}\) denotes the full Fourier transform in \(\mathbb{R}^{d}\) .
+
+On Wednesday Feb 4 we will pick up from here.
+\end{proof}
+
+\end{document}
