@@ -141,1508 +141,387 @@ map $\mu: A\times A \to A$, called multiplication, such that under addition and 
 
 \subsection{Differential Forms}
 
-
-\section{Riemann Metrics}
+\section{Vector Bundles}
 
 \subsection{Definitions}
 
-\begin{definition}\ \par
-    (Riemannian Metric)\par
-    Let $M$ be a smooth manifold. $g$ is a smoothly real inner product on the tangent spaces of $M$ in the sense that if $X$ and $Y$ are smooth vector fields on $M$, then $p\mapsto \langle X_p,Y_p\rangle_p$ is a smooth function on $M$.\par 
-    A smooth manifold endowed with a Riemannian metric is called a Riemannian manifold.
+\begin{definition}[Vector Bundle]
+A $C^{\infty}$ surjection $\pi : E \to M$ is a $C^{\infty}$ \emph{vector bundle of rank} $r$ if
+\begin{enumerate}
+    \item For every $p \in M$, the set $E_p := \pi^{-1}(p)$ is a real vector space of dimension $r$
+    \item every point $p \in M$ has an open neighborhood $U$ such that there is a fiber-preserving diffeomorphism
+    \[
+    \varphi_U : \pi^{-1}(U) \to U \times \mathbb{R}^r
+    \]
+    that restricts to a linear isomorphism $E_p \to \{p\} \times \mathbb{R}^r$ on each fiber
+\end{enumerate}
+The space $E$ is called the \emph{total space}, the space $M$ the \emph{base space}, and the space $E_p$ the \emph{fiber above $p$} of the vector bundle. We often say that $E$ is a vector bundle over $M$. A vector bundle of rank 1 is also called a \emph{line bundle}.
 \end{definition}
 
-\begin{definition}\ \par
-    (Length and Angle)\par
-    Given a Riemannian metric $g$ on $M$, we can speak about the length
-    \[
-    |v| = |v|_g = \sqrt{g_x(v,v)}
-    \]
-    of a tangent vector $v\in T_xM$, and about the angle between two nonzero tangent vectors $v,w \in T_xM$, we have
-    \[
-    \theta = \arccos g_x(\dfrac{v}{|v|}, \dfrac{w}{|w|})
-    \]
+\begin{definition}[Trivialization] 
+    We call the open set $U$ in (ii) a \emph{trivializing open subset} for the vector bundle, and $\varphi_U$ a \emph{trivialization} of $\pi^{-1}(U)$. A \emph{trivializing open cover} for the vector bundle is an open cover $\{U_\alpha\}$ of $M$ consisting of trivializing open sets $U_\alpha$ together with trivializations $\varphi_\alpha : \pi^{-1}(U_\alpha) \to U_\alpha \times \mathbb{R}^r$.
 \end{definition}
 
-\begin{proposition}
-    Since we have the coordinate frame $\{\partial/\partial x^i\}^n_{i=1}$ for $TM$, then let
-    \[g_{ij} = g(\partial/\partial_{x^i},\partial/\partial x^j)\]
-    be local components, which are $n^2$ smooth functions on the coordinate patch, for two vector fields $X = X^i\partial/\partial x^i,Y = Y^j\partial/\partial x^j$ the inner -product is given by
-    \[
-    g(X,Y) = X^iY^jg_{ij}
-    \] 
-\end{proposition}
+\begin{example}[Product bundle]
+If $V$ is a vector space of dimension $r$, then the projection $\pi : M \times V \to M$ is a vector bundle of rank $r$, called a \textbf{product bundle}. Via the projection $\pi : S^1 \times \mathbb{R} \to S^1$, the cylinder $S^1 \times \mathbb{R}$ is a product bundle over the circle $S^1$.
+\end{example}
+
+\begin{example}[M\"obius strip]
+The open M\"obius strip is the quotient of $[0,1] \times \mathbb{R}$ by the identification
+\[
+(0,t) \sim (1,-t).
+\]
+It is a vector bundle of rank 1 over the circle (Figure 7.1).
+
+\end{example}
+
+\begin{example}[Restriction of a vector bundle]
+Let $S$ be a submanifold of a manifold $M$, and $\pi : E \to M$ a $C^{\infty}$ vector bundle. Then $\pi_S : \pi^{-1}(S) \to S$ is also a vector bundle, called the \textbf{restriction} of $E$ to $S$, written $E|_S := \pi^{-1}(S)$ (Figure 7.2).
+
 
 \begin{definition}
-    Given a piecewise smooth path $\gamma ∶ [a, b] \to M$, the length of $\gamma$ is given by
+Let $\pi_E : E \to M$ and $\pi_F : F \to N$ be $C^{\infty}$ vector bundles. A $C^{\infty}$ \textbf{bundle map} from $E$ to $F$ is a pair of $C^{\infty}$ maps $(\varphi : E \to F, \underline{\varphi} : M \to N)$ such that
+\begin{enumerate}[label=(\roman*)]
+    \item the diagram
     \[
-    L(\gamma) = \int_a^b |\gamma'(t)|_gdt
+    \begin{tikzcd}
+    E \arrow[r, "\varphi"] \arrow[d, "\pi_E"] & F \arrow[d, "\pi_F"] \\
+    M \arrow[r, "\underline{\varphi}"] & N
+    \end{tikzcd}
     \]
-    and for two points $x,y\in M$, the Riemannian distance between them is given by
-    \[
-    d_g(x,y) = \inf_{\gamma|\gamma(a)=x,\gamma(b) = y} L(\gamma)
-    \]
+    commutes,
+    \item $\varphi$ restricts to a linear map $\varphi_p : E_p \to F_{\underline{\varphi}(p)}$ of fibers for each $p \in M$.
+\end{enumerate}
+Abusing language, we often call the map $\varphi : E \to F$ alone the bundle map.
 \end{definition}
 
+An important special case of a bundle map occurs when $E$ and $F$ are vector bundles over the same manifold $M$ and the base map $\underline{\varphi}$ is the identity map $1_M$. In this case we call the bundle map $(\varphi : E \to F, 1_M)$ a \textbf{bundle map over $M$}. If there is a bundle map $\psi : F \to E$ over $M$ such that $\psi \circ \varphi = 1_E$ and $\varphi \circ \psi = 1_F$, then $\varphi$ is called a \textbf{bundle isomorphism over $M$}, and the vector bundles $E$ and $F$ are said to be \textbf{isomorphic over $M$}.
+
+\begin{definition}
+A vector bundle $\pi : E \to M$ is said to be \textbf{trivial} if it is isomorphic to a product bundle $M \times \mathbb{R}^r \to M$ over $M$.
+\end{definition}
+
+\begin{example}[Tangent bundle]
+For any manifold $M$, define $TM$ to be the set of all tangent vectors of $M$:
+\[
+TM = \{(p,v) \mid p \in M, v \in T_p M\}.
+\]
+If $U$ is a coordinate open subset of $M$, then $TU$ is bijective with the product bundle $U \times \mathbb{R}^n$. We give $TM$ the topology generated by $TU$ as $U$ runs over all coordinate open subsets of $M$. In this way $TM$ can be given a manifold structure so that $TM \to M$ becomes a vector bundle. It is called the \textbf{tangent bundle} of $M$ (for details, see [21, Section 12]).
+\end{example}
+
+\begin{example}
+If $f : M \to N$ is a $C^{\infty}$ map of manifolds, then its differential gives rise to a bundle map $f_* : TM \to TN$ defined by
+\[
+f_*(p,v) = (f(p), f_{*,p}(v)).
+\]
+\end{example}
+
+\subsection{The Vector Space of Sections}
+
+A \textbf{section} of a vector bundle $\pi : E \to M$ over an open set $U$ is a function $s : U \to E$ such that $\pi \circ s = 1_U$, the identity map on $U$. For each $p \in U$, the section $s$ picks out one element of the fiber $E_p$. The set of all $C^{\infty}$ sections of $E$ over $U$ is denoted by $\Gamma(U,E)$. If $U$ is the manifold $M$, we also write $\Gamma(E)$ instead of $\Gamma(M,E)$.
+
+The set $\Gamma(U,E)$ of $C^{\infty}$ sections of $E$ over $U$ is clearly a vector space over $\mathbb{R}$. It is in fact a module over the ring $C^{\infty}(U)$ of $C^{\infty}$ functions, for if $f$ is a $C^{\infty}$ function over $U$ and $s$ is a $C^{\infty}$ section of $E$ over $U$, then the definition $(fs)(p) := f(p)s(p) \in E_p$, $p \in U$, makes $fs$ into a $C^{\infty}$ section of $E$ over $U$.
+
+\begin{example}[Sections of a product line bundle]
+A section $s$ of the product bundle $M \times \mathbb{R} \to M$ is a map $s(p) = (p, f(p))$. So there is a one-to-one correspondence
+\[
+\{\text{sections of } M \times \mathbb{R} \to M\} \longleftrightarrow \{\text{functions } f : M \to \mathbb{R}\}.
+\]
+In particular, the space of $C^{\infty}$ sections of the product line bundle $M \times \mathbb{R} \to M$ may be identified with $C^{\infty}(M)$.
+\end{example}
+
+\begin{example}[Sections of the tangent bundle]
+A vector field on a manifold $M$ assigns to each point $p \in M$ a tangent vector $X_p \in T_p M$. Therefore, it is precisely a section of the tangent bundle $TM$. Thus, $\mathfrak{X}(M) = \Gamma(TM)$.
+\end{example}
+
+\begin{example}[Vector fields along a submanifold]
+If $M$ is a regular submanifold of $\mathbb{R}^n$, then a $C^{\infty}$ vector field along $M$ is precisely a section of the restriction $T\mathbb{R}^n|_M$ of $T\mathbb{R}^n$ to $M$. This explains our earlier notation $\Gamma(T\mathbb{R}^3|_M)$ for the space of $C^{\infty}$ vector fields along $M$ in $\mathbb{R}^3$.
+\end{example}
+
+\begin{definition}
+A bundle map $\varphi : E \to F$ over a manifold $M$ (meaning that the base map is the identity $1_M$) induces a map on the space of sections:
+\[
+\varphi_\# : \Gamma(E) \to \Gamma(F), \quad \varphi_\#(s) = \varphi \circ s.
+\]
+This induced map $\varphi_\#$ is $F$-linear because if $f \in F$, then
+\begin{align*}
+(\varphi_\#(fs))(p) &= (\varphi \circ (fs))(p) = \varphi(f(p)s(p)) \\
+&= f(p)\varphi(s(p)) \quad (\text{because } \varphi \text{ is } \mathbb{R}\text{-linear on each fiber}) \\
+&= f(\varphi_\#(s))(p).
+\end{align*}
+\end{definition}
+
+Our goal in the rest of this chapter is to prove that conversely, every $F$-linear map $\alpha : \Gamma(E) \to \Gamma(F)$ comes from a bundle map $\varphi : E \to F$, i.e., $\alpha = \varphi_\#$.
+
+\subsection{Extending a Local Section to a Global Section}
+
+Consider the interval $(-\pi/2, \pi/2)$ as an open subset of the real line $\mathbb{R}$. The example of the tangent function $\tan : (-\pi/2, \pi/2) \to \mathbb{R}$ shows that it may not be possible to extend the domain of a $C^{\infty}$ function $f : U \to \mathbb{R}$ from an open subset $U \subset M$ to the manifold $M$. However, given a point $p \in U$, it is always possible to find a $C^{\infty}$ global function $\bar{f} : M \to \mathbb{R}$ that agrees with $f$ on some neighborhood of $p$. More generally, this is also true for sections of a vector bundle.
+
 \begin{proposition}
-    A reparametrization is a diffeomorphism $\phi:[c,d]\to [a,b]$ and prove the length is independent of the parametrization, i.e. the length is invariant under a reparametrization.
+Let $E \to M$ be a $C^{\infty}$ vector bundle, $s$ a $C^{\infty}$ section of $E$ over some open set $U$ in $M$, and $p$ a point in $U$. Then there exists a $C^{\infty}$ global section $\bar{s} \in \Gamma(M,E)$ that agrees with $s$ over some neighborhood of $p$.
 \end{proposition}
+
+\begin{proof}
+Choose a $C^{\infty}$ bump function $f$ on $M$ such that $f \equiv 1$ on a neighborhood $W$ of $p$ contained in $U$ and $\operatorname{supp} f \subset U$ (Figure 7.3). Define $\bar{s} : M \to E$ by
+\[
+\bar{s}(q) = 
+\begin{cases}
+f(q)s(q) & \text{for } q \in U, \\
+0 & \text{for } q \notin U.
+\end{cases}
+\]
+On $U$ the section $\bar{s}$ is clearly $C^{\infty}$ for it is the product of a $C^{\infty}$ function $f$ and a $C^{\infty}$ section $s$. If $p \notin U$, then $p \notin \operatorname{supp} f$. Since $\operatorname{supp} f$ is a closed set, there is a neighborhood $V$ of $p$ contained in its complement $M \setminus \operatorname{supp} f$. On $V$ the section $\bar{s}$ is identically zero. Hence, $\bar{s}$ is $C^{\infty}$ at $p$. This proves that $\bar{s}$ is $C^{\infty}$ on $M$. On $W$, since $f \equiv 1$, the section $\bar{s}$ agrees with $s$.
+\end{proof}
+
+
+\subsection{Local Operators}
+
+In this section, $E$ and $F$ are $C^{\infty}$ vector bundles over a manifold $M$, and $F$ is the ring $C^{\infty}(M)$ of $C^{\infty}$ functions on $M$.
+
+\begin{definition}
+Let $E$ and $F$ be vector bundles over a manifold $M$. An $\mathbb{R}$-linear map $\alpha : \Gamma(E) \to \Gamma(F)$ is a \textbf{local operator} if whenever a section $s \in \Gamma(E)$ vanishes on an open set $U$ in $M$, then $\alpha(s) \in \Gamma(F)$ also vanishes on $U$. It is a \textbf{point operator} if whenever a section $s \in \Gamma(E)$ vanishes at a point $p$ in $M$, then $\alpha(s) \in \Gamma(F)$ also vanishes at $p$.
+\end{definition}
+
+\begin{example}
+By Example 7.9, the vector space $C^{\infty}(\mathbb{R})$ of $C^{\infty}$ functions on $\mathbb{R}$ may be identified with the vector space $\Gamma(\mathbb{R} \times \mathbb{R})$ of $C^{\infty}$ sections of the product line bundle over $\mathbb{R}$. The derivative $\frac{d}{dt} : C^{\infty}(\mathbb{R}) \to C^{\infty}(\mathbb{R})$ is a local operator since if $f(t) \equiv 0$ on $U$, then $f'(t) \equiv 0$ on $U$. However, $d/dt$ is not a point operator.
+\end{example}
+
+\begin{example}
+Let $\Omega^k(M)$ denote the vector space of $C^{\infty}$ $k$-forms on a manifold $M$. Then the exterior derivative $d : \Omega^k(M) \to \Omega^{k+1}(M)$ is a local operator.
+\end{example}
+
+\begin{proposition}
+Let $E$ and $F$ be $C^{\infty}$ vector bundles over a manifold $M$, and $F = C^{\infty}(M)$. If a map $\alpha : \Gamma(E) \to \Gamma(F)$ is $F$-linear, then it is a local operator.
+\end{proposition}
+
+\begin{proof}
+Suppose the section $s \in \Gamma(E)$ vanishes on the open set $U$. Let $p \in U$ and let $f$ be a $C^{\infty}$ bump function such that $f(p) = 1$ and $\operatorname{supp} f \subset U$ (Figure 7.3). Then $fs \in \Gamma(E)$ and $fs \equiv 0$ on $M$ (Figure 7.4). So $\alpha(fs) \equiv 0$. By $F$-linearity,
+\[
+0 = \alpha(fs) = f \alpha(s).
+\]
+Evaluating at $p$ gives $\alpha(s)(p) = 0$. Since $p$ is an arbitrary point of $U$, $\alpha(s) \equiv 0$ on $U$.
+\end{proof}
+
+
+\begin{example}
+On a $C^{\infty}$ manifold $M$, a derivation $D : C^{\infty}(M) \to C^{\infty}(M)$ is $\mathbb{R}$-linear, but not $F$-linear since by the Leibniz rule,
+\[
+D(fg) = (Df)g + fDg, \quad \text{for } f,g \in F.
+\]
+However, by Problem 7.1, $D$ is a local operator.
+\end{example}
+
+\begin{example}
+Fix a $C^{\infty}$ vector field $X \in \mathfrak{X}(M)$. Then a connection $\nabla$ on $M$ induces a map
+\[
+\nabla_X : \mathfrak{X}(M) \to \mathfrak{X}(M)
+\]
+that satisfies the Leibniz rule. By Problem 7.2, $\nabla_X$ is a local operator.
+\end{example}
+
+\subsection{Restriction of a Local Operator to an Open Subset}
+
+A continuous global section of a vector bundle can always be restricted to an open subset, but in general a section over an open subset cannot be extended to a continuous global section. For example, the tangent function defined on the open interval $(-\pi/2, \pi/2)$ cannot be extended to a continuous function on the real line. Nonetheless, a local operator, which is defined on global sections of a vector bundle, can always be restricted to an open subset.
 
 \begin{theorem}
-    $d_g$ is a metric and the metric topology on $M$ induced by $d_g$ coincides with the topology of $M$.
+Let $E$ and $F$ be vector bundles over a manifold $M$. If $\alpha : \Gamma(E) \to \Gamma(F)$ is a local operator, then for each open subset $U$ of $M$ there is a unique linear map, called the \textbf{restriction of $\alpha$ to $U$},
+\[
+\alpha_U : \Gamma(U,E) \to \Gamma(U,F)
+\]
+such that for any global section $t \in \Gamma(E)$,
+\[
+\alpha_U(t|_U) = \alpha(t)|_U.
+\]
 \end{theorem}
 
-\begin{theorem}\ \par
-    (Hopf-Rinow)\par
-    Suppose $M$ is connected. If $(M,d_g)$ is complete, then any two points $x$ and $y$ are connected by a length-minimizing smooth path.
-\end{theorem}
-
-\begin{definition}
-    A path that is locally length-minimizing is called a geodesic.
-\end{definition}
-
-\begin{definition}\ \par
-    (Curvature)\par
-    For $\dim(M) = 1$, suppose first that $M = C$ is a curve embedded in $\mathbb{R}^2$, i.e. the image of map $\gamma:[a,b] \to \mathbb{R}^2$ with the unit speed parametrization and $\nu(t)$ is the unit normal vector field along $\gamma(t)$, the curvature of $C$ is given by
-    \[
-    \kappa_{\gamma}(t) = \gamma''(t)\cdot \nu(t)
-    \]
-    For $\dim(M) = 2$, consider an embedded surface $\Sigma\subset\mathbb{R}^3$ with the induced metric and normal vector field $\nu(x)$ along $\Sigma$. The principal curvatures are defined by
-    \[
-    \kappa_1(x):=\sup_P \kappa_{\gamma_P}(x),\quad \kappa_2(x):=\inf_P \kappa_{\gamma_P}(x)
-    \]
-    where $P$ is a plane containing both $x$ and $\nu(x)$ and $\gamma_P : = \Sigma\cap P$. Then we may define the mean curvature
-    \[
-    H_x = \dfrac{\kappa_1(x)+\kappa_2(x)}{2}
-    \]
-    and the Gauss curvature
-    \[
-    K_x = \kappa_1(x)\cdot\kappa_2(x)
-    \]
-\end{definition}
-
-\subsection{Some Constructions with Metrics}
-
-\begin{definition}
-    Let $V$ be a finite dimensional vector space equipped with an inner product $g$, we have an isomorphism
-    \[
-    (\cdot)^{\flat}:V\to V^*, X\mapsto X^{\flat}:=g(\cdot,X)
-    \]
-\end{definition}
 \begin{proof}
-    Consider an orthonormal basis $\{e_1,\cdots,e_n\}$, then $P$ is uniquely determined by $Pe_i, 1\leq i \leq n$., so we may know that
-    \[P = \sum_{i=1}^n (Pe_i) e_i^{\flat} \]
-    and we know $(\cdot)^{\flat}$ is a surjection and easy to be check an injection.
+Let $s \in \Gamma(U,E)$ and $p \in U$. By Proposition 7.13, there exists a global section $\bar{s}$ of $E$ that agrees with $s$ in some neighborhood $W$ of $p$ in $U$. We define $\alpha_U(s)(p)$ using (7.1):
+\[
+\alpha_U(s)(p) = \alpha(\bar{s})(p).
+\]
+Suppose $\tilde{s} \in \Gamma(E)$ is another global section that agrees with $s$ in the neighborhood $W$ of $p$. Then $\bar{s} = \tilde{s}$ in $W$. Since $\alpha$ is a local operator, $\alpha(\bar{s}) = \alpha(\tilde{s})$ on $W$. Hence, $\alpha(\bar{s})(p) = \alpha(\tilde{s})(p)$. This shows that $\alpha_U(s)(p)$ is independent of the choice of $\bar{s}$, so $\alpha_U$ is well defined and unique. Fix $p \in U$. If $s \in \Gamma(U,E)$ and $\bar{s} \in \Gamma(M,E)$ agree on a neighborhood $W$ of $p$, then $\alpha_U(s) = \alpha(\bar{s})$ on $W$. Hence, $\alpha_U(s)$ is $C^{\infty}$ as a section of $F$.
+
+If $t \in \Gamma(M,E)$ is a global section, then it is a global extension of its restriction $t|_U$. Hence,
+\[
+\alpha_U(t|_U)(p) = \alpha(t)(p) \quad \text{for all } p \in U.
+\]
+This proves that $\alpha_U(t|_U) = \alpha(t)|_U$.
 \end{proof}
 
-\begin{definition}
-    Fix a basis $\{e_1, \dots, e_n\}$ of $V$, and let $\{e^1, \dots, e^n\}$ be the dual basis, satisfying
-\[
-e^j(e_i) = \delta^j_i.
-\]
-For $X \in V$, we will write $X = X^i e_i$, and for $\alpha \in V^*$, we will write $ \alpha = \alpha_j e^j $.
-The components $X^i$ or $\alpha_j$ can be picked out by evaluation on the basis/dual basis elements:
-\[
-X^i = e^i(X) \quad \text{and} \quad \alpha_j = \alpha(e_j).
-\]
-Also define
-\[
-g_{ij} := \langle e_i, e_j \rangle .
-\]
-and denote the inverse of $(\cdot)^{\flat}$ by
-\[ (\cdot)^{\sharp}:V^*\to V\]
-and $\{g^{ij}\}$ to be the inverse matrix of $\{g_{ij}\}$ defined by
-\[
-g^{ik}g_{kj} = \delta^i_j
-\]
-\end{definition}
-
-\begin{proposition}\ \par
-    \begin{itemize}
-        \item $(X^{\flat})_j = X^i g_{ij}$
-        \item $(\alpha^{\sharp})^i = g^{ij}\alpha_j$
-    \end{itemize}
+\begin{proposition}
+Let $E$ and $F$ be $C^{\infty}$ vector bundles over a manifold $M$, let $U$ be an open subset of $M$, and let $F(U) = C^{\infty}(U)$, the ring of $C^{\infty}$ functions on $U$. If $\alpha : \Gamma(E) \to \Gamma(F)$ is $F$-linear, then the restriction $\alpha_U : \Gamma(U,E) \to \Gamma(U,F)$ is $F(U)$-linear.
 \end{proposition}
+
 \begin{proof}
-    (a) Notice
-    \[
-    (X^{\flat})_j = X^{\flat}(e_j) = X^i
-    \]
-\end{proof}
-
-\subsubsection{Induced metric on $V^*$} The \emph{induced metric} $g^*$ on $V^*$ may be defined by
-$$g^*\left( \alpha,\beta \right)=g \left( \alpha^\#,\beta^\# \right).$$
-We will later omit the $*$ and also refer to this metric as $g.$
-
-\begin{claim}
-$\boxed{g^*(\alpha,\beta) = g^{ij}\alpha_i \beta_j}$
-\end{claim}
-\begin{claimproof}
-$g^*(\alpha, \beta) = g_{ij}(g^{jk}\alpha_k)(g^{i\ell}\beta_\ell)
-= \delta_i{}^k \alpha_k g^{i\ell}\beta_\ell
-= \alpha_i g^{i\ell}\beta_\ell.$ 
-\end{claimproof}
-\noindent \emph{Note:} We have
-\[
-g \in \mathrm{Sym}^2 V^* \subset V^* \otimes V^*,
-\qquad
-g^* \in \mathrm{Sym}^2 V^{**} = \mathrm{Sym}^2 V \subset V \otimes V .
-\]
-
-
-
-\begin{exercise}
-Show that $\langle e^k, e^\ell \rangle_{g^*} = g^{k\ell}.$
-\end{exercise}
-
-\vspace{2mm}
-
-\subsubsection{Induced metrics on tensor products.}
-
-Let \((V,g)\) and \((W,h)\) be inner product spaces.
-We define a metric on the tensor product \(V \otimes W\),
-denoted by \(g \otimes h\).
-
-First define a map
-\[
-(g , h) : V \times W \times V \times W \to \mathbb{R}
-\]
-by
-\[
-(g , h)\bigl( (v_1,w_1),(v_2,w_2) \bigr)
-:= g(v_1,v_2)\, h(w_1,w_2).
-\]
-Notice that this map is linear in all four entries. By the universal property of tensor products, it descends to a map
-\[
-g \otimes h : V \otimes W \otimes V \otimes W \to \mathbb{R}.
-\]
-This is the induced metric on $V \otimes W.$ Explicitly, for elements $\sum_i v_i \otimes w_i$ and
-$\sum_j v'_j \otimes w'_j$
-in $V \otimes W,$ we have
-\[
-(g \otimes h)\left(
-\sum_i v_i \otimes w_i,\,
-\sum_j v'_j \otimes w'_j
-\right)
-=
-\sum_{i,j}
-g(v_i,v'_j)\, h(w_i,w'_j).
-\]
-
-
-Recall that the space of $(k,\ell)$-tensors on $V$ is given by
-$$T^{(k,\ell)} V = \overbrace{V\otimes\cdots\otimes V}^{k} \otimes
-\overbrace{V^*\otimes\cdots\otimes V^*}^{\ell}.$$
-Using $g$ and $g^*,$ we get induced metrics on $T^{(k,\ell)}$ for each pair $(k,\ell),$ given explicitly as follows.
-
-Recall that the components of a tensor
-$S\in T^{(k,\ell)}$ are determined by
-$$S
-=
-S^{i_1\cdots i_k}{}_{j_1\cdots j_\ell}
-\,
-e_{i_1} \otimes \cdots \otimes e_{i_k}
-\otimes
-e^{j_1}\otimes \cdots \otimes e^{j_\ell}.
-$$
-Given another tensor $T \in T^{(k,\ell)},$ the induced inner product is given by
-\[\boxed{
-\langle S,T \rangle_g
-=
-S^{i_1\cdots i_k}{}_{j_1\cdots j_\ell}
-\,
-T^{i'_1\cdots i'_k}{}_{j'_1\cdots j'_\ell}
-\,
-g_{i_1 i'_1}\cdots g_{i_k i'_k}
-\,
-g^{j_1 j'_1}\cdots g^{j_\ell j'_\ell}.}
-\]
-\begin{exercise}
-Show that $\lvert g\rvert_{g} = \sqrt{n}$, where $n = \dim(V).$
-\end{exercise}
-
-
-
-\vspace{2mm}
-
-
-
-\subsubsection{Contractions} Let \(1 \le a \le k\) and \(1 \le b \le \ell\).
-Given $T \in T^{(k,\ell)}V,$ we can define the contraction
-\[
-T' = \mathrm{Tr}_{a,b}\, T \in T^{(k-1, \ell-1)} V
-\]
-by
-\[
-\left( T' \right)^{i_1 \cdots \hat{\imath}_a \cdots i_{k}}
-{}_{j_1\cdots \hat{\jmath}_b \cdots j_{\ell}}
-=
-T^{i_1\cdots i_{a-1} i i_{a + 1} \cdots i_{k}}{}
-_{j_1\cdots j_{b-1} i j_{b + 1} \cdots j_{\ell}}.
-\]
-This does \emph{not} require a metric; it is just induced by the canonical evaluation map $V \otimes V^* \to \R.$ For $k = \ell = 1,$ it is the ordinary trace map.
-
-With a metric \(g\), we can also contract two upper indices:
-\[
-\left( T' \right)^{i_1\cdots \hat{\imath}_a \cdots \hat{\imath}_b \cdots i_{k}}{}_{j_1\cdots j_\ell}
-=
-g_{ij}
-T^{i_1\cdots i_{a - 1} i i_{a+1} \cdots i_{b - 1} j i_{b + 1}\cdots i_{k}}{}_{j_1\cdots j_\ell}
-\]
-or two lower indices.
-
-
-
-\vspace{2mm}
-
-
-
-\subsubsection{Volume Form} Recall that the top exterior power $\Lambda^n V^*$ is 1-dimensional. An orientation on $V$ is a choice of which connected component of $\Lambda^n V^* \setminus \{0\}$ is considered positive. A choice of metric also fixes a canonical element of $\Lambda^n V^*:$
-
-\begin{defnlemma}\label{defnlemma:volumeform}\footnote{A ``Definition/Lemma'' is a definition where the fact that the definition is well-defined amounts to a Lemma.}
-    Suppose that \(V\) is oriented and equipped with a metric \(g\).
-
-\vspace{2mm} 
-
-\noindent (a)
-The associated volume form is given by
-\[
-\mathrm{vol}_g = E^1 \wedge \cdots \wedge E^n,
-\]
-where \(\{E^1,\dots,E^n\}\) is any oriented orthonormal basis of \(V^*\).
-
-\vspace{2mm}
-
-\noindent (b)
-For a general oriented basis \(\{e^1,\dots,e^n\}\) of \(V^*\), we have
-\[
-\mathrm{vol}_g = \sqrt{\det(g_{ij})}\; e^1 \wedge \cdots \wedge e^n,
-\]
-where
-\[
-g_{ij} = \langle e_i, e_j \rangle .
-\]
-\end{defnlemma}
-\begin{proof}
-Note that since $\det (\delta_{ij}) = 1,$ (b) implies that (a) is well-defined.
-
-To prove (b), let \(\{E^1,\dots,E^n\}\) be any fixed oriented orthonormal basis for $V^*.$
-Let \(A^i{}_j\) be the change-of-basis matrix determined by
-\[
-E^i = A^i{}_j e^j,
-\]
-which has $\det(A^i{}_j) > 0$ since both bases are positively oriented.
-Then
-\begin{equation}
-    \begin{split} 
-E^1 \wedge \cdots \wedge E^n
-& = (A^1{}_{j_1} e^{j_1}) \wedge \cdots \wedge (A^n{}_{j_n}e^{j_n}) \\
-& = \sum \sgn (j_1 \, \cdots \, j_n) A^1{}_{j_1} \cdots A^n{}_{j_n} e^1 \wedge \cdots \wedge e^n \\
-& =
-(\det A^i{}_j)\, e^1 \wedge \cdots \wedge e^n.
-    \end{split}
-\end{equation}
-To finish the proof, we need to show:
-\begin{claim}
-    $\det (A^i{}_j) = \sqrt{ \det (g_{ij}) }.$
-\end{claim}
-\noindent \emph{Proof of claim.} We calculate
-    $$\LA E^i , E^j \RA = \delta^{ij} = \LA A^i{}_k e^k, A^j{}_\ell e^\ell \RA = A^i{}_k g^{k\ell} A^j{}_\ell.$$
-Taking determinants of both sides, we have
-$$1 = \det (A^i{}_j)^2 \det (g^{k\ell}).$$
-Since $(g^{k\ell}) = (g_{ij})^{-1},$ we have $\det (g^{k\ell}) = \left(\det (g_{ij}) \right)^{-1}.$ Rearranging and taking square roots gives the claim.
-\end{proof}
-
-
-
-
-\vspace{2mm}
-
-
-
-
-\subsection{Back to Riemannian manifolds} 
-\emph{All of the previous discussion extends directly to a Riemannian metric on a smooth manifold.}
-
-For example, the lowering map 
-$$(\,\cdot\,)^{\flat}:\ \mathfrak{X}(M)\longrightarrow \Omega^{1}(M)$$
-and raising map
-$$(\,\cdot\,)^{\sharp}:\ \Omega^{1}(M)\longrightarrow \mathfrak{X}(M)$$
-are given by the same formulae as above, and one just checks in local frames that they preserve smoothness. We also have induced metrics on all tensor bundles, etc.
-
-\begin{defn} Suppose that $M$ is an oriented smooth manifold with a Riemannian metric $g.$ The \emph{Riemannian volume form} is given locally by
-$$    dV_g \ \stackrel{loc}{:=} E^{1}\wedge\cdots\wedge E^{n},$$
-where $E^1 \wedge \cdots \wedge E^n$ is any oriented local coframe. Notice that the expression is independent of the coframe, by Definition/Lemma \ref{defnlemma:volumeform}$a;$ it is therefore globally well-defined.
-\end{defn}
-If we use a coordinate coframe $dx^1, \ldots, dx^n$ instead of an orthonormal coframe, by Definition/Lemma \ref{defnlemma:volumeform}$b$, we have the expression
-\begin{equation}
-    \boxed{dV_g \stackrel{loc}{=} \sqrt{\det \left( g_{ij} \right) } \, dx^1 \wedge \cdots \wedge dx^n.}
-\end{equation}
-
-
-
-\begin{rmk} In this business it is sometimes preferable to work with coordinate frames and, at other times, with an orthonormal frames. These two are mutually exclusive unless the Riemannian manifold is flat, i.e., locally isometric to Euclidean space. Meanwhile, it is worth noting that given any local frame
-$\{e_1,\dots,e_n\},$ the Gram--Schmidt process sends it uniquely to an orthonormal frame $\{E_1,\dots,E_n\}.$ One simply observes that the formulae in the algorithm,
-$$E_1=\frac{e_1}{| e_1| _g}, E_2=\frac{e_2-\langle e_2,E_1\rangle_g\,E_1}
-{\left| e_2-\langle e_2,E_1\rangle_g\,E_1 \right|_g}, \, etc.$$
-all preserve smoothness.
-\end{rmk}
-
-
-
-
-
-\vspace{2mm}
-
-
-
-
-
-
-\subsection{Notions from multivariable calculus}
-
-In Math 761, you generalized many things from Calculus III to smooth manifolds. Here are a few more that make sense in the presence of a Riemannian metric.
-
-\begin{defn} Let $f\in C^\infty(M).$ The {\bf gradient} of $f$ is given by
-$$\nabla f := (df)^{\sharp}\in\mathfrak{X}(M).$$
-Notice that by definition of the $(\cdot)^\#$ map, we have
-$$X(f)=df(X)=\langle \nabla f, X\rangle_g .$$
-\end{defn}
-
-\begin{defn} Let $X\in\mathfrak{X}(M).$ The {\bf divergence} of $X \in \mathfrak{X}(M),$ $\div X \in C^\infty(M),$ is defined by the prescription
-$$(\operatorname{div}X)\, dV_g \ :=\ d\bigl(\iota_X dV_g\bigr).$$
-\end{defn}
-\begin{claim} Writing $X=X^i\frac{\partial}{\partial x^i},$ we have
-$\boxed{
-\operatorname{div}X
-=\frac{1}{\sqrt{\det g}}\,
-\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^i}.}$
-\end{claim}
-\begin{claimproof}
-We have
-\[
-\iota_X dV_g
-=\sum_{i=1}^n (-1)^{i-1}\sqrt{\det g}\,X^i\,
-dx^1\wedge\cdots\wedge \widehat{dx^i}\wedge\cdots\wedge dx^n .
-\]
-Taking the exterior derivative gives
+Let $s \in \Gamma(U,E)$ and $f \in F(U)$. Fix $p \in U$ and let $\bar{s}$ and $\bar{f}$ be global extensions of $s$ and $f$ that agree with $s$ and $f$, respectively, on a neighborhood of $p$ (Proposition 7.13). Then
 \begin{align*}
-d(\iota_X dV_g)
-&=\sum_{i,j} (-1)^{i-1}
-\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^j}\,
-dx^j\wedge dx^1\wedge\cdots\wedge \widehat{dx^i}\wedge\cdots\wedge dx^n \\
-&=\sum_i \left( (-1)^{i-1} \right)^2
-\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^i}\,
-dx^1\wedge\cdots\wedge dx^n \\
-&=\frac{1}{\sqrt{\det g}}
-\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^i} \, dV_g .
+\alpha_U(fs)(p) &= \alpha(\bar{f}\bar{s})(p) \quad (\text{definition of } \alpha_U) \\
+&= \bar{f}(p)\alpha(\bar{s})(p) \quad (F\text{-linearity of } \alpha) \\
+&= f(p)\alpha_U(s)(p).
 \end{align*}
-\end{claimproof}
-
-
-
-
-\begin{thm}[Divergence Theorem]
-Let \((M,g)\) be a compact oriented Riemannian manifold with boundary \((\partial M, \hat{g})\),
-where \(\hat g\) is the metric induced by $g$ on \(\partial M\).
-Let \(N\) be the outward-pointing orthogonal unit normal vector field along \(\partial M\).
-For any vector field \(X \in \mathfrak{X}(M)\), we have
+Since $p$ is an arbitrary point of $U$,
 \[
-\int_M \operatorname{div}X \, dV_g
-=
-\int_{\partial M} \langle X, N\rangle_g \, dV_{\hat g}.
+\alpha_U(fs) = f\alpha_U(s),
 \]
-\end{thm}
-
-
-
-
-
-
-
-\begin{proof}
-Applying Stokes's Theorem, we have
-\[
-\int_M \operatorname{div}X \, dV_g
-=
-\int_M d(\iota_X dV_g)
-=
-\int_{\partial M} \iota_X dV_g .
-\]
-To finish the proof, it suffices to show:
-\begin{claim}
-$\iota_X dV_g\big|_{\partial M}
-=
-\langle X, N\rangle_g \, dV_{\hat g}$
-\end{claim}
-\noindent \emph{Proof of claim.}
-Complete \(N\) to an oriented orthonormal local frame for \(TM|_{\partial M}\),
-\[
-\{N, E_2,\dots,E_n\},
-\]
-where \(E_2,\dots,E_n\) are tangent to \(\partial M\). Write the dual frame as $N^\flat, E^2, \ldots, E^n.$
-We have
-\[
-dV_g = N^\flat \wedge E^2 \wedge \cdots \wedge E^n ,
-\qquad
-dV_{\hat g} = E^2 \wedge \cdots \wedge E^n .
-\]
-We get
-\[
-\iota_X dV_g
-= N^\flat(X) E^2 \wedge \cdots \wedge E^n
-\]
-because \(N^\flat|_{\partial M}=0\), so only the first term in the interior product survives. Since $N^\flat(X) = \LA N, X \RA,$ we are done.
+proving that $\alpha_U$ is $F(U)$-linear.
 \end{proof}
 
+\subsection{Frames}
 
-
-
-\begin{thm}[Integration by parts]
-For \(u \in C^\infty(M)\) and \(X \in \mathfrak{X}(M)\),
-\[
-\int_M \langle \nabla u, X\rangle_g \, dV_g
-=
-\int_{\partial M} u\,\langle X,N\rangle_g \, dV_{\hat g}
--
-\int_M u\,\operatorname{div}X \, dV_g .
-\]
-\end{thm}
-
-\begin{proof}
-Using the identity
-\[
-\operatorname{div}(uX) = u\,\operatorname{div}X + \langle \nabla u, X\rangle_g
-\]
-(exercise) and applying the divergence theorem,
-\[
-\int_M \operatorname{div}(uX)\,dV_g
-=
-\int_{\partial M} u\,\langle X,N\rangle_g\, dV_{\hat g},
-\]
-we have the result.
-\end{proof}
-
-\begin{defn}
- The {\bf Laplace--Beltrami operator} is defined by
-\[
-\Delta f := \operatorname{div}(\nabla f).
-\]
-In local coordinates,
-\begin{equation}\label{Laplacebeltramiexpression}
-\boxed{\Delta f
-=
-\frac{1}{\sqrt{\det g}}
-\,\frac{\partial}{\partial x^i}\!\left(
-\sqrt{\det g}\, g^{ij}\, \frac{\partial f}{\partial x^j}
-\right).}  
-\end{equation}
-Notice that
-$$\Delta f = g^{ij}\, \frac{\partial^2 f}{\partial x^i \partial x^j} + \text{lower-order terms},$$
-so the exotic-looking expression (\ref{Laplacebeltramiexpression}) is indeed a generalization of the Laplacian.
-On homework you will show that the Laplace-Beltrami operator retains several familiar analytic properties of the ordinary Laplace operator on domains in $\R^n.$ Time permitting at the end of the class, we will develop the theory of the Laplace operator on differential forms, which has deep consequences.
-\end{defn}
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-
-
-
-\part{Connections and curvature}
-
-Last week we discussed Riemmanian metrics. At some point we were motivated to try and develop a concept of \emph{curvature} for a space with a metric. It turns out that one does not need a metric to discuss curvature. The modern formalism is clearest if one (temporarily) forgets about metrics and instead focuses on a different and equally fundamental concept.
-
-\section{Covariant derivatives (Tu 1/27)}
-
-\subsection{Motivation}
-
-We begin anew by discussing the following question:
-
-\vspace{2mm}
-
-\begin{center}
-\emph{What is the ``derivative'' of a section of a vector bundle?}
-\end{center}
-
-\vspace{2mm}
-
-\noindent In Math 761, we learned several derivatives that work on certain types of tensors, which we now recall.
-
-\begin{enumerate}
-    \item Given a vector field $X \in \mathfrak{X}(M)$ and a function $f\in C^\infty(M)$, we know how to form the derivative
-    \[
-        X(f) \in C^\infty(M).
-    \]
-    In fact, a tangent vector is by definition a thing that can take the derivative of a function.
-
-    \item For a differential $k$-form $\omega \in \Omega^k(M)$, we learned how to form the \emph{exterior derivative}
-    \[
-        d\omega \in \Omega^{k+1}(M).
-    \]
-    Proving its existence on a general smooth manifold was one of the main achievements of 761.
-
-    \item For two vector fields $X,Y\in\mathfrak{X}(M)$, we can form the \emph{Lie derivative / Lie bracket}
-    \[
-        \mathcal{L}_X Y = [X,Y]\in\mathfrak{X}(M).
-    \]
-    
-
-    \item For a vector field $X\in\mathfrak{X}(M)$ and a general tensor $T\in \mathcal{T}^{(k,\ell)}(M),$ we also learned how to form the Lie derivative
-    \[
-        \mathcal{L}_X T \in \mathcal{T}^{(k,\ell)}(M).
-    \]
-    This can either be defined using an ugly formula involving the Lie bracket, or by the elegant ``derivative under pullback by the flow of $X$'' definition (761 notes, Section 36.3).
-    
-\end{enumerate}
-
-
-These derivatives suffer from the following problems/deficiencies:
-
-\begin{itemize}
-    \item (1-2) only make sense for alternating covariant tensors. In fact, there is not really a clear ``differentiating vector field'' $X$ in the exterior derivative, since all $k$ vector fields that you could insert into $d\omega$ are on equal footing.
-    
-    \item (3-4) depend on the choice of vector field $X$ in a neighborhood. This can be seen from the formula
-    \[
-        \mathcal{L}_{fX}Y = f\mathcal{L}_X Y - Y(f)\,X.
-    \]
-    In this sense, the Lie derivative is not a true derivative, since it depends on the differentiating vector field $X$ by more than just its value $X_x \in T_x M.$
-
-    \item Also notice that all four of these notions rely on the special relationship between the tangent bundle $TM$ (or the cotangent bundle $T^*M$) and the smooth structure on $M.$ We still have no particular idea how to differentiate sections of a general vector bundle $E \to M.$ 
-\end{itemize}
-
-
-\vspace{2mm}
-
-
-\subsection{The definition}
-Let $E \to M$ be a vector bundle of rank $r$ over $K = \mathbb{R}$ or $\mathbb{C}$. Recall that $\Gamma(E) = \Gamma(M, E)$ denotes the space of global sections of $E.$
-A \textbf{covariant derivative} (also known as a \textbf{connection}) on $E$ is a map
-\begin{equation*}
-\begin{split}
-    \nabla : \mathfrak{X}(M) \times \Gamma(E) & \to \Gamma(E) \\
-\qquad (X,s) & \mapsto \nabla_X s
-\end{split}
-\end{equation*}
-that satisfies the following axioms:
-\begin{enumerate}
-    \item $C_{\R}^\infty(M)$-linearity in $X$:
-    \[
-      \qquad \qquad   \nabla_{fX + gX'}s = f\,\nabla_X s + g \nabla_{X'} s,
-    \qquad f,g\in C_{\R}^\infty(M), X, Y \in \mathfrak{X}(M)
-    \]
-
-    \item $K$-linearity in $s$:
-    \[
-      \qquad \qquad   \nabla_X(as+bt)=a\nabla_X s+b\nabla_X t,
-    \qquad a,b\in K \text{ constants}, s, t \in \Gamma(E)
-    \]
-
-    \item Leibniz rule:
-    \[
-      \qquad \qquad   \nabla_X(fs)=X(f)\,s + f\,\nabla_X s,
-    \qquad f\in C_K^\infty(M), s \in \Gamma(E).
-    \]
-\end{enumerate}
-
-\vspace{2mm}
-
-Let us recall that the \emph{tensor characterization lemma} (761 notes, Lemma 35.4)
-gives an equivalence:
-\begin{equation*}
-\begin{split}
-\Bigl\{
-\text{$C^\infty(M)$-multilinear functions on $\Gamma(E_1) \times \cdots \times \Gamma(E_n)$}
-\Bigr\} 
-\;\longleftrightarrow\;
-\Bigl\{ \text{Global sections of } E_1^* \otimes \cdots \otimes E_n^* \Bigr\}.
-\end{split}
-\end{equation*}
-Therefore, in view of axiom (1) above, we can equivalently think of a covariant derivative as a map
-\begin{equation*}
-    \begin{split}
-    \nabla : \Gamma(E) & \rightarrow \Omega^1(E)
-    = \Gamma(T^*M\otimes E) \\
-    s & \mapsto \nabla s.
-    \end{split}
-\end{equation*}
-The value $\nabla_X s$ is simply the evaluation of $\nabla s$ on the vector-field $X.$ This is in fact a pointwise operation.
-In particular, given $x \in M,$ a tangent \emph{vector} $v\in T_x M,$ and a section $s\in \Gamma(E)$, the expression
-$$\nabla_v s = (\nabla s)(v) \in E_x$$
-makes sense. This means that a covariant derivative does not suffer from the same problem as the Lie derivative.
-
-
-\vspace{2mm}
-
-
-\subsection{Examples}
-
-\begin{enumerate}
-
-\item (The directional derivative on $\mathbb{R}^n$) Let
-$M = \Omega \subset \mathbb{R}^n,$
-be an open subset, and take
-$$E = T\Omega \cong \underline{\mathbb{R}^n} = \Omega \times \mathbb{R}^n .$$
-Let $X$ and $Y$ be vector fields on $\Omega,$ written as
-\[
-X=
-\begin{pmatrix}
-X^1\\
-\vdots\\
-X^n
-\end{pmatrix},
-\qquad
-Y=
-\begin{pmatrix}
-Y^1\\
-\vdots\\
-Y^n
-\end{pmatrix}.
-\]
-Define the {\bf directional derivative}
-\[
-\nabla_X^\circ Y=
-\begin{pmatrix}
-X(Y^1)\\
-\vdots\\
-X(Y^n)
-\end{pmatrix}.
-\]
-The axioms (1-2) for a covariant derivative are obvious. Let's check the Leibniz rule:
-\[
-\nabla_X^\circ (fY) 
-=
-\begin{pmatrix}
-X(fY^1)\\
-\vdots\\
-X(fY^n)
-\end{pmatrix}
-=
-\begin{pmatrix}
-X(f) Y^1 + f X(Y^1)\\
-\vdots\\
-X(f) Y^n + f X(Y^n)
-\end{pmatrix}
-=
-X(f)\,Y+f\nabla_X^\circ Y.
-\]
-
-
-\item (Product connection on the product bundle) Generalizing the previous example, let $M$ be any smooth manifold and let
-\[
-E= \underline{K}^r = M\times K^r
-\]
-be the product (a.k.a trivial) bundle.
-A section $s \in \Gamma(E)$ may be written as
-\[
-s=(s^\alpha)_{\alpha=1}^r,
-\]
-where $s^\alpha$ are smooth functions.
-Define the {\bf product connection}
-\[
-\nabla_X^\circ s =
-\bigl(X(s^\alpha)\bigr)_{\alpha=1}^r.
-\]
-The Leibniz rule is checked just as in the first example.
-
-
-\item (Induced connection on an embedded submanifold)
-Let
-\[
-M \subset \mathbb{R}^N
-\]
-be an embedded submanifold.
-Let
-\[
-E=TM\subset T\mathbb{R}^N|_M
-\]
-be the tangent bundle of $M.$
-Denote the orthogonal projection by
-\[
-\pi: T\mathbb{R}^N|_M \longrightarrow TM.
-\]
-Define the {\bf induced connection}
-\[
-\nabla = \pi\circ \nabla^\circ.
-\]
-We can check the Leibniz rule as follows:
-\[
-\nabla_X(fY)=\pi\bigl(\nabla_X^\circ(fY)\bigr)
-=\pi\bigl(X(f)Y^i+f\nabla_X^\circ Y^i\bigr)
-=
-X(f)\pi(Y)+f\pi(\nabla_X^\circ Y).
-\]
-Since $Y$ is tangent to $M,$ we have $\pi(Y) = Y.$ So we arrive at
-\[
-\nabla_X(fY)=X(f)\,Y+f\nabla_XY.
-\]
-
-
-
-
-\item Let us revisit the first/second example but with a twist.
-Let
-\[
-M = \Omega \subset \mathbb{R}^n,
-\qquad
-E = \underline{K}^r = \mathbb{R}^n \times K^r .
-\]
-Let
-\[
-A_1(x), \ldots, A_n(x) \in \mathrm{Mat}_K^{r\times r}(\Omega),
-\]
-be any collection of $n$ matrix-valued functions on $\Omega.$
-Define
-\[
-\nabla_X^A s
-=
-\nabla_X^\circ s + X^i A_i(x) \cdot s.
-\]
-In components, this means:
-\[
-(\nabla_X^A s)^\alpha
-=
-X(s^\alpha)
-+
-X^i A_{i\beta}^{\alpha}s^\beta.
-\]
-Let's check the Leibniz rule:
-\begin{equation*}
-\begin{split}
-\left( \nabla_X^A (f s) \right)^\alpha
-& = X(fs^\alpha) + X^i A^{\alpha}_{i\beta}(f s^\beta) \\
-& = X(f) s^\alpha + fX(s^\alpha)+ f X^i A_ {i\beta}^\alpha s^\beta \\
-& = (X(f)s)^\alpha + f (\nabla_X^A s)^\alpha.
-\end{split}
-\end{equation*}
-A clear moral of this example is: \emph{connections are not unique!}
-\end{enumerate}
-
-\vspace{2mm}
-
-
-\subsection{The space of connections} Having seen that connections are not unique, we shall now describe the space of all connections on a given vector bundle $E \to M.$
+A \textbf{frame} for a vector bundle $E$ of rank $r$ over an open set $U$ is a collection of sections $e_1, \dots, e_r$ of $E$ over $U$ such that at each point $p \in U$, the elements $e_1(p), \dots, e_r(p)$ form a basis for the fiber $E_p$.
 
 \begin{proposition}
-\leavevmode
-\begin{enumerate}[label=(\alph*)]
-
-\item 
-Let
-$$a \in \Omega^1(\mathrm{End}(E)) = \Gamma(T^*M \otimes \mathrm{End}(E))$$
-be $1$-form valued in the endomorphism bundle of $E.$
-If $\nabla$ is a connection on $E$, then $ \nabla' := \nabla + a $
-is also a connection. Here $\nabla'$ acts by
-$$\nabla'_X s = \nabla_X s + a(X)\cdot s.$$
-
-\item 
-Given any two connections $\nabla$ and $\nabla'$ on $E$, their difference $\nabla' - \nabla$ is an $\mathrm{End}(E)$-valued 1-form:
-$$\nabla' - \nabla \in \Omega^1(\mathrm{End}(E)).$$
-
-\item 
-For $\lambda \in C^\infty(M)$, $ \lambda \nabla + (1-\lambda)\nabla'$
-is again a connection. 
-\end{enumerate}
+A $C^{\infty}$ vector bundle $\pi : E \to M$ is trivial if and only if it has a $C^{\infty}$ frame.
 \end{proposition}
 
-\noindent
 \begin{proof}
-    Parts ($a$) and ($c$) are left as exercises.
-
-We check ($b$). By the tensor characterization lemma, it suffices to check
-$C^\infty(M)$-linearity of the difference $\nabla - \nabla'$ with respect to $s.$ (It is already linear in $X.$) We have
-\begin{equation*}
-\begin{split}
-(\nabla_X - \nabla'_X)(fs)
-& = \nabla_X(fs) - \nabla'_X(fs) \\
-& = X(f)s + f\nabla_X s - X(f)s - f\nabla'_X s \\
-& = f(\nabla_X  - \nabla'_X )s.
-\end{split}
-\end{equation*}
-\end{proof}
-
-According to (a-b), the space of all connections on $E$ forms an \emph{affine space modeled on $\Omega^1(\mathrm{End}(E))$}. This means that the space of connection is basically the same as the vector space $\Omega^1(\mathrm{End}(E))$ except that there is no distinguished origin. By (c), given any constant $\lambda \in [0,1],$ the linear interpolation
+Suppose $E$ is trivial, with $C^{\infty}$ trivialization $\varphi : E \to M \times \mathbb{R}^r$. Let $v_1, \dots, v_r$ be the standard basis for $\mathbb{R}^r$. Then the elements $(p, v_i)$, $i = 1, \dots, r$, form a basis for $\{p\} \times \mathbb{R}^r$ for each $p \in M$, and so the sections of $E$
 \[
-\lambda \nabla + (1-\lambda)\nabla'
+e_i(p) = \varphi^{-1}(p, v_i), \quad i = 1, \dots, r,
 \]
-remains a connection. Hence, while adding two connections does not make sense, linearly interpolating between them does.
+provide a basis for $E_p$ at each point $p \in M.
 
-
-
-Finally, we should show that the space of connections on a vector bundle is always nonempty.
-\begin{proposition}
-  Given any vector bundle $E\to M$, there exists a connection on $E$. 
-  \end{proposition}
-\begin{proof}
-Let $\{U_a\}$ be a coordinate cover such that $E$ is trivial over each $U_a$. Choose local frames $\{e_\alpha^a\}$ on $U_a.$
-Let $\{\varphi_a\}$ be a partition-of-unity subordinate to $\{U_a\}$.
-On each $U_a$, define the product connection
+Conversely, suppose $e_1, \dots, e_r$ is a frame for $E \to M$. Then every point $e \in E$ is a linear combination $e = \sum a_i e_i$. The map
 \[
-\nabla^{\circ,a}: \Gamma(E|_{U_a})\to \Omega^1(E|_{U_a})
+\varphi(e) = (\pi(e), a_1, \dots, a_r) : E \to M \times \mathbb{R}^r
 \]
-according to Example 2 above. Then define globally:
+is a bundle map with inverse
 \[
-\nabla_X s
-=
-\sum_a \varphi_a\,\nabla_X^{\circ,a}(s|_{U_a}).
-\]
-We check that this satisfies the Leibniz rule:
-\[
-\begin{aligned}
-\nabla_X(f \cdot s) 
-&= \sum_a \varphi_a \, \nabla^{\circ,a}(f s|_{U_a} ) \\
-&= \sum_a \varphi_a \, X(f)  s|_{U_a} + \sum_a \varphi_a \, f \, \nabla^{\circ,a}(s|_{U_a}) \\
-&=  \, X(f) \sum_a \varphi_a s + f \sum_a \varphi_a \, \, \nabla^{\circ,a}(s|_{U_a}) \\
-&= X(f)  s + f \, \nabla_X s.
-\end{aligned}
+\psi : M \times \mathbb{R}^r \to E, \quad \psi(p, a_1, \dots, a_r) = \sum a_i(p) e_i(p).
 \]
 \end{proof}
 
+It follows from this proposition that over any trivializing open set $U$ of a vector bundle $E$, there is always a frame.
 
+\subsection{$F$-Linearity and Bundle Maps}
 
+Throughout this subsection, $E$ and $F$ are $C^{\infty}$ vector bundles over a manifold $M$, and $F = C^{\infty}(M)$ is the ring of $C^{\infty}$ real-valued functions on $M$. We will show that an $F$-linear map $\alpha : \Gamma(E) \to \Gamma(F)$ can be defined pointwise and therefore corresponds uniquely to a bundle map $E \to F$.
 
-
-
-
-
-
-
-
-
-
-
-
-
-\vspace{10mm}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Local description of a connection (Wed 1/28 online)}
-
-
-\begin{comment}
-
-\subsection{Recall}
-
-Let $E \to M$ be a vector bundle of rank $r$ over $K=\R$ or $\C$.
-
-\medskip
-
-A \emph{covariant derivative} (a.k.a.\ a \emph{connection}) on $E$ is a map
-
-\[
-\nabla : \mathfrak{X}(M)\times \Gamma(E) \longrightarrow \Gamma(E),
-\qquad (X,s)\longmapsto \nabla_X s,
-\]
-
-satisfying the following properties:
-
-\medskip
-
-\begin{enumerate}
-\item $\nabla$ is $C^\infty(M)$--linear in $X$, i.e.
-$
-\nabla_{fX+gY}s = f\,\nabla_X s + g\,\nabla_Y s,
-$
-for all $f,g\in C^\infty(M)$ and $X,Y\in \mathfrak{X}(M)$.
-
-\item $\nabla$ is $K$--linear in $s$, i.e.
-$
-\nabla_X(as+bt) = a\,\nabla_X s + b\,\nabla_X t,
-$
-for all $a,b\in K$ (constants) and $s,t\in \Gamma(E)$.
-
-\item (\textbf{Leibniz rule})
-$
-\nabla_X(fs) = X[f]\cdot s + f\,\nabla_X s,
-$
-for all $f\in C^\infty(M)$.
-\end{enumerate}
-
-\vspace{2mm}
-
-\begin{rmk}
-A connection on $E$ is \emph{not unique}.
-\end{rmk}
-
-\begin{rmk}
-The operator $\nabla$ is tensorial in the vector field variable $X$
-(i.e.\ $C^\infty(M)$--linear in $X$),
-but it is \emph{not} tensorial in the section variable $s$.
-\end{rmk}
-Equivalently, we may regard a connection as a map
-\[
-\nabla : \Gamma(E) \longrightarrow \Gamma(T^*M \otimes E)
-= \Omega^1(E),
-\qquad
-s \longmapsto \nabla s.
-\]
-In particular, differentiation with respect to a tangent vector
-$v \in T_xM$ makes sense:
-\[
-\nabla_v s \in E_x.
-\]
-
-\vspace{2mm}
-
-\textbf{Saw last time: Connections always exist.}
-\begin{itemize}
-\item Given $a \in \Omega^1(\mathrm{End}(E))$, the operator
-$\nabla + a$ is again a connection, defined by
-\[
-(\nabla + a)_X s = \nabla_X s + a(X)s.
-\]
-\item If $\nabla$ and $\nabla'$ are two connections, then their difference
-\[
-\nabla - \nabla' = a \in \Omega^1(\mathrm{End}(E))
-\] is tensorial.
-\end{itemize}
-\textbf{Conclusion:}
-The set of all connections on $E$ forms an affine space
-modeled on $\Omega^1(\mathrm{End}(E))$.
-
-
-\vspace{5mm}
-
-\end{comment}
-
-
-
-\subsection{Locality} We first clarify the following point.
-\begin{prop}
-A connection is determined locally. More precisely, given sections $s, s' \in \Gamma(E)$, if there exists an open set
-$V \subset M$ such that
-$s|_V = s'|_V,$
-then $\nabla s|_V = \nabla s'|_V.$
-\end{prop}
-
-\begin{proof}
-It suffices to show that
-$(\nabla_X s)(p) = (\nabla_X s')(p)$
-for all $p \in V$ and all $X \in \mathfrak{X}(M)$.
-
-Fix $p \in V$ and $X \in \mathfrak{X}(M)$.
-Choose a cutoff function $\varphi$ with $\varphi \equiv 1$ near $p$
-and $\mathrm{supp}(\varphi) \subset V$.
-We have
-$$\nabla_X(\varphi s)(p)
-= X(\varphi)(p)\, s(p) + \varphi(p)(\nabla_X s)(p)
-= (\nabla_X s)(p).$$
-On the other hand, the same calculation shows that $\nabla_X(\varphi s')(p) = (\nabla_X s')(p)$. But since $s|_V = s'|_V$, we have $\varphi s = \varphi s'$ globally, so
-$$\nabla_X(\varphi s)(p) = \nabla_X(\varphi s')(p).$$
-Therefore $(\nabla_X s)(p) = (\nabla_X s')(p)$. Since $p \in V$ and $X$ were arbitrary, the result follows.
-\end{proof}
-
-
-\begin{cor}\label{cor:localitycor}
-Let $U \subset M$ be open. For any $s \in \Gamma(U,E)$, the expression $\nabla s \in \Omega^1_U(E)$
-makes sense.
-\end{cor}
-
-\begin{proof}
-Given $p \in U$, define
-$$\nabla s(p) := \nabla \tilde{s}(p),$$
-where $\tilde{s} \in \Gamma(E)$ is any global section that agrees with $s$
-on a neighborhood of $p$. That is, there exists an open set $V \ni p$ such that $s|_V = \tilde{s}|_V$
-(for example, one may take $\tilde{s} = \varphi s$ as before). By the locality proposition, the value $\nabla \tilde{s}(p)$ depends only
-on the restriction of $s$ near $p$, hence $\nabla s$ is well-defined.
-\end{proof}
-
-\vspace{2mm}
-
-\subsection{Connection matrices}
-Let $\nabla$ be any connection on $E \to M$. Given a local frame $\{e_\alpha\}_{\alpha=1}^r$ over a coordinate chart $U = \{x^i\}_{i=1}^n,$ in view of Corollary \ref{cor:localitycor}, we can make the following definition.
-
-\begin{defn}
-The \textbf{connection matrices} of $\nabla$ with respect to $\{e_\alpha\},$
-\[
-A^\beta_{i \alpha}, \qquad i=1,\dots,n
-\]
-are defined by
-\[
-\nabla_{\frac{\partial}{\partial x^i}} e_\alpha
-= A^\beta_{i \alpha}\, e_\beta.
-\]
-\end{defn}
-\noindent The connection matrices determine $\nabla$ completely. Indeed, let $s = s^\alpha e_\alpha \in \Gamma(U,E)$.
-Then for a vector field $X = X^i \frac{\partial}{\partial x^i}$ we compute:
-\[
-\nabla_X s
-= \nabla_{X^i \frac{\partial}{\partial x^i}} (s^\alpha e_\alpha)
-= X^i \nabla_{\frac{\partial}{\partial x^i}} (s^\alpha e_\alpha)
-\]
-\[
-= X^i \left(
-\frac{\partial s^\alpha}{\partial x^i} e_\alpha
-+ s^\alpha \nabla_{\frac{\partial}{\partial x^i}} e_\alpha
-\right).
-\]
-Using the definition
-$\nabla_{\frac{\partial}{\partial x^i}} e_\alpha
-= A^\beta_{i \alpha} e_\beta$,
-we obtain
-\[
-\nabla_X s
-= X^i \left(
-\frac{\partial s^\alpha}{\partial x^i} e_\alpha
-+ s^\alpha A^\beta_{i \alpha} e_\beta
-\right)
-\]
-Exchanging the index labels $\alpha$ and $\beta$ in the second term, we obtain
-\[
-\nabla_X s
-= X^i \left(
-\frac{\partial s^\alpha}{\partial x^i}
-+ A^\alpha_{i \beta} s^\beta
-\right)e_\alpha.
-\]
-This formula should be compared with Example 4 of the last class.
-
-\textbf{Notation:}
-We define
-\[
-\left( \nabla_{\frac{\partial}{\partial x^i} } s \right)^\alpha
-= \boxed{ \frac{\partial s^\alpha}{\partial x^i}
-+ A^\alpha_{i \beta}\, s^\beta
-=: \nabla_i s^\alpha.}
-\]
-Equivalently, we have
-$$ \nabla s = \nabla_i s^\alpha \, dx^i \otimes e_\alpha \in \Omega^1(E),$$
-i.e., $\nabla_i s^\alpha$ are the tensor components of $\nabla s.$
-For a vector field $X,$ we get the expression
-\[
-\nabla_X s = X^i \nabla_i s^\alpha \, e_\alpha.
-\] 
-
-
-\noindent \textbf{Warning:}
-The component function $\nabla_i s^\alpha$ should not be confused with a derivative of the single component function $s^\alpha.$ Evidently, it also depends on the other components $s^\beta,$ $\beta \neq \alpha.$ As long as one keeps this in mind, it is perfectly good notation.
-
-
-\vspace{2mm}
-
-\subsection{The transformation rule}
-How do the connection matrices change when we change the frame?
-
-Let $\{e_\alpha\}$ and $\{e'_\beta\}$ be two local frames over $U$,
-with corresponding connection matrices
-$A_{i\beta}^{\alpha}$ and $A'^{\alpha}_{i\beta}$. Define the change-of-frame matrix $\sigma$ by
-$$e_\alpha = \sigma^{\beta}{}_\alpha \, e'_\beta.$$
-We compute how the connection matrices transform under a change of frame. On one hand, we have
-\begin{equation*}
-\begin{split}
-\nabla_{\frac{\partial}{\partial x^i} } e_\alpha
-& = \nabla_{\frac{\partial}{\partial x^i}}(\sigma^{\beta}{}_\alpha e'_\beta) \\
-& = \frac{\partial \sigma^{\beta}{}_\alpha}{\partial x^i} e'_\beta
-+ \sigma^{\beta}{}_\alpha\, \nabla_{\frac{\partial}{\partial x^i} } e'_\beta \\
-& = \left(
-\frac{\partial \sigma^{\gamma}{}_\alpha}{\partial x^i}
-+ \sigma^{\beta}{}_\alpha A'^\gamma_{i \beta}
-\right)e'_\gamma.
-\end{split}
-\end{equation*}
-On the other hand, we have
-\[
-\nabla_{\frac{\partial}{\partial x^i}} e_\alpha
-= A^\beta_{i \alpha}\, e_\beta
-= A^\beta_{i \alpha}\, \sigma^{\gamma}{}_\beta e'_\gamma.
-\]
-Comparing coefficients of $e'_\gamma$, we get
-\[
-A^\beta_{i \alpha}\, \sigma^{\gamma}{}_\beta
-= \frac{\partial \sigma^{\gamma}{}_\alpha}{\partial x^i}
-+ \sigma^{\beta}{}_\alpha A'^\gamma_{i \beta}.
-\]
-In matrix notation, this becomes
-\[
-\sigma \cdot A_i
-= \frac{\partial \sigma}{\partial x^i} + A'_i \cdot \sigma.
-\]
-Multiplying on the right by $\sigma^{-1}$ and rearranging, we obtain the \textbf{transformation law for connection matrices under a change-of-frame:}
-\begin{equation}\label{transformationlaw}
-   \boxed{
-A'_i
-= \sigma \cdot A_i \cdot \sigma^{-1}
-- \frac{\partial \sigma}{\partial x^i} \cdot \sigma^{-1}.}
-\end{equation}
-Note that the extra term corresponds to the fact that connection matrices \emph{do not} transform like tensors.
-
-
-\vspace{2mm}
-
-\subsection{Coordinate / frame description}
-Let $E \to M$ be a vector bundle. Recall that there are two ways of thinking about $E:$ as an abstract topological space together with a map to $M$ satisfying some axioms, or as a collection of trivial bundles patched together. For the second point of view, one chooses an open cover $\{U_a\}$ of $M$ such that each restriction $E|_{U_a}$ is trivial. On each $U_a$, fix a local frame $\{e_\alpha^{(a)}\}_{\alpha=1}^r$.
-On overlaps $U_a \cap U_b$, the frames are related by the transition functions
-$$\sigma_{ab}:U_a\cap U_b \to \GL(r)$$
-defined by
-\[
-e_\alpha^{(a)} = \sigma_{ab}{}^\beta_{\ \alpha}\, e_\beta^{(b)}.
-\]
-The $\sigma_{ab}$'s satisfy \emph{cocycle conditions}, one of which is $\sigma_{ba} = \sigma_{ab}^{-1}$. Conversely, recall that given any collection of transition functions satisfying the cocycle conditions, one can make a vector bundle just by gluing together trivial bundles (761 notes, Section 31). 
-
-We now describe connections from this point of view. Let $\left(A_i^{(a)} \right)$ denote the connection matrices on $U_a$ with respect to the local frames $\left\{e_\alpha^{(a)}\right\}$.
-The above transformation law becomes the {\bf compatibility condition}
-\[
-\boxed{A_i^{(b)}
-= \sigma_{ab}\, A_i^{(a)}\, \sigma_{ba}
-- \frac{\partial \sigma_{ab}}{\partial x^i}\, \sigma_{ba}}
-\]
-on $U_a \cap U_b.$
-Conversely, given any collection of matrix-valued functions $\left\{ A_i^{(a)} \right\}$
-satisfying the compatibility condition on the overlaps $U_a \cap U_b$,
-there exists a unique globally defined connection $\nabla$ on $E$
-whose connection matrices are exactly $\left\{ A_i^{(a)} \right\}$.
-
-\begin{rmk}
-If one is using different coordinates $U_a = \{x^i\}$ and $U_b = \{y^j\}$ on the two charts, then the compatibility condition reads
-\[
-A^{(b)}_j
-= \sigma_{ab}\,
-\frac{\partial x^i}{\partial y^j}\,
-A^{(a)}_i\,
-\sigma_{ba}
-- \frac{\partial \sigma_{ab}}{\partial y^j}\,
-\sigma_{ba}.
-\]
-\medskip
-Next time we will discuss: why do we keep calling a covariant derivative a ``connection''?
-\end{rmk}
-
-
-
-
-
-\vspace{10mm}
-
-
-
-
-
-\section{Parallel transport (Tuesday 2/3)}
-
-
-
-
-
-\begin{comment}
-    
-
-\textbf{Review: Local description.}
-Choose a local frame $\{e_\alpha\}$ for $E$ over an open set $U$. The (local) connection coefficients (connection matrix) are the functions $A_{i\alpha}^{\beta}$ defined in local coordinates $\{x^i\}$ on $U$,
-\[
-\nabla_{\frac{\partial}{\partial x^i}} e_\alpha = A^{\beta}_{i\alpha} e_\beta.
-\]
-If $s = s^\alpha e_\alpha$, then the local formula for the covariant derivative is
-\[
-\left(\nabla_{\frac{\partial}{\partial x^i}} s\right)^\alpha
-= \nabla_i s^\alpha
-= \frac{\partial s^\alpha}{\partial x^i} + A^{\alpha}_{i\beta} s^\beta.
-\]
-\noindent \textbf{Warning:}
-The component function $\nabla_i s^\alpha$ should not be confused with a derivative of the single component function $s^\alpha$; it also involves the other components $s^\beta$ for $\beta\ne\alpha$.
-
-\textbf{Review: Transformation of connection matrices}
-Under a change of frame
-$\tilde{e}_\alpha = \sigma^{\beta}{}_{\alpha}\, e_\beta,$
-the connection matrices transform by
-\[
-A'_i = \sigma \cdot A_i \cdot \sigma^{-1} - \frac{\partial \sigma}{\partial x^i}\cdot \sigma^{-1}.
-\]
-It is noted that the $A_i$ do not transform as a section of $E \otimes E^*$.
-
-\medskip
-\noindent \textbf{Review: Global description.}
-Globally, one may choose an open cover $\{U_a\}$ of $M$ such that $E|_{U_a}$ is trivial, together with local frames $\{e^{(a)}_\alpha\}$ on each $U_a$. On overlaps $U_a \cap U_b$, the frames are related by transition functions
-$\sigma_{ab}: U_a\cap U_b \to GL(r)$ satisfying
-\[
-e^{(a)}_\alpha = \sigma_{ab}{}^{\beta}{}_{\alpha}\, e^{(b)}_\beta.
-\tag{No sum on $b$.}
-\]
-
-Any collection of local connection matrices $\{A^{(a)}_i\}$ satisfying the compatibility conditions on overlaps $U_a\cap U_b$,
-\[
-A^{(b)}_i
-= \sigma_{ab}\, A^{(a)}_i\, \sigma_{ba}
-- \frac{\partial \sigma_{ab}}{\partial x^i}\, \sigma_{ba},
-\]
-gives a globally well-defined connection $\nabla$ on $E\to M$.
-
-\end{comment}
-
-
-
-
-\subsection{Covariant derivative along a path}
-Let $\pi : E \to M$ be a vector bundle and $\gamma: \LB a,b \RB \to M$ a path.\footnote{Thanks to Keyang Li for texing today's notes.} A \textbf{section of $E$ along $\gamma$} is a map $s: \LB a, b \RB \to E$ such that
-\[
-\pi\circ s = \gamma.
-\]
-Equivalently, $s(t)\in E_{\gamma(t)}$ for all $t \in \LB a,b\RB.$ The following definition/lemma should be no surprise.
-\begin{defnlemma}[Covariant derivative along a path]
-Fix a connection $\nabla$ on $E \to M.$ Given a piecewise $C^1$ section $s: \LB a, b\RB \to E$ along $\gamma,$ there exists a well-defined {\bf covariant derivative of $s$ along $\gamma$,} written $\frac{Ds}{dt},$ which is again a section of $E$ along $\gamma;$ in other words,
-\[
-\frac{Ds}{dt}\in E_{\gamma(t)}
-\]
-for $t \in \LB a, b\RB.$
-It has the following properties:
-\begin{enumerate}[label={(\Alph*)}]
-\item (Additivity) For sections $s_1$ and $s_2$ along $\gamma$,
-\[
-\frac{D(s_1+s_2)}{dt}=\frac{Ds_1}{dt}+\frac{Ds_2}{dt}.
-\]
-\item (Leibniz rule) For $f\in C^{\infty}(\LB a, b \RB)$ and a section $s$ along $\gamma$,
-\[
-\frac{D(f\cdot s)}{dt} = \frac{df}{dt}\, s + f\,\frac{Ds}{dt}.
-\]
-\item (Relationship with $\nabla$) If %$U\subset M$ is open with $\gamma(\LB a, b\RB)\subset U,$ $\tilde{s}\in \Gamma(U,E),$ and
-$s(t)=\tilde{s}(\gamma(t))$, where $\tilde{s} \in \Gamma(E),$ then
-\[
-\frac{Ds }{dt} = \nabla_{\gamma'(t)}\tilde{s}(\gamma(t)).
-\]
-\item (Local expression) Given a local frame $\{e_\alpha\},$ let $A^\alpha_{i \beta}$ be the connection matrices of $\nabla$ and write $s(t)=s^\alpha(t)e_\alpha\vert_{\gamma(t)}.$ We then have
-\[
-\frac{Ds}{dt}
-= \left(\frac{d s^\alpha(t)}{dt}
-+ \frac{d \gamma^i}{dt} \, A^{\alpha}_{i\beta}\big(\gamma(t)\big)\, s^\beta(t)\right)
- e_\alpha\big\vert_{\gamma(t)}.
-\]
-\end{enumerate}
-\end{defnlemma}
-\begin{proof} We take ($D$) as our definition. One should then check that the result is independent of changes of frame. This is a good exercise using the transformation law (\ref{transformationlaw}).
-
-We also check that ($C$) will be satisfied with this definition.
-Suppose $s(t)=\tilde{s}(\gamma(t))$ for some section $\tilde{s}\in \Gamma(U,E)$ defined on an open set $U$ containing $\gamma(\LB a,b \RB)$. Write
-$\tilde{s}=\tilde{s}^\alpha e_\alpha$ in a local frame, so $s^\alpha(t)=\tilde{s}^\alpha(\gamma(t))$. In local coordinates $\{x^i\}$ we have
-$\gamma'(t)=\frac{d\gamma^i}{dt}(t)\,\frac{\partial}{\partial x^i}$, and we use the local formula
-$\nabla_i \tilde{s}^\alpha = \frac{\partial \tilde{s}^\alpha}{\partial x^i} + A^{\alpha}_{i\beta}\,\tilde{s}^\beta$.
-Then
-\[
-\nabla_{\gamma'(t)}\tilde{s}
-= \frac{d\gamma^i}{dt} \,\nabla_i \tilde{s}^\alpha\big(\gamma(t)\big)\, e_\alpha\big\vert_{\gamma(t)}
-= \frac{d\gamma^i}{dt} \left(\frac{\partial \tilde{s}^\alpha}{\partial x^i} + A^{\alpha}_{i\beta}\,\tilde{s}^\beta\right)\!(\gamma(t))\, e_\alpha\big\vert_{\gamma(t)}.
-\]
-By the chain rule,
-$$\frac{d\gamma^i}{dt}\,\frac{\partial \tilde{s}^\alpha}{\partial x^i}(\gamma(t))
-=\frac{d}{dt}\big(\tilde{s}^\alpha(\gamma(t)) \big)=\frac{ds^\alpha}{dt},$$
-hence
-\[
-\frac{Ds}{dt}
-= \nabla_{\gamma'(t)}\tilde{s}(\gamma(t))
-= \left(\frac{ds^\alpha}{dt}(t)
-+ A^{\alpha}_{i\beta}(\gamma(t))\,s^\beta(t)\,\frac{d\gamma^i}{dt}(t)\right)e_\alpha\big\vert_{\gamma(t)}.
-\]
-\end{proof}
-
-\vspace{2mm}
-
-\subsection{Parallel transport}
-A section $s$ is called \textbf{parallel} along $\gamma$ if
-$$\frac{D s(t)}{dt}=0.$$
-
-\begin{prop}
-Let $\gamma:[a,b]\to M$ be a piecewise $C^1$ path and let $s_0 \in E_{\gamma(a)}$.
-There exists a unique parallel section $s$ along $\gamma$ such that $s(a)=s_0$.
-\end{prop}
-
-\begin{proof}
-    Break up the path $\gamma$ into a concatenation $\gamma_1 * \gamma_2 * \cdots * \gamma_n$ of finitely many paths, each of whose image lies within a single coordinate chart over which $E$ is trivial. If we prove the proposition (existence and uniqueness) for each path $\gamma_i,$ we will have proven it for $\gamma.$ It therefore suffices to assume that $\gamma = \gamma_1.$
-
-    In a coordinate chart, the equation $\frac{Ds}{dt} = 0$ amounts to the system
-    $$\frac{d s^\alpha}{dt} + \frac{ d \gamma^i}{dt} A_{i \beta}^\alpha(\gamma(t)) s^\beta(t) = 0, \qquad \alpha = 1, \ldots, r.$$
-    Since the path $\gamma(t)$ is fixed, the coefficients do not depend on $s^\alpha(t).$ This is therefore a first-order linear ODE system. As with any system, Picard's local existence theorem allows us to solve the ODE uniquely on short time intervals. It is an exercise (on homework) to prove that \emph{linear} ODEs in fact enjoy global solutions. (In class we sketched two proofs of this fact, which I omit in order not to trivialize your homework.)
-\end{proof}
-
-
-
-
-
-\begin{comment}
-
-Keyang wrote down the proofs that I sketched in class...
-
-\begin{proof}
-Since $\gamma([a,b])\subset M$ is compact, we may cover it by finitely many open sets
-$U_{a_1},\dots,U_{a_N}$ on which $E$ is trivial.
-By compactness of $[a,b]$ and continuity of $\gamma$, there exists a subdivision
-$a=t_0<t_1<\cdots<t_N=b$ such that
-$\gamma([t_{k-1},t_k])\subset U_{a_k}$ for each $k$.
-
-Fix $k$ and work on $[t_{k-1},t_k]$ in the trivialization over $U_{a_k}$ with local frame $\{e^{(k)}_\alpha\}$.
-Write $s(t)=s^{\alpha}_{(k)}(t)\,e^{(k)}_\alpha\vert_{\gamma(t)}$.
-Then the condition $\frac{Ds}{dt}=0$ is equivalent to the linear ODE system
-\[
-\frac{d s^{\alpha}_{(k)}}{dt}(t)
-+ A^{(k)\alpha}_{i\beta}\big(\gamma(t)\big)\,\frac{d\gamma^i}{dt}(t)\, s^{\beta}_{(k)}(t)=0.
-\]
-On the first subinterval we impose the initial condition $s(t_0)=V$ (equivalently $s^{\alpha}_{(1)}(t_0)=V^{\alpha}_{(1)}$), and for $k\ge 2$ we impose $s(t_{k-1})$ equal to the value obtained from the previous subinterval.
-Existence and uniqueness for linear ODEs yields a unique solution on each $[t_{k-1},t_k]$.
-
-On an overlap, two local solutions satisfy the same ODE and agree at the endpoint, hence agree on the intersection; therefore they glue to a well-defined section $s$ along all of $\gamma$.
-Uniqueness follows similarly: two parallel sections with the same initial value must agree on $[t_0,t_1]$ by uniqueness of the ODE, hence agree inductively on each $[t_{k-1},t_k]$.
-\end{proof}
-
-\begin{exercise}
-Consider the first order homogeneous linear ODE system
-\[
-\dot{s}(t)=-A(t)s(t)
-\]
-with $A(t)$ continuous on $[a,b]$. It admits a unique solution on any interval $[a,b]$ for each prescribed initial value $x(a)=x_0$.
-In particular, solutions have no finite-time blowup on a finite interval.
-\end{exercise}
-
-\begin{proof}[Proof Sketch]
-With respect to the standard inner product on $\R^r$, we compute
-\[
-\frac{d}{dt}|s(t)|^2 = 2\langle s(t),\dot{s}(t)\rangle = -2\langle s(t),A(t)s(t)\rangle.
-\]
-By Cauchy--Schwarz,
-$|\langle s,A s\rangle|\le |s|\,|A s|\le |A|\,|s|^2$, hence
-\[
-\left|\frac{d}{dt}|s(t)|^2\right|\le 2|A(t)|\,|s(t)|^2.
-\]
-Applying Gr\"onwall's inequality gives
-$|s(t)|^2\le |s(a)|^2\exp\big(2\int_a^t |A(\tau)|\,d\tau\big)$,
-so $|s(t)|$ stays finite on $[a,b]$.
-\end{proof}
-
-
-\end{comment}
-
-
-
-\vspace{2mm}
-
-
-\begin{defn}[Parallel transport]
-Let $\gamma:[a,b]\to M$ be a piecewise $C^1$ path, and let $\nabla$ be a connection on $E\to M$.
-The associated \textbf{parallel transport map} along $\gamma$ is the map
-\[
-P^{\gamma}_{a,b}: E_{\gamma(a)} \longrightarrow E_{\gamma(b)}
-\]
-defined by
-\[
-P^{\gamma}_{a,b}(s_0) := s(b),
-\]
-where $s$ is the unique parallel section along $\gamma$ satisfying
-$\frac{D s}{dt}=0$ and $s(a)=s_0$.
-\end{defn}
-
-
-\begin{lemma}[Properties of parallel transport]
-Let $\gamma:[a,b]\to M$ be a piecewise $C^1$ path.
-\begin{enumerate}[label={(\arabic*)}]
-\item (Invertibility) The map $P^{\gamma}_{a,b}:E_{\gamma(a)}\to E_{\gamma(b)}$ is an isomorphism.
-
-\begin{comment}
-    with inverse given by parallel transport along the reversed path $\bar\gamma(t):=\gamma(a+b-t)$:
-\[
-\left(P^{\gamma}_{a,b}\right)^{-1}=P^{\bar\gamma}_{b,a}.
-\]
-\end{comment}
-
-\item (Linearity) For $s_0,s_1\in E_{\gamma(a)}$ and constants $r_0,r_1\in K,$ we have
-\[
-P^{\gamma}_{a,b}(r_0 s_0 + r_1 s_1)=r_0 \,P^{\gamma}_{a,b}(s_0)+ r_1\,P^{\gamma}_{a,b}(s_1).
-\]
-\item (Concatenation) For $c\in \LB a,b \RB,$ %and $\gamma_1:=\gamma|_{[a,c]}$, $\gamma_2:=\gamma|_{[c,b]}$, then
-we have
-\[
-P^{\gamma}_{a,b} = P^{\gamma}_{c,b}\circ P^{\gamma}_{a,c}.
-\]
-\end{enumerate}
+\begin{lemma}
+An $F$-linear map $\alpha : \Gamma(E) \to \Gamma(F)$ is a point operator.
 \end{lemma}
 
-\begin{proof} These properties follow directly from uniqueness (1 \& 3) and linearity (2) of the ODE system. For instance, the isomorphism property (1) can be seen by considering parallel transport by the reversed path. In class I sketched the proofs verbally and it is a good exercise to think them through again.
+\begin{proof}
+We need to show that if $s \in \Gamma(E)$ vanishes at a point $p$ in $M$, then $\alpha(s) \in \Gamma(F)$ also vanishes at $p$. Let $U$ be an open neighborhood of $p$ over which $E$ is trivial. Thus, over $U$ it is possible to find a frame $e_1, \dots, e_r$ for $E$. We write
+\[
+s|_U = \sum a_i e_i, \quad a_i \in C^{\infty}(U) = F(U).
+\]
+Because $s$ vanishes at $p$, all $a_i(p) = 0$. Since $\alpha$ is $F$-linear, it is a local operator (Proposition 7.17) and by Theorem 7.20 its restriction $\alpha_U : \Gamma(U,E) \to \Gamma(U,F)$ is defined. Then
+\begin{align*}
+\alpha(s)(p) &= \alpha_U(s|_U)(p) \quad (\text{Theorem 7.20}) \\
+&= \alpha_U\left(\sum a_i e_i\right)(p) \\
+&= \sum a_i \alpha_U(e_i)(p) \quad (\alpha_U \text{ is } F(U)\text{-linear (Proposition 7.21)}) \\
+&= \sum a_i(p) \alpha_U(e_i)(p) = 0.
+\end{align*}
 \end{proof}
 
-\begin{comment}
+\begin{lemma}
+Let $E$ and $F$ be $C^{\infty}$ vector bundles over a manifold $M$. A fiber-preserving map $\varphi : E \to F$ that is linear on each fiber is $C^{\infty}$ if and only if $\varphi_\#$ takes $C^{\infty}$ sections of $E$ to $C^{\infty}$ sections of $F$.
+\end{lemma}
 
-(1) If $s$ is parallel along $\gamma$ with $s(a)=V$, then $t\mapsto s(a+b-t)$ is parallel along $\bar\gamma$ with initial value $s(b)$. By uniqueness of solutions to the defining ODE, transporting forward then backward returns $V$.
+\begin{proof}
+($\Rightarrow$) If $\varphi$ is $C^{\infty}$, then $\varphi_\#(s) = \varphi \circ s$ clearly takes a $C^{\infty}$ section $s$ of $E$ to a $C^{\infty}$ section of $F$.
 
-(2) If $s_V$ and $s_W$ are the parallel sections with initial values $V$ and $W$, then $a s_V+b s_W$ is again parallel with initial value $aV+bW$; uniqueness of parallel sections implies the claimed linearity.
-
-(3) Solve the parallel ODE on $[a,c]$ with initial value $V$ to get $s(c)=P^{\gamma_1}_{a,c}(V)$, then use this as initial value on $[c,b]$; uniqueness implies that the result agrees with solving on all of $[a,b]$.
-\end{comment}
-
-\vspace{2mm}
-
-
-\subsection{Recovering the connection}
-The connection $\nabla$ can be recovered from its parallel transport map.
-%Indeed, for a vector field $X$ and a local section $s$, one may compute $(\nabla_X s)(p)$ by comparing $s(p)$ with the parallel transport of $s(q)$ back to $p$ along short curves tangent to $X$ and then taking a limit.
-
-\begin{claim}
+($\Leftarrow$) Fix $p \in M$ and let $(U, x^1, \dots, x^n)$ be a chart about $p$ over which $E$ and $F$ are both trivial. Let $e_1, \dots, e_r \in \Gamma(E)$ be a frame for $E$ over $U$. Likewise, let $f_1, \dots, f_m \in \Gamma(F)$ be a frame for $F$ over $U$. A point of $E|_U$ can be written as a unique linear combination $\sum a_j e_j$. Suppose
 \[
-\boxed{\frac{Ds}{dt}
-= \lim_{h\to 0}\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h}.}
+\varphi \circ e_j = \sum_i b_{ij} f_i.
 \]
-\end{claim}
-
-\begin{rmk} Observe that the formula makes sense: the elements in the numerator belong to the same fiber $E_{\gamma(t + h)},$ so we can subtract them and divide by the constant $h.$ The result is still a point in the total space of $E,$ and the limit can be understood in the topology of $E,$ which holds no surprises in local coordinates.
-\end{rmk}
-
-\vspace{2mm}
-
-\begin{claimproof}
-The formula can be checked by calculating the leading order of $P^{\gamma}_{t,t+h}s(t)$ from the above ODE system in local coordinates and recovering the formula for $\frac{Ds}{dt}.$ It is instructive, however, to give the following alternative argument.
-
-Define an operator on sections along $\gamma$ by
+In this expression the $b_{ij}$'s are $C^{\infty}$ functions on $U$, because by hypothesis $\varphi \circ e_j = \varphi_\#(e_j)$ is a $C^{\infty}$ section of $F$. Then
 \[
-(Ts)(t):=\lim_{h\to 0}\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h},
+\varphi \circ \left(\sum_j a_j e_j\right) = \sum_{i,j} a_j b_{ij} f_i.
 \]
-whenever the limit exists. Then the claim is that
-$$\frac{Ds}{dt} = (Ts)(t).$$
-Observe that for a parallel section $s$ the formula is true, as both sides are zero.
-
-By parallel transport, one can construct a parallel frame along $\gamma$.
-Since $\frac{D}{dt}$ is characterized by its values on this parallel frame, linearity, and the Leibniz rule, it suffices to check that $T$ satisfies the Leibniz rule.
-%We end by checking the Leibniz rule for $T.$
-This will take us right back to Calculus I.
-
-Let $f\in C^{\infty}(\LB a,b\RB)$ and let $s$ be a section along $\gamma$.
-Since parallel transport is linear on each fiber, we have
+One can take local coordinates on $E|_U$ to be $(x^1, \dots, x^n, a_1, \dots, a_r)$. In terms of these local coordinates,
 \[
-P^{\gamma}_{t,t+h}\big(f(t)\,s(t)\big)=f(t)\,P^{\gamma}_{t,t+h}s(t).
+\varphi(x^1, \dots, x^n, a_1, \dots, a_r) = \left(x^1, \dots, x^n, \sum_j a_j b_{1j}, \dots, \sum_j a_j b_{mj}\right)
 \]
-Therefore
-\[
-\frac{f(t+h)s(t+h)-P^{\gamma}_{t,t+h}\big(f(t)s(t)\big)}{h}
-=\frac{f(t+h)s(t+h)-f(t)P^{\gamma}_{t,t+h}s(t)}{h}.
-\]
-Add and subtract $f(t)s(t+h)$ to rewrite this as
-\[
-\frac{f(t+h)-f(t)}{h}\,s(t+h)
-+f(t)\,\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h}.
-\]
-Taking $h\to 0$ gives $s(t+h)\to s(t)$ and $\frac{f(t+h)-f(t)}{h}\to \frac{df}{dt}$, hence in the limit we obtain
-\[
-T(fs)(t) = \frac{df}{dt}\,s(t)+f (Ts)(t) %\,\lim_{h\to 0}\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h},
-\]
-which is exactly the Leibniz rule for $T.$
-\end{claimproof}
+which is a $C^{\infty}$ map.
+\end{proof}
 
+\begin{proposition}
+If $\alpha : \Gamma(E) \to \Gamma(F)$ is $F$-linear, then for each $p \in M$, there is a unique linear map $\varphi_p : E_p \to F_p$ such that for all $s \in \Gamma(E)$,
+\[
+\varphi_p(s(p)) = \alpha(s)(p).
+\]
+\end{proposition}
 
-   \begin{rmk} We now know why a covariant derivative is called a ``connection:'' it is because the parallel transport operator ``connects'' different fibers along a path. In fact, by the previous claim, the parallel transport operator is sufficient to recover the covariant derivative; so the two notions really are equivalent.
-   
-   An alternative approach (see e.g. my ``Vector bundles and gauge theory'' notes, from Math 865) is to first define a connection as a collection of parallel transport operators subject to some reasonable axioms, then to construct the covariant derivative using the formula in the previous claim.
-    \end{rmk}
+\begin{proof}
+Given $e \in E_p$, to define $\varphi_p(e)$, choose any section $s \in \Gamma(E)$ such that $s(p) = e$ (Problem 7.4) and define
+\[
+\varphi_p(e) = \alpha(s)(p) \in F_p.
+\]
+This definition is independent of the choice of the section $s$, because if $s'$ is another section of $E$ with $s'(p) = e$, then $(s - s')(p) = 0$ and so by Lemma 7.23, we have $\alpha(s - s')(p) = 0$, i.e.,
+\[
+\alpha(s)(p) = \alpha(s')(p).
+\]
+Let us show that $\varphi_p : E_p \to F_p$ is linear. Suppose $e_1, e_2 \in E_p$ and $a_1, a_2 \in \mathbb{R}$. Let $s_1, s_2$ be global sections of $E$ such that $s_i(p) = e_i$. Then $(a_1 s_1 + a_2 s_2)(p) = a_1 e_1 + a_2 e_2$, so
+\begin{align*}
+\varphi_p(a_1 e_1 + a_2 e_2) &= \alpha(a_1 s_1 + a_2 s_2)(p) \\
+&= a_1 \alpha(s_1)(p) + a_2 \alpha(s_2)(p) \\
+&= a_1 \varphi_p(e_1) + a_2 \varphi_p(e_2).
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+There is a one-to-one correspondence
+\[
+\{\text{bundle maps } \varphi : E \to F\} \longleftrightarrow \{\text{$F$-linear maps } \alpha : \Gamma(E) \to \Gamma(F)\},
+\]
+given by $\varphi \mapsto \varphi_\#$.
+\end{theorem}
+
+\begin{proof}
+We first show surjectivity. Suppose $\alpha : \Gamma(E) \to \Gamma(F)$ is $F$-linear. By the preceding proposition, for each $p \in M$ there is a linear map $\varphi_p : E_p \to F_p$ such that for any $s \in \Gamma(E)$,
+\[
+\varphi_p(s(p)) = \alpha(s)(p).
+\]
+Define $\varphi : E \to F$ by $\varphi(e) = \varphi_p(e)$ if $e \in E_p$. For any $s \in \Gamma(E)$ and for every $p \in M$,
+\[
+(\varphi_\#(s))(p) = \varphi(s(p)) = \alpha(s)(p),
+\]
+which shows that $\alpha = \varphi_\#$. Since $\varphi_\#$ takes $C^{\infty}$ sections of $E$ to $C^{\infty}$ sections of $F$, by Lemma 7.24 the map $\varphi : E \to F$ is $C^{\infty}$. Thus, $\varphi$ is a bundle map.
+
+Next we prove the injectivity of the correspondence. Suppose $\varphi, \psi : E \to F$ are two bundle maps such that $\varphi_\# = \psi_\# : \Gamma(E) \to \Gamma(F)$. For any $e \in E_p$, choose a section $s \in \Gamma(E)$ such that $s(p) = e$. Then
+\[
+\varphi(e) = \varphi(s(p)) = (\varphi_\#(s))(p) = (\psi_\#(s))(p) = (\psi \circ s)(p) = \psi(e).
+\]
+Hence, $\varphi = \psi$.
+\end{proof}
+
+\begin{corollary}
+An $F$-linear map $\omega : \mathfrak{X}(M) \to C^{\infty}(M)$ is a $C^{\infty}$ 1-form on $M$.
+\end{corollary}
+
+\begin{proof}
+By Proposition 7.25, one can define for each $p \in M$ a linear map $\omega_p : T_p M \to \mathbb{R}$ such that for all $X \in \mathfrak{X}(M)$,
+\[
+\omega_p(X_p) = \omega(X)(p).
+\]
+This shows that $\omega$ is a 1-form on $M$. For every $C^{\infty}$ vector field $X$ on $M$, $\omega(X)$ is a $C^{\infty}$ function on $M$. This shows that as a 1-form, $\omega$ is $C^{\infty}$.
+\end{proof}
+
+\subsection{Multilinear Maps over Smooth Functions}
+
+By Proposition 7.25, if $\alpha : \Gamma(E) \to \Gamma(F)$ is an $F$-linear map of sections of vector bundles over $M$, then at each $p \in M$, it is possible to define a linear map $\varphi_p : E_p \to F_p$ such that for any $s \in \Gamma(E)$,
+\[
+\varphi_p(s(p)) = \alpha(s)(p).
+\]
+This can be generalized to $F$-multilinear maps.
+
+\begin{proposition}
+Let $E, E', F$ be vector bundles over a manifold $M$. If $\alpha : \Gamma(E) \times \Gamma(E') \to \Gamma(F)$ is $F$-bilinear, then for each $p \in M$ there is a unique $\mathbb{R}$-bilinear map $\varphi_p : E_p \times E'_p \to F_p$ such that for all $s \in \Gamma(E)$ and $s' \in \Gamma(E')$,
+\[
+\varphi_p(s(p), s'(p)) = (\alpha(s, s'))(p).
+\]
+\end{proposition}
+
+Since the proof is similar to that of Proposition 7.25, we leave it as an exercise.
+
+Of course, Proposition 7.28 generalizes to $F$-linear maps with $k$ arguments. Just as in Corollary 7.27, we conclude that if an alternating map
+\[
+\omega : \mathfrak{X}(M) \times \cdots \times \mathfrak{X}(M) \ (k \text{ times}) \to C^{\infty}(M)
+\]
+is $F$-linear in each argument, then $\omega$ induces a $k$-form $\tilde{\omega}$ on $M$ such that for $X_1, \dots, X_k \in \mathfrak{X}(M)$,
+\[
+\tilde{\omega}_p(X_{1,p}, \dots, X_{k,p}) = (\omega(X_1, \dots, X_k))(p).
+\]
+It is customary to write the $k$-form $\tilde{\omega}$ as $\omega$.

@@ -1,0 +1,518 @@
+\section{Riemann Metrics}
+
+\subsection{Definitions}
+
+\begin{definition}\ \par
+    (Riemannian Metric)\par
+    Let $M$ be a smooth manifold. $g$ is a smoothly real inner product on the tangent spaces of $M$ in the sense that if $X$ and $Y$ are smooth vector fields on $M$, then $p\mapsto \langle X_p,Y_p\rangle_p$ is a smooth function on $M$.\par 
+    A smooth manifold endowed with a Riemannian metric is called a Riemannian manifold.
+\end{definition}
+
+\begin{definition}\ \par
+    (Length and Angle)\par
+    Given a Riemannian metric $g$ on $M$, we can speak about the length
+    \[
+    |v| = |v|_g = \sqrt{g_x(v,v)}
+    \]
+    of a tangent vector $v\in T_xM$, and about the angle between two nonzero tangent vectors $v,w \in T_xM$, we have
+    \[
+    \theta = \arccos g_x(\dfrac{v}{|v|}, \dfrac{w}{|w|})
+    \]
+\end{definition}
+
+\begin{proposition}
+    Since we have the coordinate frame $\{\partial/\partial x^i\}^n_{i=1}$ for $TM$, then let
+    \[g_{ij} = g(\partial/\partial_{x^i},\partial/\partial x^j)\]
+    be local components, which are $n^2$ smooth functions on the coordinate patch, for two vector fields $X = X^i\partial/\partial x^i,Y = Y^j\partial/\partial x^j$ the inner -product is given by
+    \[
+    g(X,Y) = X^iY^jg_{ij}
+    \] 
+\end{proposition}
+
+\begin{definition}
+    Given a piecewise smooth path $\gamma ∶ [a, b] \to M$, the length of $\gamma$ is given by
+    \[
+    L(\gamma) = \int_a^b |\gamma'(t)|_gdt
+    \]
+    and for two points $x,y\in M$, the Riemannian distance between them is given by
+    \[
+    d_g(x,y) = \inf_{\gamma|\gamma(a)=x,\gamma(b) = y} L(\gamma)
+    \]
+\end{definition}
+
+\begin{proposition}
+    A reparametrization is a diffeomorphism $\phi:[c,d]\to [a,b]$ and prove the length is independent of the parametrization, i.e. the length is invariant under a reparametrization.
+\end{proposition}
+
+\begin{theorem}
+    $d_g$ is a metric and the metric topology on $M$ induced by $d_g$ coincides with the topology of $M$.
+\end{theorem}
+
+\begin{theorem}\ \par
+    (Hopf-Rinow)\par
+    Suppose $M$ is connected. If $(M,d_g)$ is complete, then any two points $x$ and $y$ are connected by a length-minimizing smooth path.
+\end{theorem}
+
+\begin{definition}
+    A path that is locally length-minimizing is called a geodesic.
+\end{definition}
+
+\begin{definition}\ \par
+    (Curvature)\par
+    For $\dim(M) = 1$, suppose first that $M = C$ is a curve embedded in $\mathbb{R}^2$, i.e. the image of map $\gamma:[a,b] \to \mathbb{R}^2$ with the unit speed parametrization and $\nu(t)$ is the unit normal vector field along $\gamma(t)$, the curvature of $C$ is given by
+    \[
+    \kappa_{\gamma}(t) = \gamma''(t)\cdot \nu(t)
+    \]
+    For $\dim(M) = 2$, consider an embedded surface $\Sigma\subset\mathbb{R}^3$ with the induced metric and normal vector field $\nu(x)$ along $\Sigma$. The principal curvatures are defined by
+    \[
+    \kappa_1(x):=\sup_P \kappa_{\gamma_P}(x),\quad \kappa_2(x):=\inf_P \kappa_{\gamma_P}(x)
+    \]
+    where $P$ is a plane containing both $x$ and $\nu(x)$ and $\gamma_P : = \Sigma\cap P$. Then we may define the mean curvature
+    \[
+    H_x = \dfrac{\kappa_1(x)+\kappa_2(x)}{2}
+    \]
+    and the Gauss curvature
+    \[
+    K_x = \kappa_1(x)\cdot\kappa_2(x)
+    \]
+\end{definition}
+
+\subsection{Some Constructions with Metrics}
+
+\begin{definition}\ \par
+    (Musical Isomorphism 1)\par
+    Let $V$ be a finite dimensional vector space equipped with an inner product $g$, we have an isomorphism
+    \[
+    (\cdot)^{\flat}:V\to V^*, X\mapsto X^{\flat}:=g(\cdot,X)
+    \]
+\end{definition}
+\begin{proof}
+    Consider an orthonormal basis $\{e_1,\cdots,e_n\}$, then $P$ is uniquely determined by $Pe_i, 1\leq i \leq n$., so we may know that
+    \[P = \sum_{i=1}^n (Pe_i) e_i^{\flat} \]
+    and we know $(\cdot)^{\flat}$ is a surjection and easy to be check an injection.
+\end{proof}
+
+\begin{definition}\ \par
+    (Musical Isomorphism 2)\par
+    Fix a basis $\{e_1, \dots, e_n\}$ of $V$, and let $\{e^1, \dots, e^n\}$ be the dual basis, satisfying
+\[
+e^j(e_i) = \delta^j_i.
+\]
+For $X \in V$, we will write $X = X^i e_i$, and for $\alpha \in V^*$, we will write $ \alpha = \alpha_j e^j $.
+The components $X^i$ or $\alpha_j$ can be picked out by evaluation on the basis/dual basis elements:
+\[
+X^i = e^i(X) \quad \text{and} \quad \alpha_j = \alpha(e_j).
+\]
+Also define
+\[
+g_{ij} := \langle e_i, e_j \rangle .
+\]
+and denote the inverse of $(\cdot)^{\flat}$ by
+\[ (\cdot)^{\sharp}:V^*\to V\]
+and $\{g^{ij}\}$ to be the inverse matrix of $\{g_{ij}\}$ defined by
+\[
+g^{ik}g_{kj} = \delta^i_j
+\]
+\end{definition}
+
+\begin{proposition}\ \par
+    \begin{itemize}
+        \item $(X^{\flat})_j = X^i g_{ij}$
+        \item $(\alpha^{\sharp})^i = g^{ij}\alpha_j$
+    \end{itemize}
+\end{proposition}
+\begin{proof}
+    (a) Notice
+    \[
+    (X^{\flat})_j = X^{\flat}(e_j) = X^ie_i^{\flat}(e_j) = X^ig_{ij}
+    \]
+    (b) Notice
+    \[
+    (a^{\sharp})^ie_i^{\flat} = a,
+    \]
+    then
+    \[
+    (\alpha^{\sharp})^ig_{ij} = \alpha_j
+    \]
+    and hence
+    \[
+    (\alpha^{\sharp})^i = g^{ij}\alpha_j
+    \]
+\end{proof}
+
+\begin{definition}\ \par
+    (Induced metric on Dual Space)\par
+    The \emph{induced metric} $g^*$ on $V^*$ may be defined by
+    \[g^*\left( \alpha,\beta \right)=g \left( \alpha^\#,\beta^\# \right).\]
+    We will later omit the $*$ and also refer to this metric as $g.$
+\end{definition}
+
+\begin{proposition}
+    $g^*(\alpha,\beta) = g^{ij}\alpha_i \beta_j$
+\end{proposition}
+\begin{proof}
+    Notice
+    \[
+    g^*(\alpha,\beta) = g(\alpha^{\sharp},\beta^{\sharp}) = g(g^{ij}\alpha_j e_i,g^{kj}\beta_j e_k) = g^{ij}\alpha_jg_{ik}g^{kj}\beta_j = g^{ij}\alpha_i\beta_j
+    \]
+\end{proof}
+\noindent \emph{Note:} We have
+\[
+g \in \mathrm{Sym}^2 V^* \subset V^* \otimes V^*,
+\qquad
+g^* \in \mathrm{Sym}^2 V^{**} = \mathrm{Sym}^2 V \subset V \otimes V .
+\]
+
+
+
+\begin{exercise}
+Show that $\langle e^k, e^\ell \rangle_{g^*} = g^{k\ell}.$
+\end{exercise}
+
+\vspace{2mm}
+
+\subsubsection{Induced metrics on tensor products.}
+
+Let \((V,g)\) and \((W,h)\) be inner product spaces.
+We define a metric on the tensor product \(V \otimes W\),
+denoted by \(g \otimes h\).
+
+First define a map
+\[
+(g , h) : V \times W \times V \times W \to \mathbb{R}
+\]
+by
+\[
+(g , h)\bigl( (v_1,w_1),(v_2,w_2) \bigr)
+:= g(v_1,v_2)\, h(w_1,w_2).
+\]
+Notice that this map is linear in all four entries. By the universal property of tensor products, it descends to a map
+\[
+g \otimes h : V \otimes W \otimes V \otimes W \to \mathbb{R}.
+\]
+This is the induced metric on $V \otimes W.$ Explicitly, for elements $\sum_i v_i \otimes w_i$ and
+$\sum_j v'_j \otimes w'_j$
+in $V \otimes W,$ we have
+\[
+(g \otimes h)\left(
+\sum_i v_i \otimes w_i,\,
+\sum_j v'_j \otimes w'_j
+\right)
+=
+\sum_{i,j}
+g(v_i,v'_j)\, h(w_i,w'_j).
+\]
+
+
+Recall that the space of $(k,\ell)$-tensors on $V$ is given by
+$$T^{(k,\ell)} V = \overbrace{V\otimes\cdots\otimes V}^{k} \otimes
+\overbrace{V^*\otimes\cdots\otimes V^*}^{\ell}.$$
+Using $g$ and $g^*,$ we get induced metrics on $T^{(k,\ell)}$ for each pair $(k,\ell),$ given explicitly as follows.
+
+Recall that the components of a tensor
+$S\in T^{(k,\ell)}$ are determined by
+$$S
+=
+S^{i_1\cdots i_k}{}_{j_1\cdots j_\ell}
+\,
+e_{i_1} \otimes \cdots \otimes e_{i_k}
+\otimes
+e^{j_1}\otimes \cdots \otimes e^{j_\ell}.
+$$
+Given another tensor $T \in T^{(k,\ell)},$ the induced inner product is given by
+\[\boxed{
+\langle S,T \rangle_g
+=
+S^{i_1\cdots i_k}{}_{j_1\cdots j_\ell}
+\,
+T^{i'_1\cdots i'_k}{}_{j'_1\cdots j'_\ell}
+\,
+g_{i_1 i'_1}\cdots g_{i_k i'_k}
+\,
+g^{j_1 j'_1}\cdots g^{j_\ell j'_\ell}.}
+\]
+\begin{exercise}
+Show that $\lvert g\rvert_{g} = \sqrt{n}$, where $n = \dim(V).$
+\end{exercise}
+
+
+
+\vspace{2mm}
+
+
+
+\subsubsection{Contractions} Let \(1 \le a \le k\) and \(1 \le b \le \ell\).
+Given $T \in T^{(k,\ell)}V,$ we can define the contraction
+\[
+T' = \mathrm{Tr}_{a,b}\, T \in T^{(k-1, \ell-1)} V
+\]
+by
+\[
+\left( T' \right)^{i_1 \cdots \hat{\imath}_a \cdots i_{k}}
+{}_{j_1\cdots \hat{\jmath}_b \cdots j_{\ell}}
+=
+T^{i_1\cdots i_{a-1} i i_{a + 1} \cdots i_{k}}{}
+_{j_1\cdots j_{b-1} i j_{b + 1} \cdots j_{\ell}}.
+\]
+This does \emph{not} require a metric; it is just induced by the canonical evaluation map $V \otimes V^* \to \R.$ For $k = \ell = 1,$ it is the ordinary trace map.
+
+With a metric \(g\), we can also contract two upper indices:
+\[
+\left( T' \right)^{i_1\cdots \hat{\imath}_a \cdots \hat{\imath}_b \cdots i_{k}}{}_{j_1\cdots j_\ell}
+=
+g_{ij}
+T^{i_1\cdots i_{a - 1} i i_{a+1} \cdots i_{b - 1} j i_{b + 1}\cdots i_{k}}{}_{j_1\cdots j_\ell}
+\]
+or two lower indices.
+
+
+
+\vspace{2mm}
+
+
+
+\subsubsection{Volume Form} Recall that the top exterior power $\Lambda^n V^*$ is 1-dimensional. An orientation on $V$ is a choice of which connected component of $\Lambda^n V^* \setminus \{0\}$ is considered positive. A choice of metric also fixes a canonical element of $\Lambda^n V^*:$
+
+\begin{defnlemma}\label{defnlemma:volumeform}\footnote{A ``Definition/Lemma'' is a definition where the fact that the definition is well-defined amounts to a Lemma.}
+    Suppose that \(V\) is oriented and equipped with a metric \(g\).
+
+\vspace{2mm} 
+
+\noindent (a)
+The associated volume form is given by
+\[
+\mathrm{vol}_g = E^1 \wedge \cdots \wedge E^n,
+\]
+where \(\{E^1,\dots,E^n\}\) is any oriented orthonormal basis of \(V^*\).
+
+\vspace{2mm}
+
+\noindent (b)
+For a general oriented basis \(\{e^1,\dots,e^n\}\) of \(V^*\), we have
+\[
+\mathrm{vol}_g = \sqrt{\det(g_{ij})}\; e^1 \wedge \cdots \wedge e^n,
+\]
+where
+\[
+g_{ij} = \langle e_i, e_j \rangle .
+\]
+\end{defnlemma}
+\begin{proof}
+Note that since $\det (\delta_{ij}) = 1,$ (b) implies that (a) is well-defined.
+
+To prove (b), let \(\{E^1,\dots,E^n\}\) be any fixed oriented orthonormal basis for $V^*.$
+Let \(A^i{}_j\) be the change-of-basis matrix determined by
+\[
+E^i = A^i{}_j e^j,
+\]
+which has $\det(A^i{}_j) > 0$ since both bases are positively oriented.
+Then
+\begin{equation}
+    \begin{split} 
+E^1 \wedge \cdots \wedge E^n
+& = (A^1{}_{j_1} e^{j_1}) \wedge \cdots \wedge (A^n{}_{j_n}e^{j_n}) \\
+& = \sum \sgn (j_1 \, \cdots \, j_n) A^1{}_{j_1} \cdots A^n{}_{j_n} e^1 \wedge \cdots \wedge e^n \\
+& =
+(\det A^i{}_j)\, e^1 \wedge \cdots \wedge e^n.
+    \end{split}
+\end{equation}
+To finish the proof, we need to show:
+\begin{claim}
+    $\det (A^i{}_j) = \sqrt{ \det (g_{ij}) }.$
+\end{claim}
+\noindent \emph{Proof of claim.} We calculate
+    $$\LA E^i , E^j \RA = \delta^{ij} = \LA A^i{}_k e^k, A^j{}_\ell e^\ell \RA = A^i{}_k g^{k\ell} A^j{}_\ell.$$
+Taking determinants of both sides, we have
+$$1 = \det (A^i{}_j)^2 \det (g^{k\ell}).$$
+Since $(g^{k\ell}) = (g_{ij})^{-1},$ we have $\det (g^{k\ell}) = \left(\det (g_{ij}) \right)^{-1}.$ Rearranging and taking square roots gives the claim.
+\end{proof}
+
+
+
+
+\vspace{2mm}
+
+
+
+
+\subsection{Back to Riemannian manifolds} 
+\emph{All of the previous discussion extends directly to a Riemannian metric on a smooth manifold.}
+
+For example, the lowering map 
+$$(\,\cdot\,)^{\flat}:\ \mathfrak{X}(M)\longrightarrow \Omega^{1}(M)$$
+and raising map
+$$(\,\cdot\,)^{\sharp}:\ \Omega^{1}(M)\longrightarrow \mathfrak{X}(M)$$
+are given by the same formulae as above, and one just checks in local frames that they preserve smoothness. We also have induced metrics on all tensor bundles, etc.
+
+\begin{defn} Suppose that $M$ is an oriented smooth manifold with a Riemannian metric $g.$ The \emph{Riemannian volume form} is given locally by
+$$    dV_g \ \stackrel{loc}{:=} E^{1}\wedge\cdots\wedge E^{n},$$
+where $E^1 \wedge \cdots \wedge E^n$ is any oriented local coframe. Notice that the expression is independent of the coframe, by Definition/Lemma \ref{defnlemma:volumeform}$a;$ it is therefore globally well-defined.
+\end{defn}
+If we use a coordinate coframe $dx^1, \ldots, dx^n$ instead of an orthonormal coframe, by Definition/Lemma \ref{defnlemma:volumeform}$b$, we have the expression
+\begin{equation}
+    \boxed{dV_g \stackrel{loc}{=} \sqrt{\det \left( g_{ij} \right) } \, dx^1 \wedge \cdots \wedge dx^n.}
+\end{equation}
+
+
+
+\begin{rmk} In this business it is sometimes preferable to work with coordinate frames and, at other times, with an orthonormal frames. These two are mutually exclusive unless the Riemannian manifold is flat, i.e., locally isometric to Euclidean space. Meanwhile, it is worth noting that given any local frame
+$\{e_1,\dots,e_n\},$ the Gram--Schmidt process sends it uniquely to an orthonormal frame $\{E_1,\dots,E_n\}.$ One simply observes that the formulae in the algorithm,
+$$E_1=\frac{e_1}{| e_1| _g}, E_2=\frac{e_2-\langle e_2,E_1\rangle_g\,E_1}
+{\left| e_2-\langle e_2,E_1\rangle_g\,E_1 \right|_g}, \, etc.$$
+all preserve smoothness.
+\end{rmk}
+
+
+
+
+
+\vspace{2mm}
+
+
+
+
+
+
+\subsection{Notions from multivariable calculus}
+
+In Math 761, you generalized many things from Calculus III to smooth manifolds. Here are a few more that make sense in the presence of a Riemannian metric.
+
+\begin{defn} Let $f\in C^\infty(M).$ The {\bf gradient} of $f$ is given by
+$$\nabla f := (df)^{\sharp}\in\mathfrak{X}(M).$$
+Notice that by definition of the $(\cdot)^\#$ map, we have
+$$X(f)=df(X)=\langle \nabla f, X\rangle_g .$$
+\end{defn}
+
+\begin{defn} Let $X\in\mathfrak{X}(M).$ The {\bf divergence} of $X \in \mathfrak{X}(M),$ $\div X \in C^\infty(M),$ is defined by the prescription
+$$(\operatorname{div}X)\, dV_g \ :=\ d\bigl(\iota_X dV_g\bigr).$$
+\end{defn}
+\begin{claim} Writing $X=X^i\frac{\partial}{\partial x^i},$ we have
+$\boxed{
+\operatorname{div}X
+=\frac{1}{\sqrt{\det g}}\,
+\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^i}.}$
+\end{claim}
+\begin{claimproof}
+We have
+\[
+\iota_X dV_g
+=\sum_{i=1}^n (-1)^{i-1}\sqrt{\det g}\,X^i\,
+dx^1\wedge\cdots\wedge \widehat{dx^i}\wedge\cdots\wedge dx^n .
+\]
+Taking the exterior derivative gives
+\begin{align*}
+d(\iota_X dV_g)
+&=\sum_{i,j} (-1)^{i-1}
+\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^j}\,
+dx^j\wedge dx^1\wedge\cdots\wedge \widehat{dx^i}\wedge\cdots\wedge dx^n \\
+&=\sum_i \left( (-1)^{i-1} \right)^2
+\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^i}\,
+dx^1\wedge\cdots\wedge dx^n \\
+&=\frac{1}{\sqrt{\det g}}
+\frac{\partial \left(\sqrt{\det g}\,X^i\right)}{\partial x^i} \, dV_g .
+\end{align*}
+\end{claimproof}
+
+
+
+
+\begin{thm}[Divergence Theorem]
+Let \((M,g)\) be a compact oriented Riemannian manifold with boundary \((\partial M, \hat{g})\),
+where \(\hat g\) is the metric induced by $g$ on \(\partial M\).
+Let \(N\) be the outward-pointing orthogonal unit normal vector field along \(\partial M\).
+For any vector field \(X \in \mathfrak{X}(M)\), we have
+\[
+\int_M \operatorname{div}X \, dV_g
+=
+\int_{\partial M} \langle X, N\rangle_g \, dV_{\hat g}.
+\]
+\end{thm}
+
+
+
+
+
+
+
+\begin{proof}
+Applying Stokes's Theorem, we have
+\[
+\int_M \operatorname{div}X \, dV_g
+=
+\int_M d(\iota_X dV_g)
+=
+\int_{\partial M} \iota_X dV_g .
+\]
+To finish the proof, it suffices to show:
+\begin{claim}
+$\iota_X dV_g\big|_{\partial M}
+=
+\langle X, N\rangle_g \, dV_{\hat g}$
+\end{claim}
+\noindent \emph{Proof of claim.}
+Complete \(N\) to an oriented orthonormal local frame for \(TM|_{\partial M}\),
+\[
+\{N, E_2,\dots,E_n\},
+\]
+where \(E_2,\dots,E_n\) are tangent to \(\partial M\). Write the dual frame as $N^\flat, E^2, \ldots, E^n.$
+We have
+\[
+dV_g = N^\flat \wedge E^2 \wedge \cdots \wedge E^n ,
+\qquad
+dV_{\hat g} = E^2 \wedge \cdots \wedge E^n .
+\]
+We get
+\[
+\iota_X dV_g
+= N^\flat(X) E^2 \wedge \cdots \wedge E^n
+\]
+because \(N^\flat|_{\partial M}=0\), so only the first term in the interior product survives. Since $N^\flat(X) = \LA N, X \RA,$ we are done.
+\end{proof}
+
+
+
+
+\begin{thm}[Integration by parts]
+For \(u \in C^\infty(M)\) and \(X \in \mathfrak{X}(M)\),
+\[
+\int_M \langle \nabla u, X\rangle_g \, dV_g
+=
+\int_{\partial M} u\,\langle X,N\rangle_g \, dV_{\hat g}
+-
+\int_M u\,\operatorname{div}X \, dV_g .
+\]
+\end{thm}
+
+\begin{proof}
+Using the identity
+\[
+\operatorname{div}(uX) = u\,\operatorname{div}X + \langle \nabla u, X\rangle_g
+\]
+(exercise) and applying the divergence theorem,
+\[
+\int_M \operatorname{div}(uX)\,dV_g
+=
+\int_{\partial M} u\,\langle X,N\rangle_g\, dV_{\hat g},
+\]
+we have the result.
+\end{proof}
+
+\begin{defn}
+ The {\bf Laplace--Beltrami operator} is defined by
+\[
+\Delta f := \operatorname{div}(\nabla f).
+\]
+In local coordinates,
+\begin{equation}\label{Laplacebeltramiexpression}
+\boxed{\Delta f
+=
+\frac{1}{\sqrt{\det g}}
+\,\frac{\partial}{\partial x^i}\!\left(
+\sqrt{\det g}\, g^{ij}\, \frac{\partial f}{\partial x^j}
+\right).}  
+\end{equation}
+Notice that
+$$\Delta f = g^{ij}\, \frac{\partial^2 f}{\partial x^i \partial x^j} + \text{lower-order terms},$$
+so the exotic-looking expression (\ref{Laplacebeltramiexpression}) is indeed a generalization of the Laplacian.
+On homework you will show that the Laplace-Beltrami operator retains several familiar analytic properties of the ordinary Laplace operator on domains in $\R^n.$ Time permitting at the end of the class, we will develop the theory of the Laplace operator on differential forms, which has deep consequences.
+\end{defn}

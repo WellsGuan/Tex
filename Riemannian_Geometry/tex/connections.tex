@@ -1,0 +1,926 @@
+\section{Covariant derivatives }
+
+\subsection{Definitions}
+
+\begin{definition}\ \par
+    (Connection)\par
+    Let $E \to M$ be a vector bundle of rank $r$ over $K = \mathbb{R}$ or $\mathbb{C}$. Recall that $\Gamma(E) = \Gamma(M, E)$ denotes the space of global sections of $E$.
+A \emph{covariant derivative} (also known as a \emph{connection}) on $E$ is a map
+\[
+    \begin{aligned}
+        \nabla : \mathfrak{X}(M) \times \Gamma(E) & \to \Gamma(E) \\
+        \qquad (X,s) & \mapsto \nabla_X s
+    \end{aligned}
+\]
+that satisfies
+\begin{enumerate}
+    \item $C_{\mathbb{R}}^\infty(M)$-linearity in $X$:
+    \[
+      \qquad \qquad   \nabla_{fX + gX'}s = f\,\nabla_X s + g \nabla_{X'} s,
+    \qquad f,g\in C_{\mathbb{R}}^\infty(M), X, Y \in \mathfrak{X}(M)
+    \]
+
+    \item $K$-linearity in $s$:
+    \[
+      \qquad \qquad   \nabla_X(as+bt)=a\nabla_X s+b\nabla_X t,
+    \qquad a,b\in K \text{ constants}, s, t \in \Gamma(E)
+    \]
+
+    \item Leibniz rule:
+    \[
+      \qquad \qquad   \nabla_X(fs)=X(f)\,s + f\,\nabla_X s,
+    \qquad f\in C_K^\infty(M), s \in \Gamma(E).
+    \]
+\end{enumerate}
+\end{definition}
+
+Let us recall that the \emph{tensor characterization lemma} (761 notes, Lemma 35.4)
+gives an equivalence:
+\begin{equation*}
+\begin{split}
+\Bigl\{
+\text{$C^\infty(M)$-multilinear functions on $\Gamma(E_1) \times \cdots \times \Gamma(E_n)$}
+\Bigr\} 
+\;\longleftrightarrow\;
+\Bigl\{ \text{Global sections of } E_1^* \otimes \cdots \otimes E_n^* \Bigr\}.
+\end{split}
+\end{equation*}
+Therefore, in view of axiom (1) above, we can equivalently think of a covariant derivative as a map
+\begin{equation*}
+    \begin{split}
+    \nabla : \Gamma(E) & \rightarrow \Omega^1(E)
+    = \Gamma(T^*M\otimes E) \\
+    s & \mapsto \nabla s.
+    \end{split}
+\end{equation*}
+The value $\nabla_X s$ is simply the evaluation of $\nabla s$ on the vector-field $X.$ This is in fact a pointwise operation.
+In particular, given $x \in M,$ a tangent \emph{vector} $v\in T_x M,$ and a section $s\in \Gamma(E)$, the expression
+$$\nabla_v s = (\nabla s)(v) \in E_x$$
+makes sense. This means that a covariant derivative does not suffer from the same problem as the Lie derivative.
+
+
+\vspace{2mm}
+
+
+\subsection{Examples}
+
+\begin{enumerate}
+
+\item (The directional derivative on $\mathbb{R}^n$) Let
+$M = \Omega \subset \mathbb{R}^n,$
+be an open subset, and take
+$$E = T\Omega \cong \underline{\mathbb{R}^n} = \Omega \times \mathbb{R}^n .$$
+Let $X$ and $Y$ be vector fields on $\Omega,$ written as
+\[
+X=
+\begin{pmatrix}
+X^1\\
+\vdots\\
+X^n
+\end{pmatrix},
+\qquad
+Y=
+\begin{pmatrix}
+Y^1\\
+\vdots\\
+Y^n
+\end{pmatrix}.
+\]
+Define the {\bf directional derivative}
+\[
+\nabla_X^\circ Y=
+\begin{pmatrix}
+X(Y^1)\\
+\vdots\\
+X(Y^n)
+\end{pmatrix}.
+\]
+The axioms (1-2) for a covariant derivative are obvious. Let's check the Leibniz rule:
+\[
+\nabla_X^\circ (fY) 
+=
+\begin{pmatrix}
+X(fY^1)\\
+\vdots\\
+X(fY^n)
+\end{pmatrix}
+=
+\begin{pmatrix}
+X(f) Y^1 + f X(Y^1)\\
+\vdots\\
+X(f) Y^n + f X(Y^n)
+\end{pmatrix}
+=
+X(f)\,Y+f\nabla_X^\circ Y.
+\]
+
+
+\item (Product connection on the product bundle) Generalizing the previous example, let $M$ be any smooth manifold and let
+\[
+E= \underline{K}^r = M\times K^r
+\]
+be the product (a.k.a trivial) bundle.
+A section $s \in \Gamma(E)$ may be written as
+\[
+s=(s^\alpha)_{\alpha=1}^r,
+\]
+where $s^\alpha$ are smooth functions.
+Define the {\bf product connection}
+\[
+\nabla_X^\circ s =
+\bigl(X(s^\alpha)\bigr)_{\alpha=1}^r.
+\]
+The Leibniz rule is checked just as in the first example.
+
+
+\item (Induced connection on an embedded submanifold)
+Let
+\[
+M \subset \mathbb{R}^N
+\]
+be an embedded submanifold.
+Let
+\[
+E=TM\subset T\mathbb{R}^N|_M
+\]
+be the tangent bundle of $M.$
+Denote the orthogonal projection by
+\[
+\pi: T\mathbb{R}^N|_M \longrightarrow TM.
+\]
+Define the {\bf induced connection}
+\[
+\nabla = \pi\circ \nabla^\circ.
+\]
+We can check the Leibniz rule as follows:
+\[
+\nabla_X(fY)=\pi\bigl(\nabla_X^\circ(fY)\bigr)
+=\pi\bigl(X(f)Y^i+f\nabla_X^\circ Y^i\bigr)
+=
+X(f)\pi(Y)+f\pi(\nabla_X^\circ Y).
+\]
+Since $Y$ is tangent to $M,$ we have $\pi(Y) = Y.$ So we arrive at
+\[
+\nabla_X(fY)=X(f)\,Y+f\nabla_XY.
+\]
+
+
+
+
+\item Let us revisit the first/second example but with a twist.
+Let
+\[
+M = \Omega \subset \mathbb{R}^n,
+\qquad
+E = \underline{K}^r = \mathbb{R}^n \times K^r .
+\]
+Let
+\[
+A_1(x), \ldots, A_n(x) \in \mathrm{Mat}_K^{r\times r}(\Omega),
+\]
+be any collection of $n$ matrix-valued functions on $\Omega.$
+Define
+\[
+\nabla_X^A s
+=
+\nabla_X^\circ s + X^i A_i(x) \cdot s.
+\]
+In components, this means:
+\[
+(\nabla_X^A s)^\alpha
+=
+X(s^\alpha)
++
+X^i A_{i\beta}^{\alpha}s^\beta.
+\]
+Let's check the Leibniz rule:
+\begin{equation*}
+\begin{split}
+\left( \nabla_X^A (f s) \right)^\alpha
+& = X(fs^\alpha) + X^i A^{\alpha}_{i\beta}(f s^\beta) \\
+& = X(f) s^\alpha + fX(s^\alpha)+ f X^i A_ {i\beta}^\alpha s^\beta \\
+& = (X(f)s)^\alpha + f (\nabla_X^A s)^\alpha.
+\end{split}
+\end{equation*}
+A clear moral of this example is: \emph{connections are not unique!}
+\end{enumerate}
+
+\vspace{2mm}
+
+
+\subsection{The space of connections} Having seen that connections are not unique, we shall now describe the space of all connections on a given vector bundle $E \to M.$
+
+\begin{proposition}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+
+\item 
+Let
+$$a \in \Omega^1(\mathrm{End}(E)) = \Gamma(T^*M \otimes \mathrm{End}(E))$$
+be $1$-form valued in the endomorphism bundle of $E.$
+If $\nabla$ is a connection on $E$, then $ \nabla' := \nabla + a $
+is also a connection. Here $\nabla'$ acts by
+$$\nabla'_X s = \nabla_X s + a(X)\cdot s.$$
+
+\item 
+Given any two connections $\nabla$ and $\nabla'$ on $E$, their difference $\nabla' - \nabla$ is an $\mathrm{End}(E)$-valued 1-form:
+$$\nabla' - \nabla \in \Omega^1(\mathrm{End}(E)).$$
+
+\item 
+For $\lambda \in C^\infty(M)$, $ \lambda \nabla + (1-\lambda)\nabla'$
+is again a connection. 
+\end{enumerate}
+\end{proposition}
+
+\noindent
+\begin{proof}
+    Parts ($a$) and ($c$) are left as exercises.
+
+We check ($b$). By the tensor characterization lemma, it suffices to check
+$C^\infty(M)$-linearity of the difference $\nabla - \nabla'$ with respect to $s.$ (It is already linear in $X.$) We have
+\begin{equation*}
+\begin{split}
+(\nabla_X - \nabla'_X)(fs)
+& = \nabla_X(fs) - \nabla'_X(fs) \\
+& = X(f)s + f\nabla_X s - X(f)s - f\nabla'_X s \\
+& = f(\nabla_X  - \nabla'_X )s.
+\end{split}
+\end{equation*}
+\end{proof}
+
+According to (a-b), the space of all connections on $E$ forms an \emph{affine space modeled on $\Omega^1(\mathrm{End}(E))$}. This means that the space of connection is basically the same as the vector space $\Omega^1(\mathrm{End}(E))$ except that there is no distinguished origin. By (c), given any constant $\lambda \in [0,1],$ the linear interpolation
+\[
+\lambda \nabla + (1-\lambda)\nabla'
+\]
+remains a connection. Hence, while adding two connections does not make sense, linearly interpolating between them does.
+
+
+
+Finally, we should show that the space of connections on a vector bundle is always nonempty.
+\begin{proposition}
+  Given any vector bundle $E\to M$, there exists a connection on $E$. 
+  \end{proposition}
+\begin{proof}
+Let $\{U_a\}$ be a coordinate cover such that $E$ is trivial over each $U_a$. Choose local frames $\{e_\alpha^a\}$ on $U_a.$
+Let $\{\varphi_a\}$ be a partition-of-unity subordinate to $\{U_a\}$.
+On each $U_a$, define the product connection
+\[
+\nabla^{\circ,a}: \Gamma(E|_{U_a})\to \Omega^1(E|_{U_a})
+\]
+according to Example 2 above. Then define globally:
+\[
+\nabla_X s
+=
+\sum_a \varphi_a\,\nabla_X^{\circ,a}(s|_{U_a}).
+\]
+We check that this satisfies the Leibniz rule:
+\[
+\begin{aligned}
+\nabla_X(f \cdot s) 
+&= \sum_a \varphi_a \, \nabla^{\circ,a}(f s|_{U_a} ) \\
+&= \sum_a \varphi_a \, X(f)  s|_{U_a} + \sum_a \varphi_a \, f \, \nabla^{\circ,a}(s|_{U_a}) \\
+&=  \, X(f) \sum_a \varphi_a s + f \sum_a \varphi_a \, \, \nabla^{\circ,a}(s|_{U_a}) \\
+&= X(f)  s + f \, \nabla_X s.
+\end{aligned}
+\]
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{10mm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Local description of a connection (Wed 1/28 online)}
+
+
+\begin{comment}
+
+\subsection{Recall}
+
+Let $E \to M$ be a vector bundle of rank $r$ over $K=\R$ or $\C$.
+
+\medskip
+
+A \emph{covariant derivative} (a.k.a.\ a \emph{connection}) on $E$ is a map
+
+\[
+\nabla : \mathfrak{X}(M)\times \Gamma(E) \longrightarrow \Gamma(E),
+\qquad (X,s)\longmapsto \nabla_X s,
+\]
+
+satisfying the following properties:
+
+\medskip
+
+\begin{enumerate}
+\item $\nabla$ is $C^\infty(M)$--linear in $X$, i.e.
+$
+\nabla_{fX+gY}s = f\,\nabla_X s + g\,\nabla_Y s,
+$
+for all $f,g\in C^\infty(M)$ and $X,Y\in \mathfrak{X}(M)$.
+
+\item $\nabla$ is $K$--linear in $s$, i.e.
+$
+\nabla_X(as+bt) = a\,\nabla_X s + b\,\nabla_X t,
+$
+for all $a,b\in K$ (constants) and $s,t\in \Gamma(E)$.
+
+\item (\textbf{Leibniz rule})
+$
+\nabla_X(fs) = X[f]\cdot s + f\,\nabla_X s,
+$
+for all $f\in C^\infty(M)$.
+\end{enumerate}
+
+\vspace{2mm}
+
+\begin{rmk}
+A connection on $E$ is \emph{not unique}.
+\end{rmk}
+
+\begin{rmk}
+The operator $\nabla$ is tensorial in the vector field variable $X$
+(i.e.\ $C^\infty(M)$--linear in $X$),
+but it is \emph{not} tensorial in the section variable $s$.
+\end{rmk}
+Equivalently, we may regard a connection as a map
+\[
+\nabla : \Gamma(E) \longrightarrow \Gamma(T^*M \otimes E)
+= \Omega^1(E),
+\qquad
+s \longmapsto \nabla s.
+\]
+In particular, differentiation with respect to a tangent vector
+$v \in T_xM$ makes sense:
+\[
+\nabla_v s \in E_x.
+\]
+
+\vspace{2mm}
+
+\textbf{Saw last time: Connections always exist.}
+\begin{itemize}
+\item Given $a \in \Omega^1(\mathrm{End}(E))$, the operator
+$\nabla + a$ is again a connection, defined by
+\[
+(\nabla + a)_X s = \nabla_X s + a(X)s.
+\]
+\item If $\nabla$ and $\nabla'$ are two connections, then their difference
+\[
+\nabla - \nabla' = a \in \Omega^1(\mathrm{End}(E))
+\] is tensorial.
+\end{itemize}
+\textbf{Conclusion:}
+The set of all connections on $E$ forms an affine space
+modeled on $\Omega^1(\mathrm{End}(E))$.
+
+
+\vspace{5mm}
+
+\end{comment}
+
+
+
+\subsection{Locality} We first clarify the following point.
+\begin{prop}
+A connection is determined locally. More precisely, given sections $s, s' \in \Gamma(E)$, if there exists an open set
+$V \subset M$ such that
+$s|_V = s'|_V,$
+then $\nabla s|_V = \nabla s'|_V.$
+\end{prop}
+
+\begin{proof}
+It suffices to show that
+$(\nabla_X s)(p) = (\nabla_X s')(p)$
+for all $p \in V$ and all $X \in \mathfrak{X}(M)$.
+
+Fix $p \in V$ and $X \in \mathfrak{X}(M)$.
+Choose a cutoff function $\varphi$ with $\varphi \equiv 1$ near $p$
+and $\mathrm{supp}(\varphi) \subset V$.
+We have
+$$\nabla_X(\varphi s)(p)
+= X(\varphi)(p)\, s(p) + \varphi(p)(\nabla_X s)(p)
+= (\nabla_X s)(p).$$
+On the other hand, the same calculation shows that $\nabla_X(\varphi s')(p) = (\nabla_X s')(p)$. But since $s|_V = s'|_V$, we have $\varphi s = \varphi s'$ globally, so
+$$\nabla_X(\varphi s)(p) = \nabla_X(\varphi s')(p).$$
+Therefore $(\nabla_X s)(p) = (\nabla_X s')(p)$. Since $p \in V$ and $X$ were arbitrary, the result follows.
+\end{proof}
+
+
+\begin{cor}\label{cor:localitycor}
+Let $U \subset M$ be open. For any $s \in \Gamma(U,E)$, the expression $\nabla s \in \Omega^1_U(E)$
+makes sense.
+\end{cor}
+
+\begin{proof}
+Given $p \in U$, define
+$$\nabla s(p) := \nabla \tilde{s}(p),$$
+where $\tilde{s} \in \Gamma(E)$ is any global section that agrees with $s$
+on a neighborhood of $p$. That is, there exists an open set $V \ni p$ such that $s|_V = \tilde{s}|_V$
+(for example, one may take $\tilde{s} = \varphi s$ as before). By the locality proposition, the value $\nabla \tilde{s}(p)$ depends only
+on the restriction of $s$ near $p$, hence $\nabla s$ is well-defined.
+\end{proof}
+
+\vspace{2mm}
+
+\subsection{Connection matrices}
+Let $\nabla$ be any connection on $E \to M$. Given a local frame $\{e_\alpha\}_{\alpha=1}^r$ over a coordinate chart $U = \{x^i\}_{i=1}^n,$ in view of Corollary \ref{cor:localitycor}, we can make the following definition.
+
+\begin{defn}
+The \textbf{connection matrices} of $\nabla$ with respect to $\{e_\alpha\},$
+\[
+A^\beta_{i \alpha}, \qquad i=1,\dots,n
+\]
+are defined by
+\[
+\nabla_{\frac{\partial}{\partial x^i}} e_\alpha
+= A^\beta_{i \alpha}\, e_\beta.
+\]
+\end{defn}
+\noindent The connection matrices determine $\nabla$ completely. Indeed, let $s = s^\alpha e_\alpha \in \Gamma(U,E)$.
+Then for a vector field $X = X^i \frac{\partial}{\partial x^i}$ we compute:
+\[
+\nabla_X s
+= \nabla_{X^i \frac{\partial}{\partial x^i}} (s^\alpha e_\alpha)
+= X^i \nabla_{\frac{\partial}{\partial x^i}} (s^\alpha e_\alpha)
+\]
+\[
+= X^i \left(
+\frac{\partial s^\alpha}{\partial x^i} e_\alpha
++ s^\alpha \nabla_{\frac{\partial}{\partial x^i}} e_\alpha
+\right).
+\]
+Using the definition
+$\nabla_{\frac{\partial}{\partial x^i}} e_\alpha
+= A^\beta_{i \alpha} e_\beta$,
+we obtain
+\[
+\nabla_X s
+= X^i \left(
+\frac{\partial s^\alpha}{\partial x^i} e_\alpha
++ s^\alpha A^\beta_{i \alpha} e_\beta
+\right)
+\]
+Exchanging the index labels $\alpha$ and $\beta$ in the second term, we obtain
+\[
+\nabla_X s
+= X^i \left(
+\frac{\partial s^\alpha}{\partial x^i}
++ A^\alpha_{i \beta} s^\beta
+\right)e_\alpha.
+\]
+This formula should be compared with Example 4 of the last class.
+
+\textbf{Notation:}
+We define
+\[
+\left( \nabla_{\frac{\partial}{\partial x^i} } s \right)^\alpha
+= \boxed{ \frac{\partial s^\alpha}{\partial x^i}
++ A^\alpha_{i \beta}\, s^\beta
+=: \nabla_i s^\alpha.}
+\]
+Equivalently, we have
+$$ \nabla s = \nabla_i s^\alpha \, dx^i \otimes e_\alpha \in \Omega^1(E),$$
+i.e., $\nabla_i s^\alpha$ are the tensor components of $\nabla s.$
+For a vector field $X,$ we get the expression
+\[
+\nabla_X s = X^i \nabla_i s^\alpha \, e_\alpha.
+\] 
+
+
+\noindent \textbf{Warning:}
+The component function $\nabla_i s^\alpha$ should not be confused with a derivative of the single component function $s^\alpha.$ Evidently, it also depends on the other components $s^\beta,$ $\beta \neq \alpha.$ As long as one keeps this in mind, it is perfectly good notation.
+
+
+\vspace{2mm}
+
+\subsection{The transformation rule}
+How do the connection matrices change when we change the frame?
+
+Let $\{e_\alpha\}$ and $\{e'_\beta\}$ be two local frames over $U$,
+with corresponding connection matrices
+$A_{i\beta}^{\alpha}$ and $A'^{\alpha}_{i\beta}$. Define the change-of-frame matrix $\sigma$ by
+$$e_\alpha = \sigma^{\beta}{}_\alpha \, e'_\beta.$$
+We compute how the connection matrices transform under a change of frame. On one hand, we have
+\begin{equation*}
+\begin{split}
+\nabla_{\frac{\partial}{\partial x^i} } e_\alpha
+& = \nabla_{\frac{\partial}{\partial x^i}}(\sigma^{\beta}{}_\alpha e'_\beta) \\
+& = \frac{\partial \sigma^{\beta}{}_\alpha}{\partial x^i} e'_\beta
++ \sigma^{\beta}{}_\alpha\, \nabla_{\frac{\partial}{\partial x^i} } e'_\beta \\
+& = \left(
+\frac{\partial \sigma^{\gamma}{}_\alpha}{\partial x^i}
++ \sigma^{\beta}{}_\alpha A'^\gamma_{i \beta}
+\right)e'_\gamma.
+\end{split}
+\end{equation*}
+On the other hand, we have
+\[
+\nabla_{\frac{\partial}{\partial x^i}} e_\alpha
+= A^\beta_{i \alpha}\, e_\beta
+= A^\beta_{i \alpha}\, \sigma^{\gamma}{}_\beta e'_\gamma.
+\]
+Comparing coefficients of $e'_\gamma$, we get
+\[
+A^\beta_{i \alpha}\, \sigma^{\gamma}{}_\beta
+= \frac{\partial \sigma^{\gamma}{}_\alpha}{\partial x^i}
++ \sigma^{\beta}{}_\alpha A'^\gamma_{i \beta}.
+\]
+In matrix notation, this becomes
+\[
+\sigma \cdot A_i
+= \frac{\partial \sigma}{\partial x^i} + A'_i \cdot \sigma.
+\]
+Multiplying on the right by $\sigma^{-1}$ and rearranging, we obtain the \textbf{transformation law for connection matrices under a change-of-frame:}
+\begin{equation}\label{transformationlaw}
+   \boxed{
+A'_i
+= \sigma \cdot A_i \cdot \sigma^{-1}
+- \frac{\partial \sigma}{\partial x^i} \cdot \sigma^{-1}.}
+\end{equation}
+Note that the extra term corresponds to the fact that connection matrices \emph{do not} transform like tensors.
+
+
+\vspace{2mm}
+
+\subsection{Coordinate / frame description}
+Let $E \to M$ be a vector bundle. Recall that there are two ways of thinking about $E:$ as an abstract topological space together with a map to $M$ satisfying some axioms, or as a collection of trivial bundles patched together. For the second point of view, one chooses an open cover $\{U_a\}$ of $M$ such that each restriction $E|_{U_a}$ is trivial. On each $U_a$, fix a local frame $\{e_\alpha^{(a)}\}_{\alpha=1}^r$.
+On overlaps $U_a \cap U_b$, the frames are related by the transition functions
+$$\sigma_{ab}:U_a\cap U_b \to \GL(r)$$
+defined by
+\[
+e_\alpha^{(a)} = \sigma_{ab}{}^\beta_{\ \alpha}\, e_\beta^{(b)}.
+\]
+The $\sigma_{ab}$'s satisfy \emph{cocycle conditions}, one of which is $\sigma_{ba} = \sigma_{ab}^{-1}$. Conversely, recall that given any collection of transition functions satisfying the cocycle conditions, one can make a vector bundle just by gluing together trivial bundles (761 notes, Section 31). 
+
+We now describe connections from this point of view. Let $\left(A_i^{(a)} \right)$ denote the connection matrices on $U_a$ with respect to the local frames $\left\{e_\alpha^{(a)}\right\}$.
+The above transformation law becomes the {\bf compatibility condition}
+\[
+\boxed{A_i^{(b)}
+= \sigma_{ab}\, A_i^{(a)}\, \sigma_{ba}
+- \frac{\partial \sigma_{ab}}{\partial x^i}\, \sigma_{ba}}
+\]
+on $U_a \cap U_b.$
+Conversely, given any collection of matrix-valued functions $\left\{ A_i^{(a)} \right\}$
+satisfying the compatibility condition on the overlaps $U_a \cap U_b$,
+there exists a unique globally defined connection $\nabla$ on $E$
+whose connection matrices are exactly $\left\{ A_i^{(a)} \right\}$.
+
+\begin{rmk}
+If one is using different coordinates $U_a = \{x^i\}$ and $U_b = \{y^j\}$ on the two charts, then the compatibility condition reads
+\[
+A^{(b)}_j
+= \sigma_{ab}\,
+\frac{\partial x^i}{\partial y^j}\,
+A^{(a)}_i\,
+\sigma_{ba}
+- \frac{\partial \sigma_{ab}}{\partial y^j}\,
+\sigma_{ba}.
+\]
+\medskip
+Next time we will discuss: why do we keep calling a covariant derivative a ``connection''?
+\end{rmk}
+
+
+
+
+
+\vspace{10mm}
+
+
+
+
+
+\section{Parallel transport (Tuesday 2/3)}
+
+
+
+
+
+\begin{comment}
+    
+
+\textbf{Review: Local description.}
+Choose a local frame $\{e_\alpha\}$ for $E$ over an open set $U$. The (local) connection coefficients (connection matrix) are the functions $A_{i\alpha}^{\beta}$ defined in local coordinates $\{x^i\}$ on $U$,
+\[
+\nabla_{\frac{\partial}{\partial x^i}} e_\alpha = A^{\beta}_{i\alpha} e_\beta.
+\]
+If $s = s^\alpha e_\alpha$, then the local formula for the covariant derivative is
+\[
+\left(\nabla_{\frac{\partial}{\partial x^i}} s\right)^\alpha
+= \nabla_i s^\alpha
+= \frac{\partial s^\alpha}{\partial x^i} + A^{\alpha}_{i\beta} s^\beta.
+\]
+\noindent \textbf{Warning:}
+The component function $\nabla_i s^\alpha$ should not be confused with a derivative of the single component function $s^\alpha$; it also involves the other components $s^\beta$ for $\beta\ne\alpha$.
+
+\textbf{Review: Transformation of connection matrices}
+Under a change of frame
+$\tilde{e}_\alpha = \sigma^{\beta}{}_{\alpha}\, e_\beta,$
+the connection matrices transform by
+\[
+A'_i = \sigma \cdot A_i \cdot \sigma^{-1} - \frac{\partial \sigma}{\partial x^i}\cdot \sigma^{-1}.
+\]
+It is noted that the $A_i$ do not transform as a section of $E \otimes E^*$.
+
+\medskip
+\noindent \textbf{Review: Global description.}
+Globally, one may choose an open cover $\{U_a\}$ of $M$ such that $E|_{U_a}$ is trivial, together with local frames $\{e^{(a)}_\alpha\}$ on each $U_a$. On overlaps $U_a \cap U_b$, the frames are related by transition functions
+$\sigma_{ab}: U_a\cap U_b \to GL(r)$ satisfying
+\[
+e^{(a)}_\alpha = \sigma_{ab}{}^{\beta}{}_{\alpha}\, e^{(b)}_\beta.
+\tag{No sum on $b$.}
+\]
+
+Any collection of local connection matrices $\{A^{(a)}_i\}$ satisfying the compatibility conditions on overlaps $U_a\cap U_b$,
+\[
+A^{(b)}_i
+= \sigma_{ab}\, A^{(a)}_i\, \sigma_{ba}
+- \frac{\partial \sigma_{ab}}{\partial x^i}\, \sigma_{ba},
+\]
+gives a globally well-defined connection $\nabla$ on $E\to M$.
+
+\end{comment}
+
+
+
+
+\subsection{Covariant derivative along a path}
+Let $\pi : E \to M$ be a vector bundle and $\gamma: \LB a,b \RB \to M$ a path.\footnote{Thanks to Keyang Li for texing today's notes.} A \textbf{section of $E$ along $\gamma$} is a map $s: \LB a, b \RB \to E$ such that
+\[
+\pi\circ s = \gamma.
+\]
+Equivalently, $s(t)\in E_{\gamma(t)}$ for all $t \in \LB a,b\RB.$ The following definition/lemma should be no surprise.
+\begin{defnlemma}[Covariant derivative along a path]
+Fix a connection $\nabla$ on $E \to M.$ Given a piecewise $C^1$ section $s: \LB a, b\RB \to E$ along $\gamma,$ there exists a well-defined {\bf covariant derivative of $s$ along $\gamma$,} written $\frac{Ds}{dt},$ which is again a section of $E$ along $\gamma;$ in other words,
+\[
+\frac{Ds}{dt}\in E_{\gamma(t)}
+\]
+for $t \in \LB a, b\RB.$
+It has the following properties:
+\begin{enumerate}[label={(\Alph*)}]
+\item (Additivity) For sections $s_1$ and $s_2$ along $\gamma$,
+\[
+\frac{D(s_1+s_2)}{dt}=\frac{Ds_1}{dt}+\frac{Ds_2}{dt}.
+\]
+\item (Leibniz rule) For $f\in C^{\infty}(\LB a, b \RB)$ and a section $s$ along $\gamma$,
+\[
+\frac{D(f\cdot s)}{dt} = \frac{df}{dt}\, s + f\,\frac{Ds}{dt}.
+\]
+\item (Relationship with $\nabla$) If %$U\subset M$ is open with $\gamma(\LB a, b\RB)\subset U,$ $\tilde{s}\in \Gamma(U,E),$ and
+$s(t)=\tilde{s}(\gamma(t))$, where $\tilde{s} \in \Gamma(E),$ then
+\[
+\frac{Ds }{dt} = \nabla_{\gamma'(t)}\tilde{s}(\gamma(t)).
+\]
+\item (Local expression) Given a local frame $\{e_\alpha\},$ let $A^\alpha_{i \beta}$ be the connection matrices of $\nabla$ and write $s(t)=s^\alpha(t)e_\alpha\vert_{\gamma(t)}.$ We then have
+\[
+\frac{Ds}{dt}
+= \left(\frac{d s^\alpha(t)}{dt}
++ \frac{d \gamma^i}{dt} \, A^{\alpha}_{i\beta}\big(\gamma(t)\big)\, s^\beta(t)\right)
+ e_\alpha\big\vert_{\gamma(t)}.
+\]
+\end{enumerate}
+\end{defnlemma}
+\begin{proof} We take ($D$) as our definition. One should then check that the result is independent of changes of frame. This is a good exercise using the transformation law (\ref{transformationlaw}).
+
+We also check that ($C$) will be satisfied with this definition.
+Suppose $s(t)=\tilde{s}(\gamma(t))$ for some section $\tilde{s}\in \Gamma(U,E)$ defined on an open set $U$ containing $\gamma(\LB a,b \RB)$. Write
+$\tilde{s}=\tilde{s}^\alpha e_\alpha$ in a local frame, so $s^\alpha(t)=\tilde{s}^\alpha(\gamma(t))$. In local coordinates $\{x^i\}$ we have
+$\gamma'(t)=\frac{d\gamma^i}{dt}(t)\,\frac{\partial}{\partial x^i}$, and we use the local formula
+$\nabla_i \tilde{s}^\alpha = \frac{\partial \tilde{s}^\alpha}{\partial x^i} + A^{\alpha}_{i\beta}\,\tilde{s}^\beta$.
+Then
+\[
+\nabla_{\gamma'(t)}\tilde{s}
+= \frac{d\gamma^i}{dt} \,\nabla_i \tilde{s}^\alpha\big(\gamma(t)\big)\, e_\alpha\big\vert_{\gamma(t)}
+= \frac{d\gamma^i}{dt} \left(\frac{\partial \tilde{s}^\alpha}{\partial x^i} + A^{\alpha}_{i\beta}\,\tilde{s}^\beta\right)\!(\gamma(t))\, e_\alpha\big\vert_{\gamma(t)}.
+\]
+By the chain rule,
+$$\frac{d\gamma^i}{dt}\,\frac{\partial \tilde{s}^\alpha}{\partial x^i}(\gamma(t))
+=\frac{d}{dt}\big(\tilde{s}^\alpha(\gamma(t)) \big)=\frac{ds^\alpha}{dt},$$
+hence
+\[
+\frac{Ds}{dt}
+= \nabla_{\gamma'(t)}\tilde{s}(\gamma(t))
+= \left(\frac{ds^\alpha}{dt}(t)
++ A^{\alpha}_{i\beta}(\gamma(t))\,s^\beta(t)\,\frac{d\gamma^i}{dt}(t)\right)e_\alpha\big\vert_{\gamma(t)}.
+\]
+\end{proof}
+
+\vspace{2mm}
+
+\subsection{Parallel transport}
+A section $s$ is called \textbf{parallel} along $\gamma$ if
+$$\frac{D s(t)}{dt}=0.$$
+
+\begin{prop}
+Let $\gamma:[a,b]\to M$ be a piecewise $C^1$ path and let $s_0 \in E_{\gamma(a)}$.
+There exists a unique parallel section $s$ along $\gamma$ such that $s(a)=s_0$.
+\end{prop}
+
+\begin{proof}
+    Break up the path $\gamma$ into a concatenation $\gamma_1 * \gamma_2 * \cdots * \gamma_n$ of finitely many paths, each of whose image lies within a single coordinate chart over which $E$ is trivial. If we prove the proposition (existence and uniqueness) for each path $\gamma_i,$ we will have proven it for $\gamma.$ It therefore suffices to assume that $\gamma = \gamma_1.$
+
+    In a coordinate chart, the equation $\frac{Ds}{dt} = 0$ amounts to the system
+    $$\frac{d s^\alpha}{dt} + \frac{ d \gamma^i}{dt} A_{i \beta}^\alpha(\gamma(t)) s^\beta(t) = 0, \qquad \alpha = 1, \ldots, r.$$
+    Since the path $\gamma(t)$ is fixed, the coefficients do not depend on $s^\alpha(t).$ This is therefore a first-order linear ODE system. As with any system, Picard's local existence theorem allows us to solve the ODE uniquely on short time intervals. It is an exercise (on homework) to prove that \emph{linear} ODEs in fact enjoy global solutions. (In class we sketched two proofs of this fact, which I omit in order not to trivialize your homework.)
+\end{proof}
+
+
+
+
+
+\begin{comment}
+
+Keyang wrote down the proofs that I sketched in class...
+
+\begin{proof}
+Since $\gamma([a,b])\subset M$ is compact, we may cover it by finitely many open sets
+$U_{a_1},\dots,U_{a_N}$ on which $E$ is trivial.
+By compactness of $[a,b]$ and continuity of $\gamma$, there exists a subdivision
+$a=t_0<t_1<\cdots<t_N=b$ such that
+$\gamma([t_{k-1},t_k])\subset U_{a_k}$ for each $k$.
+
+Fix $k$ and work on $[t_{k-1},t_k]$ in the trivialization over $U_{a_k}$ with local frame $\{e^{(k)}_\alpha\}$.
+Write $s(t)=s^{\alpha}_{(k)}(t)\,e^{(k)}_\alpha\vert_{\gamma(t)}$.
+Then the condition $\frac{Ds}{dt}=0$ is equivalent to the linear ODE system
+\[
+\frac{d s^{\alpha}_{(k)}}{dt}(t)
++ A^{(k)\alpha}_{i\beta}\big(\gamma(t)\big)\,\frac{d\gamma^i}{dt}(t)\, s^{\beta}_{(k)}(t)=0.
+\]
+On the first subinterval we impose the initial condition $s(t_0)=V$ (equivalently $s^{\alpha}_{(1)}(t_0)=V^{\alpha}_{(1)}$), and for $k\ge 2$ we impose $s(t_{k-1})$ equal to the value obtained from the previous subinterval.
+Existence and uniqueness for linear ODEs yields a unique solution on each $[t_{k-1},t_k]$.
+
+On an overlap, two local solutions satisfy the same ODE and agree at the endpoint, hence agree on the intersection; therefore they glue to a well-defined section $s$ along all of $\gamma$.
+Uniqueness follows similarly: two parallel sections with the same initial value must agree on $[t_0,t_1]$ by uniqueness of the ODE, hence agree inductively on each $[t_{k-1},t_k]$.
+\end{proof}
+
+\begin{exercise}
+Consider the first order homogeneous linear ODE system
+\[
+\dot{s}(t)=-A(t)s(t)
+\]
+with $A(t)$ continuous on $[a,b]$. It admits a unique solution on any interval $[a,b]$ for each prescribed initial value $x(a)=x_0$.
+In particular, solutions have no finite-time blowup on a finite interval.
+\end{exercise}
+
+\begin{proof}[Proof Sketch]
+With respect to the standard inner product on $\R^r$, we compute
+\[
+\frac{d}{dt}|s(t)|^2 = 2\langle s(t),\dot{s}(t)\rangle = -2\langle s(t),A(t)s(t)\rangle.
+\]
+By Cauchy--Schwarz,
+$|\langle s,A s\rangle|\le |s|\,|A s|\le |A|\,|s|^2$, hence
+\[
+\left|\frac{d}{dt}|s(t)|^2\right|\le 2|A(t)|\,|s(t)|^2.
+\]
+Applying Gr\"onwall's inequality gives
+$|s(t)|^2\le |s(a)|^2\exp\big(2\int_a^t |A(\tau)|\,d\tau\big)$,
+so $|s(t)|$ stays finite on $[a,b]$.
+\end{proof}
+
+
+\end{comment}
+
+
+
+\vspace{2mm}
+
+
+\begin{defn}[Parallel transport]
+Let $\gamma:[a,b]\to M$ be a piecewise $C^1$ path, and let $\nabla$ be a connection on $E\to M$.
+The associated \textbf{parallel transport map} along $\gamma$ is the map
+\[
+P^{\gamma}_{a,b}: E_{\gamma(a)} \longrightarrow E_{\gamma(b)}
+\]
+defined by
+\[
+P^{\gamma}_{a,b}(s_0) := s(b),
+\]
+where $s$ is the unique parallel section along $\gamma$ satisfying
+$\frac{D s}{dt}=0$ and $s(a)=s_0$.
+\end{defn}
+
+
+\begin{lemma}[Properties of parallel transport]
+Let $\gamma:[a,b]\to M$ be a piecewise $C^1$ path.
+\begin{enumerate}[label={(\arabic*)}]
+\item (Invertibility) The map $P^{\gamma}_{a,b}:E_{\gamma(a)}\to E_{\gamma(b)}$ is an isomorphism.
+
+\begin{comment}
+    with inverse given by parallel transport along the reversed path $\bar\gamma(t):=\gamma(a+b-t)$:
+\[
+\left(P^{\gamma}_{a,b}\right)^{-1}=P^{\bar\gamma}_{b,a}.
+\]
+\end{comment}
+
+\item (Linearity) For $s_0,s_1\in E_{\gamma(a)}$ and constants $r_0,r_1\in K,$ we have
+\[
+P^{\gamma}_{a,b}(r_0 s_0 + r_1 s_1)=r_0 \,P^{\gamma}_{a,b}(s_0)+ r_1\,P^{\gamma}_{a,b}(s_1).
+\]
+\item (Concatenation) For $c\in \LB a,b \RB,$ %and $\gamma_1:=\gamma|_{[a,c]}$, $\gamma_2:=\gamma|_{[c,b]}$, then
+we have
+\[
+P^{\gamma}_{a,b} = P^{\gamma}_{c,b}\circ P^{\gamma}_{a,c}.
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} These properties follow directly from uniqueness (1 \& 3) and linearity (2) of the ODE system. For instance, the isomorphism property (1) can be seen by considering parallel transport by the reversed path. In class I sketched the proofs verbally and it is a good exercise to think them through again.
+\end{proof}
+
+\begin{comment}
+
+(1) If $s$ is parallel along $\gamma$ with $s(a)=V$, then $t\mapsto s(a+b-t)$ is parallel along $\bar\gamma$ with initial value $s(b)$. By uniqueness of solutions to the defining ODE, transporting forward then backward returns $V$.
+
+(2) If $s_V$ and $s_W$ are the parallel sections with initial values $V$ and $W$, then $a s_V+b s_W$ is again parallel with initial value $aV+bW$; uniqueness of parallel sections implies the claimed linearity.
+
+(3) Solve the parallel ODE on $[a,c]$ with initial value $V$ to get $s(c)=P^{\gamma_1}_{a,c}(V)$, then use this as initial value on $[c,b]$; uniqueness implies that the result agrees with solving on all of $[a,b]$.
+\end{comment}
+
+\vspace{2mm}
+
+
+\subsection{Recovering the connection}
+The connection $\nabla$ can be recovered from its parallel transport map.
+%Indeed, for a vector field $X$ and a local section $s$, one may compute $(\nabla_X s)(p)$ by comparing $s(p)$ with the parallel transport of $s(q)$ back to $p$ along short curves tangent to $X$ and then taking a limit.
+
+\begin{claim}
+\[
+\boxed{\frac{Ds}{dt}
+= \lim_{h\to 0}\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h}.}
+\]
+\end{claim}
+
+\begin{rmk} Observe that the formula makes sense: the elements in the numerator belong to the same fiber $E_{\gamma(t + h)},$ so we can subtract them and divide by the constant $h.$ The result is still a point in the total space of $E,$ and the limit can be understood in the topology of $E,$ which holds no surprises in local coordinates.
+\end{rmk}
+
+\vspace{2mm}
+
+\begin{claimproof}
+The formula can be checked by calculating the leading order of $P^{\gamma}_{t,t+h}s(t)$ from the above ODE system in local coordinates and recovering the formula for $\frac{Ds}{dt}.$ It is instructive, however, to give the following alternative argument.
+
+Define an operator on sections along $\gamma$ by
+\[
+(Ts)(t):=\lim_{h\to 0}\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h},
+\]
+whenever the limit exists. Then the claim is that
+$$\frac{Ds}{dt} = (Ts)(t).$$
+Observe that for a parallel section $s$ the formula is true, as both sides are zero.
+
+By parallel transport, one can construct a parallel frame along $\gamma$.
+Since $\frac{D}{dt}$ is characterized by its values on this parallel frame, linearity, and the Leibniz rule, it suffices to check that $T$ satisfies the Leibniz rule.
+%We end by checking the Leibniz rule for $T.$
+This will take us right back to Calculus I.
+
+Let $f\in C^{\infty}(\LB a,b\RB)$ and let $s$ be a section along $\gamma$.
+Since parallel transport is linear on each fiber, we have
+\[
+P^{\gamma}_{t,t+h}\big(f(t)\,s(t)\big)=f(t)\,P^{\gamma}_{t,t+h}s(t).
+\]
+Therefore
+\[
+\frac{f(t+h)s(t+h)-P^{\gamma}_{t,t+h}\big(f(t)s(t)\big)}{h}
+=\frac{f(t+h)s(t+h)-f(t)P^{\gamma}_{t,t+h}s(t)}{h}.
+\]
+Add and subtract $f(t)s(t+h)$ to rewrite this as
+\[
+\frac{f(t+h)-f(t)}{h}\,s(t+h)
++f(t)\,\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h}.
+\]
+Taking $h\to 0$ gives $s(t+h)\to s(t)$ and $\frac{f(t+h)-f(t)}{h}\to \frac{df}{dt}$, hence in the limit we obtain
+\[
+T(fs)(t) = \frac{df}{dt}\,s(t)+f (Ts)(t) %\,\lim_{h\to 0}\frac{s(t+h)-P^{\gamma}_{t,t+h}s(t)}{h},
+\]
+which is exactly the Leibniz rule for $T.$
+\end{claimproof}
+
+
+   \begin{rmk} We now know why a covariant derivative is called a ``connection:'' it is because the parallel transport operator ``connects'' different fibers along a path. In fact, by the previous claim, the parallel transport operator is sufficient to recover the covariant derivative; so the two notions really are equivalent.
+   
+   An alternative approach (see e.g. my ``Vector bundles and gauge theory'' notes, from Math 865) is to first define a connection as a collection of parallel transport operators subject to some reasonable axioms, then to construct the covariant derivative using the formula in the previous claim.
+    \end{rmk}
