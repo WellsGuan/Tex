@@ -1,28 +1,31 @@
+\newcommand{\D}{\mathcal{D}}
+
+\part{Sobolev Spaces}
+
+In the following chapters, we denote $\D(U)$ to be the test functions on an open set $U\subset\mathbb{R}^m$, i.e. the continuous functions with compact support on $U$, and $V'$ to be the dual space of the vector space $V$.
+
 \section{Introduction to Sobolev Spaces}
 \subsection{Sobolev spaces}
 \begin{definition}
-Let \(u\in D^{\prime}(U)\) , where \(U\subset \mathbb{R}^{d}\) is open. The \(k\) - th order \(L^{p}\) - based Sobolev norm of \(u\) is
+Let $u\in \D^{\prime}(U)$ , where \(U\subset \mathbb{R}^{d}\) is open. The \(k\)-th order \(L^{p}\)-\emph{based Sobolev norm} of \(u\) is
 \[
 \| u\|_{W^{k,p}(U)} := \sum_{|\alpha |\leq k} \| D^{\alpha} u\|_{L^{p}}, \quad 1 \leq p < \infty ,
 \]
 where we are using the distributional derivative and assume that \(D^{\alpha} u\) is an \(L^{p}\) function.
 \end{definition}
 
-
-Expressions of the form \(\| D^{\alpha} u\|_{L^{p}}\) arise in the energy method for PDEs with \(p = 2\) .
-
 \begin{definition}
-Let \(U\) be an open subset of \(\mathbb{R}^{d}\) . The \(L^{p}\) - based Sobolev space of order \(k\) on \(U\) is
+Let \(U\) be an open subset of \(\mathbb{R}^{d}\). The \(L^{p}\)-\emph{based Sobolev space} of order \(k\) on \(U\) is
 \[
 W^{k,p}(U) = \{u\in D'(U):\| u\|_{W^{k,p}(U)}< \infty \} .
 \]
-Note that \(C_{c}^{\infty}(U) \subseteq W^{k,p}(U)\) . This allows us to introduce the following definition:
+Note that \(\D(U) \subseteq W^{k,p}(U)\).
 \end{definition}
 
 \begin{definition}
 The set of \(u \in W^{k,p}(U)\) that vanish (to appropriate orders) on \(\partial U\) is
 \[
-W_{0}^{k,p}(U) = \overline{C_{c}^{\infty}(U)}^{\| \cdot \|}_{W^{k,p}2}\subset W^{k,p}(U).
+W_{0}^{k,p}(U) = \overline{C_{c}^{\infty}(U)}^{\| \cdot \|}_{W^{k,p}}\subset W^{k,p}(U).
 \]
 When \(p = 2\) , we introduce the notation
 \[
@@ -34,17 +37,390 @@ We can define an inner product on \(H^{k}\) by
 \]
 \end{definition}
 
-\begin{proposition}
-1. For all \(k \in \mathbb{Z}_{\geq 0}\) and \(1 \leq p \leq \infty\) , the following Sobolev spaces \((W^{k,p}(U), \| \cdot \|_{W^{k,p}})\) and \((W_{0}^{k,p}(U), \| \cdot \|_{W^{k,p}})\) are Banach spaces.
-
-2. For all \(k \in \mathbb{Z}_{\geq 0}\) , \((H^{k}(U), \langle \cdot , \cdot \rangle_{H^{k}})\) and \((H_{0}^{k}(U), \langle \cdot , \cdot \rangle_{H^{k}})\) are Hilbert spaces.
-
-3. (Fourier-analytic characterization of \(H^{k}\) ) Given \(u \in H^{k}(U)\)
+\begin{proposition}\ \par
+\begin{enumerate}
+    \item For all \(k \in \mathbb{Z}_{\geq 0}\) and \(1 \leq p \leq \infty\) , the following Sobolev spaces \((W^{k,p}(U), \| \cdot \|_{W^{k,p}})\) and \((W_{0}^{k,p}(U), \| \cdot \|_{W^{k,p}})\) are Banach spaces.
+    \item For all \(k \in \mathbb{Z}_{\geq 0}\) , \((H^{k}(U), \langle \cdot , \cdot \rangle_{H^{k}})\) and \((H_{0}^{k}(U), \langle \cdot , \cdot \rangle_{H^{k}})\) are Hilbert spaces.
+    \item (Fourier-analytic characterization of \(H^{k}\) ) Given \(u \in H^{k}(U)\)
 \[
 \| u\|_{H^{k}} \simeq \| \hat{u} \|_{L^{2}} + \| \xi |^{k} \hat{u} \|_{L^{2}} \simeq \| (1 + |\xi |^{2})^{k / 2} \hat{u} \|_{L^{2}},
 \]
-where \(A \simeq B\) means \(A \lesssim B\) and \(B \lesssim A\) .
+where $\simeq$ between norms are the equivalence.
+\end{enumerate}
 \end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\subsection{Negative Sobolev Spaces}
+
+It is natural to consider the dual space of the Sobolev spaces, which can be interpreted as the following space as well.
+
+\begin{definition}
+    For $k>0$ and $1<p<\infty$, define the \emph{negative order Sobolev norm}
+\[
+\|u\|_{W^{-k,p}(U)}
+=
+\inf
+\left\{
+\sum_{|\alpha|\le k}
+\|g_\alpha\|_{L^p}
+:
+u=\sum_{|\alpha|\le k} D^\alpha g_\alpha
+\right\}.
+\]
+and the \emph{negative order Sobolev space} is
+\[
+W^{-k,p}(U)
+=
+\left\{
+u\in\mathcal{D}'(U):
+u=\sum_{|\alpha|\le k} D^\alpha g_\alpha,
+\ g_\alpha\in L^p(U)
+\right\}.
+\]
+\end{definition}
+
+\begin{proposition}
+For $k\in\mathbb{Z}_{\ge0}$ and $1<p<\infty$,
+\[
+\bigl(W^{k,p}_0(U)\bigr)^*
+= W^{-k,q}(U),
+\qquad
+\frac1p+\frac1q=1.
+\]
+\end{proposition}
+\begin{proof}
+For $u\in \D(U)$ and some
+\[
+v = \sum\limits_{|\alpha| \leq k} D^{\alpha}g_{\alpha},\quad  g_{\alpha} \in L^q(U),
+\]
+and we may define $(\cdot)^*: W^{-k,q}(U) \to (W^{k,p}_0(U))^*$ by
+\[
+v^{\flat}(u) = \int vu = \sum\limits_{|\alpha| \leq k} (-1)^{|\alpha|}\int g_{\alpha} u
+\]
+which is well-defined since another representation is equal to this from the distributions' perspectives on $\D(U)$, where the equality can be extended to the whole $W^{k,p}_0(U)$. \par
+From the other side, we need to show for any linear functional on $W^{k,p}_0(U)$ can be obtained by some element in the negative Sobolev space.
+\[
+\bigl(W^{k,p}_0(U)\bigr)^*
+\supset W^{-k,p'}(U).
+\]
+
+Take $v\in W^{-k,p'}(U)$,
+\[
+v=\sum_{|\omega|\le k} D^\omega g_\omega.
+\]
+
+For $u\in W^{k,p}_0(U)$, define the pairing
+\[
+\langle v,u\rangle=\int_U vu\,dx.
+\]
+
+We need to show this is bounded:
+\[
+\langle v,u\rangle
+=
+\sum_{|\omega|\le k}
+\int_U D^\omega g_\omega \, u\,dx.
+\]
+
+First assume $u\in C^1_c(U)$ and then use density:
+\[
+=
+\sum_{|\omega|\le k}
+\int_U (-1)^{|\omega|}
+g_\omega D^\omega u\,dx
+\le
+\sum_{|\omega|\le k}
+\|g_\omega\|_{L^{p'}}
+\|D^\omega u\|_{L^p}
+\le
+C\|v\|_{W^{-k,p'}}
+\|u\|_{W^{k,p}}.
+\]
+
+We are proving:
+\[
+(W^{k,p}_0(U))^*
+\supset W^{-k,p'}(U).
+\]
+
+The idea is to use the Hahn–Banach theorem.
+
+If $X$ is a normed vector space and $Y\subset X$
+with a linear functional
+$\vartheta:Y\to\mathbb{R}$
+such that
+\[
+|\vartheta(u)|\le C\|u\|,
+\]
+then there exists an extension
+\[
+\tilde\vartheta:X\to\mathbb{R}
+\]
+with
+\[
+|\tilde\vartheta(u)|\le C\|u\|,
+\qquad
+\tilde\vartheta|_Y=\vartheta.
+\]
+
+Let
+\[
+l:W^{k,p}_0(U)\to\mathbb{R}
+\]
+be bounded.
+Define
+\[
+T:C^\infty_c(U)\to L^p(U)^{K(k)},
+\]
+\[
+u\mapsto
+(u,D_{x_1}u,\dots,D^\omega u,\dots).
+\]
+
+Then
+\[
+\|T(u)\|\le C\|u\|_{W^{k,p}}.
+\]
+$T$ is injective and an isomorphism onto its image.
+
+Define
+\[
+\tilde l(Tu)=l(u).
+\]
+
+By Hahn–Banach, extend to
+\[
+\tilde{\tilde l}:L^p(U)^K\to\mathbb{R}.
+\]
+
+Thus
+\[
+\tilde{\tilde l}\in (L^p(U)^K)^*,
+\]
+so there exist
+\[
+\tilde g_\omega\in L^{p'}(U)
+\]
+such that
+\[
+\tilde{\tilde l}(\tilde u)
+=
+\sum_\omega
+\langle \tilde g_\omega,\tilde u_\omega\rangle.
+\]
+
+Hence
+\[
+l(u)
+=
+\sum_\omega
+\langle \tilde g_\omega,D^\omega u\rangle.
+\]
+
+Set
+\[
+g_\omega=(-1)^{|\omega|}\tilde g_\omega.
+\]
+
+\end{proof}
+
+\section*{1.3 Duality in relation to existence and uniqueness}
+
+Let $X,Y$ be Banach spaces and
+$P:X\to Y$ bounded and linear.
+
+\begin{itemize}
+\item (Existence)
+Given $f\in Y$, does there exist $u\in X$ such that $Pu=f$?
+
+\item (Uniqueness)
+If $Pu=0$, does $u=0$?
+\end{itemize}
+
+In PDEs, $P$ is often a differential operator,
+for example $P=-\Delta$.
+
+Consider
+\[
+-\Delta u=f \text{ in }U,
+\qquad
+u=0\text{ on }\partial U.
+\]
+
+Then
+\[
+\int_U |Du|^2
+=
+\int_U (-\Delta u)u
+=
+\int_U fu.
+\]
+
+This gives an a priori estimate.
+Such estimates are useful not only for uniqueness,
+but also for existence via duality.
+
+This reflects the linear algebra fact:
+if $A:\mathbb{R}^n\to\mathbb{R}^m$,
+then $A$ is injective iff $A^*$ is surjective.
+
+\section*{2 A Priori Estimates and Approximation Theorems}
+
+\subsection*{2.1 Relationship between a priori estimates, existence, and uniqueness}
+
+Let $X,Y$ be Banach spaces and
+$P:X\to Y$ bounded linear.
+
+\begin{itemize}
+\item (Existence) Does $Pu=f$ have a solution?
+\item (Uniqueness) If $Pu=0$, is $u=0$?
+\end{itemize}
+
+These are related by duality.
+
+\paragraph{Remark}
+Often we prove an a priori estimate:
+\[
+\|u\|_X\le C\|f\|_Y.
+\]
+
+\paragraph{Proposition 2.1}
+Let $P:X\to Y$ be bounded linear.
+Let
+\[
+P^*:Y^*\to X^*
+\]
+be the adjoint:
+\[
+\langle v,Pu\rangle
+=
+\langle P^*v,u\rangle.
+\]
+
+Assume
+\[
+\|u\|_X\le C\|Pu\|_Y
+\quad
+\forall u\in X.
+\]
+
+Then:
+\begin{enumerate}
+\item If $Pu=0$, then $u=0$.
+\item For all $g\in X^*$,
+there exists $v\in Y^*$
+such that
+\[
+P^*v=g,
+\qquad
+\|v\|_{Y^*}\le C\|g\|_{X^*}.
+\]
+\end{enumerate}
+
+\paragraph{Proof}
+(1) follows immediately.
+
+(2) We want $v$ such that
+\[
+\langle v,Pu\rangle
+=
+\langle g,u\rangle.
+\]
+
+Define
+\[
+\vartheta(Pu)=\langle g,u\rangle.
+\]
+Since $P$ is injective, this is well-defined.
+
+Moreover,
+\[
+|\vartheta(Pu)|
+\le
+\|g\|_{X^*}\|u\|_X
+\le
+C\|g\|_{X^*}\|Pu\|_Y.
+\]
+
+Thus $\vartheta$ is bounded.
+By Hahn–Banach, extend it to $Y$,
+obtaining $v\in Y^*$ with
+\[
+\langle v,Pu\rangle=\langle g,u\rangle,
+\]
+and
+\[
+\|v\|_{Y^*}\le C\|g\|_{X^*}.
+\]
+
+
+\section*{2 A Priori Estimates and Approximation Theorems}
+
+\subsection*{2.1 Relationship between a priori estimates, existence, and uniqueness}
+
+Last time, we were investigating the question
+“Why study Sobolev spaces as Banach spaces?”
+We made a digression into functional analysis.
+
+If $X$ and $Y$ are Banach spaces and $P:X\to Y$
+is bounded and linear, we had two concerns:
+
+\begin{itemize}
+\item (Existence) Given $f\in Y$, does there exist a $u\in X$
+such that $Pu=f$?
+\item (Uniqueness) Given $u\in X$ such that $Pu=0$, does $u=0$?
+\end{itemize}
+
+These two problems are related to each other by duality.
+
+\paragraph{Remark 2.1}
+Often, we prove a priori estimates for a PDE,
+i.e. if $u\in X$ with $Pu=f$, then
+\[
+\|u\|_X \le C\|f\|_Y.
+\]
+
+\paragraph{Proposition 2.1}
+Let $X,Y$ be Banach spaces, and let
+$P:X\to Y$ be a bounded linear operator.
+Denote by
+\[
+P^*:Y^*\to X^*
+\]
+the adjoint of $P$, i.e.
+\[
+\langle v,Pu\rangle
+=
+\langle P^*v,u\rangle
+\quad
+\text{for all } u\in X, v\in Y^*.
+\]
+
+Suppose there exists a constant $C>0$ such that
+\[
+\|u\|_X \le C\|Pu\|_Y
+\quad
+\text{for all } u\in X.
+\]
+
+Then:
+\begin{enumerate}
+\item (Uniqueness for $Pu=f$)
+If $u\in X$ and $Pu=0$, then $u=0$.
+
+\item (Existence for $P^*v=g$)
+For all $g\in X^*$, there exists
+$v\in Y^*$ such that
+\[
+P^*v=g
+\]
+and
+\[
+\|v\|_{Y^*} \le C\|g\|_{X^*}.
+\]
+\end{enumerate}
 
 \section{A Priori Estimates and Approximation Theorems}
 \subsection{Relationship between a priori estimates, existence, and uniqueness}

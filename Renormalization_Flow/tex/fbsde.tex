@@ -42,7 +42,7 @@ The main result is
     \begin{aligned}
         d\Theta^g_{a,Q}(q) &= g(Q-q,\Theta^g_{a,Q}(q))dB(q),\quad q\in[0,Q] \\
         \Theta^g_{a,Q}(0) &= a \label{ssol}
-    \end{aligned}
+    \end{aligned} \label{gfbsde}
     \]
 The solution $\Theta^g_{a,Q}$ satisfies the moment bound
     \[
@@ -65,7 +65,7 @@ $\Gamma$ on $[0,Q']$, we have
 \subsection{Local Solution}
 
 \begin{definition}
-     Let $Q>0$ and let $\sigma\in\Lip(\mathbb{R}^m;\mathcal{H}_+^m)$. We say that $J\in \mathcal{A}_Q$ is a root decoupling function for FBSDE on $[0,Q]$ if, for all $q \in [0,Q]$ and all $a \in \mathbb{R}^m$, we have
+     Let $Q>0$ and let $\sigma\in\Lip(\mathbb{R}^m;\mathcal{H}_+^m)$. We say that $J\in \mathcal{A}_Q$ is a \emph{root decoupling function} for FBSDE on $[0,Q]$ if, for all $q \in [0,Q]$ and all $a \in \mathbb{R}^m$, we have
      \[J(q,a) = [\mathbb{E}\sigma(\Theta^J_{a,q}(q))]^{1/2}\]
     In this case, we also call $J^2$ the decoupling function. In the equation above, $\Theta^J_{a,q}$ is as in $\eqref{ssol}$.
 \end{definition}
@@ -79,8 +79,11 @@ $\Gamma$ on $[0,Q']$, we have
 
 \begin{proposition}
      Suppose that $\lambda \in (0,\infty), \sigma \in \Lambda(\lambda),Q_0 > 0$ and that $J$ is a root decoupling function for FBSDE on $[0,Q_0]$. Then for all $Q \in [0,Q_0 \wedge \lambda^{−2})$, we have
-    $\Lip(J(Q,\cdot)) \leq (\lambda^{−2} - Q)^{−1/2}$.
+    \[\Lip(J(Q,\cdot)) \leq (\lambda^{−2} - Q)^{−1/2}.\]
 \end{proposition}
+\begin{proof}
+    
+\end{proof}
 
 \begin{lemma}
     Suppose that $c\in (0,\infty), \overline{Q}<c^{-2}$ and $f:[0,\overline{Q}] \to [c^2,\infty)$ satisfies
@@ -107,5 +110,37 @@ $\Gamma$ on $[0,Q']$, we have
     \[
     f(Q) \leq c^2e^{g(Q)} \leq \dfrac{c^2}{1-c^2Q}
     \]
-    T 
+    Here is another proof by \eqref{BLIneq}, consider $h$ defined on $[0,\overline{Q}]$ non-negative defined by
+    \[
+    h(t) = \ln(f(t)/c^2),
+    \]
+    then we have
+    \[
+    h(t) \leq \int_0^t c^2\exp(h(s))ds.
+    \]
+    Define
+    \[
+    G(x) = -e^{-x} +C
+    \]
+    and we have
+    \[
+    h(q) \leq -\ln(1-c^2q)
+    \]
+    for any $q \in[0,\overline{Q}]$, which means
+    \[
+    f(Q) \leq c^2/(1-c^2Q) = (c^{-2}-Q)^{-1}.
+    \]
 \end{proof}
+
+\begin{definition}\par
+    Define \[\mathcal{Q}_{\sigma}g(Q,a) = [\mathbb{E}\sigma^2(\Theta^g_{a,Q}(Q))]^{1/2},\]        where $(\Theta^g_{a,Q}(q))_{q\in[0,Q]}$ solves \eqref{gfbsde}. We note that a fixed point of $Q_{\sigma}$ is a root decoupling function for \eqref{fbsde}. We  also note that
+    \[|\mathcal{Q}_{\sigma}g(Q,a)|_F^2 = |\mathbb{E}\sigma^2(\Theta^g_{a,Q}(Q))]^{1/2}|^2_F = \mathbb{E}\tr\sigma^2(\Theta^g_{a,Q}(Q)) = \mathbb{E}|\sigma(\Theta^g_{a,Q}(Q))|^2_F
+    \]
+    Define the set of functions
+    \[
+    \Lambda(M,\lambda):=\{\sigma\in \Lip(\mathbb{R}^m;\mathcal{H}_+^m):\Lip(\sigma) \leq \lambda\text{ and }|\sigma(u)|_F^2 \leq M + \lambda^2|u|^2\text{ for all }u\in\mathbb{R}^m\}
+    \] For $Q_0  < \lambda^{-2}$, define the set of functions $\mathcal{Z}_{Q_0,M,\lambda}$ by
+    \[\mathcal{Z}_{Q_0,M,\lambda} = \{g:[0,Q_0]\times \mathbb{R}^m\to\mathcal{H}_+^m\text{ continuous }, g(q,\cdot) \in \Lambda((1-\a))
+    \]
+Wewillconstructtherootdecouplingfunction����asafixedpointofQ�� inacertainZ��0,��,��.
+\end{definition}

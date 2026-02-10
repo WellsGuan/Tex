@@ -18,7 +18,7 @@ where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
     (Bihari-LaSalle Inequality)\par
     Let $u$ and $f$ be non-negative continuous functions defined on the half-infinite ray $[0,\infty)$ and let $w$ be a continuous non-decreasing function defined on $[0,\infty)$ and $w(u) > 0$ on $(0,\infty)$. For $u$ we have
     \[
-    u(t) \leq \alpha + \int_0^t f(s)w(u(s)) ds,\quad t\in[0,\infty),
+    u(t) \leq \alpha + \int_0^t f(s)w(u(s)) ds,\quad t\in[0,\infty),\label{BLIneq}
     \]
     where $\alpha$ is a non-negative constant, then
     \[u(t) \leq G^{-1}\left(G(\alpha)+\int_0^t f(s) ds\right),\quad t\in[0,T]\]
@@ -31,4 +31,27 @@ where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
     G(\alpha) + \int_0^t f(s)ds\in\text{Dom}(G^{-1}),\quad \forall t\in[0,T]
     \]
 \end{proposition}
+\begin{proof}
+    Notice $G(x) = \int_{x_0}^x \dfrac{dy}{w(y)}$ is increasing and
+    \[
+    \text{Dom}(G^{-1}) = \left[G(0)=-\int_{0}^{x_0}\dfrac{dy}{w(y)}, G(0) + \int_0^{\infty}\dfrac{dy}{w(y)}\right]
+    \]
+    then since $u\geq 0$, then we have
+    \[
+    G(u(t)) \leq G\left(\alpha + \int_0^t f(s) \omega(u(s))ds\right):=H(t)
+    \]
+    and we have
+    \[
+    H'(t) = \dfrac{f(t)\omega(u(t))}{\omega(\alpha+\int_0^t f(s)\omega(u(s))ds)} \leq f(t)
+    \]
+    so we have
+    \[
+    H(t) \leq G(\alpha) + \int_0^t f(s)ds.
+    \]
+    Therefore, we may have the requested inequality for all $0\leq t \leq T$ where
+    \[
+    T := \sup_{t}\left\{\int_0^tf(s)ds \leq G(0)-G(\alpha)+\int_0^{\infty}\dfrac{dy}{\omega(y)}\right\}
+    \]
+\end{proof}
 
+\subsection{Matrix Analysis}
