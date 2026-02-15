@@ -1,3 +1,14 @@
 \appendix
 
 \section{Functional Analysis}
+
+\subsection{Banach Spaces}
+
+\begin{theorem}[Hahn-Banach Theorem]\ \par
+    Let $\mathcal{X}$ be a real vector space, $p$ a sublinear functional, i.e.
+    \[
+    p(x+y) \leq p(x)+p(y),\quad p(\lambda x) = \lambda p(x)\text{ for any }x,y\in\mathcal{X}\text{ and }\lambda \geq 0
+    \]
+    on $\mathcal{X}$, $\mathcal{M}$ a subspace of $\mathcal{X}$, and $f$ a linear functional on $\mathcal{M}$ such that $f(x) \leq p(x)$ for all $x\in\mathcal{M}$. Then there exists a linear functional $F$ on $\mathcal{X}$ such that $F(x) \leq p(x)$ for all $x\in \mathcal{X}$ and $F|_{\mathcal{M}} = f$.
+\end{theorem}
+

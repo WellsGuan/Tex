@@ -1,4 +1,6 @@
 \newcommand{\D}{\mathcal{D}}
+\newcommand{\ran}[1]{\text{ran}\ {#1}}
+
 
 \part{Sobolev Spaces}
 
@@ -97,216 +99,30 @@ v = \sum\limits_{|\alpha| \leq k} D^{\alpha}g_{\alpha},\quad  g_{\alpha} \in L^q
 \]
 and we may define $(\cdot)^*: W^{-k,q}(U) \to (W^{k,p}_0(U))^*$ by
 \[
-v^{\flat}(u) = \int vu = \sum\limits_{|\alpha| \leq k} (-1)^{|\alpha|}\int g_{\alpha} u
+v^{\flat}(u) = \int vu = \sum\limits_{|\alpha| \leq k} (-1)^{|\alpha|}\int g_{\alpha} D^{\alpha}u
 \]
-which is well-defined since another representation is equal to this from the distributions' perspectives on $\D(U)$, where the equality can be extended to the whole $W^{k,p}_0(U)$. \par
-From the other side, we need to show for any linear functional on $W^{k,p}_0(U)$ can be obtained by some element in the negative Sobolev space.
+which is well-defined since another representation is equal to this from the distributions' perspectives on $\D(U)$, where the equality can be extended to the whole $W^{k,p}_0(U)$ by the density argument that
 \[
-\bigl(W^{k,p}_0(U)\bigr)^*
-\supset W^{-k,p'}(U).
+|v^{\flat}(u)| \leq \sum\limits_{|\alpha| \leq k}\left|\int g_{\alpha} u\right| \leq \sum\limits_{|\alpha| \leq k}||g_{\alpha}||_{L^q}||D^{\alpha}u||_{L^p} \leq 2||v||_{W^{-k,q}(U)} ||u||_{W^{k,p}(U)} 
 \]
-
-Take $v\in W^{-k,p'}(U)$,
+where we can choose the representation of $v$ to make
 \[
-v=\sum_{|\omega|\le k} D^\omega g_\omega.
+\sum\limits_{|\alpha| \leq k}||g_{\alpha}||_{L^p} \leq 2||v||_{W^{-k,q}(U)}
 \]
-
-For $u\in W^{k,p}_0(U)$, define the pairing
+and this help us to make the extension.
+\par
+From the other side, we need to show for any linear functional on $W^{k,p}_0(U)$ can be obtained by some element in the negative Sobolev space. Firstly, notice there is a natural inclusion of $W_0^{k,p}(U)$ to $L^p(U)^{\oplus K(k)}$, and define a linear map
 \[
-\langle v,u\rangle=\int_U vu\,dx.
-\]
-
-We need to show this is bounded:
-\[
-\langle v,u\rangle
-=
-\sum_{|\omega|\le k}
-\int_U D^\omega g_\omega \, u\,dx.
-\]
-
-First assume $u\in C^1_c(U)$ and then use density:
-\[
-=
-\sum_{|\omega|\le k}
-\int_U (-1)^{|\omega|}
-g_\omega D^\omega u\,dx
-\le
-\sum_{|\omega|\le k}
-\|g_\omega\|_{L^{p'}}
-\|D^\omega u\|_{L^p}
-\le
-C\|v\|_{W^{-k,p'}}
-\|u\|_{W^{k,p}}.
-\]
-
-We are proving:
-\[
-(W^{k,p}_0(U))^*
-\supset W^{-k,p'}(U).
-\]
-
-The idea is to use the Hahn–Banach theorem.
-
-If $X$ is a normed vector space and $Y\subset X$
-with a linear functional
-$\vartheta:Y\to\mathbb{R}$
-such that
-\[
-|\vartheta(u)|\le C\|u\|,
-\]
-then there exists an extension
-\[
-\tilde\vartheta:X\to\mathbb{R}
-\]
-with
-\[
-|\tilde\vartheta(u)|\le C\|u\|,
-\qquad
-\tilde\vartheta|_Y=\vartheta.
-\]
-
-Let
-\[
-l:W^{k,p}_0(U)\to\mathbb{R}
-\]
-be bounded.
-Define
-\[
-T:C^\infty_c(U)\to L^p(U)^{K(k)},
-\]
-\[
-u\mapsto
-(u,D_{x_1}u,\dots,D^\omega u,\dots).
-\]
-
-Then
-\[
-\|T(u)\|\le C\|u\|_{W^{k,p}}.
-\]
-$T$ is injective and an isomorphism onto its image.
-
-Define
-\[
-\tilde l(Tu)=l(u).
-\]
-
-By Hahn–Banach, extend to
-\[
-\tilde{\tilde l}:L^p(U)^K\to\mathbb{R}.
-\]
-
-Thus
-\[
-\tilde{\tilde l}\in (L^p(U)^K)^*,
-\]
-so there exist
-\[
-\tilde g_\omega\in L^{p'}(U)
-\]
-such that
-\[
-\tilde{\tilde l}(\tilde u)
-=
-\sum_\omega
-\langle \tilde g_\omega,\tilde u_\omega\rangle.
-\]
-
-Hence
-\[
-l(u)
-=
-\sum_\omega
-\langle \tilde g_\omega,D^\omega u\rangle.
-\]
-
-Set
-\[
-g_\omega=(-1)^{|\omega|}\tilde g_\omega.
+T:\D(U)
 \]
 
 \end{proof}
 
-\section*{1.3 Duality in relation to existence and uniqueness}
+\subsection{Relationship between a priori estimates, existence, and uniqueness}
 
-Let $X,Y$ be Banach spaces and
-$P:X\to Y$ bounded and linear.
-
-\begin{itemize}
-\item (Existence)
-Given $f\in Y$, does there exist $u\in X$ such that $Pu=f$?
-
-\item (Uniqueness)
-If $Pu=0$, does $u=0$?
-\end{itemize}
-
-In PDEs, $P$ is often a differential operator,
-for example $P=-\Delta$.
-
-Consider
-\[
--\Delta u=f \text{ in }U,
-\qquad
-u=0\text{ on }\partial U.
-\]
-
-Then
-\[
-\int_U |Du|^2
-=
-\int_U (-\Delta u)u
-=
-\int_U fu.
-\]
-
-This gives an a priori estimate.
-Such estimates are useful not only for uniqueness,
-but also for existence via duality.
-
-This reflects the linear algebra fact:
-if $A:\mathbb{R}^n\to\mathbb{R}^m$,
-then $A$ is injective iff $A^*$ is surjective.
-
-\section*{2 A Priori Estimates and Approximation Theorems}
-
-\subsection*{2.1 Relationship between a priori estimates, existence, and uniqueness}
-
-Let $X,Y$ be Banach spaces and
-$P:X\to Y$ bounded linear.
-
-\begin{itemize}
-\item (Existence) Does $Pu=f$ have a solution?
-\item (Uniqueness) If $Pu=0$, is $u=0$?
-\end{itemize}
-
-These are related by duality.
-
-\paragraph{Remark}
-Often we prove an a priori estimate:
-\[
-\|u\|_X\le C\|f\|_Y.
-\]
-
-\paragraph{Proposition 2.1}
-Let $P:X\to Y$ be bounded linear.
-Let
-\[
-P^*:Y^*\to X^*
-\]
-be the adjoint:
-\[
-\langle v,Pu\rangle
-=
-\langle P^*v,u\rangle.
-\]
-
-Assume
-\[
-\|u\|_X\le C\|Pu\|_Y
-\quad
-\forall u\in X.
-\]
-
-Then:
+\begin{proposition}
+    Let $X,Y$ be Banach spaces, and $P:X\to Y \label{dop}$ be bounded linear operator. Denote $P^*:Y^*\to X^*$ as the adjoint, i.e. $\langle v,Pu\rangle
+= \langle P^*v,u\rangle.$ Assume for any $u\in X$ we have $\|u\|_X\le C\|Pu\|_Y$, then
 \begin{enumerate}
 \item If $Pu=0$, then $u=0$.
 \item For all $g\in X^*$,
@@ -318,159 +134,48 @@ P^*v=g,
 \|v\|_{Y^*}\le C\|g\|_{X^*}.
 \]
 \end{enumerate}
-
-\paragraph{Proof}
-(1) follows immediately.
-
-(2) We want $v$ such that
-\[
-\langle v,Pu\rangle
-=
-\langle g,u\rangle.
-\]
-
-Define
-\[
-\vartheta(Pu)=\langle g,u\rangle.
-\]
-Since $P$ is injective, this is well-defined.
-
-Moreover,
-\[
-|\vartheta(Pu)|
-\le
-\|g\|_{X^*}\|u\|_X
-\le
-C\|g\|_{X^*}\|Pu\|_Y.
-\]
-
-Thus $\vartheta$ is bounded.
-By Hahn–Banach, extend it to $Y$,
-obtaining $v\in Y^*$ with
-\[
-\langle v,Pu\rangle=\langle g,u\rangle,
-\]
-and
-\[
-\|v\|_{Y^*}\le C\|g\|_{X^*}.
-\]
-
-
-\section*{2 A Priori Estimates and Approximation Theorems}
-
-\subsection*{2.1 Relationship between a priori estimates, existence, and uniqueness}
-
-Last time, we were investigating the question
-“Why study Sobolev spaces as Banach spaces?”
-We made a digression into functional analysis.
-
-If $X$ and $Y$ are Banach spaces and $P:X\to Y$
-is bounded and linear, we had two concerns:
-
-\begin{itemize}
-\item (Existence) Given $f\in Y$, does there exist a $u\in X$
-such that $Pu=f$?
-\item (Uniqueness) Given $u\in X$ such that $Pu=0$, does $u=0$?
-\end{itemize}
-
-These two problems are related to each other by duality.
-
-\paragraph{Remark 2.1}
-Often, we prove a priori estimates for a PDE,
-i.e. if $u\in X$ with $Pu=f$, then
-\[
-\|u\|_X \le C\|f\|_Y.
-\]
-
-\paragraph{Proposition 2.1}
-Let $X,Y$ be Banach spaces, and let
-$P:X\to Y$ be a bounded linear operator.
-Denote by
-\[
-P^*:Y^*\to X^*
-\]
-the adjoint of $P$, i.e.
-\[
-\langle v,Pu\rangle
-=
-\langle P^*v,u\rangle
-\quad
-\text{for all } u\in X, v\in Y^*.
-\]
-
-Suppose there exists a constant $C>0$ such that
-\[
-\|u\|_X \le C\|Pu\|_Y
-\quad
-\text{for all } u\in X.
-\]
-
-Then:
-\begin{enumerate}
-\item (Uniqueness for $Pu=f$)
-If $u\in X$ and $Pu=0$, then $u=0$.
-
-\item (Existence for $P^*v=g$)
-For all $g\in X^*$, there exists
-$v\in Y^*$ such that
-\[
-P^*v=g
-\]
-and
-\[
-\|v\|_{Y^*} \le C\|g\|_{X^*}.
-\]
-\end{enumerate}
-
-\section{A Priori Estimates and Approximation Theorems}
-\subsection{Relationship between a priori estimates, existence, and uniqueness}
-Here is a concrete thing to keep in mind: Often, we prove a priori estimates for a PDE, i.e. if \(u\in X\) with \(P u = f\) , then
-\[
-\| u\|_{X}\leq C\| f\|_{Y}.
-\]
-
-\begin{proposition}
-Let \(X,Y\) be Banach spaces, and let \(P:X\to Y\) be a bounded, linear operator. Denote by \(P^{*}:Y^{*}\to X^{*}\) the adjoint of \(P\) , i.e.
-\[
-\langle v,P u\rangle = \langle P^{*}v,u\rangle \quad \mathrm{for~all~}u\in X,v\in Y^{*}.
-\]
-Suppose there exists a constant \(C > 0\) such that
-\[
-\| u\|_{X}\leq C\| Pu\|_{Y}\quad \mathrm{for~all~}u\in X.
-\]
-Then:
-1. (Uniqueness for \(P u = f\) ) If \(u\in X\) and \(P u = 0\) , then \(u = 0\) .
-
-2. (Existence for \(P^{*}v = g\) ) For all \(g\in X^{*}\) , there exists a \(v\in Y^{*}\) such that \(P^{*}v = g\) and
-\[
-\| v\|_{Y^{*}}\leq C\| g\|_{X^{*}}.
-\]
 \end{proposition}
 
 \begin{proof}
-The proof of 1. is clear, since \(\| u\|_{X}\leq 0\) implies \(u = 0\) since \(X\) is normed. We proceed with the proof of the second part 2., via the Hahn- Banach theorem. In particular, our objective is to find \(v\in Y^{*}\) such that \(P^{*}v = g\) , which is equivalent to
-\[
-\langle P^{*}v,u\rangle = \langle v,P u\rangle = \langle g,u\rangle \quad \mathrm{for~all~}u\in X.
-\]
-Define \(\ell :P(X)\to \mathbb{R}\) by
-\[
-\ell (P u):= \langle g,u\rangle .
-\]
-Since \(P\) is injective (by 1. ), this is well- defined. Moreover,
-\[
-\begin{array}{r l}
-& {|\ell (P u)| = |\langle g,u\rangle |}\\
-& {\qquad \leq \| g\|_{X^{*}}\| u\|_{X}}\\
-& {\qquad \leq C\| g\|_{X^{*}}\| P u\|_{Y}}\\
-& {\qquad \leq C\| g\|_{X^{*}}}
-\end{array}
-\]
-so \(\ell\) is bounded. By the Hahn- Banach theorem, there exists \(v\in Y^{*}\) such that
-\[
-\langle v,P u\rangle = l(p u) = \langle g,u\rangle \quad \forall u\in X,
-\]
-and \(\| v\|_{Y^{*}}\leq C\| g\|_{X^{*}}\).
+    (1) is obvious. For (2), 
 \end{proof}
+
+\begin{proposition}
+    Let $X,Y$ be Banach spaces, and let $P:X\to Y$ be bounded linear operator. Suppose $||v||_{Y^{*}} \leq C||P^*v||_{X^*}$. Then
+    \begin{enumerate}
+        \item If $v \in Y^*$ and $P^*v = 0$, then $v = 0$.
+        \item For all $f\in Y$, there exists a $u\in X$ such that $Pu = f$ and $||u||_X \leq C||f||_Y$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}
+    Let $X$ be a Banach space, we call it \emph{reflexive} if $u\to(v\mapsto\langle v,u \rangle)$ is an isomorphism.
+\end{definition}
+
+\begin{proposition}
+    All sobolev spaces $W^{k,p}_0(U)$ with $1 < p < \infty$ are reflexive.
+\end{proposition}
+
+\begin{definition}
+    Given $U\subset Y$, the \emph{annihilator} of $U$ is
+    \[
+    U^{\perp}:=\{v\in Y^*:\langle v,f\rangle = 0,\text{ for any }f\in U\}
+    \]
+    and similarly, for some $V\subset X^*$, the \emph{annihilator} of $V$ is
+    \[
+    ^{\perp}V:=\{u\in X:\langle g,u\rangle = 0,\text{ for any }g\in V\}
+    \]
+\end{definition}
+\begin{proposition}
+    For the operators in $\eqref{dop}$ we have 
+    \[
+    (\ran{P})^{\perp} = \ker(P^*),\quad \ker(P) = ^\perp(\ran{P^*})
+    \]
+\end{proposition}
+\begin{proposition}
+    Let $X,Y$ be Banach spaces, with $X$ reflexive, and $P:X\to Y$ be a bounded linear operator. If $P(X) = Y$, then thre exists some $C>0$ such that
+    \[||v||_{Y^*} \leq C||P^*v||_{X^*}\]
+\end{proposition}
 
 \subsection{Approximation by smooth functions and smooth partition of unity}
 \begin{lemma}
