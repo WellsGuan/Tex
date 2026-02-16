@@ -42,7 +42,7 @@ The main result is
     \begin{aligned}
         d\Theta^g_{a,Q}(q) &= g(Q-q,\Theta^g_{a,Q}(q))dB(q),\quad q\in[0,Q] \\
         \Theta^g_{a,Q}(0) &= a \label{ssol}
-    \end{aligned} \label{gfbsde}
+    \end{aligned}
     \]
 The solution $\Theta^g_{a,Q}$ satisfies the moment bound
     \[
@@ -133,14 +133,14 @@ $\Gamma$ on $[0,Q']$, we have
 \end{proof}
 
 \begin{definition}\par
-    Define \[\mathcal{Q}_{\sigma}g(Q,a) = [\mathbb{E}\sigma^2(\Theta^g_{a,Q}(Q))]^{1/2},\]        where $(\Theta^g_{a,Q}(q))_{q\in[0,Q]}$ solves \eqref{gfbsde}. We note that a fixed point of $Q_{\sigma}$ is a root decoupling function for \eqref{fbsde}. We  also note that
+    Define \[\mathcal{Q}_{\sigma}g(Q,a) = [\mathbb{E}\sigma^2(\Theta^g_{a,Q}(Q))]^{1/2},\] where $(\Theta^g_{a,Q}(q))_{q\in[0,Q]}$ from \eqref{ssol}. We note that a fixed point of $Q_{\sigma}$ is a root decoupling function for \eqref{fbsde}. We  also note that
     \[|\mathcal{Q}_{\sigma}g(Q,a)|_F^2 = |\mathbb{E}\sigma^2(\Theta^g_{a,Q}(Q))]^{1/2}|^2_F = \mathbb{E}\tr\sigma^2(\Theta^g_{a,Q}(Q)) = \mathbb{E}|\sigma(\Theta^g_{a,Q}(Q))|^2_F
     \]
     Define the set of functions
     \[
     \Lambda(M,\lambda):=\{\sigma\in \Lip(\mathbb{R}^m;\mathcal{H}_+^m):\Lip(\sigma) \leq \lambda\text{ and }|\sigma(u)|_F^2 \leq M + \lambda^2|u|^2\text{ for all }u\in\mathbb{R}^m\}
     \] For $Q_0  < \lambda^{-2}$, define the set of functions $\mathcal{Z}_{Q_0,M,\lambda}$ by
-    \[\mathcal{Z}_{Q_0,M,\lambda} = \{g:[0,Q_0]\times \mathbb{R}^m\to\mathcal{H}_+^m\text{ continuous }, g(q,\cdot) \in \Lambda((1-\a))
+    \[\mathcal{Z}_{Q_0,M,\lambda} = \{g:[0,Q_0]\times \mathbb{R}^m\to\mathcal{H}_+^m\text{ continuous }, g(q,\cdot) \in \Lambda((1-a))
     \]
 Wewillconstructtherootdecouplingfunction����asafixedpointofQ�� inacertainZ��0,��,��.
 \end{definition}
