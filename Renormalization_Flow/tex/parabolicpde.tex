@@ -1,3 +1,15 @@
+\section{Parabolic Equation for the decoupling function}
+
+\subsection{Main Theorem}
+
+\emph{Remark.} The space
+    \[
+    L^1(\mathcal{K};W^{2,\infty}(U;\mathcal{H}_+^m))
+    \]
+means some functions which are $L^1$ with fixed space point and time varying and $W^{2,\infty}(U:\mathcal{H}_+^m)$ with fixed time point and space varying, with the norm
+\[||f|| = \int ||f(t,\cdot)||_{W^{2,\infty}}dt.\]
+For two normed spaces, their intersection will be equipped with a norm obtained by adding both the norms together.
+
 \begin{definition}
     An \emph{almost classical solution} to $\eqref{paraeq}$ on a time interval $[0,Q_0)$ is a continuous function $H:[0,Q_0)\times\mathbb{R}^m \to \mathcal{H}_+^m$ such that the following conditions hold:
     \begin{enumerate}
@@ -6,6 +18,16 @@
         H_{\mathcal{K}\times U} \in L^1(\mathcal{K};W^{2,\infty}(U;\mathcal{H}_+^m)) \cap C^1(\mathcal{K}\times U ;\mathcal{H}^m_+).
         \]
         where $W^{2,\infty}(U;\mathcal{H}^m_+)$ is the Sobolev space of functions on $U$ taking values in $\mathcal{H}_+^m$ with weak second derivative mearuable ans essentially bounded.
-        \item
+        \item We have $H(0,b) = \sigma^2(b)$ for all $b\in\mathbb{R}^m$;.
+        \item We have
+        \[\partial_qH(q,b) = \tfrac{1}{2}[H(q,b):\nabla_b^2]H(q,b)\quad\text{for almost all }(q,b) \in (0,Q_0) \times \mathbb{R}^m.\]
     \end{enumerate}
 \end{definition}
+
+\begin{proposition}
+    Fix $Q_0 \in (0,\Qbar{(\sigma)})$. Suppose $H$ is an almost classical solution of $\eqref{paraeq}$ on $[0,Q_0]$ such that $\sup_{q\in[0,Q_0]} \Lip(\sqrt{H(q,\cdot)}) < \infty$. Also assume that for each compact $\mathcal{K} \subset (0,Q_0)$, there exists a constant $C(\mathcal{K}) \subset(0,Q_0)$, there exists a constant $C(\mathcal{K})$ such that for all $R>0, U_R = \{b:|b| < R\}$ the open call in $\mathbb{R}^m$ of radius $R$,
+    \[
+     ||H|_{\mathcal{K}\times U_R}|| _{L^1(\mathcal{K};W^{2,\infty}(U_R;\mathcal{H}_+^m)) \cap C^1(\mathcal{K}\times U_R ;\mathcal{H}^m_+)} \leq CR^C
+    \]
+    then $\sqrt{H} = J_{\sigma}$ on $[0,Q_0] \times \mathbb{R}^m$.
+\end{proposition}
