@@ -130,3 +130,29 @@ Shown by some standard fixed-point arguments.
     \]
     where $(\Gamma^{\sigma}_{a,1}(q))_{q\in[0,1]}$ solves the FBSDE with $Q = 1$ and $a = \htk_tv_0(x)$.
 \end{theorem}
+
+\subsection{Decoupling Flow}
+
+\begin{definition}[Parabolic Equation]\ \par
+    The following parabolic equation
+    \[
+    \begin{aligned}
+        \partial_q H(q,b) &= \tfrac{1}{2}[H(q,b):\nabla_b^2]H(q,b) \\
+        H(0,b) &= \sigma^2(b) \\
+    \end{aligned}
+    \]
+    here for $A,B$ matrices, we denote
+    \[
+    A:B = \tr[AB]
+    \]
+    and there is an explicit formula
+    \[
+    ([H(q,b):\nabla_b^2]H(q,b))_{ij} = \tr[H(q,b)\nabla^2_b]H_{ij}(q,b) = \sum\limits_{k,l = 1}^{m}H_{kl}(q,b) \dfrac{\partial^2 H_{ij}}{\partial b_k\partial b_l}(q,b)
+    \]\label{paraeq}
+\end{definition}
+\begin{proof}
+    We know
+    \[
+    \tr[H(q,b)\nabla^2_b] = \sum\limits_{k=1}^n \sum\limits_{l=1}^n H_{kl}(q,b)\dfrac{\partial^2}{\partial b_k \partial b_l}
+    \]
+\end{proof}

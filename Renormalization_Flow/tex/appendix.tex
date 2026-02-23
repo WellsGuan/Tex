@@ -14,8 +14,7 @@ where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
 
 \subsection{Useful Approximations}
 
-\begin{proposition}\ \par
-    (Bihari-LaSalle Inequality)\par
+\begin{proposition}[Bihari-LaSalle Inequality]\ \par
     Let $u$ and $f$ be non-negative continuous functions defined on the half-infinite ray $[0,\infty)$ and let $w$ be a continuous non-decreasing function defined on $[0,\infty)$ and $w(u) > 0$ on $(0,\infty)$. For $u$ we have
     \[
     u(t) \leq \alpha + \int_0^t f(s)w(u(s)) ds,\quad t\in[0,\infty),\label{BLIneq}
@@ -55,3 +54,20 @@ where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
 \end{proof}
 
 \subsection{Matrix Analysis}
+
+\begin{theorem}[Spectral Theorem for Real Symmetric Matrices]\ \par
+Let $A \in \mathbb{R}^{n\times n}$ be a real symmetric matrix, that is, $A^T = A$. Then:
+
+\begin{enumerate}
+\item All eigenvalues of $A$ are real.
+\item Eigenspaces corresponding to distinct eigenvalues are orthogonal.
+\item The space $\mathbb{R}^n$ decomposes as an orthogonal direct sum of eigenspaces:
+\[
+\mathbb{R}^n = \bigoplus_{\lambda \in \sigma(A)} \ker(A - \lambda I).
+\]
+\item Equivalently, there exists an orthogonal matrix $Q$ and a real diagonal matrix $\Lambda$ such that
+\[
+A = Q \Lambda Q^T.
+\]
+\end{enumerate}
+\end{theorem}

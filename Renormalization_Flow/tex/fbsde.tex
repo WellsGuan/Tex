@@ -3,17 +3,17 @@
 \subsection{Main Goal}
 
 The main result is
-\begin{definition}
+\begin{theorem}
     Let $\sigma \in \Lip(\mathbb{R}^m,\mathcal{H}_+^m)$. For any $Q\in [0,\Qbar(\sigma))$, we have
     \[\Qbar(\sigma) \geq Q + \Lip(J_{\sigma}(Q,\cdot))^{-2}\] 
-\end{definition}
+\end{theorem}
 
-\begin{theorem}
+\begin{definition}
     $\mathcal{X}$ is the Banach space of $\mathcal{H}_+^m$-valued continuous functions on $\mathbb{R}^m$ with the norm (and this norm is finite)
     \[
-    ||\sigma||_{\mathcal{X}}  := \sup_{x\in\mathbb{R}^m}\dfrac{|\sigma(x)_F|}{\langle x\rangle} 
+    ||\sigma||_{\mathcal{X}}  := \sup_{x\in\mathbb{R}^m}\dfrac{|\sigma(x)|_F}{\langle x\rangle} 
     \]
-\end{theorem}
+\end{definition}
 
 \begin{proposition}
     Prove $\mathcal{X}$ is a Banach space.
@@ -78,8 +78,8 @@ $\Gamma$ on $[0,Q']$, we have
 \end{definition}
 
 \begin{proposition}
-     Suppose that $\lambda \in (0,\infty), \sigma \in \Lambda(\lambda),Q_0 > 0$ and that $J$ is a root decoupling function for FBSDE on $[0,Q_0]$. Then for all $Q \in [0,Q_0 \wedge \lambda^{−2})$, we have
-    \[\Lip(J(Q,\cdot)) \leq (\lambda^{−2} - Q)^{−1/2}.\]
+     Suppose that $\lambda \in (0,\infty), \sigma \in \Lambda(\lambda),Q_0 > 0$ and that $J$ is a root decoupling function for FBSDE on $[0,Q_0]$. Then for all $Q \in [0,Q_0 \wedge \lambda^{-2})$, we have
+    \[\Lip(J(Q,\cdot)) \leq (\lambda^{-2} - Q)^{-1/2}.\label{dplip}\]
 \end{proposition}
 \begin{proof}
     
@@ -140,7 +140,89 @@ $\Gamma$ on $[0,Q']$, we have
     \[
     \Lambda(M,\lambda):=\{\sigma\in \Lip(\mathbb{R}^m;\mathcal{H}_+^m):\Lip(\sigma) \leq \lambda\text{ and }|\sigma(u)|_F^2 \leq M + \lambda^2|u|^2\text{ for all }u\in\mathbb{R}^m\}
     \] For $Q_0  < \lambda^{-2}$, define the set of functions $\mathcal{Z}_{Q_0,M,\lambda}$ by
-    \[\mathcal{Z}_{Q_0,M,\lambda} = \{g:[0,Q_0]\times \mathbb{R}^m\to\mathcal{H}_+^m\text{ continuous }, g(q,\cdot) \in \Lambda((1-a))
+    \[
+    \begin{aligned}
+        \mathcal{Z}_{Q_0,M,\lambda} = \big\{g:[0,Q_0]&\times \mathbb{R}^m\to\mathcal{H}_+^m\text{ continuous}, \\
+        & g(q,\cdot) \in \Lambda((1-\lambda^2 q)^{-2}M,(\lambda^{-2}-q)^{-1/2})\text{ for all }q\in [0,Q_0]\big\}
+    \end{aligned}
     \]
-Wewillconstructtherootdecouplingfunction����asafixedpointofQ�� inacertainZ��0,��,��.
+We will construct the root decoupling function $J_{\sigma}$ as a fixed point of $Q_{\sigma}$  in a certain $\mathcal{Z}_{Q_0,M,\lambda}$.
 \end{definition}
+
+\begin{proposition}
+    Fix $\lambda, M \in (0,\infty)$ and $Q_0 \in [0,\lambda^{-2})$. For any $\sigma \in \Lambda(M,\lambda)$, there is a unique root decoupling function $J_{\sigma} \in \mathcal{A}_{Q_0}$. In particular, we have
+    \[
+    \Qbar(\sigma) \geq \Lip(\sigma)^{-2}.
+    \]
+    Moreover, there is a $C = C(Q_0,M,\lambda) < \infty$ such that for any $g\in\mathcal{Z}_{Q_0,M,\lambda}$, we have
+    \[
+    \sup_{q\in[0,Q_0]}||(g-J_{\sigma})(q,\cdot)||_{\mathcal{X}} \leq C\sup_{q\in[0,Q_0]}||(g-\mathcal{Q}_{\sigma}g)(q,\cdot)||_{\mathcal{X}}
+    \]
+    and indeed
+    \[
+    \lim_{n\to\infty} \sup_{q\in[0,Q_0]}||(\mathcal{Q}_{\sigma}^n g - J_{\sigma})(q,\cdot)||_{\mathcal{X}} = 0
+    \]
+    where $Q^n_{\sigma}$ denotes the $n$-fold iterated application of $Q_{\sigma}$.
+\end{proposition}
+\begin{proof}
+    We know any decoupling function $J\in\mathcal{A}_{Q_0}$ has to be in $\mathcal{Z}_{Q_0,M,\lambda}$ for some $M' ,\lambda \in (0,\infty)$
+\end{proof}
+
+\subsection{Extension of the Solution}
+
+\begin{lemma}
+    Let $\sigma \in \Lip(\mathbb{R}^m;\mathcal{H}^m_+)$, whenever $0\leq Q_1\leq Q_2 < \Qbar(\sigma)$, we have for any $b\in\mathbb{R}^m$,
+    \[
+    J_{\sigma}^2(Q_2,b) = \mathbb{E}[J_{\sigma}^2(Q_1,\Gamma^{\sigma}_{b,Q_2}(Q_2-Q_1))]
+    \]
+    \label{dptower}
+\end{lemma}
+\begin{proof}
+    Remain.
+\end{proof}
+
+\begin{lemma}
+    Let $\sigma \in \Lip(\mathbb{R}^m;\mathcal{H}^m_+)$, whenever $0\leq Q_1\leq Q_2 < \Qbar(\sigma)$ and if
+    \[
+    Q_2 - Q_1 < \Qbar(J_{\sigma}(Q_1,\cdot)),
+    \]
+    we have
+    \[
+    J_{\sigma}(Q_2,b) = J_{J_{\sigma}(Q_1,\cdot)}(Q_2-Q_1,b)\quad\text{for all }b\in\mathbb{R}^m.
+    \]
+\end{lemma}
+\begin{proof}
+    We have by $\eqref{dptower}$ that,for any $Q\in [Q_1,\Qbar(\sigma))$ and any $b\in\mathbb{R}^m$,
+    \[J_{\sigma}^2(Q,b) = \mathbb{E}[J^2_{\sigma}(Q_1,\Gamma^{\sigma}_{b,Q}(Q-Q_1))]\]
+    By assumption, there is a unique solution to the following FBSDE problem for $Q\in [0,Q_2-Q_1]$:
+    \[
+    \begin{aligned}
+        d\Gamma^{J_{\sigma}(Q_1,\cdot)}_{b,Q}(q) &= J_{J_{\sigma}(Q_1,\cdot)}(Q-q,\Gamma^{J_{\sigma}(Q_1,\cdot)}_{b,Q}(q))dB(q),\quad q\in(0,Q) \\
+        \Gamma^{J_{\sigma}(Q_1,\cdot)}_{b,Q}(0) &= b \\
+        J_{J_{\sigma}(Q_1,\cdot)}(Q,b) &= (\mathbb{E}[J_{\sigma}^2(Q_1,\Gamma^{J_{\sigma}(Q_1,\cdot)}_{b,Q}(Q))])^{1/2}
+    \end{aligned}
+    \]
+    Also, if given $Q\in[0,\Qbar(\sigma)-Q_1)$, $\eqref{fbsde}$ and $\eqref{dptower}$ with $Q$ replaced by $Q_1+Q$ will yield
+    \[
+    \begin{aligned}
+        d\Gamma^{\sigma}_{b,Q+Q_1}(q) &= J_{\sigma}(Q+Q_1-q,\Gamma^{\sigma}_{b,Q+Q_1}(q))dB(q),\quad q\in(0,Q) \\
+        \Gamma^{\sigma}_{b,Q+Q_1}(0) &= b \\
+        J_{\sigma}(Q+Q_1,b) &= (\mathbb{E}[\sigma^2(\Gamma^{\sigma}_{b,Q+Q_1}(Q))])^{1/2} = (\mathbb{E}[J_{\sigma}^2(Q_1,\Gamma^{\sigma}_{b,Q+Q_1}(Q))])^{1/2}
+    \end{aligned}
+    \]
+    which means $(\Gamma^{\sigma}_{b,Q+Q_1}(q)$ and $J_{\sigma}(Q+Q_1,b))$ will solve the previous FBSDE system, and by the uniqueness of FBSDE problem, we have
+    \[
+    J_{J_{\sigma}(Q_1,\cdot)}(Q,b) = J_{\sigma}(Q+Q_1,b)\quad\text{ for all }b\in\mathbb{R}^m\text{ and }Q\in[0,Q_2-Q_1]
+    \]
+\end{proof}
+
+\begin{proposition}
+    For any $Q'\in [0,\Qbar(\sigma))$, we have
+    \[
+    \Qbar(\sigma) \geq Q'+\Qbar(J_{\sigma}(Q',\cdot))
+    \]
+\end{proposition}
+\begin{proof}
+    For $Q' < \Qbar{\sigma}$, there is a unique root decoupling function $J_{\sigma} \in \mathcal{A}_{Q'}$ for $\eqref{fbsde}$ on $[0,Q']$. Let $P\in[0,\Qbar(J_{\sigma}(Q',\cdot)))$, there is a unique RDF $J_{J_{\sigma}(Q',\cdot)} \in \mathcal{A}_P$ in $\eqref{fbsde}$ with $\sigma$ replaced by $J_{\sigma}(Q',\cdot)$.\par
+    We wish to extend the function $J_{\sigma}$ to the time interval by outting 
+\end{proof}
