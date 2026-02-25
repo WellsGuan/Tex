@@ -113,8 +113,14 @@ and this help us to make the extension.
 \par
 From the other side, we need to show for any linear functional on $W^{k,p}_0(U)$ can be obtained by some element in the negative Sobolev space. Firstly, notice there is a natural inclusion of $W_0^{k,p}(U)$ to $L^p(U)^{\oplus K(k)}$, and define a linear map
 \[
-T:\D(U)
+T:\D(U) \to L^p(U)^{\otimes K(k)}, \quad u\mapsto (u,D_{x_1}u,\cdots, D_{x^{k}}u,\cdots,D^{\alpha}u)
 \]
+and then we may see that $T$ is an isometry between \[(\D(U),||\cdot||_{W^{k,p}}) \text{ and } (T(\D(U)),|\cdot|_{L^p(U)^{\otimes K(k)}}).\]
+For a linear functional $l$ on $W^{k,p}_p(U)$, we may know $l$ will induce a bounded linear functional
+\[
+\tilde{l}: T(\D(U)) \to\mathbb{R},\quad \tilde{l}(Tu) = l(u)
+\]
+which can be extended to the whole $L^p(U)^{\otimes K(k)}$ by Hahn-Banach and denote the extended linear functional to be $l'$.
 
 \end{proof}
 
