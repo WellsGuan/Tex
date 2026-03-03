@@ -1,4 +1,14 @@
+\newcommand{\Schw}{\mathcal{S}}
+\newcommand{\R}{\mathbb{R}}
 \appendix
+
+\section{Topological Space}
+
+\subsection{Radon Measure}
+
+\begin{proposition}
+    If $\mu$ is a Radon measure on $X$, $C_c(X)$ is dense in $L^p(\mu)$ for $1\leq p < \infty$.
+\end{proposition}
 
 \section{Functional Analysis}
 
@@ -12,3 +22,78 @@
     on $\mathcal{X}$, $\mathcal{M}$ a subspace of $\mathcal{X}$, and $f$ a linear functional on $\mathcal{M}$ such that $f(x) \leq p(x)$ for all $x\in\mathcal{M}$. Then there exists a linear functional $F$ on $\mathcal{X}$ such that $F(x) \leq p(x)$ for all $x\in \mathcal{X}$ and $F|_{\mathcal{M}} = f$.
 \end{theorem}
 
+\subsection{Fourier Analysis}
+
+\begin{definition}
+    $C^{\infty}_c$ denote the smooth functions with compact support, where
+    \[\psi(x) = \begin{cases}
+    \exp\left( \tfrac{1}{|x|^2-1}\right)\quad&\text{ if }|x|<1, \\
+    0&\text{ if }|x|\geq 1,
+    \end{cases}
+    \] 
+    The \emph{Schwartz space} $\Schw$ is defined by
+    \[
+    \Schw := \{f\in C^{\infty}:||f||_{(N,\alpha)}<\infty\text{ for all }N,\alpha\}
+    \]
+    where
+    \[
+    ||f||_{(N,\alpha)} = \sup_{x\in\R^n}(1+|x|)^N|\partial^{\alpha}f(x)|
+    \]
+\end{definition}
+
+\begin{definition}[Frechet Space]\par
+A \emph{Frechet space} is a complete Hausdorff t.v.s. with a topology defined by a coutable family of seminorms.
+\end{definition}
+
+\begin{proposition}
+    $\Schw$ is a Frechet space with the topology defined by the norms $||\cdot||_{(N,\alpha)}$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    If $f\in C^{\infty}$, then $f\in \Schw$ iff $x^{\beta}\partial^{\alpha}f$ is bounded for all multi-indices $\alpha,\beta$ iff $\partial^{\alpha}( x^{\beta}f)$ is bounded for all multi-indices $\alpha,\beta$.
+\end{proposition}
+\begin{proof}
+    (1) $\implies$ (2) $\Leftrightarrow$ (3) is quite simple. For (2) $\implies$ (1), here is a good way to show: for any integer $N$, we know that $\sum\limits_{i=1}^n|x_i|^N$ has a positive minimum $\delta$ on the unit sphere. So we will know that $\sum\limits_{i=1}^n |x_i|^N \geq \delta|x|^N$ and then
+    \[
+    (1+|x|)^N \leq 2^N(1+|x|^N) \leq 2^N(1+\delta^{-1}\sum\limits_{i=1}^n |x_j^N|) \leq 2^N\delta^{-1}\sum\limits_{|\beta| \leq N}|x^{\beta}|
+    \]
+\end{proof}
+
+\begin{definition}[Shift Operator]\ \par
+    If $f$ is a function on $\R^m$ and $y\in \R^m$,
+    \[\tau_y f(x) = f(x-y)\]
+    $f$ is called uniformly continuous if $||\tau_y f - f||_u \to 0$ as $y$.
+\end{definition}
+
+\begin{lemma}
+    If $f\in C_c(\R^n)$, then $f$ is uniformly continuous.
+\end{lemma}
+
+\begin{proposition}
+    If $1\leq p <\infty$, translation is continuous in the $L^p$ norm, i.e. if $f\in L^p$ and $z\in \mathbb{R}^n$, then $\lim_{y\to 0} ||\tau_{y+z}f - \tau_z(f)||_p = 0$.
+\end{proposition}
+\begin{proof}
+    Notice for some $g\in C_c(\R^n)$, we have
+    \[
+    ||\tau_{y+z}f-\tau_zf||_p \leq ||\tau_{y+z} f - \tau_{y+z}g||_p + ||\tau_{y+z}g-\tau_z g||_p + ||\tau_z f- \tau_z g||_p
+    \]
+    and choose $g_{\epsilon}$ to be some function that $||g_{\epsilon}-f||_p < \epsilon$, so
+    \[
+    \limsup_{y\to 0} ||\tau_{y+z}f-\tau_zf||_p \leq ||\tau_{y+z} f - \tau_{y+z}g||_p + \limsup_{y\to 0} ||\tau_{y+z}g-\tau_z g||_p + ||\tau_z f- \tau_z g||_p < 2\epsilon
+    \]
+    and we are done.
+\end{proof}
+
+\begin{definition}[Convolution]\ \par
+    For $f,g$ measurable on $\R^n$, the convolution $f*g$ is defined by
+    \[
+    f*g(x) = \int f(x-y)g(y)dy
+    \]
+\end{definition}
+
+\begin{proposition}[Young's Inequality]\ \par
+    If $f\in L^1$ and $g\in L^p(1\leq p \leq \infty)$, then $f*g(x)$ exists for almost every $x$, $f*g \in L^p$ and $||f*g||_p \leq ||f||_1||g||_p$.
+\end{proposition}
