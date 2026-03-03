@@ -1,5 +1,31 @@
 \section{Parabolic Equation for the decoupling function}
 
+\subsection{Decoupling Flow}
+
+\begin{definition}[Parabolic Equation]\ \par
+    The following parabolic equation
+    \[
+    \begin{aligned}
+        \partial_q H(q,b) &= \tfrac{1}{2}[H(q,b):\nabla_b^2]H(q,b) \\
+        H(0,b) &= \sigma^2(b) \\
+    \end{aligned}
+    \]
+    here for $A,B$ matrices, we denote
+    \[
+    A:B = \tr[AB]
+    \]
+    and there is an explicit formula
+    \[
+    ([H(q,b):\nabla_b^2]H(q,b))_{ij} = \tr[H(q,b)\nabla^2_b]H_{ij}(q,b) = \sum\limits_{k,l = 1}^{m}H_{kl}(q,b) \dfrac{\partial^2 H_{ij}}{\partial b_k\partial b_l}(q,b)
+    \]\label{paraeq}
+\end{definition}
+\begin{proof}
+    We know
+    \[
+    \tr[H(q,b)\nabla^2_b] = \sum\limits_{k=1}^n \sum\limits_{l=1}^n H_{kl}(q,b)\dfrac{\partial^2}{\partial b_k \partial b_l}
+    \]
+\end{proof}
+
 \subsection{Main Theorem}
 
 \emph{Remark.} The space
@@ -19,9 +45,41 @@ For two normed spaces, their intersection will be equipped with a norm obtained 
         \]
         where $W^{2,\infty}(U;\mathcal{H}^m_+)$ is the Sobolev space of functions on $U$ taking values in $\mathcal{H}_+^m$ with weak second derivative mearuable ans essentially bounded.
         \item We have $H(0,b) = \sigma^2(b)$ for all $b\in\mathbb{R}^m$.
-        \item We have
-        \item \[
-        
+        \item We have \[
+            \partial_q H(q,b) = \tfrac{1}{2}[H(q,b):\nabla^2_b]H(q,b)\quad\text{for almost all }(q,b)\in(0,Q_0)\times\mathbb{R}^m
         \]
     \end{enumerate}
 \end{definition}
+
+\begin{proposition}
+    Fix $Q_0 \in (0,\Qbar(\sigma))$. Suppose $H$ is an almost classical solution of $\eqref{paraeq}$ on $[0, Q_0]$ such that $\sup_{q\in[0,Q_0]}\Lip\sqrt{H(q,\cdot)}$. Also assume that for each compact $\mathcal{K} \subset (0,Q_0)$, there
+exists a constant $C(\mathcal{K}) < \infty$ such that for all $R > 0$,
+\[||H|_{\mathcal{K}\times U_R}||_{ L^1(\mathcal{K};W^{2,\infty}(U;\mathcal{H}_+^m)) \cap C^1(\mathcal{K}\times U ;\mathcal{H}^m_+)} \leq CR^C.\]
+Then $\sqrt{H} = J_{\sigma}$ on $[0,Q_0] \times\mathbb{R}^m$.
+\end{proposition}
+
+\begin{theorem}
+    Suppose $\sigma \in \Lip(\mathbb{R};\mathbb{R}^+)$ and $I := \{b \in \mathbb{R} : \sigma(b) > 0\}$ is an open interval. Suppose also
+that there exists $\beta \in (0,\infty)$ such that the applicable following condition holds.\par
+\begin{enumerate}
+    \item[(i)] If $I$ is a bounded interval, then there is a constant $K \in [1,\infty)$ such that for all $x\in I$, we have
+    \[ K^{-1}\text{ dist}(x,I^c) \leq \sigma(x) \leq \beta \text{ dist}(x,I^c).\]
+    \item[(ii)] If $I = \mathbb{R}$, then there are constants $K \in [1,\infty)$ and $\gamma \in [0,2]$ such that for all $x \in \mathbb{R}$, we have
+    \[K^{-1}\langle x\rangle^{\gamma/2} \leq \sigma(x) \leq (\beta^2|x|^2 + K)^{1/2}\wedge(K\langle x\rangle^{\gamma/2}).\]
+    \item[(iii)] If $I$ is the half-line $(a, \infty)$ or $(−\infty,a)$, then there are constants $K\in [1,\infty)$ and $\gamma [0,2]$ such that
+for all $x\in I$, we have
+\[K^{-1}(|x-a|\wedge|x-a|^{\gamma/2}) \leq \sigma(x) \leq (\beta|x-a|\wedge(K|x-a|^{\gamma/2})).\]
+\end{enumerate}
+Then we have $\Qbar(\sigma) \geq \beta^{-2}$.
+\end{theorem}
+
+\begin{corollary}
+    Let $\sigma \in \Lip(\mathbb{R};\mathbb{R}_{\geq 0})$ and suppose there exist $\beta \in (0,\infty)$ and $k\in (0,\beta]$ such that $k|b| \leq \sigma(b) \leq \beta |b|$ for all $b\in \mathbb{R}$. Then $\Qbar(\sigma) \geq \beta^{-2}$.
+\end{corollary}
+\begin{proof}
+    By the previous theorem, since $\sigma(b) \geq k|b| > 0$ for any nonzero $b$, so we may know that for $(0,\infty)$, let $\gamma = 2, K = k^{-1}\vee 1\vee \beta$ and then we know
+    \[
+    K^{-1}|b| \leq k|b| \leq \sigma|b| \leq \beta|b| \leq \beta|b| \wedge K|b|
+    \]
+    and it is similar for $(-\infty,0)$ and we are done.
+\end{proof}

@@ -5,7 +5,15 @@
 \newcommand{\Qbar}{\overline{Q}_{\text{FBSDE}}}
 \newcommand{\waser}{\mathcal{W}}
 
+
+
 \section{Setup}
+
+\subsection{Checklist}
+
+1. Theorem 3.2.2. $I$ should be some interval such that $\sigma > 0$.\par
+2. Finish that argument that $Sym$ as a vector space.\par
+3. Well-definition of Wiener integral.\par
 
 \subsection{Semilinear SHE}
 
@@ -48,7 +56,7 @@ attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma
 
 \begin{proposition}
     We have
-    \[\mathbb{E}[dW_t^{\rho,i}(x)dW_{t'}^{\rho,i'}(x') = \delta_{i,i'}\delta(t-t')G_{2\rho}(x-x')\]
+    \[\mathbb{E}[dW_t^{\rho,i}(x)dW_{t'}^{\rho,i'}(x')] = \delta_{i,i'}\delta(t-t')G_{2\rho}(x-x')\]
 \end{proposition}
 \begin{proof}
     
@@ -120,7 +128,6 @@ Shown by some standard fixed-point arguments.
     Denote $\waser_2$ the Wasserstein-2 metric: for any two probability distributions $\mu,\nu$
     \[\waser_2(\mu,\nu)  = \inf_{\pi} \left(\int |x-y|^2\pi(dx,dy)\right)\]
     where $\pi$ owns marginal distributions of $\mu$ and $\nu$.\par
-    Denote $\langle a\rangle := (|a|^2+1)^{1/2}$ the Japanese bracket.
 \end{definition}
 
 \begin{theorem}
@@ -130,29 +137,3 @@ Shown by some standard fixed-point arguments.
     \]
     where $(\Gamma^{\sigma}_{a,1}(q))_{q\in[0,1]}$ solves the FBSDE with $Q = 1$ and $a = \htk_tv_0(x)$.
 \end{theorem}
-
-\subsection{Decoupling Flow}
-
-\begin{definition}[Parabolic Equation]\ \par
-    The following parabolic equation
-    \[
-    \begin{aligned}
-        \partial_q H(q,b) &= \tfrac{1}{2}[H(q,b):\nabla_b^2]H(q,b) \\
-        H(0,b) &= \sigma^2(b) \\
-    \end{aligned}
-    \]
-    here for $A,B$ matrices, we denote
-    \[
-    A:B = \tr[AB]
-    \]
-    and there is an explicit formula
-    \[
-    ([H(q,b):\nabla_b^2]H(q,b))_{ij} = \tr[H(q,b)\nabla^2_b]H_{ij}(q,b) = \sum\limits_{k,l = 1}^{m}H_{kl}(q,b) \dfrac{\partial^2 H_{ij}}{\partial b_k\partial b_l}(q,b)
-    \]\label{paraeq}
-\end{definition}
-\begin{proof}
-    We know
-    \[
-    \tr[H(q,b)\nabla^2_b] = \sum\limits_{k=1}^n \sum\limits_{l=1}^n H_{kl}(q,b)\dfrac{\partial^2}{\partial b_k \partial b_l}
-    \]
-\end{proof}

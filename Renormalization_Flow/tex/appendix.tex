@@ -1,3 +1,8 @@
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Borel}[1]{\mathscr{B}(\mathbb{R}^{#1})}
+\newcommand{\bors}{\mathscr{B}}
+\newcommand{\simp}{\mathscr{S}}
+\newcommand{\E}{\mathbb{E}}
 \appendix
 
 \section{Fundamentals}
@@ -7,10 +12,64 @@
 Let $T$ be a set and $X := \{X(t)\}_{t\in T}$ a $T$-indexed stochastic process. We recall that $X$ is a Gaussian random field (process when $T \subset \mathbb{R}$) if $(X_{t_1} ,\cdots,X_{t_m})$ is a Gaussian random vector for all $t_1,\cdots,t_m \in T$.\par
 
 \begin{definition}
-Let $\mathscr{L}(\mathbb{R}^m)$ denote the collection of all Borel-measurable subsets of $\mathbb{R}^m$ that have finite Lebesgue measure. White noise on $\mathbb{R}^m$ is a mean-zero set-indexed Gaussian random field ${\xi(A)}_{A\in \mathscr{L}(\mathbb{R}^m)}$ with covariance function
+Let $\Borel{m}$ denote the collection of all Borel-measurable subsets of $\mathbb{R}^m$ that have finite Lebesgue measure. White noise on $\mathbb{R}^m$ is a mean-zero set-indexed Gaussian random field ${\xi(A)}_{A\in \Borel{m}}$ with covariance function
 \[E[\xi(A_1)\xi(A_2)] := |A_1 \cap A_2| \quad\text{ for all } A_1, A_2 \in \mathscr{L}(\mathbb{R}^m), \]
 where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
 \end{definition}
+\emph{Remark.} Here is a general proof from Ash and Gardner.
+\begin{proof}
+    For any complex numbers $c_1,\cdots,c_n$ and $A_1,\cdots,A_n \in \Borel{m}$, we have
+    \[
+    \sum\limits_{1\leq i,j\leq n} c_i\bar{c_j} |A_i\cap A_j| = \sum\limits_{1\leq i,j\leq n}c_i\bar{c_j}\int \chi(A_i)\chi(A_j) = \int \left|\sum\limits_{i=1}^n c_i\chi(A_i)\right|^2 \geq 0
+    \]
+    and we are done.
+\end{proof}
+
+\begin{lemma}
+    $\{\xi(A)\}_{A \in \Borel{m}}$ is an $L^2(\Omega)$-valued countably-additive measure on $\Borel{m}$.
+\end{lemma}
+
+\begin{definition}[Wiener Integral]\par
+    For $h \in \simp(\R^m)$ the set of the simple functions, define
+    \[
+    \int h d\xi := \sum\limits_{i=1}^n c_i\xi(A_i)
+    \]
+    where $h(x) = \sum\limits_{i=1}^n c_i\chi(A_i)$ for some $A_1,\cdots,A_n\in\bors(\R^m)$ and $c_1,\cdots,c_n \in \R$.\par
+    For $f\in L^2(\R^m)$, define 
+    \[
+    \int f d\xi = \lim_{n\to\infty} \int f_i d\xi
+    \]
+    in $L^2(\Omega)$ for some $f_i\in \simp(\R^m)$ and $f_i \to f$ in $L^2$.
+\end{definition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    The $L^2(\R^m)$-indexed Gaussian random field $\{\int h d\xi\}_{h\in L^2(\R^m)}$ has the following properties:
+    \begin{enumerate}
+        \item $\int (a_1h_1+a_2h_2)d\xi = a_1\int h_1d\xi + a_2 \int h_2 d\xi$ a.s. for all $a_1,a_2 \in \R$ and $h_1,h_2 \in L^2(\R^m)$.
+        \item For all $h, h_1,h_2 \in L^2(\R^m)$,
+        \[\E \int hd\xi = 0, \E(\int h_1d\xi \int h_2d\xi) = \int h_1h_2\]
+    \end{enumerate}
+\end{proposition}
+    \emph{Remark.} We may define
+    \[\int_A h d\xi = \int h\chi(A)d\xi\]
+    and it is easy to prove the \emph{Wiener isometry} by the properties above.
+
+\begin{definition}
+    For every $f\in L^2(\R^m)$ and $x\in\R^m$, define
+    \[
+    (f*\xi)(x) := \int f(x-y)\xi(dy)
+    \]
+\end{definition}
+
+\begin{proposition}
+    For every $f\in L^2(\R^m)$, there exists a version of $f*\xi$ that is measurable jointly in $(\omega,x)$. Moreover, we have the following Young-type inequality: For every finite Borel measure $\mu$ on $\R^m$,
+    \[
+    \E\left(\left|\int|(f*\xi)(x)|\mu(dx)\right|^2\right) \leq \mu(\R^m)^2||f||^2_{L^2(\R^m)}
+    \]
+\end{proposition}
 
 \subsection{Useful Approximations}
 
