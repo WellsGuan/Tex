@@ -143,24 +143,27 @@ P^*v=g,
 \end{proposition}
 
 \begin{proof}
-    (1) is obvious. For (2), 
+    (1) is obvious. For (2), consider $PX:=\{y\in Y,\exists\  x\in X\text{ s.t.} Px=y\}$ which is a subspace of $Y$, and define $\bar{v}(Px) = \langle g,x\rangle$ which is a well-defined linear functional on $PX$ with
+    \[
+    ||\bar{v}(Px)|| \leq ||g||_{X^*}||x||_X \leq C||g||_{X^*}||Px||_Y
+    \]
+    and hence we know there is a linear functional $v \in Y^*$ such that $v|_{PX} = \bar{v}$ and $||v||_{Y^*} \leq C||g||_{X^*}$ and we are done.
 \end{proof}
 
-\begin{proposition}
-    Let $X,Y$ be Banach spaces, and let $P:X\to Y$ be bounded linear operator. Suppose $||v||_{Y^{*}} \leq C||P^*v||_{X^*}$. Then
-    \begin{enumerate}
-        \item If $v \in Y^*$ and $P^*v = 0$, then $v = 0$.
-        \item For all $f\in Y$, there exists a $u\in X$ such that $Pu = f$ and $||u||_X \leq C||f||_Y$.
-    \end{enumerate}
-\end{proposition}
 
 \begin{definition}
     Let $X$ be a Banach space, we call it \emph{reflexive} if $u\to(v\mapsto\langle v,u \rangle)$ is an isomorphism.
 \end{definition}
 
 \begin{proposition}
-    All sobolev spaces $W^{k,p}_0(U)$ with $1 < p < \infty$ are reflexive.
+    Assume $X$ is reflexive. Let $X,Y$ be Banach spaces, and let $P:X\to Y$ be bounded linear operator. Suppose $||v||_{Y^{*}} \leq C||P^*v||_{X^*}$. Then
+    \begin{enumerate}
+        \item If $v \in Y^*$ and $P^*v = 0$, then $v = 0$.
+        \item For all $f\in Y$, there exists a $u\in X$ such that $Pu = f$ and $||u||_X \leq C||f||_Y$.
+    \end{enumerate}
 \end{proposition}
+
+\emph{Remark.} All sobolev spaces $W^{k,p}_0(U)$ with $1 < p < \infty$ are reflexive.
 
 \begin{definition}
     Given $U\subset Y$, the \emph{annihilator} of $U$ is
@@ -172,16 +175,23 @@ P^*v=g,
     ^{\perp}V:=\{u\in X:\langle g,u\rangle = 0,\text{ for any }g\in V\}
     \]
 \end{definition}
+
 \begin{proposition}
     For the operators in $\eqref{dop}$ we have 
     \[
     (\ran{P})^{\perp} = \ker(P^*),\quad \ker(P) = ^\perp(\ran{P^*})
     \]
 \end{proposition}
+\begin{proof}
+    For the second equality, refer to Hahn-Banach to show that if some $u\in X$ is in the kernel of any linear functional in $X^*$, then $u = 0$.
+\end{proof}
+
 \begin{proposition}
     Let $X,Y$ be Banach spaces, with $X$ reflexive, and $P:X\to Y$ be a bounded linear operator. If $P(X) = Y$, then thre exists some $C>0$ such that
     \[||v||_{Y^*} \leq C||P^*v||_{X^*}\]
 \end{proposition}
+
+
 
 \subsection{Approximation by smooth functions and smooth partition of unity}
 \begin{lemma}

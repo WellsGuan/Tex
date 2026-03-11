@@ -70,6 +70,9 @@ where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
     \E\left(\left|\int|(f*\xi)(x)|\mu(dx)\right|^2\right) \leq \mu(\R^m)^2||f||^2_{L^2(\R^m)}
     \]
 \end{proposition}
+\begin{proof}
+    
+\end{proof}
 
 \subsection{Useful Approximations}
 
@@ -129,4 +132,26 @@ Let $A \in \mathbb{R}^{n\times n}$ be a real symmetric matrix, that is, $A^T = A
 A = Q \Lambda Q^T.
 \]
 \end{enumerate}
+\end{theorem}
+
+\subsection{Kolmogorov's Theorems}
+
+\begin{definition}
+    For any $w\in\R^m$, then
+    \[\rho(w):=\sum\limits_{i=1}^m |w_j|^{\alpha_j}\]
+    where $0 < \alpha_1,\cdots,\alpha_m \leq 1$ are fixed.\par
+    For a bounded and closed subset $T$ of $\R^m$, define
+    \[
+    \Lambda_T(a):= \int_T dt\int_T ds[\rho(t-s)]^{-a}\quad\text{ for all }a>0.
+    \]
+\end{definition}
+\emph{Remark. }$\Lambda_T(a) <\infty$ if and only if $a< H:= \sum\limits_{j=1}^m \alpha_j^{-1}$.
+
+\begin{theorem}[Kolmogorov's Continuity Theorem]\ \par
+    Let $\{X_t\}_{t\in T}$ be a stochastic process, where $T\subset \R^m$ is measurable and bounded, and suppose that there exists finite real numbers $C>0$ and $k>H$, such that
+    \[\lVert X_t - X_s\rVert_k \leq C\rho(t-s)\quad\text{ for any }s,t\in T\]
+    Then $X$ has a modification $\overline{X}$ that is Holder continuous a.s. Moreover, $\overline{X}$ satisfies the following: For all $q\in (0,1-(H/k))$ and $\delta \in (q,1-(H/k))$ there exists a finite constant $D$, that does not depend on that numerical value of $k$, such that
+    \[
+    \E\left(\sup_{s,t\in T,s\neq t}\left|\dfrac{\overline{X}_t-\overline{X}_s}{[\rho(t-s)]^q}\right|^k \right) \leq (\delta -q)^{-1}\left(\dfrac{DC}{\delta}\right)^k k^{2H}\Lambda_T(2H-k+k\delta)
+    \]
 \end{theorem}

@@ -1,5 +1,6 @@
 \newcommand{\Schw}{\mathcal{S}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\pnorm}[1]{\left\lVert{#1}\right\rVert}
 \appendix
 
 \section{Topological Space}
@@ -20,6 +21,28 @@
     p(x+y) \leq p(x)+p(y),\quad p(\lambda x) = \lambda p(x)\text{ for any }x,y\in\mathcal{X}\text{ and }\lambda \geq 0
     \]
     on $\mathcal{X}$, $\mathcal{M}$ a subspace of $\mathcal{X}$, and $f$ a linear functional on $\mathcal{M}$ such that $f(x) \leq p(x)$ for all $x\in\mathcal{M}$. Then there exists a linear functional $F$ on $\mathcal{X}$ such that $F(x) \leq p(x)$ for all $x\in \mathcal{X}$ and $F|_{\mathcal{M}} = f$.
+\end{theorem}
+
+\begin{theorem}
+    Let $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ be $\sigma$-finite measure spaces, and let $K$ be an $(\mathcal{M}\otimes\mathcal{N})$-measurable function on $X\times Y$. Suppose that there exists $C>0$ such that $\int |K(x,y)|d\mu(x) \leq C$ for a.e. $y\in Y$ and $\int |K(x,y)|d\nu(y) \leq C$ for a.e. $x\in X$, and that $1\leq p \leq \infty$. If $f\in L^p(\nu)$, then the integral
+    \[
+    Tf(x) = \int K(x,y)f(y)d\nu(y)
+    \]
+    converges absolutely for a.e. $x\in X$ and $||Tf||_p \leq C||f||_p$.
+\end{theorem}
+
+\begin{theorem}[Minkowski's Inequality for Integrals]\par
+    Suppose that $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ are $\sigma$-finite measure spaces, and let $f$ be an $(\mathcal{M}\otimes\mathcal{N})$-measurable function on $X\times Y$.
+    \begin{enumerate}
+        \item If $f\geq 0$ and $1\leq p <\infty$, then
+        \[
+        \left[\int\left(\int f(x,y)d\nu(y)\right)^p d\mu(x)\right]^{1/p} \leq \int \left[\int f(x,y)^p d\mu(x)\right]^{1/p}d\nu(y)
+        \]
+        \item If $1\leq p \leq \infty, f(\cdot,y) \in L^p(\mu)$ for a.e. $y$, and the function $y\mapsto ||f(\cdot,y)||_p$ is in $L^1(\nu)$, then $f(x,\cdot)\in L^1(\nu)$ for a.e. $x$ and the function $x\mapsto \int f(x,y)d\nu(y)$ is in $L^p(\mu)$, and
+        \[
+        \left\lVert \int f(\cdot,y)d\nu(y)\right\rVert_p \leq \int \lVert f(\cdot,y)\rVert_p d\nu(y)
+        \]
+    \end{enumerate}
 \end{theorem}
 
 \subsection{Fourier Analysis}
@@ -97,3 +120,12 @@ A \emph{Frechet space} is a complete Hausdorff t.v.s. with a topology defined by
 \begin{proposition}[Young's Inequality]\ \par
     If $f\in L^1$ and $g\in L^p(1\leq p \leq \infty)$, then $f*g(x)$ exists for almost every $x$, $f*g \in L^p$ and $||f*g||_p \leq ||f||_1||g||_p$.
 \end{proposition}
+\begin{proof}
+    It can be checked easily by the Minkowski’s Inequality for Integrals.
+\end{proof}
+
+\begin{proposition}
+    If $p$ and $q$ are conjugate exponents, $f\in L^p$ and $g\in L^q$, then $f*g(x)$ exists for every $x$, $f*g$ is bounded and uniformly continuous, and $\pnorm{f*g}_u \leq \pnorm{f}_p\pnorm{g}_q$. If $1<p<\infty$, then $f*g \in C_0(\R^n)$.
+\end{proposition}
+
+
