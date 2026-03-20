@@ -12,8 +12,8 @@
 \subsection{Checklist}
 
 1. Theorem 3.2.2. $I$ should be some interval such that $\sigma > 0$.\par
-2. Finish that argument that $Sym$ as a vector space.\par
-3. Well-definition of Wiener integral.\par
+2. Finish the argument that $Sym$ is a vector space.\par
+3. Well-definedness of the Wiener integral.\par
 
 \subsection{Semilinear SHE}
 
@@ -34,7 +34,7 @@ attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma
 \end{proposition}
 
 \begin{definition}\ \par
-    Let $(\Omega,\mathcal{F},\mathbb{P})$ be a proability space and fix a target dimension $m\in\mathbb{N}$. The solution $v^{\rho}:\Omega\times\mathbb{R}\times\mathbb{R}^2 \to \mathbb{R}^m$ is a random vector-valued function parametrized by the correlastion parameter $\rho > 0$. We suppress the dependence of $v^p$ on $\omega \in \Omega$.\par
+    Let $(\Omega,\mathcal{F},\mathbb{P})$ be a probability space and fix a target dimension $m\in\mathbb{N}$. The solution $v^{\rho}:\Omega\times\mathbb{R}\times\mathbb{R}^2 \to \mathbb{R}^m$ is a random vector-valued function parametrized by the correlation parameter $\rho > 0$. We suppress the dependence of $v^{\rho}$ on $\omega \in \Omega$.\par
     Since $v$ is vector-valued, our nonlinearity $\sigma: \mathbb{R}^m \to \mathbb{R}^{m\times m}$ is matrix-valued. Let $\mathcal{H}^m_+$ denote the set of nonnegative-definite symmetric real $m\times m$ matrices, equipped with the metric induced by the Frobenius norm
     \[
     |A|^2_F := \text{tr}(AA^T) = \text{tr}(A^2)
@@ -78,7 +78,7 @@ attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma
     which means
     \[
     \begin{aligned}
-        v_t^\rho{x} &= \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
+        v_t^\rho(x) &= \htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
         &=\htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t \int G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)dy \\
         &=\htk_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int\left(\int_s^t G_{t+\rho-r}(y)\sigma(v_r^{\rho})(x-y)dW_r(x-y)\right)dy 
     \end{aligned}
@@ -88,7 +88,7 @@ attention to a variation on $\eqref{semiSHE}$ in which we first multiply $\sigma
 \end{definition}
 
 \begin{proposition}
-    For any $l\geq 2$, there is a family of random operators $(\ropV_{s,t})_{s<t}$ such that if $v_s \in \mathscr{X}_s^l$, then $v_t^{\rho} = \ropV_{s,t} v_s$ is a mild solution of $\eqref{semiSHE}$ for $t\geq s$. We oftten write $\ropV_t := \ropV_{0,t}$.
+    For any $l\geq 2$, there is a family of random operators $(\ropV_{s,t})_{s<t}$ such that if $v_s \in \mathscr{X}_s^l$, then $v_t^{\rho} = \ropV_{s,t} v_s$ is a mild solution of $\eqref{semiSHE}$ for $t\geq s$. We often write $\ropV_t := \ropV_{0,t}$. 
 \end{proposition}
 
 Shown by some standard fixed-point arguments.
@@ -107,7 +107,7 @@ Shown by some standard fixed-point arguments.
 \end{definition}
 
 \begin{definition}
-    Given $\sigma \in \Lip(\mathbb{R}^m,\mathcal{H}_+^m)$, let $\Qbar(\sigma) \in [0,\infty]$ be the supremum of all $Q\geq 0$ such that there is a continuous function $J_{\sigma}:[0,Q]\times\mathbb{R}^m \to \mathcal{H}_+^m$ satisfyting the FBSDE and
+    Given $\sigma \in \Lip(\mathbb{R}^m,\mathcal{H}_+^m)$, let $\Qbar(\sigma) \in [0,\infty]$ be the supremum of all $Q\geq 0$ such that there is a continuous function $J_{\sigma}:[0,Q]\times\mathbb{R}^m \to \mathcal{H}_+^m$ satisfying the FBSDE and
     \[\sup_{q\in[0,\overline{Q}]} \Lip(J_{\sigma}(q,\cdot)) < \infty\]
     and define for $M,\beta \in (0,\infty)$
     \[\Sigma(M,\beta):=\{\sigma\in\Lip(\mathbb{R}^m,\mathcal{H}_+^m):|\sigma(u)|_F^2 \leq M+\beta^2|u|^2\text{ for all }u\in\mathbb{R}^m\}\]
@@ -127,7 +127,7 @@ Shown by some standard fixed-point arguments.
 \begin{definition}
     Denote $\waser_2$ the Wasserstein-2 metric: for any two probability distributions $\mu,\nu$
     \[\waser_2(\mu,\nu)  = \inf_{\pi} \left(\int |x-y|^2\pi(dx,dy)\right)\]
-    where $\pi$ owns marginal distributions of $\mu$ and $\nu$.\par
+    where $\pi$ has marginal distributions $\mu$ and $\nu$.\par
 \end{definition}
 
 \begin{theorem}

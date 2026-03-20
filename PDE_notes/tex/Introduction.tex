@@ -1,0 +1,41 @@
+\section{Introduction}
+
+Partial differential equations (PDEs) are equations involving the partial derivatives of functions of several variables. A general $k$-th order PDE for a function $u:\mathbb{R}^d\to \mathbb{R}^m$ has the form
+\[
+F\bigl(D^k u(x),D^{k-1}u(x),\dots,Du(x),u(x),x\bigr)=0,
+\]
+where $D^\ell u$ denotes the collection of all partial derivatives of order $\ell$.
+
+PDEs were first introduced to model physical systems, and we will often use physical intuition to derive and understand them. However, they are not limited to mathematical physics: they also appear naturally in many parts of pure mathematics and in quantitative sciences.
+
+In practice, one usually studies a PDE on a proper subset of $\mathbb{R}^d$ together with initial or boundary conditions. The main questions are existence, uniqueness, and qualitative behavior of solutions. Since the behavior depends strongly on the structure of the equation, it is usually impossible to build one theory that treats all PDEs at once. Instead, one organizes PDEs into several important classes and develops tools adapted to each class.
+
+A first useful distinction is between linear and nonlinear equations. We say a PDE is linear if it has the form
+\[
+a_k(x)D^k u + a_{k-1}(x)D^{k-1}u + \cdots + a_1(x)Du + a_0(x)u = f(x),
+\]
+where the coefficients $a_j$ may depend on $x$. Linear PDEs remain central for several reasons:
+\begin{enumerate}
+    \item they are often the simplest models arising from physical considerations,
+    \item nonlinear equations frequently share broad features with their linearizations,
+    \item many nonlinear problems are first approached through linear theory.
+\end{enumerate}
+
+In this set of notes, we will mainly focus on linear PDEs, with occasional nonlinear examples. Even among linear equations, the behavior varies greatly depending on the order and sign structure of the derivatives. It is therefore useful to organize the subject around several representative classes.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c}
+Class & Representative equation & Name \\
+\hline
+First-order & $\partial_t u + \operatorname{div}(uv)=0$ & Transport \\
+Elliptic & $\Delta u = 0$ & Laplace \\
+Parabolic & $\partial_t u = \Delta u$ & Heat \\
+Hyperbolic & $\partial_t^2 u - \partial_x^2 u = 0$ & Wave \\
+Dispersive & $i\partial_t u + \Delta u = 0$ & Schr\"odinger
+\end{tabular}
+\end{table}
+
+These classes are not exhaustive, but they include many of the most important PDEs appearing in applications. In particular, the Laplace equation, the heat equation, and the wave equation will occupy a central role in what follows.
+
+There are also important connections between these classes. Elliptic equations often appear as equilibrium versions of parabolic problems; transport and hyperbolic equations are often regularized by parabolic terms; and hyperbolic and dispersive equations share several structural features. Thus, while classification is useful, one should also keep in mind the broader unity of the subject.

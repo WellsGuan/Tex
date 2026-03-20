@@ -522,6 +522,249 @@ Taking the Fourier transform in \(x^{\prime}\) , Fubini gives
 \]
 where \(\tilde{\tilde{u}} = \mathcal{F}_{x}\tilde{u}\) denotes the full Fourier transform in \(\mathbb{R}^{d}\) .
 
-On Wednesday Feb 4 we will pick up from here.
+Step 2 (Estimate in $H^s(\mathbb{R}^{d-1})$ and identify the sharp exponent). For $s\in\mathbb{R}$,
+\[
+\| \operatorname {tr}_{\partial U}u\|_{H^s(\mathbb{R}^{d-1})} \simeq \|(1+|\xi'|^2)^{s/2}\mathcal{F}_{x'}(\operatorname {tr}_{\partial U}u)(\xi')\|_{L^2_{\xi'}}.
+\]
+Using the identity above, we obtain
+\[
+\| \operatorname {tr}_{\partial U}u\|_{H^s(\mathbb{R}^{d-1})} \lesssim \left\|(1+|\xi'|^2)^{s/2}\int_{\mathbb{R}} \tilde{\tilde{u}}(\xi',\xi_d)\,\frac{d\xi_d}{2\pi}\right\|_{L^2_{\xi'}}.
+\]
+Insert the factor $(1+|\xi'|^2+\xi_d^2)^{1/2}$ and apply Cauchy--Schwarz in $\xi_d$. Then
+\[
+\| \operatorname {tr}_{\partial U}u\|_{H^s(\mathbb{R}^{d-1})} \lesssim \sup_{\xi'\in\mathbb{R}^{d-1}}\left(\int_{\mathbb{R}} \frac{(1+|\xi'|^2)^s}{1+|\xi'|^2+\xi_d^2}\,d\xi_d\right)^{1/2} \cdot \|(1+|\xi|^2)^{1/2}\tilde{\tilde{u}}(\xi)\|_{L^2_{\xi}}.
+\]
+The last factor is equivalent to $\|\tilde{u}\|_{H^1(\mathbb{R}^d)}$, which is in turn bounded by $\|u\|_{H^1(\mathbb{R}_+^d)}$ by $(1)$.
+
+It remains to understand when
+\[
+\sup_{\xi'\in\mathbb{R}^{d-1}} \int_{\mathbb{R}} \frac{(1+|\xi'|^2)^s}{1+|\xi'|^2+\xi_d^2}\,d\xi_d
+\]
+is finite. Set $A:=1+|\xi'|^2\ge 1$. Then
+\[
+\int_{\mathbb{R}} \frac{(1+|\xi'|^2)^s}{1+|\xi'|^2+\xi_d^2}\,d\xi_d = A^s \int_{\mathbb{R}} \frac{1}{A+\xi_d^2}\,d\xi_d.
+\]
+With the substitution $\xi_d=\sqrt{A}\,t$, we get
+\[
+\int_{\mathbb{R}} \frac{1}{A+\xi_d^2}\,d\xi_d = A^{-1/2}\int_{\mathbb{R}} \frac{1}{1+t^2}\,dt \simeq A^{-1/2}.
+\]
+Therefore the above quantity is comparable to
+\[
+A^{s-1/2} = (1+|\xi'|^2)^{s-1/2}.
+\]
+Hence the supremum is finite if and only if $s\le 1/2$. Taking the sharp value $s=1/2$, we obtain
+\[
+\| \operatorname {tr}_{\partial U}u\|_{H^{1/2}(\mathbb{R}^{d-1})} \lesssim \|\tilde{u}\|_{H^1(\mathbb{R}^d)} \lesssim \|u\|_{H^1(\mathbb{R}_+^d)}.
+\]
+This proves the theorem.
+\end{proof}
+
+\begin{remark}
+The estimate is sharp: the computation above shows that this argument cannot work for any $s>1/2$.
+\end{remark}
+
+\subsection{Extension from the boundary}
+
+\begin{theorem}
+There exists a bounded linear map
+\[
+\operatorname{ext}_{\partial U}: H^{1/2}(\mathbb{R}^{d-1}) \to H^1(\mathbb{R}_+^d)
+\]
+such that
+\[
+\operatorname{tr}_{\partial U}\circ \operatorname{ext}_{\partial U} = id.
+\]
+\end{theorem}
+
+\begin{remark}
+This theorem asserts that every boundary function with the optimal trace regularity can be realized as the boundary value of an interior $H^1$ function.
+\end{remark}
+
+\begin{proof}
+We use the Poisson semigroup. Given $g\in \mathcal{S}(\mathbb{R}^{d-1})$, define its Poisson extension $v$ by
+\[
+v(x',x_d) = (P_{x_d} * g)(x'), \qquad \widehat{P_{x_d}}(\xi') = e^{-x_d|\xi'|}.
+\]
+Equivalently, $v$ is the unique solution to the Dirichlet problem
+\[
+\begin{cases}
+\Delta v = 0 & \text{in }\mathbb{R}_+^d,\\
+v(x',0)=g(x') & \text{on }\partial \mathbb{R}_+^d.
+\end{cases}
+\]
+Choose $\eta\in C_c^{\infty}(\mathbb{R})$ such that $\eta=1$ for $|s|<1$ and $\eta=0$ for $|s|>2$, and define
+\[
+u = \operatorname{ext}_{\partial U}g := \eta(x_d)v.
+\]
+Then
+\[
+\mathcal{F}_{x'}u(\xi',x_d) = \eta(x_d)e^{-x_d|\xi'|}\hat{g}(\xi').
+\]
+One checks that $u\in H^1(\mathbb{R}_+^d)$ and that
+\[
+\|u\|_{H^1(\mathbb{R}_+^d)} \lesssim \|g\|_{H^{1/2}(\mathbb{R}^{d-1})}.
+\]
+Moreover, since $\eta(0)=1$, we have
+\[
+\operatorname{tr}_{\partial U}u = g.
+\]
+Therefore this construction gives a bounded right inverse to the trace map.
+\end{proof}
+
+\begin{remark}
+\leavevmode\\
+By a partition of unity and boundary straightening, one can define $H^{1/2}(\partial U)$ for $C^1$ boundaries. This also gives the sharp trace theorem in that setting.
+\end{remark}
+
+\subsection{Fourier representations}
+
+Thus far we have described Sobolev regularity in terms of weak derivatives and $L^p$ norms. There is another complementary point of view, especially natural in the $L^2$ setting, based on the Fourier transform. Roughly speaking, irregular behavior corresponds to large oscillation at small scales, and the Fourier transform is designed to isolate such oscillations.
+
+For $f\in L^1(\mathbb{R}^d)$, define the Fourier transform by
+\[
+\hat f(\xi) = (2\pi)^{-d/2}\int_{\mathbb{R}^d} e^{-ix\cdot \xi}f(x)\,dx.
+\]
+With the same normalization, the inverse Fourier transform is given by
+\[
+\check g(x) = (2\pi)^{-d/2}\int_{\mathbb{R}^d} e^{ix\cdot \xi}g(\xi)\,d\xi.
+\]
+This normalization is convenient in $L^2$, since Plancherel's theorem takes the form
+\[
+\|\hat f\|_{L^2(\mathbb{R}^d)} = \|f\|_{L^2(\mathbb{R}^d)}.
+\]
+In particular, the Fourier transform extends uniquely to a unitary operator on $L^2(\mathbb{R}^d)$.
+
+The key point for PDE is that differentiation becomes multiplication in frequency space. Formally, if $f$ is smooth and decays sufficiently fast, then
+\[
+\widehat{\partial_j f}(\xi) = i\xi_j\hat f(\xi),
+\]
+and more generally,
+\[
+\widehat{\partial^{\alpha}f}(\xi) = (i\xi)^{\alpha}\hat f(\xi).
+\]
+Similarly, convolution becomes multiplication:
+\[
+\widehat{f*g}(\xi) = (2\pi)^{d/2}\hat f(\xi)\hat g(\xi).
+\]
+These identities explain why the Fourier transform is especially effective for linear PDE with constant coefficients.
+
+\begin{proposition}[Fourier characterization of $H^k$]
+Let $k\in \mathbb{Z}_{\ge 0}$. Then for $f\in L^2(\mathbb{R}^d)$,
+\[
+f\in H^k(\mathbb{R}^d)
+\qquad \Longleftrightarrow \qquad
+(1+|\xi|^2)^{k/2}\hat f(\xi)\in L^2(\mathbb{R}^d).
+\]
+Moreover,
+\[
+\|f\|_{H^k}^2 \simeq \int_{\mathbb{R}^d}(1+|\xi|^2)^k|\hat f(\xi)|^2\,d\xi.
+\]
+\end{proposition}
+
+\begin{proof}
+By Plancherel and the identity $\widehat{\partial^{\alpha}f}=(i\xi)^{\alpha}\hat f$, we have
+\[
+\|\partial^{\alpha}f\|_{L^2}^2 = \int_{\mathbb{R}^d}|\xi^{\alpha}|^2|\hat f(\xi)|^2\,d\xi.
+\]
+Summing over all $|\alpha|\le k$ yields
+\[
+\|f\|_{H^k}^2
+= \sum_{|\alpha|\le k}\|\partial^{\alpha}f\|_{L^2}^2
+\simeq \int_{\mathbb{R}^d}(1+|\xi|^2)^k|\hat f(\xi)|^2\,d\xi,
+\]
+since $\sum_{|\alpha|\le k}|\xi^{\alpha}|^2$ is comparable to $(1+|\xi|^2)^k$.
+\end{proof}
+
+\begin{remark}
+This point of view extends naturally to fractional orders. For $s\ge 0$, one may define
+\[
+H^s(\mathbb{R}^d)=\Bigl\{f\in L^2(\mathbb{R}^d):(1+|\xi|^2)^{s/2}\hat f\in L^2(\mathbb{R}^d)\Bigr\},
+\]
+with norm
+\[
+\|f\|_{H^s}^2 = \int_{\mathbb{R}^d}(1+|\xi|^2)^s|\hat f(\xi)|^2\,d\xi.
+\]
+This also leads to negative Sobolev spaces and gives a clean frequency-space language for elliptic regularity.
+\end{remark}
+
+\begin{remark}[Poisson equation on the torus]
+Suppose $f$ is defined on $\mathbb{T}^d$ and we want to solve
+\[
+\Delta u = f.
+\]
+Taking Fourier series gives
+\[
+-|k|^2\hat u(k)=\hat f(k),\qquad k\in \mathbb{Z}^d.
+\]
+Hence a necessary condition for solvability is $\hat f(0)=0$, i.e. $\int_{\mathbb{T}^d}f=0$. If this holds, then for $k\neq 0$ we may set
+\[
+\hat u(k) = -|k|^{-2}\hat f(k),
+\]
+while $\hat u(0)$ remains free, reflecting the fact that $\Delta$ has constants in its kernel. In frequency space one sees immediately that inverting $\Delta$ gains two derivatives, which is the basic elliptic regularity phenomenon.
+\end{remark}
+
+\subsection{The Gagliardo--Nirenberg--Sobolev inequality and the Loomis--Whitney inequality}
+
+In a nutshell, Sobolev inequalities are a quantitative generalization of the fundamental theorem of calculus: from control of the derivative we want to control the function itself.
+
+\begin{theorem}[Gagliardo--Nirenberg--Sobolev]
+Let $d\ge 2$. For $u\in C_c^{\infty}(\mathbb{R}^d)$,
+\[
+\|u\|_{L^{d/(d-1)}(\mathbb{R}^d)} \le C_d\|Du\|_{L^1(\mathbb{R}^d)},
+\]
+where $C_d$ depends only on $d$.
+\end{theorem}
+
+\begin{remark}
+The exponent $d/(d-1)$ can be recovered from scaling considerations.
+\end{remark}
+
+\begin{lemma}[Loomis--Whitney inequality]
+Let $d\ge 2$. For $j=1,\dots,d$, let
+\[
+f_j := f_j(x^1,\dots,\widehat{x^j},\dots,x^d).
+\]
+Then
+\[
+\left\|\prod_{j=1}^d f_j\right\|_{L^1(\mathbb{R}^d)} \le \prod_{j=1}^d \|f_j\|_{L^{d-1}(\mathbb{R}^{d-1})}.
+\]
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\begin{remark}
+\leavevmode\\
+Applied to indicator functions of coordinate projections, the Loomis--Whitney inequality controls the measure of a set by the measures of its projections.
+\end{remark}
+
+\section{Sobolev Inequalities}
+\subsection{The Gagliardo--Nirenberg--Sobolev inequality}
+
+\begin{theorem}[Gagliardo--Nirenberg--Sobolev inequality]
+Let $d\ge 2$. For $u\in C_c^1(\mathbb{R}^d)$, we have
+\[
+\|u\|_{L^{d/(d-1)}(\mathbb{R}^d)} \le C\|Du\|_{L^1(\mathbb{R}^d)}.
+\]
+\end{theorem}
+
+\begin{proof}
+For each $x\in \mathbb{R}^d$ and each coordinate direction $j$, the fundamental theorem of calculus gives
+\[
+u(x) = \int_{-\infty}^{x_j} \partial_{x_j}u(x_1,\dots,x_{j-1},y,x_{j+1},\dots,x_d)\,dy.
+\]
+Hence
+\[
+|u(x)| \le \int_{-\infty}^{\infty} |Du(x_1,\dots,x_{j-1},y,x_{j+1},\dots,x_d)|\,dy =: \tilde f_j(x_1,\dots,\widehat{x_j},\dots,x_d).
+\]
+Therefore
+\[
+|u(x)|^d \le \prod_{j=1}^d \tilde f_j(x).
+\]
+Applying the Loomis--Whitney inequality, we obtain
+\[
+\int_{\mathbb{R}^d} |u(x)|^{d/(d-1)}\,dx \le C \prod_{j=1}^d \|\tilde f_j\|_{L^{d-1}(\mathbb{R}^{d-1})}^{1/(d-1)},
+\]
+which yields the desired bound.
 \end{proof}
 

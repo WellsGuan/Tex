@@ -31,8 +31,8 @@
     converges absolutely for a.e. $x\in X$ and $||Tf||_p \leq C||f||_p$.
 \end{theorem}
 
-\begin{theorem}[Minkowski's Inequality for Integrals]\par
-    Suppose that $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ are $\sigma$-finite measure spaces, and let $f$ be an $(\mathcal{M}\otimes\mathcal{N})$-measurable function on $X\times Y$.
+\begin{theorem}[Minkowski Integral Inequality]\par
+    Suppose that $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ are $\sigma$-finite measure spaces. Let $f$ be an $(\mathcal{M}\otimes\mathcal{N})$-measurable function on $X\times Y$.
     \begin{enumerate}
         \item If $f\geq 0$ and $1\leq p <\infty$, then
         \[
@@ -48,7 +48,7 @@
 \subsection{Fourier Analysis}
 
 \begin{definition}
-    $C^{\infty}_c$ denote the smooth functions with compact support, where
+    $C^{\infty}_c$ denotes the space of smooth functions with compact support, where
     \[\psi(x) = \begin{cases}
     \exp\left( \tfrac{1}{|x|^2-1}\right)\quad&\text{ if }|x|<1, \\
     0&\text{ if }|x|\geq 1,
@@ -64,22 +64,22 @@
     \]
 \end{definition}
 
-\begin{definition}[Frechet Space]\par
-A \emph{Frechet space} is a complete Hausdorff t.v.s. with a topology defined by a coutable family of seminorms.
+\begin{definition}[Fr\'echet Space]\par
+A \emph{Fr\'echet space} is a complete Hausdorff topological vector space with a topology defined by a countable family of seminorms.
 \end{definition}
 
 \begin{proposition}
-    $\Schw$ is a Frechet space with the topology defined by the norms $||\cdot||_{(N,\alpha)}$.
+    $\Schw$ is a Fr\'echet space with the topology defined by the norms $||\cdot||_{(N,\alpha)}$.
 \end{proposition}
 \begin{proof}
     
 \end{proof}
 
 \begin{proposition}
-    If $f\in C^{\infty}$, then $f\in \Schw$ iff $x^{\beta}\partial^{\alpha}f$ is bounded for all multi-indices $\alpha,\beta$ iff $\partial^{\alpha}( x^{\beta}f)$ is bounded for all multi-indices $\alpha,\beta$.
+    If $f\in C^{\infty}$, then $f\in \Schw$ iff $x^{\beta}\partial^{\alpha}f$ is bounded for all multi-indices $\alpha,\beta$, iff $\partial^{\alpha}(x^{\beta}f)$ is bounded for all multi-indices $\alpha,\beta$.
 \end{proposition}
 \begin{proof}
-    (1) $\implies$ (2) $\Leftrightarrow$ (3) is quite simple. For (2) $\implies$ (1), here is a good way to show: for any integer $N$, we know that $\sum\limits_{i=1}^n|x_i|^N$ has a positive minimum $\delta$ on the unit sphere. So we will know that $\sum\limits_{i=1}^n |x_i|^N \geq \delta|x|^N$ and then
+    $(1) \implies (2) \Leftrightarrow (3)$ is quite simple. For $(2) \implies (1)$, here is a good way to show it: for any integer $N$, we know that $\sum\limits_{i=1}^n|x_i|^N$ has a positive minimum $\delta$ on the unit sphere. So we know that $\sum\limits_{i=1}^n |x_i|^N \geq \delta|x|^N$, and then
     \[
     (1+|x|)^N \leq 2^N(1+|x|^N) \leq 2^N(1+\delta^{-1}\sum\limits_{i=1}^n |x_j^N|) \leq 2^N\delta^{-1}\sum\limits_{|\beta| \leq N}|x^{\beta}|
     \]
@@ -121,11 +121,118 @@ A \emph{Frechet space} is a complete Hausdorff t.v.s. with a topology defined by
     If $f\in L^1$ and $g\in L^p(1\leq p \leq \infty)$, then $f*g(x)$ exists for almost every $x$, $f*g \in L^p$ and $||f*g||_p \leq ||f||_1||g||_p$.
 \end{proposition}
 \begin{proof}
-    It can be checked easily by the Minkowski’s Inequality for Integrals.
+    This can be checked easily using Minkowski's inequality for integrals.
 \end{proof}
 
 \begin{proposition}
     If $p$ and $q$ are conjugate exponents, $f\in L^p$ and $g\in L^q$, then $f*g(x)$ exists for every $x$, $f*g$ is bounded and uniformly continuous, and $\pnorm{f*g}_u \leq \pnorm{f}_p\pnorm{g}_q$. If $1<p<\infty$, then $f*g \in C_0(\R^n)$.
 \end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}[Fourier Transform]\ \par
+    For $f\in L^1(\R^n)$, define its Fourier transform by
+    \[
+    \hat{f}(\xi) = \int_{\R^n} f(x)e^{-2\pi i x\cdot \xi}\,dx.
+    \]
+\end{definition}
+
+\begin{proposition}[Basic properties of the Fourier transform]\ \par
+    Let $f,g\in L^1(\R^n)$.
+    \begin{enumerate}
+        \item $\widehat{f*g} = \hat{f}\hat{g}$.
+        \item If $\tau_y f(x)=f(x-y)$, then $\widehat{\tau_y f}(\xi)=e^{-2\pi i y\cdot \xi}\hat{f}(\xi)$.
+        \item If $M_\eta f(x)=e^{2\pi i x\cdot \eta}f(x)$, then $\widehat{M_\eta f}(\xi)=\hat{f}(\xi-\eta)$.
+        \item If $f_a(x)=f(ax)$ with $a\neq 0$, then $\widehat{f_a}(\xi)=|a|^{-n}\hat{f}(\xi/a)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Riemann--Lebesgue Lemma]
+    If $f\in L^1(\R^n)$, then $\hat{f}\in C_0(\R^n)$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Differentiation and multiplication]\ \par
+    Suppose $f\in \Schw$.
+    \begin{enumerate}
+        \item $\widehat{\partial^{\alpha}f}(\xi)=(2\pi i\xi)^{\alpha}\hat{f}(\xi)$.
+        \item $\widehat{x^{\alpha}f}(\xi)=\left(\frac{i}{2\pi}\right)^{|\alpha|}\partial^{\alpha}\hat{f}(\xi)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Inversion formula]
+    If $f\in \Schw$, then
+    \[
+    f(x)=\int_{\R^n}\hat{f}(\xi)e^{2\pi i x\cdot \xi}\,d\xi.
+    \]
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Plancherel Theorem]
+    The Fourier transform extends uniquely to a unitary operator on $L^2(\R^n)$. In particular, for $f\in L^2(\R^n)$,
+    \[
+    \pnorm{\hat{f}}_2 = \pnorm{f}_2,
+    \]
+    and for $f,g\in L^2(\R^n)$,
+    \[
+    \langle \hat{f},\hat{g}\rangle_{L^2}=\langle f,g\rangle_{L^2}.
+    \]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Hausdorff--Young Inequality]
+    If $1\leq p\leq 2$ and $q$ is the conjugate exponent of $p$, then for $f\in L^p(\R^n)$,
+    \[
+    \pnorm{\hat{f}}_q \leq \pnorm{f}_p.
+    \]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[The Gaussian is its own Fourier transform]\ \par
+    Let $f(x)=e^{-\pi |x|^2}$. Then
+    \[
+    \hat{f}(\xi)=e^{-\pi |\xi|^2}.
+    \]
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Fourier transform on the Schwartz space]
+    The Fourier transform maps $\Schw$ bijectively onto itself.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Approximate identity via Gaussians]
+    Let $G_t(x)=t^{-n/2}e^{-\pi |x|^2/t}$ for $t>0$. Then for $f\in L^p(\R^n)$, $1\leq p<\infty$,
+    \[
+    G_t*f \to f \quad \text{in }L^p(\R^n) \text{ as } t\to 0.
+    \]
+    Moreover,
+    \[
+    \widehat{G_t}(\xi)=e^{-\pi t|\xi|^2}.
+    \]
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
 
 

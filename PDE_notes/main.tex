@@ -47,6 +47,9 @@
 \declaretheoremstyle[name=Example,]{prcpsty}
 \declaretheorem[style=prcpsty,numberwithin = subsection]{example}
 
+\declaretheoremstyle[name=Remark,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{remark}
+
 \setstretch{1.2}
 \geometry{
     textheight=9in,
@@ -69,7 +72,7 @@
 		\\ [2.0cm]
 		\HRule{1.5pt} \\
 		\LARGE \textbf{\uppercase{Notes for Analysis and PDEs}
-		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on the Math 719(Cole)/720(M.Ifrim), Folland and etc.} \vspace*{10\baselineskip}}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{Based on Math 719 (Cole), Math 720 (M.~Ifrim), Folland, etc.} \vspace*{10\baselineskip}}
 		}
 \date{}
 \author{\textbf{Author} \\ 
@@ -86,6 +89,7 @@
 % ------------------------------------------------------------------------------
 
 \include{tex/Checklist}
+\include{tex/Introduction}
 \include{tex/Sobolev}
 \include{tex/appendix}
 

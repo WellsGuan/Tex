@@ -30,16 +30,16 @@
 \maketitle
 
 \subsection*{Before Reading:}\par
-To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
-And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+To make the proof more readable, I will omit some natural or less important facts or notational details during the writing. If you find it hard to follow, you can refer to the appendix after the proof, where I will explain some simple conclusions (which will be marked) more clearly. To avoid confusion, I will place the mark immediately after inline formulas and before displayed formulas.\par
+I should also mention that the appendix is of course part of the assignment, so references to it are intended. Enjoy your grading!
 
 \subsection*{Problem.1} 
-Let $(X,\mathcal{B},\mu,T)$ be a m.p.s. A sub-$\sigma$-algebra $\mathcal{A}$ of $\mathcal{B}$ with $T^{-1}\mathcal{A} = \mathcal{A}$ module $\mu$ is called a $T$-invariant sub-$\sigma$-algebra. Show the system $(\tilde{X},\tilde{\mathcal{B}},\tilde{T},\tilde{\mu})$ defined by\par
+Let $(X,\mathcal{B},\mu,T)$ be a m.p.s. A sub-$\sigma$-algebra $\mathcal{A}$ of $\mathcal{B}$ with $T^{-1}\mathcal{A} = \mathcal{A}$ modulo $\mu$ is called a $T$-invariant sub-$\sigma$-algebra. Show that the system $(\tilde{X},\tilde{\mathcal{B}},\tilde{T},\tilde{\mu})$ defined by\par
 a. $\tilde{X} = \{x\in X^{\Z}, x_{k+1} = T(x_k), k\in\Z\}$.\par
 b. $\tilde{T}(x)_k = x_{k+1}, k\in\Z,x\in\tilde{X}$.\par
 c. $\tilde{\mu}(\{x,x_0 \in A\}) = \mu(A)$ and $\tilde{\mu}$ is $\tilde{T}$-invariant.\par
-d. $\tilde{B}$ is the smallest $\tilde{T}$-invariant $\sigma$-algebra for which the map $\pi:\tilde{X}\to X, x\mapsto x_0$ is mrb.\\
-is an invertible m.p.s and $\pi$ is a factor map. $\tilde{X}$ is an invertible extension of $X$.
+d. $\tilde{\mathcal{B}}$ is the smallest $\tilde{T}$-invariant $\sigma$-algebra for which the map $\pi:\tilde{X}\to X, x\mapsto x_0$ is measurable.\\
+Show that this is an invertible m.p.s. and that $\pi$ is a factor map. Thus $\tilde{X}$ is an invertible extension of $X$.
 \vspace{0.5em}\\
 \textbf{Sol.} \par
 It is easy to check $T^{-1}A = \{x, x_1 \in A\}$. Since $\pi$ is mrb, then we define $\tilde{A} = \{x,x_0\in A\}$ and we know $\tilde{A}$ is mrb. Then for any $A \in \mathcal{B}$, we know $\tilde{T}^{-1}(A) = \{x,T(x_0)\in A\} = \tilde{T^{-1}A}$ and notice $\{\tilde{A}, A\in\mathcal{B}\}$ is a $\tilde{T}$-mrb $\sigma$-algebra where $\pi$ is measurable and hence it is $\tilde{B}$.\par
@@ -87,9 +87,9 @@ Worksheet 1.\par
 Problem.1.\par
 Consider $(X,f,P)$ is a p.m.p.s. and then we know for any $\epsilon > 0$, $x\in B_{0,\epsilon}^c$ recurs to it a.s., but for any $x\in B_{0,\epsilon}^c$, $\lim_{n\to\infty} |f^{(n)}(x)| \to 0$ and hence $P(B_{0,\epsilon})^c$ has to be 0 for any $\epsilon > 0$, and hence $P = \delta_{\{0\}}$ since $P(X) = 1$.\par
 Problem.2.\par
-We onlt need to show the conclusion when $\alpha$ is irrational. For any open set in $[0,1)$, there exists an open ball in it with length $\epsilon > 0$, then we consider $N = [\tfrac{1}{\epsilon}]+1$ and $I_k = [\tfrac{k}{N}, \tfrac{k+1}{N}), 0 \leq N-1$ is a partition of $[0,1)$, consider $\{m\alpha\}_{1\leq m \leq N+1}$ is pairwise distinct module $1$ since $\alpha$ irrational, and there has to be an $I_k$ containiing two elements in $\{m\alpha\}_{1\leq m \leq N+1}$ module $1$ and we may assume $p\alpha,q\alpha \in I_k,p<q$ module $1$ for some $k$, then we know $(q-p)\alpha \in [0,\tfrac{1}{N})$ or $[1-\tfrac{1}{N},1)$ and hence there always exists an integer $M$ such that $M(q_p)$ is the open set module $1$.\par
+We only need to show the conclusion when $\alpha$ is irrational. For any open set in $[0,1)$, there exists an open interval in it with length $\epsilon > 0$. Then we consider $N = [\tfrac{1}{\epsilon}]+1$, and $I_k = [\tfrac{k}{N}, \tfrac{k+1}{N})$, $0 \leq k \leq N-1$, is a partition of $[0,1)$. Since $\alpha$ is irrational, the points $\{m\alpha\}_{1\leq m \leq N+1}$ are pairwise distinct modulo $1$, so there has to be an $I_k$ containing two of them. We may assume $p\alpha,q\alpha \in I_k$ modulo $1$ for some $k$ with $p<q$. Then $(q-p)\alpha \in [0,\tfrac{1}{N})$ or $[1-\tfrac{1}{N},1)$, and hence there always exists an integer $M$ such that $M(q-p)\alpha$ lies in the open set modulo $1$.\par
 Problem.3.\par
-We know if there exists a finte $f$-invariant measure $\mu$, then we may use Poincare recurrence on it and we know for any $[n,n+1), n\in\Z$, the points in it recur to it a.e. and hence $\mu([n,n+1)) = 0$, which implies that $\mu(\R) = 0$ which is a contradiction.\par
+We know that if there exists a finite $f$-invariant measure $\mu$, then we may apply Poincar\'e recurrence to it. For any $[n,n+1)$, $n\in\Z$, the points in it recur to it a.e., and hence $\mu([n,n+1)) = 0$, which implies that $\mu(\R) = 0$, a contradiction.\par
 For the second part of the problem, we know $S_1$ is homeomorphic to $\R\cup\{\infty\}$ and we denote the homeomorphism as $\phi$, then $\mu(\phi^{-1}(A))$ will induce a $f$-invariant measure on $\R\cap\{\infty\}$, which satisfies that $\mu = \mu(\{\infty\})\delta_{\infty} + \sum\limits_{n\in\Z} \nu_k$, where $\nu_k(A) = \mu((A-k)\cap[0,1))$.\par
 Problem.4.\par
 Assume $A = S^{-1}PS$ where

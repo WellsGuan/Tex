@@ -65,7 +65,7 @@ map $\mu: A\times A \to A$, called multiplication, such that under addition and 
 \end{definition}
 
 \begin{proposition}
-    If $F: N \to M$ abd $G: M \to P$ are $C^{\infty}$ maps, then for any $p\in N$,
+    If $F: N \to M$ and $G: M \to P$ are $C^{\infty}$ maps, then for any $p\in N$,
     \[(G\circ F)_{*,p} = G_{*,F(p)} \circ F_{*,p}\]
 \end{proposition}
 \begin{proof}
@@ -81,8 +81,8 @@ map $\mu: A\times A \to A$, called multiplication, such that under addition and 
     Let $\phi:M\to N$ be a smooth map from smooth manifold $M$ to $N$, then
     \begin{enumerate}
         \item[(a)] $\phi$ is an immersion if $d\phi_m$ is injective for each $m\in M$.
-        \item[(b)] The pair $(M,\phi)$ is submanifold of $N$ if $\phi$ is an injective immersion.
-        \item[(c)] $\phi$ is an imbedding if $\phi$ is an injective immesrsion which is also a homeomorphism into $\phi(M)$, that is $\phi$ is open with $\phi(M)$ equipped with the relative topology.
+        \item[(b)] The pair $(M,\phi)$ is a submanifold of $N$ if $\phi$ is an injective immersion.
+        \item[(c)] $\phi$ is an embedding if $\phi$ is an injective immersion which is also a homeomorphism onto $\phi(M)$, that is, $\phi$ is open with $\phi(M)$ equipped with the relative topology.
         \item[(d)] $\phi$ is a diffeomorphism if $\phi$ maps $M$ injectively onto $N$ and $\phi^{-1}$ is smooth.
     \end{enumerate}    
 \end{definition}
@@ -99,7 +99,7 @@ map $\mu: A\times A \to A$, called multiplication, such that under addition and 
     Assume that $\phi: M\to N$ is smooth, that $m\in M$, and $d\phi:T_mM \to T_{\phi(m)}N$ is an isomorphism. Then there is a neighbourhood $U$ of $m$ such that $\phi: U \to \phi(U)$ is a diffeomorphism onto the open set $\phi(U)$ in $N$.
 \end{corollary}
 \begin{proof}
-    Since $d\phi$ is an isomorphism, we know dim $M =$ dim $N$, Consider $(U,\psi)$ a chart containing $m$ and $(V,\tau)$ a chart containing $\phi(m)$, then we know $\psi:U\to\psi(U), \tau:V\to\tau(V)$ are both diffeomorphisms and hence $(\tau \circ \phi \circ \psi^{-1})_{*,m}:T_{\psi(m)} \psi(U) \to T_{\tau(\phi(m))}\tau(V)$ is an isomorphism and hence the Jacobian matrix is non-singular, so there is an open set $W\subset \psi(U)$ such that $\tau \circ \phi \circ \psi^{-1}: W \to \tau \circ \phi \circ \psi^{-1}(W)$ is a diffeomorphism and hence induce a map $\psi^{-1}(W)\to \tau^{-1}(\tau \circ \phi \circ \psi^{-1}(W)) = \phi(\psi^{-1}(W))$ is a diffeomorphism.
+    Since $d\phi$ is an isomorphism, we know $\dim M = \dim N$. Consider a chart $(U,\psi)$ containing $m$ and a chart $(V,\tau)$ containing $\phi(m)$. Then $\psi:U\to\psi(U)$ and $\tau:V\to\tau(V)$ are both diffeomorphisms, and hence $(\tau \circ \phi \circ \psi^{-1})_{*,m}:T_{\psi(m)} \psi(U) \to T_{\tau(\phi(m))}\tau(V)$ is an isomorphism. Therefore the Jacobian matrix is nonsingular, so there is an open set $W\subset \psi(U)$ such that $\tau \circ \phi \circ \psi^{-1}: W \to \tau \circ \phi \circ \psi^{-1}(W)$ is a diffeomorphism, and hence it induces a diffeomorphism $\psi^{-1}(W)\to \tau^{-1}(\tau \circ \phi \circ \psi^{-1}(W)) = \phi(\psi^{-1}(W))$.
 \end{proof}
 
 \begin{corollary}
