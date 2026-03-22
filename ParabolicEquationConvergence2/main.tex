@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{setspace,geometry,hyperref,enumitem,mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}[proposition]{Remark}
+\setstretch{1.15}
+\geometry{textheight=9in,textwidth=5.8in,top=1in}
+\begin{document}
+\title{\normalsize \textsc{}\\[2cm]
+\HRule{1.5pt}\\
+\LARGE \textbf{\uppercase{Notes on Long-Time Behavior}}\\[0.4cm]
+\Large For $u_t=\frac12 u u_{xx}$ after energy decay\\
+\HRule{2pt}}
+\author{\textbf{Author}\\Wells Guan\\}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+\include{tex/Discussion}
+\end{document}

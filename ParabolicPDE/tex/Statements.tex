@@ -1,0 +1,110 @@
+\section{Definitions and main statements}
+
+\subsection{Definitions}
+
+\begin{definition}[Weak solution]\ \par
+Let $T>0$, we say that
+\(
+    u\in C\bigl([0,T);W_{\mathrm{loc}}^{1,\infty}(\R)\bigr)
+\)
+is a weak solution of
+\(
+    \partial_t u = \frac12 u\,\partial_x^2 u
+\)
+on the time interval $[0,T)$ if $u\ge 0$ and for all $\psi\in C_c^{\infty}([0,T)\times \R)$,
+\[
+    \int_{\R} u_0\psi(0,\cdot)
+    + \int_{[0,T)\times \R}
+    \left[
+        u\,\partial_t\psi
+        - \frac12 \partial_x(\psi u)\partial_x u
+    \right] = 0.
+\]
+\end{definition}
+
+\begin{definition}
+    Denote
+    \[
+    \langle x\rangle:=(x^2+1)^{1/2}
+    \]
+    as the Japanese bracket, and for $l\in \R$, let $\langle x\rangle^l L^{\infty}$ denote the space of functions $f$ such that $\langle x\rangle^{-l}f\in L^{\infty}$, and this notation is extened to other spaces by analogy.
+\end{definition}
+
+\begin{definition}[Strong solution]\ \par
+Let $T>0$. A weak solution of the equation on $[0,T)$ is called a strong solution if for all $T'\in(0,T)$,
+\[
+    u\in \ip{x}^{2}L^{\infty}([0,T']\times \R)
+    \qquad \text{and} \qquad
+    \partial_x^2u\in L^1([0,T'];L^{\infty}(\R)).
+\]
+\end{definition}
+
+\begin{definition}[Hypothesis $H(\kappa,\gamma)$]\ \par
+Let $\kappa\in(0,\infty)$ and $\gamma\in[0,2]$. We assume that $u_0\ge 0$, that $u_0|_{I^c}\equiv 0$, and that
+\(
+    \Lip \sqrt{u_0}<\infty.
+\)
+Moreover, there exists $K\in[1,\infty)$ such that the following hold for all $x\in I$.
+\end{definition}
+
+\begin{enumerate}[label=(\alph*),leftmargin=2em]
+    \item If $I=(0,L)$, then
+    \[
+        K^{-1}d(x)^2 \le u_0(x) \le \kappa d(x)^2.
+    \]
+
+    \item If $I=\R$, then
+    \[
+        K^{-1}\ip{x}^{\gamma} \le u_0(x)
+        \le \min\{\kappa x^2 + K,\, K\ip{x}^{\gamma}\}.
+    \]
+
+    \item If $I=\R_+$, then
+    \[
+        K^{-1}(x^2\wedge x^{\gamma}) \le u_0(x)
+        \le \min\{\kappa x^2,\, Kx^{\gamma}\}.
+    \]
+\end{enumerate}
+
+\subsection{Main Conclusions}
+
+\begin{theorem}[Uniqueness of strong solutions]\ \par
+If $u_1$ and $u_2$ are strong solutions of the equation on a common time interval with the same initial data, then
+\(
+    u_1=u_2.
+\)
+\end{theorem}
+
+\begin{theorem}[Existence and root-Lipschitz regularity]\ \par
+Let $\kappa\in(0,\infty)$ and $\gamma\in[0,2]$. If $u_0$ satisfies Hypothesis $H(\kappa,\gamma)$, then there exists a strong solution $u$ on $[0,\kappa^{-1})$ such that for all $T\in[0,\kappa^{-1})$,
+\[
+    \sup_{t\in[0,T]} \Lip\bigl(\sqrt{u(t,\cdot)}\bigr)<\infty.
+\]
+\end{theorem}
+
+\begin{remark}
+Although Hypothesis $H(\kappa,\gamma)$ includes the assumption $\Lip\sqrt{u_0}<\infty$, the lower bound $\kappa^{-1}$ on the strong existence time does not depend on the Lipschitz constant of $\sqrt{u_0}$.
+\end{remark}
+
+\begin{remark}
+If $I=\R$ and $\gamma<2$, then Hypothesis $H(\kappa,\gamma)$ does not really depend on $\kappa$. In that case, the theorem implies the existence of a global-in-time strong root-Lipschitz solution.
+\end{remark}
+
+\begin{theorem}[Breakdown before $\kappa^{-1}$]\ \par
+For each $\kappa\in(0,\infty)$, there exists a nonnegative profile
+\(
+    \vartheta\in C_c^{\infty}(\R_+)
+\)
+such that if
+\(
+    u_0(x)=\kappa x^2+\vartheta(x),
+\)
+then the unique strong solution $u$ of the equation has maximal existence time
+\(
+    T_*\in(0,\kappa^{-1})
+\)
+and
+\[
+    \sup_{t\in[0,T_*)}\Lip\bigl(\sqrt{u(t,\cdot)}\bigr)=\infty.
+\]
+\end{theorem}

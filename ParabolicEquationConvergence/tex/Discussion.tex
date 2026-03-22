@@ -1,0 +1,51 @@
+\section{Discussion of convergence as $t\to\infty$}
+
+A natural question is whether $u(t,\cdot)$ converges uniformly to some limiting function as $t\to\infty$. Based on the previous analysis, the safe conclusion is the following.
+
+\begin{proposition}
+From the assumption that $u_0$ is merely nonnegative and bounded, one can prove uniform-in-time boundedness of the solution, but one should not expect to prove uniform convergence on $\R$ to a limiting profile without additional assumptions.
+\end{proposition}
+
+The main obstructions are:
+\begin{enumerate}[leftmargin=2em]
+    \item the equation is degenerate on the zero set $\{u=0\}$;
+    \item on the whole line $\R$, one does not automatically have the compactness tools available on bounded domains;
+    \item boundedness in $L^{\infty}$ alone does not force the orbit $\{u(t,\cdot):t\ge 0\}$ to be precompact in the uniform topology.
+\end{enumerate}
+
+A useful formal energy is the Dirichlet quantity
+\[
+    E(t):=\frac12\int_{\R}|u_x(t,x)|^2\,dx,
+\]
+provided the expression is meaningful. A formal computation gives
+\[
+    \frac{d}{dt}E(t)
+    = -\frac12\int_{\R} u(t,x)\,|u_{xx}(t,x)|^2\,dx \le 0.
+\]
+Thus the equation has a dissipative flavor, and one may hope to extract limiting objects from this monotonicity.
+
+However, to turn this into an actual convergence theorem on $\R$, one would still need additional information, for example:
+\begin{enumerate}[leftmargin=2em]
+    \item stronger regularity assumptions on the solution;
+    \item compactness of the trajectory in a suitable topology;
+    \item control of the behavior at spatial infinity;
+    \item a uniqueness statement for possible stationary limits.
+\end{enumerate}
+
+Formally, a stationary profile $u_{\infty}$ should satisfy
+\[
+    u_{\infty}(u_{\infty})_{xx}=0.
+\]
+Hence on each connected component of the positivity set $\{u_{\infty}>0\}$, one has
+\[
+    (u_{\infty})_{xx}=0,
+\]
+so the limit is affine on each positive component. In a sufficiently regular and globally bounded setting, this strongly suggests that any smooth global stationary limit would have to be constant.
+
+Therefore the current state of the argument is:
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{yes}: one can prove a uniform $L^{\infty}$ bound in time;
+    \item \textbf{not from the stated assumptions alone}: one cannot directly conclude uniform convergence on $\R$ to a limiting function.
+\end{itemize}
+
+If one imposes extra assumptions, such as periodic geometry, bounded intervals, or stronger decay and compactness hypotheses, then a long-time convergence theorem becomes much more plausible.
