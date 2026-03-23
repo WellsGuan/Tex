@@ -44,71 +44,6 @@ I will follow the notation used in class as much as possible. In particular, I w
 \[
 R_{ijk\ell}=-(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
 \]
-
-\newpage
-\subsection*{Ex.1}
-Use your answer from HW 6 \#2 to calculate the Riemann tensor for the Poincar\'e ball model of hyperbolic space.\par
-\textbf{Sol.} \par
-Let
-\[
-g=\frac{4}{(1-|x|^2)^2}\,\delta_{ij}\,dx^i dx^j
-\]
-be the Poincar\'e ball metric on $B^n\subset \R^n$. Write
-\[
-g_{ij}=\lambda^2\delta_{ij},\qquad \lambda=\frac{2}{1-|x|^2}.
-\]
-Then $g$ is conformal to the Euclidean metric. From the formula already obtained in HW6 \#2 for a conformally flat metric $g=e^{2u}\delta$, one has
-\[
-\Gamma^k_{ij}=\delta^k_j u_i+\delta^k_i u_j-\delta_{ij}u^k,
-\]
-where $u=\log \lambda$ and $u_i=\del_i u$.
-
-For the Poincar\'e ball,
-\[
-u(x)=\log 2-\log(1-|x|^2),
-\]
-so
-\[
-u_i=\frac{2x_i}{1-|x|^2},
-\qquad
-u_{ij}=\frac{2\delta_{ij}}{1-|x|^2}+\frac{4x_i x_j}{(1-|x|^2)^2}.
-\]
-Hence
-\[
-\Gamma^k_{ij}=\frac{2}{1-|x|^2}(\delta^k_j x_i+\delta^k_i x_j-\delta_{ij}x^k).
-\]
-We now compute the curvature tensor
-\[
-R^m_{\ ij\ell}=\del_i\Gamma^m_{j\ell}-\del_j\Gamma^m_{i\ell}+\Gamma^m_{ip}\Gamma^p_{j\ell}-\Gamma^m_{jp}\Gamma^p_{i\ell}.
-\]
-A direct substitution is somewhat long, but because the metric is conformally flat and the connection has the above special form, the terms simplify to
-\[
-R^m_{\ ij\ell}=-(\delta^m_i g_{j\ell}-\delta^m_j g_{i\ell}).
-\]
-Lowering the top index with $g_{km}$ gives
-\[
-R_{ijk\ell}=g_{km}R^m_{\ ij\ell}=-(g_{ik}g_{j\ell}-g_{jk}g_{i\ell}).
-\]
-Reordering the second term, this is exactly
-\[
-R_{ijk\ell}=-g_{ik}g_{j\ell}+g_{i\ell}g_{jk}.
-\]
-This is the expected formula for constant sectional curvature $-1$.\par
-
-There is also a cleaner conceptual explanation. The Poincar\'e ball model is a model of hyperbolic space $\mathbb H^n$, which has constant sectional curvature $K\equiv -1$. On any manifold of constant sectional curvature $K$, the Riemann tensor is
-\[
-R_{ijk\ell}=K(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
-\]
-Taking $K=-1$ gives again
-\[
-R_{ijk\ell}=-(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
-\]
-So the final answer is
-\[
-R_{ijk\ell}=-g_{ik}g_{j\ell}+g_{i\ell}g_{jk}.
-\]
-
-\newpage
 \subsection*{Ex.2}
 Show that the Ricci and scalar curvatures of the sphere $g=g_{S^n}$ are given respectively by
 \[
@@ -121,37 +56,33 @@ The standard sphere $S^n$ has constant sectional curvature $K\equiv 1$. Therefor
 \[
 R_{ijk\ell}=g_{ik}g_{j\ell}-g_{i\ell}g_{jk}.
 \]
-To compute the Ricci tensor, we contract the first and third indices:
+If we would like to compute the Ricci tensor, we contract the first and third indices:
 \[
-R_{j\ell}=g^{ik}R_{ijk\ell}.
+R_{j\ell}=g^{ik}R_{ijk\ell},
 \]
-Substituting the formula above,
+and hence
 \[
 R_{j\ell}=g^{ik}(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
 \]
-Now
+Then
 \[
 g^{ik}g_{ik}=n,
 \qquad
-g^{ik}g_{i\ell}g_{jk}=\delta^k_{\ell}g_{jk}=g_{j\ell}.
+g^{ik}g_{i\ell}g_{jk}=\delta^k_{\ell}g_{jk}=g_{j\ell},
 \]
-Hence
+and
 \[
-R_{j\ell}=ng_{j\ell}-g_{j\ell}=(n-1)g_{j\ell}.
+R_{j\ell}=ng_{j\ell}-g_{j\ell}=(n-1)g_{j\ell},
 \]
-That is,
+which means
 \[
 \Rc=(n-1)g.
 \]
-Now take one more trace to get the scalar curvature:
+Now we take one more trace to get the scalar curvature:
 \[
 S=g^{j\ell}R_{j\ell}=g^{j\ell}(n-1)g_{j\ell}=(n-1)n.
 \]
-Therefore
-\[
-S=n(n-1).
-\]
-This is exactly the general rule for a space form of constant sectional curvature $K$: one has
+Therefore $S=n(n-1)$ and which is exactly the general rule for a space form of constant sectional curvature $K$: one has
 \[
 \Rc=(n-1)Kg,
 \qquad
@@ -159,25 +90,24 @@ S=n(n-1)K.
 \]
 For the sphere, $K=1$, so we obtain the stated formulas.\par
 
-\newpage
 \subsection*{Ex.3}
 Show that the sectional curvature at any point of a Riemannian $2$-manifold is equal to $S/2$.\par
 \textbf{Sol.} \par
-Let $(M^2,g)$ be a Riemannian $2$-manifold and let $p\in M$. Choose an orthonormal basis $\{e_1,e_2\}$ for $T_pM$. Since the tangent space is $2$-dimensional, the only $2$-plane is the whole tangent space itself, so the sectional curvature at $p$ is simply
+Let $(M^2,g)$ be a Riemannian $2$-manifold and let $p\in M$ with an orthonormal basis $\{e_1,e_2\}$ for $T_pM$. Since the tangent space is $2$-dimensional, the only $2$-plane is the whole tangent space itself, so the sectional curvature at $p$ is
 \[
 K(p)=R_{1212}.
 \]
-(Here we use the orthonormal basis, so the denominator in the definition of sectional curvature is $1$.)
+where we use the orthonormal basis, so the denominator in the definition of sectional curvature is $1$.
 
-Now compute the scalar curvature. By definition,
+Now let us compute the scalar curvature. By definition,
 \[
 S=g^{ik}g^{j\ell}R_{ijk\ell}.
 \]
-In an orthonormal basis, $g^{ij}=\delta^{ij}$, so
+For an orthonormal basis, $g^{ij}=\delta^{ij}$, so
 \[
 S=\sum_{i,j=1}^2 R_{ijij}.
 \]
-Using the symmetries of the Riemann tensor,
+By the symmetries of the Riemann tensor,
 \[
 R_{1111}=R_{2222}=0,
 \qquad
@@ -185,146 +115,21 @@ R_{1221}=-R_{1212},
 \qquad
 R_{2112}=-R_{2121},
 \qquad
-R_{2121}=R_{1212}.
+R_{2121}=R_{1212},
 \]
-Thus the only nonzero contributions are
+and hence the only nonzero contributions is
 \[
 S=R_{1212}+R_{2121}=2R_{1212}.
 \]
 Since $R_{1212}=K$, we get
-\[
-S=2K.
-\]
-Therefore
-\[
-K=\frac{S}{2}.
-\]
-So on a $2$-dimensional Riemannian manifold, the scalar curvature contains exactly the same information as the sectional curvature.\par
+\(
+S=2K
+\)
+and then
+\(
+K=\frac{S}{2}
+\). So on a $2$-dimensional Riemannian manifold, the scalar curvature contains exactly the same information as the sectional curvature.\par
 
-\newpage
-\subsection*{Ex.4}
-Show that the Ricci tensor of a $3$-dimensional Riemannian manifold determines its full Riemann tensor, by the formula
-\[
-R_{ijk\ell}=R_{ik}g_{j\ell}+R_{j\ell}g_{ik}-R_{i\ell}g_{jk}-R_{jk}g_{i\ell}-\frac{S}{2}(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
-\]
-\textbf{Sol.} \par
-Let us define a $(0,4)$-tensor by
-\[
-T_{ijk\ell}:=R_{ik}g_{j\ell}+R_{j\ell}g_{ik}-R_{i\ell}g_{jk}-R_{jk}g_{i\ell}-\frac{S}{2}(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
-\]
-We first observe that $T$ has all the algebraic symmetries of the Riemann curvature tensor:
-\begin{itemize}
-    \item it is skew in $i,j$;
-    \item it is skew in $k,\ell$;
-    \item it is symmetric under interchange of the pairs $(i,j)$ and $(k,\ell)$;
-    \item it satisfies the first Bianchi identity.
-\end{itemize}
-These are straightforward checks using the symmetry $R_{ij}=R_{ji}$ of the Ricci tensor and the symmetry of $g$. Hence $T$ is an algebraic curvature tensor.
-
-Now compute its Ricci contraction:
-\[
-g^{ik}T_{ijk\ell}
-= g^{ik}\Big(R_{ik}g_{j\ell}+R_{j\ell}g_{ik}-R_{i\ell}g_{jk}-R_{jk}g_{i\ell}-\frac{S}{2}(g_{ik}g_{j\ell}-g_{i\ell}g_{jk})\Big).
-\]
-Compute term by term in dimension $3$:
-\[
-g^{ik}R_{ik}g_{j\ell}=Sg_{j\ell},
-\qquad
-g^{ik}R_{j\ell}g_{ik}=3R_{j\ell},
-\]
-\[
-g^{ik}R_{i\ell}g_{jk}=R_{j\ell},
-\qquad
-g^{ik}R_{jk}g_{i\ell}=R_{j\ell},
-\]
-and
-\[
-g^{ik}(g_{ik}g_{j\ell}-g_{i\ell}g_{jk})=3g_{j\ell}-g_{j\ell}=2g_{j\ell}.
-\]
-Therefore
-\[
-g^{ik}T_{ijk\ell}
-=Sg_{j\ell}+3R_{j\ell}-R_{j\ell}-R_{j\ell}-\frac{S}{2}\cdot 2g_{j\ell}=R_{j\ell}.
-\]
-So the Ricci tensor of $T$ is exactly the given Ricci tensor.
-
-Now let $\mathcal R$ denote the vector space of algebraic curvature tensors on a $3$-dimensional vector space, and let $S^2V^*$ denote the vector space of symmetric $2$-tensors. The map
-\[
-\mathcal R \to S^2V^*,\qquad A\mapsto \Ric(A)
-\]
-is linear. The hint tells us that both spaces have dimension $6$. Since our explicit formula constructs an algebraic curvature tensor from any symmetric $2$-tensor and returns that same symmetric $2$-tensor under Ricci contraction, the above map is surjective. Between two vector spaces of the same dimension, surjective implies bijective.
-
-Hence an algebraic curvature tensor in dimension $3$ is uniquely determined by its Ricci tensor, and therefore the actual Riemann curvature tensor satisfies
-\[
-R_{ijk\ell}=R_{ik}g_{j\ell}+R_{j\ell}g_{ik}-R_{i\ell}g_{jk}-R_{jk}g_{i\ell}-\frac{S}{2}(g_{ik}g_{j\ell}-g_{i\ell}g_{jk}).
-\]
-This proves the claim.\par
-
-\newpage
-\subsection*{Ex.5}
-Prove the contracted Bianchi identities:
-\[
-\nabla_i R_{i\ell jk}=\nabla_j R_{k\ell}-\nabla_k R_{j\ell}
-\]
-and
-\[
-\frac12\nabla_j R=\nabla_i R_{ij}.
-\]
-\textbf{Sol.} \par
-We start from the second Bianchi identity:
-\[
-\nabla_m R_{ijk\ell}+\nabla_i R_{jm k\ell}+\nabla_j R_{mi k\ell}=0.
-\]
-Now contract the indices $m$ and $k$ with $g^{mk}$. Since the Levi-Civita connection is metric compatible, contraction commutes with covariant differentiation. Thus
-\[
-g^{mk}\nabla_m R_{ijk\ell}+g^{mk}\nabla_i R_{jm k\ell}+g^{mk}\nabla_j R_{mi k\ell}=0.
-\]
-That is,
-\[
-\nabla^k R_{ijk\ell}+\nabla_i(g^{mk}R_{jm k\ell})+\nabla_j(g^{mk}R_{mi k\ell})=0.
-\]
-Using the curvature symmetries, the contracted terms become Ricci terms. More precisely,
-\[
-g^{mk}R_{jm k\ell}=-R_{ji\ell}^{\ \ \ i}=-R_{j\ell},
-\qquad
-g^{mk}R_{mi k\ell}=R_{i\ell}.
-\]
-Hence we obtain
-\[
-\nabla^k R_{ijk\ell}-\nabla_i R_{j\ell}+\nabla_j R_{i\ell}=0.
-\]
-Rearranging,
-\[
-\nabla^k R_{ijk\ell}=\nabla_i R_{j\ell}-\nabla_j R_{i\ell}.
-\]
-Renaming dummy indices gives the first contracted Bianchi identity in the required form:
-\[
-\nabla_i R_{i\ell jk}=\nabla_j R_{k\ell}-\nabla_k R_{j\ell}.
-\]
-
-Now contract this identity once more in $k$ and $\ell$. Multiplying by $g^{k\ell}$ gives
-\[
-g^{k\ell}\nabla_i R_{i\ell jk}=g^{k\ell}\nabla_j R_{k\ell}-g^{k\ell}\nabla_k R_{j\ell}.
-\]
-Using metric compatibility again,
-\[
-\nabla_i(g^{k\ell}R_{i\ell jk})=\nabla_j(g^{k\ell}R_{k\ell})-\nabla_k(g^{k\ell}R_{j\ell}).
-\]
-The left-hand side is $\nabla_i R_{ij}$, the first term on the right-hand side is $\nabla_j R$, and the second term is also $\nabla_i R_{ij}$. Thus
-\[
-\nabla_i R_{ij}=\nabla_j R-\nabla_i R_{ij}.
-\]
-Therefore
-\[
-2\nabla_i R_{ij}=\nabla_j R,
-\]
-so
-\[
-\nabla_i R_{ij}=\frac12\nabla_j R.
-\]
-This is the second contracted Bianchi identity.\par
-
-\newpage
 \subsection*{Ex.6}
 A (Riemannian) Einstein metric is one which satisfies
 \[
@@ -336,18 +141,18 @@ for a smooth function $\lambda=\lambda(x)$ on $M$.
     \item[(b)] Show that if $n\ge 3$ then $S$ is locally constant.
 \end{itemize}
 \textbf{Sol.} \par
-(a) By assumption,
+(a) By assumption, we have
+\(
+R_{ij}=\lambda g_{ij}
+\) and then let us take the trace with $g^{ij}$:
 \[
-R_{ij}=\lambda g_{ij}.
+S=g^{ij}R_{ij}=g^{ij}(\lambda g_{ij})=\lambda g^{ij}g_{ij}=\lambda n,
 \]
-Take the trace with $g^{ij}$:
-\[
-S=g^{ij}R_{ij}=g^{ij}(\lambda g_{ij})=\lambda g^{ij}g_{ij}=\lambda n.
-\]
-Hence
-\[
-\lambda=\frac{S}{n}.
-\]
+which means
+\(
+\lambda=\frac{S}{n}
+\)
+.
 
 (b) Now use the contracted Bianchi identity
 \[
@@ -357,54 +162,35 @@ Since $R_{ij}=\lambda g_{ij}$, metric compatibility $\nabla g=0$ gives
 \[
 \nabla_i R_{ij}=\nabla_i(\lambda g_{ij})=(\nabla_i\lambda)g_{ij}+\lambda\nabla_i g_{ij}=\nabla_j\lambda.
 \]
-Therefore
-\[
+Then we know
+\(
 \nabla_j\lambda=\frac12\nabla_j S.
-\]
-Using part (a), $\lambda=S/n$, so
-\[
-\nabla_j\lambda=\frac1n\nabla_j S.
-\]
+\)
+and by (a), $\lambda=S/n$, so
+\(
+\nabla_j\lambda=\frac1n\nabla_j S
+\).
+
 Comparing the two expressions for $\nabla_j\lambda$, we get
-\[
-\frac1n\nabla_j S=\frac12\nabla_j S.
-\]
-Thus
+\(
+\frac1n\nabla_j S=\frac12\nabla_j S
+\) and hence
 \[
 \left(\frac1n-\frac12\right)\nabla_j S=0.
 \]
-If $n\ge 3$, then $\frac1n-\frac12\neq 0$, hence
-\[
+If $n\ge 3$, we have\(
 \nabla_j S=0
-\]
+\)
 for every $j$. So $S$ is constant on each connected component, equivalently locally constant. Therefore
-\[
+\(
 \text{if }n\ge 3,\text{ then }S\text{ is locally constant}.
-\]
+\)
 In particular, when $n\ge 3$, an Einstein metric satisfies
 \[
 \Rc=\frac{S}{n}g
 \]
 with constant coefficient on each connected component.\par
 
-\newpage
-\subsection*{Evaluation for submission}
-Since only three problems are required, here is a short evaluation of the current write-up.
-
-\begin{itemize}
-    \item \textbf{Problem 2.} This is the cleanest solution. It is short, standard, and very safe to submit.
-    \item \textbf{Problem 3.} Also very clean. The argument is short and conceptually transparent once one writes the scalar curvature in an orthonormal basis.
-    \item \textbf{Problem 6.} This is another strong candidate. Part (a) is immediate by tracing, and part (b) is a neat application of the contracted Bianchi identity.
-    \item \textbf{Problem 4.} The formula is correct and the proof follows the hint, but the dimension-count step is a little more abstract than Problems 2, 3, and 6. Still a good submission if a more substantial problem is desired.
-    \item \textbf{Problem 5.} The proof is standard, but the index manipulations require more care with signs and conventions. I would recommend checking the convention used in class before submitting this one.
-    \item \textbf{Problem 1.} The final formula is correct, but this write-up currently uses the conformal-metric computation in a somewhat compressed way. If I want to submit this problem, I should probably expand the explicit calculation from HW6 \#2 a little more so that the derivation looks fully self-contained.
-\end{itemize}
-
-My current recommendation for the \emph{safest} three submissions is:
-\[
-\text{Problems }2,\ 3,\ 6.
-\]
-If I want one problem with a bit more substance, then a reasonable alternative is to replace Problem 3 by Problem 4.
 
 \addappheadtotoc
 
