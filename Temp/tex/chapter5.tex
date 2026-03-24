@@ -1,0 +1,233 @@
+\section{Sobolev Inequalities}
+
+\subsection{The Gagliardo--Nirenberg--Sobolev inequality}
+
+\begin{theorem}[Gagliardo--Nirenberg--Sobolev inequality]
+Let $d \ge 2$. For $u \in C_c^1(\R^d)$, we have
+\[
+\norm{u}_{L^{\frac{d}{d-1}}(\R^d)} \le \norm{Du}_{L^1(\R^d)}.
+\]
+\end{theorem}
+
+\begin{lemma}[Loomis--Whitney inequality]
+Let $d \ge 2$. For $j=1,\dots,d$, suppose
+\[
+f_j=f_j(x_1,\dots,\widehat{x_j},\dots,x_d).
+\]
+Then
+\[
+\left\| \prod_{j=1}^d f_j \right\|_{L^1(\R^d)}
+\le
+\prod_{j=1}^d \norm{f_j}_{L^{d-1}(\R^{d-1})}.
+\]
+\end{lemma}
+
+\begin{remark}
+The Loomis--Whitney inequality gives a geometric control of the measure of a set in $\R^d$ by the measures of its coordinate projections. In particular, if $E\subset \R^d$ and $\pi_j(E)$ denotes the $j$-th coordinate projection, then
+\[
+|E| \le \prod_{j=1}^d |\pi_j(E)|^{1/(d-1)}.
+\]
+\end{remark}
+
+\begin{remark}
+The Gagliardo--Nirenberg--Sobolev inequality is the functional counterpart of the isoperimetric inequality. Via the layer-cake decomposition, one may reduce the functional statement to geometric information on level sets.
+\end{remark}
+
+\subsection{$L^p$-based Sobolev inequalities for $1 \le p < d$}
+
+\begin{theorem}[Sobolev inequality for $1\le p<d$]
+Let $d \ge 2$ and assume $1\le p<d$. For $u\in C_c^1(\R^d)$, we have
+\[
+\norm{u}_{L^q(\R^d)} \le C\norm{Du}_{L^p(\R^d)},
+\qquad q=\frac{dp}{d-p}.
+\]
+\end{theorem}
+
+\begin{remark}
+The exponent $q=\frac{dp}{d-p}$ is dictated by scaling (or dimensional analysis):
+\[
+[x]^{d/q}=[x]^{-1+d/p}.
+\]
+The condition $p<d$ is therefore unavoidable in this regime.
+\end{remark}
+
+\begin{theorem}
+Let $d\ge 2$ and assume that $1\le p<d$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+    \item For $u\in W^{1,p}(\R^d)$,
+    \[
+    \norm{u}_{L^q(\R^d)} \le C\norm{Du}_{L^p(\R^d)},
+    \qquad q=\frac{dp}{d-p}.
+    \]
+    \item Let $U$ be a bounded domain. For $u\in W_0^{1,p}(U)$,
+    \[
+    \norm{u}_{L^q(U)} \le C\norm{Du}_{L^p(U)},
+    \qquad q=\frac{dp}{d-p}.
+    \]
+    \item Let $U$ be a bounded domain with $C^1$ boundary. For $u\in W^{1,p}(U)$,
+    \[
+    \norm{u}_{L^q(U)} \le C\norm{u}_{W^{1,p}(U)},
+    \qquad q=\frac{dp}{d-p}.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+In part \textup{(iii)}, one needs both $\norm{u}_{L^p}$ and $\norm{Du}_{L^p}$ in order to perform the extension argument. By contrast, in part \textup{(ii)} the vanishing trace condition removes the need for the $L^p$ term. This is why part \textup{(ii)} is often referred to as a Poincar\'{e} or Friedrichs inequality.
+\end{remark}
+
+\subsection{$L^p$-based Sobolev inequalities for $p>d$}
+
+\begin{lemma}
+Let $p>d$, $d\ge 2$, and $u\in C^\infty(\R^d)$. Then
+\[
+\frac{1}{|B_r(x)|}\int_{B_r(x)} |u(x)-u(y)|\,dy
+\le
+C\int_{B_r(x)} \frac{|Du(y)|}{|x-y|^{d-1}}\,dy.
+\]
+\end{lemma}
+
+\begin{theorem}[Morrey's inequality on $\R^d$]
+Let $p>d$ with $d\ge 2$, and let $u\in C^\infty(\R^d)$. Then
+\[
+|u(x)-u(y)| \le C|x-y|^\alpha \norm{Du}_{L^p(\R^d)},
+\qquad \alpha = 1-\frac{d}{p}.
+\]
+\end{theorem}
+
+\begin{remark}
+The exponent
+\[
+\alpha = 1-\frac{d}{p}
+\]
+is again determined by scaling:
+\[
+1=\alpha + (-1)+\frac{d}{p}.
+\]
+In particular, Morrey's inequality is scale invariant.
+\end{remark}
+
+\begin{definition}
+Let $u\in C(U)$. The H\"older seminorm of order $\alpha$ is
+\[
+[u]_{C^{0,\alpha}(U)} = \sup_{x\ne y} \frac{|u(x)-u(y)|}{|x-y|^\alpha}.
+\]
+\end{definition}
+
+\begin{remark}
+This is only a seminorm: if $[u]_{C^{0,\alpha}(U)}=0$, then $u$ is constant rather than identically zero.
+\end{remark}
+
+\begin{definition}
+The H\"older norm of order $\alpha$ is
+\[
+\norm{u}_{C^{0,\alpha}(U)} = [u]_{C^{0,\alpha}(U)} + \norm{u}_{L^1(U)}.
+\]
+The corresponding H\"older space is
+\[
+C^{0,\alpha}(U)=\{u\in C(U): \norm{u}_{C^{0,\alpha}(U)}<\infty\}.
+\]
+\end{definition}
+
+\begin{theorem}[Morrey's inequality on bounded domains]
+Let $d\ge 2$, let $p>d$, and let $U\subset \R^d$ be a bounded domain with $C^1$ boundary. If $u\in W^{1,p}(U)$, then $u\in C^\alpha(U)$ with
+\[
+\alpha = 1-\frac{d}{p}.
+\]
+Moreover,
+\[
+\norm{u}_{C^\alpha(U)} \le C\norm{u}_{W^{1,p}(U)}.
+\]
+\end{theorem}
+
+\subsection{The critical case $p=d$}
+
+\begin{remark}
+The borderline case $p=d$ does \emph{not} satisfy an estimate of the form
+\[
+\norm{u}_{L^\infty(U)} \le C\norm{u}_{W^{1,d}(U)}.
+\]
+Thus the natural target space at the endpoint is not $L^\infty$, but rather a slightly larger space.
+\end{remark}
+
+\begin{definition}
+A function $u\in C^1$ has bounded mean oscillation (BMO) if
+\[
+\norm{u}_{\mathrm{BMO}}
+=
+\sup_{x\in \R^d,\,r>0}
+\frac{1}{|B_r(x)|}
+\int_{B_r(x)}
+\left|u(y)-\frac{1}{|B_r(x)|}\int_{B_r(x)}u\,dy\right|\,dy.
+\]
+\end{definition}
+
+\begin{example}
+Let $U=B_1(0)\subset \R^2$ and define
+\[
+u(x)=\log\log\left(10+\frac{1}{|x|}\right).
+\]
+Then as $r=|x|\to 0$,
+\[
+u(r) \sim \log\log\left(\frac{1}{r}\right) \to +\infty,
+\]
+so $u$ is unbounded in $B_1$ and does not extend continuously to the origin.
+
+On the other hand, one computes
+\[
+|\nabla u(x)| \sim \frac{1}{r\log(1/r)}
+\qquad (r\to 0),
+\]
+and hence
+\[
+\int_{B_1} |\nabla u|^p \, dx < \infty
+\quad \Longleftrightarrow \quad p\le 2.
+\]
+Therefore, in dimension $d=2$, we obtain an example with
+\[
+u \in W^{1,2}(B_1),
+\qquad u\notin L^\infty(B_1),
+\qquad u \text{ is not continuous at }0.
+\]
+This shows that $W^{1,d}$ does not embed into $L^\infty$ at the critical exponent.
+\end{example}
+
+\begin{theorem}[Endpoint Sobolev--BMO embedding]
+Let $d\ge 2$ and let $u\in C_c^\infty(\R^d)$. Then
+\[
+\norm{u}_{\mathrm{BMO}} \le C(d)\norm{\nabla u}_{L^d(\R^d)}.
+\]
+\end{theorem}
+
+\begin{remark}
+A key tool in the proof is the Hardy--Littlewood maximal function
+\[
+Mu(x)=\sup_{r>0} \frac{1}{|B_r(x)|}\int_{B_r(x)} |u|,
+\]
+which satisfies the estimate
+\[
+\norm{Mu}_{L^p} \le C\norm{u}_{L^p}, \qquad 1<p\le \infty.
+\]
+\end{remark}
+
+\subsection{Compactness of Sobolev embeddings: general notions}
+
+\begin{definition}
+Let $X,Y$ be normed spaces and let $T:X\to Y$ be linear. We say that $T$ is a compact operator if $T(B_X)$, the image of the unit ball in $X$, is compact in $Y$. Equivalently, for every bounded sequence $\{x_n\}\subset X$, the sequence $\{Tx_n\}$ admits a convergent subsequence in $Y$.
+\end{definition}
+
+\begin{definition}
+Suppose $\iota:X\to Y$ is an embedding, i.e. a bounded linear injective map. We say that the embedding $X\hookrightarrow Y$ is compact if $\iota$ is a compact operator.
+\end{definition}
+
+\begin{remark}
+For Sobolev spaces, one is interested in statements of the form
+\[
+W^{1,p}(U) \Subset L^q(U),
+\]
+where $\Subset$ denotes compact embedding. Compactness is substantially stronger than mere continuity of the embedding and is essential in many PDE arguments for obtaining strong convergence.
+\end{remark}
+
+\begin{remark}
+The basic compactness principle in this direction is the Arzel\`a--Ascoli theorem. It will later be combined with regularity estimates such as Morrey's inequality.
+\end{remark}
