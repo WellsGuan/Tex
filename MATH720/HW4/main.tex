@@ -1,0 +1,363 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{Homework04 - MATH 720}
+\author{Boren(Wells) Guan}
+\date{March 26, 2026}
+
+\usepackage{array,url}
+\usepackage[notextcomp]{stix}
+\usepackage{subfigure}
+\usepackage{mathtools,amsmath,amssymb,amsthm,mathrsfs}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\BR}{B_R}
+\newcommand{\Om}{\Omega}
+
+\begin{document}
+\maketitle
+
+\subsection*{Before Reading:}\par
+To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the standard results I invoke in the text; for this homework, the main point is to organize the elliptic arguments in a clean way. Enjoy your grading!
+
+\subsection*{Problem 1}
+Let $H$ be a half-space, and let $u\in L^2_{\mathrm{loc}}$ solve
+\[
+-\Delta u + Vu = 0 \quad \text{in }H,
+\qquad u=0 \quad \text{on }\partial H,
+\]
+where $V\in L^\infty$. If $u$ vanishes of infinite order at some point $x_0\in \partial H$, show that $u\equiv 0$.
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+We may assume without loss of generality that
+\[
+H = \{x=(x',x_n)\in \R^n:x_n>0\},\qquad x_0=0.
+\]
+Since $V\in L^\infty(H)$ and $u\in L^2_{\mathrm{loc}}(H)$ satisfies
+\[
+-\Delta u = -Vu \in L^2_{\mathrm{loc}}(H)
+\]
+as distributions, we may apply the standard interior elliptic regularity theorem for the Laplacian: if $f\in L^2_{\mathrm{loc}}$ and $-\Delta u=f$ in the distributional sense, then for every pair of open sets $U\Subset U'\Subset H$ one has an estimate of the form
+\[
+\|u\|_{H^2(U)}\le C\bigl(\|u\|_{L^2(U')}+\|f\|_{L^2(U')}\bigr).
+\]
+Here $f=-Vu$, and since $V\in L^\infty$, indeed $f\in L^2_{\mathrm{loc}}(H)$. Therefore $u\in H^2_{\mathrm{loc}}(H)$, hence in particular $u\in H^1_{\mathrm{loc}}(H)$. Now define the odd reflection of $u$ by
+\[
+U(x',x_n):=
+\begin{cases}
+ u(x',x_n), & x_n>0,\\
+- u(x',-x_n), & x_n<0,
+\end{cases}
+\]
+and define the even reflection of $V$ by
+\[
+V_e(x',x_n):=V(x',|x_n|).
+\]
+Clearly $V_e\in L^\infty(\R^n)$ and $U\in H^1_{\mathrm{loc}}(\R^n)$ because the trace of $u$ vanishes on $\{x_n=0\}$.
+
+We claim that
+\[
+-\Delta U + V_eU = 0 \qquad \text{in }\R^n
+\]
+as distributions. For any $\varphi\in C_c^\infty(\R^n)$ we have
+\[
+\begin{aligned}
+\int_{\R^n} \nabla U\cdot \nabla \varphi + V_eU\varphi
+&= \int_H \nabla u\cdot \nabla \varphi(x',x_n) + Vu\varphi(x',x_n)\,dx\\
+&\quad + \int_H \nabla u(y',y_n)\cdot \nabla \bigl(-\varphi(y',-y_n)\bigr)
+   + Vu(y',y_n)\bigl(-\varphi(y',-y_n)\bigr)\,dy \\
+& = 0
+\end{aligned}
+\]
+and hence $U$ is a weak solution of the above equation. Since $u$ vanishes of infinite order at $0$, for every $m\in\N$ there exist $C_m,r_m>0$ such that
+\[
+\int_{B_r\cap H} |u(x)|^2\,dx \leq C_m r^{2m}
+\qquad (0<r<r_m).
+\]
+By symmetry of the reflection, we have
+\[
+\int_{B_r} |U(x)|^2\,dx = 2\int_{B_r\cap H} |u(x)|^2\,dx \leq 2C_m r^{2m},
+\]
+so $U$ also vanishes of infinite order at $0$.
+
+Now apply the strong unique continuation principle for Schr\"odinger-type operators: if $W\in L^\infty_{\mathrm{loc}}$ and $U\in H^1_{\mathrm{loc}}$ is a weak solution of
+\[
+-\Delta U + WU=0
+\]
+in a connected open set, then vanishing of infinite order at one point forces $U\equiv 0$ in that connected set. So let $W=V_e\in L^\infty(\R^n)$, and we have already shown that $U$ is a weak solution on $\R^n$ and that $U$ vanishes of infinite order at $0$. Therefore $U\equiv 0$ in $\R^n$, whose retriction on $H$ is exactly $u$ and we will 
+get $u\equiv 0$ in $H$. \prvd
+
+\vspace{0.5em}
+
+\subsection*{Problem 2}
+Let $U$ be an open, bounded, connected subset of $\R^d$. Let $P$ be elliptic with $c\geq 0$. Suppose $u,v\in C^2(U)\cap C(\overline U)$ with
+\[
+Pu\leq 0 \quad \text{in }U,
+\qquad Pv\geq 0 \quad \text{in }U.
+\]
+If $u\leq v$ on $\partial U$, then show that $u\leq v$ on $U$.
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+Let $w=u-v$. Then $w\in C^2(U)\cap C(\overline U)$, $w\leq 0$ on $\partial U$, and
+\[
+Pw = Pu-Pv \leq 0 \quad \text{in }U.
+\]
+Assume for contradiction that $w$ is positive somewhere in $U$. Since $\overline U$ is compact and $w$ is continuous, $w$ attains its maximum at some point $x_0\in \overline U$. Because $w\leq 0$ on $\partial U$, this maximum must satisfy
+\[
+w(x_0)=\max_{\overline U} w >0, \qquad x_0\in U.
+\]
+Assume
+\[
+P = -a_{jk}(x)\partial_{jk} + b_j(x)\partial_j + c(x)
+\]
+with $(a_{jk}(x))$ positive definite and $c\geq 0$. At an interior maximum point $x_0$ we have
+\[
+\nabla w(x_0)=0, \qquad D^2w(x_0)\leq 0
+\]
+as a symmetric matrix. Therefore
+\[
+-a_{jk}(x_0)\partial_{jk}w(x_0) \geq 0,
+\qquad b_j(x_0)\partial_j w(x_0)=0,
+\qquad c(x_0)w(x_0)\geq 0.
+\]
+and hence
+\(
+Pw(x_0)\geq 0.
+\)
+Since $Pw\leq 0$ in $U$, we must have $Pw(x_0)=0$. The weak maximum principle for elliptic operators with $c\geq 0$ then implies that a positive interior maximum forces $w$ to be constant. This is impossible because $w\leq 0$ on $\partial U$ while $w(x_0)>0$. Therefore no such positive interior maximum can exist, and so $w\leq 0$ in $U$.\prvd
+
+\vspace{0.5em}
+
+\subsection*{Problem 3}
+Consider the second order elliptic operator on $\R^n$, $n\geq 3$,
+\[
+P = -\partial_j a_{jk}(x)\partial_k + b_j(x)\partial_j + c,
+\]
+where $a\in L^\infty$, real, positive definite, $b\in L^n$, and $c\in L^{n/2}$.\par
+a. Assume that $b$ and $c$ are small in the above spaces. Show that for every $f\in \dot H^{-1}$ there exists a unique solution $u\in \dot H^1$.\par
+b. Without the smallness assumption, show that the Fredholm alternative holds for $P$ in the $\dot H^1\to \dot H^{-1}$ setting.
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+(a) Let
+\[
+B(u,v) := \int_{\R^n} a_{jk}\partial_k u\,\partial_j v
++ \int_{\R^n} b_j\partial_j u\,v
++ \int_{\R^n} cuv,
+\qquad u,v\in C_c^\infty(\R^n).
+\]
+Since $a$ is uniformly elliptic, there exists $\lambda>0$ such that
+\[
+\int a_{jk}\partial_k u\,\partial_j u \geq \lambda \|\nabla u\|_{L^2}^2.
+\]
+Also, the Sobolev embedding $\dot H^1(\R^n)\hookrightarrow L^{2n/(n-2)}(\R^n)$ gives
+\[
+\|u\|_{L^{2n/(n-2)}} \lesssim \|\nabla u\|_{L^2}.
+\]
+Therefore
+\[
+\left|\int b_j\partial_j u\,u\right|
+\leq \|b\|_{L^n}\|\nabla u\|_{L^2}\|u\|_{L^{2n/(n-2)}}
+\lesssim \|b\|_{L^n}\|\nabla u\|_{L^2}^2,
+\]
+and similarly
+\[
+\left|\int cu^2\right|
+\leq \|c\|_{L^{n/2}}\|u\|_{L^{2n/(n-2)}}^2
+\lesssim \|c\|_{L^{n/2}}\|\nabla u\|_{L^2}^2.
+\]
+If $\|b\|_{L^n}+\|c\|_{L^{n/2}}$ is sufficiently small, then
+\[
+B(u,u)\geq c_0\|\nabla u\|_{L^2}^2
+\]
+for some $c_0>0$, and $B$ is also bounded on $\dot H^1\times \dot H^1$.
+
+Now let $f\in \dot H^{-1}$ and there exists a unique $u\in \dot H^1$ such that
+\[
+B(u,\varphi)=\langle f,\varphi\rangle
+\qquad \text{for all }\varphi\in \dot H^1.
+\]
+which is exactly the weak from of $Pu=f$. If $Pu=0$, then taking $\varphi=u$ and we will have
+\(
+0=B(u,u)\geq c_0\|\nabla u\|_{L^2}^2,
+\) and hence $u=0$ in $\dot H^1$. \prvd\par
+(b) Assume
+\[
+P = A+L,
+\qquad A=-\partial_j a_{jk}\partial_k,
+\qquad L=b_j\partial_j + c.
+\]
+where $A$ is an isomorphism from $\dot H^1$ onto $\dot H^{-1}$ by the similar argument as above. Choose $R>0$ large enough such that
+\(
+\|b\|_{L^n(|x|>R)} + \|c\|_{L^{n/2}(|x|>R)}
+\)
+is sufficiently small. For $\lambda>0$, define
+\[
+P_\lambda := P + \lambda \mathbf{1}_{B_R}.
+\]
+We claim that $P_\lambda:\dot H^1\to \dot H^{-1}$ is invertible for large enough $\lambda$.
+
+For $u\in \dot H^1$,
+\[
+\langle P_\lambda u,u\rangle
+= \int a_{jk}\partial_k u\partial_j u
++ \int b_j\partial_j u\,u
++ \int cu^2
++ \lambda\int_{B_R} |u|^2.
+\]
+On $\R^n\setminus B_R$, by Holder inequality and Sobolev embedding $\dot H^1(\R^n)\hookrightarrow L^{2n/(n-2)}(\R^n)$, we have
+\[
+\left|\int_{|x|>R} b_j\partial_j u\,u\right|
+\leq \|b\|_{L^n(|x|>R)}\|\nabla u\|_{L^2(|x|>R)}\|u\|_{L^{2n/(n-2)}}
+\lesssim \|b\|_{L^n(|x|>R)}\|\nabla u\|_{L^2}^2,
+\]
+and similarly
+\[
+\left|\int_{|x|>R} cu^2\right|
+\leq \|c\|_{L^{n/2}(|x|>R)}\|u\|_{L^{2n/(n-2)}}^2
+\lesssim \|c\|_{L^{n/2}(|x|>R)}\|\nabla u\|_{L^2}^2.
+\]
+Since $R$ was chosen so that
+\[
+\|b\|_{L^n(|x|>R)} + \|c\|_{L^{n/2}(|x|>R)}
+\]
+is sufficiently small, these two terms can be bounded by $\int a_{jk}\partial_k u\partial_j u$. Now consider the local part on $B_R$. By Holder and the boundedness of the ball, we have
+\[
+\left|\int_{B_R} b_j\partial_j u\,u\right|
+\leq \|b\|_{L^n(B_R)}\|\nabla u\|_{L^2(B_R)}\|u\|_{L^{2n/(n-2)}(B_R)}.
+\]
+The local embedding $L^{2n/(n-2)}(B_R)\hookrightarrow L^2(B_R)$ yields
+\[
+\|u\|_{L^2(B_R)}\le C_R\|u\|_{L^{2n/(n-2)}(B_R)},
+\]
+and hence
+\[
+\|u\|_{L^{2n/(n-2)}(B_R)}\le C_R\bigl(\|\nabla u\|_{L^2(B_R)}+\|u\|_{L^2(B_R)}\bigr)
+\]
+by the standard local Sobolev inequality on $B_R$. Therefore
+\[
+\left|\int_{B_R} b_j\partial_j u\,u\right|
+\leq C_R\|b\|_{L^n(B_R)}\|\nabla u\|_{L^2(B_R)}\bigl(\|\nabla u\|_{L^2(B_R)}+\|u\|_{L^2(B_R)}\bigr).
+\]
+By Young's inequality, we obtain for every $\varepsilon>0$,
+\[
+\left|\int_{B_R} b_j\partial_j u\,u\right|
+\leq \varepsilon \|\nabla u\|_{L^2(B_R)}^2 + C_{\varepsilon,R}\|u\|_{L^2(B_R)}^2,
+\]
+similarly,
+\[
+\left|\int_{B_R} cu^2\right|
+\leq \|c\|_{L^{n/2}(B_R)}\|u\|_{L^{2n/(n-2)}(B_R)}^2
+\leq C_R\|c\|_{L^{n/2}(B_R)}\bigl(\|\nabla u\|_{L^2(B_R)}^2+\|u\|_{L^2(B_R)}^2\bigr),
+\]
+so we may get
+\[
+\left|\int_{B_R} cu^2\right|
+\leq \varepsilon \|\nabla u\|_{L^2(B_R)}^2 + C_{\varepsilon,R}\|u\|_{L^2(B_R)}^2.
+\]
+To sum up we have
+\[
+\langle P_\lambda u,u\rangle
+\geq c\|\nabla u\|_{L^2}^2 + (\lambda-C_{\varepsilon,R})\|u\|_{L^2(B_R)}^2
+\]
+for $\varepsilon$ small enough. Let $\lambda>C_{\varepsilon,R}$ and we will get
+\[
+\langle P_\lambda u,u\rangle \geq c_1\|\nabla u\|_{L^2}^2 + c_2\|u\|_{L^2(B_R)}^2,
+\]
+which is a coercive estimate on $\dot H^1$. Therefore $P_\lambda$ is coercive and hence invertible by Lax--Milgram.
+
+SInce the equation $Pu=f$ is
+\[
+P_\lambda u - \lambda \mathbf{1}_{B_R}u = f,
+\]
+where
+\[
+u - Ku = P_\lambda^{-1}f,
+\qquad K:=\lambda P_\lambda^{-1}\mathbf{1}_{B_R}.
+\]
+and hence
+\[
+(I-K)u = P_\lambda^{-1}f.
+\]
+It suffices to show that $K$ is compact on $\dot H^1$. The multiplication map
+\[
+\mathbf{1}_{B_R}:\dot H^1 \to \dot H^{-1}
+\]
+is compact: if $u_m\to u$ in $\dot H^1$, then $u_m\to u$ in $L^2(B_R)$ by Rellich and hence $\mathbf{1}_{B_R}u_m\to \mathbf{1}_{B_R}u$ strongly in $\dot H^{-1}$. Since $P_\lambda^{-1}:\dot H^{-1}\to \dot H^1$ is bounded, $K$ is compact on $\dot H^1$. Therefore $I-K$ is a Fredholm operator of index zero on $\dot H^1$. By the Fredholm alternative, either $(I-K)u=g$ has a unique solution for every $g\in \dot H^1$, or the homogeneous equation has a nontrivial finite-dimensional kernel; in the latter case solvability is equivalent to the usual orthogonality conditions against the kernel of the adjoint. Translating back through the identity
+\[
+Pu=f \iff (I-K)u=P_\lambda^{-1}f,
+\]
+we conclude that the Fredholm alternative holds for
+\[
+P:\dot H^1\to \dot H^{-1}.
+\]
+\prvd
+
+\vspace{0.5em}
+
+\subsection*{Problem 4}
+Let $\Omega$ be a compact domain in $\R^n$, and let $u\in H_0^1(\Omega)$ be a maximal subsolution to
+\[
+-\partial_j a_{jk}(x)\partial_k u = 0.
+\]
+Assuming $u\in C^2$, show that $u$ is a solution.
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+Let
+\(
+A u := -\partial_j a_{jk}(x)\partial_k u.
+\)
+By assumption, $u$ is a subsolution, so
+\(
+Au\leq 0.
+\)
+in the weak sense. We must show in fact that $Au=0$. Assume for contradiction that $Au<0$ somewhere. Since $u\in C^2$, the function $Au$ is continuous, so there exist a nonempty open set $\omega\Subset \Omega$ and a number $\delta>0$ such that
+\[
+Au \leq -\delta \qquad \text{on }\omega.
+\]
+Choose $\phi\in C_c^\infty(\omega)$, $\phi\geq 0$, $\phi\not\equiv 0$, and let $w\in H_0^1(\Omega)$ solve
+\[
+Aw = \phi \qquad \text{in }\Omega,
+\qquad w=0 \qquad \text{on }\partial\Omega.
+\]
+By the weak maximum principle, $w\leq 0$ in $\Omega$; since $\phi\not\equiv 0$, the strong maximum principle even gives $w<0$ in the interior.
+
+For sufficiently small $\varepsilon>0$, define
+\[
+\tilde u := u - \varepsilon w.
+\]
+Because $w\in H_0^1(\Omega)$ and $w\leq 0$, we have $\tilde u\in H_0^1(\Omega)$ and
+\[
+\tilde u \geq u,
+\qquad \tilde u>u \text{ on a nonempty subset of }\Omega.
+\]
+Moreover,
+\[
+A\tilde u = Au - \varepsilon Aw = Au - \varepsilon\phi \leq 0,
+\]
+so $\tilde u$ is again a subsolution. This contradicts the maximality of $u$ among subsolutions. Therefore $Au$ cannot be strictly negative anywhere. Since $u$ is already a subsolution, we must have
+\[
+Au=0 \qquad \text{in }\Omega.
+\]\prvd
+
+\vspace{0.5em}
+
+\end{document}
