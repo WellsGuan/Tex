@@ -93,45 +93,38 @@ and hence
 \[
 \int_{[0,\infty)}\lVert\partial_x^2 u\rVert_{L^2([-L,L])} \leq 2L \int_{[0,\infty)} \lVert\partial_x^2u\rVert_{L^{\infty}(\R)} < \infty
 \]
-which means we may choose a subsequence $u_{t_n}$ such that $\lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^2([-L,L])}$ is bounded by some positive constant. By Morrey's inequality, $u(t_n,\cdot),\partial_x(t_n,\cdot)$ are both compactly embedded in $\mathcal{C}^{0,1/2}([-L,L])$ and hence we may choose a further subsequence $u(t_{n_j},\cdot) \to u_{\infty}$ with $\partial_x(t_{n_j},\cdot) \to u'_{\infty}$ in $\mathcal{C}^{0,1/2}([-L,L])$ for some $u_{\infty}$ and $u'_{\infty}$. For any test function $\phi \in C^{\infty}_c([-L,L])$, we have
+which means we may choose a subsequence $u_{t_n}$ such that $\lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{\infty}([-L,L])} \leq 1/n$ and hence $\lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{2}([-L,L])} \leq 1/n$. By Morrey's inequality, $u(t_n,\cdot),\partial_x(t_n,\cdot)$ are both compactly embedded in $\mathcal{C}^{0,1/2}([-L,L])$ and hence we may choose a further subsequence $u(t_{n_j},\cdot) \to u_{\infty}$ with $\partial_x(t_{n_j},\cdot) \to u'_{\infty}$ in $\mathcal{C}^{0,1/2}([-L,L])$ for some $u_{\infty}$ and $u'_{\infty}$. For any test function $\phi \in C^{\infty}_c([-L,L])$, we have
 \[
 \begin{aligned}
     \int_{[-L,L]} u_{\infty}\partial_x\phi &= \lim_{j\to\infty} \int_{[-L,L]} u(t_{n_j},\cdot)\partial_x\phi \\ &= -\lim_{j\to\infty} \int_{[-L,L]} \partial_xu(t_{n_j},\cdot)\phi = -\int_{[-L,L]} u'_{\infty}\phi
 \end{aligned}
 \]
 which means $u'_{\infty} = \partial_x u_{\infty}$ in weak sense and hence $u_{\infty} \in W^{1,\infty}([-L,L])$.\par
-Step 3: Now let us construct a time-invariant solution $U$ by
-\[U(t,x) = u_{\infty}((x)), (t,x) \in [0,1)\times[-L,L]\]
-and then $U \in \mathcal{C}([0,1),W^{1,\infty}([-L,L]))$ automatically. We also need to define a truncation solution $U_T$ which is the solution for the parabolic equation with initial condition $u(T,\cdot)$.
-
-%Step 4: Now we compute for any test function $\phi \in C^{\infty}_c([0,l)\times[-L,L])$, we have
-%\[
-%\begin{aligned}
-    %\Big|&\int (U_{T}(0,\cdot)-U(0,\cdot))\phi(0,\cdot)\\ + &\int_{[0,l)\times[-L,L]} (U_{T}-U)\partial_t \phi - \dfrac{1}{2}\phi(U\partial_xU - U_{T}\partial_x U_T) - \dfrac{1}{2}\partial_x\phi(\partial_x U - \partial U_T)(\partial U + \partial U_T) \Big| \\
-    %\leq & L_1 + L_2 +L_3
-%\end{aligned}
-%\]
-%where
-%\[
-%\begin{aligned}
-    %L_1 &= \int |(U_{T}(0,\cdot)-U(0,\cdot))\phi(0,\cdot)| + \int_{[0,l)\times[-L,L]} |(U_{T}-U)\partial_t \phi|, \\
-    %L_2 &= \dfrac{1}{2}\int_{[0,l)\times[-L,L]}|\phi(U\partial_xU - U_{T}\partial_x U_T)| \\
-    %L_3 &= \dfrac{1}{2}\int_{[0,l)\times[-L,L]}|\partial_x\phi(\partial_x U - \partial U_T)(\partial U + \partial U_T)| \\
-%\end{aligned}
-%\]
-%Reapplying the strong maximum and minimum principle to $U$ and we will know $|U_T - U|_u \to 0$, so $L_1$ is going to $0$ and 
-%\[
-%\begin{aligned}
-%2L_2 &\leq \sup |\phi|\int_{[0,l)\times[-L,L]}|U-U_T||\partial_x U| + |U_T||\partial_x U - \partial_x U_T| \\
-%&\leq\sup |\phi||U-U_T|_u(2Ll)^2 \int_T^{T+l}\lVert\partial_x u\rVert_{L^2(-L,L)}
-%\end{aligned}
-%\]
-Step 4: For any $\epsilon > 0$ we consider $|\epsilon u(t,x)| \in \epsilon[m,M]$, so
+Step 3: We consider $\partial_x^2 u_{\infty}$ only as a distribution, then for any $\phi \in C^{\infty}_c([-L,L])$, we have
 \[
-|(1\pm\epsilon) u - u|_u \in \epsilon[m,M]
+    \begin{aligned}
+        \langle \partial_t u (t_n,\cdot), \phi \rangle &= \tfrac12 \int_{[-L,L]}   u (t_n,\cdot)\partial_{x}^2u (t_n,\cdot)\phi \\
+        &= \tfrac12 \left(\int_{[-L,L]} \partial_x(u (t_n,\cdot)\partial_x u (t_n,\cdot)) - (\partial_x u (t_n,\cdot))^2 \phi\right) \\
+        &= \tfrac14 \int_{[-L,L]} \partial_x^2 (u^2 (t_n,\cdot))\phi - \tfrac12 \int_{[-L,L]}(\partial_x u (t_n,\cdot))^2\phi \\
+        &= \tfrac14 \int_{[-L,L]} u^2(t_n,\cdot)\partial_x^2 \phi - \tfrac12 \int_{[-L,L]}(\partial_x u (t_n,\cdot))^2\phi
+    \end{aligned}
 \]
-Notice that for $u^+_{T,\epsilon} := (1+\epsilon)U_T$ and $u^-_{T,\epsilon} := (1-\epsilon U_T)$ satisfy that
+since $u_{\infty},\partial_xu_{\infty}$ are both continuous function on $[-L,L]$ and $u(t_n,\cdot) \to u_{\infty}, \partial_x u(t_n,\cdot) \to \partial_x u_{\infty}$ uniformly, we have $u^2(t_n,\cdot) \to u^2_{\infty}, (\partial_x u(t_n,\cdot))^2 \to (\partial_x u_{\infty})^2$ uniformly. Therefore we have
 \[
-\partial_t u^+_{T,\epsilon} \leq \tfrac12 u^+_{T,\epsilon} \partial_x^2 u^+_{T,\epsilon},\quad \partial_t u^-_{T,\epsilon} \geq \tfrac12 u^-_{T,\epsilon} \partial_x^2 u^-_{T,\epsilon}
+\begin{aligned}
+     \langle \partial_t u (t_n,\cdot), \phi \rangle &=  \tfrac14 \int_{[-L,L]} u^2(t_n,\cdot)\partial_x^2 \phi - \tfrac12 \int_{[-L,L]}(\partial_x u (t_n,\cdot))^2\phi \\
+     &\to \tfrac14 \int_{[-L,L]} u^2_{\infty}\partial_x^2 \phi - \tfrac12 \int_{[-L,L]}(\partial_x u_{\infty})^2\phi \\
+     &= \tfrac12 \langle u_{\infty}\partial_x^2 u_{\infty}, \phi\rangle
+\end{aligned}
 \]
+where $u_{\infty}\partial_x^2 u_{\infty}$ is well-defined since $u_{\infty}$ is positive continuous function, which may be approached by smooth function. Notice
+\[
+\lVert \partial_t u(t_n,\cdot)\rVert_{L^{\infty}(-L,L)} \leq \tfrac1m \lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{\infty}(-L,L)} \to 0 
+\]
+and hence $vv_{\infty} = 0$ as a distribution, which means 
+\[
+\partial_x^2 (u_{\infty}^2) = 2 (\partial_x u_{\infty})^2 \in \mathcal{C}([-L,L])
+\]
+(Check) We consequently have $\partial_x^2 u_{\infty} \in L^{\infty}([-L,L])$ by some direct computation. Now $u_{\infty}\partial_x^2 u_{\infty}$ may be interpreted by $L^{\infty}([-L,L])$ functions and then $\partial_x^2 u_{\infty} = 0$ by $u_{\infty}$ positive, so $u_{\infty}$ is some constant between $m$ and $M$ when $u_0$ is periodic, and the constant is exactly $c$ as we defined in another case. We denote this constant as $u_{\infty}$ uniformly for the following.
+Step 5: Now we may consider the truncation solution $U_T$ which is the solution of the parabolic equation with the initial condition $u(T,\cdot)$, by the comparision principle, we know $U_T$ will be bounded in $[u_{\infty} -\epsilon, u_{\infty} + \epsilon]$ if $|u(T,\cdot) - u_{\infty}|_u < \epsilon$. To sum up, let $T$ to be $t_n$ we chose before and then we will know $u(t+t_n,x) = U_T(t,x) \in [u_{\infty} - \epsilon_n, u_{\infty} + \epsilon_n]$ for any $t\geq 0$ and $\epsilon_n \to 0$ with $n\to\infty$, so we obtained that \[ \lim_{t\to\infty} u(t,\cdot) = u_{\infty}\] in $\mathcal{C}(\R)$, and in particular, for any $x\in \R$, \[\lim_{t\to\infty} u(t,x) = u_{\infty}.\]
 \end{proof}
