@@ -66,14 +66,30 @@ By the way, the equation admits some kind of comparsion principle
 
 Now we would like to consider for some initial condition with relatively good properties, if the limit of $u$ at the time of infinity will exist and what it is, and a basic observation is that $u(t,\cdot)$ will approach to some constant function on $\R$ in general, so the we have a claim
 
-\begin{theorem}[Limit Behavior]
-    Assume $u \in \mathcal{C}_{\text{loc}}([0,\infty)\times\R)$ is a weak solution of the parabolic equation, with a positive bounded initial condition $u_0 = u(0,\cdot)$ and $\partial^2_x u \in L_t^1L_x^{\infty}$, and $u_0$ is periodic or
-    \[u_0 = f + c\]
-    where $c>0$ is a constant and $f$ is compactly supported on $\R$. Then \[\lim_{t\to \infty}u(t,x) = C(u_0)\quad\text{for a.e. }x\in\R,\] where $C(u_0)$ is some constant only related to the initial condition.  
+\begin{theorem}[Limit Behavior for Periodic IC]
+    Assume $u \in \mathcal{C}_{\text{loc}}([0,\infty)\times\R)$ is a weak solution of the parabolic equation, with a positive bounded initial condition $u_0 = u(0,\cdot) > 0$ and $\partial^2_x u \in L_{\text{loc};t}^1L_x^{\infty}$, and $u_0$ is periodic. Then \[\lim_{t\to \infty}u(t,x) = C(u_0)\quad\text{for a.e. }x\in\R,\] where $C(u_0)$ is some constant only related to the initial condition.  
 \end{theorem}
+\begin{theorem}[Limit Behavior for Bump IC]
+    Assume $u \in \mathcal{C}_{\text{loc}}([0,\infty)\times\R)$ is a weak solution of the parabolic equation, with the initial condition $u_0 = u(0,\cdot)$ which satisfies that there exists a continuous function $f$ with a compact support and a constant $c > 0$, such that
+    \[
+    u_0 = f+c,\quad \sup_{x\in\R} |f| < c
+    \]
+    and $\partial^2_x u \in L_{\text{loc};t}^1L_x^{\infty}$. Then \[\lim_{t\to \infty}u(t,x) = C(u_0)\quad\text{for a.e. }x\in\R,\] where $C(u_0)$ is some constant only related to the initial condition.  
+\end{theorem}
+
+\begin{lemma}
+    For a weak solution $u$ of the parabolic equation, with $\partial_x^2 u \in L^1_{\text{loc};t}L^{\infty}_x$, if there exists two constant $m,M$ such that $m \leq u_0:u(0,\cdot) \leq M$, then $m \leq u \leq M$ on $[0,\infty)\times\R$.
+\end{lemma}
 \begin{proof}
-Step 1: We show that there is some $m,M > 0$ such that $m\leq u \leq M$ for a.e. $(t,x)\in[0,\infty)\times\R$ at first. For both cases of the initial condition, it suffices to show that there exists some $m,M > 0$ and $m \leq u_0 \leq M$ on $[-L,L]$ where $L$ is the period of $u_0$ when it is periodic or $L$ is large enough such that $\text{supp}\ f\subset [-L,L]$ in the other case. We may know $\inf_{[-L,L]} u_0 > 0$ and by the boundedness of $u_0$ we know there are $m,M>0$ such that $m \leq u_0 \leq M$.\par Now let us apply the strong maximum(minimum) principle to $u$, and lets just consider $s = \sup_t\{\inf u(t,\cdot) \geq m/2\}$ and since $[-L,L]$ is compact, we may know $s>0$. If $s < \infty$, then $u$ is postive on $[0,s)\times[-L,L]$ and by the strong minimum principle, $u$ will obtain its minimum on $\{0\}\times[-L,L]\cup[0,s)\times \{-L,L\}$, however, when $u$ is periodic and the minimum is obtained on $[0,s)\times[-L,L]$, then there exists an minimum in the interior of $[0,s)\times[-L,L]$ by the period and $u$ will become a constant on $[0,s)\times[-L,L]$ which means $u(s,\cdot) \equiv m$ and which is a contradiction. Therefore, the minimum will be obtained on $\{0\}\times [-L,L]$ and hence $u\geq 0$ on $[0,s)\times[-L,L]$. Then we have $u(s,\cdot) \geq m$, which contradicts the definition of $s$ and hence $s = \infty$. An analog argument can be used for $u$ in another case and hence $u$ will have a lower bound $m' > 0$ on the whole $[0,\infty) \times [-L,L]$ and furthermore, on $[0,\infty)\times\R$. Therefore, we may apply the strong maximum and minimum principle for the whole parabolic cylinder and an upper bound can be found similarly.\par
-Step 2: Notice here $\partial_t u, \partial_x u,\partial_x^2 u$ are all defined naturally and even smooth by the smoothness of weak solution, so we may consider the energy estimation for $u$. Define
+    Let $M$ be $u^+$ and since $u$ is a weak solution, so it is continuous automatically by the lemma. And apply the comparision principle pointwisely, we know $u \leq M$ for every point contained in a compact subset of $[0,\infty)\times \R$ and hence every point. The same argument may be applied to $m$.
+\end{proof}
+
+Now let us prove the case of periodic IC.
+
+\begin{proof}
+By the lemma above, we may know that there exists $m,M>0$ such that $ m \leq u \leq M$ and hence the equation is not degenerated at every point.\par
+%Step 1: We show that there is some $m,M > 0$ such that $m\leq u \leq M$ for a.e. $(t,x)\in[0,\infty)\times\R$ at first. For both cases of the initial condition, it suffices to show that there exists some $m,M > 0$ and $m \leq u_0 \leq M$ on $[-L,L]$ where $L$ is the period of $u_0$ when it is periodic or $L$ is large enough such that $\text{supp}\ f\subset [-L,L]$ in the other case. We may know $\inf_{[-L,L]} u_0 > 0$ and by the boundedness of $u_0$ we know there are $m,M>0$ such that $m \leq u_0 \leq M$.\par Now let us apply the strong maximum(minimum) principle to $u$, and lets just consider $s = \sup_t\{\inf u(t,\cdot) \geq m/2\}$ and since $[-L,L]$ is compact, we may know $s>0$. If $s < \infty$, then $u$ is postive on $[0,s)\times[-L,L]$ and by the strong minimum principle, $u$ will obtain its minimum on $\{0\}\times[-L,L]\cup[0,s)\times \{-L,L\}$, however, when $u$ is periodic and the minimum is obtained on $[0,s)\times[-L,L]$, then there exists an minimum in the interior of $[0,s)\times[-L,L]$ by the period and $u$ will become a constant on $[0,s)\times[-L,L]$ which means $u(s,\cdot) \equiv m$ and which is a contradiction. Therefore, the minimum will be obtained on $\{0\}\times [-L,L]$ and hence $u\geq 0$ on $[0,s)\times[-L,L]$. Then we have $u(s,\cdot) \geq m$, which contradicts the definition of $s$ and hence $s = \infty$. An analog argument can be used for $u$ in another case and hence $u$ will have a lower bound $m' > 0$ on the whole $[0,\infty) \times [-L,L]$ and furthermore, on $[0,\infty)\times\R$. Therefore, we may apply the strong maximum and minimum principle for the whole parabolic cylinder and an upper bound can be found similarly.\par
+Notice here $\partial_t u, \partial_x u,\partial_x^2 u$ are all defined naturally and even smooth by the smoothness of weak solution, so we may consider the energy estimation for $u$. Define
 \[
 E(t) = \int_{-L}^L (\partial_x u(t,y))^2 dy
 \]
@@ -82,25 +98,15 @@ and then by compactness of $[-L,L]$ and DCT, we have
 \begin{aligned}
     \dfrac{dE(t)}{dt} &= \int_{-L}^L 2\partial_{xt}u(t,y)\partial_x u(t,y) dy\\
     &= 2\left(u_t(t,x)u_x(t,x)|^L_{-L} - \int_{-L}^L u_t(t,y)\partial_{xx}u(t,y)dy\right) \\
-    &= - \int^{L}_{-L}u(t,y)\partial_{xx}^2u(t,y)dy \leq 0\\
+    &= - \int^{L}_{-L}u(t,y)(\partial_{xx}u(t,y))^2dy \leq 0\\
 \end{aligned}
 \]
-in both cases. So $u(t,\cdot)$ is bounded in $H^1([-L,L])$. Notice $\partial_x^2 u \in L_t^1L^{\infty}$, then by
+in both cases. So $u(t,\cdot)$ is bounded in $H^1([-L,L])$. Notice $E(t) \geq 0$ and 
 \[
-\lVert\partial_x^2 u\rVert_{L^2([-L,L])} \leq 2L\lVert\partial_x^2 u\rVert_{L^{\infty}(\R)}
+\dfrac{dE(t)}{dt} \leq -m\int^L_{-L} (\partial_{xx}u(t,y))^2 dy \leq 0 
 \]
-and hence
-\[
-\int_{[0,\infty)}\lVert\partial_x^2 u\rVert_{L^2([-L,L])} \leq 2L \int_{[0,\infty)} \lVert\partial_x^2u\rVert_{L^{\infty}(\R)} < \infty
-\]
-which means we may choose a subsequence $u_{t_n}$ such that $\lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{\infty}([-L,L])} \leq 1/n$ and hence $\lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{2}([-L,L])} \leq 1/n$. By Morrey's inequality, $u(t_n,\cdot),\partial_x(t_n,\cdot)$ are both compactly embedded in $\mathcal{C}^{0,1/2}([-L,L])$ and hence we may choose a further subsequence $u(t_{n_j},\cdot) \to u_{\infty}$ with $\partial_x(t_{n_j},\cdot) \to u'_{\infty}$ in $\mathcal{C}^{0,1/2}([-L,L])$ for some $u_{\infty}$ and $u'_{\infty}$. For any test function $\phi \in C^{\infty}_c([-L,L])$, we have
-\[
-\begin{aligned}
-    \int_{[-L,L]} u_{\infty}\partial_x\phi &= \lim_{j\to\infty} \int_{[-L,L]} u(t_{n_j},\cdot)\partial_x\phi \\ &= -\lim_{j\to\infty} \int_{[-L,L]} \partial_xu(t_{n_j},\cdot)\phi = -\int_{[-L,L]} u'_{\infty}\phi
-\end{aligned}
-\]
-which means $u'_{\infty} = \partial_x u_{\infty}$ in weak sense and hence $u_{\infty} \in W^{1,\infty}([-L,L])$.\par
-Step 3: We consider $\partial_x^2 u_{\infty}$ only as a distribution, then for any $\phi \in C^{\infty}_c([-L,L])$, we have
+which means we may choose a subsequence $u_{t_n}$ such that $\lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{2}([-L,L])} \leq 1/n$. By Morrey's inequality, $u(t_n,\cdot),\partial_x(t_n,\cdot)$ are both compactly embedded in $\mathcal{C}^{0,1/2}([-L,L])$ and hence we may choose a further subsequence $u(t_{n_j},\cdot) \to u_{\infty}$ with $\partial_x(t_{n_j},\cdot) \to u'_{\infty}$ in $\mathcal{C}^{0,1/2}([-L,L])$ for some $u_{\infty}$ and $u'_{\infty}$ and $u'_{\infty} = \partial_x u_{\infty}$ in weak sense. Therefore, $u_{\infty} \in W^{1,\infty}([-L,L])$.\par
+We consider $\partial_x^2 u_{\infty}$ only as a distribution, then for any $\phi \in C^{\infty}_c([-L,L])$, we have
 \[
     \begin{aligned}
         \langle \partial_t u (t_n,\cdot), \phi \rangle &= \tfrac12 \int_{[-L,L]}   u (t_n,\cdot)\partial_{x}^2u (t_n,\cdot)\phi \\
@@ -119,7 +125,7 @@ since $u_{\infty},\partial_xu_{\infty}$ are both continuous function on $[-L,L]$
 \]
 where $u_{\infty}\partial_x^2 u_{\infty}$ is well-defined since $u_{\infty}$ is positive continuous function, which may be approached by smooth function. Notice
 \[
-\lVert \partial_t u(t_n,\cdot)\rVert_{L^{\infty}(-L,L)} \leq \tfrac1m \lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^{\infty}(-L,L)} \to 0 
+\lVert \partial_t u(t_n,\cdot)\rVert_{L^2(-L,L)} \leq \tfrac1m \lVert\partial_x^2 u(t_n,\cdot)\rVert_{L^2(-L,L)} \to 0 
 \]
 and hence $vv_{\infty} = 0$ as a distribution, which means 
 \[
@@ -127,4 +133,10 @@ and hence $vv_{\infty} = 0$ as a distribution, which means
 \]
 (Check) We consequently have $\partial_x^2 u_{\infty} \in L^{\infty}([-L,L])$ by some direct computation. Now $u_{\infty}\partial_x^2 u_{\infty}$ may be interpreted by $L^{\infty}([-L,L])$ functions and then $\partial_x^2 u_{\infty} = 0$ by $u_{\infty}$ positive, so $u_{\infty}$ is some constant between $m$ and $M$ when $u_0$ is periodic, and the constant is exactly $c$ as we defined in another case. We denote this constant as $u_{\infty}$ uniformly for the following.
 Step 5: Now we may consider the truncation solution $U_T$ which is the solution of the parabolic equation with the initial condition $u(T,\cdot)$, by the comparision principle, we know $U_T$ will be bounded in $[u_{\infty} -\epsilon, u_{\infty} + \epsilon]$ if $|u(T,\cdot) - u_{\infty}|_u < \epsilon$. To sum up, let $T$ to be $t_n$ we chose before and then we will know $u(t+t_n,x) = U_T(t,x) \in [u_{\infty} - \epsilon_n, u_{\infty} + \epsilon_n]$ for any $t\geq 0$ and $\epsilon_n \to 0$ with $n\to\infty$, so we obtained that \[ \lim_{t\to\infty} u(t,\cdot) = u_{\infty}\] in $\mathcal{C}(\R)$, and in particular, for any $x\in \R$, \[\lim_{t\to\infty} u(t,x) = u_{\infty}.\]
+\end{proof}
+
+The case for bump IC is a little different, here is the proof.
+
+\begin{proof}
+    We use the same notation of $m,M$ as the proof in periodic case.
 \end{proof}
