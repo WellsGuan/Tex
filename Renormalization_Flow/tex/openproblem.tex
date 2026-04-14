@@ -132,11 +132,59 @@ and hence $vv_{\infty} = 0$ as a distribution, which means
 \partial_x^2 (u_{\infty}^2) = 2 (\partial_x u_{\infty})^2 \in \mathcal{C}([-L,L])
 \]
 (Check) We consequently have $\partial_x^2 u_{\infty} \in L^{\infty}([-L,L])$ by some direct computation. Now $u_{\infty}\partial_x^2 u_{\infty}$ may be interpreted by $L^{\infty}([-L,L])$ functions and then $\partial_x^2 u_{\infty} = 0$ by $u_{\infty}$ positive, so $u_{\infty}$ is some constant between $m$ and $M$ when $u_0$ is periodic, and the constant is exactly $c$ as we defined in another case. We denote this constant as $u_{\infty}$ uniformly for the following.
-Step 5: Now we may consider the truncation solution $U_T$ which is the solution of the parabolic equation with the initial condition $u(T,\cdot)$, by the comparision principle, we know $U_T$ will be bounded in $[u_{\infty} -\epsilon, u_{\infty} + \epsilon]$ if $|u(T,\cdot) - u_{\infty}|_u < \epsilon$. To sum up, let $T$ to be $t_n$ we chose before and then we will know $u(t+t_n,x) = U_T(t,x) \in [u_{\infty} - \epsilon_n, u_{\infty} + \epsilon_n]$ for any $t\geq 0$ and $\epsilon_n \to 0$ with $n\to\infty$, so we obtained that \[ \lim_{t\to\infty} u(t,\cdot) = u_{\infty}\] in $\mathcal{C}(\R)$, and in particular, for any $x\in \R$, \[\lim_{t\to\infty} u(t,x) = u_{\infty}.\]
+
+Now we may consider the truncation solution $U_T$ which is the solution of the parabolic equation with the initial condition $u(T,\cdot)$, by the comparision principle, we know $U_T$ will be bounded in $[u_{\infty} -\epsilon, u_{\infty} + \epsilon]$ if $|u(T,\cdot) - u_{\infty}|_u < \epsilon$. To sum up, let $T$ to be $t_n$ we chose before and then we will know $u(t+t_n,x) = U_T(t,x) \in [u_{\infty} - \epsilon_n, u_{\infty} + \epsilon_n]$ for any $t\geq 0$ and $\epsilon_n \to 0$ with $n\to\infty$, so we obtained that \[ \lim_{t\to\infty} u(t,\cdot) = u_{\infty}\] in $\mathcal{C}(\R)$, and in particular, for any $x\in \R$, \[\lim_{t\to\infty} u(t,x) = u_{\infty}.\]
 \end{proof}
+
+\begin{lemma}
+    For a weak solution $u$ of the parabolic equation, with $\partial_x^2 u \in L^1_{\text{loc};t}L^{\infty}_x$, if there there limits
+    \[
+    \lim_{x\to -\infty} u_0(x),\quad \lim_{x\to \infty}u_0(x)
+    \]
+    exist, then $\lim_{x\to \infty} \partial_x u(t,x) = 0$.
+\end{lemma}
 
 The case for bump IC is a little different, here is the proof.
 
 \begin{proof}
     We use the same notation of $m,M$ as the proof in periodic case.
+
+    For the energy estimation, we consider
+    \[
+    E_L(t) = \int^L_{-L} (\partial_x u(t,y))^2 dy
+    \]
+    and $E(t):= E_{\infty}(t)$, then we may know that
+    \[
+    \begin{aligned}
+        \dfrac{dE_L(t)}{dt} &= 2u_t(t,x)\partial_x u(t,x)|^{L}_{-L} - \int^{L}_{-L}u(t,y)(\partial_x^2 u(t,y))^2 dy \\
+        &= u(t,x)\partial_x(t,x)\partial_x^2 u(t,x)|^L_{-L} - \int^{L}_{-L}u(t,y)(\partial_x^2 u(t,y))^2 dy
+    \end{aligned}
+    \]
+    and since $\lVert\partial_x^2 u(t,\cdot)\rVert_{L^{\infty}}$(should be guanranteed by some other estimation) is bound on $[0,T]$ for any $T$. By the lemma above, we know
+    \[
+    \lim_{L\to \infty} \dfrac{dE_L(t)}{dt} = -\int u(t,y)(\partial_x^2 u(t,y))^2 dy
+    \]
+    for almost every $t$. On the other hand, notice
+    \[
+    \dfrac{dE_L(t)}{dt} \leq u(t,x)\partial_x(t,x)\partial_x^2 u(t,x)|^L_{-L}
+    \]
+    so for $T>0$, we may choose $L_{n;T}$ such that $u(t,x)\partial_x(t,x)\partial_x^2 u(t,x)|^{L}_{-L} \leq 1/n$ if $L > L_{n;T}$ and hence $ \dfrac{dE_{L_{n;T}}(t)}{dt} \leq 1/n$ for any $t\in[0,T]$. Then
+    \[
+    E_{L_{n:T}(t)} \leq E_{L_{n;T}(0)}+T/n \leq E(0) + T/n
+    \]
+    for any $t\in [0,T]$, and let $n\to\infty$, we may know $E(t) \leq E(0)$ for any $t > 0$. Moreover, $E(t)$ is decreasing. For any $\delta > 0$, if then are $T_{\delta}$ such that for any $t > T_{\delta}$, $\lVert \partial^2_x u(t,\cdot)\rVert_{L^2} >\delta$, then we know for $L>L_{n;MT_{\delta}}$
+    \[
+    \dfrac{dE_L(t)}{dt} = 1/n - I_L(t)
+    \]
+    where $I_L(t): = \int^{L}_{-L}u(t,y)(\partial_x^2 u(t,y))^2dy$ and hence
+    \[
+    E_{L}(MT_{\delta}) \leq E_{L}(T_{\delta}) - \left(\int_{T_{\delta}}^{MT_{\delta}}I_L(t)dt - (M-1)T_{\delta}/n\right)
+    \]
+    so we may choose $M$ sufficiently large such that $\tfrac{(M-1)}{2}T_{\delta}m\delta > 2E(0)$, and choose $n$ large enough such that $1/n < m\delta/4$ and $L$ large enough such that
+    \[
+    \int_{-L}^L \int_{T_{\delta}}^{MT_{\delta}} u(t,y)(\partial_x^2 u(t,y))^2 dydt = \int_{T_{\delta}}^{MT_{\delta}}I_L(t)dt > 3m(M-1)T_{\delta}\delta/4
+    \]
+    since $\int \int^{MT_{\delta}}_{T_{\delta}} u(t,y)(\partial_x^2 u(t,y))^2 dydt > m(M-1)T_{\delta}\delta$ by Fubini and hence $L$ can be chosen by MCT. Then we know that $E_{L_{n;MT_{\delta}}(MT_{\delta})} \leq E(0) - 2E(0) < 0$, which will be a contradiction, so we know we may choose a subsequence $u(t_n, \cdot)$ such that
+    \[\lVert \partial^2_x u(t_n,\cdot)\rVert_{L^2} \to 0\]
+    Therefore, we may use the analog argument for periodic case to show that $u_{\infty}$ will be a constant.
 \end{proof}
