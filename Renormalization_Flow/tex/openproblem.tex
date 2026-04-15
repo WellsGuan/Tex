@@ -69,12 +69,15 @@ Now we would like to consider for some initial condition with relatively good pr
 \begin{theorem}[Limit Behavior for Periodic IC]
     Assume $u \in \mathcal{C}_{\text{loc}}([0,\infty)\times\R)$ is a weak solution of the parabolic equation, with a positive bounded initial condition $u_0 = u(0,\cdot) > 0$ and $\partial^2_x u \in L_{\text{loc};t}^1L_x^{\infty}$, and $u_0$ is periodic. Then \[\lim_{t\to \infty}u(t,x) = C(u_0)\quad\text{for a.e. }x\in\R,\] where $C(u_0)$ is some constant only related to the initial condition.  
 \end{theorem}
-\begin{theorem}[Limit Behavior for Bump IC]
-    Assume $u \in \mathcal{C}_{\text{loc}}([0,\infty)\times\R)$ is a weak solution of the parabolic equation, with the initial condition $u_0 = u(0,\cdot)$ which satisfies that there exists a continuous function $f$ with a compact support and a constant $c > 0$, such that
+\begin{theorem}[Limit Behavior for Step-like IC]
+    Assume $u \in \mathcal{C}_{\text{loc}}([0,\infty)\times\R)$ is a weak solution of the parabolic equation, with the initial condition $u_0$ which satisfies that there exists a function $f \in \overline{C^{\infty}}^{u}$ with a compact support and a constant $c > 0$, such that
     \[
-    u_0 = f+c,\quad \sup_{x\in\R} |f| < c
+    u_0 = f\text{ on some bounded interval }[a,b],\quad u_0 =\begin{cases}
+         f(a)\quad &\text{ on }[-\infty, a] \\
+         f(b)&\text{ on }[b,+\infty]
+    \end{cases}
     \]
-    and $\partial^2_x u \in L_{\text{loc};t}^1L_x^{\infty}$. Then \[\lim_{t\to \infty}u(t,x) = C(u_0)\quad\text{for a.e. }x\in\R,\] where $C(u_0)$ is some constant only related to the initial condition.  
+    and $\partial^2_x u \in L_{\text{loc};t}^1L_x^{\infty}$. Then \[\lim_{t\to \infty}u(t,x) = C(u_0)\quad\text{for a.e. }x\in\R,\] where $C(u_0)$ is some constant only related to the initial condition.
 \end{theorem}
 
 \begin{lemma}
@@ -137,17 +140,39 @@ Now we may consider the truncation solution $U_T$ which is the solution of the p
 \end{proof}
 
 \begin{lemma}
-    For a weak solution $u$ of the parabolic equation, with $\partial_x^2 u \in L^1_{\text{loc};t}L^{\infty}_x$, if there there limits
+    For a weak solution $u$, with positve lower bound and upper bound, of the parabolic equation and smooth initial condition $u_0$, with $\partial_x^2 u \in L^1_{\text{loc};t}L^{\infty}_x$, if there are limits
     \[
-    \lim_{x\to -\infty} u_0(x),\quad \lim_{x\to \infty}u_0(x)
+    \lim_{x\to -\infty} u_0(x),\quad \lim_{x\to +\infty}u_0(x)
     \]
     exist, then $\lim_{x\to \infty} \partial_x u(t,x) = 0$.
 \end{lemma}
+\begin{proof}
+    We want to show that
+    \[
+        \lim_{x\to-\infty} u(x,t) = \lim_{x\to -\infty} u_0(x),\quad \lim_{x\to+\infty} u(x,t) = \lim_{x\to \infty}u_0(x).
+    \]
+    By applying Gaussian estimation for $v = u - \lim_{x\to -\infty} u_0(x)$, which satisfies a uniformly elliptic equation
+    \[v_t = \dfrac u2 \partial_x^2 v\]
+    and we have for any $t>0$,
+    \[
+        |v(t,x)| \leq \int \dfrac{C}{t^{n/2}}\exp{\left(-\dfrac{C'|x-y|^2}{t}\right)}v_0(y) dy \to 0,\quad\text{if }x\to -\infty
+    \]
+    for some positive constants $C,C'$ and $v_0 = v(0,\cdot)$. Therefore, we know for any $t>0$, we have
+    \[
+    \lim_{x\to-\infty} u(x,t) = \lim_{x\to -\infty}v(x,t) + \lim_{x\to -\infty} u_0(x) = \lim_{x\to -\infty} u_0(x)
+    \]
+    and the other equality can be shown in an analogous argument.\par
+    Now since the initial condition is smooth with postive lower and upper bound, we may use the Schauder estimation for $u$ and hence for any $0 < \alpha < 1, T>0$, we have on $[0,T]\times\R$
+    \[
+    \lVert u\rVert_{\mathcal{C}^{2+\alpha,1+\alpha/2}_b} \leq C(\lVert u_0\rVert_{\mathcal{C}^{2+\alpha}_b},m,M,T)
+    \]
+    and hence $\sup_{t\in[0,T]} \lVert\partial^2_x u\rVert_{L^{\infty}} < \infty$. Then for any $t \leq T$ we know $\lim_{x\to\infty} \partial_x u = 0$ since $\partial_x u(t,\cdot)$ is Lipschitz.
+\end{proof}
 
 The case for bump IC is a little different, here is the proof.
 
 \begin{proof}
-    We use the same notation of $m,M$ as the proof in periodic case.
+    We use the same notation of $m,M$ as the proof in periodic case. Assume $u_0 \in C^{\infty}$ at first.
 
     For the energy estimation, we consider
     \[
@@ -186,5 +211,57 @@ The case for bump IC is a little different, here is the proof.
     \]
     since $\int \int^{MT_{\delta}}_{T_{\delta}} u(t,y)(\partial_x^2 u(t,y))^2 dydt > m(M-1)T_{\delta}\delta$ by Fubini and hence $L$ can be chosen by MCT. Then we know that $E_{L_{n;MT_{\delta}}(MT_{\delta})} \leq E(0) - 2E(0) < 0$, which will be a contradiction, so we know we may choose a subsequence $u(t_n, \cdot)$ such that
     \[\lVert \partial^2_x u(t_n,\cdot)\rVert_{L^2} \to 0\]
-    Therefore, we may use the analog argument for periodic case to show that $u_{\infty}$ will be a constant.
+    Therefore, we may use the analog argument for periodic case to show that $u_{\infty}$ will be a constant.\par
+    Now let show that the conclusion is true for any $f\in \overline{C^{\infty}}^u$ with compact support. For any $\epsilon > 0$, we may consider that $\phi_{\epsilon}$ to be some smooth function with compact support and $\lVert \phi_{\epsilon} - f\rVert <\epsilon$, then we know
+    \[
+    \phi_{\epsilon} - \epsilon +c < u_0 = f +c < \phi_{\epsilon} + \epsilon +c.
+    \]
+    Consider the weak solutions $\phi^-_{\epsilon},\phi^+_{\epsilon}$ given by $\phi_{\epsilon} - \epsilon +c, \phi_{\epsilon} + \epsilon +c$. By the comparsion principle,
+    \[\phi^-_{\epsilon,\infty} < \phi^+_{\epsilon,\infty},\quad \phi^-_{\epsilon,\infty} > \phi^+_{\epsilon,\infty} - 2\epsilon,\quad\phi^-_{\epsilon,\infty} \leq \lim_{t\to \infty}\inf_x u \leq\lim_{t\to \infty}\sup_x u \leq \phi^+_{\epsilon,\infty} \]
+    and it is easy to check that
+    \[
+    u_{\infty} = \limsup_{\epsilon \to 0} \phi^{-}_{\epsilon,\infty}
+    \]
+\end{proof}
+
+\subsubsection{The value of Weak Solution at Infinity Time}
+
+\begin{theorem}[Limit Value for Periodic IC]
+    The limit
+    \[
+    u_{\infty} = \exp\left(\dfrac{1}{L}\int^L_0 \ln u_0(y)dy\right)
+    \]
+    in the periodic initial condition case, where $L$ is a period length of $u_0$.
+\end{theorem}
+\begin{proof}
+    We consider the value
+    \[
+    \Phi(t) = \int_0^L \ln(u(t,y))dy
+    \]
+    and then
+    \[
+    \dfrac{d\Phi}{dt} = \int_0^L u^{-1}(t,y)u_t(t,y)dy = \dfrac{1}{2} u_x(t,\cdot)|^L_0 = 0
+    \]
+    which means $\Phi(t) = \Phi(0) = \int^L_0 \ln u_0(y)dy$ for any $t$, however, by DCT we know
+    \[
+    \lim_{t\to\infty} \Phi(t) = L \ln u_{\infty}
+    \]
+    so we have are done.
+\end{proof}
+
+\begin{theorem}[Limit Value for Bump IC]
+    In the case of step-like initial condition, if we have same sides limits, i.e. $ f(a) = f(b)=:c$,  then limit behavior is consistent even $f$ is merely continuous, and the limit value $u_{\infty} = c$.
+\end{theorem}
+\begin{proof}
+    Assume $f$ is nonnegative, we consider the periodic solution $u^{(L)}$ defined by the following initial condition,
+    \[
+    u_0^{(L)} = u_0\text{ on }[-L,L]\text{ with period length }2L,
+    \]
+    and then $u_0^{(L)} \geq u_0$ for any $L$ large enough. We know
+    \[
+    u_{\infty}^{(L)} = \exp\left(\dfrac{1}{2L}\int^{L}_{-L} \ln u_0^L(y)dy\right) \to c,\text{ with }L\to\infty
+    \]
+    and notice that in this case, by comparsion principle $u_{\infty}^L \geq \lim_{t\to\infty}\sup_xu(t,x) \geq c$ and notice $u\geq c$, so $u_{\infty} = c$. We then use the analogous argument for $f$ nonpostive to show $u_{\infty} = c$ as well.
+    
+    For general $f$, we may consider $ h = (f-c)^++c $ and $g = (f-c)^-+c$, then we know $h_{\infty} = g_{\infty} = c$ with \[h_{\infty} \geq \lim_{t\to\infty}\sup_xu(t,x) \geq \lim_{t\to\infty}\inf_xu(t,x) \geq g_{\infty}\]
 \end{proof}
