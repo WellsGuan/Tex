@@ -1,0 +1,302 @@
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\ran}[1]{\text{ran}\ {#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\Lip}{\operatorname{Lip}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\osc}{\operatorname{osc}}
+
+\part{Linear Elliptic Equations}
+
+\section{Basic definitions and examples}
+\subsection{Elliptic operators and principal symbols}
+
+Elliptic PDEs may be viewed as a natural generalization of the Laplace equation
+\[
+-\Delta u = f.
+\]
+A key feature of the Laplacian is that its principal symbol is nonvanishing for every nonzero frequency, and this motivates the general notion of ellipticity.
+
+\begin{definition}
+Let $P$ be a partial differential operator. The \emph{symbol} of $P$ is obtained by replacing each derivative $\partial_j$ by $i\xi_j$.
+\end{definition}
+
+For instance,
+\[
+-\Delta = -\sum_{j=1}^d \partial_j\partial_j
+\]
+has principal symbol
+\[
+-\sum_{j=1}^d (i\xi_j)^2 = |\xi|^2,
+\]
+which is invertible for every $\xi\neq 0$.
+
+Suppose now that $P$ is a linear partial differential operator of order $K$ acting on vector-valued functions $u=(u_J)_{J=1}^N:U\to\R^N$, with leading part of the form
+\[
+(Pu)_I = \sum_{J,\,|\alpha|=K} A_{IJ,\alpha}(x)\partial^\alpha u_J + \text{(lower-order terms)}.
+\]
+
+\begin{definition}
+The \emph{principal symbol} of $P$ is
+\[
+\sigma_{\mathrm{prin}}(P)(x,\xi)
+= i^K\sum_{|\alpha|=K} A_{IJ,\alpha}(x)\xi^\alpha.
+\]
+We say that $P$ is \emph{elliptic} if $\sigma_{\mathrm{prin}}(P)(x,\xi)$ is invertible for every $x\in U$ and every $\xi\neq 0$.
+\end{definition}
+
+In the scalar case $N=1$, an operator of order $K$ has the form
+\[
+Pu = \sum_{|\alpha|=K} a_\alpha(x)\partial^\alpha u,
+\]
+and then
+\[
+\sigma_{\mathrm{prin}}(P)(x,\xi)=i^K\sum_{|\alpha|=K} a_\alpha(x)\xi^\alpha.
+\]
+
+The first genuinely interesting case is the second-order scalar operator
+\[
+Pu = a_{ij}(x)\partial_i\partial_j u + b_i(x)\partial_i u + c(x)u.
+\]
+Its ellipticity condition is
+\[
+a_{ij}(x)\xi_i\xi_j \neq 0
+\qquad \text{for all }x\in U,\ \xi\neq 0.
+\]
+When $a=[a_{ij}]$ is symmetric, this is equivalent to positive definiteness of the matrix $a(x)$.
+
+\begin{definition}[Uniform ellipticity]
+A second-order operator with symmetric coefficient matrix $a=[a_{ij}]$ is \emph{uniformly elliptic} if there exists $\lambda>0$ such that
+\[
+a_{ij}(x)\xi_i\xi_j \geq \lambda |
+\xi|^2
+\qquad \text{for all }x\in U,\ \xi\in\R^d.
+\]
+Equivalently, every eigenvalue of $a(x)$ is bounded below by $\lambda$ uniformly in $x$.
+\end{definition}
+
+\begin{remark}
+Elliptic equations arise naturally in variational problems, in equilibrium models, and as part of evolutionary systems. They also exhibit strong regularity properties: roughly speaking, if $Pu=f$ and $P$ is elliptic of order $K$, then one expects $u$ to be more regular than $f$ by $K$ derivatives.
+\end{remark}
+
+\begin{example}[Pressure equation for incompressible Euler]
+Let $u:\R_t\times\R^3\to\R^3$ satisfy the incompressible Euler equations
+\[
+\begin{cases}
+\partial_t u + u\cdot \nabla u + \nabla p = 0,\\
+\nabla\cdot u = 0.
+\end{cases}
+\]
+Taking divergence of the first equation and using $\nabla\cdot u=0$ leads to an elliptic equation for the pressure,
+\[
+-\Delta p = \nabla\cdot (u\cdot \nabla u).
+\]
+Thus an elliptic problem appears naturally inside a fluid evolution equation.
+\end{example}
+
+\subsection{Boundary value problems in the scalar case}
+
+From now on, we mainly consider the scalar case $N=1$, assume $d\geq 2$, and work on a bounded domain $U\subset\R^d$ with sufficiently regular boundary. For second-order elliptic equations, the most important boundary value problem is the Dirichlet problem
+\[
+\begin{cases}
+Pu = f & \text{in }U,\\
+u = g & \text{on }\partial U.
+\end{cases}
+\]
+Here the boundary datum is interpreted through the trace map when $u\in H^1(U)$.
+
+A standard reduction shows that it is enough to study the homogeneous boundary condition $u|_{\partial U}=0$. Indeed, if $\widetilde g$ is any extension of the boundary datum $g$ with the appropriate regularity, then setting $v=u-\widetilde g$ reduces the problem to
+\[
+\begin{cases}
+Pv = \widetilde f & \text{in }U,\\
+v = 0 & \text{on }\partial U.
+\end{cases}
+\]
+Thus the study of the general Dirichlet problem reduces to the zero-boundary case.
+
+\subsection{Divergence form operators}
+
+\begin{definition}[Divergence form operator]
+Let $U\subset\R^d$ be open. A second-order operator is said to be in \emph{divergence form} if
+\[
+Pu = -\partial_i(a_{ij}\partial_j u) + \partial_i(b_i u) + cu,
+\]
+where $a_{ij}$, $b_i$, and $c$ are coefficient functions.
+\end{definition}
+
+\begin{remark}
+The minus sign in front of the principal part is chosen so that, under ellipticity assumptions, the operator is coercive at the level of energy estimates. This convention is standard in elliptic theory and is especially convenient for the Dirichlet problem.
+\end{remark}
+
+If the coefficients are smooth enough, one may expand the operator into non-divergence form:
+\[
+Pu = -a_{ij}\partial_i\partial_j u + \bigl(b_i-\partial_j a_{ij}\bigr)\partial_i u + (\partial_i b_i + c)u.
+\]
+
+\section{A priori estimates and solvability}
+\subsection{An $H^1$ a priori estimate}
+
+The basic tool in existence and uniqueness theory is an a priori estimate.
+
+\begin{theorem}[A priori estimate]
+Suppose $u\in H_0^1(U)$ solves the Dirichlet problem
+\[
+\begin{cases}
+Pu = f & \text{in }U,\\
+u = 0 & \text{on }\partial U,
+\end{cases}
+\]
+where
+\[
+Pu = -\partial_i(a_{ij}\partial_j u) + \partial_i(b_i u) + cu.
+\]
+Assume that $P$ is uniformly elliptic, that $a_{ij},b_i,c$ are smooth, and that $b,c\in L^\infty(U)$ with
+\[
+\norm{b}_{L^\infty(U)} + \norm{c}_{L^\infty(U)} \leq A.
+\]
+Then there exist constants $C>0$ and $\gamma\geq 0$ such that
+\[
+\norm{u}_{H^1(U)} \leq C\norm{f}_{H^{-1}(U)} + \gamma \norm{u}_{L^2(U)}.
+\]
+\end{theorem}
+
+This estimate shows that, up to a lower-order $L^2$ term, the $H^1$ norm of a solution is controlled by the size of the forcing term in $H^{-1}$.
+
+\subsection{Mapping property and the adjoint operator}
+
+Under the assumptions $a_{ij},b_i,c\in L^\infty(U)$, the operator $P$ defines a bounded linear map
+\[
+P:H^1(U)\to H^{-1}(U).
+\]
+Indeed, the principal part is the distributional derivative of an $L^2$ function, while the lower-order terms lie in $L^2(U)$ and hence also define elements of $H^{-1}(U)$.
+
+When the Dirichlet condition is imposed, one naturally restricts to
+\[
+P:H_0^1(U)\to H^{-1}(U).
+\]
+The corresponding adjoint operator with respect to the $L^2$ pairing is
+\[
+P^*u = -\partial_j(a_{jk}\partial_k u) - \partial_j(b_j u) + cu,
+\]
+assuming real-valued coefficients. In particular, the same kind of energy estimate applies to $P^*$.
+
+\subsection{A functional-analytic solvability lemma}
+
+The abstract principle underlying the solvability theory is the following.
+
+\begin{lemma}
+Let $X$ and $Y$ be Banach spaces, and let $P:X\to Y$ be bounded and linear.
+\begin{enumerate}
+    \item If
+    \[
+    \norm{u}_X \leq C\norm{Pu}_Y,
+    \]
+    then $\ker P=\{0\}$, and for every $g\in X^*$ there exists $v\in Y^*$ such that
+    \[
+    P^*v=g,
+    \qquad
+    \norm{v}_{Y^*}\leq C\norm{g}_{X^*}.
+    \]
+    \item If
+    \[
+    \norm{v}_{Y^*} \leq C'\norm{P^*v}_{X^*},
+    \]
+    then $\ker P^*=\{0\}$, and for every $f\in Y$ there exists $u\in X$ such that
+    \[
+    Pu=f,
+    \qquad
+    \norm{u}_X\leq C'\norm{f}_Y.
+    \]
+\end{enumerate}
+\end{lemma}
+
+In the elliptic setting one applies this with
+\[
+X=H_0^1(U),
+\qquad
+Y=H^{-1}(U).
+\]
+
+\subsection{The purely divergence-form case}
+
+When the lower-order terms vanish, the $L^2$ term in the a priori estimate can be removed.
+
+\begin{lemma}
+If $b=0$ and $c=0$, so that
+\[
+Pu=-\partial_j(a_{jk}\partial_k u),
+\]
+then the energy estimate holds with $\gamma=0$, namely
+\[
+\norm{u}_{H^1(U)}\leq C\norm{f}_{H^{-1}(U)}
+\]
+for solutions $u\in H_0^1(U)$ of $Pu=f$.
+\end{lemma}
+
+\begin{theorem}
+For every $f\in H^{-1}(U)$, there exists a unique $u\in H_0^1(U)$ such that
+\[
+-\partial_j(a_{jk}\partial_k u)=f
+\qquad \text{in }U.
+\]
+\end{theorem}
+
+Thus the homogeneous Dirichlet problem is uniquely solvable in the pure divergence-form case.
+
+\subsection{Fredholm alternative for general second-order elliptic operators}
+
+For general lower-order terms, the previous coercive argument is replaced by a Fredholm argument. The key idea is that, after adding a sufficiently large positive multiple of the identity, one obtains an invertible operator, and the remaining part becomes a compact perturbation of the identity.
+
+\begin{lemma}[Fredholm alternative for compact perturbations]
+Let $K:X\to X$ be compact and set $T=I+K$.
+\begin{enumerate}
+    \item $\ker(I+K)$ is finite dimensional.
+    \item There exists $n_0\geq 1$ such that
+    \[
+    \ker(I+K)^n = \ker(I+K)^{n_0}
+    \qquad \text{for all }n\geq n_0.
+    \]
+    \item $\ran(I+K)$ is closed and satisfies
+    \[
+    \ran(I+K) = \bigl(\ker(I+K^*)\bigr)^\perp.
+    \]
+    \item The dimensions of the kernels agree:
+    \[
+    \dim \ker(I+K)=\dim \ker(I+K^*).
+    \]
+\end{enumerate}
+\end{lemma}
+
+Applying this principle to the Dirichlet problem yields the following conclusion.
+
+\begin{theorem}[Fredholm alternative for elliptic Dirichlet problems]
+Let $P$ be a second-order scalar elliptic operator on a bounded domain $U$ with $C^1$ boundary. Then exactly one of the following alternatives holds:
+\begin{enumerate}
+    \item For every $f\in H^{-1}(U)$, there exists a unique $u\in H_0^1(U)$ such that
+    \[
+    Pu=f,
+    \]
+    and moreover
+    \[
+    \norm{u}_{H^1(U)}\leq C\norm{f}_{H^{-1}(U)}.
+    \]
+    \item There exists a nonzero $u\in H_0^1(U)$ such that
+    \[
+    Pu=0.
+    \]
+\end{enumerate}
+If the second alternative holds, then both $\ker P$ and $\ker P^*$ are finite dimensional, and the equation
+\[
+Pu=f
+\]
+is solvable if and only if
+\[
+\langle f,v\rangle = 0
+\qquad \text{for all }v\in \ker P^*.
+\]
+\end{theorem}
+
+\begin{remark}
+This theorem shows that a second-order elliptic Dirichlet problem behaves, up to compact errors, like a finite-dimensional linear system: either one has uniqueness and full solvability, or else the only obstruction to solvability is orthogonality to the adjoint kernel.
+\end{remark}
