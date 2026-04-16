@@ -1,12 +1,3 @@
-\newcommand{\D}{\mathcal{D}}
-\newcommand{\ran}[1]{\text{ran}\ {#1}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\Lip}{\operatorname{Lip}}
-\newcommand{\supp}{\operatorname{supp}}
-\newcommand{\osc}{\operatorname{osc}}
-
 \part{Linear Elliptic Equations}
 
 \section{Basic definitions and examples}
@@ -299,4 +290,141 @@ is solvable if and only if
 
 \begin{remark}
 This theorem shows that a second-order elliptic Dirichlet problem behaves, up to compact errors, like a finite-dimensional linear system: either one has uniqueness and full solvability, or else the only obstruction to solvability is orthogonality to the adjoint kernel.
+\end{remark}
+
+\section{$L^2$-based elliptic regularity}
+\subsection{Interior regularity for the Poisson equation}
+
+A basic principle in elliptic theory is that solutions are more regular than the forcing term. For the Poisson equation
+\[
+-\Delta u=f,
+\]
+one expects a gain of two derivatives.
+
+\begin{definition}
+Let $U\subset\R^d$ be open, let $V\Subset U$, and suppose $u$ solves an elliptic equation on $U$. We say that \emph{interior regularity} holds if one can estimate higher Sobolev norms of $u$ on $V$ in terms of the data on $U$.
+\end{definition}
+
+For the Poisson equation, the model estimate is the following: if $f\in H^k(U)$, then one expects
+\[
+\norm{u}_{H^{k+2}(V)} \leq C\norm{f}_{H^k(U)} + C\norm{u}_{L^2(U)}.
+\]
+Similarly, in H\"older spaces one expects estimates of the form
+\[
+\norm{u}_{C^{k+2,\alpha}(V)} \leq C\norm{f}_{C^{k,\alpha}(U)} + C\norm{u}_{L^\infty(U)}.
+\]
+The first type is called $L^2$-based regularity theory, while the second belongs to Schauder theory.
+
+\begin{remark}
+The key idea in $L^2$-based regularity is the energy method: one multiplies the equation by a cutoff function times a suitable derivative of $u$, integrates by parts, and estimates the resulting terms. Because cutoff functions are used, these arguments are intrinsically interior.
+\end{remark}
+
+\begin{theorem}[Interior $H^1$ estimate for Poisson]
+Let $V\Subset U$, and suppose that $u$ solves
+\[
+-\Delta u=f
+\qquad \text{in }U,
+\]
+with $f\in L^2(U)$. Then
+\[
+\norm{Du}_{L^2(V)} \leq C\norm{f}_{L^2(U)} + C\norm{u}_{L^2(U)}.
+\]
+\end{theorem}
+
+\begin{theorem}[Interior $H^2$ estimate for Poisson]
+Let $V\Subset W\Subset U$, and suppose that $u$ solves
+\[
+-\Delta u=f
+\qquad \text{in }U,
+\]
+with $f\in L^2(U)$. Then
+\[
+\norm{u}_{H^2(V)} \leq C\norm{f}_{L^2(U)} + C\norm{u}_{L^2(U)}.
+\]
+\end{theorem}
+
+\begin{remark}
+The repeated use of nested domains $V\Subset W\Subset U$ is not accidental. Each cutoff function is chosen to be identically $1$ on the smaller set and supported inside the larger one, so that integration by parts produces no boundary terms. When derivatives fall on the cutoff, one needs extra room between the region where norms are measured and the boundary of the ambient domain.
+\end{remark}
+
+\subsection{Interior $H^2$ regularity for general elliptic operators}
+
+Consider the divergence-form elliptic operator
+\[
+Pu = -\partial_j(a_{jk}\partial_k u) + b_j\partial_j u + cu,
+\]
+where $a(x)\geq \lambda I$ for some $\lambda>0$ and where the coefficients are bounded. To obtain $H^2$ control, one also assumes enough regularity on the coefficients, typically $\partial a\in L^\infty(U)$.
+
+\begin{theorem}[$H^2$ elliptic regularity]
+Let $u\in H^1(U)$ be a weak solution of
+\[
+Pu=f
+\qquad \text{in }U,
+\]
+with $f\in L^2(U)$. Assume that $P$ is uniformly elliptic, that $a,b,c\in L^\infty(U)$, and that the coefficients have enough regularity to justify commuting with derivatives. Then for every $V\Subset U$,
+\[
+u\in H^2(V)
+\qquad \text{and} \qquad
+\norm{u}_{H^2(V)} \leq C\bigl(\norm{f}_{L^2(U)} + \norm{u}_{L^2(U)}\bigr).
+\]
+\end{theorem}
+
+\begin{remark}
+At the formal level, the proof follows the same pattern as for the Poisson equation. However, because one does not yet know that $u$ has second derivatives, one commutes the equation with difference quotients rather than with classical derivatives.
+\end{remark}
+
+\begin{definition}
+Fix $k\in\{1,\dots,d\}$ and $h\in\R\setminus\{0\}$. The \emph{difference quotient} in the $e_k$ direction is defined by
+\[
+D_k^h v(x) = \frac{v(x+he_k)-v(x)}{h}.
+\]
+As $h\to 0$, this converges formally to $\partial_k v$.
+\end{definition}
+
+\begin{lemma}
+Let $V\Subset U$.
+\begin{enumerate}
+    \item If $u\in W^{1,p}(U)$, then for $|h|\ll 1$,
+    \[
+    \norm{D_k^h u}_{L^p(V)} \leq C\norm{\partial_k u}_{L^p(U)}.
+    \]
+    \item Conversely, if $u\in L^p(U)$ and the difference quotients satisfy a uniform bound
+    \[
+    \norm{D_k^h u}_{L^p(V)} \leq A
+    \qquad \text{for all sufficiently small }h,
+    \]
+    then $\partial_k u\in L^p(V)$ and
+    \[
+    \norm{\partial_k u}_{L^p(V)} \leq A.
+    \]
+\end{enumerate}
+\end{lemma}
+
+These facts allow one to repeat the energy estimate at the level of difference quotients and then pass to the limit.
+
+\subsection{Boundary $H^2$ regularity}
+
+Interior estimates alone do not control second derivatives up to the boundary. For boundary regularity one must combine the elliptic equation with the boundary condition and the geometry of $\partial U$.
+
+\begin{theorem}[Boundary $H^2$ regularity]
+Let
+\[
+Lu = -\partial_i(a_{ij}\partial_j u) + b_i\partial_i u + cu = f
+\qquad \text{in }U,
+\]
+where $P$ is uniformly elliptic and the coefficients satisfy the same assumptions as in the interior $H^2$ theorem. Assume in addition that
+\begin{enumerate}
+    \item $u\in H_0^1(U)$,
+    \item $\partial U$ is of class $C^2$.
+\end{enumerate}
+Then
+\[
+u\in H^2(U)
+\qquad \text{and} \qquad
+\norm{u}_{H^2(U)} \leq C\bigl(\norm{f}_{L^2(U)} + \norm{u}_{L^2(U)}\bigr).
+\]
+\end{theorem}
+
+\begin{remark}
+Near a boundary point, one first straightens the boundary by a $C^2$ change of coordinates, reducing the problem locally to a half-ball. Tangential second derivatives are then estimated by the interior argument, using that the Dirichlet condition forces tangential derivatives to vanish on the flattened boundary. The remaining normal second derivative is recovered from the equation itself, together with uniform ellipticity, which guarantees control of the coefficient of $\partial_d^2 u$.
 \end{remark}
