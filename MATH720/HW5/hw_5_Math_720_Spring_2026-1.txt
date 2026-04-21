@@ -1,0 +1,103 @@
+Homework 5, Math 720, Spring 2026
+Mihaela Ifrim
+
+Due April 22th 2026
+
+1. Consider a wave equation
+2u = 0
+in a cylinder Ω × [0, T ], with initial data
+u(t = 0) = u0 ,
+
+∂t u(t = 0) = u1
+
+and Dirichlet boundary condition
+in [0, T ] × ∂Ω
+
+u(t, x) = 0
+
+Then prove that energy estimates hold for this problem. Extra challenge: Work instead
+with
+g αβ ∂α ∂β u = 0
+with a Lipschitz metric. Assume that the surfaces t = const are space-like, and that the
+lateral boundary [0, T ] × ∂Ω is time-like. Then prove that energy estimates hold for this
+problem. [Hint: Think of what vector field X you would use as a multiplier.]
+2. Consider the semilinear wave equation in R3+1
+2u = u3 ,
+
+u(0) = u0 ,
+
+ut (0) = u1 .
+
+Prove this is locally well-posed for initial data (u0 , u1 ) ∈ Ḣ 1 × L2 .
+3. Let gαβ be a pseudoriemannian metric in Rn+1 . Show that for any forward time-like
+vectors X and Y we have
+Tαβ X α Y β ≥ 0.
+4. Consider the following system
+
+wt + r x = 0
+rt − i(g + a)w = 0,
+
+(0.1)
+
+where a and g are just a real constants. Here (w, r) are functions which have their frequencies
+supported on the negative side of the real line. In particular,
+P w = w,
+
+P r = r, where
+
+1
+P = (I − iH),
+2
+
+where H is the Hilbert transform with symbol −i sgn(ξ) . Is the problem well-posed in the
+1
+space of holomorphic functions L2 × Ḣ 2 ?
+Hint: The only rules you need to know are
+1
+
+•
+
+1
+P := (I + iH).
+2
+
+1
+P := (I − iH),
+2
+
+Then P and P are complementary projections, and we have
+P + P = I,
+
+2
+
+P 2 = P,
+
+P = P,
+
+• H is skew-adjoint on L2 (R), i.e.
+Z
+
+P P = P P = 0.
+
+Z
+f Hg dx = −
+
+Hf g dx,
+
+which implies that P and P are L2 -orthogonal projections in the sense that
+Z
+Z
+Z
+Z
+f P g dx = (P f ) g dx,
+f P g dx = (P f ) g dx.
+• Hilbert transform commutes with ∂α ,
+H∂α = ∂α H,
+and therefore so do the projections:
+P ∂α = ∂α P,
+
+2
+
+P ∂α = ∂α P .
+
+

@@ -1,0 +1,464 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{Homework05 - MATH 720}
+\author{Boren(Wells) Guan}
+\date{April 21, 2026}
+
+\usepackage{array,url}
+\usepackage[notextcomp]{stix}
+\usepackage{subfigure}
+\usepackage{mathtools,amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{bbm}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Om}{\Omega}
+\newcommand{\pa}{\partial}
+\newcommand{\Boxg}{\square_g}
+\newcommand{\Boxop}{\square}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Ree}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\ov}{\overline}
+\newcommand{\la}{\lambda}
+\newcommand{\ds}{\displaystyle}
+
+\begin{document}
+\maketitle
+
+\subsection*{Before Reading:}\par
+As in the previous homework, I will focus on writing the core arguments in a reasonably clean way, and I will use standard facts from PDE whenever they are routine. The main goal here is to organize the multiplier and energy arguments so that each estimate is transparent.
+
+\subsection*{Problem 1}
+Consider the wave equation
+\[
+\Boxop u:=\partial_t^2u-\Delta_xu=0
+\]
+in a cylinder $\Omega\times[0,T]$, with initial data
+\[
+u(0)=u_0,\qquad \partial_tu(0)=u_1,
+\]
+and Dirichlet boundary condition
+\[
+u(t,x)=0\qquad \text{on }[0,T]\times\partial\Omega.
+\]
+Prove that energy estimates hold.\par
+Extra challenge: Prove the analogous statement for
+\[
+g^{\alpha\beta}\partial_\alpha\partial_\beta u=0
+\]
+with Lipschitz metric under the assumptions that the slices $t=\mathrm{const}$ are spacelike and the lateral boundary $[0,T]\times\partial\Omega$ is timelike.
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+Define the energy
+\[
+E(t):=\frac12\int_\Omega \bigl(|\partial_tu(t,x)|^2+|\nabla_xu(t,x)|^2\bigr)\,dx.
+\]
+We claim that $E(t)$ is constant on $[0,T]$, i.e.
+\[
+E(t)=E(0)=\frac12\int_\Omega \bigl(|u_1|^2+|\nabla u_0|^2\bigr)\,dx.
+\]
+since we may multiply the equation $\partial_t^2u-\Delta u=0$ by $\partial_tu$ and then we have
+\[
+\int_\Omega \partial_t^2u\,\partial_tu\,dx-\int_\Omega \Delta u\,\partial_tu\,dx=0.
+\]
+The first term:
+\[
+\int_\Omega \partial_t^2u\,\partial_tu\,dx=\frac12\frac{d}{dt}\int_\Omega |\partial_tu|^2\,dx.
+\]
+For the second term, by the integration by parts in space, we have
+\[
+-\int_\Omega \Delta u\,\partial_tu\,dx
+=\int_\Omega \nabla u\cdot \nabla\partial_tu\,dx-\int_{\partial\Omega}\partial_\nu u\,\partial_tu\,dS.
+\]
+By the Dirichlet condition, the boundary term vanishes and also
+\[
+\int_\Omega \nabla u\cdot \nabla\partial_tu\,dx
+=\frac12\frac{d}{dt}\int_\Omega |\nabla u|^2\,dx.
+\]
+Then we have
+\[
+\frac{d}{dt}E(t)=0.
+\]
+Therefore, the energy is conserved, and in particular
+\[
+\|\partial_tu(t)\|_{L^2(\Omega)}+\|\nabla u(t)\|_{L^2(\Omega)}
+\lesssim \|u_1\|_{L^2(\Omega)}+\|\nabla u_0\|_{L^2(\Omega)}
+\]
+for all $t\in[0,T]$, so the energy estimate goes.
+
+For the variable coefficient problem, it is better to use the stress-energy tensor. Write
+\[
+\Boxg u:=g^{\alpha\beta}\partial_\alpha\partial_\beta u=0.
+\]
+Associated to $u$ we consider
+\[
+T_{\alpha\beta}[u]:=\partial_\alpha u\,\partial_\beta u-
+\frac12 g_{\alpha\beta}g^{\mu\nu}\partial_\mu u\,\partial_\nu u.
+\]
+When $u$ solves $\Boxg u=0$, the standard computation gives
+\[
+\nabla^\alpha T_{\alpha\beta}=0.
+\]
+Now choose a future timelike vector field $X$ which is transversal to the hypersurfaces $t=\mathrm{const}$; the natural choice is $X=\partial_t$ in the given coordinate system. Define the current
+\[
+P_\alpha:=T_{\alpha\beta}X^\beta.
+\]
+Then
+\[
+\nabla^\alpha P_\alpha=T_{\alpha\beta}\nabla^\alpha X^\beta.
+\]
+Since $g$ is Lipschitz, $\nabla X\in L^\infty$, so the right-hand side is bounded by
+\[
+|\nabla^\alpha P_\alpha|\lesssim |\partial u|^2.
+\]
+Integrate this divergence identity in the slab
+\[
+D_t:=\{(s,x):0\le s\le t,\ x\in\Omega\}.
+\]
+By the divergence theorem, the boundary of $D_t$ consists of the initial slice $\Sigma_0$, the final slice $\Sigma_t$, and the lateral boundary $\Gamma=[0,t]\times\partial\Omega$. Thus
+\[
+\int_{\Sigma_t} T_{\alpha\beta}n^\alpha X^\beta\,d\sigma
+-\int_{\Sigma_0} T_{\alpha\beta}n^\alpha X^\beta\,d\sigma
++\int_{\Gamma} T_{\alpha\beta}N^\alpha X^\beta\,dS
+=\int_{D_t} T_{\alpha\beta}\nabla^\alpha X^\beta\,dV.
+\]
+Here $n$ is the future unit normal to the spacelike slices and $N$ is the outward normal to the timelike boundary. Because the slices are spacelike and $X$ is future timelike, the flux density
+\[
+T_{\alpha\beta}n^\alpha X^\beta
+\]
+is comparable to $|\partial u|^2$ on each slice. On the lateral boundary, the Dirichlet condition forces the tangential derivatives of $u$ along $\Gamma$ to vanish. Consequently the boundary flux has a good sign; more precisely,
+\[
+\int_{\Gamma} T_{\alpha\beta}N^\alpha X^\beta\,dS\ge 0
+\]
+for the outward choice of $N$.
+Therefore
+\[
+E_X(t)\le E_X(0)+C\int_0^t E_X(s)\,ds,
+\]
+where
+\[
+E_X(t):=\int_{\Sigma_t} T_{\alpha\beta}n^\alpha X^\beta\,d\sigma.
+\]
+By Gronwall's inequality,
+\[
+E_X(t)\le e^{Ct}E_X(0),\qquad 0\le t\le T.
+\]
+Since $E_X(t)$ is equivalent to the natural $H^1\times L^2$ energy on each slice, we obtain the desired variable coefficient energy estimate. \prvd
+
+\vspace{0.5em}
+
+\subsection*{Problem 2}
+Consider the semilinear wave equation in $\R^{3+1}$
+\[
+\Boxop u=u^3,\qquad u(0)=u_0,\qquad \partial_tu(0)=u_1.
+\]
+Prove that this problem is locally well-posed for initial data $(u_0,u_1)\in \dot H^1\times L^2$.
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+This is the energy-critical semilinear wave equation in dimension $3+1$, so the natural framework is the Strichartz theory for the wave equation. Let
+\[
+S(t)(u_0,u_1):=\cos(t|\nabla|)u_0+\frac{\sin(t|\nabla|)}{|\nabla|}u_1
+\]
+be the free wave evolution. Then a solution of
+\[
+\Boxop u=u^3
+\]
+should satisfy the Duhamel formula
+\[
+u(t)=S(t)(u_0,u_1)+\int_0^t \frac{\sin((t-s)|\nabla|)}{|\nabla|}\bigl(u(s)^3\bigr)\,ds.
+\]
+We use the standard wave Strichartz estimates. In dimension $3+1$, one has for the linear solution
+\[
+\|S(t)(u_0,u_1)\|_{L_t^3L_x^6(I\times\R^3)}+\|\nabla S(t)(u_0,u_1)\|_{L_t^\infty L_x^2(I\times\R^3)}+\|\partial_t S(t)(u_0,u_1)\|_{L_t^\infty L_x^2(I\times\R^3)}
+\lesssim \|u_0\|_{\dot H^1}+\|u_1\|_{L^2}
+\]
+for every interval $I$. Also, if $F$ is a forcing term, then
+\[
+\left\|\int_0^t \frac{\sin((t-s)|\nabla|)}{|\nabla|}F(s)\,ds\right\|_{L_t^3L_x^6}
++\left\|\nabla\int_0^t \frac{\sin((t-s)|\nabla|)}{|\nabla|}F(s)\,ds\right\|_{L_t^\infty L_x^2}
+\lesssim \|F\|_{L_t^1L_x^2}.
+\]
+Therefore the key is to control $u^3$ in $L_t^1L_x^2$. But
+\[
+\|u^3\|_{L_t^1L_x^2(I\times\R^3)}=\|u\|_{L_t^3L_x^6(I\times\R^3)}^3.
+\]
+So we define the solution space
+\[
+X_I:=C_t(I;\dot H^1)\cap C_t^1(I;L^2)\cap L_t^3(I;L_x^6).
+\]
+Fix $A>0$ and consider the ball
+\[
+B_A:=\left\{u\in X_I:\ \|u\|_{L_t^\infty\dot H^1}+\|\partial_tu\|_{L_t^\infty L^2}+\|u\|_{L_t^3L_x^6}\le A\right\}.
+\]
+Define the map
+\[
+\Phi(u)(t):=S(t)(u_0,u_1)+\int_0^t \frac{\sin((t-s)|\nabla|)}{|\nabla|}\bigl(u(s)^3\bigr)\,ds.
+\]
+By the above Strichartz estimates,
+\[
+\|\Phi(u)\|_{X_I}
+\lesssim \|u_0\|_{\dot H^1}+\|u_1\|_{L^2}+\|u\|_{L_t^3L_x^6(I\times\R^3)}^3.
+\]
+To get a contraction we localize in time. Choose the interval $I=[0,T]$ so that the free evolution is small in the critical norm:
+\[
+\|S(t)(u_0,u_1)\|_{L_t^3L_x^6([0,T]\times\R^3)}\le \eta
+\]
+with $\eta>0$ to be chosen. This is possible because the linear solution belongs to $L_t^3L_x^6(\mathrm{loc})$ and the norm is absolutely continuous in time. Then if $u\in B_A$,
+\[
+\|\Phi(u)\|_{X_I}
+\le C(\|u_0\|_{\dot H^1}+\|u_1\|_{L^2})+CA^3.
+\]
+Choosing $A\simeq \|u_0\|_{\dot H^1}+\|u_1\|_{L^2}$ and then taking $T$ small enough so that the $L_t^3L_x^6$ contribution is sufficiently small, we ensure that $\Phi$ maps $B_A$ to itself.
+
+For the contraction estimate, let $u,v\in B_A$. Then
+\[
+\Phi(u)-\Phi(v)=\int_0^t \frac{\sin((t-s)|\nabla|)}{|\nabla|}\bigl(u^3-v^3\bigr)(s)\,ds,
+\]
+so
+\[
+\|\Phi(u)-\Phi(v)\|_{X_I}
+\lesssim \|u^3-v^3\|_{L_t^1L_x^2}.
+\]
+Using
+\[
+|u^3-v^3|\le C(|u|^2+|u||v|+|v|^2)|u-v|
+\]
+and H\"older,
+\[
+\|u^3-v^3\|_{L_t^1L_x^2}
+\lesssim \bigl(\|u\|_{L_t^3L_x^6}^2+\|v\|_{L_t^3L_x^6}^2\bigr)\|u-v\|_{L_t^3L_x^6}.
+\]
+If the interval is chosen so that $A^2$ times the implicit constant is $<1$, then $\Phi$ is a contraction on $B_A$. Hence by Banach's fixed-point theorem there exists a unique solution
+\[
+u\in C_t([0,T];\dot H^1)\cap C_t^1([0,T];L^2)\cap L_t^3([0,T];L_x^6).
+\]
+Continuous dependence on the data follows from the same contraction estimate applied to two solutions with nearby initial data. Thus the problem is locally well-posed in $\dot H^1\times L^2$. \prvd
+
+\vspace{0.5em}
+
+\subsection*{Problem 3}
+Let $g_{\alpha\beta}$ be a pseudo-Riemannian metric in $\R^{n+1}$. Show that for any forward timelike vectors $X$ and $Y$ one has
+\[
+T_{\alpha\beta}X^\alpha Y^\beta\ge 0.
+\]
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+Here $T_{\alpha\beta}$ denotes the stress-energy tensor of a scalar field:
+\[
+T_{\alpha\beta}=\partial_\alpha u\,\partial_\beta u-\frac12 g_{\alpha\beta}g^{\mu\nu}\partial_\mu u\,\partial_\nu u.
+\]
+We must prove the dominant energy inequality
+\[
+T_{\alpha\beta}X^\alpha Y^\beta\ge 0
+\]
+for future timelike $X,Y$.
+
+Since this is a pointwise statement, we may work at one fixed point and choose local inertial coordinates there so that
+\[
+g_{\alpha\beta}=\mathrm{diag}(-1,1,\dots,1).
+\]
+By a Lorentz transformation we may further assume that
+\[
+X=(1,0,\dots,0).
+\]
+Write
+\[
+\partial u=(\partial_tu,\nabla u).
+\]
+Then
+\[
+T_{00}=\frac12\Bigl((\partial_tu)^2+|\nabla u|^2\Bigr),
+\qquad
+T_{0j}=\partial_tu\,\partial_ju.
+\]
+Now let $Y=(Y^0,Y')$ be any future timelike vector. Since $Y$ is future timelike, we have
+\[
+Y^0>0,
+\qquad |Y'|<Y^0.
+\]
+Therefore
+\[
+T_{\alpha\beta}X^\alpha Y^\beta=T_{0\beta}Y^\beta=T_{00}Y^0+\sum_{j=1}^nT_{0j}Y^j.
+\]
+Using the formulas above,
+\[
+T_{\alpha\beta}X^\alpha Y^\beta
+=\frac12\Bigl((\partial_tu)^2+|\nabla u|^2\Bigr)Y^0+\partial_tu\,\nabla u\cdot Y'.
+\]
+By Cauchy--Schwarz and the timelike property,
+\[
+\partial_tu\,\nabla u\cdot Y'\ge -|\partial_tu|\,|\nabla u|\,|Y'|
+\ge -|\partial_tu|\,|\nabla u|\,Y^0.
+\]
+Hence
+\[
+T_{\alpha\beta}X^\alpha Y^\beta
+\ge Y^0\left[\frac12\Bigl((\partial_tu)^2+|\nabla u|^2\Bigr)-|\partial_tu|\,|\nabla u|\right].
+\]
+But
+\[
+\frac12(a^2+b^2)-ab=\frac12(a-b)^2\ge 0.
+\]
+Applying this with $a=|\partial_tu|$ and $b=|\nabla u|$, we get
+\[
+T_{\alpha\beta}X^\alpha Y^\beta\ge 0.
+\]
+This proves the claim. \prvd
+
+\vspace{0.5em}
+
+\subsection*{Problem 4}
+Consider the system
+\[
+\begin{cases}
+ w_t+r_x=0,\\
+ r_t-i(g+a)w=0,
+\end{cases}
+\]
+where $a$ and $g$ are real constants, and the frequencies of $(w,r)$ are supported on the negative half-line. Equivalently,
+\[
+Pw=w,\qquad Pr=r,
+\qquad P=\frac12(I-iH).
+\]
+Is the problem well-posed in the space of holomorphic functions $L^2\times \dot H^{1/2}$?
+
+\vspace{0.5em}
+\textbf{Sol.} \par
+We denote
+\[
+\kappa:=g+a\in\R.
+\]
+Since the equations have constant coefficients, the cleanest way is to work in Fourier space. Let $\xi<0$ be a negative frequency. Then the system becomes
+\[
+\partial_t \widehat w + i\xi\widehat r=0,
+\qquad
+\partial_t \widehat r - i\kappa\widehat w=0.
+\]
+Equivalently,
+\[
+\partial_t
+\begin{pmatrix}
+\widehat w\\
+\widehat r
+\end{pmatrix}
+=
+A(\xi)
+\begin{pmatrix}
+\widehat w\\
+\widehat r
+\end{pmatrix},
+\qquad
+A(\xi)=
+\begin{pmatrix}
+0 & -i\xi\\
+i\kappa & 0
+\end{pmatrix}.
+\]
+Differentiating once more gives
+\[
+\partial_t^2\widehat w=\kappa\xi\,\widehat w,
+\qquad
+\partial_t^2\widehat r=\kappa\xi\,\widehat r.
+\]
+Because $\xi<0$, the sign of $\kappa\xi$ is opposite to the sign of $\kappa$.
+
+\medskip
+\emph{Case 1: $\kappa\ge 0$.} Then $\kappa\xi\le 0$ for all $\xi<0$, so every Fourier mode is oscillatory (or stationary if $\kappa=0$). In this regime the problem is well-posed.
+
+Indeed, consider the energy
+\[
+E(t):=\kappa\|w(t)\|_{L^2}^2+\|r(t)\|_{\dot H^{1/2}}^2.
+\]
+When $\kappa>0$, this is equivalent to
+\[
+\|w(t)\|_{L^2}^2+\|r(t)\|_{\dot H^{1/2}}^2.
+\]
+We now show that it is conserved. First,
+\[
+\frac{d}{dt}\|r\|_{\dot H^{1/2}}^2
+=2\Ree\int |\xi|\,\partial_t\widehat r(\xi)\,\ov{\widehat r(\xi)}\,d\xi.
+\]
+Using $r_t=i\kappa w$,
+\[
+\frac{d}{dt}\|r\|_{\dot H^{1/2}}^2
+=2\kappa\Ree\int |\xi|\,i\widehat w(\xi)\,\ov{\widehat r(\xi)}\,d\xi.
+\]
+Since the support is in $\{\xi<0\}$, we have $|\xi|=-\xi$, hence
+\[
+\frac{d}{dt}\|r\|_{\dot H^{1/2}}^2
+=-2\kappa\Ree\int \xi i\widehat w(\xi)\,\ov{\widehat r(\xi)}\,d\xi.
+\]
+On the other hand, using $w_t=-r_x$,
+\[
+\frac{d}{dt}\|w\|_{L^2}^2
+=2\Ree\int \partial_tw\,\ov w\,dx
+=-2\Ree\int r_x\,\ov w\,dx.
+\]
+Passing to Fourier variables,
+\[
+\frac{d}{dt}\|w\|_{L^2}^2
+=-2\Ree\int i\xi\widehat r(\xi)\,\ov{\widehat w(\xi)}\,d\xi.
+\]
+Therefore
+\[
+\kappa\frac{d}{dt}\|w\|_{L^2}^2
+=-2\kappa\Ree\int i\xi\widehat r(\xi)\,\ov{\widehat w(\xi)}\,d\xi.
+\]
+Taking complex conjugates inside the real part shows that this exactly cancels the derivative of $\|r\|_{\dot H^{1/2}}^2$. Hence
+\[
+\frac{d}{dt}E(t)=0.
+\]
+So for $\kappa>0$ we obtain
+\[
+\|w(t)\|_{L^2}+\|r(t)\|_{\dot H^{1/2}}
+\lesssim
+\|w(0)\|_{L^2}+\|r(0)\|_{\dot H^{1/2}},
+\]
+and standard semigroup theory gives existence and uniqueness.
+
+If $\kappa=0$, then $r_t=0$ and $w_t=-r_x$, so
+\[
+r(t)=r(0),
+\qquad
+w(t)=w(0)-t\,r_x(0).
+\]
+Since $r\in \dot H^{1/2}$, we only know $r_x\in \dot H^{-1/2}$ in general, so the map fails to preserve $L^2$ unless one imposes extra regularity. Thus in the stated space $L^2\times \dot H^{1/2}$ the problem is not well-posed when $\kappa=0$.
+
+\medskip
+\emph{Case 2: $\kappa<0$.} Then for every $\xi<0$ we have $\kappa\xi>0$, so each Fourier mode solves
+\[
+\partial_t^2\widehat w=(\kappa\xi)\widehat w
+\]
+with positive coefficient. Hence the solutions contain exponentially growing factors
+\[
+e^{t\sqrt{\kappa\xi}}.
+\]
+Since $\sqrt{\kappa\xi}=\sqrt{|\kappa|\,|\xi|}$ grows like $|\xi|^{1/2}$ as $|\xi|\to\infty$, the high frequencies are violently unstable. In particular, one can choose initial data bounded in $L^2\times \dot H^{1/2}$ for which the solution norm becomes arbitrarily large in arbitrarily short time. Therefore the flow cannot be continuous in the stated topology, so the Cauchy problem is ill-posed.
+
+To summarize: the problem is well-posed in $L^2\times \dot H^{1/2}$ only in the strictly positive case
+\[
+g+a>0.
+\]
+If $g+a\le 0$, then it is not well-posed in the stated space. \prvd
+
+\end{document}
