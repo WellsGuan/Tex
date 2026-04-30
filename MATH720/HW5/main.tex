@@ -58,12 +58,7 @@ and Dirichlet boundary condition
 \[
 u(t,x)=0\qquad \text{on }[0,T]\times\partial\Omega.
 \]
-Prove that energy estimates hold.\par
-Extra challenge: Prove the analogous statement for
-\[
-g^{\alpha\beta}\partial_\alpha\partial_\beta u=0
-\]
-with Lipschitz metric under the assumptions that the slices $t=\mathrm{const}$ are spacelike and the lateral boundary $[0,T]\times\partial\Omega$ is timelike.
+Prove that energy estimates hold for this problem.
 
 \vspace{0.5em}
 \textbf{Sol.} \par
@@ -71,97 +66,38 @@ Define the energy
 \[
 E(t):=\frac12\int_\Omega \bigl(|\partial_tu(t,x)|^2+|\nabla_xu(t,x)|^2\bigr)\,dx.
 \]
-We claim that $E(t)$ is constant on $[0,T]$, i.e.
+We claim that $E(t)$ is constant on $[0,T]$, namely
 \[
 E(t)=E(0)=\frac12\int_\Omega \bigl(|u_1|^2+|\nabla u_0|^2\bigr)\,dx.
 \]
-since we may multiply the equation $\partial_t^2u-\Delta u=0$ by $\partial_tu$ and then we have
+Indeed, multiply the equation $\partial_t^2u-\Delta u=0$ by $\partial_tu$ and integrate over $\Omega$:
 \[
 \int_\Omega \partial_t^2u\,\partial_tu\,dx-\int_\Omega \Delta u\,\partial_tu\,dx=0.
 \]
-The first term:
+For the first term,
 \[
 \int_\Omega \partial_t^2u\,\partial_tu\,dx=\frac12\frac{d}{dt}\int_\Omega |\partial_tu|^2\,dx.
 \]
-For the second term, by the integration by parts in space, we have
+For the second term, integrating by parts in space gives
 \[
 -\int_\Omega \Delta u\,\partial_tu\,dx
 =\int_\Omega \nabla u\cdot \nabla\partial_tu\,dx-\int_{\partial\Omega}\partial_\nu u\,\partial_tu\,dS.
 \]
-By the Dirichlet condition, the boundary term vanishes and also
+Because $u=0$ on $[0,T]\times\partial\Omega$, its time derivative also vanishes on the lateral boundary, so $\partial_tu=0$ on $\partial\Omega$ and the boundary term is zero. Moreover,
 \[
 \int_\Omega \nabla u\cdot \nabla\partial_tu\,dx
 =\frac12\frac{d}{dt}\int_\Omega |\nabla u|^2\,dx.
 \]
-Then we have
+Hence
 \[
 \frac{d}{dt}E(t)=0.
 \]
-Therefore, the energy is conserved, and in particular
+Therefore the energy is conserved, and in particular
 \[
 \|\partial_tu(t)\|_{L^2(\Omega)}+\|\nabla u(t)\|_{L^2(\Omega)}
 \lesssim \|u_1\|_{L^2(\Omega)}+\|\nabla u_0\|_{L^2(\Omega)}
 \]
-for all $t\in[0,T]$, so the energy estimate goes.
-
-For the variable coefficient problem, it is better to use the stress-energy tensor. Write
-\[
-\Boxg u:=g^{\alpha\beta}\partial_\alpha\partial_\beta u=0.
-\]
-Associated to $u$ we consider
-\[
-T_{\alpha\beta}[u]:=\partial_\alpha u\,\partial_\beta u-
-\frac12 g_{\alpha\beta}g^{\mu\nu}\partial_\mu u\,\partial_\nu u.
-\]
-When $u$ solves $\Boxg u=0$, the standard computation gives
-\[
-\nabla^\alpha T_{\alpha\beta}=0.
-\]
-Now choose a future timelike vector field $X$ which is transversal to the hypersurfaces $t=\mathrm{const}$; the natural choice is $X=\partial_t$ in the given coordinate system. Define the current
-\[
-P_\alpha:=T_{\alpha\beta}X^\beta.
-\]
-Then
-\[
-\nabla^\alpha P_\alpha=T_{\alpha\beta}\nabla^\alpha X^\beta.
-\]
-Since $g$ is Lipschitz, $\nabla X\in L^\infty$, so the right-hand side is bounded by
-\[
-|\nabla^\alpha P_\alpha|\lesssim |\partial u|^2.
-\]
-Integrate this divergence identity in the slab
-\[
-D_t:=\{(s,x):0\le s\le t,\ x\in\Omega\}.
-\]
-By the divergence theorem, the boundary of $D_t$ consists of the initial slice $\Sigma_0$, the final slice $\Sigma_t$, and the lateral boundary $\Gamma=[0,t]\times\partial\Omega$. Thus
-\[
-\int_{\Sigma_t} T_{\alpha\beta}n^\alpha X^\beta\,d\sigma
--\int_{\Sigma_0} T_{\alpha\beta}n^\alpha X^\beta\,d\sigma
-+\int_{\Gamma} T_{\alpha\beta}N^\alpha X^\beta\,dS
-=\int_{D_t} T_{\alpha\beta}\nabla^\alpha X^\beta\,dV.
-\]
-Here $n$ is the future unit normal to the spacelike slices and $N$ is the outward normal to the timelike boundary. Because the slices are spacelike and $X$ is future timelike, the flux density
-\[
-T_{\alpha\beta}n^\alpha X^\beta
-\]
-is comparable to $|\partial u|^2$ on each slice. On the lateral boundary, the Dirichlet condition forces the tangential derivatives of $u$ along $\Gamma$ to vanish. Consequently the boundary flux has a good sign; more precisely,
-\[
-\int_{\Gamma} T_{\alpha\beta}N^\alpha X^\beta\,dS\ge 0
-\]
-for the outward choice of $N$.
-Therefore
-\[
-E_X(t)\le E_X(0)+C\int_0^t E_X(s)\,ds,
-\]
-where
-\[
-E_X(t):=\int_{\Sigma_t} T_{\alpha\beta}n^\alpha X^\beta\,d\sigma.
-\]
-By Gronwall's inequality,
-\[
-E_X(t)\le e^{Ct}E_X(0),\qquad 0\le t\le T.
-\]
-Since $E_X(t)$ is equivalent to the natural $H^1\times L^2$ energy on each slice, we obtain the desired variable coefficient energy estimate. \prvd
+for all $t\in[0,T]$. This is the desired energy estimate. \prvd
 
 \vspace{0.5em}
 
