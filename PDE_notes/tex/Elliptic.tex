@@ -3,59 +3,24 @@
 \section{Basic definitions and examples}
 \subsection{Elliptic operators and principal symbols}
 
-Elliptic PDEs may be viewed as a natural generalization of the Laplace equation
-\[
--\Delta u = f.
-\]
-A key feature of the Laplacian is that its principal symbol is nonvanishing for every nonzero frequency, and this motivates the general notion of ellipticity.
-
 \begin{definition}
 Let $P$ be a partial differential operator. The \emph{symbol} of $P$ is obtained by replacing each derivative $\partial_j$ by $i\xi_j$.
+
+Suppose now that $P$ is a linear partial differential operator acting on vector-valued functions $u=(u_J)_{J=1}^N:U\to\R^N$, with leading part of the form
+\[
+(Pu)^I = \sum_{J,\,|\alpha|=K} A_{J,\alpha}^I(x)\partial^\alpha u_J + \text{(lower order terms)}.
+\]
+Here $K$ is called the \emph{order} of $P$.
 \end{definition}
 
-For instance,
-\[
--\Delta = -\sum_{j=1}^d \partial_j\partial_j
-\]
-has principal symbol
-\[
--\sum_{j=1}^d (i\xi_j)^2 = |\xi|^2,
-\]
-which is invertible for every $\xi\neq 0$.
-
-Suppose now that $P$ is a linear partial differential operator of order $K$ acting on vector-valued functions $u=(u_J)_{J=1}^N:U\to\R^N$, with leading part of the form
-\[
-(Pu)_I = \sum_{J,\,|\alpha|=K} A_{IJ,\alpha}(x)\partial^\alpha u_J + \text{(lower-order terms)}.
-\]
-
 \begin{definition}
-The \emph{principal symbol} of $P$ is
+The \emph{principal symbol} of a $K$-order differential operator $P$ is
 \[
 \sigma_{\mathrm{prin}}(P)(x,\xi)
-= i^K\sum_{|\alpha|=K} A_{IJ,\alpha}(x)\xi^\alpha.
+= i^K\sum_{|\alpha|=K} A^I_{J,\alpha}(x)\xi^\alpha.
 \]
 We say that $P$ is \emph{elliptic} if $\sigma_{\mathrm{prin}}(P)(x,\xi)$ is invertible for every $x\in U$ and every $\xi\neq 0$.
 \end{definition}
-
-In the scalar case $N=1$, an operator of order $K$ has the form
-\[
-Pu = \sum_{|\alpha|=K} a_\alpha(x)\partial^\alpha u,
-\]
-and then
-\[
-\sigma_{\mathrm{prin}}(P)(x,\xi)=i^K\sum_{|\alpha|=K} a_\alpha(x)\xi^\alpha.
-\]
-
-The first genuinely interesting case is the second-order scalar operator
-\[
-Pu = a_{ij}(x)\partial_i\partial_j u + b_i(x)\partial_i u + c(x)u.
-\]
-Its ellipticity condition is
-\[
-a_{ij}(x)\xi_i\xi_j \neq 0
-\qquad \text{for all }x\in U,\ \xi\neq 0.
-\]
-When $a=[a_{ij}]$ is symmetric, this is equivalent to positive definiteness of the matrix $a(x)$.
 
 \begin{definition}[Uniform ellipticity]
 A second-order operator with symmetric coefficient matrix $a=[a_{ij}]$ is \emph{uniformly elliptic} if there exists $\lambda>0$ such that
@@ -67,65 +32,20 @@ a_{ij}(x)\xi_i\xi_j \geq \lambda |
 Equivalently, every eigenvalue of $a(x)$ is bounded below by $\lambda$ uniformly in $x$.
 \end{definition}
 
-\begin{remark}
-Elliptic equations arise naturally in variational problems, in equilibrium models, and as part of evolutionary systems. They also exhibit strong regularity properties: roughly speaking, if $Pu=f$ and $P$ is elliptic of order $K$, then one expects $u$ to be more regular than $f$ by $K$ derivatives.
-\end{remark}
-
-\begin{example}[Pressure equation for incompressible Euler]
-Let $u:\R_t\times\R^3\to\R^3$ satisfy the incompressible Euler equations
-\[
-\begin{cases}
-\partial_t u + u\cdot \nabla u + \nabla p = 0,\\
-\nabla\cdot u = 0.
-\end{cases}
-\]
-Taking divergence of the first equation and using $\nabla\cdot u=0$ leads to an elliptic equation for the pressure,
-\[
--\Delta p = \nabla\cdot (u\cdot \nabla u).
-\]
-Thus an elliptic problem appears naturally inside a fluid evolution equation.
-\end{example}
-
-\subsection{Boundary value problems in the scalar case}
-
-From now on, we mainly consider the scalar case $N=1$, assume $d\geq 2$, and work on a bounded domain $U\subset\R^d$ with sufficiently regular boundary. For second-order elliptic equations, the most important boundary value problem is the Dirichlet problem
-\[
-\begin{cases}
-Pu = f & \text{in }U,\\
-u = g & \text{on }\partial U.
-\end{cases}
-\]
-Here the boundary datum is interpreted through the trace map when $u\in H^1(U)$.
-
-A standard reduction shows that it is enough to study the homogeneous boundary condition $u|_{\partial U}=0$. Indeed, if $\widetilde g$ is any extension of the boundary datum $g$ with the appropriate regularity, then setting $v=u-\widetilde g$ reduces the problem to
-\[
-\begin{cases}
-Pv = \widetilde f & \text{in }U,\\
-v = 0 & \text{on }\partial U.
-\end{cases}
-\]
-Thus the study of the general Dirichlet problem reduces to the zero-boundary case.
-
-\subsection{Divergence form operators}
-
 \begin{definition}[Divergence form operator]
 Let $U\subset\R^d$ be open. A second-order operator is said to be in \emph{divergence form} if
 \[
-Pu = -\partial_i(a_{ij}\partial_j u) + \partial_i(b_i u) + cu,
+Pu = -\partial_i(a^{ij}\partial_j u) + \partial_i(b^i u) + cu,
 \]
-where $a_{ij}$, $b_i$, and $c$ are coefficient functions.
-\end{definition}
-
-\begin{remark}
-The minus sign in front of the principal part is chosen so that, under ellipticity assumptions, the operator is coercive at the level of energy estimates. This convention is standard in elliptic theory and is especially convenient for the Dirichlet problem.
-\end{remark}
+where $a^{ij}$, $b^i$, and $c$ are coefficient functions.
 
 If the coefficients are smooth enough, one may expand the operator into non-divergence form:
 \[
-Pu = -a_{ij}\partial_i\partial_j u + \bigl(b_i-\partial_j a_{ij}\bigr)\partial_i u + (\partial_i b_i + c)u.
+Pu = -a^{ij}\partial_i\partial_j u + \bigl(b^i-\partial_j a^{ij}\bigr)\partial_i u + (\partial_i b^i + c)u.
 \]
 
-\section{A priori estimates and solvability}
+\end{definition}
+
 \subsection{An $H^1$ a priori estimate}
 
 The basic tool in existence and uniqueness theory is an a priori estimate.
@@ -140,9 +60,9 @@ u = 0 & \text{on }\partial U,
 \]
 where
 \[
-Pu = -\partial_i(a_{ij}\partial_j u) + \partial_i(b_i u) + cu.
+Pu = -\partial_i(a^{ij}\partial_j u) + \partial_i(b^i u) + cu.
 \]
-Assume that $P$ is uniformly elliptic, that $a_{ij},b_i,c$ are smooth, and that $b,c\in L^\infty(U)$ with
+Assume that $P$ is uniformly elliptic, that $a^{ij},b^i,c$ are smooth, and that $a,b,c\in L^\infty(U)$ with
 \[
 \norm{b}_{L^\infty(U)} + \norm{c}_{L^\infty(U)} \leq A.
 \]
@@ -151,26 +71,50 @@ Then there exist constants $C>0$ and $\gamma\geq 0$ such that
 \norm{u}_{H^1(U)} \leq C\norm{f}_{H^{-1}(U)} + \gamma \norm{u}_{L^2(U)}.
 \]
 \end{theorem}
-
-This estimate shows that, up to a lower-order $L^2$ term, the $H^1$ norm of a solution is controlled by the size of the forcing term in $H^{-1}$.
-
-\subsection{Mapping property and the adjoint operator}
-
-Under the assumptions $a_{ij},b_i,c\in L^\infty(U)$, the operator $P$ defines a bounded linear map
-\[
-P:H^1(U)\to H^{-1}(U).
-\]
-Indeed, the principal part is the distributional derivative of an $L^2$ function, while the lower-order terms lie in $L^2(U)$ and hence also define elements of $H^{-1}(U)$.
-
-When the Dirichlet condition is imposed, one naturally restricts to
-\[
-P:H_0^1(U)\to H^{-1}(U).
-\]
-The corresponding adjoint operator with respect to the $L^2$ pairing is
-\[
-P^*u = -\partial_j(a_{jk}\partial_k u) - \partial_j(b_j u) + cu,
-\]
-assuming real-valued coefficients. In particular, the same kind of energy estimate applies to $P^*$.
+\begin{proof}
+    For $v \in C^{\infty}_c(U)$, we have
+    \[
+    \begin{aligned}
+    \int_U (Pv)v &= \int_U (-\partial_i(a^{ij}\partial_j v) + \partial_i(b^i v) + cv)v \\
+    &= \int_U a^{ij}(\partial_j v)(\partial_i v) - b^i v(\partial_i v) + cv^2 \\
+    &\geq \int_U \lambda|D v|^2 - vb\cdot Dv + cv^2
+    \end{aligned}
+    \]
+    by the uniform ellipticity of $P$. Notice by Cauchy inequality, we have
+    \[
+    \left\lvert \int_U vb\cdot Dv\right\rvert \leq \int_U |b||v||Dv| \leq A\lVert v\rVert_{L^2(U)}\lVert Dv\rVert_{L^2(U)}
+    \]
+    and
+    \[\int_U cv^2 \leq A\lVert v\rVert_{L^2(U)}^2\]
+    so we have
+    \[
+    \begin{aligned}
+    \left|\int_U (Pv)v\right| + A\lVert v\rVert_{L^2(U)}\lVert Dv\rVert_{L^2(U)} + A\lVert v\rVert_{L^2(U)} &\geq \left|\int_U (Pv)v\right| + \int_U vb\cdot Dv - cv^2\\
+    &\geq \lambda \lVert Dv\rVert_{L^2(U)}^2.
+    \end{aligned}
+    \]
+    Then since $a \in L^{\infty}(U)$, we may let $v$ to approach $u$ in $H^1_0(U)$ and we have
+    \[
+    ||f||_{H^{-1}(U)}||u||_{H^{1}(U)} + A\lVert u\rVert_{L^2(U)}\lVert Du\rVert_{L^2(U)} + A\lVert u\rVert_{L^2(U)}^2 \geq \lambda \lVert Du\rVert_{L^2(U)}^2  
+    \]
+    Then use a furthermore estimation, we have
+    \[
+    ||f||_{H^{-1}(U)}||u||_{H^{1}(U)} + \dfrac A2(t\lVert u\rVert_{L^2(U)}^2 + t^{-1}\lVert Du\rVert_{L^2(U)}^2) + A\lVert u\rVert_{L^2(U)}^2 \geq \lambda \lVert Du\rVert_{L^2(U)}^2 
+    \]
+    for some $t > 0$ and hence
+    \[
+     ||f||_{H^{-1}(U)}||u||_{H^{1}(U)} + A(t/2 + 1)\lVert u\rVert_{L^2(U)}^2 \geq (\lambda - A/2t) \lVert Du\rVert_{L^2(U)}^2.
+    \]
+    Now we have
+    \[
+    (\lambda - A/2t) \lVert u\rVert_{H^1(U)}^2 \leq ||f||_{H^{-1}(U)}||u||_{H^{1}(U)} + [A(t/2 + 1)+(\lambda - A/2t)]\lVert u\rVert_{L^2(U)}^2,
+    \]
+    and denote $C = (\lambda - A/2t)^{-1 } > \lambda^{-1}$ and we have
+    \[
+    \lVert u\rVert_{H^1(U)} \leq C||f||_{H^{-1}(U)} + \gamma\lVert u\rVert_{L^2(U)}
+    \]
+    where $\gamma :=(\lambda-C^{-1})^{-1}A^2/4 + A + 1 $.
+\end{proof}
 
 \subsection{A functional-analytic solvability lemma}
 
@@ -202,17 +146,6 @@ Let $X$ and $Y$ be Banach spaces, and let $P:X\to Y$ be bounded and linear.
 \end{enumerate}
 \end{lemma}
 
-In the elliptic setting one applies this with
-\[
-X=H_0^1(U),
-\qquad
-Y=H^{-1}(U).
-\]
-
-\subsection{The purely divergence-form case}
-
-When the lower-order terms vanish, the $L^2$ term in the a priori estimate can be removed.
-
 \begin{lemma}
 If $b=0$ and $c=0$, so that
 \[
@@ -231,16 +164,18 @@ For every $f\in H^{-1}(U)$, there exists a unique $u\in H_0^1(U)$ such that
 -\partial_j(a_{jk}\partial_k u)=f
 \qquad \text{in }U.
 \]
-\end{theorem}
-
 Thus the homogeneous Dirichlet problem is uniquely solvable in the pure divergence-form case.
+\end{theorem}
+\begin{proof}
+    Let $X = H^1_0(U), Y = H^{-1}(U)$ and notice that they are dual spaces. Applying the above lemma is straight-forward.
+\end{proof}
 
 \subsection{Fredholm alternative for general second-order elliptic operators}
 
-For general lower-order terms, the previous coercive argument is replaced by a Fredholm argument. The key idea is that, after adding a sufficiently large positive multiple of the identity, one obtains an invertible operator, and the remaining part becomes a compact perturbation of the identity.
 
-\begin{lemma}[Fredholm alternative for compact perturbations]
-Let $K:X\to X$ be compact and set $T=I+K$.
+\begin{lemma}[Fredholm alternative for compact perturbations]\ \par
+(a) For $K:X\to Y$, $K$ is compact iff $K^*$ is compact.\par
+(b) Let $K:X\to X$ be compact and set $T=I+K$.
 \begin{enumerate}
     \item $\ker(I+K)$ is finite dimensional.
     \item There exists $n_0\geq 1$ such that
@@ -258,9 +193,6 @@ Let $K:X\to X$ be compact and set $T=I+K$.
     \]
 \end{enumerate}
 \end{lemma}
-
-Applying this principle to the Dirichlet problem yields the following conclusion.
-
 \begin{theorem}[Fredholm alternative for elliptic Dirichlet problems]
 Let $P$ be a second-order scalar elliptic operator on a bounded domain $U$ with $C^1$ boundary. Then exactly one of the following alternatives holds:
 \begin{enumerate}
@@ -287,74 +219,36 @@ is solvable if and only if
 \qquad \text{for all }v\in \ker P^*.
 \]
 \end{theorem}
-
-\begin{remark}
-This theorem shows that a second-order elliptic Dirichlet problem behaves, up to compact errors, like a finite-dimensional linear system: either one has uniqueness and full solvability, or else the only obstruction to solvability is orthogonality to the adjoint kernel.
-\end{remark}
+\begin{proof}
+    Let
+    \[
+    Pu = -\partial_j(a^{jk}\partial_k u)+b^j\partial_j u + cu
+    \]
+    and we will have the energy estimate
+    \[
+    \lVert u\rVert_{H^1_0(U)} \leq C\lVert Pu\rVert_{H^{-1}(U)} + \gamma\lVert u\rVert_{L^2(U)}.
+    \]
+    We consider operator $(P+tI)$, then consider
+    \[
+    \int_U (P+tI)u^2 \geq \lambda\int_U|Du|^2 + \int_U (b\cdot Du)u + (c+t)u^2 \geq \lambda' \left(\int_U |Du|^2 + u^2\right)
+    \]
+    when $t$ is large enough for some $\lambda'$, so we have
+    \[
+    \lVert (P+tI)u\rVert_{H^{-1}(U)}\lVert u\rVert_{H^1_0(U)} \geq \lambda'\lVert u\rVert_{H^1_0(U)}^2
+    \]
+    and hence $(P+tI)^{-1}$ is well-defined on $H^{-1}(U)$ for $t$ large enough. Then we know
+    \[
+    u - t(P+tI)^{-1}u = (P+tI)^{-1}f
+    \]
+    and define the operator
+    \[
+    T: L^2(U) \xrightarrow{\text{naturally}}H^{-1}(U) \xrightarrow{(P+tI)^{-1}} H^1_0(U) \xrightarrow{\text{compact embedding by Rellich-Kondrachov}} L^2(U)
+    \]
+    when $n \geq 3$. Then $T$ is compact and hence $\ker (I + t'T) < \infty$. Let $t' = -t$ and then we know if $Pu = 0$, then $u \in \ker(I+t'T)$ and hence $\ker P$ is finite. By the way, we consider the lemma above and it gives $\ker(I+K^*) $
+\end{proof}
 
 \section{$L^2$-based elliptic regularity}
-\subsection{Interior regularity for the Poisson equation}
-
-A basic principle in elliptic theory is that solutions are more regular than the forcing term. For the Poisson equation
-\[
--\Delta u=f,
-\]
-one expects a gain of two derivatives.
-
-\begin{definition}
-Let $U\subset\R^d$ be open, let $V\Subset U$, and suppose $u$ solves an elliptic equation on $U$. We say that \emph{interior regularity} holds if one can estimate higher Sobolev norms of $u$ on $V$ in terms of the data on $U$.
-\end{definition}
-
-For the Poisson equation, the model estimate is the following: if $f\in H^k(U)$, then one expects
-\[
-\norm{u}_{H^{k+2}(V)} \leq C\norm{f}_{H^k(U)} + C\norm{u}_{L^2(U)}.
-\]
-Similarly, in H\"older spaces one expects estimates of the form
-\[
-\norm{u}_{C^{k+2,\alpha}(V)} \leq C\norm{f}_{C^{k,\alpha}(U)} + C\norm{u}_{L^\infty(U)}.
-\]
-The first type is called $L^2$-based regularity theory, while the second belongs to Schauder theory.
-
-\begin{remark}
-The key idea in $L^2$-based regularity is the energy method: one multiplies the equation by a cutoff function times a suitable derivative of $u$, integrates by parts, and estimates the resulting terms. Because cutoff functions are used, these arguments are intrinsically interior.
-\end{remark}
-
-\begin{theorem}[Interior $H^1$ estimate for Poisson]
-Let $V\Subset U$, and suppose that $u$ solves
-\[
--\Delta u=f
-\qquad \text{in }U,
-\]
-with $f\in L^2(U)$. Then
-\[
-\norm{Du}_{L^2(V)} \leq C\norm{f}_{L^2(U)} + C\norm{u}_{L^2(U)}.
-\]
-\end{theorem}
-
-\begin{theorem}[Interior $H^2$ estimate for Poisson]
-Let $V\Subset W\Subset U$, and suppose that $u$ solves
-\[
--\Delta u=f
-\qquad \text{in }U,
-\]
-with $f\in L^2(U)$. Then
-\[
-\norm{u}_{H^2(V)} \leq C\norm{f}_{L^2(U)} + C\norm{u}_{L^2(U)}.
-\]
-\end{theorem}
-
-\begin{remark}
-The repeated use of nested domains $V\Subset W\Subset U$ is not accidental. Each cutoff function is chosen to be identically $1$ on the smaller set and supported inside the larger one, so that integration by parts produces no boundary terms. When derivatives fall on the cutoff, one needs extra room between the region where norms are measured and the boundary of the ambient domain.
-\end{remark}
-
 \subsection{Interior $H^2$ regularity for general elliptic operators}
-
-Consider the divergence-form elliptic operator
-\[
-Pu = -\partial_j(a_{jk}\partial_k u) + b_j\partial_j u + cu,
-\]
-where $a(x)\geq \lambda I$ for some $\lambda>0$ and where the coefficients are bounded. To obtain $H^2$ control, one also assumes enough regularity on the coefficients, typically $\partial a\in L^\infty(U)$.
-
 \begin{theorem}[$H^2$ elliptic regularity]
 Let $u\in H^1(U)$ be a weak solution of
 \[
@@ -368,10 +262,9 @@ u\in H^2(V)
 \norm{u}_{H^2(V)} \leq C\bigl(\norm{f}_{L^2(U)} + \norm{u}_{L^2(U)}\bigr).
 \]
 \end{theorem}
-
-\begin{remark}
-At the formal level, the proof follows the same pattern as for the Poisson equation. However, because one does not yet know that $u$ has second derivatives, one commutes the equation with difference quotients rather than with classical derivatives.
-\end{remark}
+\begin{proof}
+    
+\end{proof}
 
 \begin{definition}
 Fix $k\in\{1,\dots,d\}$ and $h\in\R\setminus\{0\}$. The \emph{difference quotient} in the $e_k$ direction is defined by
