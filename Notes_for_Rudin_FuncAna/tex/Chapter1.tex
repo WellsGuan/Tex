@@ -1,0 +1,392 @@
+\chapter{}
+
+\begin{quotation}
+m.s. for measure space\par
+mrb. for measurable\par
+t.v.s. for a topological vector space
+\end{quotation}
+
+\section{Topological Vector space}
+
+\begin{definition}
+    A vector space $X$ is said to be a normed space if to every $x\in X$ there is associated a nonnegative real number $||x||$ such that\par
+    a. $||x+y|| \leq ||x||+||y||, x,y\in X$\par
+    b. $||\alpha x|| = |\alpha|||x||$ if $x\in X$ and $\alpha$ is scalar\par
+    c. $||x||>0$ if $x\neq 0$.\par
+    A Banach space is a complete normed space. 
+\end{definition}
+
+\begin{definition}
+    Suppose $\tau$ is a topology on a vector space $X$ such that\par
+    a. every point of $X$ is a closed set, and\par
+    b. the vector space operations are continuous w.r.t. $\tau$
+\end{definition}
+
+\begin{proposition}
+    Let $X$ be a topological vector space. For $a\in X, \lambda \neq 0$, define the translation operator $T_a$ and the multiplication operator $M_{\lambda}$ by
+    \[
+    T_a(x) = a+x, M_{\lambda}(x) = \lambda x
+    \]
+    then $T_a$ and $M_{\lambda}$ are homeomorphisms of $X$ onto $X$.
+\end{proposition}
+It can be induced by the continuity of addition and multiplication, also that of inverse.
+
+\begin{definition}
+    By the proposition above, we know every vector space topology $\tau$ is translation-invariant, i.e. a set $E\subset X$ is open iff $a+E$ is open for any $a\in X$.\par
+    The local base means a collection $\mathscr{B}$ of neighbourhoods of $0$ such that every neighborhood of $0$ contains a member of $\mathscr{B}$, so the open sets of $X$ will be the unions of translates of members of $\mathscr{B}$.\par
+    A metric $d$ on a vector space $X$ will be called invariant if $d(x+z,y+z) = d(x,y)$ for any $x,y,z\in X$.\par
+    A subset $E$ of a topological space is said to be bounded if to every neighborhood $V$ of $0$ in $X$, there is a number $s>0$ such that $E\subset tV$ for any $t>s$.
+\end{definition}
+
+\begin{definition}
+    In the following definitions, $X$ always denotes a topological vector space, with topology $\tau$.\par
+    a. $X$ is locally convex if there is a local base $\mathscr{B}$ whose members are convex.\par
+    b. $X$ is locally bounded if $0$ has a bounded neighbourhood.\par
+    c. $X$ is locally compact if $0$ has a neighborhood whose closure is compact.\par
+    d. $X$ is metrizable if $\tau$ is compatible with some metric $d$.\par
+    e. $X$ is an $F$-space if its topology $\tau$ is induced by a complete invariant metric $d$.\par
+    f. $X$ is a Frechet space if $X$ is a locally convex $F$-space.\par
+    g. $X$ is normable if a norm exists on $X$ such that the metric induced by the norm is compatible with $\tau$.\par
+    h. $X$ has the Heine-Borel property if every closed and bounded subset of $X$ is compact.
+\end{definition}
+
+\begin{theorem}
+    Suppose $K$ and $C$ are subsets of a topological vector space $X$, $K$ is compact, $C$ is closed and $K\cap C = \emptyset$. Then $0$ has a neighbor hood $V$ such that
+    \[
+    (K+V)\cap(C+V) = \emptyset
+    \]
+\end{theorem}
+\begin{proof}
+    For any $W$ a neighbourhood of $0$, we may find $U$ a neighbourhood of $0$ such that $U=-U$ and $U+U = W$, by consider there are $V_1,V_2$ neighbourhoods of $0$ such that $V_1+V_2 \subset W$, then let $U = V_1\cap V_2 \cap (-V_1)\cap(-V_2)$, and then we may find $V$ symmetric such that $V+V\subset U$, then $V+V+V+V \subset W$, now we assume $K$ is nonempty, and then for any $x\in K$, we may find $V_x$ such that $x+V_x+V_x+V_x \cap C =\emptyset$ and then $X+V_x+V_x\cap C+V_x$ is empty since $V_x$ is symmetric, then the rest is easy to be checked.
+\end{proof}
+
+\begin{theorem}
+    If $\mathscr{B}$ is a local base for a topological vector sapce $X$, then every member of $\mathscr{B}$ contains the closure of some member of $\mathscr{B}$.
+\end{theorem}
+\begin{proof}
+    For $V\in \mathscr{B}$,  we may find $U\in \mathscr{B}$ such that $U+U\subset V$ and hence $\overline{U} \subset V$.
+\end{proof}
+
+\begin{theorem}
+    Every topological vector space is a Hausdorff space.
+\end{theorem}
+Can be induced by theorem 1.1. directly.
+
+\begin{theorem}
+    Let $X$ be a t.v.s.\par
+    a. If $A\subset X$ then $\overline{A} = \cap (A+V)$ where $V$ runs through all neighbourhoods of $0$.\par
+    b. If $A\subset X$ and $B\subset X$, then $\overline{A} + \overline{B} \subset \overline{A+B}$.\par
+    c. If $Y$ is a subspace of $X$, so is $\overline{Y}$.\par
+    d. If $C$ is a convex subset of $X$, so are $\overline{C}$ and $C^{\circ}$.\par
+    e. If $B$ is a balanced subset of $X$, so is $\overline{B}$; if also $0\in B^{\circ}$ then $B^{\circ}$ is balanced.\par
+    f. If $E$ is a bounded subset of $X$, so is $\overline{E}$.
+\end{theorem}
+\begin{proof}
+    a. It suffices to show that $\cap (A+V)$ is closed, if for any $V$, $x+V \cap A$ nonempty, then if $x\notin A+ U$ then $x - U \cap A$ empty and hence a contradiction. So $x \in \cap (A+V)$ and we are done.\par
+    b. For any $x\in \overline{A}, y \in \overline{B}, V$ a neighbourhood of $0$, we know there exists $U_1,U_2$ neighbourhood of $0$ such that $x+U_1+y+U_2 \subset x+y + V$ and hence $x+y+V \cap A+B \supset (x+U_1+y+U_2) \cap A+B$ is always nonempty and we are done.\par
+    c. If $x,y\in Y$ is an accumulation, then for any $U,V\in\beta$, we know there will be $x_0,y_0 \in Y\cap U, Y\cap V$ then we know $\lambda x_0 + y_0 \in \lambda x_0 + y_0 + \lambda U+ V$, and since hence the problem goes by choosing $U+V$.\par
+    d. We may know that
+    \[tC^{\circ} + (1-t)C^{\circ} \subset C\]
+    and since the left side is open, so it is easy to check that $tC^{\circ} + (1-t)C^{\circ} \subset C^{\circ}$, and we are done.\par
+    Notice $\alpha \overline{A} = \overline{\alpha A}$ and we may know
+    \[
+    t\overline{C} + (1-t)\overline{C} \subset \overline{C}
+    \] 
+    and we are done.\par
+    e. For $0 \leq |\alpha| \leq 1$, we know $\alpha B \subset B$ and hence $\alpha\overline{B} \subset \overline{\alpha B} \subset \overline{B}$. For $0<|\alpha| \leq 1$, we know $\alpha B^{\circ} \subset (\alpha B)^{\circ}$ and $\alpha^{-1}(\alpha B)^{\circ} \subset B$ and hence $\alpha^{-1}(\alpha B)^{\circ} \subset B^{\circ}$ so we know $\alpha B^{\circ} = (\alpha B)^{\circ}$. And then $\alpha B^{\circ} \subset B^{\circ}$ and if $0\in B^{\circ}$, the equality holds for $\alpha =0 $.\par
+    f.For any $V$, there exists $s>0$ such that $t>s$ implies $E\subset tV$, then we know there exists $W$ such that $\overline{W} \subset V$ and then there exists $s'$ such that $\overline{E}\subset t'\overline{W} \subset t'V$ for any $t'> s'$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    In a topological vector space $X$\par
+    a. every neighbourhood of $0$ contains a balanced neighborhood of $0$\par
+    b. every convex neighborhood of $0$ contains a balanced convex neighbourhood of $0$.
+\end{theorem}
+\begin{proof}
+    a. Suppose $U$ is a neighbourhood of $0$ in $X$. We know there exists $V$ and $\delta > 0$ such that $\alpha V\subset U$ if $|\alpha| < \delta$, then let $W = \bigcup_{|\alpha| <\delta} \alpha V$ and we are done.\par
+    b. Suppose $U$ is a convex neighborhood, consider $V = \cap_{|\alpha = 1|}\alpha U$ and let $W$ be as in (a), then we may check that $W\subset V$, then we know $V$ is balanced by choose $0\leq r \leq 1,|\beta| = 1$ and we have
+    \[
+    r\beta V = \cap_{|\alpha| = 1} r\beta \alpha U = \cap_{|\alpha| = 1}r\alpha U \subset V 
+    \]
+    and hence $V$ balanced, and so is $V^{\circ}$ since which containing $W$ and hence $0$, and it is convex, we are done.
+\end{proof}
+
+\begin{corollary}
+    a. Every topological vector space has a balanced local base.\par
+    b. Every locally convex space has a blanced convex local base.
+\end{corollary}
+
+\begin{theorem}
+    Suppose $V$ is a neighbourhood of $0$ in a topological vector space $X$.\par
+    a. If $0 < r_1<r_2<\cdots$ and $r_n \to \infty$, then
+    \[X = \bigcup_{n=1}^{\infty} r_n V\]\par
+    b. Every compact subset $K$ of $X$ is bounded.\par
+    c. If $\delta_1>\delta_2>\cdots$ and $\delta_n \to 0$, and if $V$ is bounded, then the collection
+    \[\{\delta_n V\}\]
+    is a local base for $X$.
+\end{theorem}
+\begin{proof}
+    a. For $x\in X$ and $V$ a neighbourhood of $0$, since $\alpha \mapsto \alpha x$ is continuous, then we know $\{\alpha, \alpha x \in V\}$ is open and containing $0$, so we may know $(1/r_n)x \in V$ for large $n$ and hence $x\in r_n V$ for some $n$.\par
+    b. We know for any $V$ neighbourhood of $0$, there are finite $r_n$ such that $K \subset \bigcup_{i=1}^n r_i V$.\par
+    c. Let $U$ be a neighbourhood of $0$, then if $V$ is bounded, there exists $s>0$ such that $V\subset tU$ for all $t>s$. Then we know there exists $n$ such that $s\delta_n < 1$ and hence $V\subset (1/\delta_n) U$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    Let $X$ and $Y$ be topological vector spaces. If $\Lambda:X\to Y$ is linear and continuous at $0$, then $\Lambda$ is continuous. In fact, $\Lambda$ is uniformly continuous, i.e. to each neighborhood $W$ of $0$ in $Y$ corresponds a neighborhood $V$ of $0$ in $X$ such that
+    \[y-x \in V \implies \Lambda y - \Lambda x \in W\]
+\end{theorem}
+
+\begin{theorem}
+    Let $\Lambda$ be a linear functional on a topological vector space $X$. Assume $\Lambda \neq 0$ for some $x\in X$. Then each of the following four properties implies the other three\par
+    a. $\Lambda$ is continuous.\par
+    b. $\mathcal{N}(\Lambda)$ is closed.\par
+    c. $\mathcal{N}(\Lambda)$ is not dense in $X$.\par
+    d. $\Lambda$ is bounded in some neighborhood $V$ of $0$.
+\end{theorem}
+\begin{proof}
+    (a) implies (b) is trivial. (b) implies (c) is trivial. Now we consider (c) implies (d), we know there exists $x$ and $V$ balanced such that
+    \[(x+V)\cap \mathcal{N}(\Lambda) = \emptyset\]
+    since $\Lambda V$ is a balanced subset, so $\Lambda V$ is bounded or $\Lambda V = K$ since it is balanced. Then we know if $\Lambda V = K$, there is $y$ such that $\Lambda y = -\Lambda x$ and then $x+y \in \mathcal{N}(\Lambda)$, which is a contradiction.\par
+    (c) implies (d) is trivial.
+\end{proof}
+
+\begin{lemma}
+    If $X$ is a complex topological vector space and $f:\C^n \to X$ is linear, then $f$ is continuous.
+\end{lemma}
+\begin{proof}
+    Let $e_i$ be the standard basis of $\C^n$ and let $u_i = f(e_i)$, then for $z= (z_i) \in C^n$ we know $f(z) = z_1u_1 + \cdots z_nu_n$. And then the continuity is secured by that of addition and scalar multiplication.
+\end{proof}
+
+\begin{theorem}
+    If $n$ is a positive integer and $Y$ is an $n$-dimensional subspace of a complex topological vector space $X$, then\par
+    a. every isomorphism of $\C^n$ onto $Y$ is a homeomorphism and\par
+    b. $Y$ is closed.
+\end{theorem}
+\begin{proof}
+    a. Suppose $f:\C^n \to Y$ is an isomorphism. This means that $f$ is linear, one-to-one, and $f(\C^n) = Y$. Put $K = f(\partial D)$, then we know $K$ is compact since $f$ is continuous, and $f(0) = 0$. So there is a balanced neighborhood $V$ of $0$ in $X$ which does not intersect $K$. Then $f^{-1}(V)$ is therefore disjoint from $S$. Since $f$ is linear, $E$ is balanced and henced connected. So $E\subset D$ and we know $f^{-1}(V\cap Y) \subset D$, so we know $f^{-1}$ is continuous by theorem 1.8.d. \par
+    b. Let $p\in \overline{Y}$ and we know for some $t>0$, $p\in tV$ and then $p$ is in the closure of
+    \[
+    Y\cap (tV) \subset f(tB) \subset f(t\overline{B})
+    \]
+    and then $p\in f(t\overline{B}) \subset Y$.
+\end{proof}
+
+\begin{theorem}
+    Every locally compact topological vector space $X$ has finite dimension.
+\end{theorem}
+\begin{proof}
+    We consider $V$ is a neighbourhood of $0$ and $\overline{V}$ is compact, then we know there exists $x_i$ such that
+    \[
+    \overline{V} \subset \sum (x_i+2^{-1}V)
+    \]
+    and let $Y$ be the subspace generated by $x_i$. We know
+    \[V \subset Y + \dfrac{1}{2}V\]
+    and then we know $\dfrac{1}{2}V\subset Y + \dfrac{1}{4}V$ since $Y$ is a subspace and by induction we know
+    \[
+    V\subset \cap_{n} (Y+2^{-n} V)
+    \]
+    since $V$ is bounded and we know $2^{-n} V$ is a local base and hence $V\subset \overline{Y} = Y$, so then we know $X = \bigcup_{n} nV = Y$ and hence $X$ is finite dimensional.
+\end{proof}
+
+\begin{theorem}
+    If $X$ is a locally bounded topological vector space with the Heine-Borel property, then $X$ has finite dimention.
+\end{theorem}
+\begin{proof}
+    We know there is a neighbourhood $V$ of $0$ is bounded, then we know $\overline{V}$ is bounded and hence compact. So $X$ is locally compact and we are done.
+\end{proof}
+
+\begin{theorem}
+    If $X$ is a topological vector space with a countable local base, then there is a metric $d$ on $X$ such that\par
+    a. $d$ is compatible with the topology of $X$\par
+    b. the open balls centered at $0$ are balanced and\par
+    c. $d$ is invariant\par
+    If $X$ is locally convex, then $d$ can be chosen to satisfy\par
+    d. all open balls are convex.
+\end{theorem}
+\begin{proof}
+    a. We know we may choose balanced local base $V_n$ such that
+    \[V_{n+1}+V_{n+1}+V_{n+1}+V_{n+1} \subset V_n\]
+    when $X$ is locally convex, this local base can be chosen to be convex.\par
+    Let $D$ be the set of all $2$-adic rational numbers $r$ with finite positions to be $1$, let $A(r) = X$ for $r\geq 1$ and
+    \[
+    A(r) = r_1V_1 + \cdots
+    \] 
+    for $0\leq r < 1$
+    and define $f(x) = \inf\{r, x\in A(r)\}$ with $d(x,y) = f(x-y)$, then we know $d$ is a metric by
+    \[A(r)+A(s) \subset A(r+s)\]
+    and then we may know $f(x+y) \leq f(x)+f(y)$. Notice for $x\neq 0$ obviously, there is a $V_{n}$ not containing $x$, and then $f(x) > 0$ and $f(0) = 0$. For $\delta < 2^{-n}$, we may know $B_{\delta}(0) \subset V_n$ and hence $B_{\delta} (0)$ will be a local base of $(x)$. Notice $A(r)$ is balanced, so we know $B$ is balanced and we are done.\par
+    d. If $V_n$ convex, then $A(r)$ convex and we are done.  
+\end{proof}
+
+\begin{definition}
+    a. Suppose $d$ is a metric on a set $X$. $x_n$ is a Cauchy sequence if it is Cauchy under $d$.\par
+    b. For a topological vector space, $x_n$ is Cauchy means for a local base $\mathcal{B}$ and $V\in\mathcal{B}$, there always exists a $N$ such that $x_n-x_m \in V$ if $n,m>N$.\par
+    c. It is easy to check if $\tau$ is compatible to an invariant metric $d$, then a seq is $d$-Cauchy iff it is $\tau$-Cauchy. With corollary thatt $d_1,d_2$ invaiant metrics on a vector space $X$, we know $d_1,d_2$ have the same Cauchy seqs and $d_1$ complete iff $d_2$ complete.
+\end{definition}
+
+\begin{theorem}
+    Suppose that $(X,d_1)$ and $(Y,d_2)$ are metric spaces, and $(X,d_1)$ is complete. If $E$ is a closed set in $X$, $f:E\to Y$ is continuous and
+    \[d_2(f(x'),f(x'')) \geq d_1(x',x'')\]
+    for all $x',x'' \in E$, then $f(E)$ is closed.
+\end{theorem}
+\begin{proof}
+    Choose any accumulation is fine.
+\end{proof}
+
+\begin{theorem}
+    Suppose $Y$ is a subspace of a topological vector space $X$, and $Y$ is an $F$-space. Then $Y$ is a closed subspace of $X$.
+\end{theorem}
+\begin{proof}
+    Let $B_n = \{y:y\in Y, d(y,0) < n^{-1}\}$ amd $U_n$ be a neighbourhood of $0$ in $X$, such that $Y\cap U_n = B_{n}$, and choose symmetric neighrboods $V_n$ of $0$ in $X$ such that $V_n+V_n\subset U_n$ and $V_{n+1}\subset U_{n}$. Then suppose $x\in\overline{Y}$ and $E_n  =Y\cap(x+V_n)$, then if $y_1,y_2\in E_n$, we know $y_1 - y_2 \in U_n$ and hence in $B_{n}$. Then we know $\cap E_n$ is a singelton $\{y_0\}$. By the way, we may consider
+    \[F_n = Y\cap (x+W\cap Y_n)\]
+    and hence $\cap F_n$ is a singleton $y_0$ and then $y_0$ is in all $x+W$, so $y_0  = x$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    a. If $d$ is a translation invariant metricd on a vector space $X$, then
+    \[\d(nx,0) \leq nd(x,0)\]\par
+    b. If $\{x_n\}$ is a seq in a metrizable tvs $X$ and if $x_n \to 0$ as $n\to\infty$, then there are positive scalars $\gamma_n \to \infty$ and $\gamma_n x_n \to 0$.
+\end{theorem}
+\begin{proof}
+    We only prove (b) by considering $n_k \leq n < n_{k+1}$ such that $d(x_{n}, 0) < k^{-2}$.
+\end{proof}
+
+\begin{proposition}
+    Any Cauchy seq is bounded.
+\end{proposition}
+\begin{proof}
+    For any $W$, consider $V$ balanced with $V+V\subset W$, then we may find $N$ such that $x_n - X_N \in V$ and $s>0$ such that $X_N \in sV$, and then $x_n \in sV + V \subset \max{s,1}V \subset \max{s,1}W$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    The following two properties of $E$ in a tvs are equivalent\par
+    a. $E$ is bounded\par
+    b. If $x_n$ is a seq in $E$ and $\alpha_n$ is a seq of scalars such that $\alpha_n \to 0$ as $n\to\infty$, then $\alpha_nx_n \to 0$ as $n\to\infty$.
+\end{theorem}
+\begin{proof}
+    (a) implies (b) is trivial.\par
+    (b) implies (a) find $r_n, V$ such that $r_nV$ does not contain $E$ and there will be a contradiction.
+\end{proof}
+
+\begin{definition}
+    Suppose $X$ and $Y$ are tvss and $\Lambda:X\to Y$ is linear. Then $\Lambda$ is bounded if $\Lambda$ maps bounded sets into bounded sets.
+\end{definition}
+
+\begin{theorem}
+    Suppose $X$ and $Y$ are topological vector spaces and $\Lambda$ is linear. Among the following four properties of $\Lambda$, we have (a)$\implies$(b)$\implies$(c) and if $X$ is metrizable, then also (c)$\implies$(d)$\implies$(a).\par
+    a. $\Lambda$ is continuous\par
+    b. $\Lambda$ is bounded\par
+    c. If $x_n \to 0$, then $\Lambda x_n$ is bounded.\par
+    d. If $x_n \to 0$ then $\Lambda x_n \to 0$. 
+\end{theorem}
+\begin{proof}
+    (a)$\implies$(b), we know that for any bounded $E$, we know for any $V \subset Y$, we have $f^{-1}(V)$ is an open neighbourhood of $0$ in $X$ and there exists $s$ such that $E\subset tf^{-1}V$ for any $t>s$ and then $f(E)\subset tV$ for any $t>s$ and hence $f(E)$ is bounded.\par
+    (b)$\implies$(c), we know $x_n \to 0$ and hence $x_n$ is bounded, and we are done.\par
+    Now we assume that $X$ is metrizable, then we know since $x_n \to 0$, then we may find $\gamma_n \to \infty$ such that $\gamma_nx_n \to 0$ and then $\Lambda(\gamma_nx_n)$ bounded, so $\Lambda x_n\to 0$.\par
+    (d)$\implies$(a), we know for $V$ an neighourhood of $0$ open in $Y$, then if there exists $x_n \in f^{-1}(V)^{c}$ such that $x_n \to 0$, then there will be a contradiction and hence there exists an neighborhood $U$ in $X$ such that $f(U) \subset V$ and we are done by use a union.
+\end{proof}
+
+\begin{definition}
+    A seminorm on a vector space $X$ is a real-valued function $p$ on $X$ such that\par
+    a. $p(x+y) \leq p(x) + p(y)$ and\par
+    b. $p(\alpha x) = |\alpha|p(x)$\par
+    for all $x$ and $y$ in $X$ and all scalars $\alpha = \alpha$.\par
+    A family $P$ of seminorms on $X$ is said to be separating if to each $x\neq 0$ corresponds at least one $p\in P$ with $p(x) \neq 0$.\par
+    Then considering a convex set $A\subset X$ which is absorbing, i.e. for any $x$ there exists some $t = t(x) > 0$ such that $x\in tA$.\par
+    The Minkowski functional $\mu_A$ of $A$ is defined by
+    \[\mu_A(x) = \inf\{t>0, t^{-1}x \in A\}\]
+\end{definition}
+
+\begin{theorem}
+    Suppose $p$ is a seminorm on a vector space $X$. Then\par
+    a. $p(0) = 0$.\par
+    b. $|p(x)-p(y)| \leq p(x-y)$.\par
+    c. $p(x) \geq 0$.\par
+    d. $p(x) = 0$ is a subspace of $X$.\par
+    e. The set $B = \{x,p(x) < 1\}$ is convex, balanced, absorbing, and $p = \mu_B$. 
+\end{theorem}
+\begin{proof}
+    It suffices to show (e). It is obviously $B$ is balanced, absorbing. And since for any $t > p(x)$, we know $p(t^{-1}x) = t^{-1}p(x) < 1$ and hence $\mu_B(x) \leq p(x)$ and similarly we know $\mu_B(x) \geq p(x)$ are we are done.
+\end{proof}
+
+\begin{theorem}
+    Suppose $A$ is a convex absorbing set in a vector space $X$. Then\par
+    a. $\mu_A(x+y) \leq \mu_A(x) + \mu_B(y)$.\par
+    b. $\mu_A(tx) = t\mu_A(x)$ if $t\geq 0$.\par
+    c. $\mu_A$ is a seminorm if $A$ is balanced.\par
+    d. If $B = \{x, \mu_A(x) < 1\}$ and $C = \{x:\mu_A(x) \leq 1\}$, then $B\subset A\subset C$ and $\mu_B = \mu_A = \mu_C$.
+\end{theorem}
+\begin{proof}
+    There is no need to check (a),(b),(c).\par
+    Notice $0 \in A$ and we know for any $x\in X$ and $t>\mu_A(x)$, $t^{-1} \in A$ and and hence $B\subset A \subset C$ and then we know $\mu_B \geq \mu_A \geq \mu_C$. For $x\in X$, choose $s,t$ such that $\mu_C(x) < s < t$ and we know $x/s \in C$ and $\mu_A(x/t) < 1$ and we know $x/t \in B$, so $\mu_B(x) \leq t$ and then $\mu_B(x) \leq \mu_C(x)$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\beta$ is a convex balanced local base in a topological vector space $X$. Associagte to every $V\in\beta$ denote its Minkowski functional $\mu_V$ and then\par
+    a. $V = \{x\in X, \mu_V(x) < 1\}$ for every $V\in\beta$ and\par
+    b. $\{\mu_V, V\in\beta\}$ is a separating family of continuous seminorms on $X$.
+\end{theorem}
+\begin{theorem}
+    a. We know $\{x\in X, \mu_V(x) < 1\} \subset V$ and for any $x\in V$, $x/t \in V$ for some $t\in 1$ since $V$ is open, and then we know $\mu_V(x) < 1$.\par
+    b. We have already know that $\mu_V$ are seminorms and separating since for $x\neq y$, we may find $V$ such that $x-y \notin V$ and then $\mu_V(x-y) \geq 1$. For $r>0$, we know $|\mu_V(x)-\mu_V(y) < r$ if $x-y \in rV$ and hence $\mu_V$ is continuous.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $P$ is a separating famuly of seminorms on a vector space $X$. Associate to each $p\in P$ and to each positive number $n$ the set
+    \[V(p,n) = \{x, p(x)<1/n\}\]
+    Let $\beta$ be the collection of all finite intersections of the sets $V(p,N)$. Then $\beta$ is a convex balanced local baase for a topology $\tau$ on $X$, which turns $X$ into a locally convex space such that\par
+    a. every $p\in P$ is continuous and\par
+    b. a set $E\subset X$ is bounded iff every $p\in P$ is bounded on $E$.
+\end{theorem}
+\begin{proof}
+    Consider the topology to be all unions of translates of members in $\beta$.\par
+    For $x\neq 0$, we know $p(x) > 0$ for some $p\in P$ and hence $\{0\}$ is a closed set and hence all singelton. For $U$ a neighborhood of $0$, we may find $\cap V(p_i,n_i) \subset U$ and hence $V+V\subset U$ where $V = \cap V(p_i,2n_i)$. Also $x\in sV$ for some $s>0$, let $y\in x+tV$ and $|\beta -\alpha| < 1/s$ where $\alpha x\in U$ and $t = s/(1+|\alpha| s)$, we know
+    \[
+    |\beta y - \alpha x| \subset |\beta|tV + |\beta-\alpha|sV \subset V+V\subset U
+    \] 
+    since $|\beta|t\leq 1$ and $V$ balanced. Now we know $(X,\tau)$ is a topological vector space.\par
+    We know that $p$ is continuous by $V(p,n)$ open.\par
+    Now we prove (b), it suffices to show the necessity, which is obvious.
+\end{proof}
+
+\begin{theorem}
+    A tvs $X$ is normable iff its origin has a convex bounded neighborhood.
+\end{theorem}
+\begin{proof}
+    It suffices to show the necessity, $V$ is a convex bounded neighborhood of $0$. Then $V$ containes a convex balanced neighborhood $U$ of $0$ and $U$ is also bounded, define $||x|| = \mu(x)$ where $\mu$ is the Minkowski functional of $U$, then $rU$ form a local base for the topology of $X$. If $x\neq 0$, then $x\in rU$ for some $r>0$ and hence $||x|| > 0$,  then we know $||\cdot||$ is a norm with $\{x,||x|| < 1\} = U$ and we are done.
+\end{proof}
+
+Now we use a proposition to summarize the chapter.
+
+\begin{proposition}
+    Here is a list of some relations between these properties of a topological vector space $X$.\par
+    a. If $X$ is locally bounded, then $X$ has a countable local base.\par
+    b. $X$ is metrizable iff $X$ has a countable local base.\par
+    c. $X$ is normable iff $X$ is locally convex and locally bounded.\par
+    d. $X$ has finite dimension iff $X$ is locally compact.\par
+    e. If a locally bounded space $X$ has the Heine-Borel property, then $X$ has finite dimension.
+\end{proposition}
+\begin{proof}
+    a. $\delta V$ will be a local base.\par
+    b. Consider theorem 1.12.\par
+    c. Consider theorem 1.3.\par
+    d. Consider $|a_i| \leq 1$.\par
+    e. Consider theorem 1.11.
+\end{proof}
+
+\begin{definition}
+    (The spaces $C(\Omega)$) If $\Omega$ is a nonempty open set in $\R^n$, then $\Omega$ is the union of countably many compact sets $K_n \neq \emptyset$ which can be chosen so that $K_n$ lies in the interior of $K_{n+1}$. Then define the topology on $C(\Omega)$ by the seminorms
+    \[p_n(f) = \sup{|f(x)|, x\in K_n}\]
+\end{definition}
+
+\begin{proposition}
+    $C(\Omega)$ is a Frechet space. And $E \subset C(\Omega)$ is bounded iff there are numbers $M_n < \infty$ such that $p_n(f) \leq M_n$ for all $f\in E$. $C(\Omega)$ is not loacally bounded.
+\end{proposition}
+\begin{proof}
+    We may define
+    \[
+    d(f,g) = \max_{n}\dfrac{2^{-n}p_n(f-g)}{1+p_n(f-g)}
+    \]
+    and it is easy to check that $f_i$ converges uniformly on $K_n$ to $f \in C(\Omega)$ and easy to check that $d(f,f_i) \to 0$. And notice $V_n = \{f\in C(\Omega), p_n(f) < n^{-1}\}$.\par
+    A set $E$ is bounded iff there are $M_n$ such that $|f(x)| \leq M_n, x\in K_n$ and since $V_n$ contains $f$ such that $p_{n+1}(f)$ large arbitrarily and we know $C(\Omega)$ is not locally bounded.
+\end{proof}

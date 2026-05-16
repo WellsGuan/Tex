@@ -1,0 +1,417 @@
+\chapter{Distribution theory}
+
+\begin{definition}
+    (The space $\D(\Omega)$)\par
+    Let $\D(\Omega) = \bigcup_{K\subset \Omega, K\text{ compact}}\D_K$.\par
+\end{definition}
+Consider the norms
+\[||\phi||_N = \max\{|D^{\alpha}\phi(x)|, \in \Omega,|\alpha| \leq N\}\]
+for $\phi \in \D(\Omega)$ and we claim the restriction on these norms to any fixed $\D_K$ induce the same topology on $\D_K$ by the seminorms $p_N$. Here we know
+\[
+||\phi_N|| \leq ||\phi_{N+1}||\quad p_N(\phi) \leq p_{N+1}(\phi)
+\]
+and for suffient large $N$, $||\cdot||_N = p_N$ on $\D_K$ and we are done.\par
+For the topology induced by this norms, we know the induced metric is not compact, since consider any $\phi \in \D(\R)$ and let
+\[
+\varphi_m = \sum_{k=1}^m \dfrac{1}{2^k}\phi(x-m)
+\]
+we know the limit exists but does not have compact support, and also the sequence is Cauchy under the metric.
+
+\begin{definition}
+    Let $\Omega$ be a nonempty open set in $\R^n$\par
+    a. For every compact $K\subset \Omega$, $\tau_K$ denotes the Frechet topology of $\D_K$ induced by the norms.\par
+    b. $\beta$ is the collection of all convex balanced sets $W\subset\D(\Omega)$ such that $\D_K\cap W \in \tau_K$ for every compact  $\subset \Omega$.\par
+    c. $\tau$ is the collection of all unions of sets of the form $\phi+W$ with $\phi \in \D(\Omega)$ and $W\in \beta$. 
+\end{definition}
+
+\begin{theorem}
+    a. $\tau$ is a topology in $\D(\Omega)$ and $\beta$ is a local base for $\tau$.\par
+    b. $\tau$ makes $\D(\Omega)$ into a locally convex topological vector space.
+\end{theorem}
+\begin{proof}
+    a. It suffices to show that for $V_1,V_2 \in \tau$ and $\phi \in V_1\cap V_2$, there is $W \in \beta$ such that
+    \[\phi + W \subset V_1\cap V_2\]
+    We know there is $\phi_i\in\D(\Omega)$ and $W_i\in\beta$ such that
+    \[
+    \phi \in \phi_i + W_i\subset V_i
+    \]
+    Choose $K$ so that $D_K$ contains $\phi_1,\phi_2$ and $\phi$. Since $\D_K\cap W_i$ is open, so we know $\phi-\phi_i \in (1-\delta_i)W_i$ for some $\delta_i > 0$. The convexity of $W_i$ implies therefore that
+    \[\phi - \phi_i + \delta_iW_i\subset (1-\delta_i)W_i+\delta_iW_i = W_i\]
+    so that $\phi+\delta_iW_i \subset \phi_i+W_i \subset V_i$ hence $W = (\delta_1W_1)\cap(\delta_2W_2)$ will satisfiy the requirement.\par
+    Suppose next that $\phi_1,\phi_2$ are distinct elements of $\D(\Omega)$ and put
+    \[W = \{\phi \in \D(\Omega), ||\phi||_0 < ||\phi_1-\phi_2||_0\}\]
+    then we know $W\in\beta$ and $\phi_1$ is not in $W$, so we know singelton will be closed. And $(\phi_1 + \dfrac{1}{2}W)+(\phi_2 + \dfrac{1}{2}W) = (\phi_1+\phi_2)+W$ will show the continuity of addition under $\tau$.\par
+    For any $\phi_0 \in \D(\Omega), W\in\beta$, we know there is always some $\D_K$ containing $\phi_0$ and $W\cap \D_K$ is open in $\D_K$, so there exists $\delta > 0$ such that $\delta \phi_0 \in 2^{-1}W$.\par
+    For
+    \[\alpha \phi - \alpha_0\phi_0 = \alpha(\phi-\phi_0)+(\alpha-\alpha_0)\phi_0\]
+    we know
+    \[
+    \alpha\phi - \alpha_0\phi_0 \in \alpha \alpha cW + 2^{-1}W
+    \]
+    for any $|\alpha - \alpha_0| < \delta$ and $\phi-\phi_0 \in cW$, then we know let $c = 1/2(|\alpha_0|+\delta)$ will be fine.
+\end{proof}
+
+\begin{theorem}
+    a. A convex balanced subset $V$ of $\D(\Omega)$ is open iff $V\subset \beta$.\par
+    b. The topology $\tau_K$ of any $\D_K \subset \D(\Omega)$ coincides with the subspace topology that $\D_K$ inherits from $\D(\Omega)$.\par
+    c. If $E$ is a bounded subset of $\D(\Omega)$, then $E\subset \D_K$ for some $K\subset \Omega$ and there are numbers $M_N < \infty$ such that every $\phi \in E$ satisfies the inequalities
+    \[||\phi||_N \leq M_N\]\par
+    d. $\D(\Omega)$ has the Heine-Borel property.\par
+    e. If $\phi_i$ is a Cauchy sequence in $\D(\Omega)$, then $\{\phi_i\} \subset \D_K$ for some compact $K\subset \Omega$ and
+    \[\lim_{i,j\to\infty} ||\phi_i - \phi_j||_N = 0\]\par
+    f. If $\phi_i\to 0$ in the topology of $\D(\Omega)$, then there is a compact $K\subset \Omega$ which contains the support of every $\phi_i$ and $D^{\alpha}\phi_i \to 0$ uniformly.\par
+    g. In $\D(\Omega)$, every Cauchy sequence converges.
+\end{theorem}
+\begin{proof}
+    a. If $V\in \tau$, for $\phi \in \D_K \cap V$, we know $\phi+W \in V$ for some $W\in\beta$ and then
+    \[\phi + (\D_K\cap W) \subset \D_K\cap V\]
+    and hence $\D_K \cap V \in \tau_K$. The opposite direction is trivial.\par
+    b. For any $B = ||\phi||_N < \delta$, we know it is convex and balanced in $\D(\Omega)$ with $B\cap \D_K$ is open in $\D_K$, so we know $\tau_K$ is a subtopology of the subspacce topology inherited from $\D(\Omega)$.\par
+    For any $W$ convex and balanced, we know $W\cap \D_K$ is always open and hence the subspace topology is a subset of $\tau_K$ and we are done.\par
+    c. Consider $E$ bounded but not in $\D_K$ for any $K$, then there are $\phi_m \in E$ wuth $x_m \in \Omega$ with no limit point in $\Omega$ and $\phi_m(x_m) \neq 0$. Let $W$ be the set of $\phi$ such that 
+    \[|\phi(x_m) < m^{-1}|\phi_m(x_m)|\]
+    we know $\D_K \cap W \in \tau_K$ and hence $W\in \beta$, but $\phi_m \in mW$ and hence there is no $rW$ containing $E$.\par
+    Then every bounded $E$ of $\D(\Omega)$ lies in some $\D_K$ and hence for each norm, there exists $M_N$ such that $||\phi||_N \leq M_N$ on $E$.\par
+    d. Follows from $C$.\par
+    e. Since every $\phi_i$ is bounded, we know $\phi\in \D_K$ for some $K$ and hence they are also Cauchy in $\D_K$.\par
+    f. Follows from e.\par
+    g. Follows from $(b),(e)$ and the completeness of $\D_K$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda$ is a linear mapping of $\D(\Omega)$ into a locally convex space $Y$. Then each of the following four properties implies the others\par
+    a. $\Lambda$ is continuous.\par
+    b. $\Lambda$ is bounded .\par
+    c. If $\phi_i \to 0$ in $\D(\Omega)$, then $\Lambda \phi_i \to 0$ in $Y$.\par
+    d. The restrictions of $\Lambda$ to every $\D_K\subset \D(\Omega)$ are continuous.
+\end{theorem}
+\begin{proof}
+    (a) implies (b) follows the conclusion in tvs.\par
+    (b) implies (c), we know $\phi_i$ will be in some $\D_K$ and $\Lambda|_{\D_K}$ is bounded , so $\Lambda \phi_i\to 0$ in $Y$.\par
+    (c) implies (d), for $\phi_i \to 0$ in $\D_K$, we know $\phi_i \to 0$ in $\D(\Omega)$ and then we know $\Lambda$ is continuous by metrilizing $\D_K$.\par
+    (d) implies (a), for any $V$ convex balanced neighborhood of $Y$, we know $\Lambda^{-1}(V)$ is convex and balanced with $\D_K \cap \Lambda^{-1}(V)$ is open, so $\Lambda^{-1}(V)$ is open in $\tau$ and we are done.
+\end{proof}
+
+\begin{corollary}
+    $D^{\alpha}$ is a continuous mapping of $\D(\Omega)\to\D(\Omega)$.
+\end{corollary}
+
+\begin{definition}
+    A linear functional on $\D(\Omega)$ which is continuous is called a distribution.
+\end{definition}
+
+\begin{theorem}
+    If $\Lambda$ is a linear functional on $\D(\Omega)$, the following two conditions are equivalent\par
+    a. $\Lambda \in \D'(\Omega)$.\par
+    b. To every $K\subset \Omega$, corresponds a nonnegative ineger $N$ and $C<\infty$ such that
+    \[|\Lambda \phi| \leq C||\phi_N||\]
+    on $\D_K$.
+\end{theorem}
+\begin{proof}
+    (a) implies (b), if all images of $\{||\phi_N|| < 1\}$ is unbounded on $\D_K$, then we know any images of open set is unbounded, which is a contradiction.\par
+    (b) implies (a), we know $\Lambda$ is continuous on any $\D_K$ by consider the preimage of $(-1,1)$.
+\end{proof}
+
+\begin{definition}
+    If $\Lambda$ is such that one$N$ will do for all $K$, then the smallest $N$ is called the order of $\Lambda$. Else, call $\Lambda$ to have infinite order.\par
+    Then we may define $\delta_x(\phi) = \phi(x)$, and we know $\delta_x$ is a distribution of order $0$.
+\end{definition}
+
+\begin{definition}
+    We define the differentiation of distributions
+    \[(D^{\alpha\Lambda})(\phi) = (-1)^{|\alpha|}\Lambda(D^{\alpha} \phi)\]\par
+    And the multiplication by functions, for $f \in C^{\infty}(\Omega)$ define
+    \[
+    (f\Lambda)(\phi) = \Lambda(f\phi)
+    \]
+    by the Leibniz formula
+    \[
+    D^{\alpha}(fg) = \sum_{\beta \leq \alpha}(D^{\alpha-\beta}f)(D^{\beta }g)
+    \]
+\end{definition}
+
+\begin{definition}
+    For $\D'(\Omega)$, define the topology on it to be the weak*-topology.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\Lambda_i \in \D'(\Omega)$, and $\Lambda \phi = \lim \Lambda_i \phi$ exists for every $\phi \in \D(\Omega)$, then $\Lambda \in \D'(\Omega)$ and $D^{\alpha}\Lambda_i \to D^{\alpha}\Lambda$ in $\D'(\Omega)$.
+\end{theorem}
+\begin{proof}
+    It suffices to show $\Lambda \in \D'(\Omega)$. We only need to check that $\Lambda$ is continuous on $\D_K$, since $\D_K$ is a complete metric space, then we know $\Lambda_i$ is uniformly bounded and hence $\Lambda$ is bounded, so it is continuous.\par
+    For the second conclusion, only need to check that there will be an $N$ and $C$ such that $|D^{\alpha}\Lambda \phi| \leq C||\phi||_{N+|\alpha|}$ for any $K$ compact and hence $D^{\alpha}$ will be continuous as well.
+\end{proof}
+
+\begin{theorem}
+    If $\Lambda_i \to \Lambda$ in $\D'(\Omega)$ and $g_i \to g$ in $C^{\infty}(\Omega)$, then $g_i\Lambda_i \to g\Lambda$ in $\D'(\Omega)$.
+\end{theorem}
+\begin{proof}
+    We need to show that for any $\phi$, $\Lambda_i(g_i \phi) \to \Lambda(g\phi)$, which can be seen by
+    \[
+    |\Lambda_i(g_i \phi) - \Lambda(g\phi)| \leq |\Lambda_i((g_i-g)\phi)| + |\Lambda_i(g\phi) - \Lambda(g\phi)|
+    \]
+    since $\Lambda_i$ is uniformly bounded as a map from $\D_K \to R$, and then we know for any $\epsilon > 0$, there exists $W$ a neighbourhood of $0$ such that $\Lambda_i(W) \in (-\epsilon,\epsilon)$ for any $i$, so let $i$ large enough let $(g_i-g)\phi \in W$ and we are done. 
+\end{proof}
+
+\begin{definition}
+    Suppose $\Lambda_i\in \D'(\Omega)$ and $\omega$ is an open subset of $\Omega$, then $\Lambda_1 = \Lambda_2$ on $\omega$ means $\Lambda_1 \phi = \Lambda_2 \phi$ for every $\phi \in \D(\omega)$.
+\end{definition}
+
+\begin{theorem}
+    If $\Gamma$ is a collection of open sets in $\R^n$ whose union is $\Omega$ then there exists a sequence $\phi_i \in \D(\Omega)$ with $\phi_i \geq 0$, such that\par
+    a. each $\phi_i$ has its support in some member of $\Gamma$\par
+    b. $\sum\limits_{i=1}^{\infty} \phi_i = 1$ for every $x\in \Omega$\par
+    c. to every compact $K\subset\Omega$ correspond an integer $m$ and an open set $W\supset K$ such that
+    \[\phi_1(x) + \cdots \phi_m(x) = 1\]
+    for all $x\in W$.\par
+    Such $\phi_i$ is called a locally finite partition of unity in $\Omega$.
+\end{theorem}
+\begin{proof}
+    Let $S$ be a countable dense subset of $\Omega$. Let $B_i$ be all the closed ball $B_i$ with center in $S$ and with rational radius such that it will lie in some member of $\Gamma$. Let $V_i$ be the open ball with center $p_i$ and radius $r_i/2$ where $r_i$ was assume to be sufficent close to $\max d(p_i, \omega^c)$, such that $\bigcup_{i} V_i = \Omega$.\par
+    Then we know there are $\phi_i \in \D(\Omega)$ such that $0\leq \phi 1$ and $\phi_i = 1$ in $V_i$ and $0$ outside of $B_i$ define $\varphi_1 = \phi_1$ and inductively
+    \[
+    \varphi_{i=1} = (1-\phi_1)\cdots(1-\phi_i)\phi_{i+1}
+    \]
+    and then we know $\varphi_i = 0$ outside of $B_i$ and
+    \[
+    \varphi_1 + \cdots \varphi_i = 1 - (1-\phi_1)\cdots(1-\phi_i)
+    \] 
+    which equals to $1$ for $ x \in V_1\cup \cdots \cup V_m$. For compact set, we know $K\subset \bigcup_{1\leq i \leq m}V_i$ for some $m$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Gamma$ is an open cover of an open set $\Omega \subset \R^n$ and suppose that to each $\omega \in \Gamma$ corresponds a distribution $\Lambda_{\omega} \in \D'(\omega)$ such that
+    \[
+    \Lambda_{\omega_1} = \Lambda_{\omega_2}
+    \]
+    on $\omega_1\cap\omega_2$ for $\omega_1,\omega_2\in \Gamma$ with nonemptyset disjoint. Then there exists a unique $\Lambda \in \D'(\Omega)$ such that $\Lambda = \Lambda_{\omega}$ on $\omega$ for every $\omega \in \Gamma$.
+\end{theorem}
+\begin{proof}
+    Let $\phi_i$ be a locally finite partition of unity w.r.t. $\Gamma$ and we know there exists $\omega_i$ containing the suppose of $\phi_i$, if $f \in \D(\Omega)$, then $f = \sum\limits_{n\geq 0}\phi_n f$ and define
+    \[
+    \Lambda f = \sum_{n\geq 0}\Lambda_{\omega_i}(\phi_i f)
+    \]
+    then we know $\Lambda \in \D'(\Omega)$ easily. For any $h \in \D(\omega)$, we know $\phi_ih\in\D(\omega_i\cap \omega)$ so
+    \[
+    \Lambda h = \sum\Lambda_{\omega_i}(\phi_ih) = \Lambda_{\omega}(\sum \phi_i h) = \Lambda_{\omega}(h)
+    \]
+    and we are done. The uniqueness is easy to be checked.
+\end{proof}
+
+\begin{definition}
+    Suppose $\Lambda \in \D'(\Omega)$, if $\omega$ is a open subset of $\Omega$ and if $\Lambda \phi = 0$ for every $\phi \in \D(\Omega)$, we say $\Lambda$ vanished in $\omega$. Let $W$ be the union of all open subset of $\Omega$ where $\Lambda$ vanished on, and $W^c$ is the support of $\Lambda$.\par
+    It is easy to check $\Lambda$ vanished in $W$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega)$ and $S_{\Lambda}$ is the support of $\Lambda$.\par
+    a. If the support of some $\phi \in \D(\Omega)$ does not intersect $S_{\Lambda}$, then $\Lambda \phi = 0$.\par
+    b. If $S_{\Lambda}$ is empty, the n $\Lambda = 0$.\par
+    c. If $\varphi \in C^{\infty}(\Omega)$ and $\varphi = 1$ in some open set $V$ containing $S_{}\Lambda$, then $\varphi \Lambda = \Lambda$.\par
+    d. If $S_{\Lambda}$ is a compact subset of $\Omega$, then $\Lambda$ has finite order i.e. there is a constant $C < \infty$ and a nonnegative integer $N$ such that
+    \[
+    |\Lambda \phi| \leq C||\phi||_N
+    \]
+    for any $\phi \in \D(\Omega)$. Then $\Lambda$ extends in a unique way to a continuous linear functional on $C^{\infty}(\Omega)$.
+\end{theorem}
+\begin{proof}
+    (a),(b),(c) trivial.\par
+    (d) If $S_{\Lambda}$ is compact, then we know there exists $\varphi \in \D(\Omega)$ such that $\varphi\Lambda = \Lambda$ and let the support of $\varphi$ to be $K$. Then we know there exists $c_1,N$ such that $|\Lambda \phi| \leq c_1||\phi||_N$ for all $\phi \in \D_K$. And $c_2$ such that $||\varphi\phi|| \leq c_2||\phi||_N$ for every $\phi \in \D(\Omega)$. Then
+    \[
+    |\Lambda \phi| = |\Lambda(\varphi\phi)| \leq c_1c_2||\phi||_N
+    \]
+    for every $\phi \in \D(\Omega)$, then for $f\in C^{\infty}(\Omega)$, define $\Lambda f = \Lambda(\varphi f)$ to be the extension and we know the extension is continuous. However, notice $\D(\Omega)$ is dense in $C^{\infty}(\Omega)$ and then the extension should be unique.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega), p\in \Omega, \{p\}$ is the support of $\lambda$ and $\lambda$ has order $N$. Then there are constants $c_{\alpha}$ such that
+    \[
+    \Lambda = \sum\limits_{|\alpha| \leq N} c_{\alpha}D^{\alpha}\delta_p
+    \]
+    Conversly, it is easy to check that the distribution of the form $(1)$ has $\{p\}$ for its support.
+\end{theorem}
+\begin{proof}
+    Assume $p = 0$ and $\phi \in \D(\Omega)$ such that
+    \[
+    (D^{\alpha})(0) = 0, |\alpha| \leq N
+    \]
+    If $\eta > 0$, there is a compact ball $K\subset \Omega$ centered at $0$ such that
+    \[|D^{\alpha} \phi| \leq \eta\]
+    on $K$ if $|\alpha| = N$, then we claim that
+    \[
+    |D^{\alpha} \phi(x)| \leq \eta n^{N-|\alpha|}|x|^{N-|\alpha|}
+    \]
+    we know 
+    \[|\nabla D^{\beta}| \leq n\cdot \eta n^{N-i}|x|^{N-i}\]
+    by induction and we are done.\par
+    Choose $\varphi \in \D(\R^n)$ which is $1$ in some neighbourhood of $0$ and whose support is in the unit ball $B$ of $\R^n$, define
+    \[
+    \varphi_r(x) = \varphi(x/r)
+    \]
+    and we know
+    \[
+    ||\varphi_r||_N \leq \eta C||\varphi||_N
+    \]
+    for $r$ small enough since $\Lambda$ has order $N$, there is $C_1$ such that $|\Lambda \varphi| \leq C_1||\varphi||_N$ for all $\varphi \in \D_k$ and we know
+    \[
+    |\Lambda \phi| 
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega)$ and $K$ is a compact subset of $\Omega$, then there is a continuous function $f$ in $\Omega$ and $\alpha$ such that
+    \[\Lambda \phi = (-1)^{|\alpha|} \int_{\Omega}f(x)(D^{\alpha}\phi)(x) dx\]
+    for every $\phi \in \D_K$.
+\end{theorem}
+\begin{proof}
+    Firstly assume $K\subset Q$ the unit cube in $\R^n$ and we know
+    \[
+    |\phi| \leq \max_{x\in Q}|(D_i \phi)(x)|
+    \]
+    for $\phi \in \D_Q$, let $T = D_1D_2\cdots D_n$ and we know
+    \[
+    \phi(y) = \int_{x \leq y}(T\phi)(x)dx
+    \]
+    and we know
+    \[
+    ||\phi||_N \leq \max_{x\in Q}|(T^N\phi)| \leq \int_Q|(T^{N+1}\phi)|
+    \]
+    Since $\Lambda \in \D'(\Omega)$, there exists $N$ and $C$ such that
+    \[|\Lambda \phi| \leq C||\phi||_N\]
+    and hence
+    \[
+    |\Lambda| \leq C\int_K|(T^{N+1} \phi)(x)| dx
+    \]
+    Since $T$ is one-to-one on $\D_Q$  and hence $\D_K$, we know $T^{N+1}: D_K \leftrightarrow D_K$ is one-to-one, so we can let $\Lambda_1 T^{N+1}\phi = \Lambda \phi$ for $\phi \in \D_K$ and a linear functional of $\D_K$ with
+    \[
+    |\Lambda_1\phi| \leq C\int_K|\phi|
+    \]
+    for $y$ in the range of $T^{N+1}$ and then we may use the Hahn-Banach to extends $\Lambda_1$ to a bounded linear functional on $L^1(K)$. In other words, there is a bounded Borel function $g$ on $K$ such that
+    \[
+    \Lambda \phi = \Lambda_1T^{N+1}\phi = \int_K g(x)(T^{N+1} \phi)(x)dx
+    \]
+    Define $g(x) = 0$ outside $K$ and let 
+    \[f(y) = \int_{-\infty}^{y_1}\cdots\int_{-\infty}^{y_n}g(x) dx\]
+    then $f$ is continuous and use the integrations by parts we know
+    \[
+    \Lambda \phi = (-1)^n \int_{\Omega}f(x)(T^{N+2}\phi)(x)
+    \]
+\end{proof}
+
+\begin{theorem}
+    Suppose $K$ is compact, $V$ and $\Omega$ are open in $\R^n$ and $K\subset V\subset \Omega$. Suppose also that $\Lambda \in \D'(\Omega)$, that $K$ is the support of $\Lambda$, and that $\Lambda$ has order $N$. Then there exists finitely many continuous functions $f_{\beta}$ in $\Omega$ with supports in $V$ such that
+    \[\Lambda = \sum_{\beta}D^{\beta}f_{\beta}\] 
+\end{theorem}
+\begin{proof}
+    Choose an open $W$ with compact closure, such that $K\subset W, \overline{W}\subset V$, then we lmpw there is a continuous function $f$ in $\Omega$ such that
+    \[\Lambda \phi = (-1)^{|\alpha|} \int_{\Omega}f(x)(D^{\alpha}\phi)(x) dx\]
+    We may multiply $f$ with a continuous function equaling $1$ on $\overline{W}$ with support in $V$.\par
+    Fix $\varphi \in \D(\Omega)$, with support in $W$ such that $\varphi = 1$ on some open set containing $K$, then
+    \[
+    \Lambda \phi = \Lambda(\varphi\phi) = (-1)^{|\alpha|}\int_{\Omega} f\sum_{\beta \leq \alpha}c_{\alpha\beta}D^{\alpha-\beta}\varphi D^{\beta}\phi
+    \]
+    and let $f_{\beta} = (-1)^{\alpha-\beta||}c_{\alpha\beta}f\cdot D^{\alpha-\beta}\varphi$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\Lambda \in \D'(\Omega)$ There exists continuous functions $g_{\alpha}$ in $\Omega$, for each multi-index $\alpha$.\par
+    a. each compact $K\subset \Omega$ intersects the supports of only finitely many $g_{\alpha}$\par
+    b. $\Lambda = \sum D^{\alpha} = \sum_{\alpha} D^{\alpha}g_{\alpha}$.\par
+    If $\Lambda$ has finite order, the n the functions $g_{\alpha}$ can be chosen so that only finitely many are nonzero.
+\end{theorem}
+
+\begin{definition}
+    For $u\in \D$, define
+    \[
+    (\tau_x u)(y) = u(y-x), \check{u}(y) = u(-y) 
+    \]
+    and for $u \in \D'$ Define
+    \[
+    (u*\phi)(x) = u(\tau_x\check{\phi})
+    \]
+    and $\tau_x u(\phi) = u(\tau_{-x}\phi)$ for $u\in\D'$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $u\in\D',\phi,\varphi\in\D$, then\par
+    a. $\tau_x(u*\phi) = (\tau_xu)*\phi = u*(\tau_x\phi)$ for all $x\in \R^n$.\par
+    b. $u*\phi \in C^{\infty}$ and
+    \[D^{\alpha}(u*\phi) = (D^{\alpha} u)*\phi = u*(D^{\alpha} \phi)\]\par
+    c. $u*(\phi*\varphi) = (u*\phi)*\varphi$.
+\end{theorem}
+
+\begin{definition}
+    The term approximate identity on $\R^n$ will denote a sequence of functions $h_j$ of the form
+    \[h_j(x) = j^nh(jx)\]
+    for $h\in \D$ and $\int h = 1$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $h_j$ is an approximate identity on $\R^n, \phi \in \D$ and $u\in \D'$, then\par
+    a. $\lim_{j\to\infty} \phi*j_j = h$ in $\D$.\par
+    b. $\lim_{j\to\infty} u*h_j = u$ in $\D'$.
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    |f-f*h_j|(x) \leq \int |f(x)h_j(t)-f(x-t)h_j(t)|dt \leq \max_{t\in j^{-1}K}|f(x) - f(x-t)| 
+    \]
+    and hence $f*h_j \to f$ uniformly on compact sets, then it is easy to check that $D^{\alpha}(\phi*h_j) \to D^{\alpha \phi}$ uniformly on compact sets.\par
+    It is easy to verify (b) and then any distribution i s a limit in the topology of $\D'$ is a seq of infinitely differentiable functions.
+\end{proof}
+
+\begin{theorem}
+    a. If $u\in\D'$ and
+    \[L\phi = u*\phi\]
+    for $\phi \in \D$, then $L$ is a continuous linear mapping of $\D$ into $C^{\infty}$ which satisfies
+    \[\tau_xL = L\tau_x\]\par
+    b. Conversly, if $L$ is a continuous linear mapping of $\D$ into $C(\R^n)$ and if $L$ satisfies $\tau_x L = L\tau_x$, then there is a unique $u\in\D'$ such that $L\phi = u*\phi$.
+\end{theorem}
+\begin{proof}
+    a. The second equality holds automatically, to prove $L$ is continuous, we only need to show that $L|_{\D_K}$ is continuous, assume $\phi_i \to \phi$ in $\D_K$ and then we know
+    \[
+    |(u*\phi_i)-(u*\phi)|(x) = |u(\tau_x\phi_i - \tau_x\phi)| \to 0
+    \]
+    and
+    \[
+    |D^{\alpha}(u*\phi_i - u*\phi)|(x) = |u*(D^{\alpha}\phi_i - D^{\alpha}\phi)|(x) \to 0 
+    \]\par
+    b. Define $u(\phi) = (L\check{\phi})(0)$ and the rest is easy to be checked.
+\end{proof}
+
+\begin{definition}
+    The convolution of $u$ with compact support and any $\phi\in C^{\infty}$ is define by
+    \[
+    (u*\phi)(x) = u(\tau_x\check{\phi})
+    \]
+\end{definition}
+\begin{theorem}
+    Suppose $u\in\D'$ has compact support, and $\phi \in C^{\infty}$. Then\par
+    a. $\tau_x(u*\phi) = (\tau_x u)*\phi = u*(\tau_x\phi)$ if $x\in\R^n$.\par
+    b. $u*\phi \in C^{\infty}$ and
+        \[D^{\alpha}(u*\phi) = (D^{\alpha}u)*\phi = u*(D^{\alpha}\phi)\]\par
+    If $\varphi \in \D$, then\par
+    c. $u*\varphi \in \D$\par
+    d. $u*(\phi*\varphi) = (u*\phi)*\varphi = (u*\varphi)*\phi$.
+\end{theorem}
+
+\begin{definition}
+    If $u,v\in \D'$ and at least one of there two distributions has compact support, define
+    \[L\phi = u*(v*\phi)\]
+    for $\phi \in \D$, we have $\tau_xL = L\tau_x$ and we will denote $u*v$ to be this distribution.
+\end{definition}
+
+\begin{theorem}
+    Suppose $u \in \D', v\in \D', w\in \D'$\par
+    a. If at leasst one of $u,v$ has compact support, then $u*v = v*u$.\par
+    b. If $S_u, S_v$ are the supports of $u$ and $v$, and if at least one of these is compact, then
+    \[S_{u*v} \subset S_u + S_v\]\par
+    c. If at least two of the supports $S_u,S_v,S_w$ are compact, then
+    \[(u*v)*w = u*(v*w)\]\par
+    d. If $\delta$ is the Dirac measure, then
+    \[
+    D^{\alpha}u = (D^{\alpha}\delta)*u
+    \]\par
+    e. If at least one of the sets $S_u,S_v$ is compact, then
+    \[D^{\alpha}(u*v) = (D^{\alpha}u)*v = u*(D^{\alpha} v)\]
+\end{theorem}

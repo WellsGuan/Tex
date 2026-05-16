@@ -1,0 +1,334 @@
+\section{Basic Concepts in Risk Management}
+
+This chapter sets up the basic probabilistic language of quantitative risk management. The main idea is to start from a portfolio value, define a loss random variable over a fixed horizon, and then measure the upper tail of the resulting loss distribution.
+
+\subsection{Risk Factors and Loss Distributions}
+
+\subsubsection{General Definitions}
+
+Let $(\Omega,\F,\Prob)$ be the probability space on which all random variables are defined. For a portfolio value process $V(s)$ and a fixed horizon $\Delta$, the loss over $[s,s+\Delta]$ is
+\[
+    L_{[s,s+\Delta]}:=-(V(s+\Delta)-V(s)).
+\]
+The sign convention is chosen so that large positive values mean large losses. This is why the upper tail of the loss distribution is the object of interest.
+
+If the horizon $\Delta$ is fixed, it is convenient to use discrete time:
+\[
+    V_t:=V(t\Delta),\qquad
+    L_{t+1}:=-(V_{t+1}-V_t).
+\]
+The distribution of $L_{t+1}$ is called the loss distribution.
+
+The portfolio value is usually represented as a function of time and risk factors:
+\[
+    V_t=f(t,Z_t),qquad
+    Z_t=(Z_{t,1},\ldots,Z_{t,d})^\top.
+\]
+Typical risk factors include log-prices, yields, interest-rate curve factors, volatilities, and log-exchange rates. Define the risk-factor change
+\[
+    X_{t+1}:=Z_{t+1}-Z_t.
+\]
+Then
+\[
+    L_{t+1}
+    =-\left(f(t+1,Z_t+X_{t+1})-f(t,Z_t)\right).
+\]
+Thus, once the current portfolio and the current risk factors are fixed, the loss distribution is induced by the distribution of $X_{t+1}$.
+
+\begin{definition}
+The loss operator at time $t$ is the map $l_{[t]}:\R^d\to\R$ defined by
+\[
+    l_{[t]}(x):=-\left(f(t+1,Z_t+x)-f(t,Z_t)\right).
+\]
+Hence
+\[
+    L_{t+1}=l_{[t]}(X_{t+1}).
+\]
+\end{definition}
+
+If $f$ is differentiable, the first-order approximation of the loss is
+\[
+    L_{t+1}^{\Delta}
+    :=-\left(f_t(t,Z_t)+\sum_{i=1}^d f_{z_i}(t,Z_t)X_{t+1,i}\right),
+\]
+with corresponding linearized loss operator
+\[
+    l_{[t]}^{\Delta}(x)
+    :=-\left(f_t(t,Z_t)+\sum_{i=1}^d f_{z_i}(t,Z_t)x_i\right).
+\]
+This approximation is most reliable for short horizons and for portfolios whose value is nearly linear in the risk factors.
+
+If calendar time is measured in years and $V_t=g(t\Delta,Z_t)$, then the first-order approximation becomes
+\[
+    L_{t+1}^{\Delta}
+    :=-\left(g_s(t\Delta,Z_t)\Delta+
+    \sum_{i=1}^d g_{z_i}(t\Delta,Z_t)X_{t+1,i}\right).
+\]
+For short horizons the time-decay term $g_s(t\Delta,Z_t)\Delta$ is often small and is frequently dropped in practice.
+
+\subsubsection{Conditional and Unconditional Loss Distributions}
+
+Suppose that the risk-factor changes $(X_t)_{t\in\mathbb{N}}$ form a stationary time series with stationary distribution $F_X$. Let
+\[
+    \F_t=\sigma(X_s:s\le t)
+\]
+denote the information available at time $t$. In many time-series models,
+\[
+    F_{X_{t+1}\mid \F_t}\ne F_X.
+\]
+For instance, in GARCH-type models the conditional variance of $X_{t+1}$ depends on past observations. If $(X_t)$ is iid, then the two distributions coincide.
+
+\begin{definition}
+The conditional loss distribution is
+\[
+    F_{L_{t+1}\mid\F_t}(l)
+    =\Prob(l_{[t]}(X_{t+1})\le l\mid\F_t).
+\]
+It describes next-period losses given current information and is particularly relevant for short-horizon market risk.
+\end{definition}
+
+\begin{definition}
+The unconditional loss distribution is obtained by applying $l_{[t]}$ to a generic risk-factor change $X\sim F_X$. It is often more natural for longer horizons, credit risk, and insurance applications.
+\end{definition}
+
+Risk management based on conditional distributions is often called dynamic risk management. Risk management based on unconditional distributions is often called static risk management.
+
+\subsubsection{Mapping of Risks: Examples}
+
+The examples in this section illustrate the same modelling step: express the value of a financial position as a function of chosen risk factors, then derive the induced loss.
+
+\begin{example}
+For a fixed portfolio of $d$ stocks with holdings $\lambda_i$, take
+\[
+    Z_{t,i}:=\log S_{t,i},qquad
+    X_{t+1,i}=\log S_{t+1,i}-\log S_{t,i}.
+\]
+Then
+\[
+    V_t=\sum_{i=1}^d \lambda_i e^{Z_{t,i}}
+    =\sum_{i=1}^d \lambda_i S_{t,i},
+\]
+and
+\[
+    L_{t+1}
+    =-\sum_{i=1}^d \lambda_i S_{t,i}(e^{X_{t+1,i}}-1).
+\]
+The linearized loss is
+\[
+    L_{t+1}^{\Delta}
+    =-\sum_{i=1}^d \lambda_i S_{t,i}X_{t+1,i}.
+\]
+If $w_i=\lambda_iS_{t,i}/V_t$, the relative linearized loss is
+\[
+    \frac{L_{t+1}^{\Delta}}{V_t}
+    =-\sum_{i=1}^d w_iX_{t+1,i}.
+\]
+\end{example}
+
+\begin{example}
+For a European call option, the value can be written as a pricing function of the underlying log-price, time, interest rates, and possibly volatility. The first-order term in the underlying price is the usual delta exposure. For nonlinear portfolios, especially option books, a first-order approximation may be insufficient and delta-gamma approximations are often used.
+\end{example}
+
+\begin{example}
+For a bond portfolio, the risk factors may be yields at selected maturities or lower-dimensional curve factors. The loss is obtained by repricing the bonds after moving these yield-curve factors. The example emphasizes that the choice of risk factors is already a modelling decision.
+\end{example}
+
+\begin{example}
+For currency forwards, the risk factors include the spot exchange rate and the relevant domestic and foreign interest rates. Such positions show that risk mapping may combine market prices and discounting factors.
+\end{example}
+
+\begin{example}
+For a stylized portfolio of risky loans, a typical loss representation is
+\[
+    L=\sum_{i=1}^m E_i L_i\1_{\{\tau_i\le T\}},
+\]
+where $E_i$ is exposure, $L_i$ is loss-given-default, and $\tau_i$ is the default time. The main modelling issues are default probabilities, recovery rates, and dependence between defaults.
+\end{example}
+
+\subsection{Risk Measurement}
+
+A risk measure summarizes a loss distribution by a single number. In applications this number may be used for regulatory capital, margin requirements, internal limits, capital allocation, or performance measurement. Abstractly, a risk measure is a map
+\[
+    \rho:\mathcal{M}\to\R
+\]
+from a class of loss random variables into real numbers.
+
+\subsubsection{Approaches to Risk Measurement}
+
+The chapter distinguishes several practical approaches.
+
+\begin{enumerate}
+    \item Notional amount methods look only at face values. They are simple but crude.
+    \item Sensitivity methods use local exposures such as duration, delta, or gamma.
+    \item Scenario methods evaluate losses under specified market moves.
+    \item Loss-distribution methods model the full distribution of losses and then apply a tail functional such as VaR or expected shortfall.
+\end{enumerate}
+
+The loss-distribution approach is the most coherent framework for QRM because it keeps the dependence structure and the tail behaviour explicit.
+
+\subsubsection{Value-at-Risk}
+
+\begin{definition}
+For a distribution function $F$, the generalized inverse is
+\[
+    F^{\leftarrow}(\alpha):=\inf\{x\in\R:F(x)\ge \alpha\},
+    \qquad 0<\alpha<1.
+\]
+\end{definition}
+
+\begin{definition}
+Let $L$ have distribution function $F_L$. The Value-at-Risk at confidence level $\alpha$ is
+\[
+    \VaR_\alpha(L):=F_L^{\leftarrow}(\alpha)
+    =\inf\{l\in\R:\Prob(L\le l)\ge \alpha\}.
+\]
+Equivalently, it is the smallest threshold such that
+\[
+    \Prob(L>\VaR_\alpha(L))\le 1-\alpha.
+\]
+\end{definition}
+
+If $L\sim N(\mu,\sigma^2)$, then
+\[
+    \VaR_\alpha(L)=\mu+\sigma\Phi^{-1}(\alpha).
+\]
+If $L=\mu+\sigma T_\nu$ with $T_\nu$ Student $t$, then
+\[
+    \VaR_\alpha(L)=\mu+\sigma t_\nu^{-1}(\alpha).
+\]
+At high confidence levels, heavy-tailed models produce larger VaR than Gaussian models.
+
+\subsubsection{Comments on VaR}
+
+VaR is attractive because it is easy to state: with confidence $\alpha$, the loss over the horizon should not exceed $\VaR_\alpha$. Its weakness is that it only reports a quantile. It does not measure the average size of losses beyond the quantile.
+
+Another issue is aggregation. VaR is not always subadditive; in general one may have
+\[
+    \VaR_\alpha(L_1+L_2)>
+    \VaR_\alpha(L_1)+\VaR_\alpha(L_2).
+\]
+Thus VaR can fail to reward diversification. The coherent-risk-measure framework is developed later in the book.
+
+\subsubsection{Expected Shortfall}
+
+\begin{definition}
+For a continuous loss distribution, the expected shortfall at confidence level $\alpha$ is
+\[
+    \ES_\alpha(L)
+    :=\E[L\mid L\ge \VaR_\alpha(L)].
+\]
+More generally, it can be written as the quantile average
+\[
+    \ES_\alpha(L)
+    :=\frac{1}{1-\alpha}\int_\alpha^1 \VaR_u(L)\,du.
+\]
+\end{definition}
+
+Expected shortfall measures the average tail loss beyond VaR. If $L\sim N(\mu,\sigma^2)$ and $q_\alpha=\Phi^{-1}(\alpha)$, then
+\[
+    \ES_\alpha(L)
+    =\mu+\sigma\frac{\phi(q_\alpha)}{1-\alpha}.
+\]
+Compared with VaR, ES uses more information about the tail and is better suited for measuring the severity of extreme losses.
+
+\subsection{Standard Methods for Market Risks}
+
+The standard short-horizon market-risk problem is to estimate risk measures for
+\[
+    L_{t+1}=l_{[t]}(X_{t+1}).
+\]
+The key modelling choice is how to estimate the distribution of $X_{t+1}$ and whether the distribution is conditional on current information.
+
+\subsubsection{Variance-Covariance Method}
+
+Assume that the loss is approximated by a linear form
+\[
+    L_{t+1}^{\Delta}=a_t+b_t^\top X_{t+1},
+\]
+and that
+\[
+    X_{t+1}\sim N_d(\mu,\Sigma).
+\]
+Then
+\[
+    L_{t+1}^{\Delta}\sim
+    N(a_t+b_t^\top\mu,; b_t^\top\Sigma b_t).
+\]
+Let
+\[
+    m_t=a_t+b_t^\top\mu,qquad
+    s_t^2=b_t^\top\Sigma b_t.
+\]
+Then
+\[
+    \VaR_\alpha(L_{t+1}^{\Delta})
+    =m_t+s_t\Phi^{-1}(\alpha),
+\]
+and
+\[
+    \ES_\alpha(L_{t+1}^{\Delta})
+    =m_t+s_t\frac{\phi(\Phi^{-1}(\alpha))}{1-\alpha}.
+\]
+The method is fast and transparent, but it relies on linearization and Gaussian assumptions.
+
+\subsubsection{Historical Simulation}
+
+Historical simulation uses past risk-factor changes
+\[
+    X_{t-n+1},\ldots,X_t
+\]
+as the empirical distribution for the next change. Each historical observation is pushed through the current loss operator:
+\[
+    \hat L_s=l_{[t]}(X_s).
+\]
+The empirical quantile estimates VaR, and the average of tail observations estimates ES. The method avoids parametric distributional assumptions and can preserve nonlinear pricing, but it is limited by the historical window and gives weak information about very high quantiles.
+
+\subsubsection{Monte Carlo}
+
+Monte Carlo methods specify a model for the risk-factor change, simulate
+\[
+    X_{t+1}^{(1)},\ldots,X_{t+1}^{(m)},
+\]
+and compute
+\[
+    L^{(j)}=l_{[t]}(X_{t+1}^{(j)}),qquad j=1,ldots,m.
+\]
+The simulated loss sample is then used to estimate VaR and ES. Monte Carlo is flexible and can handle complicated portfolios and dependence structures, but it introduces model risk and may be computationally expensive for extreme tails.
+
+\subsubsection{Losses over Several Periods and Scaling}
+
+Practitioners often scale one-day risk measures to longer horizons. Under iid Gaussian assumptions with zero mean, the standard deviation of an $h$-period cumulative loss scales as $\sqrt{h}$, giving the square-root-of-time rule
+\[
+    \VaR_\alpha^{(h)}\approx \sqrt{h}\,\VaR_\alpha^{(1)}.
+\]
+This rule is fragile. Serial dependence, conditional heteroscedasticity, heavy tails, nonlinear portfolios, and changing volatility regimes can all make the rule misleading.
+
+\subsubsection{Backtesting}
+
+Backtesting compares realized losses with previous VaR forecasts. If $\VaR_{\alpha,t}$ is the predicted one-period VaR at time $t$, define
+\[
+    I_{t+1}:=\1_{\{L_{t+1}>\VaR_{\alpha,t}\}}.
+\]
+For a correctly calibrated model,
+\[
+    \Prob(I_{t+1}=1\mid\F_t)=1-\alpha.
+\]
+Hence the number of exceedances should be close to $(1-\alpha)$ times the number of backtesting observations. The timing of exceedances also matters: clustered exceedances suggest that the model fails to capture volatility dynamics.
+
+\subsubsection{Illustrative Example}
+
+The chapter closes by contrasting static and dynamic risk measurement. Static approaches use unconditional loss distributions and therefore give smoother risk estimates. Dynamic approaches condition on current information and respond to the current volatility level. For short-horizon market risk, dynamic methods are often more appropriate when volatility clustering is present.
+
+\subsection{Summary}
+
+The chapter's main pipeline is
+\[
+    X_{t+1}
+    \xrightarrow{\quad l_{[t]}\quad}
+    L_{t+1}
+    \xrightarrow{\quad \rho\quad}
+    \rho(L_{t+1}),
+\]
+where $\rho$ may be $\VaR_\alpha$ or $\ES_\alpha$.
+
+The modelling error can enter at every step: the choice of risk factors, the mapping from factors to losses, the estimation of the loss distribution, and the choice of risk measure.

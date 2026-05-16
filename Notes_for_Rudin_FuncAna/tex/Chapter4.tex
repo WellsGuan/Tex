@@ -1,0 +1,30 @@
+\chapter{Fourier Transform}
+
+\begin{theorem}
+    Suppose $f,g \in L^1(\R^n), x\in \R^n$, then\par
+    a. $(\tau_x f)^{\wedge} = e_{-x}\hat{f}$.\par
+    b. $(e_x f)^{\wedge} = \tau_x\hat{f}$.\par
+    c. $(f*g)^{\wedge} = \hat{f}\hat{g}$.\par
+    d. If $\lambda > 0$ and $h(x) = f(x/\lambda)$, then $\hat{h}(t) = \lambda^n\hat{f}(\lambda t)$.
+\end{theorem}
+
+\begin{definition}
+    (Rapidly decreasing functions)\par
+    The functions $f\in\C^{\infty}$ such that
+    \[
+    \sup_{|\alpha| \leq N}\sup(1+|x|^2)^N|(D_{\alpha} f)(x)| < \infty
+    \]
+    for any $N$, the space is denoted by $\Sch_n$ and the norms defines a locally convex topology.
+\end{definition}
+
+\begin{theorem}
+    a. $\Sch_n$ is a Frechet space.\par
+    b. If $P$ is a polynomial, $g\in \Sch_n$, then
+    \[f\mapsto Pf,\quad f\mapsto gf,\quad f\mapsto D^{\alpha}f\]
+    is a continuous linear mapping of $\Sch_n$ to $\Sch_n$.\par
+    c. If $f\in \Sch_n$ and $P$ is a polynomial, then
+    \[
+    (P(D)f)^{\wedge} = P\hat{f},\quad (Pf)^{\wedge} = P(-D)\hat{f}
+    \]\par
+    d. The Fourier transform is a continuous linear mapping of $\Sch_n$ to $\Sch_n$.quad
+\end{theorem}

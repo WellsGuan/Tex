@@ -1,0 +1,39 @@
+\chapter{Completeness}
+
+\begin{definition}
+    Let $S$ be a topological space, $E\subset S$ is said to be nowhere dense if its closure $\overline{E}$ has an empty interior. The sets of the first category in $S$ are those countable unions of nowhere dense sets.
+\end{definition}
+
+\begin{theorem}
+    If $S$ is either\par
+    a. a complete metric space, or\par
+    b. a locally compact Hausdorff space.\par
+    then the intersection of every countable collection of dense open subsets of $S$ is dense in $S$.
+\end{theorem}
+
+\begin{definition}
+    Suppose $X,Y$ are tvs and $\Gamma$ is a collection of linear mappings from $X$ to $Y$, we say $\Gamma$ is equicontinuous if to every neighbourhood $W$ of $0$ in $Y$ there corresponds a neighborhood $V$ of $0$ in $X$ such that $\Lambda(V) \subset W$ for all $\Lambda\in \Gamma$
+\end{definition}
+
+\begin{theorem}
+    Suppose $X$ and $Y$ are topological vector spaces, $\Gamma $ is an equicontinuous collection of linear mappings from $X$ into $Y$, and $E$ is a bounded subset of $X$. Then $Y$ has a bounded subset $F$ such that $\Lambda(E)\subset F$ for every $\Lambda \in \Gamma$.
+\end{theorem}
+\begin{proof}
+    Let $F$ be the unions of the sets $\Lambda(E)$ for $\Lambda \in \Gamma$. Let $W$ be a neighborhood of $0$ in $Y$, we know there is $V$ neighborhood of $0$ in$X$ such that $\Lambda(V) \subset W$, then we know $F$ is bounded by $E$ is bounded.
+\end{proof}
+
+\begin{theorem}
+    Suppose $X$ and $Y$ are topological vector spaces, $\Gamma$ is a collection of continuous linear mappings from $X$ into $Y$, and $B$ is the set of all $x\in X$ whose orbits \[\Gamma(x) = \{\Lambda x, \Lambda \in \Gamma\}\]are bounded in $Y$.\par
+    If $B$ is of the second category in $X$, then $B = X$ and $\Gamma$ is equicontinuous.
+\end{theorem}
+\begin{proof}
+    Choose balanced neighborhoods $W$ and $U$ of $0$ in $Y$ such that $\overline{U}+\overline{U} \subset W$. Let $E = \bigcap_{\Lambda \in \Gamma}\Lambda^{-1}(\overline{U})$. If $x\in B$, then $\Gamma(x) \subset nU$ for some $n$, and hence $x\in nE$ and hence
+    \[
+    B \subset \bigcup_{n=1}^{\infty} nE
+    \]
+    so we know $E$ is closed and has an interior point $x$, then we know $x - E$ contains a neighborhood $V$ of $0$ in $X$ and then
+    \[\Lambda (V) \subset \Lambda x - \Lambda(E) \subset W
+    \]
+    and hence $\Gamma$ is equicontinuous.\par
+    Then we know $\Gamma$ is uniformly bounded, which means $\Gamma x$ is bounded in $Y$ and hence $B = X$.
+\end{proof}

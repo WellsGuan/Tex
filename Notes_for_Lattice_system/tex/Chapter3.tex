@@ -1,0 +1,23 @@
+\chapter{}
+
+\section{The method of Laplace}
+
+The method is aiming to deal with an asymptotic integral like
+\[\int f(t)^{s}g(t)dt\]
+when $s\to \infty$, with the condition for $f:\R\to\R^+$ and constant $a$ and positive constants $s_0,K,L,M$ and $\mathcal{G}(a,\epsilon_0,s_0,f,K,L,M)$ to be all measurable functions $g$ such that\par
+a. $|g(a)| \leq K$\par
+b. $\sup_{0<|x-a|\leq\epsilon_0} \left|\dfrac{g(x)-g(a)}{x-a}\right| \leq L$\par
+c. $\int f(x)^{s_0}|g(x)|dx \leq M$ then
+
+\begin{theorem}
+    (Laplace) Let $f:\R \to \R^+$ be a function such that for some $a\in \R$ and some positive constants $\epsilon_0,c$ and\par
+    a. $f(x)\leq f(x')$ if $a-\epsilon_0 \leq x \leq x' \leq a$ or $a\leq x'\leq x\leq a+\epsilon_0$.\par
+    b. For all $\epsilon < \epsilon_0$, $\sup_{|x-a|>\epsilon}f(x) \leq f(a) - c\epsilon^2$.\par
+    c. $f(x)$ has two continuous derivatives in $(a-2\epsilon_0,a+2\epsilon_0)$.\par
+    d. $f''(a) < 0$.\par
+    Then for any $g\in \mathcal{G}(a,\epsilon_0,s_0,f,K,L,M) $ we have
+    \[
+    \lim_{s\to \infty}\sqrt{s}f(a)^{-s}\int f(x)^sg(x)dx = \sqrt{-\dfrac{2\pi f(a)}{f''(a)}}g(a)
+    \]
+    and for fixed $a,\epsilon,s_0,K,L,M$ for $g\in \mathcal{G}(a,\epsilon_0,s_0,f,K,L,M)$ the convergence is uniform.
+\end{theorem}
