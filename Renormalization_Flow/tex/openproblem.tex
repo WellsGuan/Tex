@@ -265,3 +265,304 @@ The case for bump IC is a little different, here is the proof.
     
     For general $f$, we may consider $ h = (f-c)^++c $ and $g = (f-c)^-+c$, then we know $h_{\infty} = g_{\infty} = c$ with \[h_{\infty} \geq \lim_{t\to\infty}\sup_xu(t,x) \geq \lim_{t\to\infty}\inf_xu(t,x) \geq g_{\infty}\]
 \end{proof}
+
+\[
+|u_x(t,\cdot)| \sim \epsilon/t
+\]
+\[
+\boxed{
+\|u_x(t,\cdot)\|_{L^2(\mathbb T_L)}
+\le
+\exp\left(
+-\frac12 m\left(\frac{2\pi}{L}\right)^2t
+\right)
+\|u_x(0,\cdot)\|_{L^2(\mathbb T_L)}.
+}
+\]
+\[
+\|u_x(t,\cdot)\|_{L^{\infty}(\mathbb T_L)}
+\le
+\exp\left(
+-\frac12 m\left(\frac{2\pi}{L}\right)^2t
+\right)
+\|u_x(0,\cdot)\|_{L^2(\mathbb T_L)}. \sim \exp( - Ct/\epsilon ^2) \cdot \dfrac1\epsilon \leq \dfrac{\epsilon^2}{t}\dfrac1\epsilon
+\]
+\[
+\lVert u_x\rVert_{L^2}^3 \leq C \lVert u_x\rVert_{L^1}^2\lVert u_{xx}\rVert_{L^2}
+\]
+\[
+\dfrac{d}{dt} \lVert u_x\rVert_{L^2} \leq - C' \lVert u_{xx}\rVert_{L^2} 
+\]
+\[
+u = u_{\infty} + v, v\to 0 \text{ uniformly}
+\]
+\[
+v_t = \dfrac12 u_{\infty}v_{xx}+\dfrac12 vv_{xx}:=f
+\]
+\[
+u = c\Delta u + f
+\]
+\[
+u(t,\cdot) = G_{ct}u_0 + \int_0^t G_{c(t-s)}f(s,\cdot)ds
+\]
+\[
+u_x(t,\cdot) = G_{ct}u_x(0,\cdot) + \int_0^t G_c(t-s)f_x(s,\cdot) ds
+\]
+where
+\[
+f_x = \dfrac12 (v_xv_{xx} + vv_{xxx})
+\]
+
+\begin{proposition}
+    \[
+\textbf{Poincaré inequality on the periodic interval.}
+\]
+
+Let \(\mathbb T_L=\mathbb R/L\mathbb Z\). If \(f\in H^1(\mathbb T_L)\) and
+\[
+\int_{\mathbb T_L} f(x)\,dx=0,
+\]
+then
+\[
+\boxed{
+\int_{\mathbb T_L} f(x)^2\,dx
+\le
+\left(\frac{L}{2\pi}\right)^2
+\int_{\mathbb T_L} f_x(x)^2\,dx.
+}
+\]
+Equivalently,
+\[
+\boxed{
+\|f\|_{L^2(\mathbb T_L)}
+\le
+\frac{L}{2\pi}
+\|f_x\|_{L^2(\mathbb T_L)}.
+}
+\]
+\end{proposition}
+\begin{proof}
+Since \(f\) is \(L\)-periodic, we may write its Fourier series as
+\[
+f(x)=\sum_{k\in\mathbb Z}\widehat f_k e^{2\pi i kx/L},
+\]
+where
+\[
+\widehat f_k
+=
+\frac1L\int_0^L f(x)e^{-2\pi i kx/L}\,dx.
+\]
+The zero-average condition implies
+\[
+\widehat f_0
+=
+\frac1L\int_0^L f(x)\,dx
+=
+0.
+\]
+Hence
+\[
+f(x)=\sum_{k\in\mathbb Z\setminus\{0\}}
+\widehat f_k e^{2\pi i kx/L}.
+\]
+
+Differentiating term by term in the weak sense, we get
+\[
+f_x(x)
+=
+\sum_{k\in\mathbb Z\setminus\{0\}}
+\frac{2\pi i k}{L}
+\widehat f_k e^{2\pi i kx/L}.
+\]
+By Parseval's identity,
+\[
+\int_0^L |f(x)|^2\,dx
+=
+L\sum_{k\in\mathbb Z}|\widehat f_k|^2.
+\]
+Since \(\widehat f_0=0\), this becomes
+\[
+\int_0^L |f(x)|^2\,dx
+=
+L\sum_{k\neq 0}|\widehat f_k|^2.
+\]
+Similarly,
+\[
+\int_0^L |f_x(x)|^2\,dx
+=
+L\sum_{k\neq 0}
+\left|\frac{2\pi k}{L}\right|^2
+|\widehat f_k|^2.
+\]
+For \(k\neq 0\), we have \(k^2\ge 1\). Therefore
+\[
+\left|\frac{2\pi k}{L}\right|^2
+\ge
+\left(\frac{2\pi}{L}\right)^2.
+\]
+It follows that
+\[
+\begin{aligned}
+\int_0^L |f_x(x)|^2\,dx
+&=
+L\sum_{k\neq 0}
+\left|\frac{2\pi k}{L}\right|^2
+|\widehat f_k|^2 \\
+&\ge
+L\sum_{k\neq 0}
+\left(\frac{2\pi}{L}\right)^2
+|\widehat f_k|^2 \\
+&=
+\left(\frac{2\pi}{L}\right)^2
+L\sum_{k\neq 0}|\widehat f_k|^2 \\
+&=
+\left(\frac{2\pi}{L}\right)^2
+\int_0^L |f(x)|^2\,dx.
+\end{aligned}
+\]
+Thus
+\[
+\int_0^L |f(x)|^2\,dx
+\le
+\left(\frac{L}{2\pi}\right)^2
+\int_0^L |f_x(x)|^2\,dx.
+\]
+This proves the desired inequality.
+\end{proof}
+
+\begin{proposition}
+    [Energy Estimation]
+\end{proposition}
+Let
+\[
+p(t,x):=u_x(t,x).
+\]
+Since
+\[
+u_t=\frac12 u u_{xx},
+\]
+we differentiate in \(x\) and obtain
+\[
+p_t
+=
+\partial_x u_t
+=
+\frac12 \partial_x(u u_{xx})
+=
+\frac12 \partial_x(u p_x).
+\]
+Therefore
+\[
+\boxed{
+p_t=\frac12 (u p_x)_x.
+}
+\]
+
+Assume that \(u\) is \(L\)-periodic in \(x\), and let
+\[
+\mathbb T_L=\mathbb R/L\mathbb Z.
+\]
+Since \(p=u_x\), we have
+\[
+\int_{\mathbb T_L} p(t,x)\,dx
+=
+\int_0^L u_x(t,x)\,dx
+=
+u(t,L)-u(t,0)
+=
+0.
+\]
+
+Define the energy
+\[
+E(t):=\int_{\mathbb T_L} p(t,x)^2\,dx.
+\]
+Then
+\[
+\frac{d}{dt}E(t)
+=
+\frac{d}{dt}\int_{\mathbb T_L}p^2\,dx
+=
+2\int_{\mathbb T_L}p p_t\,dx.
+\]
+Using
+\[
+p_t=\frac12 (u p_x)_x,
+\]
+we get
+\[
+\frac{d}{dt}E(t)
+=
+2\int_{\mathbb T_L}p\cdot \frac12 (u p_x)_x\,dx
+=
+\int_{\mathbb T_L}p (u p_x)_x\,dx.
+\]
+By integration by parts and periodicity,
+\[
+\int_{\mathbb T_L}p (u p_x)_x\,dx
+=
+-\int_{\mathbb T_L}p_x u p_x\,dx.
+\]
+Hence
+\[
+\boxed{
+E'(t)
+=
+-\int_{\mathbb T_L}u(t,x)p_x(t,x)^2\,dx.
+}
+\]
+If
+\[
+u(t,x)\ge m>0,
+\]
+then
+\[
+E'(t)
+\le
+-m\int_{\mathbb T_L}p_x(t,x)^2\,dx.
+\]
+By the Poincaré inequality, since \(\int_{\mathbb T_L}p\,dx=0\),
+\[
+\int_{\mathbb T_L}p_x^2\,dx
+\ge
+\left(\frac{2\pi}{L}\right)^2
+\int_{\mathbb T_L}p^2\,dx.
+\]
+Therefore
+\[
+E'(t)
+\le
+-m\left(\frac{2\pi}{L}\right)^2E(t).
+\]
+By Grönwall's inequality,
+\[
+\boxed{
+E(t)
+\le
+\exp\left(
+-m\left(\frac{2\pi}{L}\right)^2t
+\right)E(0).
+}
+\]
+That is,
+\[
+\boxed{
+\int_{\mathbb T_L}u_x(t,x)^2\,dx
+\le
+\exp\left(
+-m\left(\frac{2\pi}{L}\right)^2t
+\right)
+\int_{\mathbb T_L}u_x(0,x)^2\,dx.
+}
+\]
+Equivalently,
+\[
+\boxed{
+\|u_x(t,\cdot)\|_{L^2(\mathbb T_L)}
+\le
+\exp\left(
+-\frac12 m\left(\frac{2\pi}{L}\right)^2t
+\right)
+\|u_x(0,\cdot)\|_{L^2(\mathbb T_L)}.
+}
+\]
