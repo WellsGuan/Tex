@@ -114,6 +114,108 @@ where $|\cdot|$ denotes the Lebesgue measure on $\mathbb{R}^m$ for every $m$.
     \]
 \end{proof}
 
+\begin{theorem}[Poincare Inequality for Periodic Initial Condition Parabolic Equation]\ \par
+Let \(\mathbb T_L=\mathbb R/L\mathbb Z\). If \(f\in H^1(\mathbb T_L)\) and
+\(
+\int_{\mathbb T_L} f(x)\,dx=0,
+\)
+then
+\[
+\int_{\mathbb T_L} f(x)^2\,dx
+\le
+\left(\frac{L}{2\pi}\right)^2
+\int_{\mathbb T_L} f_x(x)^2\,dx.
+\]
+\end{theorem}
+\begin{proof}
+Since \(f\) is \(L\)-periodic, we may write its Fourier series as
+\[
+f(x)=\sum_{k\in\mathbb Z}\widehat f_k e^{2\pi i kx/L},
+\]
+where
+\[
+\widehat f_k
+=
+\frac1L\int_0^L f(x)e^{-2\pi i kx/L}\,dx.
+\]
+The zero-average condition implies
+\[
+\widehat f_0
+=
+\frac1L\int_0^L f(x)\,dx
+=
+0.
+\]
+Hence
+\[
+f(x)=\sum_{k\in\mathbb Z\setminus\{0\}}
+\widehat f_k e^{2\pi i kx/L}.
+\]
+
+Differentiating term by term in the weak sense, we get
+\[
+f_x(x)
+=
+\sum_{k\in\mathbb Z\setminus\{0\}}
+\frac{2\pi i k}{L}
+\widehat f_k e^{2\pi i kx/L}.
+\]
+By Parseval's identity,
+\[
+\int_0^L |f(x)|^2\,dx
+=
+L\sum_{k\in\mathbb Z}|\widehat f_k|^2.
+\]
+Since \(\widehat f_0=0\), this becomes
+\[
+\int_0^L |f(x)|^2\,dx
+=
+L\sum_{k\neq 0}|\widehat f_k|^2.
+\]
+Similarly,
+\[
+\int_0^L |f_x(x)|^2\,dx
+=
+L\sum_{k\neq 0}
+\left|\frac{2\pi k}{L}\right|^2
+|\widehat f_k|^2.
+\]
+For \(k\neq 0\), we have \(k^2\ge 1\). Therefore
+\[
+\left|\frac{2\pi k}{L}\right|^2
+\ge
+\left(\frac{2\pi}{L}\right)^2.
+\]
+It follows that
+\[
+\begin{aligned}
+\int_0^L |f_x(x)|^2\,dx
+&=
+L\sum_{k\neq 0}
+\left|\frac{2\pi k}{L}\right|^2
+|\widehat f_k|^2 \\
+&\ge
+L\sum_{k\neq 0}
+\left(\frac{2\pi}{L}\right)^2
+|\widehat f_k|^2 \\
+&=
+\left(\frac{2\pi}{L}\right)^2
+L\sum_{k\neq 0}|\widehat f_k|^2 \\
+&=
+\left(\frac{2\pi}{L}\right)^2
+\int_0^L |f(x)|^2\,dx.
+\end{aligned}
+\]
+Thus
+\[
+\int_0^L |f(x)|^2\,dx
+\le
+\left(\frac{L}{2\pi}\right)^2
+\int_0^L |f_x(x)|^2\,dx.
+\]
+This proves the desired inequality.
+\end{proof}
+
 \subsection{Matrix Analysis}
 
 \begin{theorem}[Spectral Theorem for Real Symmetric Matrices]\ \par
@@ -154,3 +256,4 @@ A = Q \Lambda Q^T.
     \E\left(\sup_{s,t\in T,s\neq t}\left|\dfrac{\overline{X}_t-\overline{X}_s}{[\rho(t-s)]^q}\right|^k \right) \leq (\delta -q)^{-1}\left(\dfrac{DC}{\delta}\right)^k k^{2H}\Lambda_T(2H-k+k\delta)
     \]
 \end{theorem}
+

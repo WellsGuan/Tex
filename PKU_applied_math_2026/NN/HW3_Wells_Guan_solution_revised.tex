@@ -1,0 +1,259 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{remark}{Remark}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inner}[2]{\left\langle #1,#2\right\rangle}
+
+\title{Mathematical Theory for Deep Neural Networks\\HW3 Solution}
+\author{Wells Guan\\University of Wisconsin--Madison}
+\date{July 8, 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1. Weierstrass approximation and polynomial activations}
+
+Since $\Omega\subset\R^d$ is closed and bounded, it is compact.
+
+\subsection*{(a) Weierstrass Approximation Theorem}
+
+The multivariable Weierstrass Approximation Theorem states that for every
+$f\in C(\Omega)$ and every $\varepsilon>0$, there exists a polynomial
+$p:\R^d\to\R$ such that
+\[
+  \norm{f-p}_{L^\infty(\Omega)}
+  =\sup_{x\in\Omega}|f(x)-p(x)|<\varepsilon.
+\]
+Equivalently, if $\mathcal P(\R^d)$ denotes the set of all real polynomials in
+$d$ variables, then
+\[
+  \overline{\mathcal P(\R^d)|_\Omega}^{\,\norm{\cdot}_{L^\infty(\Omega)}}
+  =C(\Omega).
+\]
+Thus polynomials of arbitrarily high degree are dense in $C(\Omega)$.
+
+\subsection*{(b) Networks with a polynomial activation}
+
+Suppose that $\sigma$ is a polynomial of degree $r$. Consider a network with
+$L$ hidden layers,
+\[
+  x^0=x,
+  \qquad
+  x^{\ell}=\sigma\bigl(W^{\ell-1}x^{\ell-1}+b^{\ell-1}\bigr),
+  \quad \ell=1,\ldots,L,
+\]
+where $\sigma$ is applied componentwise, and with final affine output
+\[
+  f(x)=W^Lx^L+b^L.
+\]
+We show that every component of $x^\ell$ is a polynomial in $x$ of degree at
+most $r^\ell$.
+
+For $\ell=1$, each component of $W^0x+b^0$ is affine, and composition with the
+polynomial $\sigma$ gives a polynomial of degree at most $r$. Suppose that the
+claim holds at layer $\ell$. Then every component of
+\[
+  W^\ell x^\ell+b^\ell
+\]
+is a linear combination of polynomials of degree at most $r^\ell$, and hence
+has degree at most $r^\ell$. Applying $\sigma$ increases the degree by at most
+a factor $r$. Therefore every component of $x^{\ell+1}$ has degree at most
+$r^{\ell+1}$. The claim follows by induction.
+
+Consequently, every function in $\Sigma_{n_{1:L}}^\sigma$ is a polynomial of
+degree at most $r^L$. If
+\[
+  \mathcal P_{r^L}(\Omega)
+  :=\{p|_\Omega:p\text{ is a polynomial of degree at most }r^L\},
+\]
+then
+\[
+  \Sigma_{n_{1:L}}^\sigma\subset \mathcal P_{r^L}(\Omega).
+\]
+The space $\mathcal P_{r^L}(\Omega)$ is finite-dimensional and therefore closed
+in $C(\Omega)$. When $\Omega$ is infinite, $C(\Omega)$ is infinite-dimensional,
+so a finite-dimensional subspace cannot be dense in it. Hence
+\[
+  \overline{\Sigma_{n_{1:L}}^\sigma}^{\,\norm{\cdot}_{L^\infty(\Omega)}}
+  \ne C(\Omega).
+\]
+Therefore a polynomial activation does not have the universal approximation
+property for a fixed finite depth. The point is that width changes the number
+of polynomial terms, but it does not remove the degree bound $r^L$.
+
+\begin{remark}
+If $\Omega$ is a finite set, then $C(\Omega)$ is finite-dimensional and the
+answer may depend on the architecture and the locations of the points. The
+non-density conclusion above is the standard statement for an infinite compact
+domain, in particular for every compact domain with nonempty interior.
+\end{remark}
+
+\section*{Problem 2. Expected error of an empirical average}
+
+Let
+\[
+  \Omega=[0,1],
+  \qquad
+  g_i(x):=g(x,w_i),
+\]
+where $w_1,\ldots,w_n$ are independent random variables with common density
+$\lambda$. We assume that
+\[
+  \E_w\bigl[\norm{g(\cdot,w)}_{L^2(\Omega)}^2\bigr]<\infty,
+\]
+so that the following integrals and expectations are well defined.
+
+\subsection*{(a) Formulas from the definition of expectation}
+
+For every $x\in\Omega$, the mean function is
+\[
+  \mu(x)
+  =\E_w[g(x,w)]
+  =\int_{\R}g(x,t)\lambda(t)\,dt.
+\]
+The joint density of $(w_1,\ldots,w_n)$ is
+\[
+  \lambda_n(t_1,\ldots,t_n)
+  =\prod_{i=1}^n\lambda(t_i).
+\]
+Therefore, by the definition of expectation,
+\begin{align*}
+  &\E_n\left[
+    \norm{\mu-{1\over n}\sum_{i=1}^n g_i}_{L^2(\Omega)}^2
+  \right] \\
+  &\quad=
+  \int_{\R^n}
+  \norm{
+    \mu(\cdot)-{1\over n}\sum_{i=1}^n g(\cdot,t_i)
+  }_{L^2(\Omega)}^2
+  \prod_{i=1}^n\lambda(t_i)\,dt_1\cdots dt_n \\
+  &\quad=
+  \int_{\R^n}\int_0^1
+  \left|
+    \mu(x)-{1\over n}\sum_{i=1}^n g(x,t_i)
+  \right|^2
+  dx\,
+  \prod_{i=1}^n\lambda(t_i)\,dt_1\cdots dt_n.
+\end{align*}
+This is the required integral representation of the expected squared
+$L^2$ error.
+
+\subsection*{(b) Calculation of the expectation}
+
+Set
+\[
+  Y_i:=g_i-\mu.
+\]
+Then $Y_1,\ldots,Y_n$ are independent, identically distributed random elements
+of $L^2(\Omega)$ and
+\[
+  \E_n[Y_i(x)]=0
+\]
+for almost every $x\in\Omega$. Since
+\[
+  \mu-{1\over n}\sum_{i=1}^n g_i
+  =-{1\over n}\sum_{i=1}^nY_i,
+\]
+we have
+\begin{align*}
+  \E_n\left[
+    \norm{\mu-{1\over n}\sum_{i=1}^n g_i}_{L^2(\Omega)}^2
+  \right]
+  &= {1\over n^2}
+  \E_n\left[
+    \norm{\sum_{i=1}^nY_i}_{L^2(\Omega)}^2
+  \right] \\
+  &= {1\over n^2}
+  \sum_{i,j=1}^n
+  \E_n\bigl[\inner{Y_i}{Y_j}_{L^2(\Omega)}\bigr].
+\end{align*}
+For $i\ne j$, independence and the zero-mean property give
+\begin{align*}
+  \E_n\bigl[\inner{Y_i}{Y_j}_{L^2(\Omega)}\bigr]
+  &=\int_0^1\E_n[Y_i(x)Y_j(x)]\,dx\\
+  &=\int_0^1\E_n[Y_i(x)]\E_n[Y_j(x)]\,dx\\
+  &=0.
+\end{align*}
+All diagonal terms are equal. Hence
+\begin{align*}
+  \E_n\left[
+    \norm{\mu-{1\over n}\sum_{i=1}^n g_i}_{L^2(\Omega)}^2
+  \right]
+  &={1\over n}\E_w\bigl[
+    \norm{g(\cdot,w)-\mu}_{L^2(\Omega)}^2
+  \bigr].
+  \tag{1}
+\end{align*}
+It remains to simplify the variance term. Expanding the square,
+\begin{align*}
+  \E_w\bigl[\norm{g(\cdot,w)-\mu}_{L^2(\Omega)}^2\bigr]
+  &=\E_w\bigl[\norm{g(\cdot,w)}_{L^2(\Omega)}^2\bigr]
+    -2\E_w\bigl[\inner{g(\cdot,w)}{\mu}_{L^2(\Omega)}\bigr]
+    +\norm{\mu}_{L^2(\Omega)}^2.
+\end{align*}
+Since $\E_w[g(\cdot,w)]=\mu$,
+\[
+  \E_w\bigl[\inner{g(\cdot,w)}{\mu}_{L^2(\Omega)}\bigr]
+  =\inner{\mu}{\mu}_{L^2(\Omega)}
+  =\norm{\mu}_{L^2(\Omega)}^2.
+\]
+Therefore
+\[
+  \E_w\bigl[\norm{g(\cdot,w)-\mu}_{L^2(\Omega)}^2\bigr]
+  =\E_w\bigl[\norm{g(\cdot,w)}_{L^2(\Omega)}^2\bigr]
+   -\norm{\mu}_{L^2(\Omega)}^2.
+\]
+Substituting this identity into (1) yields
+\[
+  \boxed{
+  \E_n\left[
+    \norm{\mu-{1\over n}\sum_{i=1}^n g_i}_{L^2(\Omega)}^2
+  \right]
+  ={1\over n}\left(
+    \E_w\bigl[\norm{g(\cdot,w)}_{L^2(\Omega)}^2\bigr]
+    -\norm{\mu}_{L^2(\Omega)}^2
+  \right).}
+\]
+Since $\norm{\mu}_{L^2(\Omega)}^2\ge0$, we also have the general upper bound
+\[
+  \E_n\left[
+    \norm{\mu-{1\over n}\sum_{i=1}^n g_i}_{L^2(\Omega)}^2
+  \right]
+  \le {1\over n}
+  \E_w\bigl[\norm{g(\cdot,w)}_{L^2(\Omega)}^2\bigr].
+\]
+Under the normalization
+\[
+  \E_w\bigl[\norm{g(\cdot,w)}_{L^2(\Omega)}^2\bigr]\le1,
+\]
+which is implicit in the last inequality stated in the problem, this becomes
+\[
+  \boxed{
+  \E_n\left[
+    \norm{\mu-{1\over n}\sum_{i=1}^n g_i}_{L^2(\Omega)}^2
+  \right]\le {1\over n}.}
+\]
+Thus the mean squared $L^2$ error of the empirical average decays at the Monte
+Carlo rate $n^{-1}$.
+
+\end{document}

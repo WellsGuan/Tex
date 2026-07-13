@@ -224,443 +224,310 @@ The case for bump IC is a little different, here is the proof.
     \]
 \end{proof}
 
+
 \subsubsection{The value of Weak Solution at Infinity Time}
 
+Before discussing the decay of the spatial derivative, we record the value of the limiting constant in the two model cases.
+
 \begin{theorem}[Limit Value for Periodic IC]
-    The limit
+    In the periodic initial condition case, assume that $u_0$ has period $L$ and satisfies $0<m\leq u_0\leq M$. Then the limiting constant is
     \[
-    u_{\infty} = \exp\left(\dfrac{1}{L}\int^L_0 \ln u_0(y)dy\right)
+    u_{\infty} = \exp\left(\dfrac{1}{L}\int^L_0 \ln u_0(y)dy\right).
     \]
-    in the periodic initial condition case, where $L$ is a period length of $u_0$.
 \end{theorem}
 \begin{proof}
     We consider the value
     \[
-    \Phi(t) = \int_0^L \ln(u(t,y))dy
+    \Phi(t) = \int_0^L \ln(u(t,y))dy.
     \]
-    and then
+    By the equation and periodicity,
     \[
-    \dfrac{d\Phi}{dt} = \int_0^L u^{-1}(t,y)u_t(t,y)dy = \dfrac{1}{2} u_x(t,\cdot)|^L_0 = 0
+    \dfrac{d\Phi}{dt}
+    = \int_0^L u^{-1}(t,y)u_t(t,y)dy
+    = \dfrac{1}{2}\int_0^L u_{yy}(t,y)dy
+    = \dfrac12 u_y(t,y)\big|_0^L=0.
     \]
-    which means $\Phi(t) = \Phi(0) = \int^L_0 \ln u_0(y)dy$ for any $t$, however, by DCT we know
+    Hence $\Phi(t)=\Phi(0)$. Since we already know that $u(t,\cdot)$ converges uniformly to a constant $u_{\infty}$, the dominated convergence theorem gives
     \[
-    \lim_{t\to\infty} \Phi(t) = L \ln u_{\infty}
+    \int_0^L \ln u_0(y)dy
+    =\lim_{t\to\infty}\Phi(t)
+    =L\ln u_{\infty}.
     \]
-    so we have are done.
+    This proves the formula.
 \end{proof}
 
 \begin{theorem}[Limit Value for Bump IC]
-    In the case of step-like initial condition, if we have same sides limits, i.e. $ f(a) = f(b)=:c$,  then limit behavior is consistent even $f$ is merely continuous, and the limit value $u_{\infty} = c$.
+    In the bump case, assume that there exists a constant $c>0$ and a compact set $K\subset \R$ such that
+    \[
+        u_0(x)=c,\qquad x\in \R\setminus K .
+    \]
+    Then the limiting constant is $u_{\infty}=c$.
 \end{theorem}
 \begin{proof}
-    Assume $f$ is nonnegative, we consider the periodic solution $u^{(L)}$ defined by the following initial condition,
+    This is the same limit-at-infinity argument proved above for the step-like initial condition with the same left and right limit. More precisely, one first compares the solution with periodic extensions on $[-L,L]$; their limiting constants are
     \[
-    u_0^{(L)} = u_0\text{ on }[-L,L]\text{ with period length }2L,
+        \exp\left(\dfrac1{2L}\int_{-L}^{L}\ln u_0^{(L)}(y)dy\right),
     \]
-    and then $u_0^{(L)} \geq u_0$ for any $L$ large enough. We know
+    and these constants converge to $c$ as $L\to\infty$. If the bump is not one-sided, we split it into the upper and lower perturbations
     \[
-    u_{\infty}^{(L)} = \exp\left(\dfrac{1}{2L}\int^{L}_{-L} \ln u_0^L(y)dy\right) \to c,\text{ with }L\to\infty
+        h=(u_0-c)^+ +c,
+        \qquad
+        g=c-(u_0-c)^- .
     \]
-    and notice that in this case, by comparsion principle $u_{\infty}^L \geq \lim_{t\to\infty}\sup_xu(t,x) \geq c$ and notice $u\geq c$, so $u_{\infty} = c$. We then use the analogous argument for $f$ nonpostive to show $u_{\infty} = c$ as well.
-    
-    For general $f$, we may consider $ h = (f-c)^++c $ and $g = (f-c)^-+c$, then we know $h_{\infty} = g_{\infty} = c$ with \[h_{\infty} \geq \lim_{t\to\infty}\sup_xu(t,x) \geq \lim_{t\to\infty}\inf_xu(t,x) \geq g_{\infty}\]
+    Then $g\leq u_0\leq h$, and the two comparison solutions with initial data $g$ and $h$ both have limiting constant $c$. The comparison principle therefore gives
+    \[
+        c\leq \liminf_{t\to\infty}\inf_x u(t,x)
+        \leq \limsup_{t\to\infty}\sup_x u(t,x)
+        \leq c.
+    \]
+    Hence $u_{\infty}=c$.
 \end{proof}
 
-\[
-|u_x(t,\cdot)| \sim \epsilon/t
-\]
-\[
-\boxed{
-\|u_x(t,\cdot)\|_{L^2(\mathbb T_L)}
-\le
-\exp\left(
--\frac12 m\left(\frac{2\pi}{L}\right)^2t
-\right)
-\|u_x(0,\cdot)\|_{L^2(\mathbb T_L)}.
-}
-\]
-\[
-\|u_x(t,\cdot)\|_{L^{\infty}(\mathbb T_L)}
-\le
-\exp\left(
--\frac12 m\left(\frac{2\pi}{L}\right)^2t
-\right)
-\|u_x(0,\cdot)\|_{L^2(\mathbb T_L)}. \sim \exp( - Ct/\epsilon ^2) \cdot \dfrac1\epsilon \leq \dfrac{\epsilon^2}{t}\dfrac1\epsilon
-\]
-\[
-\lVert u_x\rVert_{L^2}^3 \leq C \lVert u_x\rVert_{L^1}^2\lVert u_{xx}\rVert_{L^2}
-\]
-\[
-\dfrac{d}{dt} \lVert u_x\rVert_{L^2} \leq - C' \lVert u_{xx}\rVert_{L^2} 
-\]
-\[
-u = u_{\infty} + v, v\to 0 \text{ uniformly}
-\]
-\[
-v_t = \dfrac12 u_{\infty}v_{xx}+\dfrac12 vv_{xx}:=f
-\]
-\[
-u = c\Delta u + f
-\]
-\[
-u(t,\cdot) = G_{ct}u_0 + \int_0^t G_{c(t-s)}f(s,\cdot)ds
-\]
-\[
-u_x(t,\cdot) = G_{ct}u_x(0,\cdot) + \int_0^t G_c(t-s)f_x(s,\cdot) ds
-\]
-where
-\[
-f_x = \dfrac12 (v_xv_{xx} + vv_{xxx})
-\]
+\subsubsection{Decay of the Spatial Derivative}
 
-\begin{proposition}
+Now we turn to the main point. We would like to show that, for the two classes of initial condition above, the spatial derivative has at most the order $t^{-1}$ at large time. In this part we assume the initial condition has enough regularity so that the solution is classical for $t>0$, and we keep the uniform positive bounds
+\begin{equation}\label{eq:decay-positive-bound}
+    0<m\leq u(t,x)\leq M<\infty .
+\end{equation}
+The constants below may depend on $m,M$, the regularity norm of $u_0$, and the period or the size of the compact perturbation, but not on $t$.
+
+\begin{theorem}[Derivative Decay for Periodic IC]\label{thm:periodic-ux-decay}
+    Assume that $u_0$ is positive, bounded, sufficiently smooth, and $L$-periodic. Then there is a constant $C>0$ such that, for all $t\geq 1$,
     \[
-\textbf{Poincaré inequality on the periodic interval.}
-\]
-
-Let \(\mathbb T_L=\mathbb R/L\mathbb Z\). If \(f\in H^1(\mathbb T_L)\) and
-\[
-\int_{\mathbb T_L} f(x)\,dx=0,
-\]
-then
-\[
-\boxed{
-\int_{\mathbb T_L} f(x)^2\,dx
-\le
-\left(\frac{L}{2\pi}\right)^2
-\int_{\mathbb T_L} f_x(x)^2\,dx.
-}
-\]
-Equivalently,
-\[
-\boxed{
-\|f\|_{L^2(\mathbb T_L)}
-\le
-\frac{L}{2\pi}
-\|f_x\|_{L^2(\mathbb T_L)}.
-}
-\]
-\end{proposition}
-\begin{proof}
-Since \(f\) is \(L\)-periodic, we may write its Fourier series as
-\[
-f(x)=\sum_{k\in\mathbb Z}\widehat f_k e^{2\pi i kx/L},
-\]
-where
-\[
-\widehat f_k
-=
-\frac1L\int_0^L f(x)e^{-2\pi i kx/L}\,dx.
-\]
-The zero-average condition implies
-\[
-\widehat f_0
-=
-\frac1L\int_0^L f(x)\,dx
-=
-0.
-\]
-Hence
-\[
-f(x)=\sum_{k\in\mathbb Z\setminus\{0\}}
-\widehat f_k e^{2\pi i kx/L}.
-\]
-
-Differentiating term by term in the weak sense, we get
-\[
-f_x(x)
-=
-\sum_{k\in\mathbb Z\setminus\{0\}}
-\frac{2\pi i k}{L}
-\widehat f_k e^{2\pi i kx/L}.
-\]
-By Parseval's identity,
-\[
-\int_0^L |f(x)|^2\,dx
-=
-L\sum_{k\in\mathbb Z}|\widehat f_k|^2.
-\]
-Since \(\widehat f_0=0\), this becomes
-\[
-\int_0^L |f(x)|^2\,dx
-=
-L\sum_{k\neq 0}|\widehat f_k|^2.
-\]
-Similarly,
-\[
-\int_0^L |f_x(x)|^2\,dx
-=
-L\sum_{k\neq 0}
-\left|\frac{2\pi k}{L}\right|^2
-|\widehat f_k|^2.
-\]
-For \(k\neq 0\), we have \(k^2\ge 1\). Therefore
-\[
-\left|\frac{2\pi k}{L}\right|^2
-\ge
-\left(\frac{2\pi}{L}\right)^2.
-\]
-It follows that
-\[
-\begin{aligned}
-\int_0^L |f_x(x)|^2\,dx
-&=
-L\sum_{k\neq 0}
-\left|\frac{2\pi k}{L}\right|^2
-|\widehat f_k|^2 \\
-&\ge
-L\sum_{k\neq 0}
-\left(\frac{2\pi}{L}\right)^2
-|\widehat f_k|^2 \\
-&=
-\left(\frac{2\pi}{L}\right)^2
-L\sum_{k\neq 0}|\widehat f_k|^2 \\
-&=
-\left(\frac{2\pi}{L}\right)^2
-\int_0^L |f(x)|^2\,dx.
-\end{aligned}
-\]
-Thus
-\[
-\int_0^L |f(x)|^2\,dx
-\le
-\left(\frac{L}{2\pi}\right)^2
-\int_0^L |f_x(x)|^2\,dx.
-\]
-This proves the desired inequality.
-\end{proof}
-
-\begin{proposition}
-    [Energy Estimation]
-\end{proposition}
-Let
-\[
-p(t,x):=u_x(t,x).
-\]
-Since
-\[
-u_t=\frac12 u u_{xx},
-\]
-we differentiate in \(x\) and obtain
-\[
-p_t
-=
-\partial_x u_t
-=
-\frac12 \partial_x(u u_{xx})
-=
-\frac12 \partial_x(u p_x).
-\]
-Therefore
-\[
-\boxed{
-p_t=\frac12 (u p_x)_x.
-}
-\]
-
-Assume that \(u\) is \(L\)-periodic in \(x\), and let
-\[
-\mathbb T_L=\mathbb R/L\mathbb Z.
-\]
-Since \(p=u_x\), we have
-\[
-\int_{\mathbb T_L} p(t,x)\,dx
-=
-\int_0^L u_x(t,x)\,dx
-=
-u(t,L)-u(t,0)
-=
-0.
-\]
-
-Define the energy
-\[
-E(t):=\int_{\mathbb T_L} p(t,x)^2\,dx.
-\]
-Then
-\[
-\frac{d}{dt}E(t)
-=
-\frac{d}{dt}\int_{\mathbb T_L}p^2\,dx
-=
-2\int_{\mathbb T_L}p p_t\,dx.
-\]
-Using
-\[
-p_t=\frac12 (u p_x)_x,
-\]
-we get
-\[
-\frac{d}{dt}E(t)
-=
-2\int_{\mathbb T_L}p\cdot \frac12 (u p_x)_x\,dx
-=
-\int_{\mathbb T_L}p (u p_x)_x\,dx.
-\]
-By integration by parts and periodicity,
-\[
-\int_{\mathbb T_L}p (u p_x)_x\,dx
-=
--\int_{\mathbb T_L}p_x u p_x\,dx.
-\]
-Hence
-\[
-\boxed{
-E'(t)
-=
--\int_{\mathbb T_L}u(t,x)p_x(t,x)^2\,dx.
-}
-\]
-If
-\[
-u(t,x)\ge m>0,
-\]
-then
-\[
-E'(t)
-\le
--m\int_{\mathbb T_L}p_x(t,x)^2\,dx.
-\]
-By the Poincaré inequality, since \(\int_{\mathbb T_L}p\,dx=0\),
-\[
-\int_{\mathbb T_L}p_x^2\,dx
-\ge
-\left(\frac{2\pi}{L}\right)^2
-\int_{\mathbb T_L}p^2\,dx.
-\]
-Therefore
-\[
-E'(t)
-\le
--m\left(\frac{2\pi}{L}\right)^2E(t).
-\]
-By Grönwall's inequality,
-\[
-\boxed{
-E(t)
-\le
-\exp\left(
--m\left(\frac{2\pi}{L}\right)^2t
-\right)E(0).
-}
-\]
-That is,
-\[
-\boxed{
-\int_{\mathbb T_L}u_x(t,x)^2\,dx
-\le
-\exp\left(
--m\left(\frac{2\pi}{L}\right)^2t
-\right)
-\int_{\mathbb T_L}u_x(0,x)^2\,dx.
-}
-\]
-Equivalently,
-\[
-\boxed{
-\|u_x(t,\cdot)\|_{L^2(\mathbb T_L)}
-\le
-\exp\left(
--\frac12 m\left(\frac{2\pi}{L}\right)^2t
-\right)
-\|u_x(0,\cdot)\|_{L^2(\mathbb T_L)}.
-}
-\]
-
-\begin{theorem}[Bump Initial Condition Case]\ \par
-    
+        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}\leq \dfrac{C}{t}.
+    \]
+    In fact, $u_x$ decays exponentially in time.
 \end{theorem}
+
+\begin{proof}\ \par
+    Let $p(t,x) := \partial_x u(t,x)$, and then since $u$ is smooth, we have 
+    \(
+        \partial_tp=\dfrac12 \partial_x (u \partial_x p)
+    \). Since $u$ is periodic, $p$ has zero spatial average on $\mathbb T_L$, where $L$ is a period length for $u$:
+    \[
+        \int_{\mathbb T_L}p(t,x)dx=0.
+    \]
+    Define
+    \[
+        E(t)=\int_{\mathbb T_L}p(t,x)^2dx.
+    \]
+    and by integration by parts, we will have
+    \[
+    \begin{aligned}
+        \dfrac{d}{dt}E(t) &=2\int_{\mathbb T_L}p \partial_tp dx =\int_{\mathbb T_L}p \partial_x(u\partial_xp) dx \\
+        &=-\int_{\mathbb T_L}u (\partial_xp)^2 dx \\
+        &\leq -m\int_{\mathbb T_L}(\partial_xp)^2dx .
+    \end{aligned}
+    \]
+    By the Poincare inequality on $\mathbb T_L$, because $p$ has zero average,
+    \[
+        \int_{\mathbb T_L}p_x^2dx
+        \geq \left(\dfrac{2\pi}{L}\right)^2
+        \int_{\mathbb T_L}p^2dx .
+    \]
+    Hence
+    \[
+        E'(t)\leq -m\left(\dfrac{2\pi}{L}\right)^2E(t).
+    \]
+    By Gronwall's inequality,
+    \[
+        \lVert u_x(t,\cdot)\rVert_{L^2(\mathbb T_L)}
+        \leq
+        \exp\left(-\dfrac12m\left(\dfrac{2\pi}{L}\right)^2t\right)
+        \lVert u_x(0,\cdot)\rVert_{L^2(\mathbb T_L)}.
+    \]
+    Since $p$ solves a uniformly parabolic divergence form equation on the compact torus, the standard parabolic smoothing estimate gives, for $t\geq1$,
+    \[
+        \lVert p(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}
+        \leq C\lVert p(t-1,\cdot)\rVert_{L^2(\mathbb T_L)} .
+    \]
+    Therefore
+    \[
+        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}
+        \leq C e^{-ct}
+    \]
+    for some $c>0$. Since $e^{-ct}\leq C_ct^{-1}$ for $t\geq1$, we obtain
+    \[
+        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}\leq \dfrac{C}{t}.
+    \]
+\end{proof}
+
+For the bump initial condition, the periodic Poincare inequality is no longer available. The useful idea is to first obtain the coarse order $t^{-1/2}$, and then use the convergence $u\to c$ and a parabolic scaling argument to improve it to $t^{-1}$.
+
+\begin{theorem}[Derivative Decay for Bump IC]\label{thm:bump-ux-decay}
+    Assume that $u_0$ is positive, bounded, sufficiently smooth, and satisfies
+    \[
+        u_0-c\in C_c^{2+\alpha}(\R)
+    \]
+    for some $c>0$ and $0<\alpha<1$. Let $u$ be the corresponding positive classical solution. Then there is a constant $C>0$ such that, for all sufficiently large $t$,
+    \[
+        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\R)}\leq \dfrac{C}{t}.
+    \]
+\end{theorem}
+
 \begin{proof}
-    We consider the scaling operator
-    $(\cdot)^{\epsilon}: u\mapsto u^{\epsilon} := u(x/\epsilon,t/\epsilon^2)$, then for any solution for the parabolic equation
+    Let
     \[
-    \partial_t u = \tfrac{1}{2}u\partial_{xx}u
+        w(t,x):=u(t,x)-c,
+        \qquad
+        A(t,x):=\dfrac12u(t,x).
     \]
-    we have $u^{\epsilon}$ is also a solution for any $\epsilon > 0$. And $\partial_x(u^{\epsilon}) = \tfrac{1}{\epsilon} (\partial_xu)^{\epsilon}$, and we would like to show that
+    Then $w$ satisfies the linear non-divergence form equation
+    \begin{equation}\label{eq:bump-w-equation}
+        w_t=A(t,x)w_{xx},
+    \end{equation}
+    and by \eqref{eq:decay-positive-bound},
     \[
-    \lVert\partial_x(u^{\epsilon})\rVert_{L^{\infty}} \leq O(\dfrac{\epsilon}{t})
+        \dfrac m2\leq A(t,x)\leq \dfrac M2.
     \]
-    and then since
+
+    We divide the proof into three steps.
+
+    \emph{Step 1: a coarse estimate for $u_x$.}
+    Set $p=u_x$. Differentiating the original equation gives
     \[
-    \lVert\partial_x(u^{\epsilon})(\cdot,t)\rVert_{L^{\infty}} = \tfrac{1}{\epsilon}\lVert \partial_xu(\cdot,t/\epsilon^2)\rVert_{L^{\infty}}
+        p_t=\dfrac12(up_x)_x.
     \]
-    so it sufficents to show that
+    This is a uniformly parabolic divergence form equation. Since $u_0-c$ is compactly supported, $p_0=u_0'\in L^1(\R)$. By Aronson's Gaussian upper bound for divergence form parabolic equations,
     \[
-    \lVert \partial_x u\rVert_{L^{\infty}} \leq O(\dfrac{1}{t})
+        |p(t,x)|
+        \leq \int_{\R}Ct^{-1/2}\exp\left(-\dfrac{|x-y|^2}{Ct}\right)|p_0(y)|dy.
     \]
-    We consider the equation for 
+    Hence
+    \begin{equation}\label{eq:bump-ux-half}
+        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\R)}
+        \leq Ct^{-1/2}.
+    \end{equation}
+    In particular,
+    \begin{equation}\label{eq:bump-Ax-half}
+        \lVert A_x(t,\cdot)\rVert_{L^{\infty}(\R)}
+        \leq Ct^{-1/2}.
+    \end{equation}
+
+    \emph{Step 2: the $t^{-1/2}$ decay of $u-c$.}
+    We first recall a uniform $L^1$ control for the perturbation. Since $u$ is uniformly bounded from above and below, the logarithmic quantity
     \[
-    v = u - u_{\infty}
+        q(t,x):=\log\dfrac{u(t,x)}{c}
     \]
-    which is
+    satisfies
     \[
-    v = A\partial_{xx}v + \tfrac{1}{2}v\partial_{xx}v, A = \tfrac12u_{\infty} > 0
+        q_t=\dfrac12u_{xx}.
     \]
-    By Duhamel, we have
+    For every smooth convex function $\Phi$, an integration by parts gives
     \[
-    v(t) = e^{At\partial_{xx}}v_0 + \tfrac12\int_0^t e^{A(t-s)\partial_{xx}}(v(s)\partial_{xx}v(s))ds
+    \begin{aligned}
+        \dfrac{d}{dt}\int_{\R}\Phi(q)dx
+        &=\dfrac12\int_{\R}\Phi'(q)u_{xx}dx \\
+        &=-\dfrac12\int_{\R}\Phi''(q)u q_x^2dx\leq0 .
+    \end{aligned}
     \]
-    and hence
+    Taking smooth convex approximations of $|q|$ gives
     \[
-    \partial_x v(t) = \partial_xe^{At\partial_{xx}}v_0 + \tfrac12\int_0^t \partial_xe^{A(t-s)\partial_{xx}}(v(s)\partial_{xx}v(s))ds
+        \int_{\R}\left|\log\dfrac{u(t,x)}{c}\right|dx
+        \leq
+        \int_{\R}\left|\log\dfrac{u_0(x)}{c}\right|dx .
     \]
-    Since
-    \[\lVert \partial_x e^{At\partial_{xx}}\rVert_{\infty} = O(\frac1t)\]
+    Since $m\leq u\leq M$, this implies
+    \begin{equation}\label{eq:bump-L1-control}
+        \sup_{t\geq0}\lVert u(t,\cdot)-c\rVert_{L^1(\R)}\leq C.
+    \end{equation}
+
+    Now we use the equation \eqref{eq:bump-w-equation}. The coefficient $A$ is uniformly elliptic. Moreover, by the coarse estimate \eqref{eq:bump-Ax-half}, after the parabolic scaling
+    \[
+        A_R(\tau,z):=A(R\tau,x_0+\sqrt R z),
+        \qquad 1\leq \tau\leq2,
+    \]
     we have
     \[
-    \lVert \partial_xv(t)\rVert_{L^{\infty}} \leq \lVert \partial_x e^{At\partial_{xx}}\rVert_{\infty}\lVert v_0\rVert_{1} + \tfrac12\int_0^t \lVert \partial_x e^{A(t-s)\partial_{xx}}\rVert_{\infty}\lVert v(s)\partial_{xx} v(s)\rVert_1 ds
+        \lVert \partial_z A_R\rVert_{L^{\infty}}
+        =\sqrt R\lVert A_x\rVert_{L^{\infty}([R,2R]\times\R)}
+        \leq C.
     \]
-    by Young's inequality. The first term
+    Thus the spatial Dini modulus of the rescaled coefficient is uniformly controlled. Applying the Gaussian upper bound for non-divergence form parabolic equations with spatial Dini control gives, for the fundamental solution $\Gamma$ of \eqref{eq:bump-w-equation},
     \[
-    \lVert \partial_x e^{At\partial_{xx}}\rVert_{\infty}\lVert v_0\rVert_{1} = O(\frac1t)
+        0\leq \Gamma(t,x;s,y)
+        \leq C(t-s)^{-1/2}
+        \exp\left(-\dfrac{|x-y|^2}{C(t-s)}\right)
     \]
-    and the second term 
+    whenever $R\leq s<t\leq 2R$, with $C$ independent of $R$. Taking $s=t/2$ and using the representation formula,
     \[
-    \int_0^t \lVert \partial_x e^{A(t-s)\partial_{xx}}\rVert_{\infty}\lVert w(s)\partial_{xx} w(s)\rVert_1 ds \lesssim \int_0^t \frac{1}{t-s}\lVert w(s)\partial_{xx} w(s)\rVert_1 ds
+    \begin{aligned}
+        |w(t,x)|
+        &\leq \int_{\R}\Gamma(t,x;t/2,y)|w(t/2,y)|dy \\
+        &\leq Ct^{-1/2}\lVert w(t/2,\cdot)\rVert_{L^1(\R)} .
+    \end{aligned}
     \]
-    and now we claim that
+    By \eqref{eq:bump-L1-control},
+    \begin{equation}\label{eq:bump-w-half}
+        \lVert u(t,\cdot)-c\rVert_{L^{\infty}(\R)}
+        =\lVert w(t,\cdot)\rVert_{L^{\infty}(\R)}
+        \leq Ct^{-1/2}.
+    \end{equation}
+
+    \emph{Step 3: scaling and Schauder improvement.}
+    Fix a large time $t_0$ and a point $x_0\in\R$. Let
     \[
-    \lVert w(s)\partial_{xx}w(s)\lVert_1 \lesssim \frac1{s^{3/2}}
+        r:=\dfrac{\sqrt{t_0}}{4}
     \]
-    and then we have the second term
+    and define
     \[
-    \tfrac12\int_0^t \lVert \partial_x e^{A(t-s)\partial_{xx}}\rVert_{\infty}\lVert w(s)\partial_{xx} w(s)\rVert_1 ds \lesssim \int_0^t \frac{1}{(t-s)s^{3/2}} ds 
+        W(\tau,z):=w(t_0+r^2\tau,x_0+rz),
+        \qquad (\tau,z)\in Q_1:=(-1,0]\times(-1,1).
     \]
+    Then $W$ satisfies
+    \[
+        W_\tau=A^{(t_0,x_0)}(\tau,z)W_{zz},
+    \]
+    where
+    \[
+        A^{(t_0,x_0)}(\tau,z)
+        :=A(t_0+r^2\tau,x_0+rz).
+    \]
+    Since $t_0+r^2\tau\in[15t_0/16,t_0]$, the ellipticity constants are uniform. In the spatial direction,
+    \[
+        \partial_z A^{(t_0,x_0)}=rA_x(t_0+r^2\tau,x_0+rz),
+    \]
+    and by \eqref{eq:bump-Ax-half},
+    \[
+        \lVert \partial_z A^{(t_0,x_0)}\rVert_{L^{\infty}(Q_1)}\leq C.
+    \]
+    Also, by standard interior regularity for the original equation,
+    \[
+        \lVert A_t(t,\cdot)\rVert_{L^{\infty}(\R)}\leq Ct^{-1}
+    \]
+    for large $t$. Hence
+    \[
+        \lVert \partial_\tau A^{(t_0,x_0)}\rVert_{L^{\infty}(Q_1)}
+        =r^2\lVert A_t\rVert_{L^{\infty}}
+        \leq C.
+    \]
+    Therefore the coefficient $A^{(t_0,x_0)}$ has a uniform $C^{\alpha/2,\alpha}$ bound on $Q_1$. Applying the interior Schauder estimate to $W_\tau=A^{(t_0,x_0)}W_{zz}$ gives
+    \[
+        |W_z(0,0)|\leq C\lVert W\rVert_{L^{\infty}(Q_1)}.
+    \]
+    Since
+    \[
+        W_z(0,0)=r w_x(t_0,x_0)=r u_x(t_0,x_0),
+    \]
+    we obtain
+    \[
+        |u_x(t_0,x_0)|
+        \leq Cr^{-1}\lVert W\rVert_{L^{\infty}(Q_1)}.
+    \]
+    By \eqref{eq:bump-w-half},
+    \[
+        \lVert W\rVert_{L^{\infty}(Q_1)}
+        \leq C t_0^{-1/2}.
+    \]
+    Since $r^{-1}=4t_0^{-1/2}$, it follows that
+    \[
+        |u_x(t_0,x_0)|\leq Ct_0^{-1}.
+    \]
+    Taking the supremum over $x_0\in\R$ proves
+    \[
+        \lVert u_x(t_0,\cdot)\rVert_{L^{\infty}(\R)}\leq Ct_0^{-1}.
+    \]
+    This completes the proof.
 \end{proof}
 
-\begin{proposition}
-    Assume $u$ to be the solution of the parabolic equation with initial condition $u_0$, and $\Gamma(x,y;t,s)$ is a fundamental solution of
-    \[
-    u_t = \tfrac12 uu_{xx}
-    \]
-    then we have the estimation
-    \[
-    \partial_x\Gamma(x,y;t,s) \leq \frac C{t-s}\exp\left(\frac{c(x-y)^2}{t-s}\right)
-    \]
-    for $t-s \leq 1$, $C,c$ some positive constant only related to lower bound of $u$.
-\end{proposition}
-
-\begin{proposition}
-    We have the order of $\lVert u_x\rVert_{L^{\infty}}$ to be $O\left(\frac1t\right)$.
-\end{proposition}
-\begin{proof}
-    For $t\leq 1$, we have
-    \[
-        \partial_x u(x,t) = \int_0^t \partial_x\Gamma(x,y;t,0)u_0(y)dy
-    \]
-    and we will have
-    \[
-    \lvert\partial_x u(x,t)\rvert = \int_0^t \lvert\partial_x \Gamma(x,y;t,0)\rvert\lvert u_0(y)\rvert dy \leq \tfrac{1}{t}\lVert u_0\rVert_{L^1}
-    \]
-    Then notice $u^\epsilon$ is also a solution for the parabolic equation 
-    \[u_t = \frac12 u^{\epsilon}u_{xx}\]
-    with initial condition $(u_0)^{\epsilon}$, and then by a similar estimation, we have
-    \[
-    \lvert\partial_x u^{\epsilon}(x,t)\rvert = \int_0^t \lvert\partial_x \Gamma(x,y;t,0)\rvert\lvert (u_0)^{\epsilon}(y)\rvert dy \leq \tfrac{\epsilon}{t}\lVert u_0\rVert_{L^1}
-    \]
-    for $t\leq 1$ and
-    \[
-    \lvert\partial_x u^{\epsilon}(x,t)\rvert = \tfrac{1}{\epsilon}|u_x(\frac{x}{\epsilon},\frac{t}{\epsilon^2})| \leq 
-    \]
-    so $|u_x(\cdot,t/\epsilon^2)| \leq \epsilon^2/t \lVert u_0\rVert_{L^1}$ for any $\epsilon > 0, t\leq 1$ and we are done.
-\end{proof}
+\subsection{Reference for the section}
