@@ -124,7 +124,7 @@ then
 \int_{\mathbb T_L} f(x)^2\,dx
 \le
 \left(\frac{L}{2\pi}\right)^2
-\int_{\mathbb T_L} f_x(x)^2\,dx.
+\int_{\mathbb T_L} |\partial_x f(x)|^2\,dx\label{eq: poincare for periodic}
 \]
 \end{theorem}
 \begin{proof}
@@ -136,72 +136,46 @@ where
 \[
 \widehat f_k
 =
-\frac1L\int_0^L f(x)e^{-2\pi i kx/L}\,dx.
+\frac1L\int_0^L f(x)e^{-2\pi i kx/L}\,dx,\quad \widehat f_0 = 0
 \]
-The zero-average condition implies
-\[
-\widehat f_0
-=
-\frac1L\int_0^L f(x)\,dx
-=
-0.
-\]
-Hence
+and hence
 \[
 f(x)=\sum_{k\in\mathbb Z\setminus\{0\}}
-\widehat f_k e^{2\pi i kx/L}.
+\widehat f_k e^{2\pi i kx/L}
 \]
-
-Differentiating term by term in the weak sense, we get
+Since $\partial_x f$ is $L^2$ on $\mathbb{T}_L$, we have 
 \[
-f_x(x)
+\partial_xf(x)
 =
 \sum_{k\in\mathbb Z\setminus\{0\}}
 \frac{2\pi i k}{L}
 \widehat f_k e^{2\pi i kx/L}.
 \]
-By Parseval's identity,
+by integration by parts. Then Parseval's identity gives
 \[
 \int_0^L |f(x)|^2\,dx
 =
-L\sum_{k\in\mathbb Z}|\widehat f_k|^2.
-\]
-Since \(\widehat f_0=0\), this becomes
-\[
-\int_0^L |f(x)|^2\,dx
-=
-L\sum_{k\neq 0}|\widehat f_k|^2.
-\]
-Similarly,
-\[
-\int_0^L |f_x(x)|^2\,dx
+L\sum_{k\neq 0}|\widehat f_k|^2,\quad 
+\int_0^L |\partial_x f(x)|^2\,dx
 =
 L\sum_{k\neq 0}
 \left|\frac{2\pi k}{L}\right|^2
 |\widehat f_k|^2.
 \]
-For \(k\neq 0\), we have \(k^2\ge 1\). Therefore
-\[
-\left|\frac{2\pi k}{L}\right|^2
-\ge
-\left(\frac{2\pi}{L}\right)^2.
-\]
 It follows that
 \[
 \begin{aligned}
-\int_0^L |f_x(x)|^2\,dx
+\int_0^L |\partial_x f(x)|^2\,dx
 &=
 L\sum_{k\neq 0}
 \left|\frac{2\pi k}{L}\right|^2
-|\widehat f_k|^2 \\
-&\ge
+|\widehat f_k|^2 \geq
 L\sum_{k\neq 0}
 \left(\frac{2\pi}{L}\right)^2
 |\widehat f_k|^2 \\
 &=
 \left(\frac{2\pi}{L}\right)^2
-L\sum_{k\neq 0}|\widehat f_k|^2 \\
-&=
+L\sum_{k\neq 0}|\widehat f_k|^2 =
 \left(\frac{2\pi}{L}\right)^2
 \int_0^L |f(x)|^2\,dx.
 \end{aligned}
@@ -211,10 +185,12 @@ Thus
 \int_0^L |f(x)|^2\,dx
 \le
 \left(\frac{L}{2\pi}\right)^2
-\int_0^L |f_x(x)|^2\,dx.
+\int_0^L |\partial_x f(x)|^2\,dx.
 \]
-This proves the desired inequality.
 \end{proof}
+
+
+
 
 \subsection{Matrix Analysis}
 
