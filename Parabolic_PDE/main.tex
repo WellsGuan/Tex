@@ -1,5 +1,9 @@
-\documentclass[11pt]{article}
-\usepackage{amsmath,amssymb}
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
 \usepackage{geometry}
 \usepackage{float}
 \usepackage{hyperref}
@@ -12,8 +16,10 @@
 \usepackage{tikz-cd}
 \usepackage{dsfont}
 \usepackage{mathrsfs}
-\usepackage{enumitem}
-\usepackage{mathtools}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
 
 \colorlet{LightGray}{White!90!Periwinkle}
 \colorlet{LightOrange}{Orange!15}
@@ -24,7 +30,7 @@
 \newcommand{\ip}[1]{\langle #1 \rangle}
 \newcommand{\Lip}{\operatorname{Lip}}
 
-\begin{document}
+
 
 \declaretheoremstyle[name=Definition,]{thmsty}
 \declaretheorem[style=thmsty,numberwithin=section]{definition}
@@ -44,6 +50,7 @@
     headsep=25pt,
     footskip=30pt
 }
+\begin{document}
 
 \title{ \normalsize \textsc{}
         \\ [2.0cm]
