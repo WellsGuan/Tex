@@ -1,0 +1,21 @@
+\newcommand{\expo}[1]{\exp\left({#1}\right)}
+
+\section{Introduction}
+
+\begin{definition}[Heat Equation and Adjoint equation]
+    The heat equation
+    \[
+    \partial_t u = \Delta u,\quad u\in \mathbb{R}^n\times\mathbb{R}
+    \]
+    has a class of solution
+    \[
+    \Gamma(x,t;\xi,\tau) = \dfrac{1}{(2\sqrt{\pi})^n}(t-\tau)^{-n/2}\exp\left(-\dfrac{|x-\xi|^2}{4(t-\tau)}\right),\quad (\xi,\tau) \in \mathbb{R}^n\times\mathbb{R}
+    \]
+    where for any continuous function $f(x) \lesssim \expo{h|x|^2}$ for some $h>0$, then the integral
+    \[u(x,t) = \int \Gamma(x,t;\xi,0)f(\xi)d\xi\]
+    exists for $0<t\leq T$ if $T<1/4h$ and $u(x,t) \to f(x), t\to 0$, and $\Gamma$ is called a fundamental solution of the heat equation; and $u$ is a solution of the Cauchy problem, i.e. the problem of finding a solution to the heat equation for $0<t \leq T$ with the initial condition $u(x,0) = f(x)$.\par
+    The adjoint equation if defined as
+    \[
+    \partial_t v = - \Delta v,\quad v\in \mathbb{R}^n\times\mathbb{R}
+    \]
+\end{definition}

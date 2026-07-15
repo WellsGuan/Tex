@@ -6,65 +6,64 @@ This chapter sets up the basic probabilistic language of quantitative risk manag
 
 \subsubsection{General Definitions}
 
-Let $(\Omega,\F,\Prob)$ be the probability space on which all random variables are defined. For a portfolio value process $V(s)$ and a fixed horizon $\Delta$, the loss over $[s,s+\Delta]$ is
+    Let $(\Omega,\F,\Prob)$ be the probability space on which all random variables are defined. 
+
+\begin{definition}[Loss and Loss Distribution]\ \par
+    For a portfolio value process $V(s)$ and a fixed horizon $\Delta \in \Z$, the \emph{loss} over $[s,s+\Delta]$ is
 \[
     L_{[s,s+\Delta]}:=-(V(s+\Delta)-V(s)).
 \]
-The sign convention is chosen so that large positive values mean large losses. This is why the upper tail of the loss distribution is the object of interest.
-
-If the horizon $\Delta$ is fixed, it is convenient to use discrete time:
+    If the horizon $\Delta$ is fixed, it is convenient to use discrete time:
 \[
     V_t:=V(t\Delta),\qquad
-    L_{t+1}:=-(V_{t+1}-V_t).
+    L_{t+1}:=-(V_{t+1}-V_t),
 \]
-The distribution of $L_{t+1}$ is called the loss distribution.
+and the distribution of $L_{t+1}$ is called the \emph{loss distribution}.
+\end{definition}
 
-The portfolio value is usually represented as a function of time and risk factors:
+\begin{definition}[Risk Factors]\ \par
+The portfolio value is usually represented as a function of time and risk factors, which is usually a $d$-dimensional vector:
 \[
-    V_t=f(t,Z_t),qquad
-    Z_t=(Z_{t,1},\ldots,Z_{t,d})^\top.
-\]
-Typical risk factors include log-prices, yields, interest-rate curve factors, volatilities, and log-exchange rates. Define the risk-factor change
+    V_t=f(t,Z_t),\qquad
+    Z_t=(Z_{t,1},\ldots,Z_{t,d})^\top,
+\] and we may define the risk-factor change
 \[
     X_{t+1}:=Z_{t+1}-Z_t.
 \]
-Then
+Then we may know
 \[
     L_{t+1}
-    =-\left(f(t+1,Z_t+X_{t+1})-f(t,Z_t)\right).
+    =-\left(f(t+1,Z_t+X_{t+1})-f(t,Z_t)\right),
 \]
-Thus, once the current portfolio and the current risk factors are fixed, the loss distribution is induced by the distribution of $X_{t+1}$.
+and hence once the current portfolio and the current risk factors are fixed, the loss distribution is induced by the distribution of $X_{t+1}$.
+\end{definition}
 
-\begin{definition}
+\begin{definition}[Loss Operator]\ \par
 The loss operator at time $t$ is the map $l_{[t]}:\R^d\to\R$ defined by
 \[
-    l_{[t]}(x):=-\left(f(t+1,Z_t+x)-f(t,Z_t)\right).
+    l_{[t]}(x):=-\left(f(t+1,Z_t+x)-f(t,Z_t)\right),
 \]
-Hence
+and hence
 \[
     L_{t+1}=l_{[t]}(X_{t+1}).
 \]
 \end{definition}
 
+\begin{proposition}
+    
 If $f$ is differentiable, the first-order approximation of the loss is
 \[
     L_{t+1}^{\Delta}
-    :=-\left(f_t(t,Z_t)+\sum_{i=1}^d f_{z_i}(t,Z_t)X_{t+1,i}\right),
+    :=-\left(\partial_t f(t,Z_t)+\sum_{i=1}^d \partial_i f(t,Z_t)X_{t+1}^i\right),
 \]
 with corresponding linearized loss operator
 \[
     l_{[t]}^{\Delta}(x)
-    :=-\left(f_t(t,Z_t)+\sum_{i=1}^d f_{z_i}(t,Z_t)x_i\right).
+    :=-\left(\partial_t f(t,Z_t)+\sum_{i=1}^d \partial_i f(t,Z_t)x^i\right).
 \]
-This approximation is most reliable for short horizons and for portfolios whose value is nearly linear in the risk factors.
+which is most reliable for short horizons and for portfolios whose value is nearly linear in the risk factors.
+\end{proposition}
 
-If calendar time is measured in years and $V_t=g(t\Delta,Z_t)$, then the first-order approximation becomes
-\[
-    L_{t+1}^{\Delta}
-    :=-\left(g_s(t\Delta,Z_t)\Delta+
-    \sum_{i=1}^d g_{z_i}(t\Delta,Z_t)X_{t+1,i}\right).
-\]
-For short horizons the time-decay term $g_s(t\Delta,Z_t)\Delta$ is often small and is frequently dropped in practice.
 
 \subsubsection{Conditional and Unconditional Loss Distributions}
 
