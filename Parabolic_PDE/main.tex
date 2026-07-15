@@ -16,10 +16,7 @@
 \usepackage{tikz-cd}
 \usepackage{dsfont}
 \usepackage{mathrsfs}
-
-\colorlet{LightGray}{White!90!Periwinkle}
-\colorlet{LightOrange}{Orange!15}
-\colorlet{LightGreen}{Green!15}
+\usepackage{fvextra}
 
 \colorlet{LightGray}{White!90!Periwinkle}
 \colorlet{LightOrange}{Orange!15}
@@ -30,16 +27,20 @@
 \newcommand{\ip}[1]{\langle #1 \rangle}
 \newcommand{\Lip}{\operatorname{Lip}}
 
-
-
-\declaretheoremstyle[name=Definition,]{thmsty}
+\declaretheoremstyle[name=Definition]{thmsty}
 \declaretheorem[style=thmsty,numberwithin=section]{definition}
-
-\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheoremstyle[name=Theorem]{thmsty}
 \declaretheorem[style=thmsty,numberwithin=section]{theorem}
-
-\declaretheoremstyle[name=Remark,]{prcpsty}
+\declaretheoremstyle[name=Remark]{prcpsty}
 \declaretheorem[style=prcpsty,numberlike=theorem]{remark}
+
+\DefineVerbatimEnvironment{ocrformula}{Verbatim}{
+  fontsize=\small,
+  frame=single,
+  framesep=2mm,
+  breaklines=true,
+  breakanywhere=true
+}
 
 \setstretch{1.15}
 \geometry{

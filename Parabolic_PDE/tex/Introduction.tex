@@ -2,6 +2,8 @@
 
 \section{Introduction}
 
+\subsection{}
+
 \begin{definition}[Heat Equation and Adjoint equation]
     The heat equation
     \[
@@ -18,4 +20,2887 @@
     \[
     \partial_t v = - \Delta v,\quad v\in \mathbb{R}^n\times\mathbb{R}
     \]
+    and in this case $\Gamma(x,t;\xi,\tau)$ is a solution for the adjoint equation as a function of $(\xi,\tau)$ with fixed $(x,t)$.
 \end{definition}
+
+
+\begin{definition}[Holder Space]
+    
+A function $f(x)$ defined on a bounded    closed set $S$ of $\R^n$ is said to be Holder continuous of exponent $\alpha(0 < \alpha < 1)$ in $S$ if there exists a constant $A$ such that \[|f(x)-f(y)| \leq A|x-y|^{\alpha}\] for all $x, y$ in $S$. The smallest $A$ for the inequality is called the Holder coefficient.\par
+
+If $S$ is an unbounded set whose intersection with every bounded closed set $V$ is closed, then $f(x)$ is said to be Holder continuous of exponent $a$ in $S$ if for every bounded closed set $V$ the equality holds in $S \cap V$ with some $A$ which may depend on $V$. If $A$ can be taken independently of $V$, then we say that $f(x)$ is uniformly  Holder continuous.\par
+If $S$ is an open set then $f(x)$ is said to be locally Holder continuous (exponent  $\alpha$) in $S$ if the inequality holds in every bounded closed set $V \subset S$, with
+$A$ which may depend on $V$. If $A$ is independent of $V$ then $f(x)$ is uniformly Holder continuous (exponent $\alpha$).\par
+If $f$ depends on a parameter $\lambda$, i.e. $f = f(x,\lambda)$, and if the Holder
+coefficient is independent of $\lambda$, then we say that $f(x,\lambda)$ is Holder continuous in $x$, uniformly with respect to $\lambda$.\par
+If in the inequality $\alpha = 1$ then we say that $f(x)$ is Lipschitz continuous.
+\end{definition}
+
+\begin{definition}[Parabolic Equation]
+
+Consider the differential equation
+\[
+    Lu \equiv \sum\limits_{i,j=1}^n a_{ij}(x,t) \partial_{x_i}\partial_{x_j} u + \sum\limits_{i=1}^n b_i(x,t)\partial_{x_i} u + c(x,t)u - \partial_t u =0
+\]
+where the coefficients $a_{ij}, b_i, c$ are defined in a cylinder
+\[
+\Omega \equiv \overline{D}\times [T_0,T_1] \equiv \{(x,t);x\in \overline{D}, T_0 \leq t \leq T_1\}
+\]
+$\overline{D}$ is the closure of a bounded domain $D\subset\R^n$. We always take $a_{ij}(x,t)$ to be a symmetric matrix. If the matrix is positive
+definite, then we say that the operator $L$ is of parabolic type at the point $(x, t)$. If $L$ is parabolic at all the points of $\Omega$ then we say that $L$ is parabolic in $\Omega$. If there exist positive constants $\overline{\lambda}_0, \overline{\lambda}_1$ such that, for any real vector $\xi$,
+\[\overline{\lambda}_0|\xi|^2 \leq \sum\limits_{i,j=1}^n a_{ij}(x,t)\xi_i\xi_j \leq \overline{\lambda}_1|\xi|^2\]
+for all $(x,t) \in \Omega$ then we say that $L$ is uniformly parabolic in $\Omega$.
+\end{definition}
+
+\begin{remark}
+    
+
+Throughout this chapter we shall assume:
+
+(A1) $L$ is parabolic in $\Omega$;\par
+(A2) the coefficients of $L$ are continuous functions in $\Omega$ and, in addition, for all $(x, t) \iin \Omega, (x_0,t_0) \in \Omega$,
+-                             -                        -
+(1.4)               \ai3(kh, t)                   ideg)| < L (|a;
+a,-,-Cr0,               sdeg|<< +            \t         ideg|deg/2),
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+(1.5)                 |'Dzh, 0             biCc0, 01 <    A\x         xt,
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+(1-6)                   |c(z, i)           c(rrn,i)| < A\x           rrdegK
+Since     the ats(kh, t) are continuous    functions in the bounded    set O, (A^
+\end{ocrformula}
+
+implies that L is also uniformly parabolic in O, i.e., (1.3) holds for some positive constants lo, li independent of (x, t) PS O.
+
+\medskip\noindent\textbf{Definition.} We say that i -- u(x, t) is a solution of Lu = 0 in some
+
+\begin{ocrformula}
+rpgion     D    if all the derivatives of i which    occur in Lu                                    (i.e., du/dxit
+Ohi/dx-i dXj, di/dt)          are         continuous
+functions                            in D        and     Lu(x, t) = 0 at
+\end{ocrformula}
+
+each point (x, i) of D. A similar definition holds for any differential L. operator
+\end{remark}
+\medskip\noindent\textbf{Definition.} A
+
+\begin{ocrformula}
+fundamental   solution of Lu -- 0 (in O) is a function
+G(gg, i; PS, t) defined for all (rr,0 PS O, (PS, O PS O, i > t, which satisfies the
+\end{ocrformula}
+
+following conditions:
+
+\begin{ocrformula}
+(i) for fixed (PS, t) PS O it satisfies, as a function    of (z, i) (kh PS Z),
+t < t < Ti) the equation Lu = 0;
+(ii) for every continuous function f(x) in ~D, if rr PS D then
+\end{ocrformula}
+
+\begin{ocrformula}
+(1.7)                            lim       f G(a, t; f, t)/(x) dfc = f(x).
+\end{ocrformula}
+
+-- Here df = dfi * axe. The domain D is always assumed to be Lebesgue measurable; since this is an obvious assumption, we shall usually not mention it in what follows.
+
+Sections 2-4 are devoted to the construction of a fundamental solution. In Sec 5 we shall study some of its properties. The results of Sees. 2-5 ige extended in Sec. 6 to the case of unbounded domains D.
+
+% Source scan page offset 4
+\begin{ocrformula}
+4                     FUNDAMENTAL           SOLUTIONS        AND    TPK          CAUCHY           I'ltOULKM           (II\l\ L
+\end{ocrformula}
+
+\section{The Parametrix Method}
+\begin{ocrformula}
+Let       (ai}(x, t)) be the inverse             matrix        to (atj(x, t)) and                   set
+\end{ocrformula}
+
+= S - \textasciitilde{}
+
+\begin{ocrformula}
+(2.1)                      un"(z, O                   aHy,       s)(khi               Sh-'               fc)
+\end{ocrformula}
+
+g,j = 1
+
+\begin{ocrformula}
+where        u =   (ug, . . . , up). From           (1-3), (1.4) it follows that
+-                                  <             -
+(2.2)                                 l0|z         x|2 < No. (kh,            0             lkh\kh            x|2,
+-                                   -                            -
+(2.3)                 \a"(kh, t)       a>>(khdeg, ideg)| < L'(\kh                    khdeg\a +           \t        tdeg\a/2)
+\end{ocrformula}
+
+where l0, li, L' are positive constants depending only on l0, li, L. We introduce the functions, for t > r,
+
+\begin{ocrformula}
+(2.4)                  wv"{x,     i; x, r) =       {i -   r)-/2       exp                                     '
+[-^'^j
+\end{ocrformula}
+
+\begin{ocrformula}
+(2.5)                     Z{x, t; x, r) =          G(x, t)u*'(*, i; x, g),
+\end{ocrformula}
+
+where
+
+=
+
+\begin{ocrformula}
+(2.6)                             C(x, t)          (2VV)-"[det            (a"(zh, 0)]1/2*
+For     each     fixed (x, t) the           function        Z (or,i; PS, r) satisfies the                     equation
+\end{ocrformula}
+
+with constant coefficients
+
+\begin{ocrformula}
+/o<<                   r / ,n            -2,    /' ch th2i/(*i
+n O -                          di(kh, ' I) =
+(2.7)                 Lo>>(.r, i) =      S   a,DPS, t)                                      _                   0.
+\end{ocrformula}
+
+= ij i okh i ox'/j ol
+
+\begin{ocrformula}
+It also follows from                    that (1.7) is also satisfied for G = Z.
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 1 below.} 
+\begin{ocrformula}
+Thus, Z(x, t; PS, t) is a fundamental  solution of L0u = 0. Ge order to
+constructa fundamental   solution for Iju -- 0 we look upon       L{) as a "first
+\end{ocrformula}
+
+approximation" to L and we view Z as a "principal part" of the fundamental solution G of Lu = 0. We then try to find G in the form
+
+=
+
+\begin{ocrformula}
+(2.8)         GSg, t; x, t)        Z(x, t; x, t) +                   Z(x, t; n, s)Ph(,, s; x, g) o, r/s
+\end{ocrformula}
+
+f' fn where Ph is to be determined by the condition that G satisfies the equation Lu = 0. This procedure is called the parametrix method (of K. K. Levi). Z is called the parametrix. In Chap, i) we shall use this method also to constructfundamental solutions for systems of parabolic equations of any order.
+
+\medskip\noindent\textbf{Theorem 1.} Lei f\{x, t) he a continuous function in O. Then
+
+\begin{ocrformula}
+(2.9)                             J(x, t, r) he           Z(x, I; x, r)/(i, t) dt
+\end{ocrformula}
+
+fD
+
+\begin{ocrformula}
+is a continuous          function     in (x, t, t), kh zT),            T0 < t < t <                      I\ and
+\end{ocrformula}
+
+\begin{ocrformula}
+(2.10)                                       li.n ,/(:r,/,,
+t) =J\x,l)
+\end{ocrformula}
+
+t-E
+
+% Source scan page offset 5
+\begin{ocrformula}
+uniformly   with respect to (x, t), kh PS S, T0 < t <                                         T\, where      S is any   closed
+\end{ocrformula}
+
+subset of D.
+
+\medskip\noindent\textit{Proof.} Consider first the case where / and the <<,u are all constants.
+
+\begin{ocrformula}
+--                     --          --
+The linear substitution    f = P(x      x) reduces S ai}(xi     PS,)(.r,- x;) into
+S j-jiprovided  P*P  =                  P* is the transpose   of the matrix    P.
+\end{ocrformula}
+
+(aiJ), where
+
+\begin{ocrformula}
+Denoting    by D* the image      of /) by this substitution    and noting that
+\end{ocrformula}
+
+\begin{ocrformula}
+d(fr, *#-,PS<<)                            L_           r. .
+(ai,\l-l/2
+\end{ocrformula}
+
+we get
+
+\begin{ocrformula}
+(2.11)     J(,;i,T)         =
+/n>-^-((-T)->>A
+\end{ocrformula}
+
++ L
+
+\begin{ocrformula}
+*<<r[-4(^]*-'<<
+where     J e is the part of the integral taken over a ball |f| < b with radius
+R    sufficiently small (so that the ball is contained   in D*), and JdegR is the
+\end{ocrformula}
+
+complementary part. Introducing polar coordinates, we get
+
+\begin{ocrformula}
+J"   =                                      ~                                                  ^_1   "r
+(2J2)                                     oe(i               r)^
+/o*skhr         [-i(^o]
+\end{ocrformula}
+
+iife
+
+\begin{ocrformula}
+(2W)"                                *>deg
+\end{ocrformula}
+
+where 2tget/2 oe =
+
+(1) is the surface area of the unit hypersphere. It follows that
+
+\begin{ocrformula}
+(2.13)                                                        limJi?=/.
+t-->t
+Since R is fixed, the integrand                                of J% tends        to 0 as t -->>i.         Hence    J^ -->> 0
+as t ---> i. Combining    this remark                                with      (2.13) it follows,           by    (2.11), that
+J(x, t, t) --> / as t --> t.
+\end{ocrformula}
+
+Consider now the general case where / and the a\{j are not constants. Writing
+
+\begin{ocrformula}
+J(x, U t) = /(:r,t)                          C{x, t)w"(x,           t; PS, t) dt
+\end{ocrformula}
+
+fD
+
+\begin{ocrformula}
++ L*.                                                               -
+T)             GPi,      t)<<*'(*, i; x, t)            S(kh, i)ii^(kh, i; x, t)] <PS
+(2.14)                                             /d
+\end{ocrformula}
+
++ -
+
+\begin{ocrformula}
+C({, r)<<*'(*, i; i, t) [/(x, t)                           /(kh, t)] <2PS
+\end{ocrformula}
+
+//;
+
+\begin{ocrformula}
+=    ./i +         L        +        L,
+\end{ocrformula}
+
+% Source scan page offset 6
+we may treat the integral of <<L as J in the previous case of constant coefficients. Hence,
+
+\begin{ocrformula}
+(2.15)                                            lim Jx = f(x, t).
+\end{ocrformula}
+
+As for J2, -
+
+\begin{ocrformula}
+No. 'T(x,      t; x, t)          w*-l(x, l; x, t)|
+\end{ocrformula}
+
+\textasciitilde{}
+
+\begin{ocrformula}
+< n*\x -       i\\i
+\end{ocrformula}
+
+-
+
+\begin{ocrformula}
+r)-('l+2V2mx               \a*>& t)
+\end{ocrformula}
+
+-
+
+\begin{ocrformula}
+a*>(kh, 01 ekhrG-^                --   *L-
+\end{ocrformula}
+
+w L 4(t t; j
+
+Writing the integrand of the integral of Jz in the form
+
+\begin{ocrformula}
+/-                   -
+No. 1*,    t)            C(x, t)]w*(x,          t; x, t)
+\end{ocrformula}
+
+-
+
+\begin{ocrformula}
++      C(z, t)[wt*(x, t; PS, r)                   w?*(x, t; x, r)]
+and  using the previous inequality we find that for any e > 0 there                                                       exist
+\end{ocrformula}
+
+R and d sufficiently small such that the expression I is bounded by
+
+\begin{ocrformula}
+-                    +         -               -
+(2.16)         e(t           t)->>/*[1          \x           x|2(i           t)-1] exp
+[-l4deg[*G*(2]
+\end{ocrformula}
+
+\begin{ocrformula}
+if |x --  x\ < R and t
+-- t < d.
+\end{ocrformula}
+
+Dividing the integral of Ji into two parts, --
+
+\begin{ocrformula}
+say I\ + 12 where for /1 the integration is taken over \x             x\ < R, and
+estimating   /1 by using the bound    (2.16) for its integrand    and then using
+as in (2.12), and substituting    s  =         --
+polar coordinates,                                           r2/(t      t), we find
+that |/i| < Ce if t --  t < d, where S is a constant independent          of e. Now,
+if R is fixed and r -->>i then I2 --> 0 since its integrand       tends to zero. It
+\end{ocrformula}
+
+follows that IJ2| < C't if t is sufficiently close to t, where S is a constant independent of e, t. Hence
+
+lim/5 = 0.
+
+\begin{ocrformula}
+(2.17)
+t-><
+\end{ocrformula}
+
+\begin{ocrformula}
+J3 can be treated in a similar way. We   break it into a sum J31 + J32
+where the integration in J31 is taken over a ball |x -- x\ < R. Since f(x, t)
+is a continuous  function, for any e > 0 the integrand    of J31 is bounded
+\end{ocrformula}
+
+by
+
+\begin{ocrformula}
+<<-'>-"-"
+\end{ocrformula}
+
+t-s\textasciicircum{}a
+
+provided b and t-- t are sufficiently small. Introducing polar
+
+\begin{ocrformula}
+as in (2.12), and substituting a = r2/(t --
+coordinates,                                                                            t) we find that |J3i| < Ce,
+S being a constant   independent     of e. For                                     R fixed, J32 --*# 0 as t --> i. We
+thus obtain: J3  --> 0 if r  -->  t. Combining                                         this   with     (2.17),     (2.15)    and
+recalling (2.14), we get (2.10).
+\end{ocrformula}
+
+The assertion concerning the uniform convergence follows from the previous proof.
+
+% Source scan page offset 7
+\section{Volume Potentials}
+Given a function f(x, t) in O we consider the function
+
+\begin{ocrformula}
+(3.1)                      V{x, t) =                      Z(x, t; x, t)/(x, t) ax dr
+\end{ocrformula}
+
+jln fD
+
+\begin{ocrformula}
+and     call it the volume       potential of / (with respect to the parametrix    Z).
+\end{ocrformula}
+
+We shall study in this section some differentiability properties of V. These will be used in the construction of a fundamental solution in the following section. Note that the volume potential is an improper integral, the integrand
+
+\begin{ocrformula}
+having        a singularity          at PS = kh, t = t. The    singularity, however,     is in-
+\end{ocrformula}
+
+tegrable. Indeed, writing wy*7 in the form
+
+\begin{ocrformula}
+(3.2)     uR**(kh,1;x,t)
+G LU.t "I(7I/2)-m   G      Lu,t         -\
+\end{ocrformula}
+
+\_ -
+
+\begin{ocrformula}
+(i        ,)-,,(*>>,),-,/*                          ekhr
+[--j                 [-Shch^GT)}
+where     W-T = No. *t(kh, x), we get
+\end{ocrformula}
+
+\begin{ocrformula}
+(3.3)           |u^(z,     t; x, T)| <               _                                 (0 < m <   1)
+{t       t^           ^2(1
+\end{ocrformula}
+
+and the right-hand side is integrablc. Before proceeding to the actual study of V, we give a useful elementary lemma.
+
+\medskip\noindent\textbf{Lemma 1.} Lei f(x, y) be a continuous junction of (x, y) when x, u vary
+
+in a compact domain S of Rm and kh \textasciicircum{} y, and let
+
+L \textasciicircum{}> 0
+
+\begin{ocrformula}
+, \ffr, y)\ dy                     ase->0,
+\end{ocrformula}
+
+uniformly with respect to kh in S, where S(x, e) is the intersection of S with the ball with center kh and radius e. Then, for any bounded measurable
+
+\begin{ocrformula}
+g(y) in S, the (improper)
+\end{ocrformula}
+
+function integral
+
+=
+
+\begin{ocrformula}
+4>{x)
+fsf(x,y)9(y)dy
+\end{ocrformula}
+
+is a continuous function in S.
+
+\medskip\noindent\textit{Proof.} Given s > 0 choose di such that
+
+\begin{ocrformula}
+l-^' uNo. u)\         dy < e
+/s(x,5)
+for all kh PS S, d < di. Since f(x, y) is a uniformly  continuous   (and hence
+a bounded)    function of (x, y) when   kh z S, u PS S, \x  --     >
+\end{ocrformula}
+
+y\textbackslash{} di/2, there
+
+\begin{ocrformula}
+exists a d2 < di/4 such that
+\end{ocrformula}
+
+\begin{ocrformula}
+(3-4)                                                \f(x, y)g(y)\ dy < e
+\end{ocrformula}
+
+/
+
+% Source scan page offset 8
+\begin{ocrformula}
+for all kh PS S, z PS S. Denoting                         the complement                    in  of S(z, d2) by #2(g)
+\end{ocrformula}
+
+we obtain, from (3.1),
+
+\textasciitilde{} < 2e.
+
+\begin{ocrformula}
+(3*5)                    I L*)f(Xt   y)g(y) dy                            /Cr' y)g{y) dy
+\end{ocrformula}
+
+f\&w
+
+\begin{ocrformula}
+Using the uniform                continuity        of f(x, y) for kh PS S, u PS S, \x --                                y\ >     d2/2
+\end{ocrformula}
+
+we have
+
+< e
+
+\begin{ocrformula}
+If^fV.vtoWdy-f^fV'.vWdy
+\end{ocrformula}
+
+--
+
+\begin{ocrformula}
+provided         \x'   x"\ < d for some     d sufficiently small (d < d2/2). Hence,
+=        =         = kh") we
+together        with (3.5) (for z   kh', zdeg    kh", kh             get
+\end{ocrformula}
+
+- < 3e. I f\textasciicircum{}fV, uMu) dy iSh dff
+
+\begin{ocrformula}
+/w/(*".
+\end{ocrformula}
+
+\begin{ocrformula}
+Combining           this with (3.4) (for z = kh = kh' and                            z = kh = kh") we derive                      the
+\end{ocrformula}
+
+--
+
+\begin{ocrformula}
+inequality         \ph{kh')    ph{kh")\ < ;">e,and the proof                           is completed.
+\end{ocrformula}
+
+\begin{ocrformula}
+define Z(x, t; x, t) = 0 for t < t then
+\end{ocrformula}
+
+If we we can apply Lemma 1 to the volume potential, and thus conclude:
+
+\medskip\noindent\textbf{Theorem 2.} // f(x, t) is a bounded measurable function in O then the
+
+volume potential G (.t,I) is a continuous function in O.
+
+We next prove:
+
+\medskip\noindent\textbf{Theorem 3.} // /(zh, t) is a continuous function in O then V(x, t) has
+
+\begin{ocrformula}
+first continuous   derivatives with respect to kh for kh PS D, T0 < t < 7\ and
+\end{ocrformula}
+
+(36)
+
+\begin{ocrformula}
+b^u_|^bAZ(G>I;iitNo. t)(,{(1t.
+\end{ocrformula}
+
+\medskip\noindent\textit{Proof.} Writing dwy'T(x, t; x, t)/thkh,; analogously to (3.2) we find that
+
+\begin{ocrformula}
+a                                             const.                          /1                     \
+w^(x,   t; x, t)    <-                                                               ^
+(3.7)            dx                                     -          -
+(i        tU\kh      x|e+i-2M              \2<m                  I
+\end{ocrformula}
+
+Thus, the singularity of the integrand in (3.6) is integrable. If we define
+
+\begin{ocrformula}
+dZ(x,                    = 0 for t < t then we can apply      Lemma                                               I and      thus
+/;PS, r)/dXi
+\end{ocrformula}
+
+conclude that the integral of (3.0) is a continuous function. It remains to verify (3.0). Set
+
+\begin{ocrformula}
+=                                             r) d*.
+(3.8)                            J{x, t,r)
+\end{ocrformula}
+
+Jd Z[x, t; x, t)No. , Then =
+
+\begin{ocrformula}
+(3.9)                                 V(x, t)                     J(x, t, r) dr.
+\end{ocrformula}
+
+fn
+
+\begin{ocrformula}
+By Theorem   1, Sec. 2, J(.r, t, r) is a continuous                                           function         in (kh, I, t)
+when kh (z D, T0 <  t < t < 7\, provided     we define
+= lim J(x, t, t).
+(3.10)                                J(x, t, t)
+\end{ocrformula}
+
+t--E Clearly, if t > t
+
+% Source scan page offset 9
+\begin{ocrformula}
+dJ(x, t, t) = [ d n
+(3.11)
+dXj       /,,teZ(*,<<;fer)rti,T)<it.
+\end{ocrformula}
+
+Using (3.7) I follows that
+
+\begin{ocrformula}
+dJ(x, t, t)             ^    const.
+(3.12)                                            <
+dXi                        -
+j                             U     t)"         b<-<0
+\end{ocrformula}
+
+Consequently, the improper integral
+
+\begin{ocrformula}
+-"    - =          "  s
+(3.13)                                Vi(*, 0                      t, r) d,
+jl ^T J{*>
+\end{ocrformula}
+
+is absolutely uniformly convergent.
+
+\begin{ocrformula}
+Let xh --       (.p, . - - , Xi-i, Xi + h, Xi+i, * - * , xn) and                           consider
+\end{ocrformula}
+
+-
+
+\begin{ocrformula}
+V(x\     t)        V(x, t)
+(3.14)       / =                                         V,-(x, i)
+\end{ocrformula}
+
+h - d
+
+\begin{ocrformula}
+f-,t)        J(X, t, g) -
+=/;[^                         h                      eJ(z''#r)]di
+\end{ocrformula}
+
+\begin{ocrformula}
+-Shch'^^-^^]*
+where       x* is some       point      in the interval            connecting            xh to x. Using         (3.12)
+\end{ocrformula}
+
+it follows that, for any s > 0, n\textbackslash{} d
+
+\begin{ocrformula}
+(r)-ls>                                                    dr < e              for all zh PS D
+/.'k/(M,r)
+\end{ocrformula}
+
+\begin{ocrformula}
+provided   t -- iPS is sufficiently small                     (independently   of x). Once                   tf is fixed
+=                                  that if r < i(, kh PS D,
+(ie < t) we can find d      d(/<<,e) such
+\end{ocrformula}
+
+\begin{ocrformula}
+(3.16)                                                                         <
+^7(.Li,t)--/(kh,i,kh)                                         Gi-      Go
+\end{ocrformula}
+
+\begin{ocrformula}
+provided     \h\ < d.
+\end{ocrformula}
+
+Writing / in the form
+
+\begin{ocrformula}
+and     using (3.15), (3.16), we get |/j < 3e if \h\ <                                  8. Thus        dV/dxt   exists
+and     is equal to V*, i.e., (3.6) holds.
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 4.} Let f\{x, t) be a continuous junction in O and locally Holder
+
+\begin{ocrformula}
+continuous      {exponent b) in i(u,      uniformly  with respect to t. Then V(x, t)
+\end{ocrformula}
+
+has second continuous derivatives with respect to x, for kh EUR D, To < t < Tly and
+
+\begin{ocrformula}
+'            psmdxtdxj          _pdrr                                       J    ' r)' *
+Je            Jd >>z^':t'rVtt,
+\end{ocrformula}
+
+dXidXj
+
+% Source scan page offset 10
+\begin{ocrformula}
+Observe         that  in (^.(>) the order of integration is immaterial
+\end{ocrformula}
+
+whereas since the singularity of the integrand is absolutely integrable in each
+
+\begin{ocrformula}
+variable separately  (by (3.7)), the integral in (3.17) is a repeated integral
+\end{ocrformula}
+
+and thus only the t-integral is taken as an improper integral. In contrast
+
+\begin{ocrformula}
+to (3.7) we now  have the inequality    (whose  proof                                           is similar to that of
+\end{ocrformula}
+
+\begin{ocrformula}
+(3-7)),
+th2                                  ^                 const.
+(3.18)                                   wv(x,       t; Ts, t)               -          -
+dXi dXi                                      (i         tU\kh      PS|"+2-2"
+\end{ocrformula}
+
+so that we assert that the singularity
+
+\begin{ocrformula}
+cannot                                                          of the integrand         of (3.17) is
+\end{ocrformula}
+
+absolutely integrable in O.
+
+\medskip\noindent\textit{Proof.} By Theorem 3,
+
+\begin{ocrformula}
+where     J is defined             by       (3.8). Write        dJ/dxi      in the form
+\end{ocrformula}
+
+G) =
+
+\begin{ocrformula}
+(3.20)                                  f(y, r)C(y, r)                     wy-(x, i;{,r) dPS
+dJ{X^                                           fD ^
+\end{ocrformula}
+
+\begin{ocrformula}
++ KU,        r)                r)            <<*'(*, t;t,r)
+fD [G({,          ^-
+\end{ocrformula}
+
+\begin{ocrformula}
+-C(y,T)-^r_wy'(x,t;t,T)~^dt
+\end{ocrformula}
+
+-
+
+\begin{ocrformula}
++                 Z(x, i; {, t) [/(x, r)               /(?/,r)] <ft
+\end{ocrformula}
+
+fD \textasciicircum{}
+
+where u is a fixed point. Let /PS be a fixed ball contained in D and denote by th/PS the boundary of K and by K* the complement of K in D. Breaking the first integral on the right-hand side of (3.20) into two integrals, namely,
+
+\begin{ocrformula}
+/     =   /    -J- /         and                          the divergence             theorem     to the first integral,
+\end{ocrformula}
+
+applying we obtain
+
+\begin{ocrformula}
+(3.21)                wv-{x, t; e, t) cos {n, shch) dSv +                                    wv-*(x, t; x, t) ax
+\end{ocrformula}
+
+jdK f\textasciicircum{} \textasciicircum{} where n is the outwardly directed normal to dK and dSv is the surface
+
+\begin{ocrformula}
+element on dK. Substituting     (3.21) into (3.20), then differentiating (3.20)
+\end{ocrformula}
+
+once with respect to x, and choosing u = kh, we get
+
+\#
+
+\begin{ocrformula}
+W(x,       I 1, t) COS 0, 1,,:)
+\JBK    -^                                  <K,J            _^
+\end{ocrformula}
+
+% Source scan page offset 11
+\begin{ocrformula}
+Y*#('.'L              G'IIN1>>LMINILI- SOLUTIONS           LN|> Till*'.
+\end{ocrformula}
+
+CAUCUS PHOHLKM II
+
+kh be a fixed point lying in the interior of K. Then Let each of the
+
+\begin{ocrformula}
+first two integrals on the right-hand   side of (3.22) is a bounded    function
+of its variables which  tends uniformly    to zero if t --> t. To estimate    the
+last integral I4 on the right-hand  side of (3.22), we                                use       (3.18) and    the
+\end{ocrformula}
+
+Holder continuity of /. We find that
+
+\begin{ocrformula}
+it I ^    const,    g                 ax                  const.
+1 4| ~      -      JD    -                           -      -
+(i    r)"    \x            x|e+2-2m-0           (i    tu
+if 1 --   (/0/2) < m < 1, where      the constant   is independent                                   of    (x, t, t)
+\end{ocrformula}
+
+provided kh is restricted to a closed subset of D.
+
+\begin{ocrformula}
+To    evaluate   the third integral /3 on               the right-hand           side of (3.22) we
+\end{ocrformula}
+
+need the explicit formula
+
+\begin{ocrformula}
+X               -                                               -        PS    a* (u, r)(xk -
+\-2{t         t)a*(u, t) +        S      aih(y, r)(xh         &)                               &)]*
+\end{ocrformula}
+
+\begin{ocrformula}
+Using        (2.2), (2.3), and       the mean       value     theorem       we find that
+\end{ocrformula}
+
+\begin{ocrformula}
+I   PL         4(<<-r)J             expL       4(<<-g)L
+\end{ocrformula}
+
+\begin{ocrformula}
+Using  this inequality and                  employing       once     more    (2.2), (2.3) we            find from
+the formula  (3.23) that
+\end{ocrformula}
+
+\begin{ocrformula}
+(3.24)        E                    ^<*.':
+dXi dx                 b')-[i5i                 "**<*#'^l
+< COnSt. {t -           r)-("/2)-l
+\end{ocrformula}
+
+\begin{ocrformula}
+<    const, (t -                                                          ~
+r)-^)-1       exp                           \kh         *!">
+[-l4deg^G^|2]
+\end{ocrformula}
+
+\begin{ocrformula}
+for any        l^ <     l0, from     which      it follows         (as in the proof             of (3.3), (3.7))
+\end{ocrformula}
+
+that
+
+% Source scan page offset 12
+\begin{ocrformula}
+12                   MINDAMI'NGLIi               SOLUTIONS       ANI> Till')GLIMEl             I'HoltLI'.M        (IILG. I
+\end{ocrformula}
+
+\begin{ocrformula}
+II <                                                               _            < ,, <
+(3.25)                                     __-Jii-i_                        (i         (a/2)                1).
+\end{ocrformula}
+
+\textasciicircum{}\textasciitilde{}
+
+\begin{ocrformula}
+--                 --
+Since              *?(PS, t)\ < const. \x
+\C(x, t)                         x|a, using (3.18) we conclude   that
+the integrand   of /3 is also bounded    by the right-hand   side of (3.25) (with
+--           --
+a different constant).   Hence   |/3| < const, (t     r)~"if 1    (a/2) < m < 1.
+\end{ocrformula}
+
+Since the same bound was established for /4, and since, as has already been noted, the first two terms on the right-hand side of (3.22) are bounded functions of (t,t), we conclude that
+
+\begin{ocrformula}
+th2                                   const.            L         d              \
+(3.26)                              J(x, t, t)
+\end{ocrformula}
+
+dXi dx
+
+\begin{ocrformula}
+where       d = min         (<x,b).
+\end{ocrformula}
+
+We can now proceed as in the proof of Theorem 3; namely, we set
+
+\begin{ocrformula}
+and     prove      that the integral (3.19) satisfies
+\end{ocrformula}
+
+sx, \textbackslash{}exj
+
+\begin{ocrformula}
+i.e., (3.17) holds. The continuity  of d2V/dx-i dx, follows by applying                                                 the
+method    of proof of Lemma  1 to the right-hand  side of (3.17).
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 5.} Let f(x, t) be as in Theorem 4- Then dV(x, t)/dt exists and
+
+\begin{ocrformula}
+is continuous          for kh PS D, T0 < I < 7\, and
+\end{ocrformula}
+
+r >> n ,t
+
+\begin{ocrformula}
+,_0,,            dV(x,       t)                          ft                               d2Z(x, t; PS, t) .,,
+\end{ocrformula}
+
+\medskip\noindent\textit{Proof.} Since Z(x, i; x, r) is a solution of (2.7), if t > t
+
+\begin{ocrformula}
+=              Z(x, i; x, t)/(x, t) ax
+(3.28)               t,r)
+\end{ocrformula}
+
+| J(x, fD I
+
+i,y=l J u oli d.lj
+
+Each on the right-hand
+
+\begin{ocrformula}
+term                side can be treated similarly                                         to d2J/dkh^        dx,
+in the proof of Theorem   4. Hence   we get (compare  (3.20))
+\end{ocrformula}
+
+d
+
+\begin{ocrformula}
+(3.29)                         J{x> l>T)
+at                      ^                        (i-|<i.<i)
+We    shall prove            that dV(x,          t)/dt exists and
+\end{ocrformula}
+
+\begin{ocrformula}
+=     J(x, t, t) +                   J(x, t, r) dr.
+(3.30)                         ^^                                     jln I
+\end{ocrformula}
+
+Taking h > 0 we consider the finite difference
+
+% Source scan page offset 13
+\begin{ocrformula}
+! i* .'{             |<im><\m1 m \i, <>u iidnn               \m>    nil. <#lin #11\ iimikm.m                       13
+\end{ocrformula}
+
+\begin{ocrformula}
+ML<<-JM
+\end{ocrformula}
+
+h
+
+\begin{ocrformula}
+=                 J(x, t +        h, r) (It +              J(x, t*, r) dr
+\end{ocrformula}
+
+\textbackslash{} R'' jl ft
+
+\begin{ocrformula}
+where      t < t* <        I -\- h. As     /(-->>0         the     first term         on     the  right-hand     side
+\end{ocrformula}
+
+converges to J(x, t, t). To evaluate the second term, consider
+
+\begin{ocrformula}
+Using     (3.29) it follows that, for any                   e >    0,
+\end{ocrformula}
+
+'I th
+
+\begin{ocrformula}
+(3.33)                                                              (It <
+\end{ocrformula}
+
+Sh'M*
+
+\begin{ocrformula}
+for some        tt < t and        for all t < I <
+t -\- h provided   h is sufficiently small,
+say h < di. Since dJ(x, t, t)/d1 is a continuous    function if t -- r > t -- tt,
+there exists a d < di such that if L < d then
+\end{ocrformula}
+
+\begin{ocrformula}
+(3.34)                                                                      <
+|j(MV)-|/u-,^)                                     Tu-       2U
+\end{ocrformula}
+
+for all t < tt.
+
+\begin{ocrformula}
+Breaking         each    of the integrals in (3.32) into two                        integrals by
+\end{ocrformula}
+
+J Ge J Ge JU
+
+\begin{ocrformula}
+and     using(3.33), (3.34), it follows that \II\ < 3c if h < d. Using                                          this
+in (3.31), we obtain (3.30) for the right-hand  ^-derivative. The
+\end{ocrformula}
+
+for h < 0 are similar. considerations
+
+\begin{ocrformula}
+In view       of (2.10) and      the fact that J{x, t, t) is a solution of (2.7), (3.30)
+reduces      to (3.27). The           continuity  of dV(x, t)/dt follows by applying       the
+\end{ocrformula}
+
+method of proof of Lemma I.
+
+Combining Theorems 4, 5 we obtain:
+
+\medskip\noindent\textbf{Theorem 6.} Let f(x, t) be os in Theorem 4- Then V\{x, t) satisfies the
+
+\begin{ocrformula}
+equation      (.r PS D, T0 < t < I\)
+\end{ocrformula}
+
+No. -
+
+\begin{ocrformula}
+(3.35)        X i,(,, t)
+i,j= l        degXi dXj                      2VPSDdt                                                p>        \
+\end{ocrformula}
+
+= -
+
+\begin{ocrformula}
+-m                                   t<<<<i*.o            deg<<<<-
+*>+/e/,,             J,                                    ^a'1*;^'t)^t*
+\end{ocrformula}
+
+Note that the singularity of the integrand on the right-hand side of
+
+\begin{ocrformula}
+(3.35) is absolutely and separately integrable in PS and r.
+\end{ocrformula}
+
+% Source scan page offset 14
+\section{Construction of Fundamental Solutions}
+\begin{ocrformula}
+We        shall construct                a fundamental                  solution  G(gg, PS;PS, r) of Lu = 0 in
+the form    (2.8). If Ph is such that Theorem                                 6 applies for/(zh, t) = Ph(kh, t; x, g)
+\end{ocrformula}
+
+then the equation LT = 0 becomes
+
+\begin{ocrformula}
+=                   i;{, t) +                                            s;x, t) dydc.
+(4.1)          Ph(kh, i; x, t)               LZ(x,                      f* fDLZ(x,        t;y, s)-F(u,
+\end{ocrformula}
+
+\begin{ocrformula}
+Thus,       for each       fixed (x, t) F(zh, i; x, t) is a solution                         of a Volterra        integral
+equation         with     a singular kernel LZ(x, l; y, a).
+\end{ocrformula}
+
+From
+
+= -
+
+\begin{ocrformula}
+(4.2)       LZ(x,       I; y,a)                        [au(zh, i)           a<<(i/, s)]               Ia(kh, i; 2/,<<g)
+2^                                         ^7^7
+\end{ocrformula}
+
+-\textasciitilde{}
+
+\begin{ocrformula}
++         S 6,(.r,i)     Z(kh, i; 2/,s) +               c(x, t)Z(x, t; u, s)
+,=1         dXi
+\end{ocrformula}
+
+we obtain the inequality
+
+\begin{ocrformula}
+(4.3)
+|M(,,(;*,)|<^^F-jifi-5-;                                                          (i-|<m<i).
+\end{ocrformula}
+
+Hence the singularity is integrable.
+
+\begin{ocrformula}
+We    shall prove that there exists a solution                                 Ph of (4.1) of the form
+\end{ocrformula}
+
+\begin{ocrformula}
+(4.4)                              Ph(kh, t; {, T) =                S       (LZ)i(z,    t; x, t),
+\end{ocrformula}
+
+\begin{ocrformula}
+where                   = LZ      and
+(LZ)i
+\end{ocrformula}
+
+\begin{ocrformula}
+=                                                      <r;x, t) rfy Lg.
+(4.5)       (LZ),,+i(z,           i; {, t)                        [LZ(z,     I; y, a)](LZUy,
+// /0
+\end{ocrformula}
+
+Weshall prove the convergence of the series in (4.4). The following elementary lemma will be needed.
+
+\medskip\noindent\textbf{Lemma 2.} IfG is a bounded domain in R" and 0 < a < n, 0 < b < e,
+
+then for any kh PS G, z 6 G, \% \textasciicircum{} z,
+
+\begin{ocrformula}
+G              dp                          fconst. |.r--          z\n~a-deg             if a +   b > e,
+\end{ocrformula}
+
+<-
+
+\begin{ocrformula}
+Jg \kh    --              -                                                             if a +
+y\a\y             z\th         [.const,                                           b < p.
+\end{ocrformula}
+
+The proof is obtained by breaking G into three sets corresponding to
+
+\begin{ocrformula}
+--          --           --           --
+\y    z\ < \x    z\/2, \y    x\ < \x      z\/2 and the complementary     set, and
+\end{ocrformula}
+
+estimating the corresponding integrals separately.
+
+\begin{ocrformula}
+Using      Lemma        2 and         (4.3) we get, if 2m <              1 and 2(n +          2 -- 2m -- a) < n,
+\end{ocrformula}
+
+\begin{ocrformula}
+|(LZ)2(.r, t; PS, t)\ <                     _                                              (2-Im.-<*)'
+^        tu+1ts-T)         m."IG^i7+2~2m-*+
+Since m <          1, 2 < 2m + a, the singularity of (LZ)2 is weaker than that of LZ.
+Proceeding          similarly to evaluate (LZ)3, (/>Z)4, etc., we arrive at some i>0for
+\end{ocrformula}
+
+which
+
+% Source scan page offset 15
+\begin{ocrformula}
+(*1.G>)                                   (LZ),,Xx,             t; x, t)\ < const.
+\end{ocrformula}
+
+Wc proceed to prove by induction on m that
+
+\begin{ocrformula}
+(4.7)                     \{LZ)m+m(x,              I; x, r)\ <                            -
+*o/((1                     m)ie +       1)'
+where  Kc, K are some constants and G(i) is the gamma function. For m = 0
+this follows from (4.G). Assuming  now that (4.7) holds for some    integer
+m  >  0 and using (4.3) we get
+\end{ocrformula}
+
+Km
+
+\begin{ocrformula}
+(LZ)m+l+n(x,             t; x,t)\ < const. Ko                                 _
+p,               d\t        +     l\
+\end{ocrformula}
+
+\begin{ocrformula}
+* V             -                 --
+(I        s)-"(s           t^-^^as.
+\end{ocrformula}
+
+\begin{ocrformula}
+--              --
+Substituting            r =     (s        r)/(t             r) and         using        the formula
+\end{ocrformula}
+
+\begin{ocrformula}
+= <<fc)
+/;(i-p)deg-v-w/P                                  T(a +              6)
+\end{ocrformula}
+
+\begin{ocrformula}
+(4.7) follows for m + .1,provided    the constant jK"is appropriately     chosen.
+From    (4.7) it follows that the scries expansion  of Ph(.t, t; x, t) is
+\end{ocrformula}
+
+convergentand that the integral in (4.1) is equal to
+
+\begin{ocrformula}
+S;               LZ(x,        t;y,c)*        (LZ)Xy,            s; x, T) dy da.
+\end{ocrformula}
+
+J' JD
+
+Hence Ph is a solution of (4.1). We also have
+
+\begin{ocrformula}
+/, ,-,4 iw    . .. w ^                    const.                           1                            /, -    a     ^       ,\ *
+(4.8)   |Ph(kh, I; x, t)| <                                        __                                             2
+\end{ocrformula}
+
+< m <
+
+\begin{ocrformula}
+-{GZG^             |g        {|i,+2.2m_a                       ^1                    1J
+\end{ocrformula}
+
+In order to study Ph in more detail we shall need the following lemma.
+
+e -e
+
+\medskip\noindent\textbf{Lemma 3.} // -- degdeg <<*<-+ 1,--oc < 0 < + 1, then
+
+\medskip\noindent\textit{Proof.} Substitute
+
+\begin{ocrformula}
+-                              -                           t ~                       -
+_                               *'           /a-    .                         Lsh           //>* *>>#
+\end{ocrformula}
+
+01 (il - L1/2 - + L
+
+\begin{ocrformula}
+V <   g/               2(t              s)1'2    \             i -       t/         2(i
+\end{ocrformula}
+
+- s)1/2 and note that
+
+\textasciicircum{} "*" PS"
+
+\begin{ocrformula}
+4(i-       t)             4(g-          s)                4(i-        s)
+\end{ocrformula}
+
+% Source scan page offset 16
+\begin{ocrformula}
+If \vi!proceed       as in (3.2) bul. then                      write
+\end{ocrformula}
+
+0)
+
+\begin{ocrformula}
+and  use the inequality s*i/2-mb-<<t < COnst. for 0 < s < <<<, then                                           we obtain
+\end{ocrformula}
+
+a bound from which the following inequality for Z follows:
+
+\begin{ocrformula}
+const.                          rxsk-siH
+(4.9)           \Z(x, t; x, r)|
+<{t_             t)m[kh             PS|e-2m<*R|_             4(i_T)J
+for any     lo <     l0, 0 < m < e/2.                   In a similar              way     be proved
+\end{ocrformula}
+
+it can that
+
+\begin{ocrformula}
+const.                        -
+dZ(x,t;tr)                                                         V_K\x
+(4.10)     S                          -<            -             -             exp          -
+\end{ocrformula}
+
+5!2]
+
+\begin{ocrformula}
+dXi                   (t           tU\kh      x|<<+i-2i.     L    4(i    r) J
+\end{ocrformula}
+
+\begin{ocrformula}
+ThZ(kh,i;x,t)                     RZ(kh,I-L,t)
+(4.11)
+\end{ocrformula}
+
+dt dXi dXj
+
+\begin{ocrformula}
+const.                         -
+\end{ocrformula}
+
+e G l5|kh SiE <
+
+\begin{ocrformula}
+-          -      + 2-2m
+(t        TU\Kh      x|"       expL-i(^TJ
+.            const.                 G             -
+d*Z(x,f,t;,r)                                                          K\x        Sl2l
+(4.12)
+dx i dXj dX/,
+\end{ocrformula}
+
+\begin{ocrformula}
+const.                         g           -
+\end{ocrformula}
+
+xsia* sin
+
+\begin{ocrformula}
+(4.13)            |Sh*,         i; x, r)| <              _               _
+(f        ^             ^e+2_2m-~           expr"i(r^J
+for any XS < lo; in (4.10) 0 < m < {e + l)/2, in (4.11) 0 < m < (e + 2)/2,
+sh id in (4.13) 0 < m < (w + 2 - a)/2.
+\end{ocrformula}
+
+--
+
+\begin{ocrformula}
+Using (4.13) with m = (e -+- 2        a)/2 and applying    Lemma     3, we find
+\end{ocrformula}
+
+that
+
+\begin{ocrformula}
+const.           G         --
+i/Try\ , , i m ^                                  \%\x     PS|2I
+|(LZ)2(.r, t; x, g)! <    _              ekhr
+(f   t)(i+2-2a)/2     [-4(^_t)         J'
+\end{ocrformula}
+
+Proceeding by induction one easify establishes, with the aid of Lemma 3, the inequalities
+
+\begin{ocrformula}
+(4.14)      Kb^c.ijj.ol
+<^(,-r)--..<<-.expf-^fJ-*]
+\end{ocrformula}
+
+where H0, E are some positive constants. From the definition of Ph we then conclude that
+
+\begin{ocrformula}
+From      this inequality         it also follows                    (compare     the derivation         of (4.9)) that
+\end{ocrformula}
+
+\begin{ocrformula}
+i-,                                         const.                             G       --
+/, ,e             . u n, ^                                                                   lo|i*   PS|2~I
+(4.10)'                ' " -<
+\end{ocrformula}
+
+' V ' I,' x,t)\textbackslash{}
+
+\begin{ocrformula}
+\Ph(kh,                          -        g-; - -, ,., ,,
++ 2-2m-a            exp^   ---77; --    G
+(i            TU\Kh      x|>>>>                        |_ 4(i      t) J
+for 0 < m < (e + 2 -- a)/2, where         Xf> is any number                                           less than        the     l5
+appearing   in (4.13) and, consequently,    it can be taken                                        to be any         number
+</V   (4.10) is an improvement    of (4.8).
+\end{ocrformula}
+
+% Source scan page offset 17
+\begin{ocrformula}
+SKC. I               I*|INI>LMINI'LI..SOLUTIONS                     AND          Till*'-
+\end{ocrformula}
+
+CAIU'llY RIIOIII,KM 17
+
+\begin{ocrformula}
+Py using (4.1 i) and employing    the; method    of proof of Lemma   1, Sec. 3,
+one can show   that the (LZ)v(x, t; x, t) are continuous       functions of (re,t),
+with respect to (PS, t) if t --   t  >  const. > 0, and are continuous
+\end{ocrformula}
+
+uniformly
+
+\begin{ocrformula}
+functions of (x, t), uniformly   with respect to (re,t) if t -- t > const. > 0.
+It follows  that the (LZ),,(rr, t; x, t) are continuous functions of (re,t; x, t).
+From   (4.4), (4.14) one then concludes that F(gs, t; x, t) is also a continuous
+\end{ocrformula}
+
+function of (re,i; x, r).
+
+\medskip\noindent\textbf{Theorem 7.} F(gs, t; x, g) is Holder continuous in x; more precisely, for
+
+any 0 < b < a, -
+
+\begin{ocrformula}
+(4.17)        \Ph(kh, t; t, t)           F(u, t; t, t)\
+\end{ocrformula}
+
+\begin{ocrformula}
+*                                                                              +   -R
+0^>>                            {<<P           No. fl                                      [-^}
+giLege u =       a -- b and            where     l* is a positive constant.
+\end{ocrformula}
+
+\medskip\noindent\textit{Proof.} We first prove the inequality
+
+\begin{ocrformula}
+(4.18)        \LZ(x,t;t,T)-LZ(y,t;t,T)\
+const. \x                                                                                  -
+/ps-ei              ,                      ti'-n
+-,/!>>;cxpr                                                     exp r_%
+\end{ocrformula}
+
+where k is a positive constant. Consider first the case where - -
+
+\begin{ocrformula}
+(4.19)                                             \x        7/|2 < t               r,
+\end{ocrformula}
+
+and take the term
+
+= -
+
+\begin{ocrformula}
+(4.20)          F(x, t; x, r)                   i)
+[a,-,-Cr,                  a,,(x, T)]                       Z{z, t; x, r)
+\end{ocrformula}
+
+\textasciicircum{}\textasciicircum{}r
+
+\begin{ocrformula}
+of LZ{x,       t-,x,t) (see (4,2)). We                  have
+\end{ocrformula}
+
+\begin{ocrformula}
+(4.21)
+\end{ocrformula}
+
+- - \textasciitilde{}\textasciitilde{}
+
+\begin{ocrformula}
+Fix, t; x, r)             /kh,/, f; x, t) =         K(.r,           i)        ats{u, t)]                    Z(.r, i; x, r)
+\end{ocrformula}
+
+* -
+
+\begin{ocrformula}
+[a,nO/, 0                 b<<(x, t)]
+\end{ocrformula}
+
+= L + L. =
+
+\begin{ocrformula}
+Using     (4.11) with m                 (/t +         2)/2    we get
+\end{ocrformula}
+
+\begin{ocrformula}
+(:oust* l-r" ^         - l,*|kh
+\end{ocrformula}
+
+\textasciitilde{}
+
+\begin{ocrformula}
+(4 22)
+Kl.ll)                      |/I| S<
+\end{ocrformula}
+
+\textbackslash{}F*I exD slr G *l'1 * \_ \_
+
+\begin{ocrformula}
+^     t)(p+2)/2     [^ 4(i      r) J
+\end{ocrformula}
+
+Using the mean value theorem and
+
+\begin{ocrformula}
+(4.12), and                                 noting      that, because      of
+(4.ID), for any            point z in the interval (.>>*,
+//)
+\end{ocrformula}
+
+\begin{ocrformula}
+cxijG~c                                                                     tZ           1          (foranydeg<c'<c)>
+t.Z*'"]^('degnst-exp\~c'
+\end{ocrformula}
+
+% Source scan page offset 18
+we m;IiIi
+
+92 - \textasciitilde{}\textasciitilde{}
+
+\begin{ocrformula}
+(4.23)                     Z(x, ' t;' x,' g)                  Z(y, t; x, r)
+\end{ocrformula}
+
+dXi dxj dug dijj
+
+\begin{ocrformula}
+const. \x -y\                          G              -
+\y    {[P
+\end{ocrformula}
+
+S - P
+
+\begin{ocrformula}
+(i    r)(-+3)/2                        L            t-rj
+\end{ocrformula}
+
+where \&>> are used to denote appropriate positive constants. Hence,
+
+.
+
+\begin{ocrformula}
+(4-24)                    |ft| <                                exp
+(f^fe^                                [_,,        k^fj
+\end{ocrformula}
+
+\begin{ocrformula}
+Combining         (4.24), (4.22) and             using       (4.19), we get
+\end{ocrformula}
+
+-
+
+\begin{ocrformula}
+\F(x, t; x, r)         F(a, t; i, T)| <                                        exp                                     .
+(tm)T^^S                                [-*,              l^f*]
+\end{ocrformula}
+
+The estimation of the Holder exponent and coefficient for the lower-order terms in LZ is similar to the estimation for F. Combining these estimates,
+
+\begin{ocrformula}
+the inequality (4.18) follows.
+If (4.19) is not satisfied then,                       by       (4.13)      (with       m =      (e +            2 -    <x)/2),
+\end{ocrformula}
+
+\textasciitilde{} \textasciitilde{}
+
+\begin{ocrformula}
+11-7, it       M -G COnSt* (*    T)^/2     G                             loI^*    SlH *
+1LZ(.t, i; x, t)I <    _               exp                                    _
+(i    t)(e+2_7)/2      [-                             ^      kh) J
+--              --
+A     similarinequality holds for LZ(y, t; x, t). Since (Z    t)b/'z < \x    t/I",
+(4.18) follows.
+Denoting    the integral on the right-hand   side of (4.1) by ^(.r, t; x, t),
+it remains       to prove     that (4.18) holds with LZ                     replaced         by Ps (with a possibly
+\end{ocrformula}
+
+different k). Writing
+
+- -
+
+\begin{ocrformula}
+Y=(z, i; x, t)           '(u, t; x, t) -                                t; f, s)             LZ(y,       t; f, s)]
+f* fD [LZ(x,
+\end{ocrformula}
+
+* Ph(z, s; x, t),df da
+
+\begin{ocrformula}
+and     using    (4.18), (4.15), we get
+\end{ocrformula}
+
+\begin{ocrformula}
+(4.25)         |*(M;x,t)-Ps0/,i;x,t)|
+< const. \x -           u\"[1(kh, t; x, t) 4- /(//, i; x, t)]
+\end{ocrformula}
+
+where
+
+\begin{ocrformula}
+/(i,<;x,t)                                      + 2-U)/2 ThKhR [                                       _                 + 2-c-<<)/2
+JT )b (i _      s)(e                                    f _ s        J (s               r)(n
+\end{ocrformula}
+
+By Lemma 3,
+
+\begin{ocrformula}
+J(*> <<*L,t)<              _                             exp        -/.*<
+(t           TyH~^z^i                     [           UKs-f               ]'
+\end{ocrformula}
+
+\begin{ocrformula}
+A     similar    inequality        holds    for I(y, t\ PS, t). {Substituting                        these            inequalities
+\end{ocrformula}
+
+% Source scan page offset 19
+\begin{ocrformula}
+into (1.2G>) we          IiikI I,Ii:i.I,
+( I.IK) is satisfied if /,X is replaced                    by ps and    if k
+\end{ocrformula}
+
+is K'phu-ed by A-.4.This completes the proof of Theorem 7.
+
+Ity reading carefully the proof of Theorem 7 one deduces:
+
+\medskip\noindent\textbf{Corollary.} The inequality (4.17) holds for any l* < lo/4.
+
+\medskip\noindent\textbf{Theorem 8.} The function G (zh, t; x, r), defined by (2.8), ts a fundamental
+
+aviation of Lu -- 0 in O.
+
+\medskip\noindent\textit{Proof.} We first prove that for each fixed (PS, t) LT = 0. Write G in the form
+
+\begin{ocrformula}
+(4.2C)                    = Z(x, t; x, t) +                          Z(x, t; v, s)Ph(i7, <r;x, r) ae da
+\end{ocrformula}
+
+T(x, t; x, t) fD f*
+
+\begin{ocrformula}
++                       Z(xt t; e, s)Ph(e, a; x, t) ae da,
+\end{ocrformula}
+
+\textasciicircum{} J0
+
+where t0 is a fixed number satisfying t < to < t. For the first integral, the
+
+\begin{ocrformula}
+first two zh-derivatives of Z(x, t\t\,a) are continuous functions in (zh, t; e, a)
+whereas    Ph(e, a; x, t) is absolutely   integrable in (17,s) (by (4.8) or (4.16)).
+\end{ocrformula}
+
+Hence, by a standard theorem of calculus, the first two x-derivatives of the
+
+\begin{ocrformula}
+integral exist, and the order of any ^-differentiation (up to the second order)
+\end{ocrformula}
+
+and of the integration may be changed.
+
+\begin{ocrformula}
+As for the second integral on the right-hand      side of (4.26), Ph(e, a; x, t)
+(for (x, t) fixed) is uniformly   Holder  continuous    in e with any exponent
+<a, as follows by Theorem       7. By Theorems     3, 4 of Sec. 3 it follows that
+the first two .t-derivatives of the integral exist, and the order- of any
+.t-differentiation (up to the second     order) and of the integration       may
+be changed.         We     conclude     that the first two                   zh-dcrivatives    of G exist, and
+\end{ocrformula}
+
+\begin{ocrformula}
+a similar formula           holds for thG/th.**,.
+The     existence       of dT(x, t; x, t)/thi can            be established          by the same
+\end{ocrformula}
+
+considerationsas for dT/dKhg, d2G/dkh, dkh3, making use of Theorem 5, Sec. 3. The formula
+
+\begin{ocrformula}
+*' T) =                                                      >> ')
+(4.28)                                               +                                       Ph(,,, ,,; {, r) d, da
+^Xl                      **ipsL                 /'* l         *Z<'^
+\end{ocrformula}
+
+\textasciitilde{} "' C)
+
+\begin{ocrformula}
+*(*, <<! 6 t) +            da                               Ph(,,, s; f, r) d,
+PS             I     ^^^
+\end{ocrformula}
+
+is valid.
+
+\begin{ocrformula}
+Combining            (4.28), (4.27) and       the analogue                of (4.27) for dT/dxh      we get
+\end{ocrformula}
+
+% Source scan page offset 20
+\begin{ocrformula}
+"L)                              IAI. ;(>l,IPIONS LM>
+I*I)N|>>LMI-'.N                                         I'
+\end{ocrformula}
+
+111 CUKlh GIMMII.ILI GIILI'.I
+
+-
+
+\begin{ocrformula}
+LV(x,     t; x, r) =        LZ{x,     I; x, t)               F(l; I; x, t)
+\end{ocrformula}
+
++
+
+\begin{ocrformula}
+/t /D LZ^'
+^ 4>> s) *ph^'            s5 & t) d-e da.
+\end{ocrformula}
+
+\begin{ocrformula}
+Since   Ph satisfies the integral equation       (4.1), LT = 0.
+\end{ocrformula}
+
+Using (2.8) and the method of proof of Lemma 1, Sec. 3, one can show
+
+\begin{ocrformula}
+that   G (.t,t; x, r) is a continuous    function of (x, t), uniform] u with respect
+to (x, t) if t -- r > const. > 0, and it is a continuous             function of (PS, r)
+with             to        if t -- r > const. Hence
+uniformly            respect      {x, t)                              G(kh, i; x, r) is a
+continuous     function of (kh, PS; x, r). Here kh and x vary in D and T0 < t <
+\end{ocrformula}
+
+i < I\textbackslash{}.
+
+\begin{ocrformula}
+(4.28), (4.27) and
+Using                                           the     analogue          of (4.27) for dT/dxi}               one   can
+\end{ocrformula}
+
+similarly show that
+
+thG(.t, t; g, r)
+
+\begin{ocrformula}
+dT(T,t;t,T)^                      aT(y,^,r);
+\end{ocrformula}
+
+\begin{ocrformula}
+are continuous  functions of (x, i; x, t), where kh, x vary in /) and 7To < t <
+\end{ocrformula}
+
+t < Tu. This fact, however, will not be needed in the present chapter.
+
+\begin{ocrformula}
+It remains to prove that for any continuous      function /(.r) in D,
+\end{ocrformula}
+
+\begin{ocrformula}
+lim [                                           =               for kh PS /l
+(4.29)                              G(kh, t; PS, r)/(PS) ax                    /(.r)
+\end{ocrformula}
+
+In view of Theorem 1, Sec. 2, it suffices to show that
+
+\begin{ocrformula}
+(4.30)         I =                    \Z(x, t; f, s)Ph(z, s; x, t)| #<*s                     #    -> 0           if t -> r.
+\end{ocrformula}
+
+jD J* fo
+
+\begin{ocrformula}
+= n/2),                                            Lemma     3, we get
+Using     (4.9) (with m         (4.15), and
+\end{ocrformula}
+
+\begin{ocrformula}
+/ < const.                    -
+(t           r)i--^           cxp                            ##
+fD                                        [-X^TTf]
+--           --
+Substituting          r =    |x        x|(i    t)~1/2 we find that
+7 < const, (i - t)"/2,
+\end{ocrformula}
+
+\begin{ocrformula}
+from     which       (4.30) follows.
+\end{ocrformula}
+
+\section{Properties of Fundamental Solutions}
+In Sec. 3 we have the concept introduced of volume potentials with respect to the parametrix Z(x, t; x, t) and established some differentiability
+
+\begin{ocrformula}
+properties (Theorems    2-0). The purpose of the present section is to make
+\end{ocrformula}
+
+a similar study of volume potentials with respect to the fundamental G(kh, I; x, t). Thus, we shall consider functions of the form solution
+
+\begin{ocrformula}
+(L.!)                       \V{x, 0 =                          T{x, t; x, r)/(PS, r) i/x dr.
+\end{ocrformula}
+
+fa fD
+
+\begin{ocrformula}
+Lor simplicity, / is always                   assumed              to be continuous             in 12 =    D     Kh   [7'u,I\].
+\end{ocrformula}
+
+% Source scan page offset 21
+SIOC.G> MINIILMG.NTLI, .'ol.UTIONN LNI> GPK SLISShch I'HOItLKM 21
+
+If we substitute for G its expression from (2.8), then we find that
+
+\begin{ocrformula}
+(5.2)                                  W(x,          t) =          V(x, I) +        Shchkh,     t)
+where   V(x, t) is the potential (3.1) and U(x, t) can be written                                              (after
+\end{ocrformula}
+
+the order of integration) in the form changing
+
+=
+
+\begin{ocrformula}
+(5.3)                          U(r, t)                             Z(x, t; x, r)fa, r) ax dr
+\end{ocrformula}
+
+fn jD where
+
+\begin{ocrformula}
+=                      Ph(kh, t- f, r)fU, t) <ix dr.
+(5.4)                          fa,    t)
+\end{ocrformula}
+
+fTa fD
+
+\begin{ocrformula}
+= 0 if f < t and                                                   (4.8), it follows that
+\end{ocrformula}
+
+Defining Ph(kh, i; x, g) recalling
+
+\medskip\noindent\textbf{Lemma 1, Sec.} 3, can be applied to the right-hand side of (5.4). Hence
+
+fa, t) is a continuous function. / is also uniformly Holder continuous in kh
+
+\begin{ocrformula}
+with any exponent     b < a. Indeed, using (4.17) we get
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+(5.5)          |/(:r,0               I(V, 01 < const. \x                        n\b[_A{kh, t) +          A(y, t)]
+\end{ocrformula}
+
+where
+
+\begin{ocrformula}
+A &>l)       =                        ~                                                                  dr.
+(t        r)'^+2-^2                  exp                           #
+in in                                                  [-^jff^]
+--            --
+Substituting       (for t fixed) r =                      \x         x|(i       r)_1/2 we find that
+\end{ocrformula}
+
+\begin{ocrformula}
+A(x, t) <            const.         G (t -           g)(t-2)/2</t <         const.
+\end{ocrformula}
+
+J To A similar inequality holds for A(y, t). Substituting these inequalities into
+
+\begin{ocrformula}
+(5.5), the uniform                 Holder       continuity                (exponent         b) of f(x, t) in kh follows.
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 9.} // f(x, t) is a continuous function in O then W(x, t) is a
+
+\begin{ocrformula}
+continuous function in O and dW/dxt           are continuous functions for kh PS D,
+To < t   < T kh. If f(x, t) is also locally Holder continuous in kh PS D, uniformly
+with respect to t, then d2W/dXi                           dXj and           dW/dt         are continuous       functions       for
+\end{ocrformula}
+
+kh e D, T0 <l < Ti, and
+
+\begin{ocrformula}
+(5.6)                                           L\V(x,             t) =     -f(x,     t).
+\end{ocrformula}
+
+\medskip\noindent\textit{Proof.} All the assertions of the theorem, except for (5.6), follow
+
+\begin{ocrformula}
+immediately from the formulas                             (5.2)-(5.4) and              from the Holder continuity
+of f(x, t) in x, by applying Theorems                                     2-5 of Sec. 3.
+(5.6) is a consequence   of Theorem                                   6, Sec. 3 and          (4.1). Indeed,
+\end{ocrformula}
+
+\begin{ocrformula}
+LW(x,      t) =        -fa,       t) -fa,             t) +                  LZ{x,       t; x, t)/(x, t) ax dr
+\end{ocrformula}
+
+f'n fD
+
++ JT
+
+\begin{ocrformula}
+L?Ax,         t; e, s)}(e, s) dV da
+\end{ocrformula}
+
+JD = 0 + -fa,
+
+\begin{ocrformula}
+g)[-F(kh,         t; x, r) +     LZ(x,    t; x, r)
+\end{ocrformula}
+
+fn fDNo. ,
+
+\begin{ocrformula}
++                LZ(x,          t; e, s)*Ph(e,           s; x, t) ae            c/PS dr
+\end{ocrformula}
+
+]t ]D daj = t). -fa,
+
+% Source scan page offset 22
+\section{Fundamental Solutions in Unbounded Domains}
+In this section we shall extend the results of Sees. 1-5 to the case where D is an unbounded domain The special case D = Rn is of in Rn. particular importance. Since most of the arguments are similar to those for the case where D is bounded, we shall only describe the necessary modifications. If D is unbounded we always assume in this chapter that L satisfies
+
+\begin{ocrformula}
+the following          assumptions         (which      coincide       with     (Ai), (A2) of Sec. 1 if D        is
+\end{ocrformula}
+
+bounded):
+
+\begin{ocrformula}
+(Ai)' L is uniformly   parabolic in O x 75 kh [G0, Ti];
+\end{ocrformula}
+
+(A2)' the coefficients of L are bounded continuous functions in O and
+
+\begin{ocrformula}
+(1.4), (1.5), (1.6) hold             throughout        O.
+\end{ocrformula}
+
+The definition of a fundamental T(x, t; PS, t) is the same solution as in
+
+\begin{ocrformula}
+(6.1)                                   |/(x)| < const, exp [h\x\2]
+\end{ocrformula}
+
+for some --
+
+\begin{ocrformula}
+positive constant h. The                      integral in (1.7) exists only if 4L(PS   r) <
+lo (where lo is as in (2.2)). If
+\end{ocrformula}
+
+\begin{ocrformula}
+(6.2)                                          h <
+\end{ocrformula}
+
+shch\textasciicircum{}
+
+\begin{ocrformula}
+then     the integral in (1.7) exists for all T0 < r < t < Tb
+The inequalities (4.9)-(4.13) obviously     remain true also in case D                                   is
+\end{ocrformula}
+
+unbounded. The
+
+\begin{ocrformula}
+inequalities (4.14)-(4.16)   and   (4.17) also remain     true
+\end{ocrformula}
+
+without any change in the proofs. The proof of Theorem 8, Sec. 4, can also be extended with obvious modifications, provided Theorems 2-6 of Sees. 2, 3 are valid for the case where D is unbounded. In order to prove these theorems in this case, we break integrals j g(x, t; PS, r) d\% into two parts by dividing the domain of integration into two domains. The first domain D0 is bounded and contains x, and the complementary Di domain is unbounded. The first integral can be treated as in Sees. 2, 3, whereas the second integral contains no singularity and can be treated by standard theorems of calculus. Thus in the proof of Theorem 1, Sec. 2, we write J = J' + J" where in J' the \textasciicircum{}-integration is taken over a bounded domain D0 containing kh --
+
+\begin{ocrformula}
+such that |x    x\ > 1 if x PS D0. J' can be treated exactly                                as J in the proof
+\end{ocrformula}
+
+of Theorem 1. As for J", assuming that
+
+\begin{ocrformula}
+(6.3)                                \f(x, t)\ < const, exp [u|z|2]
+\end{ocrformula}
+
+where h satisfies (6.2) and noting that the integral
+
+% Source scan page offset 23
+\begin{ocrformula}
+is convergent        for all 7',,< t <        t <    I\ if l{*>is sufficiently close to l0, and
+\end{ocrformula}
+
+I,IIiIG, furthermore,
+
+\begin{ocrformula}
+/<<<mst.cXp[-^^]                                ifi-r<^,
+\end{ocrformula}
+
+\begin{ocrformula}
+we conclude that./" exists for all T0 < r < t < 7L and is continuous,                                        and
+J" --> 0 as t -->* t. The assertion of Theorem 1 then follows.
+We  proceed   to extend the results of Sec. 3. In view of (6.3), (6.2),
+(4.9), the integral (3.1) exists. The continuity of V(x, t) follows by breaking
+\end{ocrformula}
+
+the Z)-integral into two parts and treating each part separately. The of the integral corresponding continuity to the unbounded part Di of D (x is bounded away from Dy) follows by a standard theorem of calculus, whereas the continuity of the integral corresponding to the bounded part D0 of D follows by employing Lemma 1, Sec. 3. To extend Theorem 3, Sec. 3, we again break integrals V into two V 4- V". V corresponds to D0 and is treated as in Sec. 3. As for V",
+
+\begin{ocrformula}
+the integrand  has no singularity and therefore the proof that dV"/dXi
+exists and is equal to the integral of the .Ti-derivative of the integrand
+\end{ocrformula}
+
+follows by a standard theorem of calculus. The continuity of dV/dKhg follows
+
+\begin{ocrformula}
+from the continuity of dV/dx,,     d\t"/dkhi
+\end{ocrformula}
+
+By the same considerations we extend Theorems 4, 5 of Sec. 3. Having extended the results of Sees. 2-4 to the case where D is unbounded, the results of Sec. d now also extend to this case without any change in the proofs. For the sake of later reference we sum up some of the results (in the case of an arbitrary domain D) in the following theorem.
+
+\medskip\noindent\textbf{Theorem 10.} Let D
+
+\begin{ocrformula}
+be any domain    in Rn and assume     that (Ai)', (Ag)'
+hold. Then there exists a fundamental    solution T(x, t; x, t) of Lu = 0 given
+by (2.8), (4.1). If f(x, t) is any continuous function in O satisfying (6.3),
+where h satisfies (6.2), then the function W(x, t) defined in (5.1) is a uniformly
+\end{ocrformula}
+
+continuous function in O. If fix, t) is also locally Holder continuous in kh PS D,
+
+\begin{ocrformula}
+uniformly      with respect to t, then dW/dxi} d2W/dXi                       dxjf dW/dt         exist and     are
+continuous     functions for kh EUR D, T0 < t < Th and                        LW(x,         t) =   --f(x,   t).
+Let (Ai)', (A2)' hold with          D     =    Rn, and     consider       the function
+\end{ocrformula}
+
+\begin{ocrformula}
+(6.4)                          W(x,   t) =          r(x, t; x, T0)ph(x) ax
+\end{ocrformula}
+
+fRn
+
+where ph(kh) is a continuous function in Rn satisfying
+
+*
+
+\begin{ocrformula}
+(6.5)              \ph(kh)\ < const, exp [h\x\2]                [h
+<                1_ T(\
+\end{ocrformula}
+
+4/Ti
+
+\begin{ocrformula}
+We    can decompose           lTr analogously       to (5.1): W        =     V +      U where
+\end{ocrformula}
+
+\begin{ocrformula}
+(6.6)                    V(x, t) =           Z(x, t; x, ToMQ           dfc
+\end{ocrformula}
+
+fRn
+
+% Source scan page offset 24
+\begin{ocrformula}
+(6.7)                        Si.    t) =                           /-;.//.
+c)Hu,          *r)dy (Is
+\end{ocrformula}
+
+f'r ji( Zu, where
+
+=
+
+\begin{ocrformula}
+(6.8)                         ph(kh, t)                Ph(kh, t; x, T0)ph(0           ax.
+\end{ocrformula}
+
+fRn
+
+\begin{ocrformula}
+Using (6.5) and (4.17) (which, by the corollary to Theorem     7, holds for
+any l* < le/4), we find that f{kh, I) is locally Holder continuous    in x,
+uniformlywith respect to t in intervals T0 + s < t < Th e > 0. It follows that
+\end{ocrformula}
+
+\begin{ocrformula}
+(6.9)       LW     =          LZ(x,       t; PS, 7OMi)        ax
+\end{ocrformula}
+
+jRn + dc -
+
+\begin{ocrformula}
+JTa               LZ(x,    t; y, s)f(u, s) dy               ph(kh, t).
+\end{ocrformula}
+
+fRn
+
+Substituting ph from (6.8) and changing the order of integration, we get
+
+\begin{ocrformula}
+LW     =                      t; x, To) +              da          LZ(x,    t; y, s) -F(u, s; x, G0) dy
+fRn [lZ(x,                           fn          /^
+\end{ocrformula}
+
+-Ph(kh,i;x,
+
+\begin{ocrformula}
+To)}^)^
+\end{ocrformula}
+
+= 0.
+
+We thus have:
+
+\medskip\noindent\textbf{Theorem 11.} Let the assumptions (Akh)', (A2)' be satisfied with D -- Rn,
+
+\begin{ocrformula}
+and let ph(kh) be a continuous function in R" satisfying (6.0). Then the function
+1G, defined by (6.4), exists for T0 < t < 7\ and satisfies:
+\end{ocrformula}
+
+\begin{ocrformula}
+(6.10)                         L\V{x,         i)=0                  for r0 < t <           Tlf
+\end{ocrformula}
+
+\begin{ocrformula}
+(6.11)                             Ii>,       0 -> ph(kh)             as t -> To.
+\end{ocrformula}
+
+The following inequalities will be needed later on:
+
+\begin{ocrformula}
+(6-12)           \T{x, t; PS, r)\ <            const, (i -        r)-^     exp                             '
+[~ts*_             *]']
+\end{ocrformula}
+
+dT(x, t; PS, t)
+
+\begin{ocrformula}
+(6.13)                                    <    const, (i -        r)-("+1)/2 exp                     G l)~\
+dXi                                                                [-^
+\end{ocrformula}
+
+for any l? < l0.
+
+\begin{ocrformula}
+To prove   (6.12) we use (4.9) (with m = e/2) and (4.15), and thus
+\end{ocrformula}
+
+obtain, with the aid of Lemma 3, See. 4, a bound on the integral on the
+
+\begin{ocrformula}
+right-hand    side of (2.8). Combining     this bound  with (4.9) (for m = te/2),
+and  recalling (2.8), the inequality (6.12) follows. (6.13) follows in a similar
+manner,   making   use also of (4.10) (with m = (e + l)/2).
+\end{ocrformula}
+
+We conclude this section with a remark concerning the condition (1.4). In Chap. 9 we shall construct a fundamental solution for parabolic systems of any order. If we specialize the results to the parabolic equation (1.2)
+
+\begin{ocrformula}
+then we find that all the results of Sees. 2-6 are valid also if (1.4) is
+\end{ocrformula}
+
+replaced by the weaker condition
+
+% Source scan page offset 25
+SK.C.7 MINI>LM1 N I'LI,SOLUTIONS LNP I'll
+
+\begin{ocrformula}
+K SL11S1P                  I'ltOIILKM             2G>
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+(G>>.1-1)                         \oM,        O         aph0,        01 <           M*                Aa*
+\end{ocrformula}
+
+The reason that we are able to obtain the same results under this weaker condition lies in the fact that in Chap. 9 we take for the parametrix a fundamental solution Z of parabolic equations with coefficients depending on t. Z will not be given explicitly; this will necessitate some additional analysis not encountered in the present chapter.
+
+\section{The Cauchy Problem}
+\begin{ocrformula}
+Given      a function/(x,   0 sh O = b" Kh [O, T] and a function <p(x) in Rn,
+\end{ocrformula}
+
+the problem of finding a function u(x, t) satisfying the parabolic equation
+
+\begin{ocrformula}
+=                         in Oo =             Rn       X    (0, T],
+(7.1)                     Lu(x,     0            /fo   0
+\end{ocrformula}
+
+where L is defined in (1.2), and the initial condition
+
+\begin{ocrformula}
+(7.2)                                            u(x, 0) =        ph{kh) on R>>
+is called a Cauchy      problem              (in the strip 0 < t <                          T). The          solution is always
+\end{ocrformula}
+
+required to be continuous in O.
+
+\begin{ocrformula}
+f{x, t) and     ph{kh) will be assumed                       to satisfy the boundedness                             conditions
+\end{ocrformula}
+
+\begin{ocrformula}
+(7.3)                                   \f(x, 01 <          const, exp [h\x\2],
+\end{ocrformula}
+
+\begin{ocrformula}
+(7.4)                                    \ph(kh)\ <           const, exp [h\x\*]
+\end{ocrformula}
+
+where h is any positive constant satisfying
+
+h < *
+
+\begin{ocrformula}
+(7-5)
+\end{ocrformula}
+
+\textasciicircum{}
+
+\medskip\noindent\textbf{Theorem 12.} Suppose that L satisfies (Akh)', (A2)' (with D = Rn, T0 = 0,
+
+=
+
+\begin{ocrformula}
+T\    T) and         letf(x, t),<p(x) be continuous functions in O and Rn respectively,
+satisfying       (7.3), (7.4). Assume     also that f(x, t) is locally Holder continuous
+\end{ocrformula}
+
+(exponent a) in kh PS Rn, uniformly with respect to t. Then the function
+
+= -
+
+\begin{ocrformula}
+(7.6)      u(x, t)               G(.g, I; x, OVtf)            di                            T(x, t; x, t)/(PS, t) df d,r
+\end{ocrformula}
+
+jRn /J fRn
+
+\begin{ocrformula}
+is a solution of the Cauchy                  problem          (7.1), (7.2) and
+\end{ocrformula}
+
+\begin{ocrformula}
+(7.7)                      \u(x, 01 < const. [k\x\*]                              for (x, t) (Ks O,
+\end{ocrformula}
+
+where k is a constant depending only on h, lo, T.
+
+\medskip\noindent\textit{Proof.} In view of Theorems 10, 11 of Sec. 6, it only remains to establish
+
+\begin{ocrformula}
+(7.7). We        shall need       the following lemma.
+\end{ocrformula}
+
+\medskip\noindent\textbf{Lemma 4.} For any h > 0, s > 0 there exists a S = C(h, c) such that
+
+the inequality
+
+\begin{ocrformula}
+-         -                               < C\z\*
+(7.8)                              h\x            tf         (h +          e)\e
+\end{ocrformula}
+
+holds for all kh PS Rn, PS t Rn-
+
+% Source scan page offset 26
+\medskip\noindent\textit{Proof.} If 4- = 0 1.1mm (7.S) linKls for iaku S > h. If PS \textasciicircum{} 0 svX // = jr/|\textasciicircum{}|,
+
+\begin{ocrformula}
+e =     x/|x|. Then          (7.8) lakes         (,ho form
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+(7.9)                                  h\y         e|2           (A +        c) <     C\y\\
+Now      if \y --  e|2 < (A + t)/h then the left-hand side is < 0 and                                               hence       (7.9)
+holds.      If on the other hand \y -- c\2 > (h + t)/h then
+- 1 = u > 0
+\y\ > [(h + e)/hy/2
+\end{ocrformula}
+
+and (7.9) clearly holds if S is sufficiently large, depending only on h, u.
+
+\begin{ocrformula}
+Returning         to the proof of (7.7), we first obtain from                                (6.12) the inequality
+\end{ocrformula}
+
+\begin{ocrformula}
+|r(*.*;fc r)l ^                                                                        [_(L        +    *       "*|2]
+(f0-^exP                  [-          ^if]ekhr
+for some      e > 0 sufficiently small, making        use of the assumption      (7.5).
+\end{ocrformula}
+
+Using this inequality and (7.3) to evaluate the second integral on the
+
+\begin{ocrformula}
+side of (7.6) we get, after substituting kh     --
+\end{ocrformula}
+
+right-hand PS for f, the bound -
+
+\begin{ocrformula}
+exp [-e|PS|2/(<    t)] ,, , 1
+/ / --
+const,+ <<//"'/#          /,    \ /9      <^PS *" r"sup
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+{exp [A|zh                 x|2         (A +     Olel2]} < const, exp [C\x\2],
+\end{ocrformula}
+
+where use has been made of (7.8). The first integral on the right-hand side of (7.6) is estimated in the same way.
+
+\section{The Adjoint Equation}
+The adjoint equation of (1.2) is, by definition, the equation
+
+\begin{ocrformula}
+(8.1)       LH     =            <<,,(*, I)                     +              Shchkh,     t)        +     <<*<*. 0>> +              = 0
+\end{ocrformula}
+
+J. \textasciicircum{} S. g | where
+
+\begin{ocrformula}
+bt=       -b,- +          2 S           ps1,
+\end{ocrformula}
+
+\begin{ocrformula}
+(8.2)
+\end{ocrformula}
+
+J flbi , PS b2a,i
+
+\begin{ocrformula}
+c* = s -           S t-1 +   S
+\end{ocrformula}
+
+=
+
+\begin{ocrformula}
+i i dXi     =
+\end{ocrformula}
+
+ij i dXi dXj Thus, we may also write
+
+L*v = \textasciitilde{} \textasciitilde{}
+
+\begin{ocrformula}
+(8.3)                            S     ~^Z          <W)                     S PS~     (M       +co     +
+ij = \dXidXj                               i^\oXi                             at
+\end{ocrformula}
+
+\begin{ocrformula}
+When   we speak of L* we always assume    that dats/dkh-n, d2a^/dkhi.dkhk, dhi/dxh
+\end{ocrformula}
+
+exist and are, say, continuous functions. If i and n are smooth functions in O (in this context "smoothness"
+
+\begin{ocrformula}
+means       that the first two            ^-derivatives                    and the first ^-derivative exist and
+\end{ocrformula}
+
+are continuous) then, as can easily be verified,
+
+% Source scan page offset 27
+II. S I'UNIHMI MLI, ,,OI,II
+
+\begin{ocrformula}
+PON-. LNI> TIK           ('LP1ChP        II{(IKI.KM
+\end{ocrformula}
+
+\begin{ocrformula}
+(<<#
+<<# i '****,
+Lj- i \               Oxj            ox,           dXj /         J
+\end{ocrformula}
+
+- a / ch
+
+\begin{ocrformula}
+Jt{m)-
+\end{ocrformula}
+
+This identity is called Green?s identity for the operator L. If i and ?.'vanish in some neighborhood of the boundary of O then, by integrating both sides of (8.4), we get
+
+\begin{ocrformula}
+-               dx dt =   0.
+(8.5)                                (vLu            uL*v)
+\end{ocrformula}
+
+fa
+
+\medskip\noindent\textbf{Definition.} A linear partial differential operator (in the independent
+
+xh . . . , xm) is a finite sum variables
+
+\begin{ocrformula}
+The     Ufo-.-kmix) are called the coefficients of the operator.
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 13- // L* exists and if L is a linear partial differential operator.} 
+in the variables (x, t) with, say, co?itinuous coefficients statisjying
+
+- = 0
+
+\begin{ocrformula}
+(8.6)                              f (vLu             ulv) dx dt
+\end{ocrformula}
+
+for all smooth u, u which vanish in some neighborhood of the boundary of O,
+
+\begin{ocrformula}
+then L xx L*} i.e., the coefficients of L coincide with                        the coefficients of L*.
+\end{ocrformula}
+
+\begin{ocrformula}
+Indeed,     it follows from     (8.5), (8.6) that
+\end{ocrformula}
+
+- = 0
+
+\begin{ocrformula}
+f u(L*            L)v dx dt
+\end{ocrformula}
+
+--
+
+\begin{ocrformula}
+for all u, n as in (8.6). Hence  (L*   L)v = 0. We     can now employ                                 the
+\end{ocrformula}
+
+following theorem, the proof of which is left to the reader (see Problem 2).
+
+\medskip\noindent\textbf{Theorem 14.} // M is a linear partial differential operator in the variables
+
+\begin{ocrformula}
+xi, . . . , xm, with coefficients defined in a domain    G and if Mv = 0 for all
+\end{ocrformula}
+
+infinitely differentiable functions in G with a compact support, then M = 0, i.e., the coefficients of M are identically zero.
+
+From Theorem 13 it follows that the adjoint L* of L can be defined,
+
+\begin{ocrformula}
+equivalently,        by the condition        (8.5). Writing         (8.o) in the form
+\end{ocrformula}
+
+\begin{ocrformula}
+--           dx dt = 0
+(uL*v            vLu)
+\end{ocrformula}
+
+k we conclude that
+
+\begin{ocrformula}
+(8.7)                                                    =   L.
+(L*)*
+\end{ocrformula}
+
+\medskip\noindent\textbf{Definition.} K fundamental solution of L*v = 0 is a function G*(kh, t; x, t)
+
+\begin{ocrformula}
+defined   for all (kh, I) (Ks O, (PS, t) PS O, t < t which                        satisfies the following
+\end{ocrformula}
+
+conditons:
+
+% Source scan page offset 28
+\begin{ocrformula}
+(i) for each fixed (x, t), it satisfies the equation                               L*v    -- 0 (as a function
+of (x,t),xPS   D, T() < t < r);
+(ii) for every            continuous            function        f(x) in D          (satisfying            (6.1) if D        is
+\end{ocrformula}
+
+unbounded)
+
+\begin{ocrformula}
+(8.8)                                lim f T*{z, t; x, r)/(PS) ax = f(x).
+\end{ocrformula}
+
+t/r Jdeg We = Rn in addition shall nowspecialize to the case D and assume, to (Ai)' of Sec. 6, the following condition:
+
+(A3)' The functions
+
+\begin{ocrformula}
+(8-9)                        a*                                             k                         c
+ea-             ^fka-                       e6i;
+\end{ocrformula}
+
+are bounded continuous functions in O = Rn [T0, 7I]; they Kh satisfy a uniform Holder condition (exponent a) in kh PS b", uniformlywith respect to t, and (1.4) holds throughout O.
+
+\begin{ocrformula}
+We     can        then    construct         a fundamental               solution       G* of L*v           -- 0 by the
+\end{ocrformula}
+
+method used to construct G. Thus, for a parametrix we take
+
+= -
+
+\begin{ocrformula}
+(8.10)      Z*(x, t; f, r)                C({, r)(r             0-ia/2     exp                                     (<< < ')#
+[-f^^]
+Z* satisfies the equation                     LPSu = 0 where              L0 is defined           in (2.7). Instead           of
+(2.8) we now take
+\end{ocrformula}
+
+= +
+
+\begin{ocrformula}
+(8.11)      T*(kh,i,x,t)                  Z*(x,t;t,r)              fj fDZ*(z,t;,,,c)1>*b,c;t,T)d,,da
+\end{ocrformula}
+
+where F* is the solution of the integral equation = t; x, t)
+
+\begin{ocrformula}
+(8.12)      F*(kh, t; x, r)                L*Z*(x,
+\end{ocrformula}
+
+\begin{ocrformula}
++               L*Z*(x,         l; e, s) *Ph*(e, s; f, t) ae da.
+\end{ocrformula}
+
+fj fD
+
+An analogue of Theorem 10, Sec. 6, is valid and we also have,
+
+\begin{ocrformula}
+to (0.12), (6.13),
+\end{ocrformula}
+
+analogously -
+
+\begin{ocrformula}
+(8 .13)         |G*(kh, t; x, r)| < const, (r   t)~*t* exp                                             _
+[-^                   *]']
+\end{ocrformula}
+
+\begin{ocrformula}
+(8.14)                                        < const, (r -             f)-(*+1)/2 exp                        _
+^G*(kh,i,i,t)                                                                     G-l4"[^                jf ]
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 15- Under the assumptions (Ai)', (Az)' a fundamental solution.} 
+\begin{ocrformula}
+G* of L*v        =    0 exists and
+\end{ocrformula}
+
+\begin{ocrformula}
+=    G*(x, t; zh, i)              (i >    g).
+(8.15)                        G(zh, f; x, t)
+\end{ocrformula}
+
+\medskip\noindent\textit{Proof.} The existence of G* has already been discussed. It remains to
+
+\begin{ocrformula}
+establish (8.15). Consider the functions
+\end{ocrformula}
+
+% Source scan page offset 29
+\begin{ocrformula}
+>>(//, o) =        g(//, s; PS, t),
+\end{ocrformula}
+
+\begin{ocrformula}
+<r) -
+?'(.//,          UChts,   s;kh, t),
+for // ( L'", t < s < t. Integrating  (Irc-on's identity (8.4) over the domain
+-  e (# > 0, t > 0) and using Lu = 0, L*i* = 0 we
+|//I< L, t + e < s < t
+\end{ocrformula}
+
+obtain
+
+\begin{ocrformula}
+(8.16)      f <R u(y,t-
+\end{ocrformula}
+
+J\textbackslash{}m
+
+\begin{ocrformula}
+e)v{y,t-     e)dy
+\end{ocrformula}
+
+\textasciitilde{}
+
+\begin{ocrformula}
+U<JJ, t +     e)v(y, T +     e)dlJ = It,R
+\end{ocrformula}
+
+j\{ <R where
+
+\begin{ocrformula}
+r           i. /"'-<< /*      G ^ /      thM                   Eu --        ths,-D , ,     I
+Km     =    S   /  , /, , ,,    2, (''<<ij^- --           shi,--           sh-s-^l    + o,?<<*
+,*=i Ug+, U!g/!=l>[_J=, \    ay,-               J%,-           ay,-/        J
+\end{ocrformula}
+
+* cos
+
+\begin{ocrformula}
+(i>,yi) dS,, do,
+n is the outwardly   directed normal   to \y\ = R, and dSi; is the surface
+element on \y\ = R. Using    (0.12), (C.13) and (8.13), (8.14) we find that
+ft,n -->> 0 as R --> <*. Hence,
+\end{ocrformula}
+
+\begin{ocrformula}
+Taking    e --> U and using the second property     in the definition                      of
+\end{ocrformula}
+
+solutions we get u(x, t)
+
+\begin{ocrformula}
+fundamental                       = n(x, t), i.e.,(8.15) holds.
+\end{ocrformula}
+
+\section{Uniqueness for the Cauchy Problem}
+In Sec. 7 we proved the existence of a solution to the Cauchy problem
+
+\begin{ocrformula}
+(7.1), (7.2) satisfying        (7.7). We     now      prove   a uniqueness   theorem.
+\end{ocrformula}
+
+\medskip\noindent\textbf{Theorem 16 Let L satisfy the assumptions (Ai)', (A3)' in O = Rn X.} 
+\begin{ocrformula}
+[0, 2']. Then     there exists at most one solution to the Cauchy   problem                    (7.1),
+(7.2) satisfying the houndednass            condition
+\end{ocrformula}
+
+\begin{ocrformula}
+(9L)                              l"(a:'W     cxp [-*W4          dxdt<<<>
+\end{ocrformula}
+
+io h>>
+
+for some positive number k.
+
+It follows that under the assumptions of Theorem 12, Sec. 7, and the
+
+\begin{ocrformula}
+additional     assumption       (A3)', there exists a unique solution to the Cauchy
+problem      (7.1), (7.2) satisfying       (7.7).
+\end{ocrformula}
+
+\medskip\noindent\textit{Proof.} We have to prove that if Lu(x, t) = 0, u(x, 0) = 0 then u(x, t) =
+
+\begin{ocrformula}
+0. We shall first prove that u(x, t = 0 if 0 < I < d for some d sufficiently
+small. Let (x, t) be an arbitrary fixed point with 0 < t < d. We have to
+prove that m{kh, I) = 0. Denote by Br a ball in Ru with center 2:and radius
+\end{ocrformula}
+
+R and let B'u be the complement of BR in Vts+\textbackslash{}.
+
+% Source scan page offset 30
+\begin{ocrformula}
+There     exists a function              L(PS) twice           continuously   differentiable                      in R"
+\end{ocrformula}
+
+and having the following properties (see Problem 4): 1 if PS t Bu,
+
+\begin{ocrformula}
+(9.2)                                   L(EUR) =
+\end{ocrformula}
+
+o if PS PS Blf+h
+
+dh(Q
+
+\begin{ocrformula}
+(9.3)      0 < L(PS) <           1,                          +    S                        <   //          u e b")
+\end{ocrformula}
+
+>.i thx, thPS/ wlierc Ia is a constant independent of R.
+
+\begin{ocrformula}
+= <<(PS, t), i> = Ii(x)G(kh, t; x, g)
+\end{ocrformula}
+
+Integrating Green's identity (8.4) with i
+
+\begin{ocrformula}
+over the region PS d Br+i, 0o    < i -- s where s > (J,and using w(a-,0) = 0
+\vc obtain, as e -->> 0,
+\end{ocrformula}
+
+\begin{ocrformula}
+(9.4)           lim
+[     h(t)T(x. t; x, t)<<&                   g) s/* =         G
+\end{ocrformula}
+
+[ uL*o df dr;
+
+\begin{ocrformula}
+Ty>l JUr+i                                                       JO J/iEmI
+\end{ocrformula}
+
+the integrals over
+
+\begin{ocrformula}
+the boundary    of B/{ + i do not appear  since /i(PS) = 0
+outside Br+i.  The left-hand side of (9.4) is equal to h(x)u(x, I) = u(x, t).
+\end{ocrformula}
+
+= 0 (which follows
+
+\begin{ocrformula}
+Using (9.2) and L*T(x, i; PS, t)                      by (8.13)) we find, that
+L*v = 0 if PS e /?l. Hence
+\end{ocrformula}
+
+\begin{ocrformula}
+(9.5)                                                                 +                            +
+<<(kh,O^/^^^S,,,II                                               S,,,^G                       Si,,Ig]**.
+\end{ocrformula}
+
+\begin{ocrformula}
+Now,      from        (8.15) and      (8.13), (8.14) it follows that
+\end{ocrformula}
+
+\begin{ocrformula}
+|G(kh,i;,t)|           +2       ^G(1,<<;,g)
+\end{ocrformula}
+
+\begin{ocrformula}
+<    COnst. (J -              r)-("+l)/2 cxp
+r_^i^_Ji!1
+\end{ocrformula}
+
+Substituting this into (9.5) we get
+
+\begin{ocrformula}
+(9.6)             \u x, t)\ < const, exp                                                  Mi,      r)| df dr.
+[-~]                 /0'/^
+\end{ocrformula}
+
+We shall now make use of the condition (9.1). It implies that
+
+" < TO*
+
+\begin{ocrformula}
+K*'    r)l exp [_2A:^                     x'2] ^T
+/o /ia-
+\end{ocrformula}
+
+Hence,
+
+-
+
+\begin{ocrformula}
+(9.7)                       \u(i, r)\ exp [ -2k\x                 x|2] d dr --            0        as R         oo.
+\end{ocrformula}
+
+jl jBtfi
+
+\begin{ocrformula}
+Comparing     the integral of (9.7) with the right-hand   side of (9.G) we see
+that if d < lo/8/c then the right-hand    side of (9.(>) also tends to zero as
+\end{ocrformula}
+
+= 0 if kh G
+
+\begin{ocrformula}
+R^oc.     Thus, u(x, t)             Rn, 0 < t < d and d = ld/9/r.
+We can now proceed in the same way to prove that u{x, t) = 0 in the
+strips d < I < 2d, 2d < t < 'Ld,etc., and the proof is thereby completed.
+\end{ocrformula}
+
+We conclude
+
+\begin{ocrformula}
+this section by giving an example                                       of a solution      u(x, t) ^ 0
+of the heat equation   (n -- i)
+\end{ocrformula}
+
+% Source scan page offset 31
+\begin{ocrformula}
+Uxx ~ Ui = 0               (-00           < X < O0? (J < t <                1)
+\end{ocrformula}
+
+satisfying the initial condition --
+
+\begin{ocrformula}
+u(x, 0)^0                  (        dego<z<dego)
+\end{ocrformula}
+
+and the boundedness condition
+
+\begin{ocrformula}
+G                                    dx dt <                          dego
+(9.8)                           /*_"l |iph, i)I exp [-/s|zh|2+<]
+\end{ocrformula}
+
+where e is any given positive number.
+
+\begin{ocrformula}
+[t is known   (see [80]) that for any                            d >    0 there exist infinitely differ-
+entiable functions f(t) psPS ()(--<<>                                                                         =
+<i<co)                                 satisfying the conditions: /(PS)
+\end{ocrformula}
+
+0 if i < u and if i > 1 and =
+
+\begin{ocrformula}
+|/<(tm))(f)| < C-zw^+e"*                           (m          1, 2, . . .)
+\end{ocrformula}
+
+for 0 < t < 1, where S is a constant. Now take
+
+\begin{ocrformula}
+(9.9)                                            =      S                       a*".
+\end{ocrformula}
+
+tiU, i) Jt\textasciicircum{}
+
+The series and its first two derivatives are uniformly convergent in bounded
+
+\begin{ocrformula}
+sets of {x, t), provided           d <     1. Since
+\end{ocrformula}
+
+\begin{ocrformula}
+E*,       01 < <L +      S
+w2ll1+6)w
+< S, ekhr GS4|kh|']
+\end{ocrformula}
+
+\begin{ocrformula}
+where   the Sg- are constants and 17 = 2/(1 -- d), we can take d sufficiently
+small so that e < 2 + e and, consequently,      (9.8) is satisfied.
+\end{ocrformula}
+
+The above example shows that Theorem 1S is not true if in the condition --
+
+\begin{ocrformula}
+(9.1) we replace exp [--PS|a;|2] by exp [ fc|#|2+EUR], e > 0.
+\end{ocrformula}
+
+\section{Problems}
+I. Lot L, V be disjoint closed sets in Rn and let .1 he bounded. Prove that there
+
+\begin{ocrformula}
+exists an infinitelydiiTercntiuhle function/?(j*} in R" siu-h that/i(j*) = lifx (j L,
+h(x) = 0 ifkh t B, and 0 < h{x) < 1 lor all kh PS /?>>.
+\end{ocrformula}
+
+[Hint: Let d = dint. (.1,/J) and denote by .10 the set of all points whose distance tu L is < d/2. Take
+
+-
+
+\begin{ocrformula}
+h{x) -= / pe(x   y) dy                                  (e = d/3)
+\end{ocrformula}
+
+U -Io where
+
+\begin{ocrformula}
+GO                                              if |.r|> e,
+\end{ocrformula}
+
+rL-i)
+
+\begin{ocrformula}
+ifW<e-]
+\end{ocrformula}
+
+if
+
+\begin{ocrformula}
+1^"[-E=p<<]
+\end{ocrformula}
+
+2. Trove Theorem 14. Sec. S.
+
+\begin{ocrformula}
+\lliitl:l'or any .t" t O take (J)y Problem I) an infinitely difi'erentiablefunction
+/.*with compact support in 0, satisfying h(x{))^ 0. Use the relation M(h exp
+|lm-, #!-*##+ l,,G,,])= 0.]
+\end{ocrformula}
+
+% Source scan page offset 32
+3. For any linear differential operator
+
+with sufficiently smooth coefficientsin a domain (?, we define its adjoint by
+
+\begin{ocrformula}
+z*> = S                                        [oh-fc.^].
+(-i)h+-+faa^L,+         '.Va^t
+If L* = L then we say that L is self-adjoint. Prove that this definition of adjoint
+\end{ocrformula}
+
+is equivalent to the following one: L* is a linear differential operator for which
+
+\begin{ocrformula}
+(vLu -- uL*v) dx = 0
+\end{ocrformula}
+
+is for all infinitely differentiable functions n, n having a compact support in G.
+
+\begin{ocrformula}
+4. Prove that there exists a function L(PS) satisfying (0.2), (0.3).
+[Hint: Use the L in Problem 1 with A0 = #ia+(1/2), e = 1/4.]
+5. Let G(kh, /; x, t) be the fundamental solution of Lu = 0 in Bn Kh [T0, Gi] (under
+the assumptions (A,)', (A2)'). Prove:
+\end{ocrformula}
+
+\begin{ocrformula}
+T(x, t;I t) =          G(kh, t;,,, c)T(y, s; x, r) di,         (r < s < t).
+\end{ocrformula}
+
+JfIt"
+
+\begin{ocrformula}
+6. Show    that the assumption h < l0 4G made in Theorem       12 cannot be relaxed.
+-     =             =    - 4Ai)->>/2 exp [/<<;<</(1 ~ 4Li)].]
+[Hint: Take uXI    ut    0, u{x, f)   (l
+7. Verify that all the results of Chap. I remain true if the conditions (1.5), (1.6)
+\end{ocrformula}
+
+are replaced by the following weaker conditions: For every compact subset K
+
+\begin{ocrformula}
+of D there exists a constant A\ depending on K, such that
+\end{ocrformula}
+
+\begin{ocrformula}
+\bi(x,t) -Y(kh0,1)\   <L'\kh-kh%
+\end{ocrformula}
+
+- -
+
+\begin{ocrformula}
+\c(x,t)   c(xdeg,f)| < A'\x    xdeg\a,
+\end{ocrformula}
+
+for all kh z K, khdeg z K, To < t < Tt. Verify also that the assumption that b,, s are continuous functions throughout O may be replaced by the assumption that
+
+\begin{ocrformula}
+hi,s are bounded continuous functions in D- Kh (Go, Gi].
+\end{ocrformula}
