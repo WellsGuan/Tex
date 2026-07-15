@@ -1,9 +1,5 @@
-\documentclass{article}
-
-\usepackage{amsmath, amsthm, amssymb, amsfonts}
-\usepackage{thmtools}
-\usepackage{graphicx}
-\usepackage{setspace}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{geometry}
 \usepackage{float}
 \usepackage{hyperref}
@@ -25,11 +21,8 @@
 
 \newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\ip}[1]{\langle #1 \rangle}
 \newcommand{\Lip}{\operatorname{Lip}}
-\newcommand{\supp}{\operatorname{supp}}
-\newcommand{\osc}{\operatorname{osc}}
 
 \declaretheoremstyle[name=Definition,]{thmsty}
 \declaretheorem[style=thmsty,numberwithin=section]{definition}
@@ -37,20 +30,8 @@
 \declaretheoremstyle[name=Theorem,]{thmsty}
 \declaretheorem[style=thmsty,numberwithin=section]{theorem}
 
-\declaretheoremstyle[name=Lemma,]{thmsty}
-\declaretheorem[style=thmsty,numberlike=theorem]{lemma}
-
-\declaretheoremstyle[name=Corollary,]{thmsty}
-\declaretheorem[style=thmsty,numberlike=theorem]{corollary}
-
-\declaretheoremstyle[name=Proposition,]{thmsty}
-\declaretheorem[style=thmsty,numberlike=theorem]{proposition}
-
 \declaretheoremstyle[name=Remark,]{prcpsty}
 \declaretheorem[style=prcpsty,numberlike=theorem]{remark}
-
-\declaretheoremstyle[name=Example,]{prcpsty}
-\declaretheorem[style=prcpsty,numberlike=theorem]{example}
 
 \setstretch{1.15}
 \geometry{
@@ -67,8 +48,8 @@
 \title{ \normalsize \textsc{}
         \\ [2.0cm]
         \HRule{1.5pt} \\
-        \LARGE \textbf{\uppercase{Friedman Parabolic PDE}
-        \HRule{2.0pt} \\ [0.6cm] \LARGE{} \vspace*{8\baselineskip}}
+        \LARGE \textbf{\uppercase{Notes on a Degenerate Parabolic Equation}
+        \HRule{2.0pt} \\ [0.6cm] \LARGE{Based on \emph{Uniqueness and Root-Lipschitz Regularity for a Degenerate Heat Equation}} \vspace*{8\baselineskip}}
         }
 \date{}
 \author{\textbf{Author} \\ 
@@ -76,11 +57,13 @@
          \\}
 
 \maketitle
-\newpage
+
+\section{Introduction}
 
 \tableofcontents
 \newpage
 
-\include{tex/Introduction}
+\include{tex/Statements}
+\include{tex/Consequences}
 
 \end{document}
