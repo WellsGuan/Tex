@@ -1,0 +1,210 @@
+\newcommand{\hsemig}[2]{\mathcal{G}_{#1}\left[{#2}\right]}
+
+\section{Convergence of the Heat Flow with Bounded Nonlinearility}
+
+In this section, we are going to show that for the smoothened nonlinear stochastic heat equation on $\mathbb{R}^+\times\mathbb{R}$
+\[
+dv_t^{\rho} = \tfrac{1}{2}\Delta v_t^{\rho}+\hsemig{\rho}{\sigma(v_t^{\rho})dW_t}\label{eq: sheboundedsigma} \tag{SHEBD}
+\]
+as an analog of
+\[
+dv_t^{\rho} = \tfrac{1}{2}\Delta v_t^{\rho}+\gamma_{\rho}\hsemig{\rho}{\sigma(v_t^{\rho})dW_t}\label{eq: shesigma} \tag{SHE}
+\]
+will admit a Gaussian limit, that is
+\[
+v_t^{\rho} \Rightarrow \mathcal{N}(0,\sigma_{\infty})
+\]
+for some constant $\sigma_{\infty}$ related to some Lipschitz bounded nonlinear function $\sigma$. To analyze the convergence of the $\eqref{eq: sheboundedsigma}$, we define
+\[
+\sigma_{\rho} := \gamma_{\rho}^{-1}\sigma
+\]
+and the equation $\eqref{eq: sheboundedsigma}$ can be written equivalently as
+\[
+dv_t^{\rho} = \tfrac{1}{2}\Delta v_t^{\rho}+\gamma_{\rho}\hsemig{\rho}{\sigma_{\rho}(v_t^{\rho})dW_t}\label{eq: shetobesolved}\tag{SHETB}
+\]
+
+In this section, without specifying, $\sigma_{\rho}$ is the rescaling of a fixed $\sigma$ as above.
+
+\subsection{Main Conjecture}
+
+Let us recall the main theorem of \cite{dunlap2026renormalizationflow2dnonlinear}
+
+\begin{theorem}
+    For each $L^2$-subcritical $\sigma$ and $\overline{T}\in[1,\infty)$, there is a constant $C(\sigma,\overline{T})$ such that for all $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R}^m)$, $t\in[\overline{T}^{-1},\overline{T}], x\in\mathbb{R}^2$ and $\rho\in(0,C^{-1})$, the solution $v^{\rho}$ of $\eqref{eq: shesigma}$ satisfies
+`   \[
+    \mathcal{W}_2(v_t^{\rho}(x),\Gamma_{a,1}^{\sigma}(1))\leq C\langle\lVert v_0\rVert_{L^{\infty}}\rangle\sqrt{\dfrac{\ln|\ln \rho|}{|\ln \rho|}}
+    \]
+    where $(\Gamma_{a,1}^{\sigma}(q))_{q\in[0,1]}$ solves the FBSDE 
+    \[
+    \begin{aligned}
+        d\Gamma^{\sigma}_{a,Q}(q) &= J_{\sigma}(Q-q,\Gamma^{\sigma}_{a,Q}(q))dB(q),\quad &a\in\mathbb{R}^m, 0 < q <Q \\
+        \Gamma^{\sigma}_{a,Q}(0) &= a, &a\in\mathbb{R}^m,Q\geq0 \\
+        J_{\sigma}(q,b) &= [\mathbb{E}\sigma^2(\Gamma^{\sigma}_{a,Q}(q))]^{1/2},&q\geq 0,b\in \mathbb{R}^m
+    \end{aligned}\label{eq: fbsde}\tag{FBSDE}\]
+    with $Q=1$ and $a = \hsemig{t}{v_0}(x)$.
+\end{theorem}
+
+According to the theorem, we may know that the distribution of $v_t^{\rho}$ and $\Gamma^{\sigma}_{a,1}(1)$ are almost the same for $\rho$ small enough and $t$ large enough, so we expect the same conclusion for $\eqref{eq: shetobesolved}$, and if $C(\sigma_{\rho},\overline{T})$ can be bounded for fixed $\overline{T}$, then the distribution of the limit solution of $\eqref{eq: sheboundedsigma}$ may be approximated by weak limit of $\Gamma^{\sigma_{\rho}}_{a,1}$ when $\rho\to 0$.
+
+Recall some scaling conclusion of $J_{\sigma}$
+\begin{proposition}
+    For $\sigma \in \text{Lip}(\mathbb{R}^m;\mathcal{H}^m_+)$ and $\zeta > 0$, we have
+    \[\overline{Q}_{\text{FBSDE}}(\zeta \sigma) = \zeta^{-2}\overline{Q}_{\text{FBSDE}}(\sigma)
+    \]
+    and for all $q\in [0,\zeta^{-2}\overline{Q}_{\text{FBSDE}}(\sigma)]$ and $b\in\mathbb{R}^m$,
+    \[J_{\zeta}(q,b) = \zeta J_{\sigma}(\zeta^2 q,b)\]
+\end{proposition}
+
+By the theorem, we may know
+\[
+\begin{aligned}
+    \Gamma^{\sigma_{\rho}}_{a,1}(q) &= \int_0^q J_{\sigma_{\rho}}(1-r,\Gamma^{\sigma_{\rho}}_{a,1}(r))dB(r) \\
+    &= \gamma_{\rho}^{-1}\int_0^q J_{\sigma}(\gamma_{\rho}^{-2}(1-r),\Gamma_{a,1}^{\sigma_{\rho}}(r))dB(r)
+\end{aligned}
+\]
+and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we know $J_{\sigma}(t,\cdot)$ will converge to some constant uniformly according to some parabolic equation analysis, so with $\rho \to \infty$, we expect the distribution $\gamma_{\rho}v^{\rho}_t(x)$ will coincide with $\gamma_{\rho}\Gamma^{\sigma_{\rho}}_{a,1}(q)$ whose weak limit is Browinian motion with mean $\sigma_{\infty}$.
+
+\subsection{Approximation in the first short time stage}
+
+Let us recall the Theorem 5.14 from \cite{dunlap2026renormalizationflow2dnonlinear}.
+
+\begin{theorem}
+    Fix $M,\beta,\lambda \in (0,\infty), l\in(2,4], \overline{\beta} > \eta(\beta,l)$ where
+    \[
+    \eta(\beta,l) = [2^{-2/l}l(l-1)(\beta^2+1-2/l)]^{1/2}
+    \]
+    and $\overline{q} \in (0,\lambda^{-2})$. There is a constant $C = C(M,\beta,\lambda,l,\overline{\beta},\overline{q})\in (0,\infty)$ such that following holds. Suppose that $\rho \in (0,C^{-1})$. Let $\sigma \in \Sigma(M,\beta)$ satisfy $\text{Lip}(\sigma) \leq \lambda$ and $(v_t)_{t\geq 0}$ solves
+    \[
+    v_t^{\rho} = \hsemig{t-s}{v_s^{\rho}}(x) + \gamma_{\rho}\int_s^t \hsemig{t+\rho-r}{\sigma(v_r^{\rho})dW_r}(x)
+    \]
+    with initial condition $v_0 \in \mathscr{H}_0^l$, where $\mathscr{H}_t^l$ is the spaces of random fields $z$ on $\mathbb{R}^2$ that are $\mathcal{F}_t$-measurable and satisfy
+    \[\lVert z\rVert_l := \sup_{x\in\mathbb{R}^2}(\mathbb{E}|z(x)|^l)^{1/l} < \infty\]
+    Let $\xi \in [0,\overline{T}_{\rho}(\overline{q}^{-1/2})]$, where $S_{\rho}:=L(\cdot/\rho)/L(1/\rho),T_\rho := S_{\rho}^{-1} =\rho[(1+1/\rho)^{\cdot}-1]$ and $\overline{T}_{\rho}:=T_{\rho}((\cdot)^{-2}-2L(1/\rho)^{-1})$,
+    \[t\in [([1+L(1/\rho)]\kappa_{l,\rho}^{-1}+\kappa_{l,\rho})\xi^2,T_{\rho}(\overline{\beta}^{-2})],\]
+    where
+    \[\kappa_{l,\rho} = L(1/\rho)^{-1/(1-2/l)},\]
+    $x,z \in\mathbb{R}^2$ and $\iota_1,\iota_2\in[0,1]$. Then we have
+    \[\mathbb{E}\lvert(S_{\xi,z}[\sigma^2\circ v_t](x))^{1/2}-J_{\sigma,\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_t}(x))\rvert_F^2 \leq C\langle\lVert v_0\rVert_l\rangle^2\dfrac{L(L(1/\rho))}{L(1/\rho)}
+    \]
+    where 
+    \[
+    J_{\sigma,\rho}(q,a) = [\mathbb{E}\sigma^2(\mathcal{V}^{\sigma,\rho}_{T_{\rho}(q)}a(x))]^{1/2},\quad S_{\xi,z}f(x) := \dfrac{1}{\xi^2} \int_{\text{B}_{\xi,k_{\xi,z}(x)+z}}f(y)dy
+    \]
+    where $\text{B}_{\xi,k} := \xi\cdot(k+[0,1)^2)$ for $k\in\mathbb{R}^2$ and $k_{\xi,z}(x)$ is the unique $k\in\mathbb{Z}^2$ such that $x\in \text{B}_{\xi,k+z}$. And $(\mathcal{V}^{\sigma,\rho}_{s,t})_{-\infty < s < t < \infty}$ such that if $v_s \in \mathscr{H}_s^l$, then $v_t^{\rho} = \mathcal{V}^{\sigma,\rho}_{s,t}v_s$ is a solution of the integral equation above.
+\end{theorem}
+From the theorem, if we would like to apply the approximation to $\eqref{eq: shetobesolved}$, then assume $\lambda:=\text{Lip}(\sigma)$ and we know
+\[
+\text{Lip}
+(\sigma_{\rho}) = \gamma_{\rho}^{-1}\lambda\]
+and according to the proof of the Theorem 5.14 from \cite{dunlap2026renormalizationflow2dnonlinear}, we may choose $\overline{q}$ such that
+\[\overline{q} < (\alpha\text{Lip}(\sigma_{\rho}))^{-2} - 2L(1/\rho)^{-1} = (4\pi/(\alpha\lambda)^2 - 2)L(1/\rho)^{-1}\]
+where $\alpha \geq 1$, which means that only when $\lambda < \sqrt{2\pi}$, we may choose $\overline{q}$ to apply the proposition above. Then we may rewrite the theorem as
+\begin{theorem}
+    For fixed $\sigma$ with $\lambda: =\text{Lip}(\sigma) < \sqrt{\pi}$, where denote $p = \sqrt{2\pi}/\lambda$ and $M,\beta \in (0,\infty), l\in (2,4],\overline{\beta} > \eta(\beta,l), \overline{q}_{\rho}:= p^2L(1/\rho)^{-1}$,  there is a constant $C = C(p,\sigma,l,\beta,\overline{\beta})$ such that when $L(1/\rho) \geq 4\pi/\lambda^2 - 4$ and sufficiently small, the following holds. For $(v_t)_{t\geq 0}$ solves the integral equation
+    \[
+    v_t^{\rho} = \hsemig{t-s}{v_{s}^{\rho}}(x) + \int_s^t \hsemig{t+\rho-r}{\sigma(v_r^{\rho})dW_r}(x)
+    \]
+    with initial condition $v_0 \in \mathscr{H}_0^l$. Let $\xi\in [0,\overline{T}_{\rho}(\overline{q}_{\rho}^{-1/2})]$ 
+    \[t\in [([1+L(1/\rho)]\kappa_{l,\rho}^{-1}+\kappa_{l,\rho})\xi^2,T_{\rho}(\overline{\beta}^{-2})],\] $x,z\in\mathbb{R}^2$ and $\iota_1,\iota_2\in[0,1]$. Then we have
+    \[\begin{aligned}
+        &\mathbb{E}\lvert(S_{\xi,z}[\sigma_{\rho}^2\circ v_t](x))^{1/2}-J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_t}(x))\rvert^2 \\\leq &C(p,\sigma,l,\beta,\overline{\beta})\sqrt{L(L(1/\rho))}(L(1/\rho))^{l/4}\langle \lVert v_0\rVert_l\rangle^2 
+    \end{aligned}
+    \]
+    and we are done.
+\end{theorem}
+\begin{proof}
+    Recall that 
+    \[
+    K_{\lambda,\rho,t}:= (1-\lambda^2[S_{\rho}(t)+2L(1/\rho)^{-1}])^{-1}\quad\text{for }t\in[0,\overline{T}_{\rho}(\lambda)]
+    \]
+    and according to the proof for the Theorem 5.14. from \cite{dunlap2026renormalizationflow2dnonlinear}, the expectation we are approximating can be bounded by $E_1+E_2+E_3$.\par
+    For $E_1$, we have
+    \[
+    E_1 \leq C K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2}\Theta^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2\left[L_{\rho}(\kappa_{l,\rho}^{-2})+\kappa_{l,\rho}[(1+\gamma_{\rho}^{-2}\lambda^2\delta)\kappa_{l,\rho}+1]+\dfrac{K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2}}{L(1/\rho)}\right]
+    \]
+    for some fixed constant $C$ and $\delta = K_{\gamma_{\rho}^{-1}\lambda,\rho,\kappa_{l,\rho}\xi^2}L(1/\rho)^{-1}$. And notice $K_{\lambda,\rho,t}$ is increasing related to $t$ and $\xi \in [0,1]$ when $\rho$ is large enough, so
+    \[ K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2} \leq K_{\gamma^{-1}\lambda,\rho,\overline{q}_{\rho}} \leq p
+    \]
+    For the rest terms, we know
+    \[
+    \begin{aligned}
+        L_{\rho}(\kappa_{l,\rho})^{-2} &\leq \dfrac{3}{1-2/l}\dfrac{L(L(1/\rho))}{L(1/\rho)} \\
+        \kappa_{l,\rho}[(1+\gamma_{\rho}^{-2}\lambda^2\delta)\kappa_{l,\rho}+1] & \leq \dfrac{2}{L(1/\rho)^{1/(1-2/l)}} \\
+        \dfrac{K_{\gamma_{\rho}^{-1}}}{L(1/\rho)} &\leq \dfrac{p}{L(1/\rho)}
+    \end{aligned}
+    \]
+    and so for $\rho$ small enough we have
+    \[
+    E_1 \leq C\dfrac{4p}{1-2/l}\dfrac{L(L(1/\rho))}{L(1/\rho)}\Theta^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2
+    \]
+    for some fixed constant $C$.\par
+    For $E_2$, there are two cases. If $\kappa_{l,\rho}\xi^2 \geq \rho$ according to \cite{dunlap2026renormalizationflow2dnonlinear},
+    we have
+    \[
+    E_2 \leq C\Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]\dfrac{L(L(1/\rho))}{L(1/\rho)}
+    \]
+    and for the other case, we have
+    \[
+    E_2 \leq 4\Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]\gamma_{\rho}^2\lambda^{-2}\dfrac{L(2)}{L(1/\rho)}
+    \]
+    Therefore, we have
+    \[
+    E_2 \leq C\Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]
+    \]
+    where $C$ depends only on $l$ and $\lambda$ where $X: = (X_i(x))^N_{i=1}$ defined as in \cite{dunlap2026renormalizationflow2dnonlinear}.\par
+    For $E_3$, we have
+    \[
+    \begin{aligned}
+        E_3 &\leq \gamma_{\rho}^{-1}\lambda\sqrt{p}\left(\dfrac{C\sqrt{L(L(1/\rho))}}{\sqrt{L(1/\rho)}}\right)\left(\Theta^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Theta^{\rho}_{2;t}[v_0]\right) \\
+        &= C(p,\lambda,l)\sqrt{L(L(1/\rho))}\left(\Theta^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Theta^{\rho}_{2;t}[v_0]\right)
+    \end{aligned}
+    \]
+    For the term
+    \[
+    \Theta^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2 +  \Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2] + \Theta^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Theta^{\rho}_{2;t}[v_0]
+    \]
+    which should be $O(L(1/\rho)^{l/4})$ by the proposition 4.4 from \cite{dunlap2026renormalizationflow2dnonlinear},and finally we have
+    \[
+    E_1 + E_2 + E_3 \leq C(p,\sigma,l,\beta,\overline{\beta})\sqrt{L(L(1/\rho))}(L(1/\rho))^{l/4}\langle \lVert v_0\rVert_l\rangle^2
+    \]
+    \end{proof}
+
+
+\subsection{Induction on scales}
+
+We will do the induction for extending the solution as Chapter 6 in \cite{dunlap2026renormalizationflow2dnonlinear}, recall that
+\[
+\beta_*(\sigma):= \inf\{\beta \in\mathbb{R}^+:\sigma \in \Sigma(M,\beta)\text{ for some }M\in\mathbb{R}^+\}
+\]
+where $\Sigma(M,\beta):=\{\sigma\in \text{Lip}(\mathbb{R};\mathbb{R}):\sigma(u)^2 \leq M + \beta^2 u^2\text{ for all }u\in\mathbb{R}\}$, and hence $\beta^*(\sigma_{\rho}) = +\infty$ comes up immediately. Then let us recall a proposition:
+
+\begin{proposition}
+    For bounded continuous function $\sigma$, $Q_{\text{FBSDE}}(\sigma) = \infty$.
+\end{proposition}
+
+%\begin{definition}
+%    Let $\overline{Q}_{\text{SPDE}}(\sigma)$ denote the supremum of all $\overline{q}$ positive such for all $\overline{\beta} \in (0,\overline{q}^{-1/2})$ and $l\in (2,4]$, there is a constant $C = C(\sigma,\overline{q},\overline{\beta},l;\rho) \in (0,\infty)$ and a function $\omega = \omega_{\sigma,\overline{q},\overline{\beta},l}:(0,C^{-1}) \to [0,\infty)$ such that following conditions hold.\par
+%    (i) For all $\rho \in (0,C^{-1})$, we have \[L(\omega(\rho)) \leq CL(L(1/\rho))\] and 
+%    \[
+%    \omega(\rho)\geq C^{-1}L(1/\rho)^2
+%    \]
+%    as well as $\omega(\rho)T_{\rho}(\overline{q}) \leq T_{\rho}(\overline{\beta}^{-2})$, where $T_{\rho} = S_{\rho}^{-1}$ where $S_{\rho}(\tau) = L(\tau/\rho)/L(1/\rho)$.\par
+%    (ii) If $\rho \in (0,C^{-1})$ and $(v_t)_{t\geq 0}$ solves 
+%\end{definition}
+
+\begin{definition}
+    For a Borel set $\text{B} \subset \mathbb{R}$
+\end{definition}
+
+\begin{proposition}
+
+\end{proposition}
+\begin{proof}
+    Take $\overline{\beta} > \beta > 0$ and choose $Q_2,Q_2'$ such that
+    \[
+    Q_1 < Q_2 < Q_2' < [Q_1 +\text{Lip}(J_{\sigma}(Q_1,\cdot))^{-2}] \wedge \beta^{-2}
+    \]
+    Let $l \in (2,4]$ and $l$ close to $2$ such that $\overline{\beta} > \eta(\beta,l)$. 
+\end{proof}
+
+
