@@ -189,7 +189,38 @@ Thus
 \]
 \end{proof}
 
-
+\begin{proposition}
+    For $(t, x)$ in $\mathbb{R}^+ \times \mathbb{T}_L, L >0$, consider the parabolic equation
+ \[\partial_t u - \partial_{x}({a_1( t,x)\partial_xu + a_2(t,x)u}) - b(t,x)\partial_xu - c(t,x)u = 0\]
+ with the coefficients $a_1,a_2,b,c$ are bounded measurable functions in $S$ and that there exists a constant $\nu > 0$ such that $a_1 \geq \nu^{-1}$ almost everywhere in $S$. Assume $u$ is a solution of the parabolic equation above, then there is a constant $C$ such that
+ \[
+ \lVert u(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}
+        \leq C\lVert u(t-1,\cdot)\rVert_{L^2(\mathbb T_L)}\label{eq: periodl2estimate} 
+ \]
+ for any $t \geq 1$.
+\end{proposition}
+\begin{proof}
+    By the Theorem.1. from \cite{Aronson1967}, we apply it to the strip $(t-1,t+1)\times \mathbb{R}$ with initial condition $\tilde{u}(t,\tilde{x}), \tilde{x}\in\mathbb{R}$, which is a periodic expansion of $u(t,x), x\in\mathbb{T}_L$ where $[\tilde{x}]_{\mathbb{T}_L} = x$. The fundamental solution $g(x,t;\xi,\tau)$ on this strip admits the inequality
+    \[
+    0 \leq g(x,t;\xi,\tau) \leq K\gamma(x-\xi,t-\tau)
+    \]
+    for some constant $K$ and a heat kernel $\gamma$ with coeffients only related to $\nu$ and the bound of $a_1,a_2,b,c$, so $K$ and $\gamma$ are uniform to $t$. Then we know
+    \[
+    \tilde{u}(t,x) = \int_{\mathbb{R}} g(x,1;y,0)\tilde{u}(t-1,y)dy
+    \]
+    and hence
+    \[
+    \begin{aligned}
+        \lvert\tilde{u}(t,x)\rvert &\leq K\int_{\mathbb{R}} \gamma(x-y,1)|\tilde{u}(t-1,y)|dy \\
+        &= K \sum\limits_{k\in\mathbb{Z}}\int_{[(k-1)L,kL]}\gamma(x-y,1)|\tilde{u}(t-1,y)| dy
+        \\
+        (\text{by Holder Inequality})&\leq
+        K\sum\limits_{k\in\mathbb{Z}}\lVert\gamma(x-\cdot,1)\rVert_{L^2([(k-1)L,kL])}\lVert u(t-1)\rVert_{L^2(\mathbb{T}_L)}\\
+        (\text{by Triangle Inequality})&\leq K \lVert\gamma(\cdot,1)\rVert_{L^2(\mathbb{R})}\lVert u(t-1)\rVert_{L^2(\mathbb{T}_L)}
+    \end{aligned}
+    \]
+    Combing $K$ and $\lVert\gamma(\cdot,1)\rVert_{L^2}$, which both are uniform to $t$, we obtain the desired inequality from the proposition.
+\end{proof}
 
 
 \subsection{Matrix Analysis}

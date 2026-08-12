@@ -10,7 +10,7 @@ what will $u_{\epsilon}$ converges to as $\epsilon \to 0$.
 
 In this part, we consider a quasi-linear parabolic equation
 \[
-u_t = \tfrac12 uu_{xx},\quad t\in [0,\infty),x\in\R
+u_t = \tfrac12 uu_{xx},\quad t\in [0,\infty),x\in\R \label{eq: paraboliceq}
 \]
 and according to the paper by Alex.D and Cole.G, we have such conclusions about the existence and regularity of the solution of this equation. Firstly, let us define the weak solution for the equation
 
@@ -62,7 +62,7 @@ By the way, the equation admits some kind of comparsion principle
     Then if $u^-(0,\cdot) \leq u^+(0,\cdot)$, we have $u^- \leq u^+$.
 \end{proposition}
 
-\subsubsection{Main Conclusion}
+\subsubsection{Uniform convergence}
 
 Now we would like to consider for some initial condition with relatively good properties, if the limit of $u$ at the time of infinity will exist and what it is, and a basic observation is that $u(t,\cdot)$ will approach to some constant function on $\R$ in general, so the we have a claim
 
@@ -283,7 +283,7 @@ Before discussing the decay of the spatial derivative, we record the value of th
     Hence $u_{\infty}=c$.
 \end{proof}
 
-\subsubsection{Decay of the Spatial Derivative}
+\subsubsection{Decaying rate of the spatial derivative for period case}
 
 Now we turn to the main point. We would like to show that, for the two classes of initial condition above, the spatial derivative has at most the order $t^{-1}$ at large time. In this part we assume the initial condition has enough regularity so that the solution is classical for $t>0$, and we keep the uniform positive bounds
 \begin{equation}\label{eq:decay-positive-bound}
@@ -331,40 +331,142 @@ The constants below may depend on $m,M$, the regularity norm of $u_0$, and the p
     \]
     By Gronwall's inequality,
     \[
-        \lVert u_x(t,\cdot)\rVert_{L^2(\mathbb T_L)}
+        \lVert \partial_x u(t,\cdot)\rVert_{L^2(\mathbb T_L)}
         \leq
         \exp\left(-\dfrac12m\left(\dfrac{2\pi}{L}\right)^2t\right)
-        \lVert u_x(0,\cdot)\rVert_{L^2(\mathbb T_L)}.
+        \lVert \partial_x u(0,\cdot)\rVert_{L^2(\mathbb T_L)}.
     \]
-    Since $p$ solves a uniformly parabolic divergence form equation on the compact torus, the standard parabolic smoothing estimate gives, for $t\geq1$,
+    Notice that $u$ is bounded and apply $\eqref{eq: periodl2estimate}$, for $t\geq1$,
     \[
         \lVert p(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}
         \leq C\lVert p(t-1,\cdot)\rVert_{L^2(\mathbb T_L)} .
     \]
-    Therefore
+    for uniform constant $C_0$. Therefore
     \[
-        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}
-        \leq C e^{-ct}
+        \lVert \partial_xu(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}
+        \leq C_0 e^{-ct}
     \]
-    for some $c>0$. Since $e^{-ct}\leq C_ct^{-1}$ for $t\geq1$, we obtain
+    for some $c>0$. Since $e^{-ct}\leq C_1t^{-1}$ for $t\geq 1$ for some $C_1 > 0$, we obtain
     \[
-        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}\leq \dfrac{C}{t}.
+        \lVert \partial_x u(t,\cdot)\rVert_{L^{\infty}(\mathbb T_L)}\leq \dfrac{C}{t}.
     \]
+    where $C=C_0C_1$.
 \end{proof}
 
-For the bump initial condition, the periodic Poincare inequality is no longer available. The useful idea is to first obtain the coarse order $t^{-1/2}$, and then use the convergence $u\to c$ and a parabolic scaling argument to improve it to $t^{-1}$.
+\subsubsection{Decaying rate of the spatial derivative for bump case}
 
-\begin{theorem}[Derivative Decay for Bump IC]\label{thm:bump-ux-decay}
-    Assume that $u_0$ is positive, bounded, sufficiently smooth, and satisfies
+For the bump initial condition, the Poincare inequality is no longer available. A basic idea is to first obtain the coarse order $t^{-1/2}$, and then use the convergence $u\to c$ and a parabolic scaling argument to improve it to $t^{-1}$. We will prove the $t^{-1/2}$ decaying rate for the equation at first.
+
+\begin{theorem}[Derivative decaying rate of $t$-root for Bump IC]\label{thm:bump-ux-decay}
+    Assume that $u_0$ is positive, bounded, smooth and satisfies
     \[
         u_0-c\in C_c^{2+\alpha}(\R)
     \]
-    for some $c>0$ and $0<\alpha<1$. Let $u$ be the corresponding positive classical solution. Then there is a constant $C>0$ such that, for all sufficiently large $t$,
+    for some $c>0$ and $0<\alpha<1$. Let $u$ be the classical solution of $\eqref{eq: paraboliceq}$. Then there is a constant $C>0$ such that, for all sufficiently large $t$,
     \[
-        \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\R)}\leq \dfrac{C}{t}.
+        \lVert \partial_x u(t,\cdot)\rVert_{L^{\infty}(\R)}\leq \dfrac{C}{\sqrt{t}}.\label{ineq: squareroot-decay}
     \]
 \end{theorem}
+\begin{proof}
+    Let $p:= u_x$ and then we know the equation that $p$ will satify is
+    \[
+    p_t = \dfrac{1}{2}(up_x)_x
+    \]
+    Consider a scaled solution of the equation above, that is for $\tau > 0$, for  $f:\mathbb{R}^+\times\R\to\mathbb{R}$, define $ f^{\tau}(x,t) = f(\tau x, \tau^2 t)$ and since
+    \[
+    (p^{\tau})_t = \tau^2 (p_t)^{\tau},\quad (u^{\tau}(p^{\tau})_x)_x = (u^{\tau})_x(p^{\tau})_x + u^{\tau}(p^{\tau})_{xx} = \tau^2[(up_x)_x]^{\tau}
+    \]
+    we have $p^{\tau}$ is a solution of
+    \[
+    v_t = \dfrac{1}{2}(u^{\tau}v_x)_x
+    \]
+    Then by Theorem.1 from \cite{Aronson1967}, the equation above admits a fundamental solution $g_{\tau}$ on $[0,1]\times\mathbb{R}$ with bound
+    \[
+    0\leq g_{\tau}(t,x;\tau,\xi) \leq K\gamma(t-\tau,x-\xi)
+    \]
+    where $K,\gamma$ only depend on the bound of $u^{\tau}$ which is the same for all the $\tau > 0$, so we know
+    \[
+    \begin{aligned} 
+    |p^{\tau}(1,x)| &\leq K\int_{\R} \gamma(1,x-y)|p^{\tau}(0,y)|dy \\
+    &\leq K\lVert \gamma(1,\cdot)\rVert_{L^{\infty}(\R)} \lVert p^{\tau}(0,\cdot)\rVert_{L^1(\R)}
+     \end{aligned}
+    \]
+    and notice that
+    \[
+    \lVert p^{\tau}(0,\cdot)\rVert_{L^1(\R)} = \tfrac{1}{\tau}\lVert p(0,\cdot)\rVert.
+    \]
+    Therefore, we will have
+    \[
+    |p(\tau^2,\cdot)|_{L^{\infty}(\R)} \leq C\dfrac{1}{\sqrt{\tau^2 }}\lVert p(0,\cdot)\rVert_{L^1(\R)}
+    \]
+    for any $\tau > 0$ and the desired rate of decaying is obtained.
+\end{proof}
 
+\begin{theorem}[$L^1$-control of the prabolic equation] With the same assumption with $\eqref{ineq: squareroot-decay}$, we will have
+\[      \sup_{t\geq0}\lVert u(t,\cdot)-c\rVert_{L^1(\R)}\leq C\lVert u(0,\cdot) - c\rVert_{L^1(\R)} \label{eq:bump-L1-control}
+\]
+\end{theorem}
+\begin{proof}
+    Let us show that for any $t > 0$, $(u(t,\cdot)-c)\in L^1(\R)$ at first. According to \cite{Dong_2022}, for any $T$, the equation will admit a fundamental solution $g$ admit a Gaussian upper bound $\gamma$ with coefficients only related to $T$, so for $t < T$, we know that
+    \[
+    \begin{aligned}
+        |u(t,x) - c| &\leq K \int_{\R} \gamma(x-y)|w(y)|dy \\
+        &= K\int_{\text{supp}(w)} \gamma(x-y)|w(y)|dy \\
+        &\leq K'\lVert w\rVert_{L^1(\R)}\exp{(-\beta x^2)}
+    \end{aligned}
+    \]
+    for some constant $K,K',\beta>0$ where $w:= u(0,\cdot) - c$, which means $u(t,\cdot) \in L^1(\R)$ for any $t < T$ and hence $u(t,\cdot)$ is $L^1$ integrable for any $t \geq 0$.\par
+    We still will use the above bound with the coefficient related to $t$ and the following calculation is done for fixed $t$. For $\epsilon > 0$, for $\phi_{\epsilon}(x) = \sqrt{x^2 + \epsilon^2} -\epsilon$ and we will have
+    \[
+    |\phi_{\epsilon}(x) - |x|| = \dfrac{2|x|\epsilon}{\sqrt{x^2+\epsilon^2} + \epsilon+|x|} \leq \dfrac{|x|\epsilon}{\sqrt{x^2+\epsilon^2}}.
+    \]
+    Consider the logarithmic quantity of
+    \[
+    q(t,x) = \ln{\dfrac{u(t,x)}{c}}
+    \]
+    and we know $q$ satisfy the equation
+    \[
+    q_t = \tfrac{1}{2}u_{xx}
+    \]
+    Also, since $u$ is bounded, we know $|q|$ is equivalent with $|u - c|$, and we may apply the similar Gaussian bound to $|q|$.
+    Then we know
+    \[
+    \begin{aligned}
+        &\int_{\R}|\phi_{\epsilon}(q(t,x))- q(t,x)|dx \\ &\leq \int_{\R} \dfrac{|q(t,x)|\epsilon}{\sqrt{q(t,x)^2+\epsilon^2}} dx \\
+        &\leq\int_{|q(t,x)|>\epsilon} \epsilon dx + \int_{|q(t,x)| < \epsilon} K''\lVert w\rVert_{L^1(\R)}\exp(-\beta x^2)dx
+        \\
+        &\leq \epsilon \dfrac{2}{\sqrt{\beta}}\sqrt{-\ln \left(\dfrac{\epsilon}{K''\lVert w\rVert_{L^1(\R)})}\right)} + I_{\epsilon} \to 0
+    \end{aligned}
+    \]
+    for some constant $K'' > 0$, with $\epsilon \to 0$ where $I_{\epsilon}:= \int_{|u(t,x)| < \epsilon} K''\lVert w\rVert_{L^1(\R)}\exp(-\beta x^2)dx \to 0$ by DCT, so we have $\phi_{\epsilon}(q(t,x)) \to |q(t,x)|$ in $L^1(\R)$ for any $t \geq 0$.\par
+    Now, consider
+    \[
+    \begin{aligned}
+        \dfrac{d}{dt}\int_{\R} \phi_{\epsilon}(q(t,x))dx  &= \dfrac{1}{2}\int_{\R} \phi_{\epsilon}'(q(t,x))u_{xx}(t,x)dx \\
+        &= -\dfrac{1}{2}\int_{\R}\phi_{\epsilon}''(q(t,x)) (uq_x^2)(t,x)dx \leq 0
+    \end{aligned}
+    \]
+    and hence
+    \[
+    \int_{\R} \phi_{\epsilon}(q(t,\cdot)) \leq \int_{\R} \phi_{\epsilon}(q(0,\cdot))
+    \]
+    Therefore, we pass the limit and obtain
+    \[
+    \int_{\R} |q(t,\cdot)| \leq \int_{\R}|q(0,\cdot)|
+    \]
+    for any $t > 0$ and hence
+    \[
+    \lVert u(t,\cdot) - c\rVert_{L^1(\R)} \leq C\lVert w\rVert_{L^1(\R)}
+    \]
+    for some constant $C$ and we are done.
+\end{proof}
+
+\begin{theorem}[Derivative Decay for Bump IC]\label{thm:bump-ux-decay}
+    With the same assumption with $\eqref{ineq: squareroot-decay}$, the decaying rate is $1/t$, i.e. there is a constant $C>0$ such that, for all sufficiently large $t$,
+    \[
+        \lVert \partial_x u(t,\cdot)\rVert_{L^{\infty}(\R)}\leq \dfrac{C}{t}.
+    \]
+\end{theorem}
 \begin{proof}
     Let
     \[
@@ -380,58 +482,16 @@ For the bump initial condition, the periodic Poincare inequality is no longer av
     \[
         \dfrac m2\leq A(t,x)\leq \dfrac M2.
     \]
-
-    We divide the proof into three steps.
-
-    \emph{Step 1: a coarse estimate for $u_x$.}
-    Set $p=u_x$. Differentiating the original equation gives
-    \[
-        p_t=\dfrac12(up_x)_x.
-    \]
-    This is a uniformly parabolic divergence form equation. Since $u_0-c$ is compactly supported, $p_0=u_0'\in L^1(\R)$. By Aronson's Gaussian upper bound for divergence form parabolic equations,
-    \[
-        |p(t,x)|
-        \leq \int_{\R}Ct^{-1/2}\exp\left(-\dfrac{|x-y|^2}{Ct}\right)|p_0(y)|dy.
-    \]
-    Hence
-    \begin{equation}\label{eq:bump-ux-half}
+    By $\eqref{ineq: squareroot-decay}$, we have \begin{equation}\label{eq:bump-ux-half}
         \lVert u_x(t,\cdot)\rVert_{L^{\infty}(\R)}
-        \leq Ct^{-1/2}.
+        \leq Kt^{-1/2}.
     \end{equation}
     In particular,
     \begin{equation}\label{eq:bump-Ax-half}
         \lVert A_x(t,\cdot)\rVert_{L^{\infty}(\R)}
-        \leq Ct^{-1/2}.
+        \leq Kt^{-1/2}.
     \end{equation}
-
-    \emph{Step 2: the $t^{-1/2}$ decay of $u-c$.}
-    We first recall a uniform $L^1$ control for the perturbation. Since $u$ is uniformly bounded from above and below, the logarithmic quantity
-    \[
-        q(t,x):=\log\dfrac{u(t,x)}{c}
-    \]
-    satisfies
-    \[
-        q_t=\dfrac12u_{xx}.
-    \]
-    For every smooth convex function $\Phi$, an integration by parts gives
-    \[
-    \begin{aligned}
-        \dfrac{d}{dt}\int_{\R}\Phi(q)dx
-        &=\dfrac12\int_{\R}\Phi'(q)u_{xx}dx \\
-        &=-\dfrac12\int_{\R}\Phi''(q)u q_x^2dx\leq0 .
-    \end{aligned}
-    \]
-    Taking smooth convex approximations of $|q|$ gives
-    \[
-        \int_{\R}\left|\log\dfrac{u(t,x)}{c}\right|dx
-        \leq
-        \int_{\R}\left|\log\dfrac{u_0(x)}{c}\right|dx .
-    \]
-    Since $m\leq u\leq M$, this implies
-    \begin{equation}\label{eq:bump-L1-control}
-        \sup_{t\geq0}\lVert u(t,\cdot)-c\rVert_{L^1(\R)}\leq C.
-    \end{equation}
-
+    for some constant $K > 0$.
     Now we use the equation \eqref{eq:bump-w-equation}. The coefficient $A$ is uniformly elliptic. Moreover, by the coarse estimate \eqref{eq:bump-Ax-half}, after the parabolic scaling
     \[
         A_R(\tau,z):=A(R\tau,x_0+\sqrt R z),
@@ -529,5 +589,3 @@ For the bump initial condition, the periodic Poincare inequality is no longer av
     \]
     This completes the proof.
 \end{proof}
-
-\subsection{Reference for the section}

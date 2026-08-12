@@ -64,6 +64,60 @@ By the theorem, we may know
 \]
 and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we know $J_{\sigma}(t,\cdot)$ will converge to some constant uniformly according to some parabolic equation analysis, so with $\rho \to \infty$, we expect the distribution $\gamma_{\rho}v^{\rho}_t(x)$ will coincide with $\gamma_{\rho}\Gamma^{\sigma_{\rho}}_{a,1}(q)$ whose weak limit is Browinian motion with mean $\sigma_{\infty}$.
 
+\subsection{Turning off the noise and flattening}
+
+In thiws section, we assume $|\sigma| < M$.
+\begin{proposition}
+    Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$, and $\tau_0 \leq \tau_1 < \tau_2$ satisfy $\tau_2 - \tau_1 < a$. For all $v_{\tau_0} \in \mathscr{H}^{2}_{\tau_0}$, we have
+    \[
+    \lVert\mathcal{V}^{\rho}_{\tau_0,\tau_2} v_{\tau_0} - \mathcal{V}^{\rho}_{\tau_1,\tau_2}\hsemig{\tau_1-\tau_0}{v_{\tau_0}}\rVert_2^2 \leq \dfrac{ML(\tau_1/\rho)}{4\pi(1-\lambda^2L(a/\rho))}
+    \]
+\end{proposition}
+\begin{proof}
+    Assume without loss of generality that $\tau_0 = 0$. For $t\geq \tau_1$, define $v_t = \mathcal{V}_{0,t}v_0$ and $\widetilde{v}_t = \mathcal{V}_{\tau_1,t}\hsemig{\tau_1}{v_0}$. We have
+    \[
+    v_t^{\rho} - \widetilde{v}^{\rho}_t = \int_0^{\tau_1}\hsemig{t+\rho-r}{\sigma(v_r)dW_r} + \int_{\tau_1}^t \hsemig{t+\rho-r}{(\sigma(v_r)-\sigma(\widetilde{v}_r))dW_r}
+    \]
+    Then by Ito isometry we will have
+    \[
+    \begin{aligned}
+        \mathbb{E}|(v_t^{\rho}-\widetilde{v}_t^{\rho})(x)|^2 = &\int_0^{\tau_1}\int  G^2_{t+\rho-r}(x-y)\mathbb{E}|\sigma(v_r(y))|^2dydr \\&+ \int_{\tau_1}^t\int  G^2_{t+\rho-r}(x-y)\mathbb{E}|\sigma(v_r(y)) - \sigma(\widetilde{v}_r(y))|^2dydr
+        \\\leq& M\int_0^{\tau_1}\int  G^2_{t+\rho-r}(x-y)dydr + \lambda^2\int^t_{\tau_1} \dfrac{\lVert v_r^{\rho} - \widetilde{v}_r^{\rho}\rVert_2^2}{t+\rho-r}dr \\
+        \leq &\dfrac{M}{4\pi} L(\tau_1/\rho) + \lambda^2 \int^t_{\tau_1} \dfrac{\lVert v_r^{\rho} - \widetilde{v}_r^{\rho}\rVert_2^2}{t+\rho-r}dr
+    \end{aligned}
+    \]
+    Let $f (\tau) = \lVert v_{\tau_1+\tau}^{\rho} - \widetilde{v}_{\tau_1+\tau}^{\rho}\rVert_2^2$ for $\tau \in [0,\tau_2-\tau_1]$ and we will have
+    \[
+    f(\tau) \leq A + B\int^{\tau}_{\tau_1} \dfrac{f(r)}{\tau+\rho-r}dr
+    \]
+    which will gives for $F:=\sup_{\tau\in[0,\tau_2-\tau_1]} f(\tau)$,
+    \[\begin{aligned}&f(\tau) \leq A + B \int_{\tau_1}^{\tau}\dfrac{F}{\tau+\rho-r}dr
+    \\ \implies& f(\tau) \leq A + BL\left(\dfrac{\tau-\tau_1}{\rho}\right)F
+    \end{aligned}
+    \]
+    Apply supremum related to $\tau$ on the both side and we obtain
+    \[
+    F \leq A + BL\left(\dfrac{\tau_2-\tau_1}{\rho}\right)F \implies F \leq \dfrac{A}{1-BL((\tau_2-\tau_1)/\rho)}
+    \]
+    and we are done.
+\end{proof}
+
+\begin{proposition}
+    Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$, and $\tau_0 \leq \tau_1 < \tau_2$ satisfy $\tau_2 - \tau_1 < a$. For all $x,X\in \R^2$ and all $v_{\tau_0} \in \mathscr{H}^{2}_{\tau_0}$, we have
+    \[
+    \mathbb{E}\lvert(\mathcal{V}^{\rho}_{\tau_1,\tau_2}\hsemig{\tau_1-\tau_0}{v_{\tau_0}} - \mathcal{V}^{\rho}_{\tau_1,\tau_2}\mathcal{Z}_X\hsemig{\tau_1-\tau_0}{v_{\tau_0}})(x)\rvert^2 \leq
+    \]
+\end{proposition}
+\begin{proof}
+    Assume $\tau_0 = 0$ and for all $\tau\in[0,\tau_2-\tau_1]$, we have
+    \[
+    \begin{aligned}
+    &(\mathcal{V}^{\rho}_{\tau_1,\tau_1+\tau}\hsemig{\tau_1}{v_0} - \mathcal{V}^{\rho}_{\tau_1,\tau_1+\tau}\mathcal{Z}_X\hsemig{\tau_1}{v_0})(x) \\
+     =& \int [G_{\tau_1+\tau}(x-y) - G_{\tau_1}] 
+    \end{aligned}
+    \]
+\end{proof}
+
 \subsection{Approximation in the first short time stage}
 
 Let us recall the Theorem 5.14 from \cite{dunlap2026renormalizationflow2dnonlinear}.
@@ -120,7 +174,7 @@ where $\alpha \geq 1$, which means that only when $\lambda < \sqrt{2\pi}$, we ma
     and according to the proof for the Theorem 5.14. from \cite{dunlap2026renormalizationflow2dnonlinear}, the expectation we are approximating can be bounded by $E_1+E_2+E_3$.\par
     For $E_1$, we have
     \[
-    E_1 \leq C K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2}\Theta^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2\left[L_{\rho}(\kappa_{l,\rho}^{-2})+\kappa_{l,\rho}[(1+\gamma_{\rho}^{-2}\lambda^2\delta)\kappa_{l,\rho}+1]+\dfrac{K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2}}{L(1/\rho)}\right]
+    E_1 \leq C K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2}\Xi^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2\left[L_{\rho}(\kappa_{l,\rho}^{-2})+\kappa_{l,\rho}[(1+\gamma_{\rho}^{-2}\lambda^2\delta)\kappa_{l,\rho}+1]+\dfrac{K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2}}{L(1/\rho)}\right]
     \]
     for some fixed constant $C$ and $\delta = K_{\gamma_{\rho}^{-1}\lambda,\rho,\kappa_{l,\rho}\xi^2}L(1/\rho)^{-1}$. And notice $K_{\lambda,\rho,t}$ is increasing related to $t$ and $\xi \in [0,1]$ when $\rho$ is large enough, so
     \[ K_{\gamma_{\rho}^{-1}\lambda,\rho,\xi^2} \leq K_{\gamma^{-1}\lambda,\rho,\overline{q}_{\rho}} \leq p
@@ -135,33 +189,33 @@ where $\alpha \geq 1$, which means that only when $\lambda < \sqrt{2\pi}$, we ma
     \]
     and so for $\rho$ small enough we have
     \[
-    E_1 \leq C\dfrac{4p}{1-2/l}\dfrac{L(L(1/\rho))}{L(1/\rho)}\Theta^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2
+    E_1 \leq C\dfrac{4p}{1-2/l}\dfrac{L(L(1/\rho))}{L(1/\rho)}\Xi^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2
     \]
     for some fixed constant $C$.\par
     For $E_2$, there are two cases. If $\kappa_{l,\rho}\xi^2 \geq \rho$ according to \cite{dunlap2026renormalizationflow2dnonlinear},
     we have
     \[
-    E_2 \leq C\Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]\dfrac{L(L(1/\rho))}{L(1/\rho)}
+    E_2 \leq C\Xi_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]\dfrac{L(L(1/\rho))}{L(1/\rho)}
     \]
     and for the other case, we have
     \[
-    E_2 \leq 4\Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]\gamma_{\rho}^2\lambda^{-2}\dfrac{L(2)}{L(1/\rho)}
+    E_2 \leq 4\Xi_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]\gamma_{\rho}^2\lambda^{-2}\dfrac{L(2)}{L(1/\rho)}
     \]
     Therefore, we have
     \[
-    E_2 \leq C\Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]
+    E_2 \leq C\Xi_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2]
     \]
     where $C$ depends only on $l$ and $\lambda$ where $X: = (X_i(x))^N_{i=1}$ defined as in \cite{dunlap2026renormalizationflow2dnonlinear}.\par
     For $E_3$, we have
     \[
     \begin{aligned}
-        E_3 &\leq \gamma_{\rho}^{-1}\lambda\sqrt{p}\left(\dfrac{C\sqrt{L(L(1/\rho))}}{\sqrt{L(1/\rho)}}\right)\left(\Theta^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Theta^{\rho}_{2;t}[v_0]\right) \\
-        &= C(p,\lambda,l)\sqrt{L(L(1/\rho))}\left(\Theta^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Theta^{\rho}_{2;t}[v_0]\right)
+        E_3 &\leq \gamma_{\rho}^{-1}\lambda\sqrt{p}\left(\dfrac{C\sqrt{L(L(1/\rho))}}{\sqrt{L(1/\rho)}}\right)\left(\Xi^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Xi^{\rho}_{2;t}[v_0]\right) \\
+        &= C(p,\lambda,l)\sqrt{L(L(1/\rho))}\left(\Xi^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Xi^{\rho}_{2;t}[v_0]\right)
     \end{aligned}
     \]
     For the term
     \[
-    \Theta^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2 +  \Theta_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2] + \Theta^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Theta^{\rho}_{2;t}[v_0]
+    \Xi^{\rho}_{\tau_0,\tau_1}[v_{\tau_0}]^2 +  \Xi_{l;\kappa_{l,\rho}\xi^2}^{\rho}[\hsemig{\tau_1-\tau_0}{v_{\tau_0}(X)}^2] + \Xi^{\rho}_{2;L(1/\rho)\xi^2}[\hsemig{\kappa_{l,\rho}^{-1}\xi^2}{v_{\tau_0}(X)}]^2+\Xi^{\rho}_{2;t}[v_0]
     \]
     which should be $O(L(1/\rho)^{l/4})$ by the proposition 4.4 from \cite{dunlap2026renormalizationflow2dnonlinear},and finally we have
     \[
