@@ -64,9 +64,119 @@ By the theorem, we may know
 \]
 and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we know $J_{\sigma}(t,\cdot)$ will converge to some constant uniformly according to some parabolic equation analysis, so with $\rho \to \infty$, we expect the distribution $\gamma_{\rho}v^{\rho}_t(x)$ will coincide with $\gamma_{\rho}\Gamma^{\sigma_{\rho}}_{a,1}(q)$ whose weak limit is Browinian motion with mean $\sigma_{\infty}$.
 
+\subsection{First Stage Approximation}
+
+\begin{definition}
+    For a bounded positive Lipschitz function $\sigma$, define $\sigma_{\rho}$ as $\gamma_{\rho}^{-1}\sigma$.\par The scaled time parameter is defined by $L_{\rho}( q ) = L(q)/L(1/\rho)$.\par
+    The space $\mathscr{H}_t^l$ is consisted of $\R$-valued random fields $z$ on $\R^2$ that are $\mathcal{F}_t$-measurable with
+    \[
+    \lVert z\rVert_l := \sup_{x\in\R^2}(\mathbb{E}\lvert z(x)\rvert^l)^{1/l} < \infty
+    \]
+    and $\langle a\rangle:= \sqrt{(|a|^2+1)}$ is the Japanese bracket.\par
+    Give $\zeta > 0$ and $k\in\R^2$, the square
+    \[
+    B_{\zeta,k} := \zeta\cdot(k+[0,1)^2)
+    \]
+    and for $x,z\in\R^2$, let $k_{\zeta,z}(x)$ be the unique integral vector $k\in \mathbb{Z}^2$ such that $x\in B_{\zeta,k+z}(x)$. Given a field $f$ on $\R^2$, $\zeta \in (0,\infty)$ and $z\in \R^2$, define
+    \[
+    \mathcal{S}_{\zeta,z}f(x) := \dfrac{1}{\zeta^2} \int_{B_{\zeta,k_{\zeta,z}(x)+z}} f(y)dy;\quad \mathcal{S}_{\zeta}:= \mathcal{S}_{\zeta,0}.
+    \]
+    For $a\in\R$ and $q\geq 0$ and a Lipschitz function $\sigma$, define
+    \[
+        J_{\sigma,\rho}(q,a) = \left[\mathbb{E}\sigma^2\left(\mathcal{V}^{\sigma,\rho}_{T_{\rho}(q)}a(x)\right)\right]^{1/2}
+    \]
+    where $S_{\rho}(q) := L_{\rho}(q/\rho)$ and $T_{\rho} = S_{\rho}^{-1}$. The operator $\mathcal{V}^{\sigma,\rho}$ is defined as that if $v_s \in \mathscr{H}_s^l$ for $l\geq 2$, then $v_t^{\rho} : = \mathcal{V}^{\sigma,\rho}_{s,t} v_s$ is a mild solution of
+    \[
+    du_t^{\rho} = \dfrac{1}{2}\Delta u_t^{\rho} + \gamma_{\rho}\sigma(u_t^{\rho})dW_t^{\rho}
+    \]
+    which means $\mathcal{V}^{\sigma_{\rho},\rho}_{s,t}v_{s}$ is a mild solution of
+    \[
+    du_t^{\rho} = \dfrac{1}{2}\Delta u_t^{\rho} + \sigma(u_t^{\rho})dW_t^{\rho}
+    \]
+    with $s \geq t$. We often write $\mathcal{V}^{\sigma,\rho}_{0,t} :  = \mathcal{V}^{\sigma,\rho}_{t}$.
+\end{definition}
+
+\begin{theorem}
+    Let $\sigma$ to be a Lipschitz function with $\text{Lip}(\sigma) \leq \lambda$, and $(v_t)_{t\geq 0}$ solve
+    \[
+    v_t(x) = \hsemig{t-s}{v_s}(x) + \int_s^t\hsemig{t+\rho-r}{\sigma(v_r^{\rho})dW_r}(x)
+    \] with initial condition $v_0 \in \mathscr{H}_0^2$. Let $T = \alpha\rho,\iota \in[0,1]$ and $\xi = \sqrt{\alpha\rho/L(1/\rho)^{\iota}}$, $x,z\in\R^2$, where $\alpha < \dfrac{8}{3}\left(e^{4\pi/\lambda^2}-1\right)$. Then we have for $t\in[0,T]$
+    \[
+    \mathbb{E}\lvert \left(\mathcal{S}_{\xi,z}[\sigma_{\rho}^2\circ v_t](x)\right)^{1/2} - J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)\xi^2), \hsemig{L(1/\rho)\xi^2}{v_t}(x))\rvert^2 \leq C\langle \lVert v_0\rVert_2 \rangle^2 L(1/\rho)^{3/2}
+    \]
+    for some constant $C$ when $\rho < C^{-1}$.\par
+\end{theorem}
+\begin{proof}
+    In this proof, we denote $\mathcal{V}^{\sigma_{\rho},\rho}$ as $\mathcal{V}$. Let $R = B_{\xi,k_{\xi,z}(x)+z}$ and $\tau_0 =  t/4,\tau_2:=t$ and $\tau_1 = (\tau_0+\tau_2)/2$.\par
+    Define
+    \[
+    \begin{aligned}
+        E_1 : &= \mathbb{E}\left\lvert \left(\dfrac{1}{\xi^2}\int_R \sigma_{\rho}^2(v_t(y))dy \right)^{1/2} - \left(\dfrac{1}{\xi^2}\int_R \sigma^2_{\rho}(\mathcal{V}_{\tau_1,\tau_2}\mathcal{Z}_X \hsemig{\tau_1-\tau_0}{v_{\tau_0}(y)})dy \right)^{1/2}\right\rvert^2 \\
+        E_2 :&= \mathbb{E}\left\lvert \left(\dfrac{1}{\xi^2}\int_R \sigma^2_{\rho}(\mathcal{V}_{\tau_1,\tau_2}\mathcal{Z}_X \hsemig{\tau_1-\tau_0}{v_{\tau_0}(y)})dy \right)^{1/2}
+        -
+        J_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
+        \right\rvert^2 \\
+        E_3 :&= \mathbb{E}\left\lvert
+        J_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
+        -
+        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)\xi^2),\hsemig{L(1/\rho)\xi^2}{v_{t}}(x))
+        \right\rvert^2
+    \end{aligned}
+    \]
+    For $E_1$, we have
+    \[
+    \begin{aligned}
+        E_1 &\leq \dfrac{1}{\xi^2}\int_R \mathbb{E}\left|\sigma_{\rho}(\mathcal{V}_{\tau_0,\tau_2}v_{\tau_0}(y)) - \sigma_{\rho}(\mathcal{V}_{\tau_1,\tau_2}\mathcal{Z}_X \hsemig{\tau_1-\tau_0}{v_{\tau_0}(y)})\right|^2dy \\
+        &\leq \gamma_{\rho}^{-2}\lambda^2\left(\dfrac{1}{\xi^2} \int_R \mathbb{E}\left|\mathcal{V}_{\tau_0,\tau_2}v_{\tau_0}(y) - \mathcal{V}_{\tau_1,\tau_2}\mathcal{Z}_X \hsemig{\tau_1-\tau_0}{v_{\tau_0}(y)}\right|^2dy\right) \\
+        &\leq \gamma_{\rho}^{-2}\lambda^2\lVert v_{\tau_0}\rVert_2^2
+        \left( \dfrac{|\sigma|_{\infty}L_{\rho}(\tau_1)}{4\pi(1-\lambda^2L_{\rho}(\tau_2-\tau_1))} + \dfrac{\xi^2}{4\tau_1(1-\lambda^2L_{\rho}(\tau_2-\tau_1)/4\pi)}\right.\\
+        &\left.+\dfrac{\tau_2-\tau_1}{\tau_1}\left(\dfrac{1}{1-\lambda^2L_{\rho}(\tau_2-\tau_1)/4\pi} + \dfrac{\lambda^2}{8\pi(1-\lambda^2L_{\rho}(\tau_2-\tau_1)/4\pi)^2}\right)\right) \\
+        &\leq C'_1L(1/\rho)(C'_1+C'_1/L(1/\rho) + C'_1) \leq C_1 L(1/\rho)
+    \end{aligned}
+    \]
+    for some constant $C_1,C'_1$.\par
+    For $E_2$, we consider $R_i, i\in\mathcal{I}$ to be a squares partition pf $R$ with edge length $\xi/N$, and $\hat{R}_i$  is the square with the same center with $R_i$ but whose edge length $3\xi/N$. Denote $\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X) =: a(x)$ and $i(x)$ to be the index in $\mathcal{I}$ such that $x\in R_{i(x)}$,
+    \[
+    \begin{aligned}
+    \mathbb{E}&\left|\left(\dfrac{1}{\xi^2}\int_R \sigma_{\rho}^2(\mathcal{V}_{\tau_1,\tau_2}^{\hat{R}_{i(x)}}a(x))dx\right)^{1/2} - \left(\dfrac{1}{\xi^2}\int_R \sigma_{\rho}^2(\mathcal{V}_{\tau_1,\tau_2}a(x))dx\right)^{1/2}\right|^2 \\
+    &\leq
+    \gamma_{\rho}^{-2}\lambda^2\left(\dfrac{1}{\xi^2}\int_R \mathbb{E}\left|\mathcal{V}_{\tau_1,\tau_2}^{\hat{R}_{i(x)}}a(x) - \mathcal{V}_{\tau_1,\tau_2}a(x)\right|^2dx\right) \\
+    &\leq \gamma_{\rho}^{-2}\dfrac{C'\lambda^2 S_{\rho}{(T)}}{4\pi-\lambda^2L(T/\rho)} \Xi_{2;\tau_1,\tau_2}[a]^2 \\
+    &\leq
+    C_2'\Xi_{2;\tau_1,\tau_2}[a]^2  
+    \end{aligned}
+    \]
+    for some fixed constant $C'$ and some constant $C_2'$ only related to $\lambda$. Let
+    \[X_i := \dfrac{1}{(\xi/N)^2}\int_{R_i}\sigma_{\rho}^2(\mathcal{V}_{\tau_1,\tau_2}^{\hat{R}_{i}}a(x))dx\]
+    and we will have
+    \[
+    EX_i = J^2_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),a).
+    \]
+    by (5.45) in $\cite{dunlap2026renormalizationflow2dnonlinear}$, we have
+    \[
+    \begin{aligned}
+        &\mathbb{E}\left|
+    \left(\dfrac{1}{\xi^2}\int_R \sigma_{\rho}^2(\mathcal{V}_{\tau_1,\tau_2}^{\hat{R}_{i(x)}}a(x))dx\right)^{1/2} - 
+    J_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),a)
+    \right|^2 \\
+    = & \mathbb{E}\left|\left(N^{-2}\sum\limits_{i\in\mathcal{I}}X_i\right)^{1/2} - (\mathbb{E}X_i)^{1/2}\right|^2 \leq C''\Xi_{2;\tau_1,\tau_2}[a]^2
+    \end{aligned}
+    \]
+    for some fixed constant $C''$. Notice by Propoisition 4.4 in $\cite{dunlap2026renormalizationflow2dnonlinear}$, we know
+    \[
+    \begin{aligned}
+        \Xi_{2;\tau_1,\tau_2}[a]^2 &\leq \lVert a\rVert_2^2 + S_{\rho}(\tau_2-\tau_1)\gamma_{\rho}^{-2}|\sigma|_{\infty}^2 \\
+        &= \lVert \hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X)\rVert_2^2 + L_{\rho}(\tau_2-\tau_1)|\sigma|_{\infty}^2/4\pi \\
+        &
+    \end{aligned}
+    \]
+    Therefore, we have 
+\end{proof}
+
+
 \subsection{Turning off the noise and flattening}
 
-In thiws section, we assume $|\sigma| < M$.
+In this section, we assume $|\sigma| < M$.
 \begin{proposition}
     Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$, and $\tau_0 \leq \tau_1 < \tau_2$ satisfy $\tau_2 - \tau_1 < a$. For all $v_{\tau_0} \in \mathscr{H}^{2}_{\tau_0}$, we have
     \[
@@ -105,7 +215,7 @@ In thiws section, we assume $|\sigma| < M$.
 \begin{proposition}
     Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$, and $\tau_0 \leq \tau_1 < \tau_2$ satisfy $\tau_2 - \tau_1 < a$. For all $x,X\in \R^2$ and all $v_{\tau_0} \in \mathscr{H}^{2}_{\tau_0}$, we have
     \[
-    \mathbb{E}\lvert(\mathcal{V}^{\rho}_{\tau_1,\tau_2}\hsemig{\tau_1-\tau_0}{v_{\tau_0}} - \mathcal{V}^{\rho}_{\tau_1,\tau_2}\mathcal{Z}_X\hsemig{\tau_1-\tau_0}{v_{\tau_0}})(x)\rvert^2 \leq
+    \mathbb{E}\lvert(\mathcal{V}^{\rho}_{\tau_1,\tau_2}\hsemig{\tau_1-\tau_0}{v_{\tau_0}} - \mathcal{V}^{\rho}_{\tau_1,\tau_2}\mathcal{Z}_X\hsemig{\tau_1-\tau_0}{v_{\tau_0}})(x)\rvert^2 \leq \dfrac{2\pi(2a+1)\lVert v_0\rVert_2^2}{\tau_1(4\pi - \lambda^2(L(a/\rho)+a))} (1+|X-x|)^2
     \]
 \end{proposition}
 \begin{proof}
@@ -113,10 +223,204 @@ In thiws section, we assume $|\sigma| < M$.
     \[
     \begin{aligned}
     &(\mathcal{V}^{\rho}_{\tau_1,\tau_1+\tau}\hsemig{\tau_1}{v_0} - \mathcal{V}^{\rho}_{\tau_1,\tau_1+\tau}\mathcal{Z}_X\hsemig{\tau_1}{v_0})(x) \\
-     =& \int [G_{\tau_1+\tau}(x-y) - G_{\tau_1}] 
+     =& \int [G_{\tau_1+\tau}(x-y) - G_{\tau_1}(X-y)]v_0(y)dy \\
+     +& \int_0^{\tau} \hsemig{\tau+\rho-r}{(\sigma(\mathcal{V}_{\tau_1,\tau_1+r}\hsemig{\tau_1}{v_0}) - \sigma(\mathcal{V_{\tau_1,\tau_1+r}}\mathcal{Z}_X \hsemig{\tau_1}{v_0}))dW_{\tau_1+r}}(x)
     \end{aligned}
     \]
+    Take second moments, we have
+    \[
+    \begin{aligned}
+    &\mathbb{E}\left|(\mathcal{V}^{\rho}_{\tau_1,\tau_1+\tau}\hsemig{\tau_1}{v_0} - \mathcal{V}^{\rho}_{\tau_1,\tau_1+\tau}\mathcal{Z}_X\hsemig{\tau_1}{v_0})(x)\right|^2 \\
+     \leq & \int\int \prod\mathbb{E} |G_{\tau_1+\tau}(x-y_i) - G_{\tau_1}(X-y_i)||v_0(y_i)|dy_1dy_2 \\
+     +& \int_0^{\tau} \int \mathbb{E}\left|\sigma(\mathcal{V}_{\tau_1,\tau_1+r}\hsemig{\tau_1}{v_0}) - \sigma(\mathcal{V}_{\tau_1,\tau_1+r}\mathcal{Z}_X \hsemig{\tau_1}{v_0})\right|^2G_{\tau+\rho-r}^2(x-y)dydr \\
+     &=: I_1 + I_2
+    \end{aligned}
+    \]
+    Then we have $I_1 \leq \dfrac{\tau+|X-x|^2/2}{\tau_1}\lVert v_0\rVert^2$ and for $I_2$, we have
+    \[
+    I_2 \leq \dfrac{\lambda^2}{4\pi} \int_0^{\tau}\int \dfrac{G_{(\tau+\rho-r)/2}(x-y)f(r,y)}{\tau+\rho-r} dydr
+    \]
+    where
+    \[
+    f(r,y) : = \mathbb{E}\left|\mathcal{V}_{\tau_1,\tau_1+r}\hsemig{\tau_1}{v_0} - \mathcal{V}_{\tau_1,\tau_1+r}\mathcal{Z}_X \hsemig{\tau_1}{v_0}\right|^2
+    \]
+    so for all $\tau \in [\tau_1,\tau_2]$, we have
+    \[
+    f(\tau,x) \leq \dfrac{\tau_2-\tau_1 + |X-x|^2/2}{\tau_1}\lVert v_0\rVert_2^2 + \dfrac{\lambda^2}{4\pi} \int_0^{\tau}\int \dfrac{G_{(\tau+\rho-r)/2}(x-y)f(r,y)}{\tau+\rho-r} dydr
+    \]
+    Assume $f(s,x) \leq a(s) + b(s)|X-x|^2$, then we have
+    \[
+    \begin{aligned}
+        f(s,x) &\leq A + B|X-x|^2 + C\int_0^{s}\int\dfrac{G_{(\tau+\rho-r)/2}(x-y)(a(r) + b(r)|X-x|^2)}{s+\rho-r} dydr \\
+        &= A + B|X-x|^2 + C\int_0^s \left(\dfrac{a(r)+b(r)|X-x|^2}{s+\rho-r} + b(r)\right)dr
+    \end{aligned}
+    \]
+    where $A = \dfrac{\tau_2-\tau_1}{\tau_1}\lVert v_0\rVert_2^2, B= \dfrac{1}{2\tau_1}\lVert v_0\rVert_2^2, C = \dfrac{\lambda^2}{4\pi}$.So for the optimal $a,b$, we may have
+    \[
+    \begin{aligned}
+        a(s) &\leq A + C\int_0^s \dfrac{a(r)}{s+\rho-r} dr + C\int_0^s b(r) dr \\
+        b(s) &\leq B + C \int_0^s \dfrac{b(r)}{s+\rho-r} dr
+    \end{aligned}
+    \]
+    Choose $\sup_{s\in[0,\tau_2-\tau_1]} b(s)$ and $\sup_{s\in[0,\tau_2-\tau_1]} a(s)$, we will have
+    \[
+    \begin{aligned}
+        \sup_{s\in[0,\tau_2-\tau_1]} b(s) &\leq B + C \sup_{s\in[0,\tau_2-\tau_1]}b(s)L(s/\rho) \\
+        \sup_{s\in[0,\tau_2-\tau_1]} a(s) &\leq A + sC\sup_{s\in[0,\tau_2,\tau_1]}b(s)+ C \sup_{s\in[0,\tau_2-\tau_1]}a(s)L(s/\rho) 
+    \end{aligned}
+    \]
+    and hence $b(s) \leq \dfrac{B}{1-CL((\tau_2-\tau_1)/\rho)}, a(s) \leq \dfrac{A+s\dfrac{CB}{1-CL((\tau_2-\tau_1)/\rho)}}{1-CL((\tau_2-\tau_1)/\rho)}$. Let
+    \[
+    \theta = \dfrac{\lambda^2}{4\pi}L_{\rho}(\tau_2-\tau_1)
+    \]
+    we have
+    \[
+    b(s) \leq \dfrac{1}{2\tau_1(1-\theta)}\lVert v_0\rVert_2^2,\quad a(s) \leq \dfrac{\tau_2-\tau_1}{\tau_1}\left(\dfrac{1}{1-\theta} + \dfrac{\lambda^2}{8\pi(1-\theta)^2}\right)
+    \]
 \end{proof}
+
+\begin{proposition}
+    Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$. Let $B\subset \R^2$ and let $H$ be a half-plane in $R^2$. Let $\tau_0 < \tau_1 < \tau_0 +a$. Then for all $x\in H^c $ and $v_0 \in \mathscr{H}^2_{\tau_0}$, we have
+    \[
+    \lambda^2\mathbb{E}|(\mathring{\mathcal{V}}^B_{\tau_0,\tau_1}v_{\tau_0} - \mathring{\mathcal{V}}^{B/H}_{\tau_0,\tau_1}v_{\tau_0})(x)|^2 \leq \frac{
+    \lambda^2 S_\rho(a)
+}{
+    4\pi-\lambda^2
+    L(a/\rho)
+}
+\Xi_{2;t}[v_0]^2.
+    \]
+\end{proposition}
+\begin{proof}
+For $t\in[0,\tau_1]$, we have
+    \[
+    \begin{aligned}
+        (\mathring{\mathcal{V}}^B_{t}v_{0} - \mathring{\mathcal{V}}^{B/H}_{t}v_{0})(x) =& \int_0^t\int_{B\cap H} G_{t+\rho-r}(x-y)\sigma(\mathring{\mathcal{V}}^B_{r}v_{0}(y))dW_r(y) \\
+        + & \int_0^t\int_{B/H} G_{t+\rho-r}(x-y)[\sigma(\mathring{\mathcal{V}}^B_{r}v_{0}(y))-\sigma(\mathring{\mathcal{V}}^{B/H}_{r}v_{0}(y))]dW_r(y)
+    \end{aligned}
+    \]
+    Then take the second moment
+    \[
+    \begin{aligned}
+        \mathbb{E}\lvert (\mathring{\mathcal{V}}^B_{t}v_{0} - \mathring{\mathcal{V}}^{B/H}_{t}v_{0})(x)\rvert^2 \leq& \dfrac{\Xi_{2;t}[v_0]^2}{4\pi}\int_0^t \dfrac{G_{(t+\rho-r)/2}\chi_H(x)}{t+\rho-r}dr \\
+        +&\dfrac{\lambda^2}{4\pi}\int_0^t \dfrac{\int G_{(t+\rho-r)/2} \mathbb{E}\lvert (\mathring{\mathcal{V}}^B_{r}v_{0} - \mathring{\mathcal{V}}^{B/H}_{r}v_{0})(x)\rvert^2 dy}{t+\rho-r}dr
+    \end{aligned}
+    \]
+    and we get
+    \[
+    f_r(x) \leq \hsemig{(t+\rho)/2}{\chi_H}(x) \dfrac{\lambda^2 S_{\rho}(t)}{4\pi}\Xi_{2;t}[v_0]^2 + \dfrac{\lambda^2}{4\pi} \int_0^t \dfrac{\hsemig{(t+\rho-r)/2}{f_r}(x)}{t+\rho-r}dr 
+    \]
+    where
+    \[
+    f_t(x) := \lambda^2\mathbb{E}\lvert (\mathring{\mathcal{V}}^B_{t}v_{0} - \mathring{\mathcal{V}}^{B/H}_{t}v_{0})(x)\rvert^2
+    \]
+    Let
+\[
+F(t)
+:=
+\sup_{0\leq r\leq t}
+\|f_r\|_{L^\infty(\mathbb{R}^2)}.
+\]
+Since the heat semigroup is an $L^\infty$-contraction,
+\[
+\|\hsemig{s}{g}\|_{L^\infty(\mathbb{R}^2)}
+\leq
+\|g\|_{L^\infty(\mathbb{R}^2)},
+\]
+and since $0\leq \chi_H\leq 1$, we have
+\[
+\|\hsemig{(s+\rho)/2}{\chi_H}\|_{L^\infty}
+\leq 1.
+\]
+Therefore, for every $0\leq s\leq t$,
+\[
+\begin{aligned}
+\|f_s\|_{L^\infty}
+&\leq
+\frac{\lambda^2 S_\rho(s)}{4\pi}
+\Xi_{2;t}[v_0]^2
++
+\frac{\lambda^2}{4\pi}
+\int_0^s
+\frac{
+    \|\hsemig{(s+\rho-r)/2}{f_r}\|_{L^\infty}
+}{
+    s+\rho-r
+}
+\,dr
+\\
+&\leq
+\frac{\lambda^2 S_\rho(t)}{4\pi}
+\Xi_{2;t}[v_0]^2
++
+\frac{\lambda^2}{4\pi}
+F(t)
+\int_0^s
+\frac{dr}{s+\rho-r}.
+\|f_s\|_{L^\infty} \\
+&\leq
+\frac{\lambda^2 S_\rho(t)}{4\pi}
+\Xi_{2;t}[v_0]^2
++
+\frac{\lambda^2}{4\pi}
+\log\left(1+\frac{t}{\rho}\right)
+F(t).
+\end{aligned}
+\]
+Taking the supremum over $0\leq s\leq t$ yields
+\[
+F(t)
+\leq
+\frac{\lambda^2 S_\rho(t)}{4\pi}
+\Xi_{2;t}[v_0]^2
++
+\frac{\lambda^2}{4\pi}
+\log\left(1+\frac{t}{\rho}\right)
+F(t).
+\]
+Therefore,
+\[
+F(t) \leq \dfrac{
+    \lambda^2 S_\rho(t)
+}{
+    4\pi
+    \left(
+        1-
+        \dfrac{\lambda^2}{4\pi}
+    L(\dfrac{t}{\rho})
+    \right)
+}
+\Xi_{2;t}[v_0]^2.
+\]
+\end{proof}
+
+\begin{proposition}
+    Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$. Let $R\subset \R^2$ to be a rectangle in $R^2$. Let $\tau_0 < \tau_1 < \tau_0 +a$. Then for all $x\in R $ and $v_0 \in \mathscr{H}^2_{\tau_0}$, we have
+    \[
+    \lambda^2\mathbb{E}|(\mathcal{V}^{\rho}_{\tau_0,\tau_1}v_{\tau_0} - \mathcal{V}^{\rho,R}_{\tau_0,\tau_1}v_{\tau_0})(x)|^2 \leq \frac{
+    C\lambda^2 S_\rho(a)
+}{
+    4\pi-\lambda^2
+    L(a/\rho)
+}
+\Xi_{2;t}[v_0]^2.
+    \]
+    for some fixed constant $C$.
+\end{proposition}
+
+\begin{definition}
+    Recall that
+    \[
+    J_{\sigma,\rho}(q,a) = \left[\mathbb{E} \sigma^2(\mathcal{V}^{\sigma,\rho})\right]
+    \]
+\end{definition}0 +
+
+\begin{proposition}
+    Suppose $\lambda \in (0,\infty)$, $\text{Lip}(\sigma) \leq \lambda, \rho > 0$. Then
+\end{proposition}
+
+\subsection{The approxiamte root decoupling function}
+
 
 \subsection{Approximation in the first short time stage}
 
@@ -222,6 +526,13 @@ where $\alpha \geq 1$, which means that only when $\lambda < \sqrt{2\pi}$, we ma
     E_1 + E_2 + E_3 \leq C(p,\sigma,l,\beta,\overline{\beta})\sqrt{L(L(1/\rho))}(L(1/\rho))^{l/4}\langle \lVert v_0\rVert_l\rangle^2
     \]
     \end{proof}
+
+\subsection{First Stage Approximation}
+
+\begin{theorem} 
+
+    
+\end{theorem}
 
 
 \subsection{Induction on scales}
