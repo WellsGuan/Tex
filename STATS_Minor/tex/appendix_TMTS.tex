@@ -1,0 +1,41 @@
+\appendix
+
+\section{}
+
+\subsection{}
+
+\begin{theorem}
+    [Proof for the Spectral Thoerem]$\label{prove_specT}$
+\end{theorem}
+\begin{proof}
+    First notice that
+    \[
+    \lVert T \rVert = \sup_{\lVert x \rVert \leq 1}|\langle Tx,x\rangle|,
+    \]
+    for the proof, let us denote the supremum on the right side to be $M$, then we know for $x,y\in H$, we have
+    \[
+    \langle T(x+y), x+y\rangle = \langle Tx, x\rangle + \langle Ty, y\rangle + 2 \text{Re}(\langle Tx ,y \rangle)
+    \]
+    and hence
+    \[
+    \langle T(x+y), x+y\rangle - \langle T(x-y), x-y\rangle = 4\text{Re}(\langle Tx,y\rangle)
+    \]
+    which gives
+    \[
+    |4\text{Re}(\langle Tx,y\rangle)| \leq M(\lVert x+y\rVert^2 + \lVert x-y\rVert^2).
+    \]
+    We will have 
+    \[
+    4 \lVert Tx\rVert \leq 4M
+    \]
+    with $y = (Tx)^0$ and $\lVert x\rVert |\leq 1$. Therefore, the equality goes and with this, there exists $x_n$ in the unit ball such that
+    \[
+    \langle Tx_n, x_n\rangle \to M 
+    \]
+    then we know there is a cumulation $x$ of $\{\pm x_n\}$ such that
+    \[
+    \langle Tx, x \rangle = M \implies \lVert Tx - Mx\rVert^2 \leq 2M^2 - 2M^2 = 0  
+    \]
+    and hence $Tx = Mx$ which means there is a non-zero eigenvector of $T$. It is easy to check that every eigenvalue is real and eigenvector with distinct eigenvalue is orthogonal. To see that an eigenspace is finite-dimensional, assume that $Te_{i} = \lambda e_i$ for $i\in I$ for a infinite index set $I$. We may construct an orthonormal sequence of $e_i$ and we know $\lVert Te_i - Te_j\rVert = \sqrt{2}|\lambda|$ which is a contradiction to $T$ compact, so an eigenspace has to be finite-dimensional. Similarly, for any $\delta > 0$, the eigenvalues of $T$ larger than $\delta$ has to be finite and hence they are at most countable with only $0$ possible accumulation point.\par
+    Now we consider $M:=\overline{\text{span}\{e, Te = \lambda e, \lambda \neq 0\}}$ which is a close subspace of $H$ with $H = M^{\perp} \oplus M$. Then for any $x \in M^{\perp}$, we know $Tx \in M^{\perp}$ and hence $T|_{M^{\perp}}$ is still adjoint compact and hence it has an eigenvector with non-zero eigenvalue if $\lVert T|_{M^{\perp}}\rVert > 0$, which is a contradiction. Therefore, $M^{\perp} \subset \ker T$, and easy to check the opposite direction and we are done.
+\end{proof}

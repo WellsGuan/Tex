@@ -1,0 +1,156 @@
+\section{Useful Conclusions and Fundamental Definitions}
+
+\subsection{Probability Theory}
+\begin{theorem}[Kolmogorove's Theorem] The probability distribution functions
+$(F_{\textbf{t}})_{\textbf{t}\in\mathcal{T}}$ are the distribution functions of some stochastic process if and
+only if for any integer $n$ and $\textbf{t} = (t_1 , \cdots , t_n) \in \mathcal{T}$ and $1\leq i\leq n$,
+\[\lim_{x_i \to\infty} F_{\textbf{t}}(x) = F_{\textbf{t}(i)}(x(i))\]
+where $\textbf{t}(i)$ and $x(i)$ are the $(n- 1)$-component vectors obtained by deleting the
+$i$ th components of $\textbf{t}$ and $x$ respectively. 
+\end{theorem}
+
+\begin{theorem}[Spectral Theorem for Compact Self-Adjoint Operators]
+Let $H$ be a real or complex Hilbert space, and let
+\(
+T:H\to H
+\)
+be a compact self-adjoint operator. Then there exists an orthonormal family
+$\{e_n\}$ consisting of eigenvectors of $T$ corresponding to nonzero
+eigenvalues $\{\lambda_n\}$ such that
+\[
+H=\ker T\oplus \overline{\operatorname{span}\{e_n\}}.
+\]
+Moreover, the following properties hold:
+\begin{enumerate}
+    \item Every eigenvalue $\lambda_n$ is real.
+    \item Every nonzero eigenspace is finite-dimensional.
+    \item The set of nonzero eigenvalues is at most countable, and if there
+    are infinitely many of them, then $0$ is their only possible accumulation
+    point.
+    \item For every $x\in H$,
+    \[
+    Tx=\sum_n \lambda_n \langle x,e_n\rangle e_n.
+    \]
+\end{enumerate}
+In particular, if $\ker T=\{0\}$, then $\{e_n\}$ is an orthonormal basis of
+$H$.
+\end{theorem}
+\begin{proof}
+    See Appendix $\eqref{prove_specT}$.
+\end{proof}
+
+
+\subsection{Definitions}
+
+\begin{definition}
+    [Stationarity] The time series $(X_t)_{t\in\mathbb{Z}}$ is said to be stationary if
+    \begin{itemize}
+        \item $\mathbb{E}|X_t|^2 < \infty$ for all $t\in\mathbb{Z}$.
+        \item $\mathbb{E}X_t = m$ for all $t\in\mathbb{Z}$.
+        \item $\text{Cov}(X_s,X_t)=:\gamma_X(s,t) = \gamma_X(s+h,r+h)$ for all $s,t,h\in\mathbb{Z}$.    
+        \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Strict Stationarity] The time series $(X_t)_{t\in\mathbb{Z}}$ is said to be
+strictly stationary if the joint distributions of $(X_{t_1}, \cdots , X_{t_k})$ and $(X_{t_1+h}, \cdots , X_{t_k+h})$
+are the same for all positive integers $k$ and for all $t_1, \cdots , t_k, h \in \mathbb{Z}$. 
+\end{definition}
+
+The strict stationarity may imply the stationarity easily.
+
+\begin{definition}
+    [Elementary Properties]. For a stationary process, we define the autocovariance $\gamma_X(h) = \gamma_X(t+h,t)$ for any $t\in\mathbb{Z}$ which is well-defined.\par If $\gamma$ is the autocovariance function of a stationary process $(X_t)_{t\in\mathbb{Z}}$, then
+    \[
+    \gamma(0) \geq 0, \quad |\gamma(h)| \leq \gamma(0)\text{ for all }h\in\mathbb{Z}
+    \]
+    and $\gamma(h) =  \gamma(-h)$ for any $h\in\mathbb{Z}$.
+\end{definition}
+\begin{proof}
+    We only prove that $\gamma(0) \geq |\gamma(h)|$ for any $h\in\mathbb{Z}$.
+    \[
+    \begin{aligned}
+        \gamma(h)^2 &= \left(\mathbb{E}(X_0-\mu(0))(X_{h} - \mu(h))\right)^2 \\
+        &\leq \mathbb{E}(X_0-\mu(0))^2\mathbb{E}(X_h-\mu(h))^2 = \gamma(0)^2
+    \end{aligned}
+    \]
+    by Cauchy-Schwarz Inequality.
+\end{proof}
+
+\begin{definition}
+    [Non-Negative Definiteness] A real-valued function on the
+integers, $\kappa : \mathbb{Z} \to \mathbb{R}$ is said to be non-negative definite if and only if 
+\[\sum\limits_{i,j=1}^n a_i\kappa(t_i,t_j)a_j \geq 0\]
+for all positive integers $n$ and for all vectors $a = (a_1 , \cdots , a_n) \in \mathbb{R}^n$ and $t =
+(t_1, \cdots , t_n) \in \mathbb{Z}$. 
+\end{definition}
+\textbf{Remark}. Replace $t_i$ with $i$ in the definition above will obtain an equivalent conclusion.
+
+\begin{theorem}
+     [Characterization of Autocovariance Functions] A real-valued
+function defined on the integers is the autocovariance function of a
+stationary time series if and only if it is even and non-negative definite. 
+\end{theorem}
+
+\begin{definition}
+    [Sample Autocovariance Function] The sample autocovariance function of $\{x_ 1 , \cdots , x_n\}$ is defined by
+    \[
+    \hat{\gamma}(h) := \dfrac{1}{n}\sum\limits_{i=1}^{n-h}(x_i-\bar{x})(x_{i+h}-\bar{x}), 0\leq h <n
+    \] 
+and $\gamma(h) = \gamma( -h), -n < h \leq 0$.
+\end{definition}
+
+\begin{proposition}
+    The covariance matrix is symmetric and non-negative definite for any random vector.
+\end{proposition}
+
+\begin{proposition}
+    If $\textbf{a}$ is an $m$-component column vector, $B$ is an $m \times n$ matrix, and $\textbf{X} =(X_1 , \cdots , X_n)$ where $\mathbb{E}|X_i|^2 < \infty$, i = $1, \cdots , n$, then the random vector,
+    \[
+    \textbf{Y} = \textbf{a} + B\textbf{X}
+    \]
+    has the mean $\mathbb{E}\textbf{Y} = \textbf{a} + B\mathbb{E}\textbf{X}$ and covariance matrix
+    \[
+    \Sigma_{\textbf{Y}\textbf{Y}} = B\Sigma_{\textbf{X}\textbf{X}}B^T
+    \]
+\end{proposition}
+
+\begin{definition}[Multivariate Normal Distribution]   The random vector
+$\textbf{Y} = ( Y_1 , \cdots , Y_n)$ is said to be multivariate normal, or to have a multivariate normal distribution, if and only if there exist a column vector $\textbf{a}$, a matrix $B$
+and a random vector $\textbf{X}= (X_1 ,\cdots,X_m)$ with independent standard normal components, such that $\textbf{Y} = \textbf{a}+B\textbf{X}$, with
+\[
+\mathbb{E}\textbf{Y} = \textbf{a},\quad \Sigma\textbf{Y} = BB^T 
+\]
+\end{definition}
+
+\begin{proposition}
+    If $\textbf{Y} = (Y_1 , \cdots , Y_n)$ is a multivariate normal random vector such that $\mathbb{E}\textbf{Y} = \mu$ and $\Sigma_{\textbf{Y}\textbf{Y}} = \Sigma$, then the characteristic function of $\textbf{Y}$ is
+    \[
+    \phi_{\textbf{Y}}(\textbf{x}) = \exp\left(i\textbf{x}^T\mu - \dfrac{1}{2}\textbf{x}^T\Sigma\textbf{x}\right)
+    \]
+    If $\det \Sigma > 0$ then $\textbf{Y}$ has the density
+    \[
+f_{\mathbf{Y}}(\mathbf{y})
+=
+(2\pi)^{-n/2}
+(\det{\Sigma})^{-1/2}
+\exp\left[
+-\frac{1}{2}
+(\mathbf{y}-{\mu})^\prime
+{\Sigma}^{-1}
+(\mathbf{y}-{\mu})
+\right].
+\tag{1.6.12}
+\]
+\end{proposition}
+\begin{proof}
+    Consider $\textbf{X}$ to be an independent standard normal vector, then we know $\mu + \Sigma^{1/2}\textbf{X} \overset{d}{=} \textbf{Y}$, then
+    \[
+    \begin{aligned}
+        \phi_{\textbf{Y}}(\textbf{x}) &= \mathbb{E} e^{i\textbf{x}^T\textbf{Y}} 
+        = \mathbb{E} e^{i\textbf{x}^T(\mu + \Sigma^{1/2}\textbf{X})} \\
+        &= \exp(i\textbf{x}^T\mu)\phi_{\textbf{X}}(\Sigma^{1/2}\textbf{x}) = \exp\left(i\textbf{x}^T\mu - \dfrac{1}{2}\textbf{x}^T\Sigma\textbf{x}\right)
+    \end{aligned}
+    \]
+    
+\end{proof}

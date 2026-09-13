@@ -7,3 +7,14 @@ node_modules/
 *.out
 *.synctex.gz
 *.toc
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.blg
+*.xdv
+*.lof
+*.lot
+*.nav
+*.snm
+.DS_Store
