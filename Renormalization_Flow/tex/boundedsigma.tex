@@ -93,16 +93,50 @@ and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we 
     \[
     du_t^{\rho} = \dfrac{1}{2}\Delta u_t^{\rho} + \sigma(u_t^{\rho})dW_t^{\rho}
     \]
-    with $s \geq t$. We often write $\mathcal{V}^{\sigma,\rho}_{0,t} :  = \mathcal{V}^{\sigma,\rho}_{t}$.
+    with $s \geq t$. We often write $\mathcal{V}^{\sigma,\rho}_{0,t} :  = \mathcal{V}^{\sigma,\rho}_{t}$.\par
+    For a standard Brownian motion $(B_q)_{q\geq 0}$ adapted to $(\mathcal{F}_{q})_{q\geq 0}$. For an adapted process $Y$ on $[0,Q]$, a function $g:[0,Q]\times \R \to \mathcal{H}_+$ and a constant $a$, define
+    \[
+    \mathcal{R}_{a,Q}^g Y(q):= a + \int_0^q g(Q-p,Y(p)) dB_p
+    \]
+    and
+    \[
+    \mathcal{A}_Q := \left\{J:[0,Q]\times\R \to \mathcal{H}_+\text{ continuous: }\sup_{q\in[0,Q]}\text{Lip}(J(q,\cdot)) < \infty \right\}
+    \]
+    for $Q > 0$.\par
+    For some $g \in \mathcal{A}_Q$, and $a\in \R$, there is a unique strong solution $\Theta_{a,Q}^g$ to the SDE
+    \[
+    \begin{aligned}
+        d\Theta_{a,Q}^g(q) &= g(Q-q,\Theta_{a,Q}^g)(q)dB_q,\quad q\in[0,Q] \\
+        \Theta_{a,Q}^g(0)&= a
+    \end{aligned}
+    \]
+    with a moment bound
+    \[\sup_{q\in[0,Q]}\mathbb{E}|\Theta_{a,Q}^g(q)|^l < \infty\text{ for all }l\geq1
+    \]
+    Moreover, for any $Q' \in [0,Q]$ and any adapated process $\Gamma$ on $[0,Q']$, we have
+    \[
+    \sup_{q\in[0,Q']}\mathbb{E}|\Gamma(q) - \Theta^g_{a,Q}(q)|^2 \leq C(\sup\text{Lip}(g), Q)\sup_{q\in[0,Q']} \mathbb{E}|\Gamma(q) - \mathbb{R}^g_{a,Q}\Gamma(q)|^2
+    \]
+    and
+    \[
+    \mathbb{E} |\Theta^g_{a,Q}(q)-\Theta^g_{a',Q}(q)| \leq C|a-a'|^2
+    \]
+    with the same constant $C$.\par
+    $J\in\mathcal{A}_Q$ is a root decoupling function on $[0,Q]$ if for all $q\in[0,Q],a\in\R$ we have
+    \[J(q,a) = [\mathbb{E}\sigma^2(\Theta^J_{a,Q}(q))]^{1/2}\]
+    which is a fixed point of
+    \[
+    Q_{\sigma}:\mathcal{A}_Q \to \mathcal{A}_Q,\quad Q_{\sigma} g(Q,a) = \left[\mathbb{E}\sigma^2(\Theta^g_{a,Q}(Q))\right]^{1/2}
+    \]
 \end{definition}
 
 \begin{theorem}
     Let $\sigma$ to be a Lipschitz function with $\text{Lip}(\sigma) \leq \lambda$, and $(v_t)_{t\geq 0}$ solve
     \[
     v_t(x) = \hsemig{t-s}{v_s}(x) + \int_s^t\hsemig{t+\rho-r}{\sigma(v_r^{\rho})dW_r}(x)
-    \] with initial condition $v_0 \in \mathscr{H}_0^2$. Let $T = \alpha\rho,\iota \in[0,1]$ and $\xi = \sqrt{\alpha\rho/L(1/\rho)^{\iota}}$, $x,z\in\R^2$, where $\alpha < \dfrac{8}{3}\left(e^{4\pi/\lambda^2}-1\right)$. Then we have for $t\in[0,T]$
+    \] with initial condition $v_0 \in \mathscr{H}_0^2$. Let $T = \alpha\rho,\iota \in[0,1]$ and $\xi \in [0,\sqrt{T/L(1/\rho)}]$, $x,z\in\R^2$, where $\alpha < \dfrac{8}{3}\left(e^{4\pi/\lambda^2}-1\right)$. Then we have for $t\in[\xi^2L(1/\rho)^{-\beta},T], \iota_1,\iota_2\in[0,1], \beta \in[0,1)$
     \[
-    \mathbb{E}\lvert \left(\mathcal{S}_{\xi,z}[\sigma_{\rho}^2\circ v_t](x)\right)^{1/2} - J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)\xi^2), \hsemig{L(1/\rho)\xi^2}{v_t}(x))\rvert^2 \leq C\langle \lVert v_0\rVert_2 \rangle^2 L(1/\rho)^{3/2}
+    \mathbb{E}\lvert \left(\mathcal{S}_{\xi,z}[\sigma_{\rho}^2\circ v_t](x)\right)^{1/2} - J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2), \hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_t}(x))\rvert^2 \leq C L(1/\rho)^{1+\beta}
     \]
     for some constant $C$ when $\rho < C^{-1}$.\par
 \end{theorem}
@@ -119,7 +153,7 @@ and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we 
         E_3 :&= \mathbb{E}\left\lvert
         J_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
         -
-        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)\xi^2),\hsemig{L(1/\rho)\xi^2}{v_{t}}(x))
+        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_{t}}(x))
         \right\rvert^2
     \end{aligned}
     \]
@@ -131,7 +165,7 @@ and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we 
         &\leq \gamma_{\rho}^{-2}\lambda^2\lVert v_{\tau_0}\rVert_2^2
         \left( \dfrac{|\sigma|_{\infty}L_{\rho}(\tau_1)}{4\pi(1-\lambda^2L_{\rho}(\tau_2-\tau_1))} + \dfrac{\xi^2}{4\tau_1(1-\lambda^2L_{\rho}(\tau_2-\tau_1)/4\pi)}\right.\\
         &\left.+\dfrac{\tau_2-\tau_1}{\tau_1}\left(\dfrac{1}{1-\lambda^2L_{\rho}(\tau_2-\tau_1)/4\pi} + \dfrac{\lambda^2}{8\pi(1-\lambda^2L_{\rho}(\tau_2-\tau_1)/4\pi)^2}\right)\right) \\
-        &\leq C'_1L(1/\rho)(C'_1+C'_1/L(1/\rho) + C'_1) \leq C_1 L(1/\rho)
+        &\leq C'_1L(1/\rho)(C'_1+C'_1L(1/\rho)^{\beta} + C'_1) \leq C_1 L(1/\rho)^{1+\beta}
     \end{aligned}
     \]
     for some constant $C_1,C'_1$.\par
@@ -167,10 +201,65 @@ and for each $r < 1$, if $v_0 \in L^{\infty}(\mathbb{R}^2;\mathbb{R})$, then we 
     \begin{aligned}
         \Xi_{2;\tau_1,\tau_2}[a]^2 &\leq \lVert a\rVert_2^2 + S_{\rho}(\tau_2-\tau_1)\gamma_{\rho}^{-2}|\sigma|_{\infty}^2 \\
         &= \lVert \hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X)\rVert_2^2 + L_{\rho}(\tau_2-\tau_1)|\sigma|_{\infty}^2/4\pi \\
-        &
+        & \leq \lVert v_{\tau_0}\rVert_2^2 + L_{\rho}(\tau_2-\tau_1)|\sigma|_{\infty}^2/4
     \end{aligned}
     \]
-    Therefore, we have 
+    and notice that
+    \[
+    \lVert v_{\tau_0}\rVert_2^2 \leq \lVert v_0\rVert^2_2 + L_{\rho}(\tau_0)|\sigma|^2_{\infty}/4\pi
+    \]
+    Therefore, we have
+    \[
+    E_2 \leq C_2'(\lVert v_0\rVert^2_2 + 2L(\alpha)|\sigma|^2_{\infty}/4) \leq C_2
+    \]
+    for some constant $C_2$ related to $\sigma, v_0$ and $\alpha$.\par
+    For $E_3$, we have
+    \[
+    \begin{aligned}
+    \dfrac{1}{2}\mathbb{E}&7.\left\lvert
+        J_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
+        -
+        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_{t}}(x))
+        \right\rvert^2 \\
+    &\leq
+    \mathbb{E}\left\lvert
+        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
+        -
+        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_{t}}(x))
+        \right\rvert^2
+      \\
+    &+ 
+    \mathbb{E}\left\lvert
+        J_{\sigma_{\rho},\rho}(S_{\rho}(\tau_2-\tau_1),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
+        -
+        J_{\sigma_{\rho},\rho}(S_{\rho}(L(1/\rho)^{\iota_1}\xi^2),\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))
+        \right\rvert^2
+         \\
+    &\leq 
+    \mathbb{E}|\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X) - \hsemig{L(1/\rho)^{\iota_2}\xi^2}{v_t}(x)|^2/(4\pi\lambda^{-2}/L(1/\rho) - L_{\rho}(L(1/\rho)^{\iota_1}\xi^2)/L(1/\rho)) \\
+    &+
+    \sup_{x\in\R^2}\mathbb{E}\lvert \sigma_{\rho}(\mathcal{V}_{p}\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X)) - \sigma_{\rho}(\mathcal{V}_{p-q,p}\hsemig{\tau_1-\tau_0}{v_{\tau_0}}(X))\rvert^2 := E_1'+E_2'    \end{aligned}
+    \]
+    where $ p = ((\tau_2-\tau_1)\vee L(1/\rho)^{\iota_1}\xi^2), q = ((\tau_2-\tau_1)\wedge L(1/\rho)^{\iota_1}\xi^2)$. We may estimate $E_1'$ by
+    \[
+    \begin{aligned}
+        E_1' &\leq 2L(1/\rho)C_3' (\lVert v_{\tau_0}\rVert_2^2 + \lVert v_{t}\rVert_2^2) \\ &\leq 2L(1/\rho)C_3'(2\lVert v_{0}\rVert_2^2 +  L_{\rho}(\tau_0)|\sigma|^2_{\infty}/4\pi +  L_{\rho}(t)|\sigma|^2_{\infty}/4\pi) \\
+        &\leq 4L(1/\rho)C_3'(2\lVert v_{0}\rVert_2^2 +  L(\alpha)|\sigma|^2_{\infty}/4\pi)
+    \end{aligned}
+    \]
+    and for $E_2'$,
+    \[\begin{aligned}
+        E_2' &\leq \dfrac{L(1/\rho)\lambda^2}{4\pi}\lVert \mathcal{V}_p\hsemig{L(1/\rho)^{\iota_1}\xi^2}{v_{t}}(X)
+        - \mathcal{V}_{p-q,p}\hsemig{L(1/\rho)^{\iota_1}\xi^2}{v_{t}}(X)\rVert_2^2 \\
+        &\leq\dfrac{L(1/\rho)\lambda^2}{4\pi}\dfrac{ML_{\rho}(p-q)}{4\pi(1-\lambda^2 L_{\rho}(p))} \\
+        &\leq C_3 '' L(1/\rho)
+    \end{aligned}
+    \]
+    for some constant $C_3''$ and to sum up we have
+    \[
+    E_3 \leq C_3 L(1/\rho)
+    \]
+    for some constant $C_3$.a
 \end{proof}
 
 
