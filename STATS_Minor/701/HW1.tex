@@ -10,6 +10,18 @@
 \usepackage{subfigure}
 \usepackage{tikz}
 \usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false
+}
 \newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
 \newcommand{\code}[1]{\lstinline{#1}}
 \newcommand{\prvd}{$\hfill \qedsymbol$}
@@ -122,93 +134,469 @@ and hence
 \par 
 \vspace{0.5em}
 
-\subsection*{Problem 2} 
+\subsection*{Problem 2. Ex. 1.7.} 
 
-Suppose that $m_t = c_0 + c_1 t + c_2 t^2 , t = 0, \pm 1, \cdots$,
+Let $Z_t$, $t=0,\pm1,\ldots$, be independent normal random variables,
+each with mean $0$ and variance $\sigma^2$, and let $a$, $b$, and $c$
+be constants.
+
+Which, if any, of the following processes are stationary? For each
+stationary process, specify the mean and autocovariance function.
+
 \begin{enumerate}
-    \item[(a)] Show that
+    \item[(a)]
     \[
-    m_t = \sum\limits_{i=-2}^2 a_im_{t+i} = \sum\limits_{i=-3}^3 b_im_{t+i},\quad t = 0,\pm 1,\cdots
+    X_t=a+bZ_t+cZ_{t-1}.
     \]
-where $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \tfrac{17}{35}$, and $b_3 = b_{-3} = -\tfrac{2}{21}$, $b_2 = b_{-2} = \tfrac{3}{21}$, $b_1 = b_{-1} = \tfrac{6}{21}$, $b_0 = \tfrac{7}{21}$.
-    \item[(b)] Suppose that $X_t= m_t + Z_t$, where $(Z_t)_{t\in\mathbb{Z}}$ is an independent sequence of normal random variables, each with mean $0$ and variance $\sigma^2$. Let \[U_t = \sum\limits_{i=-2}^2 a_iX_{t+i}\quad \text{ and }\quad V_t = \sum\limits_{i=-3}^3 b_iX_{t+i}m\] then
-    \begin{enumerate}
-        \item[(i)] Find the means and variances of $U_t$ and $V_t$.
-        \item[(ii)] Find the correlations between $U_t$ and $U_{t+ 1}$ and between $V_t$ and $V_{t+1}$.
-        \item[(iii)] Which of the two filtered series $(U_t)_{t\in\mathbb{Z}}$ and $(V_t)_{t\in\mathbb{Z}}$ would you expect to be smoother in appearance?
+
+    \item[(b)]
+    \[
+    X_t=a+bZ_0.
+    \]
+
+    \item[(c)]
+    \[
+    X_t=Z_1\cos(ct)+Z_2\sin(ct).
+    \]
+
+    \item[(d)]
+    \[
+    X_t=Z_0\cos(ct).
+    \]
+
+    \item[(e)]
+    \[
+    X_t=Z_t\cos(ct)+Z_{t-1}\sin(ct).
+    \]
+
+    \item[(f)]
+    \[
+    X_t=Z_tZ_{t-1}.
+    \]
+\end{enumerate}
+\vspace{0.5em}
+\textbf{Sol.} \par
+It is easy to check that for all the $X_t$ above, $X_t \in L^1$ for any $t\in\mathbb{Z}$, we only check the existence of the autocovariance function for each process.\par
+(a) Notice
+\[
+\begin{aligned}
+    \gamma_X(t,t+h) = \mathbb{E}(bZ_t+cZ_{t-1})(bZ_{t+h}+cZ_{t+h-1}) &= (b^2+c^2)\gamma_Z(h) + bc(\gamma_{Z}(h+1)+\gamma_Z({h-1})) \\
+    &= (b^2+c^2)\delta_0(h) + bc(\delta_{1}+\delta_{-1}(h)),
+\end{aligned} 
+\]
+which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.\par
+(b) Notice
+\[
+\begin{aligned}
+    \gamma_X(t,t+h) = \mathbb{E}b^2Z_0^2 &= b^2,
+\end{aligned} 
+\]
+which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.\par
+(c) Notice
+\[
+\begin{aligned}
+    \gamma_X(t,t+h) &= \mathbb{E}(Z_1\cos(ct) +Z_2 \sin(ct))(Z_1\cos(c(t+h)) +Z_2 \sin(c(t+h))) \\ &= \cos(ct)\cos(c(t+h)) + \sin(ct)\sin(c(t+h)) \\
+    &=\cos(ch),
+\end{aligned} 
+\]
+which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.\par
+(d) Notice
+\[
+\begin{aligned}
+    \gamma_X(t,t) &= \mathbb{E}Z_0^2\cos^2(ct) = \cos^2(ct)
+\end{aligned} 
+\]
+which is not constant about $t$ and hence $X_t$ is not a stationary process.
+(e) Notice
+\[
+\begin{aligned}
+    \gamma_X(t,t+1) &= \mathbb{E}(Z_t\cos(ct)+Z_{t-1}\sin(ct))(Z_{t+1}\cos(ct+c)+Z_{t}\sin(ct+c)) = \cos(ct)\sin(c(t+1))
+\end{aligned} 
+\]
+which is not constant about $t$ and hence $X_t$ is not a stationary process.\par
+(f) Notice
+\[
+\begin{aligned}
+    \gamma_X(t,t+h) &= \mathbb{E}Z_tZ_{t-1}Z_{t+h}Z_{t+h-1} = \delta_0(h)
+\end{aligned} 
+\]
+which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 3. Ex. 1.13.} 
+
+Let $\{S_t:t=0,1,2,\ldots\}$ be the random walk with constant drift
+$\mu$, defined by
+\[
+S_0=0,\quad\text{ and }\quad
+S_t=\mu+S_{t-1}+X_t,
+\qquad
+t=1,2,\ldots,
+\]
+where $X_1,X_2,\ldots$ are i.i.d.
+random variables with mean $0$ and variance $\sigma^2$. Compute the mean of $S_t$ and the autocovariance function of the
+process $\{S_t\}$. Show that $\{\nabla S_t\}$ is stationary and
+compute its mean and autocovariance function.\par
+\vspace{0.5em}
+\textbf{Sol.} \par
+Notice
+\[
+\mathbb{E}S_t = \mu + \mathbb{E}S_{t-1},\quad S_0 = 0
+\]
+and hence $\mathbb{E}S_t = t\mu$ for $t\in\mathbb{N}$. We know
+\[S_t = t\mu + \sum\limits_{i=1}^t X_i\]
+as well, then we know
+\[
+\gamma_S(t,s) = \mathbb{E}\left(\sum\limits_{i=1}^t X_i\right)\left(\sum\limits_{i=1}^{s} X_i\right) = (t\wedge s)\sigma^2. 
+\]
+We know
+\[\nabla S_t = S_t - S_{t-1} = \mu +X_t =: Y_t, \quad \mathbb{E}Y_t = \mu\]
+and it is easy to check $Y_t \in L^1$ and notice
+\[
+\gamma_Y(t,t+h) = \delta_{0}(h)
+\]
+which is constant about $t$ and hence $Y_t$ is a stationary process, with the autocovariance function above.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 4. Ex. 1.17.} 
+
+If
+\[
+\mathbf{X}=(X_1,\ldots,X_n)^\prime
+\]
+is a random vector with covariance matrix $\boldsymbol{\Sigma}$,
+show that $\boldsymbol{\Sigma}$ is singular if and only if there
+exists a nonzero vector
+\[
+\mathbf{b}=(b_1,\ldots,b_n)^\prime\in\mathbb{R}^n
+\]
+such that
+\[
+\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr)=0.
+\]
+\vspace{0.5em}
+\textbf{Sol.} \par
+For some $\mathbf{b}=(b_1,\ldots,b_n)^\prime\in\mathbb{R}^n$, we know
+\[
+\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr) = \mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b}
+\]
+and then we know if $\boldsymbol{\Sigma}$ is singular, then we may choose $\mathbf{b}$ nonzero such that $\mathbf{b}^T\boldsymbol{\Sigma} = \mathbf{0}$ and then $\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr) = \mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b} = 0$.\par
+If there exists $\mathbf{b}$ nonzero such that $\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr) = \mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b} = 0$, assume $\boldsymbol{\Sigma} = Q^T \Lambda Q$ a decomposition by the Spectral Theorem, where $\Lambda$ is a diagonal matrix with nonnegative components by the nonnegative-definiteness of $\boldsymbol{\Sigma}$, then if any diagonal component of $\Lambda$ is positive, then we know
+\[
+\mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b} \geq a|Q\mathbf{b}|^2 > 0
+\]
+where $a$ is the minimum of the diagonal components of $\Lambda$ which is a contradiction, and hence $Q^Te_i \in \ker \boldsymbol{\Sigma}$ where the $i$th diagonal component of $\Lambda$ is $0$, which means $\boldsymbol{\Sigma}$ is singular.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 5. Sample Autocovariances} 
+
+Say I give you a time series $(X_1,\ldots,X_n)$ that you know is
+stationary. Prove that the sample autocovariance function
+\[
+\widehat{\gamma}(h)
+=n^{-1}\sum_{t=1}^{n-|h|}
+  (X_{t+|h|}-\overline{X})(X_t-\overline{X})
+\]
+for $|h|<n$ gives a positive semi-definite sample autocovariance
+matrix
+\[
+\widehat{\Sigma}_{j,k}=\widehat{\gamma}(|j-k|).
+\]
+\vspace{0.5em}
+\textbf{Sol.} \par
+Notice that define
+\[
+Y_t = \begin{cases}
+    X_t - \overline{X},\quad &1\leq t \leq n \\
+    0,\quad&\text{else}
+\end{cases}
+\]
+and then
+\[
+n\widehat{\gamma}(|j-k|) = \sum\limits_{t\in\mathbb{Z}} Y_{t+j}Y_{t+k}.
+\]
+For $\mathbf{a} = (a_1,\cdots,a_n)^T \in \R^n$, we know
+\[
+    \mathbf{a}^T \widehat{\Sigma} \mathbf{a} = \mathbf{a}^T\left(\sum\limits_{j=1}^n a_j\widehat{\gamma}(|j-i|)\right)_{i=1}^n = \sum\limits_{i=1}^n\sum\limits_{j=1}^n a_i\widehat{\gamma}(|i-j|)a_j,
+\]
+and
+\[
+\begin{aligned}
+    n\sum\limits_{i=1}^n\sum\limits_{j=1}^n a_i\widehat{\gamma}(|i-j|)a_j &= \sum\limits_{i=1}^n\sum\limits_{j=1}^n\sum\limits_{t\in\Z} a_ia_jY_{t+i}Y_{t+j} \\
+    &= \sum\limits_{t\in\Z}\left(\sum\limits_{i=1}^n a_i Y_{t+i}\right)^2 \geq 0
+\end{aligned}
+\]
+and hence
+$\mathbf{a}^T \widehat{\Sigma} \mathbf{a} \geq 0$.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 6. Causality} 
+
+Consider the AR(1) process
+\[
+X_t=2X_{t-1}+Z_t,
+\]
+where $Z_t$ is some white noise with variance $\sigma^2$. Define
+\[
+Z_t^*
+=\frac{1}{4}Z_t
+-\frac{3}{4}\sum_{j=1}^{\infty}2^{-j}Z_{t+j}.
+\]
+\begin{enumerate}[label=\arabic*.]
+    \item
+    Prove that $Z_t^*$ is a white noise. What is its variance?
+
+    \item
+    Prove that
+    \[
+    X_t=\frac{1}{2}X_{t-1}+Z_t^*.
+    \]
+\end{enumerate}
+\vspace{0.5em}
+\textbf{Sol.} \par
+1. It is easy to check that $\mathbb{E}Z_t^* = 0$ and
+\[
+\begin{aligned}
+    \gamma_{Z^*}(t,t+h) &= \mathbb{E}\left(\frac{1}{4}Z_t
+-\frac{3}{4}\sum_{j=1}^{\infty}2^{-j}Z_{t+j}\right) \left(\frac{1}{4}Z_{t+h}
+-\frac{3}{4}\sum_{j=1}^{\infty}2^{-j}Z_{t+h+j}\right) \\
+&=\begin{cases}
+    \sigma^2\left(\dfrac{1}{16} + \dfrac{9}{16}\sum\limits_{j=1}^{\infty} 2^{-2j}\right), \quad h = 0 \\
+    \sigma^2\left(-3\cdot 2^{-|h|}/16 + \dfrac{9}{16} \sum\limits_{j=1}^{\infty}2^{-2j}2^{-|h|}\right),\quad\text{else}
+\end{cases} \\
+&=\begin{cases}
+    \dfrac{\sigma^2}{4},\quad h=0 \\
+    0,\quad\text{else}
+\end{cases}.
+\end{aligned}
+\]
+Therefore, $Z_t^*$ is a white noise with variance $\sigma^2/4$.\par
+2. Since $Z_t = X_t- 2 X_{t-1}$, we know
+\[
+\begin{aligned}
+    Z_t^* &= \dfrac{1}{4}(X_t- 2 X_{t-1}) - \dfrac{3}{4}\sum\limits_{j=1}^{\infty}2^{-j}(X_{t+j}- 2 X_{t+j-1}) \\
+    &= \dfrac{1}{4}(X_t- 2 X_{t-1}) - \dfrac{3}{4}\left(\sum\limits_{j=1}^{\infty}2^{-j} X_{t+j} - \sum\limits_{j=0}^{\infty}2^{-j} X_{t+j}\right) \\
+    & = X_t - \dfrac{1}{2}X_{t-1},
+\end{aligned}
+\]
+and we are done.
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 7. Data exploration}
+
+Please download and take a look at the CET time series from Canvas.
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+
+    \item
+    Plot the data in some coherent way. This includes using proper
+    timestamps and labeling the axes with the appropriate units. Does the data look like a stationary process? Why or why not? Perform some exploratory analysis to support your conclusion.
+
+    \item
+    Select a segment containing
+    \[
+        n=365
+    \]
+    contiguous observations, with no gaps or missing values.
+
+    Estimate the sample autocorrelation function (ACF) for increasingly
+    large lags \(k\), and plot the results. Discuss what happens as
+    \(k\) increases and explain what you think is causing this behavior.
+
+    You may use a package or built-in utility such as
+    \texttt{acf(...)} in R to compute the ACF.
+
+    \item
+    Design a linear mean function for the data using quadratic terms.
+    For example, construct the design matrix using the following
+    pseudocode:
+
+\begin{lstlisting}
+t = 1:365
+X = [tj^k for tj in t, k in 0:2]
+\end{lstlisting}
+
+    Fit the linear model
+    \[
+        \mathbf{y}
+        =
+        \mathbf{X}\boldsymbol{\beta}
+        +
+        \boldsymbol{\varepsilon}
+    \]
+    using this design matrix.
+
+    Plot the residuals
+    \[
+        \widehat{\boldsymbol{\varepsilon}}
+        =
+        \mathbf{y}
+        -
+        \mathbf{X}\widehat{\boldsymbol{\beta}}.
+    \]
+
+    Comment on what you observe. Do the residuals look like a stationary
+    process? If not, describe the structures that suggest
+    nonstationarity. Repeat the previous exploratory analyses to support
+    your conclusion.
+
+    \item[\textbf{4\(^{\ast}\).}]
+    Expand the analysis to
+    \[
+        n=3\cdot365
+    \]
+    observations.
+
+    Construct a new design matrix \(\mathbf{X}\) containing:
+
+    \begin{itemize}
+        \item a constant term;
+        \item a linear trend;
+        \item the seasonal component
+        \[
+            \cos\left(\frac{2\pi t}{365}\right);
+        \]
+        \item the seasonal component
+        \[
+            \sin\left(\frac{2\pi t}{365}\right).
+        \]
+    \end{itemize}
+
+    Fit the least-squares mean function again and examine the residuals.
+
+    Normally, fitting a trigonometric function requires estimating both
+    its frequency and its phase, which appears to be a nonlinear
+    problem. Explain why the sine-and-cosine design-matrix approach
+    correctly accounts for the phase using an ordinary linear
+    least-squares model.
+
+\end{enumerate}
+\vspace{0.5em}
+\textbf{Sol.} \par
+1.
+
+\par 
+\vspace{0.5em}
+
+\subsection*{Problem 8. Trigonometric expansions}
+
+\begin{enumerate}[label=\alph*.]
+    \item
+    Let $Z_1$ and $Z_2$ be i.i.d. $\mathcal{N}(0,1)$ variables, and
+    let $\omega\in[-\pi,\pi)$ be a constant. Define the process
+    \[
+    Y_t=Z_1\cos(\omega t)+Z_2\sin(\omega t).
+    \]
+    Calculate its ACF. Is it stationary? Is it strictly stationary?
+
+    \item
+    Pick $n$ to be your favorite even integer, say $512$ (although
+    $1024$ is also a very good even integer). Set
+    \[
+    \omega_j=\frac{2\pi j}{n},
+    \qquad j=0,1,\ldots,n/2,
+    \]
+    and simulate $(n/2+1)$ time series of length $n$ given by
+    \begin{align*}
+    X_{0t}
+      &=Z_0,
+      & Z_0&\sim\mathcal{N}(0,1),\\
+    X_{jt}
+      &=Z_{j1}\cos(\omega_jt)+Z_{j2}\sin(\omega_jt),
+      & Z_{j1},Z_{j2}&\sim\mathcal{N}(0,2),
+      \quad 1\le j<n/2,\\
+    X_{n/2,t}
+      &=Z_{n/2}(-1)^t,
+      & Z_{n/2}&\sim\mathcal{N}(0,1).
+    \end{align*}
+    Now define a new process by
+    \[
+    X_t=n^{-1/2}\sum_{j=0}^{n/2}X_{jt}.
+    \]
+
+    \begin{enumerate}[label=\arabic*.]
+        \item
+        Plot your data side-by-side with a white noise series of $n$
+        i.i.d. $\mathcal{N}(0,1)$ variables. What do you see?
+
+        \item
+        Derive the ACF for $X_t$.
+
+        \item
+        Play around with generalizing to
+        \[
+        \operatorname{Var}(Z_{j1})
+        =\operatorname{Var}(Z_{j2})
+        =\sigma_j^2,
+        \qquad j\ge1,
+        \]
+        but otherwise not changing your code. Re-run everything and
+        look at the resulting plot of your simulated process. Can you
+        describe the effect of different choices for
+        $\{\sigma_j^2\}$, for example, how things look if
+        $\sigma_j^2$ increases or decreases with $j$?
     \end{enumerate}
 \end{enumerate}
 \vspace{0.5em}
 \textbf{Sol.} \par
-(a) Compare the coefficient of $c_i$ for $i = 0,1,2$ respectively, we get
+a. We know
 \[
 \begin{aligned}
-    a_{-2} + a_{-1} + a_0 + a_1 + a_2 &= 1, \\
-    (t-2)a_{-2} + (t-1)a_{-1} + ta_0 + (t+1)a_1 + (t+2)a_2 &= t, \\
-    (t-2)^2a_{-2} + (t-1)^2a_{-1} + t^2a_0 + (t+1)^2a_1 + (t+2)^2a_2 &= t^2,\\
-\end{aligned}
+    \gamma_Y(t,t+h) &= \mathbb{E}(Z_1\cos(\omega t) +Z_2 \sin(\omega t))(Z_1\cos(\omega(t+h)) +Z_2 \sin(\omega(t+h))) \\ &= \cos(\omega t)\cos(\omega(t+h)) + \sin(\omega t)\sin(\omega(t+h)) \\
+    &=\cos(\omega h),
+\end{aligned} 
 \]
-and
+which is constant about $t$ and hence $Y_t$ is a stationary process, with autocorrelation function
 \[
-\begin{aligned}
-    b_{-3} + b_{-2} + b_{-1} + b_0 + b_1 + b_2 + b_3&= 1, \\
-    (t-3)b_{-3} + (t-2)b_{-2} + (t-1)b_{-1} + tb_0 + (t+1)b_1 + (t+2)b_2 + (t+3)b_3&= t \\
-    (t-3)^2b_{-3} + (t-2)^2b_{-2} + (t-1)^2b_{-1} + t^2b_0 + (t+1)^2b_1 + (t+2)^2b_2 + (t+3)^2b_3&= t^2\\
-\end{aligned}
+\gamma_Y(h)/\gamma_Y(0) = \cos(\omega h).
 \]
-if and only if \[
-    m_t = \sum\limits_{i=-2}^2 a_im_{t+i} = \sum\limits_{i=-3}^3 b_im_{t+i},\quad t = 0,\pm 1,\cdots.
-    \]
-Simplify the two systems above, we obtained
+For $\mathbf{t} : =(t_1,\cdots,t_k) \in \Z^k$, we know
 \[
-\begin{aligned}
-    a_{-2} + a_{-1} + a_0 + a_1 + a_2 &= 1, \\
-    -2a_{-2} + -a_{-1} + a_1 + 2a_2 &= t, \\
-    4a_{-2} + 1a_{-1} + a_0 + 1a_1 + 2a_2 &= t^2,\\
-\end{aligned}
+\mathbf{Y}_{\mathbf{t}} :=(Y_{t_1},\cdots,Y_{t_k})^T = \begin{bmatrix}
+    \cos(\omega t_1) & \sin(\omega t_1) \\
+    \vdots & \vdots \\
+    \cos(\omega t_k) & \sin(\omega t_k)
+\end{bmatrix}\begin{bmatrix}
+    Z_1 \\
+    Z_2
+\end{bmatrix}
 \]
-and
+and hence $\mathbf{Y}_{\mathbf{t}}$ is a normal random vector with covariance matrix
 \[
-\begin{aligned}
-    b_{-3} + b_{-2} + b_{-1} + b_0 + b_1 + b_2 + b_3&= 1, \\
-    -3b_{-3} + -2b_{-2} + -b_{-1} + b_1 + 2b_2 + 3b_3&= t, \\
-    9b_{-3} + 4b_{-2} + b_{-1} + b_1 + 4b_2 + 9b_3&= t^2\\
-\end{aligned}
-\]
-equivalently. Substituting $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \tfrac{17}{35}$, and $b_3 = b_{-3} = -\tfrac{2}{21}$, $b_2 = b_{-2} = \tfrac{3}{21}$, $b_1 = b_{-1} = \tfrac{6}{21}$, $b_0 = \tfrac{7}{21}$ will verify the simplified systems above and we are done.\par
-(b) (i) We know
-\[
-\begin{aligned}
-    \mathbb{E}U_t &= \sum\limits_{i=-2}^2 a_i \mathbb{E}(m_{t+i} + Z_{t+i}) = m_t \\
-    \mathbb{E}V_t &= \sum\limits_{i=-3}^3 b_i \mathbb{E}(m_{t+i} + Z_{t+i}) = m_t
-\end{aligned}
-\]
-and
-\[
-\begin{aligned}
-    \text{Var}U_t &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_i (m_{t+i} + Z_{t+i})-m_t\right)^2 \\
-    &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_i Z_{t+i}\right)^2 =\sum\limits_{i=-2}^2 a_i \sigma^2 = \sigma^2 \\
-    \text{Var}V_t &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_i (m_{t+i} + Z_{t+i})-m_t\right)^2 \\
-    &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_i Z_{t+i}\right)^2 =\sum\limits_{i=-3}^3 b_i \sigma^2 = \sigma^2
-\end{aligned}
-\]
-(ii) Notice that
-\[
-U_t - \mathbb{E}U_t = \sum\limits_{i=-2}^2 a_iZ_{t+i},\quad V_t - \mathbb{E}V_t = \sum\limits_{i=-3}^3 b_iZ_{t+i},
+\begin{bmatrix}
+    \cos(\omega t_1) & \sin(\omega t_1) \\
+    \vdots & \vdots \\
+    \cos(\omega t_k) & \sin(\omega t_k)
+\end{bmatrix}\begin{bmatrix}
+    \cos(\omega t_1) & \sin(\omega t_1) \\
+    \vdots & \vdots \\
+    \cos(\omega t_k) & \sin(\omega t_k)
+\end{bmatrix}^T = [\cos (\omega(t_i-t_j))]_{i,j = 1} ^k
 \]
 and hence
+\[\mathbf{Y}_{\mathbf{t}} \overset{d}{=} \mathbf{Y}_{\mathbf{t}+h} \]
+where $\mathbf{t}+h:=(t_1+h,\cdots,t_k+h)$ for any $h\in\Z$ since it is easy to check they have the same covariance matrix. Therefore, $Y_t$ is strictly stationary as well.\par
+b. 1. \par
+2. We may write $X_t$ explicitly as
+\[
+X_t = \dfrac{1}{\sqrt{n}}\left(Z_0 + \sum\limits_{j=1}^{n/2-1}(Z_{j1}\cos(\omega_jt)+Z_{j2}\sin(\omega_jt)) + Z_{n/2}(-1)^t\right)
+\]
+and then
 \[
 \begin{aligned}
-    \text{Cov}(U_t,U_{t-1}) &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_iZ_{t+i}\right)\left(\sum\limits_{i=-2}^2 a_iZ_{t+1+i}\right) \\
-    &= a_{-1}a_{-2} + a_0a_{-1} + a_1a_0 + a_2a_1 = \dfrac{48}{165} \\
-    \text{Cov}(V_t,V_{t-1}) &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_iZ_{t+i}\right)\left(\sum\limits_{i=-3}^3 b_iZ_{t+1+i}\right) \\
-    &= b_{-2}b_{-3} + b_{-1}b_{-2} + b_0b_{-1} + b_1b_0 + b_2b_1 + b_3b_2= \dfrac{12}{49} \\
+\gamma_X(t,t+h) &= \dfrac{1}{n}(1 + 2\sum\limits_{j=1}^{n/2-1}\cos(w_jh) + 1) \\ &= \dfrac{2}{n}\sum\limits_{j=0}^{n/2-1}\cos\left(\dfrac{2\pi jh}{n}\right) = \begin{cases}
+    \dfrac{1+(-1)^h}{n},\quad &h \neq 2kn\text{ for some }k\in\Z \\
+    1,& h = 2kn\text{ for some }k\in\Z
+\end{cases}    
 \end{aligned}
 \]
-(iii) The covariance of $V_t, V_{t+1}$ is smaller than that of $U_t, U_{t+1}$, and since $V_t,U_t$ have equal variances, we may know that $U_t,U_{t+1}$ are more dependent with each other than $V_t,V_{t+1}$, so $(U_t)_{t\in\mathbb{Z}}$ will be smoother.
 \par 
 \vspace{0.5em}
-
 
 \addappheadtotoc
 
