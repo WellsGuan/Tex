@@ -39,3 +39,24 @@ fig.savefig(
 plt.show()
 
 ### Part 2 ####
+x = df["temp"].iloc[:365].to_numpy()
+x = x - np.mean(x)
+
+n = len(x)
+max_lag = 200
+
+corr = np.correlate(x, x, mode="full")[n - 1:]
+
+acf_values = corr[:max_lag + 1] / corr[0]
+
+fig_2, ax_2 = plt.subplots(figsize=(10, 4))
+ax_2.stem(np.arange(max_lag + 1), acf_values)
+ax_2.set_xlabel("Lag (days)")
+ax_2.set_ylabel("Autocorrelation")
+ax_2.set_title("Sample ACF of daily CET")
+fig_2.tight_layout()
+fig_2.savefig(
+    Path(__file__).resolve().parent / "Lags.png",
+    dpi=300, bbox_inches="tight",
+)
+plt.show()
