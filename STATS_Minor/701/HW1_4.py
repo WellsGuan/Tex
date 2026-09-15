@@ -13,7 +13,7 @@ df = pd.read_csv(
 
 df = df.sort_index()
 
-#### Part 1 ####
+### Part 1 ###
 
 fig, ax = plt.subplots(figsize=(12, 4))
 
@@ -38,7 +38,7 @@ fig.savefig(
 )
 plt.show()
 
-### Part 2 ####
+### Part 2 ###
 x = df["temp"].iloc[:365].to_numpy()
 x = x - np.mean(x)
 
@@ -53,10 +53,34 @@ fig_2, ax_2 = plt.subplots(figsize=(10, 4))
 ax_2.stem(np.arange(max_lag + 1), acf_values)
 ax_2.set_xlabel("Lag (days)")
 ax_2.set_ylabel("Autocorrelation")
-ax_2.set_title("Sample ACF of daily CET")
+ax_2.set_title("Sample ACF of daily CET  for the first 365 days")
 fig_2.tight_layout()
 fig_2.savefig(
     Path(__file__).resolve().parent / "Lags.png",
+    dpi=300, bbox_inches="tight",
+)
+plt.show()
+
+### Part 3 ###
+
+n = 365
+t = np.arange(1, n + 1, dtype=float)
+A = np.column_stack((np.ones(n), t, t**2))
+
+beta, residuals, rank, singular_values = np.linalg.lstsq(A, x, rcond=None)
+
+x_hat = A @ beta
+resid = x - x_hat
+
+fig_3, ax_3 = plt.subplots(figsize=(10, 4))
+ax_3.plot(t,resid,
+    linewidth=0.4, alpha=0.6,)
+ax_3.set_xlabel("Days")
+ax_3.set_ylabel("Redisual")
+ax_3.set_title("Sample residues of daily CET for the first 365 days")
+fig_3.tight_layout()
+fig_3.savefig(
+    Path(__file__).resolve().parent / "Residues.png",
     dpi=300, bbox_inches="tight",
 )
 plt.show()

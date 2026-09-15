@@ -14,6 +14,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{listings}
+\usepackage{subfigure}
 
 \lstset{
     basicstyle=\ttfamily\small,
@@ -477,10 +478,28 @@ X = [tj^k for tj in t, k in 0:2]
 \textbf{Sol.} \par
 1. \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\linewidth]{STATS_Minor/701/cet_temp.png}
+    \graphicspath{{./}{STATS_Minor/701/}}
+    \includegraphics[width=0.9\linewidth]{cet_temp.png}
     \caption{CET}
 \end{figure}\par
-Data points do not appear to be stationary. The average temperatures by month show a seasonal trend, with much lower temperatures in January than in July. They also differ across multi-decade periods, suggesting a changing mean level, which is contravertial to the invariant mean value of a stationary process.
+Data points do not appear to be stationary. The average temperatures by month show a seasonal trend, with much lower temperatures in January than in July. They also differ across multi-decade periods, suggesting a changing mean level, which is contravertial to the invariant mean value of a stationary process.\par
+2. \begin{figure}[htbp]
+    \centering
+    \graphicspath{{./}{STATS_Minor/701/}}
+    \includegraphics[width=0.9\linewidth]{Lags.png}
+    \caption{CET}
+\end{figure}\par
+As the lag \(k\) increases, the sample ACF decreases from positive values, crosses zero at approximately 90 days, and reaches a minimum of about \(-0.48\) around $150$-$170$ days before rising again. This pattern coincide an annual seasonal cycle: nearby days in the cycle tend to have similar temperatures, and observations roughly half a year apart often belong to opposite seasons and have deviations of opposite signs from the annual mean. \par
+3. \begin{figure}[htbp]
+    \centering
+    \graphicspath{{./}{STATS_Minor/701/}}
+    \includegraphics[width=0.9\linewidth]{Residues.png}
+    \caption{CET}
+\end{figure}\par
+After removing the fitted quadratic trend, the residuals fluctuate around zero, but they still exhibit sustained positive and negative runs. In particular, they are negative around days $40-150$ and positive around days $160-240$. This suggests that the quadratic trend may not fully describe the seasonal mean structure.\par
+
+The means of four consecutive blocks are approximately $-0.02, -0.92, 1.41$, and $-0.47$, while their standard deviations range from $2.23$ to $3.81$. The residual ACF decays faster than that of the original series, but retains substantial short-lag correlation and becomes negative at longer lags.\par
+Thus, the residuals appear closer to stationary than the original data, but remaining seasonal structure makes stationarity questionable. These results are suggestive rather than conclusive: autocorrelation alone does not imply nonstationarity, and one year of observations provides limited evidence. Examining a longer segment and explicitly modeling seasonality would help assess this further.
 \par 
 \vspace{0.5em}
 
