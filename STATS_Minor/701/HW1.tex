@@ -408,9 +408,6 @@ Please download and take a look at the CET time series from Canvas.
     large lags \(k\), and plot the results. Discuss what happens as
     \(k\) increases and explain what you think is causing this behavior.
 
-    You may use a package or built-in utility such as
-    \texttt{acf(...)} in R to compute the ACF.
-
     \item
     Design a linear mean function for the data using quadratic terms.
     For example, construct the design matrix using the following
@@ -478,13 +475,12 @@ X = [tj^k for tj in t, k in 0:2]
 \end{enumerate}
 \vspace{0.5em}
 \textbf{Sol.} \par
-1. \begin{figure}
+1. \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\linewidth]{}
-    \caption{Caption}
-    \label{fig:placeholder}
-\end{figure}
-
+    \includegraphics[width=0.9\linewidth]{STATS_Minor/701/cet_temp.png}
+    \caption{CET}
+\end{figure}\par
+Data points do not appear to be stationary. The average temperatures by month show a seasonal trend, with much lower temperatures in January than in July. They also differ across multi-decade periods, suggesting a changing mean level, which is contravertial to the invariant mean value of a stationary process.
 \par 
 \vspace{0.5em}
 
