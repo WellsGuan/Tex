@@ -69,38 +69,83 @@ where $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \
 \end{enumerate}
 \vspace{0.5em}
 \textbf{Sol.} \par
-(a) A filter with weights $w_i$ preserves every quadratic trend if
+(a) Compare the coefficient of $c_i$ for $i = 0,1,2$ respectively, we get
 \[
-\sum_i w_i=1,\qquad \sum_i iw_i=0,\qquad \sum_i i^2w_i=0.
+\begin{aligned}
+    a_{-2} + a_{-1} + a_0 + a_1 + a_2 &= 1, \\
+    (t-2)a_{-2} + (t-1)a_{-1} + ta_0 + (t+1)a_1 + (t+2)a_2 &= t, \\
+    (t-2)^2a_{-2} + (t-1)^2a_{-1} + t^2a_0 + (t+1)^2a_1 + (t+2)^2a_2 &= t^2,\\
+\end{aligned}
 \]
-Indeed, expand $m_{t+i}=m_t+(c_1+2c_2t)i+c_2i^2$ and sum.
-For $a_i$, the three sums are $(17+24-6)/35=1$, $0$ by symmetry,
-and $(24-24)/35=0$. For $b_i$, they are $(7+12+6-4)/21=1$,
-$0$, and $(12+24-36)/21=0$. Thus both filters reproduce $m_t$.\par
-(b)(i) Independence gives
+and
 \[
-\mathbb E U_t=\mathbb E V_t=m_t,\qquad
-\operatorname{Var}(U_t)=\sigma^2\sum_i a_i^2=\frac{17}{35}\sigma^2,
-\qquad \operatorname{Var}(V_t)=\sigma^2\sum_i b_i^2=\frac13\sigma^2.
+\begin{aligned}
+    b_{-3} + b_{-2} + b_{-1} + b_0 + b_1 + b_2 + b_3&= 1, \\
+    (t-3)b_{-3} + (t-2)b_{-2} + (t-1)b_{-1} + tb_0 + (t+1)b_1 + (t+2)b_2 + (t+3)b_3&= t \\
+    (t-3)^2b_{-3} + (t-2)^2b_{-2} + (t-1)^2b_{-1} + t^2b_0 + (t+1)^2b_1 + (t+2)^2b_2 + (t+3)^2b_3&= t^2\\
+\end{aligned}
 \]
-(ii) Only overlapping noise terms contribute, so
+if and only if \[
+    m_t = \sum\limits_{i=-2}^2 a_im_{t+i} = \sum\limits_{i=-3}^3 b_im_{t+i},\quad t = 0,\pm 1,\cdots.
+    \]
+Simplify the two systems above, we obtained
 \[
-\operatorname{Cov}(U_t,U_{t+1})=\sigma^2\sum_{i=-1}^{2}a_i a_{i-1}
-=\frac{48}{175}\sigma^2,
-\quad
-\operatorname{Cov}(V_t,V_{t+1})=\sigma^2\sum_{i=-2}^{3}b_i b_{i-1}
-=\frac{12}{49}\sigma^2.
+\begin{aligned}
+    a_{-2} + a_{-1} + a_0 + a_1 + a_2 &= 1, \\
+    -2a_{-2} - a_{-1} + a_1 + 2a_2 &= 0, \\
+    4a_{-2} + a_{-1} + a_1 + 4a_2 &= 0,\\
+\end{aligned}
 \]
-For $\sigma^2>0$, the requested correlations are
+and
 \[
-\operatorname{Corr}(U_t,U_{t+1})=\frac{48}{85},\qquad
-\operatorname{Corr}(V_t,V_{t+1})=\frac{36}{49}.
+\begin{aligned}
+    b_{-3} + b_{-2} + b_{-1} + b_0 + b_1 + b_2 + b_3&= 1, \\
+    -3b_{-3} - 2b_{-2} - b_{-1} + b_1 + 2b_2 + 3b_3&= 0, \\
+    9b_{-3} + 4b_{-2} + b_{-1} + b_1 + 4b_2 + 9b_3&= 0\\
+\end{aligned}
 \]
-(iii) $V_t$ should appear smoother: it has smaller noise variance and greater
-lag-one correlation. More directly, the variances of the noise increments are
-$74\sigma^2/175$ for $U$ and $26\sigma^2/147$ for $V$.
-Both have the same deterministic trend. If $\sigma^2=0$, both equal $m_t$.
-\par\vspace{0.5em}
+equivalently. Substituting $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \tfrac{17}{35}$, and $b_3 = b_{-3} = -\tfrac{2}{21}$, $b_2 = b_{-2} = \tfrac{3}{21}$, $b_1 = b_{-1} = \tfrac{6}{21}$, $b_0 = \tfrac{7}{21}$ will verify the simplified systems above and we are done.\par
+(b) (i) We know
+\[
+\begin{aligned}
+    \mathbb{E}U_t &= \sum\limits_{i=-2}^2 a_i \mathbb{E}(m_{t+i} + Z_{t+i}) = m_t \\
+    \mathbb{E}V_t &= \sum\limits_{i=-3}^3 b_i \mathbb{E}(m_{t+i} + Z_{t+i}) = m_t
+\end{aligned}
+\]
+and
+\[
+\begin{aligned}
+    \text{Var}U_t &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_i (m_{t+i} + Z_{t+i})-m_t\right)^2 \\
+    &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_i Z_{t+i}\right)^2 =\sum\limits_{i=-2}^2 a_i^2 \sigma^2 = \dfrac{17}{35}\sigma^2 \\
+    \text{Var}V_t &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_i (m_{t+i} + Z_{t+i})-m_t\right)^2 \\
+    &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_i Z_{t+i}\right)^2 =\sum\limits_{i=-3}^3 b_i^2 \sigma^2 = \dfrac{1}{3}\sigma^2
+\end{aligned}
+\]
+(ii) Notice that
+\[
+U_t - \mathbb{E}U_t = \sum\limits_{i=-2}^2 a_iZ_{t+i},\quad V_t - \mathbb{E}V_t = \sum\limits_{i=-3}^3 b_iZ_{t+i},
+\]
+and hence
+\[
+\begin{aligned}
+    \text{Cov}(U_t,U_{t+1}) &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_iZ_{t+i}\right)\left(\sum\limits_{i=-2}^2 a_iZ_{t+1+i}\right) \\
+    &= \sigma^2(a_{-1}a_{-2} + a_0a_{-1} + a_1a_0 + a_2a_1) = \dfrac{48}{175}\sigma^2 \\
+    \text{Cov}(V_t,V_{t+1}) &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_iZ_{t+i}\right)\left(\sum\limits_{i=-3}^3 b_iZ_{t+1+i}\right) \\
+    &= \sigma^2(b_{-2}b_{-3} + b_{-1}b_{-2} + b_0b_{-1} + b_1b_0 + b_2b_1 + b_3b_2)= \dfrac{12}{49}\sigma^2 \\
+\end{aligned}
+\]
+For $\sigma^2>0$, dividing by the corresponding variances gives
+\[
+\operatorname{Corr}(U_t,U_{t+1})=\frac{48/175}{17/35}=\frac{48}{85},
+\qquad
+\operatorname{Corr}(V_t,V_{t+1})=\frac{12/49}{1/3}=\frac{36}{49}.
+\]
+(iii) The correlation between $V_t$ and $V_{t+1}$ is greater than that between
+$U_t$ and $U_{t+1}$, and $V_t$ has the smaller noise variance. Since both filtered
+series preserve the same trend $m_t$, we expect $(V_t)_{t\in\mathbb Z}$ to be
+smoother in appearance. If $\sigma^2=0$, both series equal $m_t$.
+\par
+\vspace{0.5em}
 
 \subsection*{Problem 2. Ex. 1.7.} 
 
@@ -167,9 +212,9 @@ $c\in\pi\mathbb Z$. For $c=m\pi$, its autocovariance is
 $\gamma_X(h)=\sigma^2(-1)^{mh}$. Otherwise the variances at $t=0,1$ differ.\par
 (e) The mean is zero and the variance is $\sigma^2$, but
 \[
-\operatorname{Cov}(X_t,X_{t+1})=\sigma^2\sin(ct)\cos(c(t+1)).
+\operatorname{Cov}(X_t,X_{t+1})=\sigma^2\cos(ct)\sin(c(t+1)).
 \]
-This is zero at $t=0$ and $-\sigma^2\sin c$ at $t=-1$.
+This is $\sigma^2\sin c$ at $t=0$ and zero at $t=-1$.
 Consequently stationarity requires $c\in\pi\mathbb Z$. This condition is also
 sufficient: for $c=m\pi$, $X_t=(-1)^{mt}Z_t$, with
 $\gamma_X(h)=\sigma^2\delta_0(h)$.\par
@@ -343,11 +388,6 @@ summable and the second moments are bounded. Since $Z_t=X_t-2X_{t-1}$, we know
     & = X_t - \dfrac{1}{2}X_{t-1},
 \end{aligned}
 \]
-For a truncation at $j=M$, the expression equals
-$X_t-\tfrac12X_{t-1}-\tfrac34 2^{-M}X_{t+M}$.
-The last term converges to zero in $L^2$ for the stationary solution.
-Without a bounded-second-moment or stationarity assumption, an additional
-homogeneous solution $C2^t$ is possible and the claimed representation need not hold.
 \par 
 \vspace{0.5em}
 
@@ -444,13 +484,7 @@ X = [tj^k for tj in t, k in 0:1]
     \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
     \includegraphics[width=0.9\linewidth]{cet_temp.png}
 \end{figure}\par
-The raw series does not appear stationary. The displayed summaries use
-365-day trailing windows, not monthly averages. They show changes in the long-run
-mean, particularly toward the end of the record. Separately, grouping daily
-observations by calendar month gives mean temperatures of about $3.48^\circ$C
-in January and $16.06^\circ$C in July. Seasonal means and long-run changes are
-inconsistent with a constant unconditional mean. Variation in rolling standard
-deviations alone is not conclusive evidence of nonstationarity.\par
+Data points do not appear to be stationary. We did a slipping window detection, which shows the average temperaures and their SD by month. They show a seasonal trend, with much lower temperatures in January than in July and also differ across multi-decade periods, suggesting a changing mean level, which is controvertial to the invariant mean value of a stationary process.\par
 2. \begin{figure}[htbp]
     \centering
     \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
@@ -469,53 +503,30 @@ consistent with an annual seasonal cycle: nearby observations tend to have
 similar deviations from the mean, whereas observations roughly half a year
 apart often have deviations of opposite signs. At lag $k$, only $n-k$ pairs
 contribute, so large-lag estimates require caution. \par
+\newpage
 3. \begin{figure}[htbp]
     \centering
     \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
     \includegraphics[width=0.8\linewidth]{Residues.png}
 \end{figure}\par
-The first 365 observations are consecutive daily values starting on
-1772-01-01, with no missing values. Using the first-degree specification,
-$\widehat m_t=5.1995+0.021813t$. The residuals retain a seasonal shape: negative
-near the beginning and end, and positive around the middle. Their 30-day rolling
-means range from about $-7.98$ to $8.05^\circ$C. The residual sample
-autocovariances at lags $0,1,30,90$ are approximately $30.18,27.02,16.23,-3.04$
-in squared degrees Celsius. These broad changes suggest that a straight line
-has not removed the seasonal mean. Autocovariance at nonzero lags alone does
-not imply nonstationarity, and the residual mean is zero by the OLS normal equations.
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.8\linewidth]{png/Residual_ACov.png}
-\end{figure}\par
+After removing the fitted linear trend, the residuals still exhibit a seasonal pattern. With similar detection with above, the monthly mean values are mostly negative near the beginning and end of the year and positive around the middle of the year. This suggests that a linear trend does not adequately capture the seasonal mean structure and not a stationary process either.\par
 
 4. \begin{figure}[htbp]
     \centering
     \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
     \includegraphics[width=0.8\linewidth]{Tri_Residues.png}
 \end{figure}\par
-For the first 1095 observations, the fitted mean is
+After removing the fitted trigonometric trend, the residuals exhibit a seasonal pattern. With similar detection with above, the monthly mean values are less than those of linear model, with more season-dependent SD. This suggests that a trigonometric trend works better on the seasonal mean structure than a linear one.
+Here the displayed summaries are 30-day rolling means and standard deviations, rather than calendar-month statistics. The rolling mean stays closer to zero than in the linear-model plot, while some short-term variation remains; the plots alone do not establish stationarity. Since the two fits use different spans of data, their residual magnitudes are not directly comparable.
+
+For the phase question in part 4, the frequency $\omega=2\pi/365$ is fixed, but the phase need not be specified in advance: for coefficients $a$ and $b$,
 \[
-\widehat m_t=9.2522-0.000116t-6.4981\cos(2\pi t/365)-2.8396\sin(2\pi t/365).
-\]
-The residual 30-day rolling mean ranges from about $-2.48$ to $2.54^\circ$C,
-and the rolling sample standard deviation ranges from $1.34$ to $4.26^\circ$C.
-The sample autocovariances at lags $0,1,30,90$ are approximately
-$7.33,4.73,0.15,-0.14$ in squared degrees Celsius. The seasonal mean structure
-is substantially reduced, while short-term dependence remains. These plots
-are compatible with a closer approximation to stationarity, but do not establish
-it; the 30-day variability estimates also fluctuate. The sample length differs
-from part 3, so the numerical differences cannot all be attributed to the model.
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.8\linewidth]{png/Seasonal_ACov.png}
-\end{figure}
-For fixed $\omega=2\pi/365$, any phase can be represented through
-\[
-a\cos(\omega t)+b\sin(\omega t)=R\cos(\omega t-\phi),\quad
+a\cos(\omega t)+b\sin(\omega t)
+=R\cos(\omega t-\phi),\qquad
 R=\sqrt{a^2+b^2},\quad \phi=\operatorname{atan2}(b,a).
 \]
-Thus $a,b$ are estimated by ordinary linear least squares. Only the frequency
-is fixed in advance; if it were unknown, estimating it would generally require
-a nonlinear search. When $R=0$, the phase is immaterial.
-\par 
+Thus ordinary linear least squares estimates both coefficients and thereby determines the amplitude and phase (when $R>0$).
+\par
 \vspace{0.5em}
 
 \subsection*{Problem 8. Trigonometric expansions}
@@ -616,18 +627,13 @@ and hence $\mathbf{Y}_{\mathbf{t}}$ is a normal random vector with covariance ma
 and hence
 \[\mathbf{Y}_{\mathbf{t}} \overset{d}{=} \mathbf{Y}_{\mathbf{t}+h} \]
 where $\mathbf{t}+h:=(t_1+h,\cdots,t_k+h)$ for any $h\in\Z$ because they are Gaussian vectors with the same zero mean and covariance matrix. Therefore, $Y_t$ is strictly stationary as well.\par
-b. 1. We compare the simulated series with an independently generated
-$N(0,1)$ white-noise sample. Both show irregular zero-centered fluctuations of
-similar size, with sample autocovariances near zero away from lag zero.
-For $n$ consecutive observations the simulated Gaussian vector has covariance
-$I_n$, so it has exactly the same distribution as $n$ independent standard normals.
-The infinite extension is periodic, $X_{t+n}=X_t$, and is not white noise at all lags.
-\begin{figure}[htbp]
+b. 1. \begin{figure}[htbp]
     \centering
     \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
     \includegraphics[width=0.8\linewidth]{HW1_5_default.png}
 \end{figure}
 \par
+The two series look similar: both fluctuate around zero, with sample autocovariances near zero at nonzero lags.\par
 2. We may write $X_t$ explicitly as
 \[
 X_t = \dfrac{1}{\sqrt{n}}\left(Z_0 + \sum\limits_{j=1}^{n/2-1}(Z_{j1}\cos(\omega_jt)+Z_{j2}\sin(\omega_jt)) + Z_{n/2}(-1)^t\right)
@@ -638,7 +644,7 @@ and then
 \gamma_X(t,t+h)
 &=\frac{1}{n}\left[1+(-1)^h+2\sum_{j=1}^{n/2-1}\cos\left(\frac{2\pi jh}{n}\right)\right]\\
 &=\begin{cases}
-1,&h\in n\mathbb{Z},\\
+\dfrac{n-1+(-1)^{h}}{n},&h\in n\mathbb{Z},\\
 0,&h\notin n\mathbb{Z}.
 \end{cases}
 \end{aligned}
@@ -653,17 +659,7 @@ and then
 In both cases, $\operatorname{Var}(Z_{j1})=\operatorname{Var}(Z_{j2})=\sigma_j^2$;
 the endpoint coefficients retain variance 1. The first choice increases linearly
 with frequency, whereas the second oscillates across frequency bands.
-Increasing $\sigma_j$ emphasizes rapid oscillations and tends to produce
-negative short-lag covariance; decreasing weights would emphasize low frequencies
-and smoother variation. Oscillating weights emphasize selected frequency bands,
-creating a different lag-dependence pattern. The index $j$ is frequency, not time:
-these weights do not make the variance increase with $t$. In fact,
-\[
-\gamma_X(h)=\frac1n\left[1+(-1)^h+
-\sum_{j=1}^{n/2-1}\sigma_j^2\cos(2\pi jh/n)\right],
-\]
-Both constructions are stationary Gaussian processes. Their covariance is
-generally nonzero at some nonzero lags.
+The increasing choice emphasizes rapid fluctuations, while the oscillating choice emphasizes selected frequency bands and changes the lag pattern.\par
 \begin{figure}[htbp]
     \centering
     \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
