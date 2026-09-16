@@ -496,6 +496,16 @@ As the lag \(k\) increases, the sample ACF decreases from positive values, cross
     \includegraphics[width=0.9\linewidth]{Residues.png}
     \caption{CET}
 \end{figure}\par
+After removing the fitted linear trend, the residuals still exhibit a seasonal pattern. They are mostly negative near the beginning and end of the year and positive around the middle of the year. This suggests that a linear trend does not adequately capture the seasonal mean structure and not a stationary process either.\par
+
+To investigate further, I divided the 365 residuals into four consecutive blocks of approximately equal length. Their sample means are approximately −3.71, 2.83, 5.13, and −4.21°C, respectively. These differences are consistent with the seasonal pattern visible in the plot. The residual sample ACF remains strongly positive at short lags, with values of approximately 0.90 at lag 1 and 0.54 at lag 30. It crosses zero around lag 81 and reaches a minimum of approximately −0.50 near lag 146. This broad positive-to-negative pattern is consistent with remaining seasonal variation.
+Thus, removing a linear trend does not appear sufficient to make the series stationary. Although autocorrelation alone does not imply nonstationarity, the systematic seasonal changes in the residual level provide evidence against a constant mean. Since only one year is observed, this conclusion remains exploratory; a longer series and an explicit seasonal model would allow a more convincing assessment.
+4. \begin{figure}[htbp]
+    \centering
+    \graphicspath{{./}{STATS_Minor/701/}}
+    \includegraphics[width=0.9\linewidth]{Tri_Residues.png}
+    \caption{CET}
+\end{figure}\par
 After removing the fitted quadratic trend, the residuals fluctuate around zero, but they still exhibit sustained positive and negative runs. In particular, they are negative around days $40-150$ and positive around days $160-240$. This suggests that the quadratic trend may not fully describe the seasonal mean structure.\par
 
 The means of four consecutive blocks are approximately $-0.02, -0.92, 1.41$, and $-0.47$, while their standard deviations range from $2.23$ to $3.81$. The residual ACF decays faster than that of the original series, but retains substantial short-lag correlation and becomes negative at longer lags.\par
