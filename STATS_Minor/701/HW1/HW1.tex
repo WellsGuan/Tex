@@ -7,7 +7,6 @@
 
 % 本文档命令
 \usepackage{array,url,stix}
-\usepackage{subfigure}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
@@ -17,11 +16,16 @@
 \usepackage{subfigure}
 
 \lstset{
-    basicstyle=\ttfamily\small,
     frame=single,
     columns=fullflexible,
     keepspaces=true,
-    showstringspaces=false
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
 }
 \newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
 \newcommand{\code}[1]{\lstinline{#1}}
@@ -44,9 +48,8 @@
 % 标题
 \maketitle
 
-\subsection*{Before Reading:}\par
-To make the proof more readable, I will miss or gap some natural or not important facts or notations during my writing. If you feel it hard to see, you can refer the appendix after the proof, where I will try to explain some simple conclusions (will be marked) more clearly. In case that you misunderstand the mark, I will add the mark just after those formulas between \$ and before those between \$\$.\par
-And I have to claim that the appendix is of course a part of my assignment, so the reference of it is required. Enjoy your grading!
+\noindent Throughout, ACF denotes the autocovariance function.
+The appendix contains the Python source used to generate the figures.
 
 \subsection*{Problem 1. Ex. 1.3.} 
 
@@ -57,7 +60,7 @@ Suppose that $m_t = c_0 + c_1 t + c_2 t^2 , t = 0, \pm 1, \cdots$,
     m_t = \sum\limits_{i=-2}^2 a_im_{t+i} = \sum\limits_{i=-3}^3 b_im_{t+i},\quad t = 0,\pm 1,\cdots
     \]
 where $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \tfrac{17}{35}$, and $b_3 = b_{-3} = -\tfrac{2}{21}$, $b_2 = b_{-2} = \tfrac{3}{21}$, $b_1 = b_{-1} = \tfrac{6}{21}$, $b_0 = \tfrac{7}{21}$.
-    \item[(b)] Suppose that $X_t= m_t + Z_t$, where $(Z_t)_{t\in\mathbb{Z}}$ is an independent sequence of normal random variables, each with mean $0$ and variance $\sigma^2$. Let \[U_t = \sum\limits_{i=-2}^2 a_iX_{t+i}\quad \text{ and }\quad V_t = \sum\limits_{i=-3}^3 b_iX_{t+i}m\] then
+    \item[(b)] Suppose that $X_t= m_t + Z_t$, where $(Z_t)_{t\in\mathbb{Z}}$ is an independent sequence of normal random variables, each with mean $0$ and variance $\sigma^2$. Let \[U_t = \sum\limits_{i=-2}^2 a_iX_{t+i}\quad \text{ and }\quad V_t = \sum\limits_{i=-3}^3 b_iX_{t+i}\] then
     \begin{enumerate}
         \item[(i)] Find the means and variances of $U_t$ and $V_t$.
         \item[(ii)] Find the correlations between $U_t$ and $U_{t+ 1}$ and between $V_t$ and $V_{t+1}$.
@@ -66,74 +69,38 @@ where $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \
 \end{enumerate}
 \vspace{0.5em}
 \textbf{Sol.} \par
-(a) Compare the coefficient of $c_i$ for $i = 0,1,2$ respectively, we get
+(a) A filter with weights $w_i$ preserves every quadratic trend if
 \[
-\begin{aligned}
-    a_{-2} + a_{-1} + a_0 + a_1 + a_2 &= 1, \\
-    (t-2)a_{-2} + (t-1)a_{-1} + ta_0 + (t+1)a_1 + (t+2)a_2 &= t, \\
-    (t-2)^2a_{-2} + (t-1)^2a_{-1} + t^2a_0 + (t+1)^2a_1 + (t+2)^2a_2 &= t^2,\\
-\end{aligned}
+\sum_i w_i=1,\qquad \sum_i iw_i=0,\qquad \sum_i i^2w_i=0.
 \]
-and
+Indeed, expand $m_{t+i}=m_t+(c_1+2c_2t)i+c_2i^2$ and sum.
+For $a_i$, the three sums are $(17+24-6)/35=1$, $0$ by symmetry,
+and $(24-24)/35=0$. For $b_i$, they are $(7+12+6-4)/21=1$,
+$0$, and $(12+24-36)/21=0$. Thus both filters reproduce $m_t$.\par
+(b)(i) Independence gives
 \[
-\begin{aligned}
-    b_{-3} + b_{-2} + b_{-1} + b_0 + b_1 + b_2 + b_3&= 1, \\
-    (t-3)b_{-3} + (t-2)b_{-2} + (t-1)b_{-1} + tb_0 + (t+1)b_1 + (t+2)b_2 + (t+3)b_3&= t \\
-    (t-3)^2b_{-3} + (t-2)^2b_{-2} + (t-1)^2b_{-1} + t^2b_0 + (t+1)^2b_1 + (t+2)^2b_2 + (t+3)^2b_3&= t^2\\
-\end{aligned}
+\mathbb E U_t=\mathbb E V_t=m_t,\qquad
+\operatorname{Var}(U_t)=\sigma^2\sum_i a_i^2=\frac{17}{35}\sigma^2,
+\qquad \operatorname{Var}(V_t)=\sigma^2\sum_i b_i^2=\frac13\sigma^2.
 \]
-if and only if \[
-    m_t = \sum\limits_{i=-2}^2 a_im_{t+i} = \sum\limits_{i=-3}^3 b_im_{t+i},\quad t = 0,\pm 1,\cdots.
-    \]
-Simplify the two systems above, we obtained
+(ii) Only overlapping noise terms contribute, so
 \[
-\begin{aligned}
-    a_{-2} + a_{-1} + a_0 + a_1 + a_2 &= 1, \\
-    -2a_{-2} + -a_{-1} + a_1 + 2a_2 &= t, \\
-    4a_{-2} + 1a_{-1} + a_0 + 1a_1 + 2a_2 &= t^2,\\
-\end{aligned}
+\operatorname{Cov}(U_t,U_{t+1})=\sigma^2\sum_{i=-1}^{2}a_i a_{i-1}
+=\frac{48}{175}\sigma^2,
+\quad
+\operatorname{Cov}(V_t,V_{t+1})=\sigma^2\sum_{i=-2}^{3}b_i b_{i-1}
+=\frac{12}{49}\sigma^2.
 \]
-and
+For $\sigma^2>0$, the requested correlations are
 \[
-\begin{aligned}
-    b_{-3} + b_{-2} + b_{-1} + b_0 + b_1 + b_2 + b_3&= 1, \\
-    -3b_{-3} + -2b_{-2} + -b_{-1} + b_1 + 2b_2 + 3b_3&= t, \\
-    9b_{-3} + 4b_{-2} + b_{-1} + b_1 + 4b_2 + 9b_3&= t^2\\
-\end{aligned}
+\operatorname{Corr}(U_t,U_{t+1})=\frac{48}{85},\qquad
+\operatorname{Corr}(V_t,V_{t+1})=\frac{36}{49}.
 \]
-equivalently. Substituting $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \tfrac{17}{35}$, and $b_3 = b_{-3} = -\tfrac{2}{21}$, $b_2 = b_{-2} = \tfrac{3}{21}$, $b_1 = b_{-1} = \tfrac{6}{21}$, $b_0 = \tfrac{7}{21}$ will verify the simplified systems above and we are done.\par
-(b) (i) We know
-\[
-\begin{aligned}
-    \mathbb{E}U_t &= \sum\limits_{i=-2}^2 a_i \mathbb{E}(m_{t+i} + Z_{t+i}) = m_t \\
-    \mathbb{E}V_t &= \sum\limits_{i=-3}^3 b_i \mathbb{E}(m_{t+i} + Z_{t+i}) = m_t
-\end{aligned}
-\]
-and
-\[
-\begin{aligned}
-    \text{Var}U_t &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_i (m_{t+i} + Z_{t+i})-m_t\right)^2 \\
-    &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_i Z_{t+i}\right)^2 =\sum\limits_{i=-2}^2 a_i \sigma^2 = \sigma^2 \\
-    \text{Var}V_t &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_i (m_{t+i} + Z_{t+i})-m_t\right)^2 \\
-    &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_i Z_{t+i}\right)^2 =\sum\limits_{i=-3}^3 b_i \sigma^2 = \sigma^2
-\end{aligned}
-\]
-(ii) Notice that
-\[
-U_t - \mathbb{E}U_t = \sum\limits_{i=-2}^2 a_iZ_{t+i},\quad V_t - \mathbb{E}V_t = \sum\limits_{i=-3}^3 b_iZ_{t+i},
-\]
-and hence
-\[
-\begin{aligned}
-    \text{Cov}(U_t,U_{t-1}) &= \mathbb{E}\left(\sum\limits_{i=-2}^2 a_iZ_{t+i}\right)\left(\sum\limits_{i=-2}^2 a_iZ_{t+1+i}\right) \\
-    &= a_{-1}a_{-2} + a_0a_{-1} + a_1a_0 + a_2a_1 = \dfrac{48}{165} \\
-    \text{Cov}(V_t,V_{t-1}) &= \mathbb{E}\left(\sum\limits_{i=-3}^3 b_iZ_{t+i}\right)\left(\sum\limits_{i=-3}^3 b_iZ_{t+1+i}\right) \\
-    &= b_{-2}b_{-3} + b_{-1}b_{-2} + b_0b_{-1} + b_1b_0 + b_2b_1 + b_3b_2= \dfrac{12}{49} \\
-\end{aligned}
-\]
-(iii) The covariance of $V_t, V_{t+1}$ is smaller than that of $U_t, U_{t+1}$, and since $V_t,U_t$ have equal variances, we may know that $U_t,U_{t+1}$ are more dependent with each other than $V_t,V_{t+1}$, so $(U_t)_{t\in\mathbb{Z}}$ will be smoother.
-\par 
-\vspace{0.5em}
+(iii) $V_t$ should appear smoother: it has smaller noise variance and greater
+lag-one correlation. More directly, the variances of the noise increments are
+$74\sigma^2/175$ for $U$ and $26\sigma^2/147$ for $V$.
+Both have the same deterministic trend. If $\sigma^2=0$, both equal $m_t$.
+\par\vspace{0.5em}
 
 \subsection*{Problem 2. Ex. 1.7.} 
 
@@ -177,53 +144,44 @@ stationary process, specify the mean and autocovariance function.
 \end{enumerate}
 \vspace{0.5em}
 \textbf{Sol.} \par
-It is easy to check that for all the $X_t$ above, $X_t \in L^1$ for any $t\in\mathbb{Z}$, we only check the existence of the autocovariance function for each process.\par
-(a) Notice
+All variables have finite second moments. Write $\delta_r(h)=\mathbf1_{\{h=r\}}$.
+Assume $\sigma^2>0$; if $\sigma^2=0$, all six processes are deterministic constants
+and hence stationary.\par
+(a) The mean is $a$, and independence gives
 \[
-\begin{aligned}
-    \gamma_X(t,t+h) = \mathbb{E}(bZ_t+cZ_{t-1})(bZ_{t+h}+cZ_{t+h-1}) &= (b^2+c^2)\gamma_Z(h) + bc(\gamma_{Z}(h+1)+\gamma_Z({h-1})) \\
-    &= (b^2+c^2)\delta_0(h) + bc(\delta_{1}+\delta_{-1}(h)),
-\end{aligned} 
+\gamma_X(h)=\sigma^2\bigl[(b^2+c^2)\delta_0(h)
++bc\{\delta_1(h)+\delta_{-1}(h)\}\bigr].
 \]
-which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.\par
-(b) Notice
+Thus the process is stationary.\par
+(b) The mean is $a$ and $\gamma_X(h)=b^2\sigma^2$ for every $h$.
+The process is stationary, although it is constant across time within each realization.\par
+(c) The mean is zero and
 \[
-\begin{aligned}
-    \gamma_X(t,t+h) = \mathbb{E}b^2Z_0^2 &= b^2,
-\end{aligned} 
+\gamma_X(t,t+h)=\sigma^2\{\cos(ct)\cos(c(t+h))+
+\sin(ct)\sin(c(t+h))\}=\sigma^2\cos(ch).
 \]
-which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.\par
-(c) Notice
+Thus the process is stationary.\par
+(d) The mean is zero, but $\operatorname{Var}(X_t)=\sigma^2\cos^2(ct)$.
+Since $t$ is integer-valued, the process is stationary precisely when
+$c\in\pi\mathbb Z$. For $c=m\pi$, its autocovariance is
+$\gamma_X(h)=\sigma^2(-1)^{mh}$. Otherwise the variances at $t=0,1$ differ.\par
+(e) The mean is zero and the variance is $\sigma^2$, but
 \[
-\begin{aligned}
-    \gamma_X(t,t+h) &= \mathbb{E}(Z_1\cos(ct) +Z_2 \sin(ct))(Z_1\cos(c(t+h)) +Z_2 \sin(c(t+h))) \\ &= \cos(ct)\cos(c(t+h)) + \sin(ct)\sin(c(t+h)) \\
-    &=\cos(ch),
-\end{aligned} 
+\operatorname{Cov}(X_t,X_{t+1})=\sigma^2\sin(ct)\cos(c(t+1)).
 \]
-which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.\par
-(d) Notice
+This is zero at $t=0$ and $-\sigma^2\sin c$ at $t=-1$.
+Consequently stationarity requires $c\in\pi\mathbb Z$. This condition is also
+sufficient: for $c=m\pi$, $X_t=(-1)^{mt}Z_t$, with
+$\gamma_X(h)=\sigma^2\delta_0(h)$.\par
+(f) Independence gives $\mathbb E X_t=0$ and
+$\operatorname{Var}(X_t)=\mathbb E Z_t^2\mathbb E Z_{t-1}^2=\sigma^4$.
+For $|h|=1$, a noise factor appears only once and has mean zero; for
+$|h|\ge2$, the products use disjoint independent variables. Hence
 \[
-\begin{aligned}
-    \gamma_X(t,t) &= \mathbb{E}Z_0^2\cos^2(ct) = \cos^2(ct)
-\end{aligned} 
+\gamma_X(h)=\sigma^4\delta_0(h),
 \]
-which is not constant about $t$ and hence $X_t$ is not a stationary process.
-(e) Notice
-\[
-\begin{aligned}
-    \gamma_X(t,t+1) &= \mathbb{E}(Z_t\cos(ct)+Z_{t-1}\sin(ct))(Z_{t+1}\cos(ct+c)+Z_{t}\sin(ct+c)) = \cos(ct)\sin(c(t+1))
-\end{aligned} 
-\]
-which is not constant about $t$ and hence $X_t$ is not a stationary process.\par
-(f) Notice
-\[
-\begin{aligned}
-    \gamma_X(t,t+h) &= \mathbb{E}Z_tZ_{t-1}Z_{t+h}Z_{t+h-1} = \delta_0(h)
-\end{aligned} 
-\]
-which is constant about $t$ and hence $X_t$ is a stationary process, with the autocovariance function above.
-\par 
-\vspace{0.5em}
+and the process is stationary. Its adjacent observations need not be independent.
+\par\vspace{0.5em}
 
 \subsection*{Problem 3. Ex. 1.13.} 
 
@@ -253,9 +211,9 @@ as well, then we know
 \]
 We know
 \[\nabla S_t = S_t - S_{t-1} = \mu +X_t =: Y_t, \quad \mathbb{E}Y_t = \mu\]
-and it is easy to check $Y_t \in L^1$ and notice
+and it is easy to check $Y_t \in L^2$ and notice
 \[
-\gamma_Y(t,t+h) = \delta_{0}(h)
+\gamma_Y(t,t+h) = \sigma^2\delta_{0}(h)
 \]
 which is constant about $t$ and hence $Y_t$ is a stationary process, with the autocovariance function above.
 \par 
@@ -279,18 +237,17 @@ such that
 \]
 \vspace{0.5em}
 \textbf{Sol.} \par
-For some $\mathbf{b}=(b_1,\ldots,b_n)^\prime\in\mathbb{R}^n$, we know
+For every vector $b$, $\operatorname{Var}(b^T X)=b^T\Sigma b$.
+If $\Sigma$ is singular, choose $b\ne0$ in its kernel, giving zero variance.
+Conversely, write $\Sigma=Q\Lambda Q^T$, where $Q$ is orthogonal and
+$\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_n)$ with $\lambda_i\ge0$.
+If $b\ne0$ and $b^T\Sigma b=0$, then
 \[
-\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr) = \mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b}
+0=\sum_{i=1}^n\lambda_i (Q^Tb)_i^2.
 \]
-and then we know if $\boldsymbol{\Sigma}$ is singular, then we may choose $\mathbf{b}$ nonzero such that $\mathbf{b}^T\boldsymbol{\Sigma} = \mathbf{0}$ and then $\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr) = \mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b} = 0$.\par
-If there exists $\mathbf{b}$ nonzero such that $\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr) = \mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b} = 0$, assume $\boldsymbol{\Sigma} = Q^T \Lambda Q$ a decomposition by the Spectral Theorem, where $\Lambda$ is a diagonal matrix with nonnegative components by the nonnegative-definiteness of $\boldsymbol{\Sigma}$, then if any diagonal component of $\Lambda$ is positive, then we know
-\[
-\mathbf{b}^T\boldsymbol{\Sigma}\mathbf{b} \geq a|Q\mathbf{b}|^2 > 0
-\]
-where $a$ is the minimum of the diagonal components of $\Lambda$ which is a contradiction, and hence $Q^Te_i \in \ker \boldsymbol{\Sigma}$ where the $i$th diagonal component of $\Lambda$ is $0$, which means $\boldsymbol{\Sigma}$ is singular.
-\par 
-\vspace{0.5em}
+At least one component of $Q^Tb$ is nonzero, and its corresponding eigenvalue
+must be zero. Therefore $\Sigma$ is singular.
+\par\vspace{0.5em}
 
 \subsection*{Problem 5. Sample Autocovariances} 
 
@@ -376,7 +333,9 @@ Z_t^*
 \end{aligned}
 \]
 Therefore, $Z_t^*$ is a white noise with variance $\sigma^2/4$.\par
-2. Since $Z_t = X_t- 2 X_{t-1}$, we know
+2. We use the stationary finite-variance solution of this AR equation.
+The infinite sums converge in $L^2$ because the coefficients are absolutely
+summable and the second moments are bounded. Since $Z_t=X_t-2X_{t-1}$, we know
 \[
 \begin{aligned}
     Z_t^* &= \dfrac{1}{4}(X_t- 2 X_{t-1}) - \dfrac{3}{4}\sum\limits_{j=1}^{\infty}2^{-j}(X_{t+j}- 2 X_{t+j-1}) \\
@@ -384,7 +343,11 @@ Therefore, $Z_t^*$ is a white noise with variance $\sigma^2/4$.\par
     & = X_t - \dfrac{1}{2}X_{t-1},
 \end{aligned}
 \]
-and we are done.
+For a truncation at $j=M$, the expression equals
+$X_t-\tfrac12X_{t-1}-\tfrac34 2^{-M}X_{t+M}$.
+The last term converges to zero in $L^2$ for the stationary solution.
+Without a bounded-second-moment or stationarity assumption, an additional
+homogeneous solution $C2^t$ is possible and the claimed representation need not hold.
 \par 
 \vspace{0.5em}
 
@@ -405,18 +368,18 @@ Please download and take a look at the CET time series from Canvas.
     \]
     contiguous observations, with no gaps or missing values.
 
-    Estimate the sample autocorrelation function (ACF) for increasingly
+    Estimate the sample autocovariance function (ACF) for increasingly
     large lags \(k\), and plot the results. Discuss what happens as
     \(k\) increases and explain what you think is causing this behavior.
 
     \item
-    Design a linear mean function for the data using quadratic terms.
+    Design a linear mean function for the data using a constant and a first-degree term.
     For example, construct the design matrix using the following
     pseudocode:
 
 \begin{lstlisting}
 t = 1:365
-X = [tj^k for tj in t, k in 0:2]
+X = [tj^k for tj in t, k in 0:1]
 \end{lstlisting}
 
     Fit the linear model
@@ -478,28 +441,80 @@ X = [tj^k for tj in t, k in 0:2]
 \textbf{Sol.} \par
 1. \begin{figure}[htbp]
     \centering
-    \graphicspath{{./}{STATS_Minor/701/}}
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
     \includegraphics[width=0.9\linewidth]{cet_temp.png}
-    \caption{CET}
 \end{figure}\par
-Data points do not appear to be stationary. The average temperatures by month show a seasonal trend, with much lower temperatures in January than in July. They also differ across multi-decade periods, suggesting a changing mean level, which is contravertial to the invariant mean value of a stationary process.\par
+The raw series does not appear stationary. The displayed summaries use
+365-day trailing windows, not monthly averages. They show changes in the long-run
+mean, particularly toward the end of the record. Separately, grouping daily
+observations by calendar month gives mean temperatures of about $3.48^\circ$C
+in January and $16.06^\circ$C in July. Seasonal means and long-run changes are
+inconsistent with a constant unconditional mean. Variation in rolling standard
+deviations alone is not conclusive evidence of nonstationarity.\par
 2. \begin{figure}[htbp]
     \centering
-    \graphicspath{{./}{STATS_Minor/701/}}
-    \includegraphics[width=0.9\linewidth]{Lags.png}
-    \caption{CET}
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
+    \includegraphics[width=0.8\linewidth]{Lags.png}
 \end{figure}\par
-As the lag \(k\) increases, the sample ACF decreases from positive values, crosses zero at approximately 90 days, and reaches a minimum of about \(-0.48\) around $150$-$170$ days before rising again. This pattern coincide an annual seasonal cycle: nearby days in the cycle tend to have similar temperatures, and observations roughly half a year apart often belong to opposite seasons and have deviations of opposite signs from the annual mean. \par
+Throughout this assignment, ACF denotes the autocovariance function. We use
+\[
+\widehat\gamma(k)=\frac{1}{n}\sum_{t=1}^{n-k}(x_{t+k}-\bar x)(x_t-\bar x),
+\qquad 0\le k<n,
+\]
+without dividing by $\widehat\gamma(0)$. For these 365 daily observations,
+$\widehat\gamma(0)\approx35.47\,{}^\circ\mathrm{C}^2$. The sample autocovariance
+crosses zero near lag 90 and reaches a minimum of approximately
+$-17.19\,{}^\circ\mathrm{C}^2$ at lag 159, before rising again. This pattern is
+consistent with an annual seasonal cycle: nearby observations tend to have
+similar deviations from the mean, whereas observations roughly half a year
+apart often have deviations of opposite signs. At lag $k$, only $n-k$ pairs
+contribute, so large-lag estimates require caution. \par
 3. \begin{figure}[htbp]
     \centering
-    \graphicspath{{./}{STATS_Minor/701/}}
-    \includegraphics[width=0.9\linewidth]{Residues.png}
-    \caption{CET}
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
+    \includegraphics[width=0.8\linewidth]{Residues.png}
 \end{figure}\par
-After removing the fitted quadratic trend, the residuals fluctuate around zero, but they still exhibit sustained positive and negative runs. In particular, they are negative around days $40-150$ and positive around days $160-240$. This suggests that the quadratic trend may not fully describe the seasonal mean structure.\par
+The first 365 observations are consecutive daily values starting on
+1772-01-01, with no missing values. Using the first-degree specification,
+$\widehat m_t=5.1995+0.021813t$. The residuals retain a seasonal shape: negative
+near the beginning and end, and positive around the middle. Their 30-day rolling
+means range from about $-7.98$ to $8.05^\circ$C. The residual sample
+autocovariances at lags $0,1,30,90$ are approximately $30.18,27.02,16.23,-3.04$
+in squared degrees Celsius. These broad changes suggest that a straight line
+has not removed the seasonal mean. Autocovariance at nonzero lags alone does
+not imply nonstationarity, and the residual mean is zero by the OLS normal equations.
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\linewidth]{png/Residual_ACov.png}
+\end{figure}\par
 
-The means of four consecutive blocks are approximately $-0.02, -0.92, 1.41$, and $-0.47$, while their standard deviations range from $2.23$ to $3.81$. The residual ACF decays faster than that of the original series, but retains substantial short-lag correlation and becomes negative at longer lags.\par
-Thus, the residuals appear closer to stationary than the original data, but remaining seasonal structure makes stationarity questionable. These results are suggestive rather than conclusive: autocorrelation alone does not imply nonstationarity, and one year of observations provides limited evidence. Examining a longer segment and explicitly modeling seasonality would help assess this further.
+4. \begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
+    \includegraphics[width=0.8\linewidth]{Tri_Residues.png}
+\end{figure}\par
+For the first 1095 observations, the fitted mean is
+\[
+\widehat m_t=9.2522-0.000116t-6.4981\cos(2\pi t/365)-2.8396\sin(2\pi t/365).
+\]
+The residual 30-day rolling mean ranges from about $-2.48$ to $2.54^\circ$C,
+and the rolling sample standard deviation ranges from $1.34$ to $4.26^\circ$C.
+The sample autocovariances at lags $0,1,30,90$ are approximately
+$7.33,4.73,0.15,-0.14$ in squared degrees Celsius. The seasonal mean structure
+is substantially reduced, while short-term dependence remains. These plots
+are compatible with a closer approximation to stationarity, but do not establish
+it; the 30-day variability estimates also fluctuate. The sample length differs
+from part 3, so the numerical differences cannot all be attributed to the model.
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\linewidth]{png/Seasonal_ACov.png}
+\end{figure}
+For fixed $\omega=2\pi/365$, any phase can be represented through
+\[
+a\cos(\omega t)+b\sin(\omega t)=R\cos(\omega t-\phi),\quad
+R=\sqrt{a^2+b^2},\quad \phi=\operatorname{atan2}(b,a).
+\]
+Thus $a,b$ are estimated by ordinary linear least squares. Only the frequency
+is fixed in advance; if it were unknown, estimating it would generally require
+a nonlinear search. When $R=0$, the phase is immaterial.
 \par 
 \vspace{0.5em}
 
@@ -571,9 +586,9 @@ a. We know
     &=\cos(\omega h),
 \end{aligned} 
 \]
-which is constant about $t$ and hence $Y_t$ is a stationary process, with autocorrelation function
+which is constant about $t$ and hence $Y_t$ is a stationary process, with autocovariance function
 \[
-\gamma_Y(h)/\gamma_Y(0) = \cos(\omega h).
+\gamma_Y(h) = \cos(\omega h).
 \]
 For $\mathbf{t} : =(t_1,\cdots,t_k) \in \Z^k$, we know
 \[
@@ -600,8 +615,19 @@ and hence $\mathbf{Y}_{\mathbf{t}}$ is a normal random vector with covariance ma
 \]
 and hence
 \[\mathbf{Y}_{\mathbf{t}} \overset{d}{=} \mathbf{Y}_{\mathbf{t}+h} \]
-where $\mathbf{t}+h:=(t_1+h,\cdots,t_k+h)$ for any $h\in\Z$ since it is easy to check they have the same covariance matrix. Therefore, $Y_t$ is strictly stationary as well.\par
-b. 1. \par
+where $\mathbf{t}+h:=(t_1+h,\cdots,t_k+h)$ for any $h\in\Z$ because they are Gaussian vectors with the same zero mean and covariance matrix. Therefore, $Y_t$ is strictly stationary as well.\par
+b. 1. We compare the simulated series with an independently generated
+$N(0,1)$ white-noise sample. Both show irregular zero-centered fluctuations of
+similar size, with sample autocovariances near zero away from lag zero.
+For $n$ consecutive observations the simulated Gaussian vector has covariance
+$I_n$, so it has exactly the same distribution as $n$ independent standard normals.
+The infinite extension is periodic, $X_{t+n}=X_t$, and is not white noise at all lags.
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
+    \includegraphics[width=0.8\linewidth]{HW1_5_default.png}
+\end{figure}
+\par
 2. We may write $X_t$ explicitly as
 \[
 X_t = \dfrac{1}{\sqrt{n}}\left(Z_0 + \sum\limits_{j=1}^{n/2-1}(Z_{j1}\cos(\omega_jt)+Z_{j2}\sin(\omega_jt)) + Z_{n/2}(-1)^t\right)
@@ -609,15 +635,59 @@ X_t = \dfrac{1}{\sqrt{n}}\left(Z_0 + \sum\limits_{j=1}^{n/2-1}(Z_{j1}\cos(\omega
 and then
 \[
 \begin{aligned}
-\gamma_X(t,t+h) &= \dfrac{1}{n}(1 + 2\sum\limits_{j=1}^{n/2-1}\cos(w_jh) + 1) \\ &= \dfrac{2}{n}\sum\limits_{j=0}^{n/2-1}\cos\left(\dfrac{2\pi jh}{n}\right) = \begin{cases}
-    \dfrac{1+(-1)^h}{n},\quad &h \neq 2kn\text{ for some }k\in\Z \\
-    1,& h = 2kn\text{ for some }k\in\Z
-\end{cases}    
+\gamma_X(t,t+h)
+&=\frac{1}{n}\left[1+(-1)^h+2\sum_{j=1}^{n/2-1}\cos\left(\frac{2\pi jh}{n}\right)\right]\\
+&=\begin{cases}
+1,&h\in n\mathbb{Z},\\
+0,&h\notin n\mathbb{Z}.
+\end{cases}
 \end{aligned}
 \]
-\par 
+\par
+3. For $j=1,\ldots,255$, define $u_j=(j-1)/254$. We compare
+\[
+    \sigma_j=0.1+4.9u_j
+    \quad\text{and}\quad
+    \sigma_j=0.1+\frac{4.9}{2}\bigl(1-\cos(6\pi u_j)\bigr).
+\]
+In both cases, $\operatorname{Var}(Z_{j1})=\operatorname{Var}(Z_{j2})=\sigma_j^2$;
+the endpoint coefficients retain variance 1. The first choice increases linearly
+with frequency, whereas the second oscillates across frequency bands.
+Increasing $\sigma_j$ emphasizes rapid oscillations and tends to produce
+negative short-lag covariance; decreasing weights would emphasize low frequencies
+and smoother variation. Oscillating weights emphasize selected frequency bands,
+creating a different lag-dependence pattern. The index $j$ is frequency, not time:
+these weights do not make the variance increase with $t$. In fact,
+\[
+\gamma_X(h)=\frac1n\left[1+(-1)^h+
+\sum_{j=1}^{n/2-1}\sigma_j^2\cos(2\pi jh/n)\right],
+\]
+Both constructions are stationary Gaussian processes. Their covariance is
+generally nonzero at some nonzero lags.
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
+    \includegraphics[width=0.8\linewidth]{HW1_5_sigma_linear.png}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
+    \includegraphics[width=0.8\linewidth]{HW1_5_sigma_oscillating.png}
+\end{figure}\par
+
 \vspace{0.5em}
 
-\addappheadtotoc
+\clearpage
+\appendix
+\section{Python code}
+The scripts read \texttt{code/cet.csv} relative to their own location and save
+figures in \texttt{png/}. ACF uses the denominator $n$ without variance normalization.
+\subsection{Sample autocovariance}
+\lstinputlisting[language=Python]{code/autocovariance.py}
+\subsection{CET data analysis}
+\lstinputlisting[language=Python]{code/HW1_4.py}
+\clearpage
+\subsection{Gaussian trigonometric simulations}
+\lstinputlisting[language=Python]{code/HW1_5.py}
 
 \end{document}
