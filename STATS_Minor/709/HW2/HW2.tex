@@ -1,0 +1,394 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{HW2 - STAT 709}
+\author{Wells Guan}
+
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+
+\maketitle
+\subsection*{Notation and conventions}
+
+All random variables are defined on a probability space
+$(\Omega,\mathcal F,\P)$, and $\E$ denotes expectation with respect to
+$\P$. For $1\leq p<\infty$, write
+\[
+\norm{X}_p=\bigl(\E|X|^p\bigr)^{1/p},
+\qquad
+\norm{X}_\infty
+=\inf\{M\geq0:\P(|X|\leq M)=1\}.
+\]
+If $F$ is a cdf, then $dF$ denotes the probability measure induced by $F$,
+so integrals with respect to $dF$ are Lebesgue--Stieltjes integrals. We use
+$s\vee a=\max\{s,a\}$, and $G\sim N(0,1)$ means that $G$ is a standard
+normal random variable. Statements about equality or boundedness of random
+variables are understood almost surely when appropriate.
+
+
+
+\subsection*{Problem 1. Ex.35. (a),(b)}
+
+Let $\{a_n\}_{n\geq1}$ be a sequence of positive numbers satisfying
+\[
+\sum_{n=1}^{\infty}a_n=1,
+\]
+and let $\{P_n\}_{n\geq1}$ be a sequence of probability measures on a common
+measurable space. Define
+\[
+P=\sum_{n=1}^{\infty}a_nP_n.
+\]
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item Show that $P$ is a probability measure.
+    \item For a measure $\nu$, show that $P_n\ll\nu$ for all $n$ if and only
+    if $P\ll\nu$. Moreover, when $P\ll\nu$ and $\nu$ is $\sigma$-finite,
+    show that
+    \[
+    \frac{dP}{d\nu}
+    =\sum_{n=1}^{\infty}a_n\frac{dP_n}{d\nu}.
+    \]
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Sol.}\par
+(a) We know that $P$ is a measure from the Ex 1.7. in HW1. Now only need to check that
+\[
+P(\Omega) = \sum\limits_{n=1}^{\infty}a_nP_n(\Omega) = \sum\limits_{n=1}^{\infty} a_n = 1
+\]
+and we are done.\par
+(b) To see the sufficiency, we know for any measurable set $A$,
+\[P(A) \geq a_nP_n(A) \implies P_n(A )\leq P(A)/a_n\]
+and hence if $\nu(A) = 0$, then $P_n(A) \leq P(A)/a_n = 0$ for any $n$, which means $P_n \ll \nu$ for any $n$. The necessity is easy to check by noticing if $\nu(A) = 0$, then $P_n(A) = 0$ for any $n$ and hence
+\[
+P(A) = \sum\limits_{n=1}^{\infty} a_nP_n(A) = \sum\limits_{n=1}^{\infty} a_n\cdot 0 = 0.
+\]
+To sum up, we showed the required equivalence.\par
+If $P \ll \nu$, with $\nu$ $\sigma$-finite, we know that $P_n \ll \nu$ by the conclusion above. Denote
+\[f = \sum\limits_{n=1}^{\infty} a_n \dfrac{dP_n}{d\nu}\]
+and for any measurable set $A$, by the MCT, we know
+\[
+\int_A f d\nu = \sum\limits_{n=1}^{\infty} a_n \int_A \dfrac{dP_n}{d\nu} d\nu = \sum\limits_{n=1}^{\infty} a_nP_n(A) = P(A)
+\]
+and hence $f = \dfrac{dP}{d\nu}$ by the Radon-Nikodym Theorem.
+\vspace{0.5em}
+
+\subsection*{Problem 2. Ex.40.}
+
+Let $X$ be a random variable having a continuous c.d.f. $F$. Show that
+$Y = F(X)$ has the uniform distribution $U(0, 1)$.\par
+\vspace{0.5em}
+\textbf{Sol.}\par
+Define
+\[
+F^{-1}(a) = \sup\{y, F^-(y) < a\}
+\]
+and we know $F(F^{-1}(a)) \geq a$ by the right-continuity. Notice
+\[
+P(Y \geq a) =  P(F(X) \geq a) = P(X \geq F^{-1}(a)) = 1 - F^-(F^{-1}(a))
+\]
+where 
+\[
+F^{-}(F^{-1}(a)) \leq a
+\]
+since $F^-$ is left-continuous. However, $F^- = F$ since $F$ continuous and hence $F^{-}(F^{-1}(a)) = a$. Then we know
+\[
+P(Y\geq a) = 1-a
+\]
+and we are done.
+\vspace{0.5em}
+
+\subsection*{Problem 3. Ex.55.}
+Let $X$ be a random variable. Show that
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+    \item[(a)] if $EX$ exists, then
+      \[
+      EX = \int_0^{\infty} P(X > x)dx - \int_{-\infty}^0 P(X\leq x) dx
+      \]
+    \item[(b)] if $X$ has range $\N$, then \[EX = \sum\limits_{n\geq 1} P(X\geq n)\]
+\end{enumerate}
+\vspace{0.5em}
+\textbf{Sol.}\par
+(a) Notice that by the Fubini's Theorem, we have
+\[
+\begin{aligned}
+  EX &= \int_{-\infty}^{\infty} yd\mu(y) \\
+  &= \int_{(0,\infty)} yd\mu(y) - \int_{(-\infty,0]} (-y)d\mu(y)\\
+  &= \int_{(0,\infty)} \int_{(0,y)} dx d\mu(y) - \int_{(-\infty,0]} \int_{[y,0)} dx d\mu(y) \\
+  &= \int_0^{\infty} \int_{(x,\infty)} d\mu(y)dx - \int_{-\infty}^0 \int_{(-\infty,x]} d\mu(y)dx     \\
+  &= \int_0^{\infty} P(X>x) dx - \int^0_{-\infty}P(X\leq x)dx
+\end{aligned}
+\]
+where $\mu$ is the induced measure by $X$.\par
+(b) Use the inequality in (a) directly and we have
+\[
+\begin{aligned}
+  EX &= \int_0^{\infty} P(X>x) dx - \int^0_{-\infty}P(X\leq x)dx \\
+  &= \sum\limits_{n=0}^{\infty} \int_n^{n+1} P(X \geq n+1) - \int_0^0 P(X = 0) dx \\
+  &= \sum\limits_{n\geq 1} P(X\geq n)
+\end{aligned}
+\]
+and we are done.
+\vspace{0.5em}
+
+\subsection*{Problem 4. Ex.83.}
+ Let $X$ be an integrable random variable with a Lebesgue p.d.f. $f_X$
+and let $Y = g(X)$, where $g$ is a function with positive derivative on $(0,\infty)$ and $g(x) = g(-x)$. Find an expression for $E(X|Y)$ and verify
+that it is indeed the conditional expectation.\par
+\vspace{0.5em}
+\textbf{Sol.}\par
+Let
+\[
+h=\left(g\big|_{[0,\infty)}\right)^{-1}
+\]
+be the inverse of the restriction of $g$ to $[0,\infty)$. Since $g$ is even
+and strictly increasing on $[0,\infty)$, we have
+\[
+h(Y)=h(g(X))=|X|
+\qquad \text{a.s.}
+\]
+
+For $u\geq 0$, define
+\[
+r(u)=
+\begin{cases}
+\dfrac{f_X(u)-f_X(-u)}
+      {f_X(u)+f_X(-u)},
+& f_X(u)+f_X(-u)>0,\\[1.2ex]
+0,
+& f_X(u)+f_X(-u)=0.
+\end{cases}
+\]
+and we prove that
+\[
+E(X\mid Y)=h(Y)r(h(Y)).
+\]
+Denote
+\[
+Z=h(Y)r(h(Y)).
+\]
+Since $Z$ is a Borel function of $Y$, it is $Y$-measurable. Moreover,
+$|r(u)|\leq 1$, and hence
+\[
+|Z|\leq h(Y)=|X|.
+\]
+Since $X$ is integrable, $Z$ is also integrable.
+
+Let $\varphi$ be any bounded Borel function. Using the fact that
+$g(-u)=g(u)$, we obtain
+\[
+\begin{aligned}
+E\bigl[\varphi(Y)X\bigr]
+&=\int_{\mathbb R}\varphi(g(x))x f_X(x)\,dx\\
+&=\int_0^\infty \varphi(g(u))u f_X(u)\,du
+  -\int_0^\infty \varphi(g(u))u f_X(-u)\,du\\
+&=\int_0^\infty
+  \varphi(g(u))u\bigl(f_X(u)-f_X(-u)\bigr)\,du.
+\end{aligned}
+\]
+On the other hand,
+\[
+\begin{aligned}
+E\bigl[\varphi(Y)Z\bigr]
+&=\int_{\mathbb R}
+  \varphi(g(x))h(g(x))r(h(g(x)))f_X(x)\,dx\\
+&=\int_0^\infty
+  \varphi(g(u))u r(u)
+  \bigl(f_X(u)+f_X(-u)\bigr)\,du\\
+&=\int_0^\infty
+  \varphi(g(u))u
+  \bigl(f_X(u)-f_X(-u)\bigr)\,du.
+\end{aligned}
+\]
+Therefore,
+\[
+E\bigl[\varphi(Y)Z\bigr]
+=
+E\bigl[\varphi(Y)X\bigr]
+\]
+for every bounded Borel function $\varphi$ and we are done.
+\vspace{0.5em}
+
+
+\subsection*{Problem 5. Integration by parts}
+
+Let $a<b$ and $f,g\in C^1([a,b])$, the space of continuously differentiable
+functions on $[a,b]$. The usual integration-by-parts formula is
+\[
+\int_a^b f'(x)g(x)\,dx
+=f(b)g(b)-f(a)g(a)-\int_a^b f(x)g'(x)\,dx.
+\]
+We can regard $f'(x)\,dx$ and $g'(x)\,dx$ as defining signed measures on
+$[a,b]$. If the derivatives are nonnegative, these are nonnegative measures.
+We now generalize the formula to a probability measure with cdf $F$. Recall
+that probability measures on $\R$ correspond one-to-one to cdfs. For
+$g\in C^1([a,b])$, prove that
+\[
+\int_{(a,b]}g(x)\,dF(x)
+=F(b)g(b)-F(a)g(a)-\int_a^b g'(x)F(x)\,dx.
+\]
+
+\vspace{0.5em}
+\textbf{Sol.}\par
+Notice the by the Fubini's theorem we have
+\[
+\begin{aligned}
+&\int_a^b g'(x)F(x)\,dx+
+  \int_{(a,b]}g(x)\,dF(x)\\
+&=\int_a^b g'(x)\int_{(-\infty,x]}dF(s)\,dx
+  +\int_{(a,b]}g(s)\,dF(s)\\
+&=\int_{(-\infty,b]}\int_{s\vee a}^{b}g'(x)\,dx\,dF(s)
+  +\int_{(a,b]}g(s)\,dF(s)\\
+&=\int_{(-\infty,b]}\bigl(g(b)-g(s\vee a)\bigr)\,dF(s)
+  +\int_{(a,b]}g(s)\,dF(s)\\
+&=\int_{(-\infty,a]}\bigl(g(b)-g(a)\bigr)\,dF(s)
+  +\int_{(a,b]}\bigl(g(b)-g(s)\bigr)\,dF(s)
+  +\int_{(a,b]}g(s)\,dF(s)\\
+&=\bigl(g(b)-g(a)\bigr)F(a)
+  +g(b)\bigl(F(b)-F(a)\bigr)\\
+&=g(b)F(b)-g(a)F(a),
+\end{aligned}
+\]
+and we are done.
+
+\vspace{0.5em}
+\subsection*{Problem 6. Moment bounds}
+
+Let $X$ be a real-valued random variable.
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+    \item Suppose $0<p<q$ and $\mathbb E|X|^q<\infty$. Use H\"older's
+    inequality to show that $\mathbb E|X|^p<\infty$ and
+    \[
+    \bigl(\mathbb E|X|^p\bigr)^{1/p}
+    \leq \bigl(\mathbb E|X|^q\bigr)^{1/q}.
+    \]
+
+    \item Suppose
+    \[
+    M=\sup_{p\geq1}\bigl(\mathbb E|X|^p\bigr)^{1/p}<\infty.
+    \]
+    Prove that $\mathbb P(|X|\leq M)=1$.
+
+    \item[(3)] Let $G\sim N(0,1)$. Prove that there is a
+    constant $c>0$ such that
+    \[
+    \lim_{n\to\infty}
+    \frac{\bigl(\mathbb E|G|^n\bigr)^{1/n}}{\sqrt n}=c,
+    \]
+    and determine $c$.
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Sol.}\par
+
+\textbf{(1)} By H\"older's inequality, with conjugate exponents
+$q/p$ and $q/(q-p)$,
+\[
+\begin{aligned}
+\mathbb E|X|^p
+&=\mathbb E\bigl(|X|^p\cdot1\bigr)\\
+&\leq
+\left(\mathbb E|X|^{p(q/p)}\right)^{p/q}
+\left(\mathbb E1^{q/(q-p)}\right)^{(q-p)/q}\\
+&=\left(\mathbb E|X|^q\right)^{p/q}.
+\end{aligned}
+\]
+Therefore $\mathbb E|X|^p<\infty$, and taking $p$th roots gives
+\[
+\left(\mathbb E|X|^p\right)^{1/p}
+\leq\left(\mathbb E|X|^q\right)^{1/q}.
+\]
+
+\textbf{(2)} Fix $\varepsilon>0$ and write
+\[
+\alpha=\mathbb P(|X|\geq M+\varepsilon).
+\]
+If $\alpha>0$, then for every $p\geq1$,
+\[
+\begin{aligned}
+\mathbb E|X|^p&\geq(M+\varepsilon)^p\alpha,\\
+\implies \qquad
+\left(\mathbb E|X|^p\right)^{1/p}
+&\geq(M+\varepsilon)\alpha^{1/p}.
+\end{aligned}
+\]
+Let $p\to\infty$ contradicts the definition of $M$, and hence
+$\mathbb P(|X|\geq M+\varepsilon)=0$ for every $\varepsilon>0$, and therefore
+\[
+\mathbb P(|X|>M)=0,
+\qquad
+\mathbb P(|X|\leq M)=1.
+\]
+
+\textbf{(3)} Let $m_n=\mathbb E|G|^n$. Integration by parts gives, for
+$n\geq2$,
+\[
+\begin{aligned}
+m_n
+&=\frac1{\sqrt{2\pi}}
+  \int_{\R}|x|^n e^{-x^2/2}\,dx\\
+&=\frac1{\sqrt{2\pi}}
+  \int_{\R}|x|^{n-2}x\bigl(xe^{-x^2/2}\bigr)\,dx\\
+&=(n-1)\frac1{\sqrt{2\pi}}
+  \int_{\R}|x|^{n-2}e^{-x^2/2}\,dx\\
+&=(n-1)m_{n-2}.
+\end{aligned}
+\]
+In particular,
+\[
+m_{2k}=(2k-1)(2k-3)\cdots1
+=\frac{(2k)!}{2^k k!}.
+\]
+By Stirling's formula,
+\[
+\begin{aligned}
+\frac{m_{2k}^{1/(2k)}}{\sqrt{2k}}
+=\frac1{\sqrt{2k}}
+ \left(\frac{(2k)!}{2^k k!}\right)^{1/(2k)} &\simeq  \dfrac{1}{\sqrt{2k}}\left(\dfrac{(2k)!}{\left(\sqrt{2\pi(2k)}\left(\dfrac{2k}{e}\right)\right)^{2k}}\dfrac{2^k\left(\sqrt{2\pi(k)}\left(\dfrac{k}{e}\right)\right)^{k}}{2^kk!}\right)^{1/2k}\dfrac{\sqrt{2}^{1/2k}\sqrt{2k}}{\sqrt{e}}\\
+& \longrightarrow \frac1{\sqrt e}.
+\end{aligned}
+\]
+The $L^p$ norms are increasing, so
+\[
+m_{2k}^{1/(2k)}
+\leq m_{2k+1}^{1/(2k+1)}
+\leq m_{2k+2}^{1/(2k+2)}.
+\]
+and since \[\lim\limits_{k\to\infty} \dfrac{\sqrt{2k+1}}{\sqrt{2k}} = \lim\limits_{k\to\infty} \dfrac{\sqrt{2k+1}}{\sqrt{2k+2}} =1,\] we know both bounds have the same limit
+$e^{-1/2}$. Therefore, we have
+\[
+\lim_{n\to\infty}
+\frac{\bigl(\mathbb E|G|^n\bigr)^{1/n}}{\sqrt n}
+= c,
+\]
+with $c=e^{-1/2}$.
+
+\end{document}
