@@ -1,0 +1,164 @@
+%!TEX program = xelatex
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{HW3 - STAT 709}
+\author{Wells Guan}
+
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+\maketitle
+
+% Textbook statements are not included in HW3_assignment.pdf.
+% Insert their exact wording from the indicated editions when available.
+\subsection*{Problem 1. Textbook exercises}
+Jun Shao's book, Chapter 1: Exercises 50 and 53 (required); Exercise 91 (optional).
+
+\subsubsection*{Ex. 1.50 (required)}
+% TODO: Insert the textbook problem statement.
+\textit{[Problem statement to be added from the textbook.]}
+\par\vspace{0.5em}
+\textbf{Sol.}\par
+% TODO: Write solution.
+\vspace{1em}
+
+\subsubsection*{Ex. 1.53 (required)}
+% TODO: Insert the textbook problem statement.
+\textit{[Problem statement to be added from the textbook.]}
+\par\vspace{0.5em}
+\textbf{Sol.}\par
+% TODO: Write solution.
+\vspace{1em}
+
+\subsubsection*{Ex. 1.91 (optional)}
+% TODO: Insert the textbook problem statement.
+\textit{[Problem statement to be added from the textbook.]}
+\par\vspace{0.5em}
+\textbf{Sol.}\par
+% TODO: Write solution.
+\vspace{1em}
+
+\subsection*{Problem 2. Textbook exercises}
+Durrett's \textit{Probability: Theory and Examples}, fifth edition: Exercises 2.1.4 and 2.1.6.
+
+\subsubsection*{Ex. 2.1.4}
+% TODO: Insert the textbook problem statement.
+\textit{[Problem statement to be added from the textbook.]}
+\par\vspace{0.5em}
+\textbf{Sol.}\par
+% TODO: Write solution.
+\vspace{1em}
+
+\subsubsection*{Ex. 2.1.6}
+% TODO: Insert the textbook problem statement.
+\textit{[Problem statement to be added from the textbook.]}
+\par\vspace{0.5em}
+\textbf{Sol.}\par
+% TODO: Write solution.
+\vspace{1em}
+
+\newpage
+\noindent\textit{The remaining exercises concern conditional expectation and are optional. Read the questions and try as many parts as you can.}
+
+\subsection*{Problem 3. Conditioning on a transformation (optional)}
+Let $X\in\R^n$ have a continuous density $p$, and let $f,g:\R^n\to\R^n$ be continuous, with $\E\norm{f(X)}_2<\infty$.
+Let $A_1,\ldots,A_m$ be pairwise disjoint open sets whose union has a Lebesgue-null complement. On each $A_j$, assume that $g$ is continuously differentiable and one-to-one, with $\det Dg(x)\neq0$. Write $V_j=g(A_j)$ and let $h_j:V_j\to A_j$ be its inverse.
+
+We want a formula for $\E[f(X)\mid g(X)=y]$. In general, $(f(X),g(X))$ does not have a joint density on $\R^{2n}$, so the elementary joint-density ratio formula need not apply directly.
+
+For the following local calculation, fix $y\notin\bigcup_{j=1}^m\partial V_j$. Put $J(y)=\{j:y\in V_j\}$, and assume that $p(h_j(y))>0$ for at least one $j\in J(y)$. These conditions ensure that a sufficiently small cube around $y$ meets exactly the active inverse branches and that the limiting denominator is positive. For $\Delta>0$, let $E_\Delta=\prod_{i=1}^n(y_i-\Delta,y_i+\Delta)$.
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item For $j\in J(y)$ and sufficiently small $\Delta$, define $B_\Delta^{(j)}=h_j(E_\Delta)$. Prove that
+\[
+\operatorname{Vol}(B_\Delta^{(j)})=|\det Dh_j(y)|\,(2\Delta)^n+o(\Delta^n)\qquad(\Delta\downarrow0).
+\]
+\item Use part (1) to evaluate
+\[
+\lim_{\Delta\downarrow0}\frac{\E[f(X)\mathbf{1}\{g(X)\in E_\Delta\}]}{\P(g(X)\in E_\Delta)}.
+\]
+Derive a version of $\E[f(X)\mid g(X)=y]$ in terms of the inverse branches. Explain why this formula, summed over the branches defined at $y$, gives a conditional expectation for almost every $y$ under the law of $g(X)$.
+\end{enumerate}
+\vspace{0.5em}
+\textbf{Sol.}\par
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item % TODO: Write solution.
+\item % TODO: Write solution.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 4. Conditional independence (optional)}
+Let $X,Y,Z$ be real-valued random variables. Assume that $X$ and $Y$ are conditionally independent given $Z$, in the sense that
+\[
+\P(B\mid X,Z)=\P(B\mid Z)\quad\text{a.s. for every }B\in\sigma(Y).
+\]
+The first two parts connect this definition with the familiar density formulation.
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Let $(U,W)$ be random vectors with a joint density. For a Borel function $\varphi$ satisfying $\E|\varphi(U)|<\infty$, show that a version is
+\[
+\E[\varphi(U)\mid W=w]=\int\varphi(u)p(u\mid w)\,du
+\]
+for almost every $w$ under the law of $W$, where $p(u\mid w)=p_{U,W}(u,w)/p_W(w)$ when $p_W(w)>0$.
+
+\item If $(X,Y,Z)$ has a joint density, show that
+\[
+f_{X,Y\mid Z}(x,y\mid z)=f_{X\mid Z}(x\mid z)f_{Y\mid Z}(y\mid z)
+\]
+for almost every $z$ under the law of $Z$ and Lebesgue-almost every $(x,y)$.
+
+\item Without assuming a joint density, prove that, for every $A\in\sigma(X)$ and $B\in\sigma(Y)$,
+\[
+\P(A\cap B\mid Z)=\P(A\mid Z)\P(B\mid Z)\qquad\text{a.s.}
+\]
+\textit{Hint:} Use the tower property and the definition of conditional expectation.
+
+\item Let $\mathbf{X}=(X_1,\ldots,X_p)^\top\sim N_p(0,\Sigma)$, with $\Sigma$ positive definite, and define the precision matrix $\Theta=\Sigma^{-1}$. Set $Y=X_1$ and $Z=(X_2,\ldots,X_p)^\top$. In the coordinate order $(Y,Z)$, write
+\[
+\Sigma=\begin{pmatrix}\sigma_{YY}&\sigma_{ZY}^\top\\\sigma_{ZY}&\Sigma_{ZZ}\end{pmatrix}.
+\]
+Recall that
+\[
+Y\mid Z=z\sim N\!\left(z^\top\Sigma_{ZZ}^{-1}\sigma_{ZY},\,
+\sigma_{YY}-\sigma_{ZY}^\top\Sigma_{ZZ}^{-1}\sigma_{ZY}\right),
+\qquad\theta_{ZY}=-\theta_{YY}\Sigma_{ZZ}^{-1}\sigma_{ZY}.
+\]
+In a Gaussian graphical model, distinct nodes are joined when the corresponding precision-matrix entry is \textit{nonzero}; a zero entry indicates a missing edge. Prove that $\theta_{ij}=0$ implies that $X_i$ and $X_j$ are conditionally independent given all the other coordinates.
+\end{enumerate}
+\vspace{0.5em}
+\textbf{Sol.}\par
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item % TODO: Write solution.
+\item % TODO: Write solution.
+\item % TODO: Write solution.
+\item % TODO: Write solution.
+\end{enumerate}
+
+\end{document}
