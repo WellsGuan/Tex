@@ -1,0 +1,59 @@
+\section{Stationary ARMA Processes}
+
+\subsection{ARMA Processes}
+
+\begin{definition}
+    [White Noise] The process $(Z_t)$ is said to be white noise with mean $0$ and
+variance $\sigma^2$ if and only if $(Z_t)$ has zero mean and covariance function
+\[
+\gamma(h) = \begin{cases}
+    0,\quad &h \neq 0 \\ \sigma^2, & h = 0 
+\end{cases}
+\]
+\end{definition}
+
+\begin{definition}
+    [The ARMA$(p, q)$ Process] The process  $(X_t)_{t\in\mathbb{Z}}$ is said to be an ARMA -$(p,q)$ process if $(X_t)$ is stationary and if for every $t$,
+    \[
+    X_t - \phi_1 X_{t-1} - \cdots \phi_p X_{t-p} = Z_t + \theta_1 Z_{t-1} + \cdots + \theta_q Z_{t-q}
+    \]
+where $(Z_t) \sim \text{WN}(0,\sigma^2)$. We say that $(X_t)$ is an ARMA$(p,q)$ process with mean $\mu$ if $(X_t - \mu)$ is an ARMA$(p,q)$ process.\par
+The equation can be written as 
+\[
+\phi(B)X_t = \theta(B)Z_t
+\]
+where $\phi,\theta$ are $p,q$-degree polynomials and $B$ is the push-backward operator.
+\end{definition}
+
+\begin{definition}
+    [The MA$(q)$ process and the AR$(p)$ process]
+    The MA$(q)$ process is an ARMA$(0,q)$ process, that is $\phi \equiv 1$, i.e.
+    \[
+    X_t = \theta(B)Z_t.
+    \]\par
+    The AR$(p)$ process is an ARMA$(p,0)$ process, that is $\theta \equiv 1$, i.e.
+    \[
+    \phi(B)X_t = Z_t
+    \]
+\end{definition}
+
+\begin{proposition}
+    The mean value and covariance function for an MA$(q)$ process $X_t$ with MA polynomial $\theta$ is
+    \[
+    \mu_X(t) = 0,\quad 
+    \]
+    and those for an AR$(p)$ process $Y_t$ with AR polynomial $\phi$ is
+    \[
+    \mu_Y(t) = 0,\quad
+    \]
+\end{proposition}
+\begin{proof}
+    We know
+    \[
+    \mathbb{E} X_t = \mathbb{E}\phi(B)Z_t = 0
+    \]
+    and
+    \[
+    \gamma_X(h) = \mathbb{E}\left(\mathbb{E}\phi(Z)Z_t\right)\left(\phi(Z)Z_{t+h}\right) =
+    \]
+\end{proof}
