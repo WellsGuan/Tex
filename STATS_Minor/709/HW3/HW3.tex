@@ -1,4 +1,5 @@
 %!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
 \documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
 
 \title{HW3 - STAT 709}
@@ -39,7 +40,7 @@
 % Textbook statements are not included in HW3_assignment.pdf.
 % Insert their exact wording from the indicated editions when available.
 \subsection*{Problem 1. Textbook exercises}
-Jun Shao's book, Chapter 1: Exercises 50 and 53 (required); Exercise 91 (optional).
+Jun Shao's book, Chapter 1: Exercises 60 and 82 (required); Exercise 91 (optional).
 
 \subsubsection*{Ex. 1.60}
 Let $X$ be a random variable with $\E X^2 < \infty$ and let $Y = |X|$. Suppose that $X$ has a Lebesgue p.d.f. symmetric about $0$. Show that $X$ and $Y$ are uncorrelated, but they are not independent.
@@ -62,9 +63,9 @@ Notice that
 P(X \geq a, Y\geq a) = P(X\geq a), \quad P(Y\geq a) = 2P(X\geq a)  
 \]
 and if $X$ and $Y$ are independent, then we have
-\[2P(X\geq a)^2 = P(X\geq a),\] which means that $P(X\geq a) = 1/2$ for any $a \in \R$. This is a contradiction to $EX^2 < \infty$, since
+\[2P(X\geq a)^2 = P(X\geq a),\] which means that $P(X\geq a) = 1/2$ or $0$ for any $a \in \R$. The fronter is a contradiction to $EX^2 < \infty$, since
 \[ \E X^2 \geq 2a^2P(X\geq a)\]
-for any $a\in \R$.
+for any $a\in \R$ and latter is contradicing that $P$ is a probability measure.
 \vspace{1em}
 
 \subsubsection*{Ex. 1.82}
@@ -122,15 +123,65 @@ by Schur's lemma and that
     -\Sigma'^{-1}\Sigma_{21}\Sigma_{11}^{-1} & \Sigma'^{-1}
 \end{pmatrix},
 \]
-for any $a \in \R$ and we are done.
+for any $a \in \R^l$, where $\{\mathbf{x} \leq a\}$ is the rectangle defined by the inequality coordinate-wise and $\Sigma'$ is positive definite, and we are done.
 \vspace{1em}
 
 \subsubsection*{Ex. 1.91 (optional)}
-% TODO: Insert the textbook problem statement.
-\textit{[Problem statement to be added from the textbook.]}
-\par\vspace{0.5em}
+Let $X$, $Y$, and $Z$ be random variables on a probability space.
+Suppose that $\E|X|<\infty$ and $Y=h(Z)$ with a Borel $h$. Show that
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item If $X$ and $Z$ are independent and $\E|Z|<\infty$, then
+$\E(XZ\mid Y)=\E(X)\E(Z\mid Y)$ a.s.
+\item If $\E[f(X)\mid Z]=f(Y)$ for all bounded continuous functions $f$ on $\R$, then $X=Y$ a.s.
+\item If $\E[f(X)\mid Z]\geq f(Y)$ for all bounded, continuous, nondecreasing functions $f$ on $\R$, then $X\geq Y$ a.s.
+\end{enumerate}
+\vspace{0.5em}
 \textbf{Sol.}\par
-% TODO: Write solution.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Independence gives $\E|XZ|=\E|X|\E|Z|<\infty$.
+For every Borel set $A\subseteq\R$, the random variable
+$Z\mathbf{1}_{\{Y\in A\}}=Z\mathbf{1}_{\{h(Z)\in A\}}$ is an integrable function of $Z$, and hence is independent of $X$. Therefore
+\[
+\begin{aligned}
+\E[XZ\mathbf{1}_{\{Y\in A\}}]
+&=\E X\,\E[Z\mathbf{1}_{\{Y\in A\}}]\\
+&=\E\bigl[\E X\,\E[Z\mid Y]\mathbf{1}_{\{Y\in A\}}\bigr].
+\end{aligned}
+\]
+Since $\E X\,\E[Z\mid Y]$ is integrable and $\sigma(Y)$-measurable, it is a version of $\E[XZ\mid Y]$.
+
+\item Put $u(x)=\arctan x$. Both $u$ and $u^2$ are bounded and continuous, so the assumption implies
+\[
+\E[u(X)\mid Z]=u(Y),\qquad
+\E[u(X)^2\mid Z]=u(Y)^2.
+\]
+Since $Y=h(Z)$, $u(Y)$ is $\sigma(Z)$-measurable. Thus
+\[
+\begin{aligned}
+\E[(u(X)-u(Y))^2\mid Z]
+&=\E[u(X)^2\mid Z]-2u(Y)\E[u(X)\mid Z]+u(Y)^2\\
+&=0.
+\end{aligned}
+\]
+Taking expectations shows $u(X)=u(Y)$ a.s. As $u$ is strictly increasing, $X=Y$ a.s.
+
+\item Fix $r\in\mathbb{Q}$ and define
+$f_n(x)=\min\{1,n(x-r)_+\}$, where $(x-r)_+=\max\{x-r,0\}$.
+These functions are bounded, continuous and nondecreasing, and
+$f_n(x)\uparrow\mathbf{1}_{\{x>r\}}$.
+Conditional monotone convergence and the assumption give
+\[
+\P(X>r\mid Z)\geq\mathbf{1}_{\{Y>r\}}\qquad\text{a.s.}
+\]
+Since the left side is at most one and $\{Y>r\}\in\sigma(Z)$,
+\[
+\P(X\leq r<Y)
+=\E\bigl[\mathbf{1}_{\{Y>r\}}(1-\P(X>r\mid Z))\bigr]=0.
+\]
+Finally,
+$\{X<Y\}=\bigcup_{r\in\mathbb{Q}}\{X\leq r<Y\}$,
+so $\P(X<Y)=0$, proving $X\geq Y$ a.s.
+\end{enumerate}
 \vspace{1em}
 
 \subsection*{Problem 2. Textbook exercises}
@@ -149,7 +200,7 @@ Notice that
 \]
 for $m\neq n$, and hence they are uncorrelated. To see they are not independent, we may notice that
 \[
-P( -1 \leq X_n \leq -1/2,  -1 \leq X_{2n} \leq -1/2) = 1/6 \neq 1/9 = P(-1 \leq X_n \leq -1/2)P(-1 \leq X_{2n} \leq -1/2)
+P( X_n \leq -\sqrt{2}/2,  X_{2n} \leq -\sqrt{2}/2) = 1/8 \neq 1/16 = P(-1 \leq X_n \leq -1/2)P(-1 \leq X_{2n} \leq -1/2)
 \]
 for $n\geq 1$ and we are done.
 \vspace{1em}
@@ -193,17 +244,17 @@ Derive a version of $\E[f(X)\mid g(X)=y]$ in terms of the inverse branches. Expl
 \vspace{0.5em}
 \textbf{Sol.}\par
 \begin{enumerate}[label=(\arabic*),leftmargin=*]
-\item We know\[\begin{aligned}
+\item By the inverse function theorem, $V_j$ is open and $h_j$ is $C^1$ on $V_j$. In particular, $|\det Dh_j|$ is continuous. We know\[\begin{aligned}
 \text{Vol}(B_{\Delta}^{(j)}) =& \int_{h_j(E_{\Delta})} d\mathbf{x} \\=& \int_{E_{\Delta}}|\det Dh_j|(\mathbf{y})d\mathbf{y} \\=& |\det Dh_j(y)|(2\Delta)^n + \int_{E_{\Delta}}\left(|\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|\right)d\mathbf{y}
 \end{aligned}
 \]
 where
 \[
 \begin{aligned}
-&\lim\limits_{\Delta\to 0}\left|\int_{E_{\Delta}}\left(|\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|\right)d\mathbf{y}\right|/(\Delta)^n \\ \leq& 4^n\lim_{\Delta \to 0}\max_{E_{\Delta}}||\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|| = 0
+&\lim\limits_{\Delta\to 0}\left|\int_{E_{\Delta}}\left(|\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|\right)d\mathbf{y}\right|/(\Delta)^n \\ \leq& 2^n\lim_{\Delta \to 0}\sup_{E_{\Delta}}||\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|| = 0
 \end{aligned}\]
-and we are done since $h_j$ is continuous.
-\item Notice that
+and we are done by the continuity of $|\det Dh_j|$ at $y$.
+\item In the following local calculation, write $J=J(y)$. Since $X$ has a density, the complement of $\bigcup_j A_j$ has probability zero. For sufficiently small $\Delta$, only the branches in $J(y)$ contribute. Notice that
 \[
 \begin{aligned}
 \E[f(X)\mathbf{1}\{g(X)\in E_\Delta\}] &= \int_{\bigcup_{j\in J}h_j(E_{\Delta})} f(\mathbf{x})p(\mathbf{x})d\mathbf{x} \\
@@ -221,7 +272,38 @@ and hence
     &= \dfrac{\sum\limits_{j\in J} f(h_j(y))p(h_j(y))|\det Dh_j(y)|}{\sum\limits_{j\in J}p(h_j(y))|\det Dh_j(y)|}
 \end{aligned}
 \]
-which is a version of $\E[f(X)\mid g(X)=y]$. To see this, it sufficents to prove that
+which gives the claimed local limit. The denominator is positive by the hypothesis on $p(h_j(y))$ and the invertibility of $Dh_j(y)$.
+
+To define a version globally, put
+\[
+\begin{aligned}
+q(y)&=\sum_{j\in J(y)}p(h_j(y))|\det Dh_j(y)|,\\
+r(y)&=\sum_{j\in J(y)}f(h_j(y))p(h_j(y))|\det Dh_j(y)|.
+\end{aligned}
+\]
+Each summand is defined on $V_j$ and extended by zero outside $V_j$, so $q$ and $r$ are Borel measurable. Change of variables on each $A_j$ gives, for every Borel set $A\subseteq\R^n$,
+\[
+\P(g(X)\in A)=\int_A q(y)\,dy,\qquad
+\E[f(X)\mathbf{1}_{\{g(X)\in A\}}]=\int_A r(y)\,dy.
+\]
+In particular, $q$ is the density of $g(X)$. Define $H(y)=r(y)/q(y)$ when $q(y)>0$, and $H(y)=0$ otherwise. When $q(y)=0$, all nonnegative branch weights vanish, so $r(y)=0$ as well. Moreover,
+\[
+\begin{aligned}
+\E\norm{H(g(X))}_2
+&=\int_{\{q>0\}}\norm{r(y)}_2\,dy\\
+&\leq\sum_{j=1}^m\int_{V_j}\norm{f(h_j(y))}_2
+p(h_j(y))|\det Dh_j(y)|\,dy\\
+&=\E\norm{f(X)}_2<\infty.
+\end{aligned}
+\]
+Thus $H(g(X))$ is integrable and $\sigma(g(X))$-measurable, and the defining identity follows from
+\[
+\E[H(g(X))\mathbf{1}_{\{g(X)\in A\}}]
+=\int_A H(y)q(y)\,dy=\int_A r(y)\,dy.
+\]
+This global argument does not require excluding branch boundaries: it sums all branches defined at each $y$, and $\P(q(g(X))=0)=0$. All vector-valued identities are interpreted componentwise.
+
+Equivalently, with every ratio below defined as zero when its denominator vanishes, it suffices to prove that
 \[
 \E[f(X)|g(X)] = \dfrac{\sum\limits_{j\in J(g(X))} f(h_j(g(X)))p(h_j(g(X)))|\det Dh_j(g(X))|}{\sum\limits_{j\in J(g(X))}p(h_j(g(X)))|\det Dh_j(g(X))|}
 \]
@@ -229,7 +311,7 @@ which can be shown by noticing
 \[
 \begin{aligned}
     \int_{g(X) \in A} f(X)dP &= \int_{g(\mathbf{x}) \in A} f(\mathbf{x})p(\mathbf{x})d\mathbf{x} \\
-    & = \sum\limits_{k=1}^m\int_{\mathbf{y}\in A\cap V_k'} f(h_k(\mathbf{y}))p(h_k(\mathbf{y}))|\det Dh_k(\mathbf{y})|d\mathbf{y} 
+    & = \sum\limits_{k=1}^m\int_{\mathbf{y}\in A\cap V_k} f(h_k(\mathbf{y}))p(h_k(\mathbf{y}))|\det Dh_k(\mathbf{y})|d\mathbf{y}
     \\
     & = \int_{g(\mathbf{x})\in A} \dfrac{\sum\limits_{j\in J(g(\mathbf{x}))} f(h_j(g(\mathbf{x})))p(h_j(g(\mathbf{x})))|\det Dh_j(g(\mathbf{x}))|}{\sum\limits_{j\in J(g(\mathbf{x}))}p(h_j(g(\mathbf{x})))|\det Dh_j(g(\mathbf{x}))|} p(\mathbf{x})d\mathbf{x}
     \\&= \int_{g(X) \in A} \dfrac{\sum\limits_{j\in J(g(X))} f(h_j(g(X)))p(h_j(g(X)))|\det Dh_j(g(X))|}{\sum\limits_{j\in J(g(X))}p(h_j(g(X)))|\det Dh_j(g(X))|} dP
@@ -279,10 +361,78 @@ In a Gaussian graphical model, distinct nodes are joined when the corresponding 
 \vspace{0.5em}
 \textbf{Sol.}\par
 \begin{enumerate}[label=(\arabic*),leftmargin=*]
-\item % TODO: Write solution.
-\item % TODO: Write solution.
-\item % TODO: Write solution.
-\item % TODO: Write solution.
+\item Let $p_{U,W}$ be the joint density and let
+$p_W(w)=\int p_{U,W}(u,w)\,du$. For $0<p_W(w)<\infty$, define
+\[
+m(w)=\frac{\int\varphi(u)p_{U,W}(u,w)\,du}{p_W(w)}
+\]
+whenever the numerator is absolutely integrable, and set $m(w)=0$ on the exceptional set. By Fubini's theorem and $\E|\varphi(U)|<\infty$, this exceptional set has probability zero under the law of $W$. The function $m$ is measurable and
+\[
+\int |m(w)|p_W(w)\,dw\leq
+\iint |\varphi(u)|p_{U,W}(u,w)\,du\,dw<\infty.
+\]
+For every Borel set $C$ in the state space of $W$,
+\[
+\begin{aligned}
+\E[m(W)\mathbf{1}_{\{W\in C\}}]
+&=\int_C m(w)p_W(w)\,dw\\
+&=\int_C\int\varphi(u)p_{U,W}(u,w)\,du\,dw\\
+&=\E[\varphi(U)\mathbf{1}_{\{W\in C\}}].
+\end{aligned}
+\]
+Hence $m(W)$ is a version of $\E[\varphi(U)\mid W]$, and the claimed conditional-density formula follows.
+
+\item For Borel sets $C,D\subseteq\R$, the tower property and the assumed conditional independence imply
+\[
+\begin{aligned}
+\P(X\in C,Y\in D\mid Z)
+&=\E[\mathbf{1}_{\{X\in C\}}\P(Y\in D\mid X,Z)\mid Z]\\
+&=\P(X\in C\mid Z)\P(Y\in D\mid Z).
+\end{aligned}
+\]
+By part (1), the joint conditional distribution and the two marginal conditional distributions have densities obtained by dividing their respective joint densities with $Z$ by $f_Z(z)$, for almost every $z$ under the law of $Z$.
+First take $C=(-\infty,a]$ and $D=(-\infty,b]$, where $a,b\in\mathbb{Q}$. There are only countably many such rectangles, so outside one null set of $z$ the displayed identity holds for all of them simultaneously. These rectangles determine probability measures on $\R^2$. Thus, for each such $z$, the conditional joint law equals the product of its conditional marginal laws. By uniqueness of Lebesgue densities,
+\[
+f_{X,Y\mid Z}(x,y\mid z)=f_{X\mid Z}(x\mid z)f_{Y\mid Z}(y\mid z)
+\]
+for Lebesgue-almost every $(x,y)$, as required.
+
+\item For $A\in\sigma(X)$ and $B\in\sigma(Y)$, $\mathbf{1}_A$ is $\sigma(X,Z)$-measurable. Therefore
+\[
+\begin{aligned}
+\P(A\cap B\mid Z)
+&=\E[\E[\mathbf{1}_A\mathbf{1}_B\mid X,Z]\mid Z]\\
+&=\E[\mathbf{1}_A\P(B\mid X,Z)\mid Z]\\
+&=\E[\mathbf{1}_A\P(B\mid Z)\mid Z]\\
+&=\P(A\mid Z)\P(B\mid Z)\qquad\text{a.s.}
+\end{aligned}
+\]
+No density assumption is used.
+
+\item By permuting coordinates, the recalled Gaussian conditioning formula applies to any coordinate $X_i$ conditional on the remaining vector $X_{-i}$. The block inverse formula gives the conditional variance $1/\theta_{ii}$, while the recalled identity for the off-diagonal precision block gives the conditional mean. Consequently,
+\[
+X_i\mid X_{-i}=x_{-i}\sim
+N\!\left(-\frac{1}{\theta_{ii}}\sum_{k\ne i}\theta_{ik}x_k,
+\frac{1}{\theta_{ii}}\right).
+\]
+Here $\theta_{ii}>0$ because $\Theta$ is positive definite.
+Suppose $\theta_{ij}=0$, and write $R=(X_k)_{k\ne i,j}$.
+The displayed conditional law then depends only on $R$, not on $X_j$.
+For each Borel set $D\subseteq\R$, denote its probability under this normal law by $K_D(R)$. Thus
+\[
+\P(X_i\in D\mid X_j,R)=K_D(R).
+\]
+Taking conditional expectations given $R$ yields
+$\P(X_i\in D\mid R)=K_D(R)$.
+For every Borel set $C\subseteq\R$, it follows that
+\[
+\begin{aligned}
+\P(X_j\in C,X_i\in D\mid R)
+&=\E[\mathbf{1}_{\{X_j\in C\}}K_D(R)\mid R]\\
+&=\P(X_j\in C\mid R)\P(X_i\in D\mid R).
+\end{aligned}
+\]
+This is conditional independence of $X_i$ and $X_j$ given all the other coordinates. When $p=2$, $R$ is empty and the same argument gives ordinary independence.
 \end{enumerate}
 
 \end{document}
