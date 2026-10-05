@@ -41,20 +41,88 @@
 \subsection*{Problem 1. Textbook exercises}
 Jun Shao's book, Chapter 1: Exercises 50 and 53 (required); Exercise 91 (optional).
 
-\subsubsection*{Ex. 1.50 (required)}
-% TODO: Insert the textbook problem statement.
-\textit{[Problem statement to be added from the textbook.]}
+\subsubsection*{Ex. 1.60}
+Let $X$ be a random variable with $\E X^2 < \infty$ and let $Y = |X|$. Suppose that $X$ has a Lebesgue p.d.f. symmetric about $0$. Show that $X$ and $Y$ are uncorrelated, but they are not independent.
 \par\vspace{0.5em}
 \textbf{Sol.}\par
-% TODO: Write solution.
+Notice that
+\[
+I:= \int_0^{\infty} xf(x)dx = -\int_{-\infty}^0 x f(x)dx
+\]
+and hence $\E X = 0$ and $\E Y = 2I$. Assume $f$ to be the p.d.f. of $X$, then
+\[
+\begin{aligned}
+    \text{Cov}(X,Y) &= \E XY \\
+    &= \int_0^{\infty} x^2 f(x)dx -\int_{-\infty}^0 x^2f(x)dx = 0  
+\end{aligned}
+\]
+since $f(x) = f(-x)$ for any $x\in\R$, which means $X$ and $Y$ are uncorrelated.\par
+Notice that
+\[
+P(X \geq a, Y\geq a) = P(X\geq a), \quad P(Y\geq a) = 2P(X\geq a)  
+\]
+and if $X$ and $Y$ are independent, then we have
+\[2P(X\geq a)^2 = P(X\geq a),\] which means that $P(X\geq a) = 1/2$ for any $a \in \R$. This is a contradiction to $EX^2 < \infty$, since
+\[ \E X^2 \geq 2a^2P(X\geq a)\]
+for any $a\in \R$.
 \vspace{1em}
 
-\subsubsection*{Ex. 1.53 (required)}
-% TODO: Insert the textbook problem statement.
-\textit{[Problem statement to be added from the textbook.]}
+\subsubsection*{Ex. 1.82}
+
+Let $(X_1,X_2)$ be $N_k(\mu,\Sigma)$ with a $k\times k$
+positive definite
+\[
+\Sigma=
+\begin{pmatrix}
+    \Sigma_{11} & \Sigma_{12}\\
+    \Sigma_{21} & \Sigma_{22}
+\end{pmatrix},
+\]
+where $X_1$ is a random $l$-vector and $\Sigma_{11}$ is an
+$l\times l$ matrix. Show that the conditional Lebesgue p.d.f.
+of $X_2$ given $X_1=x_1$ is
+\[
+N_{k-l}\left(
+    \mu_2+\Sigma_{21}\Sigma_{11}^{-1}(x_1-\mu_1),
+    \Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}
+\right),
+\]
+where $\mu_i=\E X_i$, $i=1,2$.
 \par\vspace{0.5em}
 \textbf{Sol.}\par
-% TODO: Write solution.
+We would like to prove that
+\[
+\mu((\mathbf{x}_1,\mathbf{x}_2),A) := \int_A \dfrac{1}{(2\pi)^{(k-l)/2}\left(\det\left(\Sigma'\right)\right)^{1/2}}\exp\left(-\dfrac{1}{2}(\mathbf{x} - \mu'(\mathbf{x}_1))^T\Sigma'^{-1}(\mathbf{x} - \mu'(\mathbf{x}_1))\right) d\mathbf{x}
+\]
+for $\mathbf{x}_1\in\R^l, \mathbf{x}_2 \in \R^{k-l}$ and where
+\[
+\Sigma':=\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12},\quad \mu'(\mathbf{x}_1):= \mu_2+\Sigma_{21}\Sigma_{11}^{-1}(\mathbf{x}_1-\mu_1)
+\]
+is a regular conditional distribution from $\R^k\times \B^{k-l} \to [0,1]$. It remains to show that $\mu(\cdot,A)$ is a version of $P(X_2 \in A|X_1)$, and notice
+\[
+\begin{aligned}
+    &\int_{\{X_1 \leq a\}} P(X_2 \in A|X_1)dP\\
+    =& \int_{\mathbf{x}_1 \leq a}\int_{\mathbf{x}_2 \in A}\dfrac{1}{(2\pi)^{k/2}\left(\det \Sigma\right)^{1/2}}\exp\left(-\dfrac{1}{2}((\mathbf{x_1},\mathbf{x_2})-(\mu_1,\mu_2))^T\Sigma^{-1}((\mathbf{x_1},\mathbf{x_2})-(\mu_1,\mu_2))\right)d\mathbf{x_1}d\mathbf{x_2} \\
+    =& \int_{\mathbf{x}_1\leq a}\int_A\dfrac{1}{(2\pi)^{(k-l)/2}\left(\det\left(\Sigma'\right)\right)^{1/2}}\exp\left(-\dfrac{1}{2}(\mathbf{x} - \mu'(\mathbf{x}_1))^T\Sigma'^{-1}(\mathbf{x} - \mu'(\mathbf{x}_1))\right) d\mathbf{x}\\
+    &\dfrac{1}{(2\pi)^{l/2}\left(\det \Sigma_{11}\right)^{1/2}}\exp\left(-\dfrac{1}{2}(\mathbf{x_1}-\mu_1)^T\Sigma_{11}^{-1}(\mathbf{x_1}-\mu_1)\right)d\mathbf{x}_1\\
+    =& \int\int_{\mathbf{x}_1\leq a}\int_A \dfrac{1}{(2\pi)^{(k-l)/2}\left(\det\left(\Sigma'\right)\right)^{1/2}}\exp\left(-\dfrac{1}{2}(\mathbf{x} - \mu'(\mathbf{x}_1))^T\Sigma'^{-1}(\mathbf{x} - \mu'(\mathbf{x}_1))\right) d\mathbf{x}\\
+    &\dfrac{1}{(2\pi)^{k/2}\left(\det \Sigma\right)^{1/2}}\exp\left(-\dfrac{1}{2}((\mathbf{x_1},\mathbf{x_2})-(\mu_1,\mu_2))^T\Sigma^{-1}((\mathbf{x_1},\mathbf{x_2})-(\mu_1,\mu_2))\right)d\mathbf{x}_1d\mathbf{x}_2 \\
+    &= \int_{\{X_1\leq a\}}\mu(\cdot,A)dP
+\end{aligned}
+\]
+where
+\[
+\det \Sigma' \det\Sigma_{11} = \det \Sigma
+\]
+by Schur's lemma and that
+\[
+\Sigma^{-1}=
+\begin{pmatrix}
+    \Sigma_{11}^{-1} + \Sigma_{11}^{-1}\Sigma_{12}\Sigma'^{-1}\Sigma_{21}\Sigma_{11}^{-1} & -\Sigma_{11}^{-1}\Sigma_{12}\Sigma'^{-1}\\
+    -\Sigma'^{-1}\Sigma_{21}\Sigma_{11}^{-1} & \Sigma'^{-1}
+\end{pmatrix},
+\]
+for any $a \in \R$ and we are done.
 \vspace{1em}
 
 \subsubsection*{Ex. 1.91 (optional)}
@@ -69,19 +137,35 @@ Jun Shao's book, Chapter 1: Exercises 50 and 53 (required); Exercise 91 (optiona
 Durrett's \textit{Probability: Theory and Examples}, fifth edition: Exercises 2.1.4 and 2.1.6.
 
 \subsubsection*{Ex. 2.1.4}
-% TODO: Insert the textbook problem statement.
-\textit{[Problem statement to be added from the textbook.]}
+Let $\Omega = (0,1), \mathcal{F} =$ Borel sets, $P =$ Lebesgue measure. $X_n(\omega) =
+\sin(2\pi n\omega), n = 1,2,...$ are uncorrelated but not independent.
 \par\vspace{0.5em}
 \textbf{Sol.}\par
-% TODO: Write solution.
+Notice that
+\[
+\begin{aligned}
+\text{Cov}(X_m,X_n) &= \int_0^1 \sin(2\pi m \omega)\sin(2\pi n \omega)d\omega \\ &= \dfrac{1}{2}\left(\int_0^1 \cos(2\pi(m-n)\omega)d\omega - \int_0^1 \cos(2\pi(m+n)\omega)d\omega\right)
+\\ &= 0 \end{aligned}
+\]
+for $m\neq n$, and hence they are uncorrelated. To see they are not independent, we may notice that
+\[
+P( -1 \leq X_n \leq -1/2,  -1 \leq X_{2n} \leq -1/2) = 1/6 \neq 1/9 = P(-1 \leq X_n \leq -1/2)P(-1 \leq X_{2n} \leq -1/2)
+\]
+for $n\geq 1$ and we are done.
 \vspace{1em}
 
 \subsubsection*{Ex. 2.1.6}
-% TODO: Insert the textbook problem statement.
-\textit{[Problem statement to be added from the textbook.]}
+Prove directly from the definition that if $X$ and $Y$ are independent and $f$ and $g$ are measurable functions then $f(X)$ and $g(Y)$ are
+independent.
 \par\vspace{0.5em}
 \textbf{Sol.}\par
-% TODO: Write solution.
+For any $A,B \in \B(\R)$, we know
+\[
+\begin{aligned}
+P(f(X) \in A, g(Y)\in B) &= P(X\in f^{-1}(A), Y\in g^{-1}(B))\\ &= P(X\in f^{-1}(A))P(Y\in g^{-1}(B))\\ &= P(f(X) \in A)P(g(Y) \in B)
+\end{aligned}
+\]
+and we are done.
 \vspace{1em}
 
 \newpage
@@ -109,8 +193,48 @@ Derive a version of $\E[f(X)\mid g(X)=y]$ in terms of the inverse branches. Expl
 \vspace{0.5em}
 \textbf{Sol.}\par
 \begin{enumerate}[label=(\arabic*),leftmargin=*]
-\item % TODO: Write solution.
-\item % TODO: Write solution.
+\item We know\[\begin{aligned}
+\text{Vol}(B_{\Delta}^{(j)}) =& \int_{h_j(E_{\Delta})} d\mathbf{x} \\=& \int_{E_{\Delta}}|\det Dh_j|(\mathbf{y})d\mathbf{y} \\=& |\det Dh_j(y)|(2\Delta)^n + \int_{E_{\Delta}}\left(|\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|\right)d\mathbf{y}
+\end{aligned}
+\]
+where
+\[
+\begin{aligned}
+&\lim\limits_{\Delta\to 0}\left|\int_{E_{\Delta}}\left(|\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|\right)d\mathbf{y}\right|/(\Delta)^n \\ \leq& 4^n\lim_{\Delta \to 0}\max_{E_{\Delta}}||\det Dh_j(\mathbf{y})| - |\det Dh_j(y)|| = 0
+\end{aligned}\]
+and we are done since $h_j$ is continuous.
+\item Notice that
+\[
+\begin{aligned}
+\E[f(X)\mathbf{1}\{g(X)\in E_\Delta\}] &= \int_{\bigcup_{j\in J}h_j(E_{\Delta})} f(\mathbf{x})p(\mathbf{x})d\mathbf{x} \\
+&=\sum\limits_{j\in J}\int_{E_{\Delta}} f(h_j(\mathbf{y}))p(h_j(\mathbf{y}))|\det Dh_j|(\mathbf{y})d\mathbf{y} \\
+&= \sum\limits_{j\in J} f(h_j(y))p(h_j(y))|\det Dh_j(y)|(2\Delta)^n + o(\Delta^n)
+\end{aligned}\]
+with a similar proof in (1) and
+\[
+\P(g(X)\in E_\Delta) = \int_{\bigcup_{j\in J}h_j(E_{\Delta})} p(\mathbf{x})d\mathbf{x} = \sum\limits_{j\in J}p(h_j(y))|\det Dh_j(y)|\,(2\Delta)^n+o(\Delta^n)
+\]
+and hence
+\[
+\begin{aligned}
+    \lim_{\Delta\downarrow0}\frac{\E[f(X)\mathbf{1}\{g(X)\in E_\Delta\}]}{\P(g(X)\in E_\Delta)} &= \lim_{\Delta\downarrow0}\dfrac{\sum\limits_{j\in J} f(h_j(y))p(h_j(y))|\det Dh_j(y)|(2\Delta)^n + o(\Delta^n)}{\sum\limits_{j\in J}p(h_j(y))|\det Dh_j(y)|\,(2\Delta)^n+o(\Delta^n)} \\
+    &= \dfrac{\sum\limits_{j\in J} f(h_j(y))p(h_j(y))|\det Dh_j(y)|}{\sum\limits_{j\in J}p(h_j(y))|\det Dh_j(y)|}
+\end{aligned}
+\]
+which is a version of $\E[f(X)\mid g(X)=y]$. To see this, it sufficents to prove that
+\[
+\E[f(X)|g(X)] = \dfrac{\sum\limits_{j\in J(g(X))} f(h_j(g(X)))p(h_j(g(X)))|\det Dh_j(g(X))|}{\sum\limits_{j\in J(g(X))}p(h_j(g(X)))|\det Dh_j(g(X))|}
+\]
+which can be shown by noticing
+\[
+\begin{aligned}
+    \int_{g(X) \in A} f(X)dP &= \int_{g(\mathbf{x}) \in A} f(\mathbf{x})p(\mathbf{x})d\mathbf{x} \\
+    & = \sum\limits_{k=1}^m\int_{\mathbf{y}\in A\cap V_k'} f(h_k(\mathbf{y}))p(h_k(\mathbf{y}))|\det Dh_k(\mathbf{y})|d\mathbf{y} 
+    \\
+    & = \int_{g(\mathbf{x})\in A} \dfrac{\sum\limits_{j\in J(g(\mathbf{x}))} f(h_j(g(\mathbf{x})))p(h_j(g(\mathbf{x})))|\det Dh_j(g(\mathbf{x}))|}{\sum\limits_{j\in J(g(\mathbf{x}))}p(h_j(g(\mathbf{x})))|\det Dh_j(g(\mathbf{x}))|} p(\mathbf{x})d\mathbf{x}
+    \\&= \int_{g(X) \in A} \dfrac{\sum\limits_{j\in J(g(X))} f(h_j(g(X)))p(h_j(g(X)))|\det Dh_j(g(X))|}{\sum\limits_{j\in J(g(X))}p(h_j(g(X)))|\det Dh_j(g(X))|} dP
+\end{aligned}
+\]
 \end{enumerate}
 
 \newpage
