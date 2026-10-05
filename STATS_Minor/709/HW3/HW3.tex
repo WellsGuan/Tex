@@ -63,9 +63,7 @@ Notice that
 P(X \geq a, Y\geq a) = P(X\geq a), \quad P(Y\geq a) = 2P(X\geq a)  
 \]
 and if $X$ and $Y$ are independent, then we have
-\[2P(X\geq a)^2 = P(X\geq a),\] which means that $P(X\geq a) = 1/2$ or $0$ for any $a \in \R$. The fronter is a contradiction to $EX^2 < \infty$, since
-\[ \E X^2 \geq 2a^2P(X\geq a)\]
-for any $a\in \R$ and latter is contradicing that $P$ is a probability measure.
+\[2P(X\geq a)^2 = P(X\geq a),\] which means that $P(X\geq a) = 1/2$ or $0$ for any $a \in \R$, which is a contradiction by the continuity of the tail probability.
 \vspace{1em}
 
 \subsubsection*{Ex. 1.82}
@@ -200,7 +198,7 @@ Notice that
 \]
 for $m\neq n$, and hence they are uncorrelated. To see they are not independent, we may notice that
 \[
-P( X_n \leq -\sqrt{2}/2,  X_{2n} \leq -\sqrt{2}/2) = 1/8 \neq 1/16 = P(-1 \leq X_n \leq -1/2)P(-1 \leq X_{2n} \leq -1/2)
+P( X_n \leq -1/2,  X_{2n} \leq -1/2) = 1/8 \neq 1/9 = P(X_n \leq -1/2)P(X_{2n} \leq -1/2)
 \]
 for $n\geq 1$ and we are done.
 \vspace{1em}
@@ -303,20 +301,6 @@ Thus $H(g(X))$ is integrable and $\sigma(g(X))$-measurable, and the defining ide
 \]
 This global argument does not require excluding branch boundaries: it sums all branches defined at each $y$, and $\P(q(g(X))=0)=0$. All vector-valued identities are interpreted componentwise.
 
-Equivalently, with every ratio below defined as zero when its denominator vanishes, it suffices to prove that
-\[
-\E[f(X)|g(X)] = \dfrac{\sum\limits_{j\in J(g(X))} f(h_j(g(X)))p(h_j(g(X)))|\det Dh_j(g(X))|}{\sum\limits_{j\in J(g(X))}p(h_j(g(X)))|\det Dh_j(g(X))|}
-\]
-which can be shown by noticing
-\[
-\begin{aligned}
-    \int_{g(X) \in A} f(X)dP &= \int_{g(\mathbf{x}) \in A} f(\mathbf{x})p(\mathbf{x})d\mathbf{x} \\
-    & = \sum\limits_{k=1}^m\int_{\mathbf{y}\in A\cap V_k} f(h_k(\mathbf{y}))p(h_k(\mathbf{y}))|\det Dh_k(\mathbf{y})|d\mathbf{y}
-    \\
-    & = \int_{g(\mathbf{x})\in A} \dfrac{\sum\limits_{j\in J(g(\mathbf{x}))} f(h_j(g(\mathbf{x})))p(h_j(g(\mathbf{x})))|\det Dh_j(g(\mathbf{x}))|}{\sum\limits_{j\in J(g(\mathbf{x}))}p(h_j(g(\mathbf{x})))|\det Dh_j(g(\mathbf{x}))|} p(\mathbf{x})d\mathbf{x}
-    \\&= \int_{g(X) \in A} \dfrac{\sum\limits_{j\in J(g(X))} f(h_j(g(X)))p(h_j(g(X)))|\det Dh_j(g(X))|}{\sum\limits_{j\in J(g(X))}p(h_j(g(X)))|\det Dh_j(g(X))|} dP
-\end{aligned}
-\]
 \end{enumerate}
 
 \newpage
