@@ -1,0 +1,93 @@
+%!TEX program = xelatex
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\geometry{
+    textheight=9in,
+    textwidth=5.75in,
+    top=1in,
+    headheight=14pt,
+    headsep=20pt,
+    footskip=30pt
+}
+\setstretch{1.15}
+\graphicspath{{figures/}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=MidnightBlue,
+    citecolor=ForestGreen,
+    urlcolor=BrickRed,
+    pdftitle={Convergence of 1-D CHF},
+    pdfauthor={Wells Guan}
+}
+
+\input{macros}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newtcolorbox{draftnote}{
+    colback=Yellow!8,
+    colframe=Goldenrod!70!black,
+    title=Draft note,
+    breakable
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2.2cm}
+    {\rule{\linewidth}{1.2pt}}\\[0.8cm]
+    {\Huge\bfseries Convergence of 1-D CHF\par}
+    \vspace{0.5cm}
+    {\Large A clean template for a rewritten manuscript\par}
+    \vspace{0.8cm}
+    {\rule{\linewidth}{1.2pt}}\\[2.5cm]
+    {\Large Wells Guan\par}
+    \vfill
+    {\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\include{tex/01_introduction}
+\include{tex/02_setup}
+\include{tex/03_main_results}
+\include{tex/04_preliminaries}
+\include{tex/05_convergence}
+\include{tex/06_extensions}
+
+\appendix
+\include{tex/appendix}
+
+\clearpage
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{alpha}
+\bibliography{References}
+
+\end{document}
