@@ -40,20 +40,195 @@ where $\phi,\theta$ are $p,q$-degree polynomials and $B$ is the push-backward op
 \begin{proposition}
     The mean value and covariance function for an MA$(q)$ process $X_t$ with MA polynomial $\theta$ is
     \[
-    \mu_X(t) = 0,\quad 
-    \]
-    and those for an AR$(p)$ process $Y_t$ with AR polynomial $\phi$ is
-    \[
-    \mu_Y(t) = 0,\quad
+    \mu_X(t) = 0,\quad \gamma_X(h) = \sigma^2\left(\sum\limits_{k=0}^{q-h}\theta_k\theta_{k+h}\right).
     \]
 \end{proposition}
 \begin{proof}
     We know
     \[
-    \mathbb{E} X_t = \mathbb{E}\phi(B)Z_t = 0
+    \mathbb{E} X_t = \mathbb{E}\theta(B)Z_t = 0
     \]
     and
     \[
-    \gamma_X(h) = \mathbb{E}\left(\mathbb{E}\phi(Z)Z_t\right)\left(\phi(Z)Z_{t+h}\right) =
+    \gamma_X(h) = \mathbb{E}\left(\mathbb{E}\theta(Z)Z_t\right)\left(\theta(Z)Z_{t+h}\right) = \sigma^2\left(\sum\limits_{k=0}^{q-h}\theta_k\theta_{k+h}\right)
     \]
+    where $\theta_0:=1$.
+\end{proof}
+
+\begin{definition}[Causality]
+An ARMA$(p,q)$ process defined by the equations
+$\phi(B)X_t=\theta(B)Z_t$ is said to be \emph{causal}
+(or more specifically to be a \emph{causal function of $\{Z_t\}$})
+if there exists a sequence of constants $\{\psi_j\}_{j\geq0}$ such that
+\[
+\sum_{j=0}^{\infty}|\psi_j|<\infty
+\]
+and
+\[
+X_t=\sum_{j=0}^{\infty}\psi_j Z_{t-j},
+\qquad t=0,\pm1,\ldots.
+\]
+\end{definition}
+
+\begin{proposition}
+If $\{X_t\}_{t\in\mathbb{Z}}$ is any sequence of random variables such that
+$\sup_t\mathbb{E}|X_t|<\infty$, and if
+$\sum_{j=-\infty}^{\infty}|\psi_j|<\infty$, then the series
+\[
+\psi(B)X_t
+=\sum_{j=-\infty}^{\infty}\psi_j B^jX_t
+=\sum_{j=-\infty}^{\infty}\psi_j X_{t-j}
+\]
+converges absolutely with probability one. If in addition
+$\sup_t\mathbb{E}|X_t|^2<\infty$, then the series converges in mean square
+to the same limit.
+\end{proposition}
+\begin{proof}
+    To see the absolute convergence for a.s., we may notice that
+    \[
+    \mathbb{E} |\phi|(B)|X_t| \leq \sum\limits_{j=-\infty}^{\infty}|\phi_j|\sup\mathbb{E}|X_t| < \infty
+    \]
+    and hence $|\phi|(B)|X_t|$ has to be finite in probability 1.\par
+    Then we would like to show that the series converge to $\phi(B)X_t$ in $L^2$ as well, that is we may prove that by noticing
+    \[
+    \mathbb{E}\left|\sum\limits_{m < |j| \leq n} \phi_j X_{t-j}\right|^2 \leq \left(\sum\limits_{|j|\geq m} |\phi_j|\right)^2\sup_{t}\mathbb{E}|X_t|^2 \to 0
+    \]
+    and hence the series converge in $L^2$ to some limit $L$, with
+    \[
+    \mathbb{E}|L-\sum\limits_{j = -\infty}^{\infty} \phi_jX_{t-j}|^2 \leq \liminf\mathbb{E}|L - \sum\limits_{j=-n}^n \phi_j X_{t-j}|^2 = 0
+    \]
+    by Fatou's lemma and we are done.
+\end{proof}
+
+\begin{proposition}
+If $\{X_t\}$ is a stationary process with autocovariance function
+$\gamma(\cdot)$ and if $\sum_{j=-\infty}^{\infty}|\psi_j|<\infty$,
+then for each $t\in\mathbb{Z}$ the series
+\[
+\psi(B)X_t=\sum_{j=-\infty}^{\infty}\psi_jX_{t-j}
+\]
+converges absolutely with probability one and in mean square to the same
+limit. If
+\[
+Y_t=\psi(B)X_t,
+\]
+then the process $\{Y_t\}$ is stationary with autocovariance function
+\[
+\gamma_Y(h)=\sum_{j,k=-\infty}^{\infty}
+\psi_j\psi_k\gamma(h-j+k).
+\]
+\end{proposition}
+
+\begin{theorem}
+Let $\{X_t\}$ be an ARMA$(p,q)$ process for which the polynomials
+$\phi(\cdot)$ and $\theta(\cdot)$ have no common zeroes. Then $\{X_t\}$
+is causal if and only if $\phi(z)\neq0$ for all $z\in\mathbb{C}$ such that
+$|z|\leq1$. The coefficients $\{\psi_j\}$ in the causal representation
+$X_t=\sum_{j=0}^{\infty}\psi_jZ_{t-j}$ are determined by the relation
+\[
+\psi(z)=\sum_{j=0}^{\infty}\psi_jz^j
+=\frac{\theta(z)}{\phi(z)},
+\qquad |z|\leq 1.
+\]
+\end{theorem}
+\begin{proof}
+Suppose first that $\phi(z)\neq0$ for every $|z|\leq1$. Since the
+zero set of the polynomial $\phi$ is finite, there is some $R>1$ such
+that $\phi$ has no zero in $|z|<R$. Hence the rational function
+\[
+\psi(z):=\frac{\theta(z)}{\phi(z)}
+\]
+is analytic in $|z|<R$ and has a power-series expansion
+\[
+\psi(z)=\sum_{j=0}^{\infty}\psi_jz^j.
+\]
+Choose $r$ with $1<r<R$. Cauchy's estimate gives
+\[
+|\psi_j|\leq M_r r^{-j},
+\qquad
+M_r:=\max_{|z|=r}|\psi(z)|,
+\]
+so $\sum_{j=0}^{\infty}|\psi_j|<\infty$. Consequently
+\[
+Y_t:=\psi(B)Z_t=\sum_{j=0}^{\infty}\psi_jZ_{t-j}
+\]
+is well defined, and the preceding propositions show that $\{Y_t\}$ is
+stationary. Since $\phi(z)\psi(z)=\theta(z)$, absolute summability permits
+composition of the filters and gives
+\[
+\phi(B)Y_t=\theta(B)Z_t=\phi(B)X_t.
+\]
+Put $U_t=X_t-Y_t$. Then $\{U_t\}$ is stationary and
+$\phi(B)U_t=0$. The function $1/\phi(z)$ is also analytic in $|z|<R$
+and has absolutely summable Taylor coefficients. Applying the corresponding
+filter to the last equality yields
+\[
+U_t=\frac{1}{\phi}(B)\phi(B)U_t=0.
+\]
+Thus $X_t=Y_t=\sum_{j=0}^{\infty}\psi_jZ_{t-j}$, so $\{X_t\}$ is
+causal.
+
+Conversely, suppose that $\{X_t\}$ is causal, so that
+\[
+X_t=\psi(B)Z_t=\sum_{j=0}^{\infty}\psi_jZ_{t-j},
+\qquad
+\sum_{j=0}^{\infty}|\psi_j|<\infty.
+\]
+Substitution into the ARMA equation gives
+\[
+\bigl(\phi(B)\psi(B)-\theta(B)\bigr)Z_t=0.
+\]
+Write
+\[
+\phi(z)\psi(z)-\theta(z)=\sum_{j=0}^{\infty}a_jz^j.
+\]
+The sequence $\{a_j\}$ is absolutely summable. Since $\{Z_t\}$ is
+white noise with variance $\sigma^2>0$,
+\[
+0=\operatorname{Var}\left(\sum_{j=0}^{\infty}a_jZ_{t-j}\right)
+=\sigma^2\sum_{j=0}^{\infty}|a_j|^2.
+\]
+Therefore $a_j=0$ for every $j$, and hence
+\[
+\phi(z)\psi(z)=\theta(z),
+\qquad |z|\leq1.
+\]
+If $\phi(z_0)=0$ for some $|z_0|\leq1$, the absolute convergence of
+$\psi(z_0)$ would imply $\theta(z_0)=0$, contradicting the assumption that
+$\phi$ and $\theta$ have no common zeroes. Thus $\phi(z)\neq0$ throughout
+$|z|\leq1$, and the displayed identity also gives
+$\psi(z)=\theta(z)/\phi(z)$. This relation uniquely determines all of the
+coefficients $\{\psi_j\}$.
+\end{proof}
+
+\begin{definition}[Invertibility]
+An ARMA$(p,q)$ process defined by the equations
+$\phi(B)X_t=\theta(B)Z_t$ is said to be \emph{invertible} if there exists
+a sequence of constants $\{\pi_j\}_{j\geq0}$ such that
+\[
+\sum_{j=0}^{\infty}|\pi_j|<\infty
+\]
+and
+\[
+Z_t=\sum_{j=0}^{\infty}\pi_jX_{t-j},
+\qquad t=0,\pm1,\ldots.
+\]
+\end{definition}
+
+\begin{theorem}
+Let $\{X_t\}$ be an ARMA$(p,q)$ process for which the polynomials
+$\phi(\cdot)$ and $\theta(\cdot)$ have no common zeroes. Then $\{X_t\}$
+is invertible if and only if $\theta(z)\neq0$ for all $z\in\mathbb{C}$
+such that $|z|\leq1$. The coefficients $\{\pi_j\}$ in the invertible
+representation $Z_t=\sum_{j=0}^{\infty}\pi_jX_{t-j}$ are determined by
+the relation
+\[
+\pi(z)=\sum_{j=0}^{\infty}\pi_jz^j
+=\frac{\phi(z)}{\theta(z)},
+\qquad |z|\leq1.
+\]
+The coefficients $\{\pi_j\}$ can be calculated from recursion relations
+analogous to those for $\{\psi_j\}$.
+\end{theorem}
+\begin{proof}
 \end{proof}

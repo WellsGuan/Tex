@@ -1,8 +1,9 @@
 %!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
 \documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
 
 % 标题
-\title{HW1 - STAT 701}
+\title{HW2 - STAT 701}
 \author{Wells Guan}
 
 % 本文档命令
@@ -44,650 +45,545 @@
 
 % 文档区
 \begin{document}
-
-% 标题
 \maketitle
 
-\noindent Throughout, ACF denotes the autocovariance function.
-The appendix contains the Python source used to generate the figures.
+\noindent The appendix contains the Python source used for all simulations,
+estimation, diagnostics, and figures. The source files contain no inline
+comments.
 
-\subsection*{Problem 1. Ex. 1.3.} 
+\subsection*{Problem 1. Textbook exercises}
+Brockwell and Davis 3.1, 3.11, 4.8, 4.13. For 3.1, you are welcome to check for causality/invertibility with the assistance of a computer in the sense of using a computer program to compute, e.g., roots of a polynomial. You are not welcome to find some package that offers a function where you just dump in coefficients and get back the answer.
 
-Suppose that $m_t = c_0 + c_1 t + c_2 t^2 , t = 0, \pm 1, \cdots$,
-\begin{enumerate}
-    \item[(a)] Show that
-    \[
-    m_t = \sum\limits_{i=-2}^2 a_im_{t+i} = \sum\limits_{i=-3}^3 b_im_{t+i},\quad t = 0,\pm 1,\cdots
-    \]
-where $a_2 = a_{-2} = -\tfrac{3}{35}$, $a_1 = a_{-1} = \tfrac{12}{35}$, $a_0 = \tfrac{17}{35}$, and $b_3 = b_{-3} = -\tfrac{2}{21}$, $b_2 = b_{-2} = \tfrac{3}{21}$, $b_1 = b_{-1} = \tfrac{6}{21}$, $b_0 = \tfrac{7}{21}$.
-    \item[(b)] Suppose that $X_t= m_t + Z_t$, where $(Z_t)_{t\in\mathbb{Z}}$ is an independent sequence of normal random variables, each with mean $0$ and variance $\sigma^2$. Let \[U_t = \sum\limits_{i=-2}^2 a_iX_{t+i}\quad \text{ and }\quad V_t = \sum\limits_{i=-3}^3 b_iX_{t+i}\] then
-    \begin{enumerate}
-        \item[(i)] Find the means and variances of $U_t$ and $V_t$.
-        \item[(ii)] Find the correlations between $U_t$ and $U_{t+ 1}$ and between $V_t$ and $V_{t+1}$.
-        \item[(iii)] Which of the two filtered series $(U_t)_{t\in\mathbb{Z}}$ and $(V_t)_{t\in\mathbb{Z}}$ would you expect to be smoother in appearance?
-    \end{enumerate}
+\subsubsection*{Ex. 3.1}
+Determine which of the following processes are causal and/or invertible:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item $X_t+.2X_{t-1}-.48X_{t-2}=Z_t$;
+    \item $X_t+1.9X_{t-1}+.88X_{t-2}
+    =Z_t+.2Z_{t-1}+.7Z_{t-2}$;
+    \item $X_t+.6X_{t-2}=Z_t+1.2Z_{t-1}$;
+    \item $X_t+1.8X_{t-1}+.81X_{t-2}=Z_t$;
+    \item $X_t+1.6X_{t-1}=Z_t-.4Z_{t-1}+.04Z_{t-2}$.
 \end{enumerate}
-\vspace{0.5em}
-\textbf{Sol.} \par
-(a) A filter with weights $w_i$ preserves every quadratic trend if
-\[
-\sum_i w_i=1,\qquad \sum_i iw_i=0,\qquad \sum_i i^2w_i=0.
-\]
-Indeed, expand $m_{t+i}=m_t+(c_1+2c_2t)i+c_2i^2$ and sum.
-For $a_i$, the three sums are $(17+24-6)/35=1$, $0$ by symmetry,
-and $(24-24)/35=0$. For $b_i$, they are $(7+12+6-4)/21=1$,
-$0$, and $(12+24-36)/21=0$. Thus both filters reproduce $m_t$.\par
-(b)(i) Independence gives
-\[
-\mathbb E U_t=\mathbb E V_t=m_t,\qquad
-\operatorname{Var}(U_t)=\sigma^2\sum_i a_i^2=\frac{17}{35}\sigma^2,
-\qquad \operatorname{Var}(V_t)=\sigma^2\sum_i b_i^2=\frac13\sigma^2.
-\]
-(ii) Only overlapping noise terms contribute, so
-\[
-\operatorname{Cov}(U_t,U_{t+1})=\sigma^2\sum_{i=-1}^{2}a_i a_{i-1}
-=\frac{48}{175}\sigma^2,
-\quad
-\operatorname{Cov}(V_t,V_{t+1})=\sigma^2\sum_{i=-2}^{3}b_i b_{i-1}
-=\frac{12}{49}\sigma^2.
-\]
-For $\sigma^2>0$, the requested correlations are
-\[
-\operatorname{Corr}(U_t,U_{t+1})=\frac{48}{85},\qquad
-\operatorname{Corr}(V_t,V_{t+1})=\frac{36}{49}.
-\]
-(iii) $V_t$ should appear smoother: it has smaller noise variance and greater
-lag-one correlation. More directly, the variances of the noise increments are
-$74\sigma^2/175$ for $U$ and $26\sigma^2/147$ for $V$.
-Both have the same deterministic trend. If $\sigma^2=0$, both equal $m_t$.
 \par\vspace{0.5em}
-
-\subsection*{Problem 2. Ex. 1.7.} 
-
-Let $Z_t$, $t=0,\pm1,\ldots$, be independent normal random variables,
-each with mean $0$ and variance $\sigma^2$, and let $a$, $b$, and $c$
-be constants.
-
-Which, if any, of the following processes are stationary? For each
-stationary process, specify the mean and autocovariance function.
-
-\begin{enumerate}
-    \item[(a)]
+\textbf{Sol.}\par
+Write each equation as
+\[
+\phi(B)X_t=\theta(B)Z_t.
+\]
+Since the AR and MA polynomials below have no common zeroes, the process is
+causal if and only if every zero of $\phi$ lies outside the closed unit disk,
+and it is invertible if and only if every zero of $\theta$ lies outside the
+closed unit disk.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item We have
     \[
-    X_t=a+bZ_t+cZ_{t-1}.
+    \phi(z)=1+.2z-.48z^2=(1-.6z)(1+.8z),
+    \qquad \theta(z)=1.
     \]
+    The zeroes of $\phi$ are $5/3$ and $-5/4$, both of which have
+    modulus greater than $1$. Since $\theta$ has no zeroes, the process is
+    both causal and invertible.
 
-    \item[(b)]
+    \item Here
     \[
-    X_t=a+bZ_0.
+    \phi(z)=1+1.9z+.88z^2=(1+1.1z)(1+.8z),
+    \qquad \theta(z)=1+.2z+.7z^2.
     \]
+    The zeroes of $\phi$ are $-10/11$ and $-5/4$. Since
+    $|-10/11|<1$, the process is not causal. The two zeroes of $\theta$
+    are complex conjugates, and their common modulus is
+    \[
+    \sqrt{\frac{1}{.7}}=\sqrt{\frac{10}{7}}>1.
+    \]
+    Hence the process is invertible.
 
-    \item[(c)]
+    \item We have
     \[
-    X_t=Z_1\cos(ct)+Z_2\sin(ct).
+    \phi(z)=1+.6z^2,
+    \qquad \theta(z)=1+1.2z.
     \]
+    The zeroes of $\phi$ are $\pm i\sqrt{5/3}$, whose modulus is greater
+    than $1$, so the process is causal. The zero of $\theta$ is $-5/6$,
+    which lies inside the unit disk, so the process is not invertible.
 
-    \item[(d)]
+    \item Here
     \[
-    X_t=Z_0\cos(ct).
+    \phi(z)=1+1.8z+.81z^2=(1+.9z)^2,
+    \qquad \theta(z)=1.
     \]
+    The only zero of $\phi$ is $-10/9$, with multiplicity two, and it lies
+    outside the unit disk. Thus the process is both causal and invertible.
 
-    \item[(e)]
+    \item Finally,
     \[
-    X_t=Z_t\cos(ct)+Z_{t-1}\sin(ct).
+    \phi(z)=1+1.6z,
+    \qquad
+    \theta(z)=1-.4z+.04z^2=(1-.2z)^2.
     \]
-
-    \item[(f)]
-    \[
-    X_t=Z_tZ_{t-1}.
-    \]
+    The zero of $\phi$ is $-5/8$, so the process is not causal. The only
+    zero of $\theta$ is $5$, with multiplicity two, so the process is
+    invertible.
 \end{enumerate}
-\vspace{0.5em}
-\textbf{Sol.} \par
-All variables have finite second moments. Write $\delta_r(h)=\mathbf1_{\{h=r\}}$.
-Assume $\sigma^2>0$; if $\sigma^2=0$, all six processes are deterministic constants
-and hence stationary.\par
-(a) The mean is $a$, and independence gives
+\vspace{1em}
+
+\subsubsection*{Ex. 3.11}
+Let $\{X_t\}$ be an ARMA process with $\phi(z)\neq 0$ for $|z|=1$
+and autocovariance function $\gamma(\cdot)$. Show that there exist constants
+$C>0$ and $s\in(0,1)$ such that
 \[
-\gamma_X(h)=\sigma^2\bigl[(b^2+c^2)\delta_0(h)
-+bc\{\delta_1(h)+\delta_{-1}(h)\}\bigr].
+|\gamma(h)|\leq Cs^{|h|},\qquad h=0,\pm1,\ldots,
 \]
-Thus the process is stationary.\par
-(b) The mean is $a$ and $\gamma_X(h)=b^2\sigma^2$ for every $h$.
-The process is stationary, although it is constant across time within each realization.\par
-(c) The mean is zero and
+and hence that
 \[
-\gamma_X(t,t+h)=\sigma^2\{\cos(ct)\cos(c(t+h))+
-\sin(ct)\sin(c(t+h))\}=\sigma^2\cos(ch).
+\sum_{h=-\infty}^{\infty}|\gamma(h)|<\infty.
 \]
-Thus the process is stationary.\par
-(d) The mean is zero, but $\operatorname{Var}(X_t)=\sigma^2\cos^2(ct)$.
-Since $t$ is integer-valued, the process is stationary precisely when
-$c\in\pi\mathbb Z$. For $c=m\pi$, its autocovariance is
-$\gamma_X(h)=\sigma^2(-1)^{mh}$. Otherwise the variances at $t=0,1$ differ.\par
-(e) The mean is zero and the variance is $\sigma^2$, but
-\[
-\operatorname{Cov}(X_t,X_{t+1})=\sigma^2\sin(ct)\cos(c(t+1)).
-\]
-This is zero at $t=0$ and $-\sigma^2\sin c$ at $t=-1$.
-Consequently stationarity requires $c\in\pi\mathbb Z$. This condition is also
-sufficient: for $c=m\pi$, $X_t=(-1)^{mt}Z_t$, with
-$\gamma_X(h)=\sigma^2\delta_0(h)$.\par
-(f) Independence gives $\mathbb E X_t=0$ and
-$\operatorname{Var}(X_t)=\mathbb E Z_t^2\mathbb E Z_{t-1}^2=\sigma^4$.
-For $|h|=1$, a noise factor appears only once and has mean zero; for
-$|h|\ge2$, the products use disjoint independent variables. Hence
-\[
-\gamma_X(h)=\sigma^4\delta_0(h),
-\]
-and the process is stationary. Its adjacent observations need not be independent.
 \par\vspace{0.5em}
-
-\subsection*{Problem 3. Ex. 1.13.} 
-
-Let $\{S_t:t=0,1,2,\ldots\}$ be the random walk with constant drift
-$\mu$, defined by
+\textbf{Sol.}\par
+Let $\sigma^2$ be the white-noise variance. On the unit circle, the spectral
+density of $\{X_t\}$ is
 \[
-S_0=0,\quad\text{ and }\quad
-S_t=\mu+S_{t-1}+X_t,
+f(\lambda)=\frac{\sigma^2}{2\pi}
+\frac{\theta(e^{-i\lambda})\theta(e^{i\lambda})}
+     {\phi(e^{-i\lambda})\phi(e^{i\lambda})}.
+\]
+Consider the rational function
+\[
+F(z)=\sigma^2
+\frac{\theta(z)\theta(z^{-1})}
+     {\phi(z)\phi(z^{-1})}.
+\]
+Because $\phi$ has only finitely many zeroes and none lies on the unit
+circle, there are numbers $r<1<R$ such that $F$ is analytic on the annulus
+\[
+r<|z|<R.
+\]
+Hence $F$ has a Laurent expansion there,
+\[
+F(z)=\sum_{h=-\infty}^{\infty}a_hz^h.
+\]
+The Fourier inversion formula on $|z|=1$ shows that, up to reversing the
+index according to the Fourier convention, these Laurent coefficients are
+the autocovariances. Since $\gamma(-h)=\gamma(h)$, we may write
+$|a_h|=|\gamma(h)|$.
+
+Choose $r<r_0<1<R_0<R$, and set
+\[
+M_+=\max_{|z|=R_0}|F(z)|,
 \qquad
-t=1,2,\ldots,
+M_- =\max_{|z|=r_0}|F(z)|.
 \]
-where $X_1,X_2,\ldots$ are i.i.d.
-random variables with mean $0$ and variance $\sigma^2$. Compute the mean of $S_t$ and the autocovariance function of the
-process $\{S_t\}$. Show that $\{\nabla S_t\}$ is stationary and
-compute its mean and autocovariance function.\par
-\vspace{0.5em}
-\textbf{Sol.} \par
-Notice
+The Cauchy estimates for Laurent coefficients give, for $h\geq 0$,
 \[
-\mathbb{E}S_t = \mu + \mathbb{E}S_{t-1},\quad S_0 = 0
+|a_h|\leq M_+R_0^{-h},
+\qquad
+|a_{-h}|\leq M_-r_0^h.
 \]
-and hence $\mathbb{E}S_t = t\mu$ for $t\in\mathbb{N}$. We know
-\[S_t = t\mu + \sum\limits_{i=1}^t X_i\]
-as well, then we know
+Let
 \[
-\gamma_S(t,s) = \mathbb{E}\left(\sum\limits_{i=1}^t X_i\right)\left(\sum\limits_{i=1}^{s} X_i\right) = (t\wedge s)\sigma^2. 
+s=\max\{R_0^{-1},r_0\}<1,
+\qquad
+C=\max\{M_+,M_-\}.
 \]
-We know
-\[\nabla S_t = S_t - S_{t-1} = \mu +X_t =: Y_t, \quad \mathbb{E}Y_t = \mu\]
-and it is easy to check $Y_t \in L^2$ and notice
+It follows that
 \[
-\gamma_Y(t,t+h) = \sigma^2\delta_{0}(h)
+|\gamma(h)|\leq Cs^{|h|},
+\qquad h\in\mathbb Z.
 \]
-which is constant about $t$ and hence $Y_t$ is a stationary process, with the autocovariance function above.
-\par 
-\vspace{0.5em}
+Finally,
+\[
+\sum_{h=-\infty}^{\infty}|\gamma(h)|
+\leq C\sum_{h=-\infty}^{\infty}s^{|h|}
+=C\left(1+2\sum_{h=1}^{\infty}s^h\right)
+=C\frac{1+s}{1-s}<\infty.
+\]
+\vspace{1em}
 
-\subsection*{Problem 4. Ex. 1.17.} 
-
-If
+\subsubsection*{Ex. 4.8}
+Let $\{X_t\}$ and $\{Y_t\}$ be stationary zero-mean processes with spectral
+densities $f_X$ and $f_Y$. If
 \[
-\mathbf{X}=(X_1,\ldots,X_n)^\prime
+f_X(\lambda)\leq f_Y(\lambda)
+\qquad\text{for all }\lambda\in[-\pi,\pi],
 \]
-is a random vector with covariance matrix $\boldsymbol{\Sigma}$,
-show that $\boldsymbol{\Sigma}$ is singular if and only if there
-exists a nonzero vector
-\[
-\mathbf{b}=(b_1,\ldots,b_n)^\prime\in\mathbb{R}^n
-\]
-such that
-\[
-\operatorname{Var}\bigl(\mathbf{b}^\prime\mathbf{X}\bigr)=0.
-\]
-\vspace{0.5em}
-\textbf{Sol.} \par
-For every vector $b$, $\operatorname{Var}(b^T X)=b^T\Sigma b$.
-If $\Sigma$ is singular, choose $b\ne0$ in its kernel, giving zero variance.
-Conversely, write $\Sigma=Q\Lambda Q^T$, where $Q$ is orthogonal and
-$\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_n)$ with $\lambda_i\ge0$.
-If $b\ne0$ and $b^T\Sigma b=0$, then
-\[
-0=\sum_{i=1}^n\lambda_i (Q^Tb)_i^2.
-\]
-At least one component of $Q^Tb$ is nonzero, and its corresponding eigenvalue
-must be zero. Therefore $\Sigma$ is singular.
+show that
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item $\Gamma_{n,Y}-\Gamma_{n,X}$ is a non-negative definite matrix,
+    where $\Gamma_{n,Y}$ and $\Gamma_{n,X}$ are the covariance matrices of
+    $\mathbf Y=(Y_1,\ldots,Y_n)'$ and
+    $\mathbf X=(X_1,\ldots,X_n)'$, respectively; and
+    \item $\operatorname{Var}(\mathbf b'\mathbf X)
+    \leq\operatorname{Var}(\mathbf b'\mathbf Y)$ for all
+    $\mathbf b=(b_1,\ldots,b_n)'\in\mathbb R^n$.
+\end{enumerate}
 \par\vspace{0.5em}
+\textbf{Sol.}\par
+For any $\mathbf b=(b_1,\ldots,b_n)'\in\mathbb R^n$, stationarity and the
+spectral representation of the autocovariance function give
+\begin{align*}
+\mathbf b'\Gamma_{n,X}\mathbf b
+&=\sum_{j=1}^n\sum_{k=1}^n b_jb_k\gamma_X(j-k)\\
+&=\int_{-\pi}^{\pi}
+  \left|\sum_{j=1}^n b_je^{ij\lambda}\right|^2
+  f_X(\lambda)\,d\lambda.
+\end{align*}
+The same identity holds for $Y$. Therefore
+\begin{align*}
+\mathbf b'(\Gamma_{n,Y}-\Gamma_{n,X})\mathbf b
+&=\int_{-\pi}^{\pi}
+  \left|\sum_{j=1}^n b_je^{ij\lambda}\right|^2
+  \bigl(f_Y(\lambda)-f_X(\lambda)\bigr)\,d\lambda\\
+&\geq 0,
+\end{align*}
+because both factors in the integrand are non-negative. This holds for every
+$\mathbf b\in\mathbb R^n$, so
+$\Gamma_{n,Y}-\Gamma_{n,X}$ is non-negative definite, proving (a).
 
-\subsection*{Problem 5. Sample Autocovariances} 
+Since the processes have mean zero,
+\[
+\operatorname{Var}(\mathbf b'\mathbf X)
+=\mathbf b'\Gamma_{n,X}\mathbf b,
+\qquad
+\operatorname{Var}(\mathbf b'\mathbf Y)
+=\mathbf b'\Gamma_{n,Y}\mathbf b.
+\]
+The inequality just established thus immediately yields
+\[
+\operatorname{Var}(\mathbf b'\mathbf X)
+\leq \operatorname{Var}(\mathbf b'\mathbf Y),
+\]
+which proves (b).
+\vspace{1em}
 
-Say I give you a time series $(X_1,\ldots,X_n)$ that you know is
-stationary. Prove that the sample autocovariance function
+\subsubsection*{Ex. 4.13}
+If $\{X_t\}$ and $\{Y_t\}$ are stationary processes satisfying
 \[
-\widehat{\gamma}(h)
-=n^{-1}\sum_{t=1}^{n-|h|}
-  (X_{t+|h|}-\overline{X})(X_t-\overline{X})
-\]
-for $|h|<n$ gives a positive semi-definite sample autocovariance
-matrix
-\[
-\widehat{\Sigma}_{j,k}=\widehat{\gamma}(|j-k|).
-\]
-\vspace{0.5em}
-\textbf{Sol.} \par
-Notice that define
-\[
-Y_t = \begin{cases}
-    X_t - \overline{X},\quad &1\leq t \leq n \\
-    0,\quad&\text{else}
-\end{cases}
-\]
-and then
-\[
-n\widehat{\gamma}(|j-k|) = \sum\limits_{t\in\mathbb{Z}} Y_{t+j}Y_{t+k}.
-\]
-For $\mathbf{a} = (a_1,\cdots,a_n)^T \in \R^n$, we know
-\[
-    \mathbf{a}^T \widehat{\Sigma} \mathbf{a} = \mathbf{a}^T\left(\sum\limits_{j=1}^n a_j\widehat{\gamma}(|j-i|)\right)_{i=1}^n = \sum\limits_{i=1}^n\sum\limits_{j=1}^n a_i\widehat{\gamma}(|i-j|)a_j,
+X_t-\alpha X_{t-1}=W_t,
+\qquad \{W_t\}\sim\operatorname{WN}(0,\sigma^2),
 \]
 and
 \[
-\begin{aligned}
-    n\sum\limits_{i=1}^n\sum\limits_{j=1}^n a_i\widehat{\gamma}(|i-j|)a_j &= \sum\limits_{i=1}^n\sum\limits_{j=1}^n\sum\limits_{t\in\Z} a_ia_jY_{t+i}Y_{t+j} \\
-    &= \sum\limits_{t\in\Z}\left(\sum\limits_{i=1}^n a_i Y_{t+i}\right)^2 \geq 0
-\end{aligned}
+Y_t-\alpha Y_{t-1}=X_t+Z_t,
+\qquad \{Z_t\}\sim\operatorname{WN}(0,\sigma^2),
 \]
-and hence
-$\mathbf{a}^T \widehat{\Sigma} \mathbf{a} \geq 0$.
-\par 
-\vspace{0.5em}
-
-\subsection*{Problem 6. Causality} 
-
-Consider the AR(1) process
+where $|\alpha|<1$ and $\{W_t\}$ and $\{Z_t\}$ are uncorrelated, find the
+spectral density of $\{Y_t\}$.
+\par\vspace{0.5em}
+\textbf{Sol.}\par
+Using the backshift operator $B$, the first equation gives
 \[
-X_t=2X_{t-1}+Z_t,
+X_t=\frac{1}{1-\alpha B}W_t.
 \]
-where $Z_t$ is some white noise with variance $\sigma^2$. Define
+Substituting this into the second equation yields
+\begin{align*}
+Y_t
+&=\frac{1}{1-\alpha B}(X_t+Z_t)\\
+&=\frac{1}{(1-\alpha B)^2}W_t
+  +\frac{1}{1-\alpha B}Z_t.
+\end{align*}
+Because $|\alpha|<1$, both filters are stable. Moreover, $\{W_t\}$ and
+$\{Z_t\}$ are uncorrelated, so the two filtered processes above have zero
+cross-spectrum. Their spectral densities therefore add, giving
+\begin{align*}
+f_Y(\lambda)
+&=\frac{\sigma^2}{2\pi}
+  \left(
+  \frac{1}{|1-\alpha e^{-i\lambda}|^4}
+  +\frac{1}{|1-\alpha e^{-i\lambda}|^2}
+  \right)\\
+&=\frac{\sigma^2}{2\pi}
+  \frac{2+\alpha^2-2\alpha\cos\lambda}
+       {(1+\alpha^2-2\alpha\cos\lambda)^2},
+\qquad -\pi\leq\lambda\leq\pi,
+\end{align*}
+where we used
 \[
-Z_t^*
-=\frac{1}{4}Z_t
--\frac{3}{4}\sum_{j=1}^{\infty}2^{-j}Z_{t+j}.
+|1-\alpha e^{-i\lambda}|^2
+=1+\alpha^2-2\alpha\cos\lambda.
 \]
-\begin{enumerate}[label=\arabic*.]
-    \item
-    Prove that $Z_t^*$ is a white noise. What is its variance?
+\vspace{1em}
 
-    \item
-    Prove that
-    \[
-    X_t=\frac{1}{2}X_{t-1}+Z_t^*.
-    \]
-\end{enumerate}
-\vspace{0.5em}
-\textbf{Sol.} \par
-1. It is easy to check that $\mathbb{E}Z_t^* = 0$ and
+\newpage
+\subsection*{Problem 2.}
+An ARIMA$(p,d,q)$ (where the I is for \textit{integrated}) process is a time series $\{X_t\}$ where $(I-B)^dX_t$ is an ARMA$(p,q)$ process. A SARIMA$(s,p,d,q)$, where the S is for \textit{seasonal}, process is a time series where $(I-B^s)X_t$ is an ARIMA$(p,d,q)$ process. Let's explore simulating and fitting these extensions to data. For this question, you are welcome to find a package that fits (S)AR(I)MA models, but find one that lets you specify the degrees $s,p,d,q$ manually! We'll talk about estimation in detail later in the semester, but I don't want to wait too long before asking you to start connecting the math to data.
+
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item Write a function in whatever programming language you like to simulate an ARMA$(p,q)$ process in the state-space formulation. Importantly, please design this program to accept custom white noise generators. For a Gaussian white noise, generate a length $n=1{,}000$ ARMA$(p,q)$ process with, say, $p,q>3$ and put it into the estimation function that you find to check your work.
+\par\vspace{0.5em}\textbf{Sol.}\par
+I used the convention
 \[
-\begin{aligned}
-    \gamma_{Z^*}(t,t+h) &= \mathbb{E}\left(\frac{1}{4}Z_t
--\frac{3}{4}\sum_{j=1}^{\infty}2^{-j}Z_{t+j}\right) \left(\frac{1}{4}Z_{t+h}
--\frac{3}{4}\sum_{j=1}^{\infty}2^{-j}Z_{t+h+j}\right) \\
-&=\begin{cases}
-    \sigma^2\left(\dfrac{1}{16} + \dfrac{9}{16}\sum\limits_{j=1}^{\infty} 2^{-2j}\right), \quad h = 0 \\
-    \sigma^2\left(-3\cdot 2^{-|h|}/16 + \dfrac{9}{16} \sum\limits_{j=1}^{\infty}2^{-2j}2^{-|h|}\right),\quad\text{else}
-\end{cases} \\
-&=\begin{cases}
-    \dfrac{\sigma^2}{4},\quad h=0 \\
-    0,\quad\text{else}
-\end{cases}.
-\end{aligned}
+X_t=\sum_{j=1}^p\phi_jX_{t-j}+Z_t+
+\sum_{j=1}^q\theta_jZ_{t-j}.
 \]
-Therefore, $Z_t^*$ is a white noise with variance $\sigma^2/4$.\par
-2. We use the stationary finite-variance solution of this AR equation.
-The infinite sums converge in $L^2$ because the coefficients are absolutely
-summable and the second moments are bounded. Since $Z_t=X_t-2X_{t-1}$, we know
+If
 \[
-\begin{aligned}
-    Z_t^* &= \dfrac{1}{4}(X_t- 2 X_{t-1}) - \dfrac{3}{4}\sum\limits_{j=1}^{\infty}2^{-j}(X_{t+j}- 2 X_{t+j-1}) \\
-    &= \dfrac{1}{4}(X_t- 2 X_{t-1}) - \dfrac{3}{4}\left(\sum\limits_{j=1}^{\infty}2^{-j} X_{t+j} - \sum\limits_{j=0}^{\infty}2^{-j} X_{t+j}\right) \\
-    & = X_t - \dfrac{1}{2}X_{t-1},
-\end{aligned}
+\mathbf s_t=(X_t,\ldots,X_{t-p+1},Z_t,\ldots,Z_{t-q+1})',
 \]
-For a truncation at $j=M$, the expression equals
-$X_t-\tfrac12X_{t-1}-\tfrac34 2^{-M}X_{t+M}$.
-The last term converges to zero in $L^2$ for the stationary solution.
-Without a bounded-second-moment or stationarity assumption, an additional
-homogeneous solution $C2^t$ is possible and the claimed representation need not hold.
-\par 
-\vspace{0.5em}
-
-\subsection*{Problem 7. Data exploration}
-
-Please download and take a look at the CET time series from Canvas.
-
-\begin{enumerate}[label=\arabic*., leftmargin=*]
-
-    \item
-    Plot the data in some coherent way. This includes using proper
-    timestamps and labeling the axes with the appropriate units. Does the data look like a stationary process? Why or why not? Perform some exploratory analysis to support your conclusion.
-
-    \item
-    Select a segment containing
-    \[
-        n=365
-    \]
-    contiguous observations, with no gaps or missing values.
-
-    Estimate the sample autocovariance function (ACF) for increasingly
-    large lags \(k\), and plot the results. Discuss what happens as
-    \(k\) increases and explain what you think is causing this behavior.
-
-    \item
-    Design a linear mean function for the data using a constant and a first-degree term.
-    For example, construct the design matrix using the following
-    pseudocode:
-
-\begin{lstlisting}
-t = 1:365
-X = [tj^k for tj in t, k in 0:1]
-\end{lstlisting}
-
-    Fit the linear model
-    \[
-        \mathbf{y}
-        =
-        \mathbf{X}\boldsymbol{\beta}
-        +
-        \boldsymbol{\varepsilon}
-    \]
-    using this design matrix.
-
-    Plot the residuals
-    \[
-        \widehat{\boldsymbol{\varepsilon}}
-        =
-        \mathbf{y}
-        -
-        \mathbf{X}\widehat{\boldsymbol{\beta}}.
-    \]
-
-    Comment on what you observe. Do the residuals look like a stationary
-    process? If not, describe the structures that suggest
-    nonstationarity. Repeat the previous exploratory analyses to support
-    your conclusion.
-
-    \item[\textbf{4\(^{\ast}\).}]
-    Expand the analysis to
-    \[
-        n=3\cdot365
-    \]
-    observations.
-
-    Construct a new design matrix \(\mathbf{X}\) containing:
-
-    \begin{itemize}
-        \item a constant term;
-        \item a linear trend;
-        \item the seasonal component
-        \[
-            \cos\left(\frac{2\pi t}{365}\right);
-        \]
-        \item the seasonal component
-        \[
-            \sin\left(\frac{2\pi t}{365}\right).
-        \]
-    \end{itemize}
-
-    Fit the least-squares mean function again and examine the residuals.
-
-    Normally, fitting a trigonometric function requires estimating both
-    its frequency and its phase, which appears to be a nonlinear
-    problem. Explain why the sine-and-cosine design-matrix approach
-    correctly accounts for the phase using an ordinary linear
-    least-squares model.
-
-\end{enumerate}
-\vspace{0.5em}
-\textbf{Sol.} \par
-1. \begin{figure}[htbp]
-    \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.9\linewidth]{cet_temp.png}
-\end{figure}\par
-The raw series does not appear stationary. The displayed summaries use
-365-day trailing windows, not monthly averages. They show changes in the long-run
-mean, particularly toward the end of the record. Separately, grouping daily
-observations by calendar month gives mean temperatures of about $3.48^\circ$C
-in January and $16.06^\circ$C in July. Seasonal means and long-run changes are
-inconsistent with a constant unconditional mean. Variation in rolling standard
-deviations alone is not conclusive evidence of nonstationarity.\par
-2. \begin{figure}[htbp]
-    \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.8\linewidth]{Lags.png}
-\end{figure}\par
-Throughout this assignment, ACF denotes the autocovariance function. We use
+then this recursion has the state-space form
 \[
-\widehat\gamma(k)=\frac{1}{n}\sum_{t=1}^{n-k}(x_{t+k}-\bar x)(x_t-\bar x),
-\qquad 0\le k<n,
+\mathbf s_t=A\mathbf s_{t-1}+\mathbf gZ_t,
 \]
-without dividing by $\widehat\gamma(0)$. For these 365 daily observations,
-$\widehat\gamma(0)\approx35.47\,{}^\circ\mathrm{C}^2$. The sample autocovariance
-crosses zero near lag 90 and reaches a minimum of approximately
-$-17.19\,{}^\circ\mathrm{C}^2$ at lag 159, before rising again. This pattern is
-consistent with an annual seasonal cycle: nearby observations tend to have
-similar deviations from the mean, whereas observations roughly half a year
-apart often have deviations of opposite signs. At lag $k$, only $n-k$ pairs
-contribute, so large-lag estimates require caution. \par
-3. \begin{figure}[htbp]
-    \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.8\linewidth]{Residues.png}
-\end{figure}\par
-The first 365 observations are consecutive daily values starting on
-1772-01-01, with no missing values. Using the first-degree specification,
-$\widehat m_t=5.1995+0.021813t$. The residuals retain a seasonal shape: negative
-near the beginning and end, and positive around the middle. Their 30-day rolling
-means range from about $-7.98$ to $8.05^\circ$C. The residual sample
-autocovariances at lags $0,1,30,90$ are approximately $30.18,27.02,16.23,-3.04$
-in squared degrees Celsius. These broad changes suggest that a straight line
-has not removed the seasonal mean. Autocovariance at nonzero lags alone does
-not imply nonstationarity, and the residual mean is zero by the OLS normal equations.
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.8\linewidth]{png/Residual_ACov.png}
-\end{figure}\par
+where the first row of $A$ is
+$(\phi_1,\ldots,\phi_p,\theta_1,\ldots,\theta_q)$, the remaining rows shift
+the stored observations and innovations by one coordinate, and $\mathbf g$
+has ones in coordinates $1$ and $p+1$ and zeroes elsewhere. The function in
+the appendix implements this update and receives the innovation generator as
+an argument.
 
-4. \begin{figure}[htbp]
-    \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.8\linewidth]{Tri_Residues.png}
-\end{figure}\par
-For the first 1095 observations, the fitted mean is
+I simulated an ARMA$(4,4)$ process with
 \[
-\widehat m_t=9.2522-0.000116t-6.4981\cos(2\pi t/365)-2.8396\sin(2\pi t/365).
+\boldsymbol\phi=(.8,-.3,.1,-.05),
+\qquad
+\boldsymbol\theta=(-.6,.2,.1,.05),
+\qquad Z_t\sim N(0,1),
 \]
-The residual 30-day rolling mean ranges from about $-2.48$ to $2.54^\circ$C,
-and the rolling sample standard deviation ranges from $1.34$ to $4.26^\circ$C.
-The sample autocovariances at lags $0,1,30,90$ are approximately
-$7.33,4.73,0.15,-0.14$ in squared degrees Celsius. The seasonal mean structure
-is substantially reduced, while short-term dependence remains. These plots
-are compatible with a closer approximation to stationarity, but do not establish
-it; the 30-day variability estimates also fluctuate. The sample length differs
-from part 3, so the numerical differences cannot all be attributed to the model.
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.8\linewidth]{png/Seasonal_ACov.png}
-\end{figure}
-For fixed $\omega=2\pi/365$, any phase can be represented through
+discarding a burn-in of $1{,}000$ observations. I then fitted an
+ARMA$(4,4)$ model with the standard Gaussian maximum-likelihood routine in
+\texttt{statsmodels}. The estimates were
 \[
-a\cos(\omega t)+b\sin(\omega t)=R\cos(\omega t-\phi),\quad
-R=\sqrt{a^2+b^2},\quad \phi=\operatorname{atan2}(b,a).
+\widehat{\boldsymbol\phi}=(.7469,-.0024,.0185,-.1247),
+\qquad
+\widehat{\boldsymbol\theta}=(-.5926,-.0418,.1559,.0776),
 \]
-Thus $a,b$ are estimated by ordinary linear least squares. Only the frequency
-is fixed in advance; if it were unknown, estimating it would generally require
-a nonlinear search. When $R=0$, the phase is immaterial.
-\par 
-\vspace{0.5em}
+with $\widehat\sigma^2=1.0179$. The leading AR and MA effects and the
+innovation variance are recovered well. Individual higher-order
+coefficients are less precisely identified from only $1{,}000$ observations,
+which is common for a deliberately high-order ARMA model.
 
-\subsection*{Problem 8. Trigonometric expansions}
-
-\begin{enumerate}[label=\alph*.]
-    \item
-    Let $Z_1$ and $Z_2$ be i.i.d. $\mathcal{N}(0,1)$ variables, and
-    let $\omega\in[-\pi,\pi)$ be a constant. Define the process
-    \[
-    Y_t=Z_1\cos(\omega t)+Z_2\sin(\omega t).
-    \]
-    Calculate its ACF. Is it stationary? Is it strictly stationary?
-
-    \item
-    Pick $n$ to be your favorite even integer, say $512$ (although
-    $1024$ is also a very good even integer). Set
-    \[
-    \omega_j=\frac{2\pi j}{n},
-    \qquad j=0,1,\ldots,n/2,
-    \]
-    and simulate $(n/2+1)$ time series of length $n$ given by
-    \begin{align*}
-    X_{0t}
-      &=Z_0,
-      & Z_0&\sim\mathcal{N}(0,1),\\
-    X_{jt}
-      &=Z_{j1}\cos(\omega_jt)+Z_{j2}\sin(\omega_jt),
-      & Z_{j1},Z_{j2}&\sim\mathcal{N}(0,2),
-      \quad 1\le j<n/2,\\
-    X_{n/2,t}
-      &=Z_{n/2}(-1)^t,
-      & Z_{n/2}&\sim\mathcal{N}(0,1).
-    \end{align*}
-    Now define a new process by
-    \[
-    X_t=n^{-1/2}\sum_{j=0}^{n/2}X_{jt}.
-    \]
-
-    \begin{enumerate}[label=\arabic*.]
-        \item
-        Plot your data side-by-side with a white noise series of $n$
-        i.i.d. $\mathcal{N}(0,1)$ variables. What do you see?
-
-        \item
-        Derive the ACF for $X_t$.
-
-        \item
-        Play around with generalizing to
-        \[
-        \operatorname{Var}(Z_{j1})
-        =\operatorname{Var}(Z_{j2})
-        =\sigma_j^2,
-        \qquad j\ge1,
-        \]
-        but otherwise not changing your code. Re-run everything and
-        look at the resulting plot of your simulated process. Can you
-        describe the effect of different choices for
-        $\{\sigma_j^2\}$, for example, how things look if
-        $\sigma_j^2$ increases or decreases with $j$?
-    \end{enumerate}
-\end{enumerate}
-\vspace{0.5em}
-\textbf{Sol.} \par
-a. We know
-\[
-\begin{aligned}
-    \gamma_Y(t,t+h) &= \mathbb{E}(Z_1\cos(\omega t) +Z_2 \sin(\omega t))(Z_1\cos(\omega(t+h)) +Z_2 \sin(\omega(t+h))) \\ &= \cos(\omega t)\cos(\omega(t+h)) + \sin(\omega t)\sin(\omega(t+h)) \\
-    &=\cos(\omega h),
-\end{aligned} 
-\]
-which is constant about $t$ and hence $Y_t$ is a stationary process, with autocovariance function
-\[
-\gamma_Y(h) = \cos(\omega h).
-\]
-For $\mathbf{t} : =(t_1,\cdots,t_k) \in \Z^k$, we know
-\[
-\mathbf{Y}_{\mathbf{t}} :=(Y_{t_1},\cdots,Y_{t_k})^T = \begin{bmatrix}
-    \cos(\omega t_1) & \sin(\omega t_1) \\
-    \vdots & \vdots \\
-    \cos(\omega t_k) & \sin(\omega t_k)
-\end{bmatrix}\begin{bmatrix}
-    Z_1 \\
-    Z_2
-\end{bmatrix}
-\]
-and hence $\mathbf{Y}_{\mathbf{t}}$ is a normal random vector with covariance matrix
-\[
-\begin{bmatrix}
-    \cos(\omega t_1) & \sin(\omega t_1) \\
-    \vdots & \vdots \\
-    \cos(\omega t_k) & \sin(\omega t_k)
-\end{bmatrix}\begin{bmatrix}
-    \cos(\omega t_1) & \sin(\omega t_1) \\
-    \vdots & \vdots \\
-    \cos(\omega t_k) & \sin(\omega t_k)
-\end{bmatrix}^T = [\cos (\omega(t_i-t_j))]_{i,j = 1} ^k
-\]
-and hence
-\[\mathbf{Y}_{\mathbf{t}} \overset{d}{=} \mathbf{Y}_{\mathbf{t}+h} \]
-where $\mathbf{t}+h:=(t_1+h,\cdots,t_k+h)$ for any $h\in\Z$ because they are Gaussian vectors with the same zero mean and covariance matrix. Therefore, $Y_t$ is strictly stationary as well.\par
-b. 1. We compare the simulated series with an independently generated
-$N(0,1)$ white-noise sample. Both show irregular zero-centered fluctuations of
-similar size, with sample autocovariances near zero away from lag zero.
-For $n$ consecutive observations the simulated Gaussian vector has covariance
-$I_n$, so it has exactly the same distribution as $n$ independent standard normals.
-The infinite extension is periodic, $X_{t+n}=X_t$, and is not white noise at all lags.
 \begin{figure}[htbp]
     \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.8\linewidth]{HW1_5_default.png}
+    \graphicspath{{png/}{STATS_Minor/701/HW2/png/}}
+    \includegraphics[width=0.95\linewidth]{problem2_arma_fits.png}
+    \caption{Gaussian and heavy-tailed ARMA simulations and fitted coefficients.}
 \end{figure}
-\par
-2. We may write $X_t$ explicitly as
-\[
-X_t = \dfrac{1}{\sqrt{n}}\left(Z_0 + \sum\limits_{j=1}^{n/2-1}(Z_{j1}\cos(\omega_jt)+Z_{j2}\sin(\omega_jt)) + Z_{n/2}(-1)^t\right)
-\]
-and then
-\[
-\begin{aligned}
-\gamma_X(t,t+h)
-&=\frac{1}{n}\left[1+(-1)^h+2\sum_{j=1}^{n/2-1}\cos\left(\frac{2\pi jh}{n}\right)\right]\\
-&=\begin{cases}
-1,&h\in n\mathbb{Z},\\
-0,&h\notin n\mathbb{Z}.
-\end{cases}
-\end{aligned}
-\]
-\par
-3. For $j=1,\ldots,255$, define $u_j=(j-1)/254$. We compare
-\[
-    \sigma_j=0.1+4.9u_j
-    \quad\text{and}\quad
-    \sigma_j=0.1+\frac{4.9}{2}\bigl(1-\cos(6\pi u_j)\bigr).
-\]
-In both cases, $\operatorname{Var}(Z_{j1})=\operatorname{Var}(Z_{j2})=\sigma_j^2$;
-the endpoint coefficients retain variance 1. The first choice increases linearly
-with frequency, whereas the second oscillates across frequency bands.
-Increasing $\sigma_j$ emphasizes rapid oscillations and tends to produce
-negative short-lag covariance; decreasing weights would emphasize low frequencies
-and smoother variation. Oscillating weights emphasize selected frequency bands,
-creating a different lag-dependence pattern. The index $j$ is frequency, not time:
-these weights do not make the variance increase with $t$. In fact,
-\[
-\gamma_X(h)=\frac1n\left[1+(-1)^h+
-\sum_{j=1}^{n/2-1}\sigma_j^2\cos(2\pi jh/n)\right],
-\]
-Both constructions are stationary Gaussian processes. Their covariance is
-generally nonzero at some nonzero lags.
-\begin{figure}[htbp]
-    \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.8\linewidth]{HW1_5_sigma_linear.png}
-\end{figure}
-\begin{figure}[htbp]
-    \centering
-    \graphicspath{{png/}{STATS_Minor/701/HW1/png/}}
-    \includegraphics[width=0.8\linewidth]{HW1_5_sigma_oscillating.png}
-\end{figure}\par
+\vspace{1em}
 
-\vspace{0.5em}
+\item Now, using the same coefficients, generate a similar length dataset but with $Z_t\sim t_{2.1}$ (the t-distribution with $\nu=2.1$ degrees of freedom). Run it through your estimation function again and comment on your results. How would you summarize the effect of very heavy tailed noise on generic estimation packages?
+\par\vspace{0.5em}\textbf{Sol.}\par
+Using the same state transition and replacing only the innovation generator by
+$t_{2.1}$ gave
+\[
+\widehat{\boldsymbol\phi}=(.2967,.0987,-.1233,.0692),
+\qquad
+\widehat{\boldsymbol\theta}=(-.0880,-.0963,.2682,.0805),
+\]
+and $\widehat\sigma^2=104.2024$. For comparison, a $t_{2.1}$ variable has
+variance $2.1/(2.1-2)=21$, but its fourth moment is infinite. Thus even a
+sample of length $1{,}000$ can contain a few observations that dominate the
+Gaussian likelihood and make the sample variance far larger than its
+population value. Figure 1 shows the resulting isolated spikes and the
+substantial coefficient distortion. Generic Gaussian ARMA estimators can
+therefore be highly unstable under very heavy tails: the estimated innovation
+variance is especially sensitive, standard errors based on Gaussian moments
+are unreliable, and the dynamic coefficients may shift to accommodate a few
+extreme observations. Robust likelihoods or estimators designed for heavy
+tails are preferable in this setting.
+\vspace{1em}
+
+\item Download \texttt{nao.csv}, the North Atlantic Oscillation time series from Canvas (and note there is a missing value, which you'll have to decide how to address). Using empirical ACFs and pACFs like I quickly demonstrated in class (both on your data and on differenced data and so on), do some exploratory analysis and propose and fit a SARIMA$(s,p,d,q)$ model. Please report your final model and provide justification for your choices. As a final validation, please simulate from your model and repeat the diagnostics on your simulated data. Discuss your results. In particular, try to propose the most important feature of this data that your SARIMA model is not capturing.
+\par\vspace{0.5em}\textbf{Sol.}\par
+The supplied file contains $17{,}410$ daily observations from 1979 through
+August 2026. Although the filename is \texttt{nao.csv}, its value column is
+labelled \texttt{aao\_index\_cdas}; all calculations below use the supplied
+column as given. The only missing observation is April 30, 2003. I replaced it
+by linear interpolation between the adjacent days.
+
+The raw ACF is .9512 at lag 1, .8488 at lag 2, .4837 at lag 7, and .1132 at
+lag 30. It is only $-.0289$ at lag 365, so the annual component is much weaker
+than the short-range persistence. Nevertheless, because the observations are
+daily and the requested model is seasonal, I used $s=365$. After applying
+$1-B^{365}$, the pACF has its main values at lags 1 through 5 and is close to
+zero thereafter, while the ACF decays gradually. This led to the parsimonious
+choice SARIMA$(365,4,0,2)$:
+\[
+(1-.6642B-.3518B^2+.2324B^3-.0837B^4)(1-B^{365})X_t
+=(1+1.1556B+.3247B^2)Z_t,
+\]
+with estimated innovation variance $\widehat\sigma^2=.1956$.
+
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW2/png/}}
+    \includegraphics[width=0.95\linewidth]{problem2_nao_diagnostics.png}
+    \caption{The supplied index and empirical ACF/pACF diagnostics.}
+\end{figure}
+
+I simulated the fitted ARMA equation for the seasonally differenced series and
+then reconstructed a series recursively from its first $365$ values. The
+short-lag ACF of the simulated differences is close to the observed one, and
+the fitted residual correlations are all below .027 in magnitude. The model
+does not reproduce the slower positive ACF extending across several dozen
+days, and several residual correlations exceed the approximate 95\% bounds.
+The main omitted feature is therefore a slowly changing dependence structure:
+a single constant-coefficient linear model cannot simultaneously capture the
+very strong short-run persistence, the broader low-frequency variation, and
+changes in volatility over the roughly 47-year span. The weak empirical
+correlation at lag 365 also suggests that annual seasonal differencing is a
+fairly rigid description of these data.
+
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW2/png/}}
+    \includegraphics[width=0.95\linewidth]{problem2_nao_validation.png}
+    \caption{Validation using a simulation from the fitted seasonal model.}
+\end{figure}
+\vspace{1em}
+
+\item[$4^*$] an ARIMA$(p,1,q)$ process is effectively an ARMA$(p,q)$ process with a ``unit root'', meaning $\phi(z)=0$ for some $|z|=1$. Interpret the implication of this addition to the model in the spectral domain. How is the ARMA spectral density impacted? What are the downsides of such a design? Try and propose an extension of ARMA models in the same spirit, but that addresses your identified downside.
+\par\vspace{0.5em}\textbf{Sol.}\par
+For
+\[
+\phi(B)(1-B)X_t=\theta(B)Z_t,
+\]
+the formal spectral density is
+\[
+f_X(\lambda)=\frac{\sigma^2}{2\pi}
+\frac{|\theta(e^{-i\lambda})|^2}
+{|\phi(e^{-i\lambda})|^2|1-e^{-i\lambda}|^2}.
+\]
+Since $|1-e^{-i\lambda}|^2=4\sin^2(\lambda/2)\sim\lambda^2$ near zero,
+the unit root creates a second-order pole at frequency zero. The expression is
+not integrable there, reflecting the nonstationarity and unbounded variance of
+the level process. Differencing removes this pole, but an integer difference
+is rigid: it forces exactly this singularity and can overdifference data whose
+low-frequency persistence is strong but not a unit root. Forecast uncertainty
+for the level also grows without bound with the forecast horizon.
+
+A natural extension is ARFIMA$(p,d,q)$,
+\[
+\phi(B)(1-B)^dX_t=\theta(B)Z_t,
+\]
+where $d$ need not be an integer. Its spectrum contains the factor
+$|1-e^{-i\lambda}|^{-2d}$. For $0<d<1/2$ the process is stationary but has a
+controlled singularity at zero and long-range dependence. Thus fractional
+differencing preserves low-frequency persistence without imposing the full
+nonstationary unit root.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3.}
+Consider a stationary time series $\{Y_t\}$ with mean zero and covariance sequence given by
+\[
+\operatorname{Cov}(Y_t,Y_{t-h})=K(h)
+=\frac{2e^{-\theta/2}\bigl(-\theta\cos(\pi h)+e^{\theta/2}\theta+2\pi h\sin(\pi h)\bigr)}{\theta^2+(2\pi h)^2}.
+\]
+Let's fit an ARMA process to this and see what is going on.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item Write code to simulate draws from this process of length $n=1{,}000$ directly using the Cholesky factor of the covariance matrix. You are welcome to use built-in routines for the Cholesky factorization itself, but please otherwise write this code yourself.
+\par\vspace{0.5em}\textbf{Sol.}\par
+I used $\theta=6$. Define the Toeplitz covariance matrix
+\[
+\Gamma_{ij}=K(i-j),\qquad 1\leq i,j\leq 1000.
+\]
+Since $K$ is a covariance sequence, $\Gamma$ is non-negative definite. Its
+Cholesky factorization is $\Gamma=LL'$. If
+$\mathbf z\sim N(\mathbf0,I_{1000})$ and $\mathbf y=L\mathbf z$, then
+\[
+\mathbb E\mathbf y=\mathbf0,
+\qquad
+\operatorname{Cov}(\mathbf y)=LIL'=\Gamma.
+\]
+Thus the entries of $\mathbf y$ are one Gaussian draw with the required
+covariance. The appendix constructs $\Gamma$, computes $L$, and generates the
+draw directly in this way. A numerical diagonal adjustment of $10^{-12}$ was
+used only to avoid roundoff problems in the factorization.
+\vspace{1em}
+
+\item Pick orders $p$ and $q$ (again, I suggest trying different combinations for max fun!) and fit an ARMA$(p,q)$ model to that simulation. Plot the implied ARMA ACF against the true ACF and comment on the patterns. You are again welcome to use a package for both fitting and obtaining the ARMA ACF.
+\par\vspace{0.5em}\textbf{Sol.}\par
+I chose $p=q=4$ as a compromise between flexibility near lag zero and avoiding
+an unnecessarily high-order fit. A Whittle fit to the simulated series gave
+\begin{align*}
+\widehat{\boldsymbol\phi}
+&=(.17383,-.26896,-.65793,.33627),\\
+\widehat{\boldsymbol\theta}
+&=(.44727,.37068,.90769,.16742),\\
+\widehat\sigma^2&=.23108.
+\end{align*}
+The fitted ACF reproduces the sharp fall from lag 0 to lag 1 and is already
+close to zero by lag 5. It also introduces small alternating correlations at
+intermediate lags. These oscillations are needed because a finite rational
+spectrum can only approximate the cusp of the true spectrum; the empirical
+ACF itself has additional fluctuations from the single finite sample.
+
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW2/png/}}
+    \includegraphics[width=0.9\linewidth]{problem3_acf_comparison.png}
+    \caption{True, empirical, and fitted ARMA$(4,4)$ autocorrelations.}
+\end{figure}
+\vspace{1em}
+
+\item[$3^*$.] Show that this $K(h)$ corresponds to a spectral density given by $S(\omega)=e^{-\theta|\omega|}$. Plot this true spectral density, and in the same plot also add the ARMA model-implied SDF using your fitted parameters. Comment on the quality of the fit and any specific issues you see.
+\par\vspace{0.5em}\textbf{Sol.}\par
+Using frequency in cycles per observation, $\omega\in[-1/2,1/2]$, the inverse
+Fourier transform of the proposed density is
+\begin{align*}
+\int_{-1/2}^{1/2}e^{-\theta|\omega|}e^{2\pi ih\omega}\,d\omega
+&=2\int_0^{1/2}e^{-\theta\omega}\cos(2\pi h\omega)\,d\omega\\
+&=\frac{2e^{-\theta/2}}{\theta^2+(2\pi h)^2}
+\left[-\theta\cos(\pi h)+2\pi h\sin(\pi h)
++e^{\theta/2}\theta\right]\\
+&=K(h).
+\end{align*}
+Hence $S(\omega)=e^{-\theta|\omega|}$ is the spectral density corresponding
+to $K$.
+
+The time-series fit follows the overall decay away from frequency zero, but it
+rounds off the cusp at zero and creates two artificial notches and shoulders
+near frequencies $\pm .25$. Its root-mean-square log-spectral error over a
+dense grid is $.11813$. These local artifacts are the frequency-domain version
+of the small oscillations in the fitted ACF.
+
+\begin{figure}[htbp]
+    \centering
+    \graphicspath{{png/}{STATS_Minor/701/HW2/png/}}
+    \includegraphics[width=0.9\linewidth]{problem3_spectrum_comparison.png}
+    \caption{True spectrum, the fit to the simulated series, and the direct rational fit.}
+\end{figure}
+\vspace{1em}
+
+\item[$4^*$.] Google around and choose an algorithm with a convenient package for fitting rational functions (you might look at the \textit{Remez} or \textit{AAA} algorithms, for example). Fit a rational function of the same order as your chosen ARMA process to directly to the true spectral density you verified in the last part, trying carefully to match the way that ARMA SDFs are parameterized. Compare your results with the fitted ARMA coefficients you obtained in 2 and discuss potential differences you observe.
+\par\vspace{0.5em}\textbf{Sol.}\par
+I used nonlinear rational least squares through
+\texttt{scipy.optimize.least\_squares}. The fitted family was parameterized
+exactly as an ARMA$(4,4)$ spectrum,
+\[
+S_{\mathrm{ARMA}}(\omega)
+=\sigma^2\frac{|1+\sum_{j=1}^4\theta_je^{-2\pi ij\omega}|^2}
+{|1-\sum_{j=1}^4\phi_je^{-2\pi ij\omega}|^2}.
+\]
+Reflection coefficients constrained the AR and MA polynomials to the stable
+and invertible regions, and the criterion was least squares on the log
+spectrum over $2{,}001$ equally spaced frequencies. The result was
+\begin{align*}
+\widetilde{\boldsymbol\phi}
+&=(.28813,.68534,-.17504,-.02755),\\
+\widetilde{\boldsymbol\theta}
+&=(.31981,-.67572,-.18970,.02384),\\
+\widetilde\sigma^2&=.22313.
+\end{align*}
+Its log-spectral root-mean-square error is $.00416$, far below $.11813$ for
+the time-series fit. The two coefficient vectors differ because the direct fit
+uses the exact target spectrum at every grid point, whereas the first fit sees
+only one random sample and minimizes a Whittle likelihood based on its noisy
+periodogram. Moreover, finite-order AR and MA factors can trade off while
+producing similar spectral shapes. As Figure 5 shows, the direct fit is nearly
+indistinguishable from the target except in a very small neighborhood of the
+nondifferentiable cusp at zero.
+\end{enumerate}
 
 \clearpage
 \appendix
 \section{Python code}
-The scripts read \texttt{code/cet.csv} relative to their own location and save
-figures in \texttt{png/}. ACF uses the denominator $n$ without variance normalization.
-\subsection{Sample autocovariance}
-\lstinputlisting[language=Python]{code/autocovariance.py}
-\subsection{CET data analysis}
-\lstinputlisting[language=Python]{code/HW1_4.py}
+The scripts read \texttt{code/nao.csv} relative to the HW2 directory and save
+all figures in \texttt{png/}. They use NumPy, pandas, SciPy, Matplotlib, and
+statsmodels.
+
+\subsection{Problem 2}
+\lstinputlisting[language=Python]{code/problem2.py}
+
 \clearpage
-\subsection{Gaussian trigonometric simulations}
-\lstinputlisting[language=Python]{code/HW1_5.py}
+\subsection{Problem 3}
+\lstinputlisting[language=Python]{code/problem3.py}
 
 \end{document}

@@ -1,5 +1,7 @@
 node_modules/
 .vscode/
+__pycache__/
+backup_before_transcription/
 
 # LaTeX build artifacts
 *.aux
