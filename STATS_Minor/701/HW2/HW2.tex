@@ -66,16 +66,8 @@ Determine which of the following processes are causal and/or invertible:
 \end{enumerate}
 \par\vspace{0.5em}
 \textbf{Sol.}\par
-Write each equation as
-\[
-\phi(B)X_t=\theta(B)Z_t.
-\]
-Since the AR and MA polynomials below have no common zeroes, the process is
-causal if and only if every zero of $\phi$ lies outside the closed unit disk,
-and it is invertible if and only if every zero of $\theta$ lies outside the
-closed unit disk.
 \begin{enumerate}[label=(\alph*),leftmargin=*]
-    \item We have
+    \item Notice
     \[
     \phi(z)=1+.2z-.48z^2=(1-.6z)(1+.8z),
     \qquad \theta(z)=1.
@@ -84,7 +76,7 @@ closed unit disk.
     modulus greater than $1$. Since $\theta$ has no zeroes, the process is
     both causal and invertible.
 
-    \item Here
+    \item Notice
     \[
     \phi(z)=1+1.9z+.88z^2=(1+1.1z)(1+.8z),
     \qquad \theta(z)=1+.2z+.7z^2.
@@ -97,7 +89,7 @@ closed unit disk.
     \]
     Hence the process is invertible.
 
-    \item We have
+    \item Notice
     \[
     \phi(z)=1+.6z^2,
     \qquad \theta(z)=1+1.2z.
@@ -106,7 +98,7 @@ closed unit disk.
     than $1$, so the process is causal. The zero of $\theta$ is $-5/6$,
     which lies inside the unit disk, so the process is not invertible.
 
-    \item Here
+    \item Notice
     \[
     \phi(z)=1+1.8z+.81z^2=(1+.9z)^2,
     \qquad \theta(z)=1.
@@ -114,7 +106,7 @@ closed unit disk.
     The only zero of $\phi$ is $-10/9$, with multiplicity two, and it lies
     outside the unit disk. Thus the process is both causal and invertible.
 
-    \item Finally,
+    \item Notice
     \[
     \phi(z)=1+1.6z,
     \qquad
@@ -139,7 +131,7 @@ and hence that
 \]
 \par\vspace{0.5em}
 \textbf{Sol.}\par
-Let $\sigma^2$ be the white-noise variance. On the unit circle, the spectral
+Let $\sigma^2$ be $\mathbb{E} Z_t^2$. On the unit circle, the spectral
 density of $\{X_t\}$ is
 \[
 f(\lambda)=\frac{\sigma^2}{2\pi}
@@ -155,9 +147,9 @@ F(z)=\sigma^2
 Because $\phi$ has only finitely many zeroes and none lies on the unit
 circle, there are numbers $r<1<R$ such that $F$ is analytic on the annulus
 \[
-r<|z|<R.
+r<|z|<R,
 \]
-Hence $F$ has a Laurent expansion there,
+and hence $F$ has a Laurent expansion there,
 \[
 F(z)=\sum_{h=-\infty}^{\infty}a_hz^h.
 \]
@@ -309,7 +301,7 @@ An ARIMA$(p,d,q)$ (where the I is for \textit{integrated}) process is a time ser
 \begin{enumerate}[label=\arabic*.,leftmargin=*]
 \item Write a function in whatever programming language you like to simulate an ARMA$(p,q)$ process in the state-space formulation. Importantly, please design this program to accept custom white noise generators. For a Gaussian white noise, generate a length $n=1{,}000$ ARMA$(p,q)$ process with, say, $p,q>3$ and put it into the estimation function that you find to check your work.
 \par\vspace{0.5em}\textbf{Sol.}\par
-I used the convention
+Consider
 \[
 X_t=\sum_{j=1}^p\phi_jX_{t-j}+Z_t+
 \sum_{j=1}^q\theta_jZ_{t-j}.
