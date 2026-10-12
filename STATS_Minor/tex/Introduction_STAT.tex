@@ -1,0 +1,360 @@
+\section{Probability Theory}
+
+\subsection{Fundamental Conclusions in Probability}
+
+\begin{proposition}[Mills' ratio]
+For every $t>0$,
+\[
+\frac{t}{t^2+1}\phi(t)
+\leq
+\overline{\Phi}(t)
+\leq
+\frac{\phi(t)}{t}.
+\]
+Consequently, the logarithm of the Gaussian upper tail has leading term
+$-t^2/2$ as $t\to\infty$, where
+\[
+\phi(t)=\frac{1}{\sqrt{2\pi}}e^{-t^2/2},
+\qquad
+\overline{\Phi}(t)
+=\int_t^\infty \phi(x)\,\mathrm{d}x
+=1-\Phi(t).
+\]
+\end{proposition}
+\begin{proof}
+    We know
+    \[
+    \phi'(t) = -t\phi(t)
+    \]
+    and then
+    \[
+    \overline{\Phi}(t) = \int_t^{\infty}\phi(x)dx \leq \int_t^{\infty} \dfrac{x}{t}\phi(x)dx = \dfrac{1}{t}\phi(x)|_{\infty}^{t} = \dfrac{\phi(t)}{t}, 
+    \]
+    with
+    \[
+     \overline{\Phi}(t) = \int_t^{\infty} \phi(x)dx  = \left.\dfrac{\phi(x)}{x}\right|^t_{\infty} - \int_t^{\infty} \dfrac{\phi(x)}{x^2}dx  \geq  \dfrac{\phi(t)}{t} - \dfrac{\overline{\Phi}(t)}{t^2}
+    \]
+    and we are done.
+\end{proof}
+
+\begin{corollary}
+    The moment-generating function gives the convenient, slightly looser bound
+\[
+\mathbb{P}(|G|\ge t)
+\le 2e^{-t^2/2},
+\qquad t\ge 0. (\text{The inequality is trivial for }t\leq 1)
+\]
+\end{corollary}
+
+\begin{corollary}
+    Let $G_1,\ldots,G_d$ be standard normal random variables. By a union bound,
+\[
+\mathbb{P}\left(
+    \max_{1\le j\le d}|G_j|\ge t
+\right)
+\le 2d e^{-t^2/2}.
+\]
+
+Therefore, with probability at least $1-\delta$,
+\[
+\max_{1\le j\le d}|G_j|
+\le
+\sqrt{2\log\left(\frac{2d}{\delta}\right)}.
+\]
+
+The scale $\sqrt{\log d}$ is a recurring high-dimensional noise threshold.
+\end{corollary}
+
+
+\begin{definition}[KL Divergence]
+Let $P,Q$ be probability measures on $(\mathbb{R}^d,\mathcal{B}^d)$
+with $P\ll Q$, and let
+\[
+r=\frac{\mathrm{d}P}{\mathrm{d}Q}
+\]
+be their Radon--Nikodym derivative. The Kullback--Leibler (KL) divergence is
+\[
+D_{\mathrm{KL}}(P\Vert Q)
+=
+\int \log r\,\mathrm{d}P
+=
+\int r\log r\,\mathrm{d}Q,
+\]
+where $0\log 0=0$. For $P\not\ll Q$, the value is defined by $0$.
+\end{definition}
+
+\begin{definition}[Mutual information]
+The mutual information of $X,Y$ is
+\[
+I(X;Y)
+=
+D_{\mathrm{KL}}
+\bigl(\mu_{X,Y}\Vert \mu_X\otimes\mu_Y\bigr).
+\]
+\end{definition}
+
+\begin{definition}[Conditional law and conditional mean]
+For random vectors $X\in\mathbb{R}^p$ and $Y\in\mathbb{R}^q$, a
+\emph{regular conditional distribution} of $X$ given $Y$ is a family
+$K(y,\cdot)$ of probability measures on
+$(\mathbb{R}^p,\mathcal{B}(\mathbb{R}^p))$ such that
+\[
+y\longmapsto K(y,A)
+\]
+is Borel measurable for every Borel set $A$, and
+\begin{equation}
+\mathbb{P}(X\in A,Y\in B)
+=
+\int_B K(y,A)\,\mu_Y(\mathrm{d}y),
+\qquad
+A\in\mathcal{B}(\mathbb{R}^p),\quad
+B\in\mathcal{B}(\mathbb{R}^q).
+\end{equation}
+
+We write
+\[
+K(y,A)=\mathbb{P}(X\in A\mid Y=y).
+\]
+
+When $X$ is real and integrable, define
+\[
+h(y):=\int_{\mathbb{R}}x\,K(y,\mathrm{d}x)
+\]
+where the absolute integral is finite, and set $h(y)=0$ elsewhere. Then
+\[
+\mathbb{E}[X\mid Y=y]=h(y)
+\qquad\text{and}\qquad
+\mathbb{E}[X\mid Y]=h(Y).
+\]
+\end{definition}
+
+\begin{proposition}
+Suppose $X,Y$ have a joint Lebesgue density, or a joint probability
+mass function on a countable product support. Conditional laws are
+specified for $\mu_X$-almost every $x$, not necessarily at every
+conceivable value. Then
+\begin{equation}
+I(X;Y)
+=
+\int
+D_{\mathrm{KL}}
+\bigl(\mu_{Y\mid X=x}\Vert\mu_Y\bigr)
+\,\mu_X(\mathrm{d}x).
+\end{equation}
+\end{proposition}
+\begin{proof}
+Let
+\[
+r(x,y)
+:=
+\frac{\mathrm{d}\mu_{X,Y}}
+     {\mathrm{d}(\mu_X\otimes\mu_Y)}(x,y).
+\]
+It suffices to show that, for $\mu_X$-almost every $x$,
+\[
+\frac{\mathrm{d}\mu_{Y\mid X=x}}
+     {\mathrm{d}\mu_Y}(y)
+=
+r(x,y)
+\qquad
+\text{for $\mu_Y$-almost every $y$}.
+\]
+
+In the density case, on the set where $p_X(x)p_Y(y)>0$,
+\[
+\begin{aligned}
+\frac{\mathrm{d}\mu_{Y\mid X=x}}
+     {\mathrm{d}\mu_Y}(y)
+&=
+\frac{p_{Y\mid X=x}(y)}{p_Y(y)}\\
+&=
+\frac{p_{X,Y}(x,y)}
+     {p_X(x)p_Y(y)}\\
+&=
+\frac{\mathrm{d}\mu_{X,Y}}
+     {\mathrm{d}(\mu_X\otimes\mu_Y)}(x,y).
+\end{aligned}
+\]
+The same calculation applies in the discrete case, with integrals
+replaced by sums.
+
+Consequently,
+\begin{align*}
+\int
+D_{\mathrm{KL}}
+\bigl(\mu_{Y\mid X=x}\Vert\mu_Y\bigr)
+\,\mu_X(\mathrm{d}x)
+&=
+\int_{\mathbb{R}^p}
+\int_{\mathbb{R}^q}
+r(x,y)\log r(x,y)\,
+\mu_Y(\mathrm{d}y)\mu_X(\mathrm{d}x)\\
+&=
+\int_{\mathbb{R}^p\times\mathbb{R}^q}
+r\log r\,
+\mathrm{d}(\mu_X\otimes\mu_Y)\\
+&=
+D_{\mathrm{KL}}
+\bigl(\mu_{X,Y}\Vert\mu_X\otimes\mu_Y\bigr)\\
+&=
+I(X;Y).
+\end{align*}
+
+If either side is infinite, the argument is justified by applying
+Tonelli's theorem to
+\[
+\psi(r)=r\log r-r+1\geq0,
+\]
+using
+\[
+\int r\,\mathrm{d}(\mu_X\otimes\mu_Y)=1.
+\]
+\end{proof}
+
+\section{Statistical Decision Theory and Sufficiency}
+
+\subsection{Fundamental Definitions}
+
+\begin{definition}
+    Let
+\[
+X:(\Omega,\mathcal{F})\longrightarrow(\mathcal{X},\mathcal{B})
+\]
+be the random observation. Its distribution is a probability measure on
+the sample space $\mathcal{X}$; the realized data are a particular value
+$x$. We use $P_\theta$ for the law of the whole observation when
+describing a model indexed by an unknown parameter $\theta$.
+
+For an i.i.d.\ sample, write
+\[
+X_1,\ldots,X_n\sim Q_\theta
+\quad\text{independently},
+\]
+so the full sample has law
+\[
+P_\theta=Q_\theta^{\otimes n}.
+\]
+Here $Q_\theta$ is the \textbf{population distribution} of one unit, and
+$n$ is the \textbf{sample size}. If each unit has $d$ recorded features,
+then
+\[
+x=(x_1,\ldots,x_n)^\top\in\mathbb{R}^{n\times d}
+\]
+is a data matrix.
+
+An observation may be a person, a measurement, or a more complicated
+object such as an entire graph. The statistical goal is to learn about
+the population, or a feature of it, from the observed sample.
+\end{definition}
+
+\begin{definition}[Parametric model]
+A \emph{parametric model} is a family
+\[
+\mathcal{P}
+=
+\left\{
+P_\theta:\theta\in\Theta\subseteq\mathbb{R}^k
+\right\}
+\]
+with a fixed finite-dimensional parameter $\theta$. The set $\Theta$ is
+the \emph{parameter space}. Inference may concern the whole parameter or
+a specified function $\psi(\theta)$ of it.
+\end{definition}
+
+\begin{definition}[Dominated model]
+A family is \emph{dominated} by a common sigma-finite measure $\nu$ if
+\[
+P_\theta\ll\nu
+\qquad\text{for every }\theta.
+\]
+Then its densities are
+\[
+p_\theta=\frac{\mathrm{d}P_\theta}{\mathrm{d}\nu}.
+\]
+Lebesgue measure gives probability density functions; counting measure
+gives probability mass functions. The reference measure is fixed across
+the family.
+\end{definition}
+
+\begin{definition}[Identifiability]
+A parametrization
+\[
+\{P_\theta:\theta\in\Theta\}
+\]
+is \emph{identifiable} if
+\[
+P_{\theta_1}=P_{\theta_2}
+\quad\Longrightarrow\quad
+\theta_1=\theta_2.
+\]
+
+Even in a non-identifiable parametrization, a target $\psi(\theta)$ can
+be identifiable: it must have the same value whenever two parameters
+give the same observation law.
+\end{definition}
+
+\begin{definition}[Statistic]
+A \emph{statistic} is a measurable function $T(X)$ of the observed data.
+The rule
+\[
+T:\mathcal{X}\longrightarrow\mathcal{T}
+\]
+must be specified without using an unknown parameter. Its distribution
+may nevertheless depend on that parameter. For real-vector data and
+summaries, measurability is with respect to their Borel
+sigma-algebras.
+\end{definition}
+
+\begin{definition}
+    [Order Statistic]The order statistics
+\[
+X_{(1)}\leq\cdots\leq X_{(n)}
+\]
+are the sample values sorted in increasing order, retaining repeats if
+there are ties. Suppose the observations are i.i.d.\ with CDF $F$ and
+Lebesgue density $f$. For $1\leq i\leq n$, the $i$th order statistic has
+density
+\begin{equation}
+g_i(x)
+=
+\frac{n!}{(i-1)!(n-i)!}
+F(x)^{i-1}\bigl\{1-F(x)\bigr\}^{n-i}f(x),
+\qquad\text{for Lebesgue-a.e.\ }x.
+\end{equation}
+\end{definition}
+
+\begin{definition}[Exponential family]
+A dominated family is an \emph{exponential family} if its densities have
+the form
+\begin{equation}
+p_\theta(x)
+=
+\exp\left\{
+\eta(\theta)^\top T(x)-\xi(\theta)
+\right\}h(x),
+\qquad
+\xi(\theta)=A\bigl(\eta(\theta)\bigr),
+\tag{5}
+\end{equation}
+where $T(x)\in\mathbb{R}^m$ and $h(x)\geq0$ do not depend on $\theta$,
+and
+\[
+A(\eta)
+=
+\log\int
+\exp\left\{\eta^\top T(x)\right\}
+h(x)\,\mathrm{d}\nu(x).
+\]
+
+The \emph{natural parameter} is $\eta$. Its natural parameter space
+$\mathcal{H}$ consists of those $\eta$ for which this integral is
+positive and finite. In canonical form,
+\[
+p_\eta(x)
+=
+\exp\left\{
+\eta^\top T(x)-A(\eta)
+\right\}h(x).
+\]
+The function $A$ is the \emph{log-normalizing function}.
+\end{definition}

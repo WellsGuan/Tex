@@ -1,0 +1,585 @@
+%!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{HW4 - STAT 709}
+\author{Wells Guan}
+
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+\maketitle
+
+% The assignment PDF gives only the textbook exercise numbers.
+% Insert the exact textbook statements here if needed.
+\subsection*{Problem 1. Textbook exercises}
+Jun Shao's \textit{Mathematical Statistics}, Chapter 2:
+Exercise 31 (required); Exercise 25 (optional).
+
+\vspace{1em}
+
+\subsubsection*{Ex. 2.31}
+Let $X_1,\ldots,X_n$ be i.i.d.\ random variables having a distribution
+$P\in\mathcal{P}$, where $\mathcal{P}$ is the family of distributions on
+$\mathbb{R}$ having continuous c.d.f.'s. Let
+\[
+T=\bigl(X_{(1)},\ldots,X_{(n)}\bigr)
+\]
+be the vector of order statistics. Show that, given $T$, the conditional
+distribution of
+\[
+X=(X_1,\ldots,X_n)
+\]
+is a discrete distribution putting probability $1/n!$ on each of the
+$n!$ points
+\[
+\bigl(X_{(i_1)},\ldots,X_{(i_n)}\bigr)\in\mathbb{R}^n,
+\]
+where $(i_1,\ldots,i_n)$ is a permutation of $(1,\ldots,n)$; hence,
+$T$ is sufficient for $P\in\mathcal{P}$.\par
+\vspace{0.5em}
+\textbf{Sol.}\par
+Let $\mathfrak{S}_n$ denote the set of permutations of
+$\{1,\ldots,n\}$, and define
+\[
+K(t,A)
+=\frac{1}{n!}\sum_{\pi\in\mathfrak{S}_n}
+\mathbf{1}_A(\pi(t)),
+\qquad A\in\mathcal{B}(\R^n).
+\]
+This is a probability kernel independent of $P$.
+
+For every Borel set $C$ in the state space of $T$, exchangeability
+of $X$ and the identity $T(\pi(X))=T(X)$ give
+\[
+\E[\mathbf{1}_A(X)\mathbf{1}_{\{T\in C\}}]
+=
+\E[\mathbf{1}_A(\pi(X))\mathbf{1}_{\{T\in C\}}].
+\]
+Averaging over all permutations yields
+\[
+\begin{aligned}
+\E[\mathbf{1}_A(X)\mathbf{1}_{\{T\in C\}}]
+&=
+\E\left[
+\frac{1}{n!}\sum_{\pi\in\mathfrak{S}_n}
+\mathbf{1}_A(\pi(X))\mathbf{1}_{\{T\in C\}}
+\right]\\
+&=
+\E[K(T,A)\mathbf{1}_{\{T\in C\}}],
+\end{aligned}
+\]
+because $X$ and $T$ have the same collection of permuted vectors.
+Hence $K(T,A)$ is a version of $\P(X\in A\mid T)$.
+
+Since the coordinates of $T$ are distinct almost surely,
+$K(T,\cdot)$ assigns mass $1/n!$ to each of the $n!$
+permutations of $T$. This conditional distribution does not
+depend on $P$, so $T$ is sufficient.
+
+\subsubsection*{Ex. 2.25}
+Show that if $T$ is a sufficient statistic and
+\[
+T=\psi(S),
+\]
+where $\psi$ is measurable and $S$ is another statistic, then $S$ is
+sufficient.\par
+\vspace{0.5em}
+\textbf{Sol.}\par
+Since $T=\psi(S)$ and $\psi$ is measurable,
+\[
+\sigma(T)\subseteq\sigma(S).
+\]
+By sufficiency of $T$, the conditional distribution of $X$ given
+$T=t$ has a version $K(t,\mathrm{d}x)$ that does not depend on
+the underlying distribution $P$.
+
+Write $S=s(X)$. Under the probability measure
+$K(t,\mathrm{d}x)$, let $L(t,u,\mathrm{d}x)$ be a regular
+conditional distribution of $X$ given $s(X)=u$.
+Since $K$ and $s$ do not depend on $P$, this conditional kernel
+can also be chosen independently of $P$.
+By conditioning first on $T$ and then on $S$,
+\[
+L(T,S,\mathrm{d}x)
+\]
+is a version of the conditional distribution of $X$ given
+$(T,S)$.
+
+Because $T=\psi(S)$, conditioning on $(T,S)$ is equivalent
+to conditioning on $S$. Hence
+\[
+L(\psi(S),S,\mathrm{d}x)
+\]
+is a version of the conditional distribution of $X$ given $S$,
+and it does not depend on $P$. Therefore, $S$ is sufficient.
+
+
+
+\subsection*{Problem 2. Prediction}
+Give an example in which $Z$ determines $Y$ exactly, but
+\[
+\operatorname{Var}(Z\mid Y)=\operatorname{Var}(Z)
+\qquad\text{almost surely}.
+\]
+Require $Y$ to be nonconstant and $Z$ to have finite, positive variance.
+Verify both properties.\par
+\vspace{1em}
+\textbf{Sol.}\par
+Let $Z$ have the distribution
+\[
+\P(Z=-1)=\P(Z=1)=\frac14,\qquad
+\P(Z=-\sqrt{2})=\P(Z=\sqrt{2})=\frac18,\qquad
+\P(Z=0)=\frac14.
+\]
+Define
+\[
+Y=\mathbf{1}_{\{|Z|=1\}}.
+\]
+Then $Y$ is a measurable function of $Z$, so $Z$ determines $Y$
+exactly. Moreover,
+\[
+\P(Y=0)=\P(Y=1)=\frac12,
+\]
+so $Y$ is nonconstant.
+
+By symmetry, $\E Z=0$, and
+\[
+\operatorname{Var}(Z)=\E Z^2
+=\frac14+\frac14
++2\left(\frac18+\frac18\right)=1.
+\]
+Thus $Z$ has finite, positive variance.
+
+Given $Y=1$, $Z$ takes the values $-1$ and $1$ with equal
+probability. Hence
+\[
+\E[Z\mid Y=1]=0,\qquad
+\E[Z^2\mid Y=1]=1.
+\]
+Given $Y=0$, the conditional probabilities are
+\[
+\P(Z=-\sqrt{2}\mid Y=0)=\frac14,\qquad
+\P(Z=0\mid Y=0)=\frac12,\qquad
+\P(Z=\sqrt{2}\mid Y=0)=\frac14.
+\]
+Therefore,
+\[
+\E[Z\mid Y=0]=0,\qquad
+\E[Z^2\mid Y=0]
+=2\cdot\frac14+2\cdot\frac14=1.
+\]
+Consequently,
+\[
+\operatorname{Var}(Z\mid Y)
+=\E[Z^2\mid Y]-\bigl(\E[Z\mid Y]\bigr)^2
+=1
+=\operatorname{Var}(Z)
+\qquad\text{a.s.}
+\]
+
+\subsection*{Problem 3. Exponential families}
+Let $X\in\R^d$ have a density, with respect to Lebesgue measure, of the form
+\[
+f_\theta(x)
+=h(x)\exp\!\left\{\theta^\top T(x)-\xi(\theta)\right\},
+\qquad \theta\in\Theta.
+\]
+Here $h$ is nonnegative and Borel measurable,
+$T:\R^d\to\R^k$ is continuous, and the natural parameter space is
+\[
+\Theta
+=
+\left\{
+\theta\in\R^k:
+0<\int_{\R^d}h(x)e^{\theta^\top T(x)}\,dx<\infty
+\right\}.
+\]
+Fix $\theta_0$ in its interior, and let $B$ be an open convex neighborhood
+of $\theta_0$ contained in $\Theta$.
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Show that
+\[
+\xi(\theta)
+=\log\int_{\R^d}h(x)e^{\theta^\top T(x)}\,dx
+\]
+and that $\xi\in C^\infty(B)$. Thus, for every multi-index
+$\alpha=(\alpha_1,\ldots,\alpha_k)\in\{0,1,2,\ldots\}^k$, with
+$|\alpha|=\alpha_1+\cdots+\alpha_k$,
+\[
+\frac{\partial^{|\alpha|}\xi}
+{\partial\theta_1^{\alpha_1}\cdots\partial\theta_k^{\alpha_k}}
+\]
+exists and is continuous on $B$.
+
+\item For $\theta\in B$, express $\E_\theta T(X)$,
+$\operatorname{Cov}_\theta(T(X))$, and the moment-generating function of
+$T(X)$ using $\xi$ and its derivatives. Specify where the
+moment-generating function is finite.
+
+\item Show that $\Theta$ is convex and that $\xi$ is convex on $\Theta$.
+Show that $\xi$ is strictly convex on $B$ if $T(X)$ is not supported on any
+proper affine hyperplane: there are no $a\ne0$ and $b$ with
+\[
+a^\top T(X)=b
+\qquad\text{almost surely under }\P_{\theta_0}.
+\]
+\end{enumerate}
+\textbf{Sol.}\par
+Write
+\[
+Z(\theta)
+:=
+\int_{\R^d}h(x)e^{\theta^\top T(x)}\,dx.
+\]
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Since $f_\theta$ is a probability density,
+\[
+1
+=
+\int_{\R^d}f_\theta(x)\,dx
+=
+e^{-\xi(\theta)}Z(\theta).
+\]
+Consequently,
+\[
+\xi(\theta)=\log Z(\theta).
+\]
+
+We next justify differentiation under the integral sign.
+Fix $\theta^\ast\in B$. Since $B$ is open, choose $a>0$ such that
+\[
+\theta^\ast+[-2a,2a]^k\subseteq B.
+\]
+For a multi-index $\alpha$, put
+\[
+T(x)^\alpha=\prod_{j=1}^k T_j(x)^{\alpha_j}.
+\]
+There is a constant $C_{\alpha,a}<\infty$ such that, for every
+$u\in\R^k$,
+\[
+|u^\alpha|
+\leq C_{\alpha,a}e^{a\sum_{j=1}^k|u_j|}.
+\]
+Thus, whenever $\theta\in\theta^\ast+[-a,a]^k$,
+\[
+\begin{aligned}
+h(x)|T(x)^\alpha|e^{\theta^\top T(x)}
+&\leq
+C_{\alpha,a}h(x)
+e^{(\theta^\ast)^\top T(x)+2a\sum_{j=1}^k|T_j(x)|}\\
+&\leq
+C_{\alpha,a}
+\sum_{v\in\{-1,1\}^k}
+h(x)e^{(\theta^\ast+2av)^\top T(x)}.
+\end{aligned}
+\]
+The right-hand side is integrable, because all the parameters
+$\theta^\ast+2av$ belong to $\Theta$.
+
+Differentiation under the integral sign and dominated convergence
+therefore give
+\[
+\partial^\alpha Z(\theta)
+=
+\int_{\R^d}
+T(x)^\alpha h(x)e^{\theta^\top T(x)}\,dx,
+\]
+and these derivatives are continuous in a neighborhood of
+$\theta^\ast$. Since $\theta^\ast$ was arbitrary,
+$Z\in C^\infty(B)$. As $Z>0$ on $B$, it follows that
+\[
+{\xi=\log Z\in C^\infty(B)}.
+\]
+
+\item Differentiating $\xi=\log Z$, we obtain
+\[
+\frac{\partial\xi}{\partial\theta_j}(\theta)
+=
+\frac{
+\int T_j(x)h(x)e^{\theta^\top T(x)}\,dx
+}{
+Z(\theta)
+}
+=
+\E_\theta T_j(X).
+\]
+Hence
+\[
+{\E_\theta T(X)=\nabla\xi(\theta)}.
+\]
+
+Similarly,
+\[
+\begin{aligned}
+\frac{\partial^2\xi}
+{\partial\theta_i\partial\theta_j}(\theta)
+&=
+\frac{
+\int T_i(x)T_j(x)h(x)e^{\theta^\top T(x)}\,dx
+}{
+Z(\theta)
+}\\
+&\quad-
+\frac{
+\int T_i(x)h(x)e^{\theta^\top T(x)}\,dx
+}{
+Z(\theta)
+}
+\frac{
+\int T_j(x)h(x)e^{\theta^\top T(x)}\,dx
+}{
+Z(\theta)
+}\\
+&=
+\operatorname{Cov}_\theta(T_i(X),T_j(X)).
+\end{aligned}
+\]
+Therefore,
+\[
+{
+\operatorname{Cov}_\theta(T(X))
+=
+\nabla^2\xi(\theta)
+}.
+\]
+
+For $u\in\R^k$, the moment-generating function of $T(X)$ is
+\[
+\begin{aligned}
+M_\theta(u)
+&:=\E_\theta e^{u^\top T(X)}\\
+&=
+e^{-\xi(\theta)}
+\int_{\R^d}h(x)e^{(\theta+u)^\top T(x)}\,dx.
+\end{aligned}
+\]
+It is finite exactly when $\theta+u\in\Theta$, and in that case
+\[
+{
+M_\theta(u)
+=
+\exp\{\xi(\theta+u)-\xi(\theta)\}
+}.
+\]
+In particular, it is finite in a neighborhood of $u=0$ whenever
+$\theta\in B$.
+
+\item Let $\theta_1,\theta_2\in\Theta$ and $s\in(0,1)$.
+By H\"older's inequality,
+\[
+\begin{aligned}
+Z((1-s)\theta_1+s\theta_2)
+&=
+\int_{\R^d}
+\bigl(h(x)e^{\theta_1^\top T(x)}\bigr)^{1-s}
+\bigl(h(x)e^{\theta_2^\top T(x)}\bigr)^s\,dx\\
+&\leq
+Z(\theta_1)^{1-s}Z(\theta_2)^s
+<\infty.
+\end{aligned}
+\]
+This integral is also positive: $h$ is positive on a set of
+positive Lebesgue measure, and the exponential factor is
+strictly positive. Hence
+\[
+(1-s)\theta_1+s\theta_2\in\Theta,
+\]
+so $\Theta$ is convex.
+
+Taking logarithms gives
+\[
+\xi((1-s)\theta_1+s\theta_2)
+\leq
+(1-s)\xi(\theta_1)+s\xi(\theta_2).
+\]
+Therefore, $\xi$ is convex on $\Theta$.
+
+To prove strict convexity on $B$, observe that all the laws
+$\P_\theta$, $\theta\in\Theta$, are mutually absolutely continuous:
+their densities are strictly positive on the same set
+$\{x:h(x)>0\}$.
+
+For every $\theta\in B$ and every nonzero $a\in\R^k$,
+part (2) gives
+\[
+a^\top\nabla^2\xi(\theta)a
+=
+\operatorname{Var}_\theta(a^\top T(X)).
+\]
+If this variance were zero, there would be a constant $b$ such that
+\[
+a^\top T(X)=b
+\qquad \P_\theta\text{-a.s.}
+\]
+Mutual absolute continuity would imply the same identity
+$\P_{\theta_0}$-a.s., contradicting the hypothesis.
+Thus
+\[
+a^\top\nabla^2\xi(\theta)a>0
+\qquad
+\text{for every }\theta\in B,\ a\ne0.
+\]
+
+Finally, for distinct $\theta_1,\theta_2\in B$, define
+\[
+g(s)=\xi(\theta_1+s(\theta_2-\theta_1)),
+\qquad 0\leq s\leq1.
+\]
+Since $B$ is convex,
+\[
+g''(s)
+=
+(\theta_2-\theta_1)^\top
+\nabla^2\xi(\theta_1+s(\theta_2-\theta_1))
+(\theta_2-\theta_1)
+>0.
+\]
+Consequently, for $0<s<1$,
+\[
+\xi((1-s)\theta_1+s\theta_2)
+<
+(1-s)\xi(\theta_1)+s\xi(\theta_2).
+\]
+Hence $\xi$ is strictly convex on $B$.
+\end{enumerate}
+
+\vspace{1em}
+
+\subsection*{Problem 4. Bias--variance tradeoff}
+Let
+\[
+X_1,\ldots,X_n\overset{\mathrm{i.i.d.}}{\sim}\operatorname{Bernoulli}(\theta),
+\qquad \theta\in[0,1],
+\]
+and write
+\[
+\overline X=\frac{1}{n}\sum_{i=1}^n X_i.
+\]
+Consider the estimator
+\[
+\widehat\theta
+=(1-\varepsilon_n)\left(\overline X-\frac12\right)+\frac12,
+\qquad 0<\varepsilon_n<1.
+\]
+The constant $\varepsilon_n$ may depend only on $n$. Setting
+$\varepsilon_n=0$ would recover the sample mean.
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Find the bias and variance of $\widehat\theta$.
+
+\item Find the choice of $\varepsilon_n\in(0,1)$ that minimizes the
+worst-case mean squared error
+\[
+\sup_{\theta\in[0,1]}
+\E_\theta\!\left[(\widehat\theta-\theta)^2\right].
+\]
+\end{enumerate}
+\vspace{1em}
+\textbf{Sol.}\par
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Since $X_1,\ldots,X_n$ are i.i.d.\ Bernoulli$(\theta)$,
+\[
+\E_\theta\overline X=\theta,
+\qquad
+\operatorname{Var}_\theta(\overline X)
+=\frac{\theta(1-\theta)}{n}.
+\]
+Therefore,
+\[
+\E_\theta\widehat\theta
+=(1-\epsilon_n)\left(\theta-\frac12\right)+\frac12
+=(1-\epsilon_n)\theta+\frac{\epsilon_n}{2}.
+\]
+Hence the bias is
+\[
+b_\theta(\widehat\theta)
+=\E_\theta\widehat\theta-\theta
+=\epsilon_n\left(\frac12-\theta\right).
+\]
+The variance is
+\[
+\operatorname{Var}_\theta(\widehat\theta)
+=(1-\epsilon_n)^2
+\operatorname{Var}_\theta(\overline X)
+=\frac{(1-\epsilon_n)^2}{n}\theta(1-\theta).
+\]
+
+\item By the bias--variance decomposition,
+\[
+\E_\theta[(\widehat\theta-\theta)^2]
+=
+\frac{(1-\epsilon_n)^2}{n}\theta(1-\theta)
++\epsilon_n^2\left(\theta-\frac12\right)^2.
+\]
+Using
+\[
+\theta(1-\theta)
+=\frac14-\left(\theta-\frac12\right)^2,
+\]
+we obtain
+\[
+\E_\theta[(\widehat\theta-\theta)^2]
+=
+\frac{(1-\epsilon_n)^2}{4n}
++
+\left(
+\epsilon_n^2-\frac{(1-\epsilon_n)^2}{n}
+\right)
+\left(\theta-\frac12\right)^2.
+\]
+Since $(\theta-\frac12)^2$ ranges over $[0,1/4]$,
+\[
+\phi(\epsilon_n)
+:=
+\sup_{\theta\in[0,1]}
+\E_\theta[(\widehat\theta-\theta)^2]
+=
+\frac14\max\left\{
+\epsilon_n^2,\frac{(1-\epsilon_n)^2}{n}
+\right\}.
+\]
+Since $0<\epsilon_n<1$, this gives
+\[
+\sqrt n\,\epsilon_n=1-\epsilon_n,
+\qquad
+\epsilon_n^\ast=\frac{1}{1+\sqrt n}.
+\]
+The resulting worst-case mean squared error is
+\[
+\phi(\epsilon_n^\ast)
+=\frac{1}{4(1+\sqrt n)^2}
+.
+\]
+\end{enumerate}
+\end{document}
