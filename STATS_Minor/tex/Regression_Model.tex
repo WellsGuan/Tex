@@ -1,0 +1,172 @@
+\section{Regression Models}
+
+\subsection{Bias-Variance Tradeoff}
+
+\begin{definition}[Risk, bias, and variance]
+Let $T$ be a scalar estimator of $\mu$ with
+$\mathbb{E}_\mu[T^2]<\infty$. Its \emph{bias} is
+\[
+b_\mu(T):=\mathbb{E}_\mu[T]-\mu,
+\]
+and its \emph{variance} is
+\[
+\operatorname{Var}_\mu(T)
+:=
+\mathbb{E}_\mu\!\left[
+\bigl(T-\mathbb{E}_\mu[T]\bigr)^2
+\right].
+\]
+Under squared-error loss, its \emph{risk} is the
+\emph{mean squared error} (MSE):
+\[
+R(\mu,T)
+:=
+\mathbb{E}_\mu[(T-\mu)^2]
+=
+b_\mu(T)^2+\operatorname{Var}_\mu(T).
+\]
+Here the expectation averages over repeated samples at the
+same true parameter $\mu$.
+\end{definition}
+
+\begin{definition}[Ridge regression with a fixed design]
+Suppose observations $(x_i,y_i)$ satisfy
+\[
+y_i=x_i^\top\beta^\ast+\varepsilon_i,
+\qquad
+x_i\in\mathbb{R}^p,\quad y_i\in\mathbb{R}.
+\]
+The unknown coefficient is $\beta^\ast\in\mathbb{R}^p$.
+The design matrix
+\[
+X=[x_1,\ldots,x_n]^\top\in\mathbb{R}^{n\times p}
+\]
+is nonrandom, and
+\[
+y=X\beta^\ast+\varepsilon.
+\]
+Assume independent errors with mean zero and common variance
+$\sigma^2>0$, so that
+\[
+\mathbb{E}[\varepsilon]=0,
+\qquad
+\operatorname{Cov}(\varepsilon)=\sigma^2 I_n.
+\]
+Normal errors are not required.
+
+The \emph{ridge regression estimator} minimizes
+\[
+\min_{\beta\in\mathbb{R}^p}
+\left\{
+\frac{1}{n}\|y-X\beta\|_2^2
++\lambda\|\beta\|_2^2
+\right\},
+\qquad \lambda\geq0.
+\]
+The tuning parameter $\lambda$ controls shrinkage. Write
+\[
+S=\frac{X^\top X}{n}.
+\]
+For $\lambda>0$, $S+\lambda I_p$ is positive definite, and the
+unique minimizer is
+\[
+\widehat\beta_\lambda
+=
+(S+\lambda I_p)^{-1}\frac{X^\top y}{n}.
+\]
+For $\lambda=0$, this inverse formula requires $X$ to have full
+column rank. In that case, it gives the ordinary least-squares
+estimator
+\[
+\widehat\beta_0=(X^\top X)^{-1}X^\top y.
+\]
+
+Every coefficient is penalized in this formulation. If an intercept
+is included but is not to be penalized, center the response and
+predictors first and apply these formulas to the slope coefficients.
+\end{definition}
+
+\begin{definition}[Coefficient-estimation Risk]
+    For a vector estimator, variance means the total variance, namely
+the trace of its covariance matrix. With $X$ fixed, squared
+Euclidean loss gives
+\begin{equation}
+R(\beta^\ast,\widehat\beta)
+:=
+\mathbb{E}_\varepsilon
+\|\widehat\beta-\beta^\ast\|_2^2
+=
+\underbrace{
+\|\mathbb{E}_\varepsilon\widehat\beta-\beta^\ast\|_2^2
+}_{\text{Squared bias}}
++
+\underbrace{
+\operatorname{Tr}\!\left(
+\operatorname{Cov}_\varepsilon(\widehat\beta)
+\right)
+}_{\text{Total variance}}.
+\tag{4}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+    Consider the regression model
+\[
+Y=f(x)+\varepsilon
+\]
+at input $x$, with unknown function $f$. Collect
+$y_i=f(x_i)+\varepsilon_i$ at fixed inputs
+$x_1,\ldots,x_n\in\mathbb{R}^p$, with independent mean-zero errors
+of common variance $\sigma^2$.
+
+For a fixed test input $x_0$, let
+\[
+Y_0=f(x_0)+\varepsilon_0,
+\]
+where the fresh error $\varepsilon_0$ is independent of the training
+errors and has the same mean and variance.
+
+For an integer $1\leq K\leq n$, order the inputs by their Euclidean
+distance to $x_0$, resolving distance ties by a fixed rule independent
+of responses. The \emph{$K$-nearest-neighbor (KNN) estimator} averages
+their responses:
+\begin{equation}
+\widehat f_K(x_0)
+=
+\frac{1}{K}\sum_{k=1}^K y_{(k)},
+\qquad
+y_{(k)}=f(x_{(k)})+\varepsilon_{(k)}.
+\tag{8}
+\end{equation}
+
+Averaging independent noise gives variance $\sigma^2/K$.
+The mean is the average of the nearby function values, which need
+not equal $f(x_0)$. Consequently,
+\begin{equation}
+\mathbb{E}\!\left[
+\bigl(Y_0-\widehat f_K(x_0)\bigr)^2
+\right]
+=
+\underbrace{\sigma^2}_{\text{fresh noise}}
++
+\underbrace{
+\left[
+\frac{1}{K}\sum_{k=1}^K f(x_{(k)})-f(x_0)
+\right]^2
+}_{\text{squared bias}}
++
+\underbrace{
+\frac{\sigma^2}{K}
+}_{\text{estimator variance}}.
+\tag{9}
+\end{equation}
+
+All expectations here are over training and fresh test noise,
+with the inputs fixed. If the target is the value $f(x_0)$ instead
+of $Y_0$, omit the first $\sigma^2$: the remaining terms are
+estimation MSE. Fresh observation noise is called
+\emph{irreducible error} in this model. See Exercise~8 for the
+complete expansion and a bound under a concrete smoothness assumption.
+\end{definition}
+
+\newpage
