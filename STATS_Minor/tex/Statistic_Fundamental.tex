@@ -1,0 +1,388 @@
+\section{Statistical Decision Theory and Sufficiency}
+
+\subsection{Fundamental Definitions}
+
+\begin{definition}
+    Let
+\[
+X:(\Omega,\mathcal{F})\longrightarrow(\mathcal{X},\mathcal{B})
+\]
+be the random observation. Its distribution is a probability measure on
+the sample space $\mathcal{X}$; the realized data are a particular value
+$x$. We use $P_\theta$ for the law of the whole observation when
+describing a model indexed by an unknown parameter $\theta$.
+
+For an i.i.d.\ sample, write
+\[
+X_1,\ldots,X_n\sim Q_\theta
+\quad\text{independently},
+\]
+so the full sample has law
+\[
+P_\theta=Q_\theta^{\otimes n}.
+\]
+Here $Q_\theta$ is the \textbf{population distribution} of one unit, and
+$n$ is the \textbf{sample size}. If each unit has $d$ recorded features,
+then
+\[
+x=(x_1,\ldots,x_n)^\top\in\mathbb{R}^{n\times d}
+\]
+is a data matrix.
+
+An observation may be a person, a measurement, or a more complicated
+object such as an entire graph. The statistical goal is to learn about
+the population, or a feature of it, from the observed sample.
+\end{definition}
+
+\begin{definition}[Parametric model]
+A \emph{parametric model} is a family
+\[
+\mathcal{P}
+=
+\left\{
+P_\theta:\theta\in\Theta\subseteq\mathbb{R}^k
+\right\}
+\]
+with a fixed finite-dimensional parameter $\theta$. The set $\Theta$ is
+the \emph{parameter space}. Inference may concern the whole parameter or
+a specified function $\psi(\theta)$ of it.
+\end{definition}
+
+\begin{definition}[Dominated model]
+A family is \emph{dominated} by a common sigma-finite measure $\nu$ if
+\[
+P_\theta\ll\nu
+\qquad\text{for every }\theta.
+\]
+Then its densities are
+\[
+p_\theta=\frac{\mathrm{d}P_\theta}{\mathrm{d}\nu}.
+\]
+Lebesgue measure gives probability density functions; counting measure
+gives probability mass functions. The reference measure is fixed across
+the family.
+\end{definition}
+
+\begin{definition}[Identifiability]
+A parametrization
+\[
+\{P_\theta:\theta\in\Theta\}
+\]
+is \emph{identifiable} if
+\[
+P_{\theta_1}=P_{\theta_2}
+\quad\Longrightarrow\quad
+\theta_1=\theta_2.
+\]
+
+Even in a non-identifiable parametrization, a target $\psi(\theta)$ can
+be identifiable: it must have the same value whenever two parameters
+give the same observation law.
+\end{definition}
+
+\begin{example}[Multinomial/Softmax regression]
+A categorical response $Y\in \{1,\ldots,K\}$ and observed covariates
+$x\in\mathbb{R}^d$, let
+\[
+p_k(x)
+=
+P(Y=k\mid x)
+=
+\frac{\exp(\beta_k^\top x)}
+{\sum_{j=1}^K\exp(\beta_j^\top x)}.
+\]
+Adding the same vector $c$ to every $\beta_k$ multiplies the numerator and
+denominator by $\exp(c^\top x)$, so it leaves all probabilities unchanged.
+Choose the last class as the reference, and set
+$\gamma_k=\beta_k-\beta_K$ for $k<K$ and $\gamma_K=0$. Then
+\[
+p_k(x)
+=
+\frac{\exp(\gamma_k^\top x)}
+{1+\sum_{j=1}^{K-1}\exp(\gamma_j^\top x)},
+\qquad k<K,
+\]
+and
+\[
+p_K(x)
+=
+\frac{1}
+{1+\sum_{j=1}^{K-1}\exp(\gamma_j^\top x)}.
+\]
+This removes the common-shift ambiguity. Identifying the coefficient vectors
+also requires enough variation in the design: on observed design points
+spanning $\mathbb{R}^d$, the log odds
+\[
+\log\left(\frac{p_k(x)}{p_K(x)}\right)=\gamma_k^\top x
+\]
+determine $\gamma_k$.
+\end{example}
+
+\begin{definition}[Statistic]
+A \emph{statistic} is a measurable function $T(X)$ of the observed data.
+The rule
+\[
+T:\mathcal{X}\longrightarrow\mathcal{T}
+\]
+must be specified without using an unknown parameter. Its distribution
+may nevertheless depend on that parameter. For real-vector data and
+summaries, measurability is with respect to their Borel
+sigma-algebras.
+\end{definition}
+
+\begin{definition}
+    [Order Statistic]The order statistics
+\[
+X_{(1)}\leq\cdots\leq X_{(n)}
+\]
+are the sample values sorted in increasing order, retaining repeats if
+there are ties. Suppose the observations are i.i.d.\ with CDF $F$ and
+Lebesgue density $f$. For $1\leq i\leq n$, the $i$th order statistic has
+density
+\begin{equation}
+g_i(x)
+=
+\frac{n!}{(i-1)!(n-i)!}
+F(x)^{i-1}\bigl\{1-F(x)\bigr\}^{n-i}f(x),
+\qquad\text{for Lebesgue-a.e.\ }x.
+\end{equation}
+\end{definition}
+
+\begin{definition}[Exponential family]
+A dominated family is an \emph{exponential family} if its densities have
+the form
+\begin{equation}
+p_\theta(x)
+=
+\exp\left\{
+\eta(\theta)^\top T(x)-\xi(\theta)
+\right\}h(x),
+\qquad
+\xi(\theta)=A\bigl(\eta(\theta)\bigr),
+\tag{5}
+\end{equation}
+where $T(x)\in\mathbb{R}^m$ and $h(x)\geq0$ do not depend on $\theta$,
+and
+\[
+A(\eta)
+=
+\log\int
+\exp\left\{\eta^\top T(x)\right\}
+h(x)\,\mathrm{d}\nu(x).
+\]
+
+The \emph{natural parameter} is $\eta$. Its natural parameter space
+$\mathcal{H}$ consists of those $\eta$ for which this integral is
+positive and finite. In canonical form,
+\[
+p_\eta(x)
+=
+\exp\left\{
+\eta^\top T(x)-A(\eta)
+\right\}h(x).
+\]
+The function $A$ is the \emph{log-normalizing function}.
+\end{definition}
+=
+\begin{proposition}[Interior differentiation]
+On the interior $\mathcal{H}^{\circ}$, $A$ is infinitely differentiable, and
+\begin{equation}
+\nabla A(\eta)=\mathbb{E}_{\eta}T(X),
+\qquad
+\nabla^2 A(\eta)=\operatorname{Cov}_{\eta}\bigl(T(X)\bigr).
+\tag{6}
+\end{equation}
+For $\eta$ in this interior and $t$ sufficiently close to zero,
+\[
+\mathbb{E}_{\eta}e^{t^\top T(X)}
+=
+\exp\bigl\{A(\eta+t)-A(\eta)\bigr\}.
+\]
+\end{proposition}
+
+\begin{proof}
+By the definition of the log-normalizing function,
+\begin{align*}
+\nabla A(\eta)
+&=
+\frac{\displaystyle\int T(x)e^{\eta^\top T(x)}h(x)\,\mathrm d\nu(x)}
+{\displaystyle\int e^{\eta^\top T(x)}h(x)\,\mathrm d\nu(x)}\\
+&=\int T(x)e^{\eta^\top T(x)-A(\eta)}h(x)\,\mathrm d\nu(x)\\
+&=\mathbb E_\eta T(X).
+\end{align*}
+For the Hessian, differentiating the $i$th component of the gradient with
+respect to $\eta_j$ gives
+\begin{align*}
+\bigl[\nabla^2 A(\eta)\bigr]_{ij}
+&=\partial_j\int T_i(x)e^{\eta^\top T(x)-A(\eta)}h(x)\,\mathrm d\nu(x)\\
+&=\int T_i(x)\bigl(T_j(x)-\partial_j A(\eta)\bigr)
+e^{\eta^\top T(x)-A(\eta)}h(x)\,\mathrm d\nu(x)\\
+&=\mathbb E_\eta[T_i(X)T_j(X)]
+-\mathbb E_\eta[T_i(X)]\mathbb E_\eta[T_j(X)]\\
+&=\operatorname{Cov}_\eta\bigl(T_i(X),T_j(X)\bigr).
+\end{align*}
+Thus
+\[
+\nabla^2 A(\eta)=\operatorname{Cov}_\eta\bigl(T(X)\bigr).
+\]
+Finally, for $t$ sufficiently close to zero so that $\eta+t\in\mathcal H$,
+\begin{align*}
+\mathbb E_\eta e^{t^\top T(X)}
+&=\int e^{t^\top T(x)}e^{\eta^\top T(x)-A(\eta)}h(x)\,\mathrm d\nu(x)\\
+&=e^{-A(\eta)}\int e^{(\eta+t)^\top T(x)}h(x)\,\mathrm d\nu(x)\\
+&=e^{A(\eta+t)-A(\eta)}.
+\end{align*}
+
+It remains to justify the differentiations under the integral. Since
+$\eta\in\mathcal H^\circ$, choose $\delta>0$ small enough that
+$\eta+\delta s\in\mathcal H$ for every $s\in\{-1,1\}^m$.
+For every integer $q\geq0$, there is a finite constant $C_{q,\delta}$ such
+that, uniformly for $\lVert\eta'-\eta\rVert_\infty\leq\delta/2$,
+\[
+\lVert T(x)\rVert^q e^{(\eta')^\top T(x)}h(x)
+\leq C_{q,\delta}\sum_{s\in\{-1,1\}^m}
+e^{(\eta+\delta s)^\top T(x)}h(x).
+\]
+Every term on the right is integrable by the definition of $\mathcal H$.
+Hence dominated convergence applies to derivatives of every order, so the
+preceding calculations are valid and $A\in C^\infty(\mathcal H^\circ)$.
+\end{proof}
+
+\begin{definition}[Decision rule, loss, and risk]
+A \emph{decision rule} is a measurable map
+\[
+\delta:\mathcal X\longrightarrow\mathcal A,
+\]
+where $\mathcal A$ is the action space. It turns data into an estimate, a
+prediction, or a testing decision. A \emph{loss function}
+$L(\theta,a)\geq0$ specifies the cost of taking action $a$ when the parameter
+is $\theta$; more generally, write $L(P,a)$. The \emph{risk function}
+averages this cost over data generated under the same parameter:
+\begin{equation}
+R(\theta,\delta)
+=\mathbb E_\theta L\bigl(\theta,\delta(X)\bigr)
+=\int L\bigl(\theta,\delta(x)\bigr)\,\mathrm dP_\theta(x).
+\tag{7}
+\end{equation}
+The parameter is held fixed in this expectation. Different rules give
+different functions of that parameter, not just one performance number.
+Under squared-error loss for a real target $\psi(\theta)$, the risk is its
+\emph{mean squared error} (MSE):
+\[
+R(\theta,\delta)
+=\mathbb E_\theta\left[\bigl(\delta(X)-\psi(\theta)\bigr)^2\right].
+\]
+We use $\delta$ for a decision rule to distinguish it from a generic summary
+$T$; a deterministic decision rule is itself a statistic.
+\end{definition}
+
+\begin{definition}[Bias and unbiasedness]
+For i.i.d.\ real observations with mean $\mu$ and finite variance $\sigma^2$,
+the sample mean estimates $\mu$ under squared loss and has risk
+\[
+R(\mu,\bar X)
+=\mathbb E\bigl[(\bar X-\mu)^2\bigr]
+=\frac{\sigma^2}{n}.
+\]
+For an
+integrable estimator $\delta(X)$ of a target $\psi(P)$, its \emph{bias} is
+\[
+b_\delta(P)=\mathbb E_P\delta(X)-\psi(P).
+\]
+It is \emph{unbiased} if this equals zero for every $P$ in the model. For a
+square-integrable estimator,
+\begin{equation}
+\mathbb E_P\bigl[(\delta(X)-\psi(P))^2\bigr]
+=\operatorname{Var}_P\bigl(\delta(X)\bigr)+b_\delta(P)^2.
+\tag{9}
+\end{equation}
+Subtract and add $\mathbb E_P\delta(X)$ inside the square; the cross term
+has expectation zero. An unbiased estimator need not have the smallest MSE.
+The sample variance $S^2$ is unbiased for $\sigma^2$, while the empirical
+variance with denominator $n$ is biased.
+\end{definition}
+
+\begin{definition}[Hypothesis testing and error probabilities]
+Suppose $\mathcal P_0$ and $\mathcal P_1$ are disjoint and the model under
+consideration is $\mathcal P_0\cup\mathcal P_1$. We test
+$H_0:P\in\mathcal P_0$ against $H_1:P\in\mathcal P_1$.
+A nonrandomized test takes values in $\{0,1\}$, with $1$ meaning reject
+$H_0$. Its \emph{rejection region} is
+\[
+C=\{x:\delta(x)=1\},
+\]
+and the test is the indicator $\delta(X)=1_C(X)$, not the set $C$ itself.
+Under $0$--$1$ loss, a correct decision costs zero and an incorrect one
+costs one:
+\[
+L(P,j)=
+\begin{cases}
+0, & P\in\mathcal P_j,\\
+1, & P\notin\mathcal P_j,
+\end{cases}
+\qquad j\in\{0,1\},
+\]
+\[
+R(P,\delta)=
+\begin{cases}
+P(X\in C), & P\in\mathcal P_0,\\
+P(X\notin C), & P\in\mathcal P_1.
+\end{cases}
+\]
+These are the \emph{type I error} probability under the null and the
+\emph{type II error} probability under the alternative. Not rejecting a
+null is a decision, not a proof that it is true.
+\end{definition}
+
+\begin{definition}[Sufficient statistic]
+A statistic $T(X)$ is \emph{sufficient} for $\mathcal P=\{P_\theta\}$ if
+there is a single probability kernel $K(t,B)$, not depending on $\theta$,
+such that for every $\theta$ and every Borel set $B$,
+\[
+P_\theta\bigl(X\in B\mid T(X)\bigr)
+=K\bigl(T(X),B\bigr)
+\qquad P_\theta\text{-almost surely}.
+\]
+Thus the conditional distribution of the data given the statistic can be
+chosen to be the same across the model. Conditional laws at summary values
+having zero probability are interpreted through these versions, not by
+dividing probabilities of zero events.
+\end{definition}
+
+\begin{theorem}
+    If $T$ is a suffient statistic and $S$ is another statistic such that there is a measurable function $\phi$ such that $T = \phi(S)$, then $S$ is sufficient.
+\end{theorem}
+\begin{proof}
+    There is a some $K(t,B)$ such that
+    \[
+    P_{\theta}(X \in A|T(X)) = K(T(X),A),\quad P_{\theta}\text{-a.s.}
+    \]
+    Then we know there exists a r.c.d. $L$ such that
+    \[
+    P_{K(t,\cdot)}(X \in A|S) = L(t,S,A)
+    \]
+    and hence
+    \[
+    K(t,A\cap S^{-1}(B)) = \int_{S^{-1}(B)} L(t,S(x),A)K(t,dx).
+    \]
+    We may say that
+    \[
+    K(T())
+    \]
+\end{proof}
+
+\begin{theorem}[Neyman--Fisher factorization]
+Let $\{P_\theta\}$ be a family on a Euclidean Borel sample space, dominated
+by a common sigma-finite measure $\nu$. A Borel statistic $T$ with values in
+a Euclidean space is sufficient if and only if its densities admit the
+representation
+\begin{equation}
+p_\theta(x)=g_\theta\bigl(T(x)\bigr)h(x)
+\qquad \nu\text{-almost everywhere for each }\theta,
+\tag{10}
+\end{equation}
+where $h$ and $g_\theta$ are nonnegative measurable functions and $h$ does
+not depend on $\theta$.
+\end{theorem}
+
+\newpage

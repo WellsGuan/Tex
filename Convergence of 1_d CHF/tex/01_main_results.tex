@@ -275,7 +275,7 @@ E_1
 \clV_{\tau_1,\tau_2}\clZ_X\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(y)
 \right)
 \right\rvert^{2}\,\dif y
-\\/&\leq \dfrac{\lambda^2L(1/\rho)}{4\pi}\fint_{\ttR}\EE\left\lvert
+\\&\leq \dfrac{\lambda^2L(1/\rho)}{4\pi}\fint_{\ttR}\EE\left\lvert
 \clV_{\tau_0,\tau_2}v^{\rho}_{\tau_0}(y)
 -\clV_{\tau_1,\tau_2}\clZ_X\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(y)
 \right\rvert^{2}\,\dif y
@@ -567,3 +567,454 @@ C\left\langle\triplenorm{v_0}_\ell\right\rangle^2
 The constant $C<\infty$ depends only on $q,M,\beta,\lambda,\ell$.
 Recalling the definition of the square $\ttR$, this proves (5.51).
 \end{proof}
+
+\subsection{Some Volterra Estimation}
+
+\begin{proposition}[Comparison of time-shifted solutions]
+\label{prop:time-shift-comparison}
+
+Let $0\leq \tau_0<\tau_1<\tau_2$ and $\rho\in(0,1)$.
+Define
+\[
+L(x):=\log(1+x),
+\qquad
+\gamma_\rho^2:=\frac{4\pi}{L(1/\rho)}.
+\]
+
+Let
+\[
+G_t(x)
+=
+\frac{1}{2\pi t}
+\exp\left(-\frac{|x|^2}{2t}\right)
+\]
+be the heat kernel on $\mathbb{R}^2$.
+
+Suppose that $\sigma_\rho:\mathbb{R}\to\mathbb{R}$
+satisfies
+\[
+\|\sigma_\rho\|_\infty\leq M,
+\qquad
+\operatorname{Lip}(\sigma_\rho)
+\leq \gamma_\rho^{-1}\lambda,
+\]
+where $M$ is independent of $\rho$.
+
+Let $v^\rho$ and $\widetilde v^\rho$ be
+two adapted mild solutions driven by the same
+space-time white noise $W$, satisfying
+\begin{align*}
+v_t^\rho(y)
+={}&
+\bigl(G_{t-\tau_0}*v_{\tau_0}^\rho\bigr)(y)
+\\
+&+
+\gamma_\rho
+\int_{\tau_0}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma_\rho(v_r^\rho(x))
+\,W(dr,dx),
+\end{align*}
+and
+\begin{align*}
+\widetilde v_t^\rho(y)
+={}&
+\bigl(
+G_{t-\tau_1}*
+G_{\tau_1-\tau_0}*
+v_{\tau_0}^\rho
+\bigr)(y)
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma_\rho(\widetilde v_r^\rho(x))
+\,W(dr,dx).
+\end{align*}
+
+Define
+\[
+F(t)
+:=
+\sup_{y\in\mathbb{R}^2}
+\mathbb{E}
+\left[
+|v_t^\rho(y)-\widetilde v_t^\rho(y)|^2
+\right].
+\]
+
+Then, for every $t\in[\tau_1,\tau_2]$,
+\begin{equation}
+\label{eq:time-shift-volterra}
+{
+\begin{aligned}
+F(t)
+\leq{}&
+\frac{M^2}{L(1/\rho)}
+L\left(
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right) +
+\frac{1}{4\pi}
+\int_{\tau_1}^{t}
+\frac{F(r)}{t+\rho-r}\,dr.
+\end{aligned}
+}
+\end{equation}
+
+Moreover, the following explicit bound holds:
+\begin{equation}
+\label{eq:time-shift-explicit}
+{
+\begin{aligned}
+F(t)
+\leq
+\frac{M^2}{L(1/\rho)}
+\bigg[
+&
+L\left(
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right) + 
+4L\left(
+\frac{t-\tau_1}{\rho}
+\right)
+\bigg].
+\end{aligned}
+}
+\end{equation}
+
+\end{proposition}
+
+
+\begin{proof}
+
+By the semigroup property of the heat kernel,
+\[
+G_{t-\tau_1}*G_{\tau_1-\tau_0}
+=
+G_{t-\tau_0}.
+\]
+
+Consequently, for $t\geq\tau_1$,
+\begin{align*}
+&v_t^\rho(y)-\widetilde v_t^\rho(y)
+\\
+={}&
+\gamma_\rho
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma_\rho(v_r^\rho(x))
+\,W(dr,dx)
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\\
+&\qquad\qquad\times
+\left[
+\sigma_\rho(v_r^\rho(x))
+-
+\sigma_\rho(\widetilde v_r^\rho(x))
+\right]
+\,W(dr,dx).
+\end{align*}
+
+Since the two stochastic integrals are taken
+over disjoint time intervals, they are orthogonal
+in $L^2(\Omega)$.
+
+Applying the It\^o isometry gives
+\begin{align*}
+&\mathbb{E}
+\left[
+|v_t^\rho(y)-\widetilde v_t^\rho(y)|^2
+\right]
+\nonumber\\
+={}&
+\gamma_\rho^2
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\mathbb{E}
+\left[
+|\sigma_\rho(v_r^\rho(x))|^2
+\right]
+\,dx\,dr
+\nonumber\\
+&+
+\gamma_\rho^2
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\mathbb{E}
+\left[
+\left|
+\sigma_\rho(v_r^\rho(x))
+-
+\sigma_\rho(\widetilde v_r^\rho(x))
+\right|^2
+\right]
+\,dx\,dr.
+\end{align*}
+
+Recall that in two dimensions,
+\[
+G_t^2(x)
+=
+\frac{1}{4\pi t}G_{t/2}(x).
+\]
+
+In particular,
+\[
+\int_{\mathbb{R}^2}G_t^2(x)\,dx
+=
+\frac{1}{4\pi t}.
+\]
+
+Using the boundedness of $\sigma_\rho$,
+we have
+\begin{align*}
+&\gamma_\rho^2 M^2
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\,dx\,dr
+\\
+={}&
+\frac{\gamma_\rho^2M^2}{4\pi}
+\int_{\tau_0}^{\tau_1}
+\frac{1}{t+\rho-r}\,dr
+\\
+={}&
+\frac{M^2}{L(1/\rho)}
+\log\left(
+\frac{t-\tau_0+\rho}
+{t-\tau_1+\rho}
+\right)
+\\
+={}&
+\frac{M^2}{L(1/\rho)}
+L\left(
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right).
+\end{align*}
+
+For the second term, the Lipschitz assumption
+implies
+\[
+\begin{aligned}
+&\left|
+\sigma_\rho(v_r^\rho(x))
+-
+\sigma_\rho(\widetilde v_r^\rho(x))
+\right|^2 \leq
+\gamma_\rho^{-2}\lambda^2
+|v_r^\rho(x)-\widetilde v_r^\rho(x)|^2.
+\end{aligned}
+\]
+
+Therefore,
+\begin{align*}
+&\gamma_\rho^2
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\mathbb{E}
+\left[
+\left|
+\sigma_\rho(v_r^\rho(x))
+-
+\sigma_\rho(\widetilde v_r^\rho(x))
+\right|^2
+\right]
+\,dx\,dr
+\\
+\leq{}&\lambda^2
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+F(r)
+\,dx\,dr
+\\
+={}&
+\frac{\lambda^2}{4\pi}
+\int_{\tau_1}^{t}
+\frac{F(r)}{t+\rho-r}\,dr.
+\end{align*}
+
+Combining the two estimates and taking
+the supremum over $y\in\mathbb{R}^2$
+establishes \eqref{eq:time-shift-volterra}.
+
+Finally, since
+\[
+|\sigma_\rho(a)-\sigma_\rho(b)|
+\leq 2M,
+\]
+we may directly estimate the second term
+in \eqref{eq:time-shift-ito} by
+\begin{align*}
+&4\gamma_\rho^2M^2
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\,dx\,dr
+\\
+={}&
+\frac{4M^2}{L(1/\rho)}
+\int_{\tau_1}^{t}
+\frac{1}{t+\rho-r}\,dr
+\\
+={}&
+\frac{4M^2}{L(1/\rho)}
+L\left(
+\frac{t-\tau_1}{\rho}
+\right).
+\end{align*}
+
+Together with the estimate for the first
+term, this proves
+\eqref{eq:time-shift-explicit}.
+
+\end{proof}
+
+
+\begin{remark}[The associated Volterra inequality]
+\label{rem:time-shift-volterra}
+
+Set
+\[
+\Delta:=\tau_1-\tau_0,
+\qquad
+g(\tau):=F(\tau_1+\tau).
+\]
+
+Then \eqref{eq:time-shift-volterra}
+takes the form
+\begin{equation}
+\label{eq:shifted-volterra}
+g(\tau)
+\leq
+A_\rho
+L\left(
+\frac{\Delta}{\tau+\rho}
+\right)
++
+B\int_0^\tau
+\frac{g(r)}{\tau+\rho-r}\,dr,
+\end{equation}
+where
+\[
+A_\rho=\frac{M^2}{L(1/\rho)},
+\qquad
+B=\frac{1}{4\pi}.
+\]
+
+To estimate the convolution term, define
+\[
+f_\rho(\tau)
+:=
+L\left(
+\frac{\Delta}{\tau+\rho}
+\right).
+\]
+
+For $0\leq r\leq\tau$, we have
+\begin{align*}
+f_\rho(r)-f_\rho(\tau)
+={}&
+\log\left(
+\frac{r+\rho+\Delta}
+{\tau+\rho+\Delta}
+\right)
+\\
+&+
+\log\left(
+\frac{\tau+\rho}{r+\rho}
+\right)
+\\
+\leq{}&
+\log\left(
+\frac{\tau+\rho}{r+\rho}
+\right).
+\end{align*}
+
+Consequently,
+\begin{align*}
+&\int_0^\tau
+\frac{f_\rho(r)}{\tau+\rho-r}\,dr
+\\
+\leq{}&
+f_\rho(\tau)
+\int_0^\tau
+\frac{1}{\tau+\rho-r}\,dr
+\\
+&+
+\int_0^\tau
+\frac{
+\log((\tau+\rho)/(r+\rho))
+}{\tau+\rho-r}\,dr
+\\
+\leq{}&
+f_\rho(\tau)L(\tau/\rho)
++
+\int_0^\tau
+\frac{\log(\tau/r)}{\tau-r}\,dr
+\\
+={}&
+f_\rho(\tau)L(\tau/\rho)
++
+\int_0^1
+\frac{-\log s}{1-s}\,ds
+\\
+={}&
+f_\rho(\tau)L(\tau/\rho)
++\frac{\pi^2}{6}.
+\end{align*}
+
+Thus,
+\begin{equation}
+\label{eq:log-convolution-estimate}
+\boxed{
+\begin{aligned}
+&\int_0^\tau
+\frac{
+L\left(\frac{\Delta}{r+\rho}\right)
+}{\tau+\rho-r}\,dr
+\\
+&\qquad\leq
+L\left(
+\frac{\Delta}{\tau+\rho}
+\right)
+L\left(
+\frac{\tau}{\rho}
+\right)
++
+\frac{\pi^2}{6}.
+\end{aligned}
+}
+\end{equation}
+
+However, the coefficient $B$ in
+\eqref{eq:shifted-volterra} is independent
+of $\rho$, and
+\[
+B L(T/\rho)\longrightarrow\infty
+\qquad\text{as }\rho\downarrow0
+\]
+for every fixed $T>0$.
+
+Hence a direct contraction argument for
+\eqref{eq:shifted-volterra} on a fixed
+time interval does not provide a
+$\rho$-uniform refined bound.
+
+\end{remark}

@@ -1,0 +1,60 @@
+\section{Method of Moments and Maximal Likelihood Estimation}
+
+\subsection{MoM}
+
+\begin{definition}[Method of moments]
+Let $X_1,\ldots,X_n$ be i.i.d.\ real observations from $P_\theta$,
+where $\theta\in\Theta\subseteq\mathbb{R}^k$, and assume
+$\mathbb{E}_\theta|X_1|^k<\infty$.
+The \emph{population moments} and \emph{empirical moments} are
+\[
+\mu_j(\theta)=\mathbb{E}_\theta X_1^j,
+\qquad
+\widehat\mu_j=\frac{1}{n}\sum_{i=1}^n X_i^j,
+\qquad 1\leq j\leq k.
+\]
+
+Write
+\[
+h(\theta)=\bigl(\mu_1(\theta),\ldots,\mu_k(\theta)\bigr),
+\qquad
+\widehat\mu=(\widehat\mu_1,\ldots,\widehat\mu_k).
+\]
+The \emph{method of moments} (MoM) solves
+\[
+h(\widehat\theta)=\widehat\mu
+\]
+for $\widehat\theta\in\Theta$. If $h:\Theta\to h(\Theta)$ is
+one-to-one and the observed $\widehat\mu$ lies in $h(\Theta)$, then
+\[
+\widehat\theta=h^{-1}(\widehat\mu).
+\]
+As with every estimator, the inverse or the chosen solution must
+be measurable as a function of the data.
+\end{definition}
+
+\subsection{MLE}
+
+\begin{definition}[Maximum likelihood estimator]
+Suppose $Y$ has a joint density or pmf $f_\theta$ relative to a
+fixed measure that does not depend on $\theta$.
+The \emph{likelihood} is
+\[
+L(\theta;y)=f_\theta(y),
+\]
+viewed as a function of $\theta$ with $y$ fixed.
+A \emph{maximum likelihood estimator} (MLE) is a measurable choice
+\[
+\widehat\theta(y)
+\in\operatorname*{arg\,max}_{\theta\in\Theta}L(\theta;y).
+\]
+
+The maximizing set may be empty or contain several points.
+The likelihood is not a probability distribution over parameters.
+Because the logarithm is increasing, we can instead maximize
+the \emph{log-likelihood}
+\[
+\ell(\theta;y)=\log L(\theta;y),
+\]
+with the convention $\log 0=-\infty$.
+\end{definition}
