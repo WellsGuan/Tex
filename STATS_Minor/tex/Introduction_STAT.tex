@@ -562,6 +562,28 @@ having zero probability are interpreted through these versions, not by
 dividing probabilities of zero events.
 \end{definition}
 
+\begin{theorem}
+    If $T$ is a suffient statistic and $S$ is another statistic such that there is a measurable function $\phi$ such that $T = \phi(S)$, then $S$ is sufficient.
+\end{theorem}
+\begin{proof}
+    There is a some $K(t,B)$ such that
+    \[
+    P_{\theta}(X \in A|T(X)) = K(T(X),A),\quad P_{\theta}\text{-a.s.}
+    \]
+    Then we know there exists a r.c.d. $L$ such that
+    \[
+    P_{K(t,\cdot)}(X \in A|S) = L(t,S,A)
+    \]
+    and hence
+    \[
+    K(t,A\cap S^{-1}(B)) = \int_{S^{-1}(B)} L(t,S(x),A)K(t,dx).
+    \]
+    We may say that
+    \[
+    K(T())
+    \]
+\end{proof}
+
 \begin{theorem}[Neyman--Fisher factorization]
 Let $\{P_\theta\}$ be a family on a Euclidean Borel sample space, dominated
 by a common sigma-finite measure $\nu$. A Borel statistic $T$ with values in
