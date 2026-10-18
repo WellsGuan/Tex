@@ -1,0 +1,499 @@
+\section{Some Useful Volterra Estimations}
+
+\subsection{Smoothen}
+
+\begin{proposition}[Comparison of time-shifted solutions]
+
+Let $0\leq \tau_0<\tau_1<\tau_2$ and $\rho\in(0,1)$. Assume $v^\rho$ and $\widetilde v^\rho$ be
+two adapted mild solutions driven by the same
+space-time white noise $W$, satisfying
+\begin{align*}
+v_t^\rho(y)
+={}&
+\bigl(G_{t-\tau_0}*v_{\tau_0}^\rho\bigr)(y)
+\\
+&+
+\gamma_\rho
+\int_{\tau_0}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma_\rho(v_r^\rho(x))dW_r(x)dx,
+\end{align*}
+and
+\begin{align*}
+\widetilde v_t^\rho(y)
+={}&
+\bigl(
+G_{t-\tau_1}*
+G_{\tau_1-\tau_0}*
+v_{\tau_0}^\rho
+\bigr)(y)
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma_\rho(\widetilde v_r^\rho(x))
+\,dW_r(x)dx.
+\end{align*}
+
+Define
+\[
+F(t)
+:=
+\sup_{y\in\mathbb{R}^2}
+\mathbb{E}
+\left[
+|v_t^\rho(y)-\widetilde v_t^\rho(y)|^2
+\right],
+\]
+and the following explicit bound holds:
+\begin{equation*}
+\begin{aligned}
+F(t)
+\leq
+\frac{M^2}{L(1/\rho)}
+\bigg[
+&
+L\left(
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right) + 
+4L\left(
+\frac{t-\tau_1}{\rho}
+\right)
+\bigg].
+\end{aligned}
+\end{equation*}
+
+\end{proposition}
+
+
+\begin{proof}
+
+We know for $t\geq\tau_1$,
+\begin{align*}
+&v_t^\rho(y)-\widetilde v_t^\rho(y)
+\\
+={}&
+\gamma_\rho
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma_\rho(v_r^\rho(x))
+\,dW_r(x)dx
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\left[
+\sigma_\rho(v_r^\rho(x))
+-
+\sigma_\rho(\widetilde v_r^\rho(x))
+\right]
+dW_r(x)dx
+\end{align*}
+
+Since the two stochastic integrals are taken
+over disjoint time intervals, they are orthogonal
+in $L^2(\Omega)$. Applying the It\^o isometry gives
+\begin{align*}
+&\mathbb{E}
+\left[
+|v_t^\rho(y)-\widetilde v_t^\rho(y)|^2
+\right]
+\nonumber\\
+={}&
+\gamma_\rho^2
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\mathbb{E}
+\left[
+|\sigma_\rho(v_r^\rho(x))|^2
+\right]
+\,dx\,dr
+\nonumber\\
+&+
+\gamma_\rho^2
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\mathbb{E}
+\left[
+\left|
+\sigma_\rho(v_r^\rho(x))
+-
+\sigma_\rho(\widetilde v_r^\rho(x))
+\right|^2
+\right]
+\,dx\,dr.
+\end{align*}
+Using the boundedness of $\sigma_\rho$,
+we have
+\begin{align*}
+&\gamma_\rho^2 M^2
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\,dx\,dr
+\\
+={}&
+\frac{\gamma_\rho^2M^2}{4\pi}
+\int_{\tau_0}^{\tau_1}
+\frac{1}{t+\rho-r}\,dr
+\\
+={}&
+\frac{M^2}{L(1/\rho)}
+\log\left(
+\frac{t-\tau_0+\rho}
+{t-\tau_1+\rho}
+\right)
+\\
+={}&
+\frac{M^2}{L(1/\rho)}
+L\left(
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right).
+\end{align*}
+
+For the second term,
+we may directly estimate the second term
+by
+\begin{align*}
+&4\gamma_\rho^2M^2
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}^2(y-x)
+\,dx\,dr
+\\
+={}&
+\frac{4M^2}{L(1/\rho)}
+\int_{\tau_1}^{t}
+\frac{1}{t+\rho-r}\,dr
+\\
+={}&
+\frac{4M^2}{L(1/\rho)}
+L\left(
+\frac{t-\tau_1}{\rho}
+\right).
+\end{align*}
+
+Together with the estimate for the first
+term, this proves the required estimation.
+
+\end{proof}
+
+\begin{proposition}[Estimation for Flattening]
+
+Let $0\leq \tau_0<\tau_1<\tau_2$ and $\rho\in(0,1)$. We will have the estimation:
+
+\begin{equation*}
+{
+\begin{aligned}
+&\mathbb E\left|
+\mathcal V_{\tau_1,\tau_2}
+G_{\tau_1-\tau_0}v_{\tau_0}(x)
+-
+\mathcal V_{\tau_1,\tau_2}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\right|^2
+\\
+&\quad\leq
+\|v_{\tau_0}\|_2^2\left(
+\frac{
+\tau_2-\tau_1+\frac12|X-x|^2
+}{
+\tau_1-\tau_0
+}\right)
++
+\frac{4\|\sigma\|_\infty^2}
+{L(1/\rho)}
+L\left(
+\frac{\tau_2-\tau_1}{\rho}
+\right).
+\end{aligned}
+}
+\end{equation*}
+\end{proposition}
+\begin{proof}
+First, by the mild formulation,
+\begin{align*}
+&\mathcal V_{\tau_1,\tau_2}
+G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\\
+={}&
+G_{\tau_2-\tau_0}v_{\tau_0}(x)
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{\tau_2}
+\int_{\mathbb R^2}
+G_{\tau_2+\rho-r}(x-y)
+\sigma_\rho\left(
+\mathcal V_{\tau_1,r}
+G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+dW_r(y)dy.
+\end{align*}
+
+Similarly,
+\begin{align*}
+&\mathcal V_{\tau_1,\tau_2}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\\
+={}&
+G_{\tau_2-\tau_1}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{\tau_2}
+\int_{\mathbb R^2}
+G_{\tau_2+\rho-r}(x-y)
+\sigma_\rho\left(
+\mathcal V_{\tau_1,r}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+dW_r(y)dy.
+\end{align*}
+
+Notice that
+\[
+G_{\tau_2-\tau_0}v_{\tau_0}(x)
+=
+\int_{\mathbb R^2}
+G_{\tau_2-\tau_0}(x-y)
+v_{\tau_0}(y)\,dy.
+\]
+
+On the other hand, since
+$\mathcal Z_X f=f(X)$ is regarded as
+a constant function in the spatial variable,
+\begin{align*}
+&G_{\tau_2-\tau_1}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\\
+={}&
+G_{\tau_2-\tau_1}
+\left(
+\int_{\mathbb R^2}
+G_{\tau_1-\tau_0}(X-y)
+v_{\tau_0}(y)\,dy
+\right)
+\\
+={}&
+\int_{\mathbb R^2}
+G_{\tau_1-\tau_0}(X-y)
+v_{\tau_0}(y)\,dy.
+\end{align*}
+
+Consequently,
+\begin{align*}
+&\mathcal V_{\tau_1,\tau_2}
+G_{\tau_1-\tau_0}v_{\tau_0}(x)
+-
+\mathcal V_{\tau_1,\tau_2}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\\
+={}&
+\int_{\mathbb R^2}
+\left(
+G_{\tau_2-\tau_0}(x-y)
+-
+G_{\tau_1-\tau_0}(X-y)
+\right)
+v_{\tau_0}(y)\,dy
+\\
+&+
+\gamma_\rho
+\int_{\tau_1}^{\tau_2}
+\int_{\mathbb R^2}
+G_{\tau_2+\rho-r}(x-y)
+\\
+&\qquad\times
+\Big[
+\sigma_\rho\left(
+\mathcal V_{\tau_1,r}
+G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+\\
+&\qquad\qquad-
+\sigma_\rho\left(
+\mathcal V_{\tau_1,r}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+\Big]
+\,W(dr,dy).
+\end{align*}
+
+By the It\^o isometry and the orthogonality
+of the stochastic integral to the
+$\mathcal F_{\tau_1}$-measurable initial term,
+we obtain
+\begin{align*}
+&\mathbb E\left|
+\mathcal V_{\tau_1,\tau_2}
+G_{\tau_1-\tau_0}v_{\tau_0}(x)
+-
+\mathcal V_{\tau_1,\tau_2}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\right|^2
+\\
+={}&
+\mathbb E\left|
+\int_{\mathbb R^2}
+\left(
+G_{\tau_2-\tau_0}(x-y)
+-
+G_{\tau_1-\tau_0}(X-y)
+\right)
+v_{\tau_0}(y)\,dy
+\right|^2
+\\
+&+
+\frac{4\pi}{L(1/\rho)}
+\int_{\tau_1}^{\tau_2}
+\int_{\mathbb R^2}
+G_{\tau_2+\rho-r}^2(x-y)
+\\
+&\qquad\times
+\mathbb E\Bigg|
+\sigma_\rho\left(
+\mathcal V_{\tau_1,r}
+G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+\\
+&\qquad\qquad-
+\sigma_\rho\left(
+\mathcal V_{\tau_1,r}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+\Bigg|^2\,dy\,dr
+\\
+=:{}& I_1+I_2.
+\end{align*}
+
+We first estimate $I_1$. By the
+Cauchy--Schwarz inequality,
+\begin{align*}
+I_1
+\leq{}&
+\int_{\mathbb R^2}
+\int_{\mathbb R^2}
+\prod_{i=1}^{2}
+\Bigg[
+\left|
+G_{\tau_2-\tau_0}(x-y_i)
+-
+G_{\tau_1-\tau_0}(X-y_i)
+\right|
+\\
+&\qquad\qquad\times
+\left(
+\mathbb E|v_{\tau_0}(y_i)|^2
+\right)^{1/2}
+\Bigg]
+\,dy_1\,dy_2
+\\
+\leq{}&
+\|v_{\tau_0}\|_2^2
+\left\|
+G_{\tau_2-\tau_0}(x-\cdot)
+-
+G_{\tau_1-\tau_0}(X-\cdot)
+\right\|_{L^1(\mathbb R^2)}^2,
+\end{align*}
+where
+\[
+\|v_{\tau_0}\|_2^2
+:=
+\sup_{y\in\mathbb R^2}
+\mathbb E|v_{\tau_0}(y)|^2.
+\]
+
+Using the $L^1$ estimate for Gaussian
+kernels, we further obtain
+\begin{equation*}
+I_1
+\leq 
+\|v_{\tau_0}\|_2^2
+\left(\frac{
+\tau_2-\tau_1+\frac12|X-x|^2
+}{
+\tau_1-\tau_0
+}\right).
+\end{equation*}
+
+Next, we estimate $I_2$.
+Using the boundedness of $\sigma_\rho$,
+\[
+|\sigma_\rho(a)-\sigma_\rho(b)|
+\leq 2\|\sigma_\rho\|_\infty
+\leq 2\|\sigma\|_\infty,
+\]
+we obtain
+\begin{align*}
+I_2
+\leq{}&
+\frac{16\pi\|\sigma\|_\infty^2}
+{L(1/\rho)}
+\int_{\tau_1}^{\tau_2}
+\int_{\mathbb R^2}
+G_{\tau_2+\rho-r}^2(x-y)
+\,dy\,dr. \\
+&\leq
+\frac{4\|\sigma\|_\infty^2}
+{L(1/\rho)}
+\int_{\tau_1}^{\tau_2}
+\frac{1}{\tau_2+\rho-r}\,dr
+\\
+&=
+\frac{4\|\sigma\|_\infty^2}
+{L(1/\rho)}
+\log\left(
+\frac{\tau_2-\tau_1+\rho}{\rho}
+\right)
+\\
+&=
+\frac{4\|\sigma\|_\infty^2}
+{L(1/\rho)}
+L\left(
+\frac{\tau_2-\tau_1}{\rho}
+\right).
+\end{align*}
+
+Combining the estimates for $I_1$ and $I_2$
+yields
+\begin{equation*}
+{
+\begin{aligned}
+&\mathbb E\left|
+\mathcal V_{\tau_1,\tau_2}
+G_{\tau_1-\tau_0}v_{\tau_0}(x)
+-
+\mathcal V_{\tau_1,\tau_2}
+\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\right|^2
+\\
+&\quad\leq
+\|v_{\tau_0}\|_2^2\left(
+\frac{
+\tau_2-\tau_1+\frac12|X-x|^2
+}{
+\tau_1-\tau_0
+}\right)
++
+\frac{4\|\sigma\|_\infty^2}
+{L(1/\rho)}
+L\left(
+\frac{\tau_2-\tau_1}{\rho}
+\right).
+\end{aligned}
+}
+\end{equation*}
+\end{proof}
