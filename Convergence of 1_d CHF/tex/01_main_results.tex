@@ -149,8 +149,8 @@ Then, we compute
 \gamma_{\rho}\int_{T_0}^t \mathcal{G}_{T_1+\rho-r}\left[\left(\mathcal{S}_{\zeta_r}[\sigma_{\rho}^2\circ v_r^{\rho}]^{1/2}\right)d\widetilde{W}_r^{\rho}\right](x)\right.\\ &\qquad- \left.\int_{T_0}^t J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(x))d\widehat{B}_r(x) 
 \right|^2 \\
 = &\dfrac{4\pi}{L(1/\rho)}\mathbb{E}\left\lvert\int_{T_0}^t \int G_{T_1+\rho-r}(x-y)\left(\mathcal{S}_{\zeta_r}[\sigma_{\rho}^2\circ v_r^{\rho}]^{1/2}\right)d\widetilde{W}_r^{\rho}(y) \right. \\
-&\qquad -\int_{T_0}^t\int J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(x))G_{T_1+\rho-r}(x-y)d\widetilde{W}_r^{\rho}(y) 
-\left.\right\rvert^2 \\
+&\qquad\left. -\int_{T_0}^t\int J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(x))G_{T_1+\rho-r}(x-y)d\widetilde{W}_r^{\rho}(y) 
+\right\rvert^2 \\
 \leq& \dfrac{4\pi}{L(1/\rho)}\int_{T_0}^t\int G_{T_1+\rho-r}(x-y)^2F(x,y)dydr
 \end{aligned}
 \]
@@ -320,7 +320,7 @@ E_2\coloneqq\EE\left\lvert
 \right)\,\dif y\right)^{1/2}
 -J_{\sigma,\rho}\!\left(
 \sfS_\rho(\tau_2-\tau_1),
-\clG_{\tau_1-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(X)
 \right)
 \right\rvert_{\Frob}^{2}.
 \]
@@ -390,32 +390,36 @@ on $L^2(\Omega,\mathbb P)$,
 &\left(\EE\left\lvert
 J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\kappa_{\ell,\rho}\xi^2),
-\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(x)
+\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
 \right)
 -J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x)
+\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)
 \right)
 \right\rvert^2\right)^{1/2}
 \nonumber\\
 &\quad \leq \left(\EE\left|J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\kappa_{\ell,\rho}\xi^2),
-\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(x)
+\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
 \right) - J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\kappa_{\ell,\rho}\xi^2),
-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x)
+\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)
 \right)\right|^2 \right)^{1/2}
 \\
-&\quad+ \left(\EE\left|J_{\sigma_{\rho},\rho}\!\left(
+&+ \left(\EE\left|J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\kappa_{\ell,\rho}\xi^2),
-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x)
+\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)
 \right)-J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x)\right)\right|^2 \right)^{1/2} \\
+\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right)\right|^2 \right)^{1/2} \\
 &\quad\leq
-\left(\dfrac{1}{4\pi/(L(1/\rho)\lambda^2) - S_{\rho}(\kappa_{\ell,\rho}\xi^2)}\EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(x) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x)\right|\right)^{1/2}
+\left(\dfrac{1}{4\pi/(L(1/\rho)\lambda^2) - S_{\rho}(\kappa_{\ell,\rho}\xi^2)}\EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right|^2\right)^{1/2}
 \nonumber\\
-&\quad+\left(\dfrac{\lambda^2L(1/\rho)}{4\pi}\lVert\mathcal{V}_p\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x) - \mathcal{V}_{p-q,q}\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(x)\rVert_2^2\right)^{1/2}
+&\quad+\left(\dfrac{\lambda^2L(1/\rho)}{4\pi}\lVert\mathcal{V}_p\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X) - \mathcal{V}_{p-q,q}\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\rVert_2^2\right)^{1/2}\\
+&\quad\leq \left(\dfrac{1}{4\pi/(L(1/\rho)\lambda^2) - S_{\rho}(\kappa_{\ell,\rho}\xi^2)}C\Xi_{2,t}[v_0]^2\dfrac{L(L(1/\rho))}{L(1/\rho)}\right)^{1/2}
+\nonumber\\
+&\quad+\left(\dfrac{\lambda^2|\sigma|_{\infty}}{4\pi}\left[L\left(\dfrac{q}{p-q+\rho}\right)+4L\left(\dfrac{p-q}{\rho}\right)\right]\right)^{1/2} \\
+&\quad\leq  
 \end{align*}
 where
 \[

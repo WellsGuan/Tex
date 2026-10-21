@@ -1,0 +1,583 @@
+%!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{HW5 - STAT 709}
+\author{Wells Guan}
+
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+\maketitle
+
+\noindent All exercises are required unless marked optional.
+
+\subsection*{Problem 1. Empirical distributions and moment estimates}
+Bickel and Doksum, \textit{Mathematical Statistics: Basic Ideas and
+Selected Topics}, Volume I, second edition, Section 2.5,
+Problems for Section 2.1: Exercises 6 and 9 (required).
+
+\subsubsection*{Exercise 2.1.6}
+Let $X_{(1)}\le\cdots\le X_{(n)}$ be the order statistics of a
+sample $X_1,\ldots,X_n$ (see Problem B.2.8). There is a one-to-one
+correspondence between the empirical distribution function $\widehat F$
+and the order statistics in the sense that, given the order statistics,
+we may construct $\widehat F$, and given $\widehat F$, we know the
+order statistics. Give the details of this correspondence.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}
+For the fixed sample size $n$, the empirical distribution function is
+\[
+\widehat F(x)=\frac1n\sum_{i=1}^n\mathbf1_{\{X_i\le x\}}.
+\]
+Reordering a sample does not change this sum. Thus the order statistics
+determine the entire function through
+\[
+{\widehat F(x)
+=\frac1n\sum_{i=1}^n\mathbf1_{\{X_{(i)}\le x\}},\qquad x\in\R.}
+\]
+Conversely, for every $j=1,\ldots,n$,
+\[
+{X_{(j)}=\inf\{x\in\R:\widehat F(x)\ge j/n\}}
+\]
+and we are done.
+
+\subsubsection*{Exercise 2.1.9}
+Suppose $\mathbf X=(X_1,\ldots,X_n)$, where the $X_i$ are independent
+$N(0,\sigma^2)$.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Find an estimate of $\sigma^2$ based on the second moment.
+\item Construct an estimate of $\sigma$ using the estimate of part (a)
+and the equation $\sigma=\sqrt{\sigma^2}$.
+\item Use the empirical substitution principle to construct an estimate
+of $\sigma$ using the relation $\E|X_1|=\sigma\sqrt{2/\pi}$.
+\end{enumerate}
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}
+The empirical substitution principle replaces an expectation under the
+unknown distribution by its empirical average.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Since $\E X_1^2=\sigma^2$, replacing the second moment by its
+sample analogue gives
+\[
+{\widehat{\sigma^2}=\frac1n\sum_{i=1}^nX_i^2}
+\]
+with $\E\widehat{\sigma^2}=\sigma^2$.
+
+\item Applying the square-root relation gives
+\[
+{\widehat\sigma_{\mathrm{rms}}
+=\sqrt{\frac1n\sum_{i=1}^nX_i^2}.}
+\]
+
+
+\item Rewriting the given relation as
+$\sigma=\sqrt{\pi/2}\,\E|X_1|$ gives the alternative estimate
+\[
+{\widehat\sigma_{\mathrm{abs}}
+=\sqrt{\frac\pi2}\,\frac1n\sum_{i=1}^n|X_i|.}
+\]
+In particular, this estimate is unbiased. For completeness, the relation
+follows directly from the normal density:
+\[
+\E|X_1|
+=\frac{2}{\sigma\sqrt{2\pi}}
+\int_0^\infty x e^{-x^2/(2\sigma^2)}\,dx
+=\sigma\sqrt{\frac2\pi}.
+\]
+Both estimates of $\sigma$ are consistent by the law of large numbers
+and continuity of the square-root map.
+\end{enumerate}
+
+\subsection*{Problem 2. Maximum likelihood estimates}
+Bickel and Doksum, the same edition, Section 2.5,
+Problems for Section 2.2: Exercises 12 and 13 (required).
+
+\subsubsection*{Exercise 2.2.12}
+Let $X_1,\ldots,X_n$ be i.i.d.\ as $X\sim P_\theta$, with
+$\theta\in\Theta\subseteq\R^d$ identifiable. Suppose $X$ has possible
+values $v_1,\ldots,v_k$ and that
+\[
+q(\theta)=h(\mu_1(\theta),\ldots,\mu_r(\theta))
+\]
+for some $\R^k$-valued function $h$. Show that the method-of-moments
+estimate $\widehat q=h(\widehat\mu_1,\ldots,\widehat\mu_r)$ can be
+written as a frequency plug-in estimate.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}
+Write $p_\ell(\theta)=\P_\theta(X=v_\ell)$ and let
+\[
+\widehat p_\ell=\frac1n\sum_{i=1}^n\mathbf1_{\{X_i=v_\ell\}},
+\qquad \ell=1,\ldots,k,
+\]
+be the empirical relative frequencies. The theoretical and empirical
+raw moments satisfy
+\[
+\mu_j(\theta)=\sum_{\ell=1}^k v_\ell^j p_\ell(\theta),
+\qquad
+\widehat\mu_j=\frac1n\sum_{i=1}^nX_i^j
+=\sum_{\ell=1}^k v_\ell^j\widehat p_\ell.
+\]
+Define the functional of a probability vector $p$ by
+\[
+Q(p)=h\left(\sum_{\ell=1}^k v_\ell p_\ell,\ldots,
+\sum_{\ell=1}^k v_\ell^r p_\ell\right).
+\]
+Then $q(\theta)=Q(p(\theta))$, and replacing the probabilities by their
+empirical frequencies yields
+\[
+{Q(\widehat p)
+=h(\widehat\mu_1,\ldots,\widehat\mu_r)=\widehat q.}
+\]
+Thus the moment estimate is exactly a frequency plug-in estimate,
+not merely an asymptotic approximation. As usual, the displayed
+estimator is understood on the sample values for which $h$ is defined.
+
+\subsubsection*{Exercise 2.2.13}
+\textit{General method of moment estimates.}
+Suppose $X_1,\ldots,X_n$ are i.i.d.\ as $X\sim P_\theta$, with
+$\theta\in\Theta\subseteq\R^d$ identifiable. Let $g_1,\ldots,g_r$ be
+given linearly independent functions and write
+\[
+\mu_j(\theta)=\E_\theta g_j(X),\qquad
+\widehat\mu_j=\frac1n\sum_{i=1}^n g_j(X_i),
+\qquad j=1,\ldots,r.
+\]
+Suppose $X$ has possible values $v_1,\ldots,v_k$ and that
+\[
+q(\theta)=h(\mu_1(\theta),\ldots,\mu_r(\theta))
+\]
+for some $\R^k$-valued function $h$.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Show that the method-of-moments estimate
+$\widehat q=h(\widehat\mu_1,\ldots,\widehat\mu_r)$ is a frequency
+plug-in estimate.
+\item Suppose $\{P_\theta:\theta\in\Theta\}$ is the $k$-parameter
+exponential family given by (1.6.10). Let $g_j(X)=T_j(X)$,
+$1\le j\le k$. In the following cases, find the method-of-moments
+estimates:
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item Beta, $\beta(1,\theta)$;
+\item Beta, $\beta(\theta,1)$;
+\item Rayleigh,
+$p(x,\theta)=(x/\theta^2)\exp(-x^2/(2\theta^2))$,
+$x>0$, $\theta>0$;
+\item Gamma, $\Gamma(p,\theta)$, $p$ fixed;
+\item Inverse Gaussian, $IG(\mu,\lambda)$, $\theta=(\mu,\lambda)$.
+See Problem 1.6.36.
+\end{enumerate}
+\textit{Hint:} Use Corollary 1.6.1.
+\end{enumerate}
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item With $p_\ell(\theta)$ and $\widehat p_\ell$ as in Exercise 2.2.12,
+\[
+\mu_j(\theta)=\sum_{\ell=1}^k g_j(v_\ell)p_\ell(\theta),
+\qquad
+\widehat\mu_j=\sum_{\ell=1}^k g_j(v_\ell)\widehat p_\ell.
+\]
+Consequently, if
+\[
+Q(p)=h\left(\sum_{\ell=1}^k g_1(v_\ell)p_\ell,\ldots,
+\sum_{\ell=1}^k g_r(v_\ell)p_\ell\right),
+\]
+then
+\[
+{\widehat q=Q(\widehat p).}
+\]
+This is the same substitution argument as before, with $x^j$
+replaced by the prescribed functions $g_j(x)$.
+
+\item Here the moment functions are the exponential-family canonical
+statistics, rather than necessarily $X,X^2,\ldots$.
+For a density written as
+\[
+f_\eta(x)=a(x)\exp\{\eta^\top T(x)-A(\eta)\},
+\]
+the moment identity is $\E_\eta T(X)=\nabla A(\eta)$.
+Equating this expectation to the empirical mean of $T(X)$ gives the
+required generalized moment equations. The finite-support assumption
+in part (a) is not imposed on these continuous examples.
+
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item \textbf{Beta $(1,\theta)$.}
+The density is
+\[
+f_\theta(x)=\theta(1-x)^{\theta-1},\qquad0<x<1,\quad\theta>0.
+\]
+Its canonical statistic is $T(x)=\log(1-x)$ and
+\[
+\E_\theta\log(1-X)=-\frac1\theta.
+\]
+For example, this follows by setting $y=1-x$ and differentiating
+$\int_0^1y^{\theta-1}\,dy=1/\theta$ with respect to $\theta$.
+Matching the empirical logarithmic moment gives
+\[
+{\widehat\theta
+=-\left(\frac1n\sum_{i=1}^n\log(1-X_i)\right)^{-1}
+=-\frac{n}{\sum_{i=1}^n\log(1-X_i)}.}
+\]
+Since $0<X_i<1$ almost surely, the denominator is strictly negative.
+The raw-first-moment estimate $\overline X^{-1}-1$ is a different
+moment estimate and is not the one requested when $g=T$.
+
+\item \textbf{Beta $(\theta,1)$.}
+Now
+\[
+f_\theta(x)=\theta x^{\theta-1},\qquad0<x<1,
+\]
+so $T(x)=\log x$ and $\E_\theta\log X=-1/\theta$.
+Thus
+\[
+{\widehat\theta
+=-\left(\frac1n\sum_{i=1}^n\log X_i\right)^{-1}
+=-\frac{n}{\sum_{i=1}^n\log X_i}.}
+\]
+Again this is based on the specified canonical statistic;
+the raw-first-moment estimate would instead be
+$\overline X/(1-\overline X)$.
+
+\item \textbf{Rayleigh.}
+The canonical statistic is $T(x)=x^2$ because the parameter-dependent
+part of the log density is $-2\log\theta-x^2/(2\theta^2)$.
+The variable $X^2/(2\theta^2)$ has the standard exponential
+distribution, so $\E_\theta X^2=2\theta^2$.
+Consequently,
+\[
+{\widehat\theta
+=\sqrt{\frac1{2n}\sum_{i=1}^nX_i^2}.}
+\]
+
+\item \textbf{Gamma with known shape $p$.}
+To specify the parameter convention explicitly, first use the
+shape--scale density
+\[
+f_\theta(x)=\frac{x^{p-1}}{\Gamma(p)\theta^p}e^{-x/\theta},
+\qquad x>0,\quad\theta>0.
+\]
+Then $T(x)=x$ and $\E_\theta X=p\theta$, whence
+\[
+{\widehat\theta=\overline X/p\quad\text{(scale convention)}.}
+\]
+If $\Gamma(p,\theta)$ is instead defined with $\theta$ as the
+\emph{rate}, namely
+$f_\theta(x)=\theta^p x^{p-1}e^{-\theta x}/\Gamma(p)$,
+then $\E_\theta X=p/\theta$ and the corresponding answer is
+\[
+{\widehat\theta=p/\overline X\quad\text{(rate convention)}.}
+\]
+The question screenshot does not include the textbook's earlier
+Gamma density definition, so both conventions are stated explicitly.
+
+\item \textbf{Inverse Gaussian.}
+Use the mean--shape parameterization
+\[
+f_{\mu,\lambda}(x)
+=\left(\frac{\lambda}{2\pi x^3}\right)^{1/2}
+\exp\left[-\frac{\lambda(x-\mu)^2}{2\mu^2x}\right],
+\qquad x>0,\quad\mu,\lambda>0.
+\]
+Expanding the exponent gives
+\[
+-\frac{\lambda(x-\mu)^2}{2\mu^2x}
+=-\frac{\lambda}{2\mu^2}x-\frac\lambda2\frac1x
++\frac\lambda\mu.
+\]
+Hence take $T_1(x)=x$, $T_2(x)=1/x$.
+Their expectations are
+\[
+\E X=\mu,\qquad \E\frac1X=\frac1\mu+\frac1\lambda.
+\]
+One way to verify both identities is to use the normalizing integral
+\[
+Z(a,b)=\int_0^\infty x^{-3/2}e^{-ax-b/x}\,dx
+=\sqrt{\frac\pi b}\,e^{-2\sqrt{ab}},\qquad a,b>0.
+\]
+The identity follows from normalization of the displayed inverse
+Gaussian density with $a=\lambda/(2\mu^2)$ and $b=\lambda/2$;
+every $a,b>0$ arises from such a parameter pair.
+Differentiating the logarithm of this integral yields
+\[
+\E X=-\partial_a\log Z=\sqrt{b/a}=\mu,
+\qquad
+\E\frac1X=-\partial_b\log Z
+=\frac1{2b}+\sqrt{a/b}=\frac1\lambda+\frac1\mu.
+\]
+The differentiation is justified locally by the exponential decay at
+both zero and infinity.
+Let $H_n=n^{-1}\sum_iX_i^{-1}$. The moment equations are
+\[
+\overline X=\widehat\mu,
+\qquad H_n=\frac1{\widehat\mu}+\frac1{\widehat\lambda}.
+\]
+Their solution is
+\[
+{\widehat\mu=\overline X,\qquad
+\widehat\lambda=\left(H_n-\frac1{\overline X}\right)^{-1}.}
+\]
+By Cauchy--Schwarz,
+\[
+\left(\frac1n\sum_iX_i\right)
+\left(\frac1n\sum_iX_i^{-1}\right)\ge1,
+\]
+with equality exactly when all observations coincide. Thus the
+denominator is positive almost surely for $n\ge2$.
+For $n=1$ (or a constant sample), there is no finite solution for
+$\lambda$; the formal estimate lies at $\lambda=\infty$.
+
+For comparison only, matching the ordinary moments $X$ and $X^2$
+would instead give $\widehat\mu=\overline X$ and
+$\widehat\lambda=\overline X^3/
+[n^{-1}\sum_i(X_i-\overline X)^2]$, using
+$\operatorname{Var}(X)=\mu^3/\lambda$.
+This is not the estimator requested by the choice $g_j=T_j$.
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Problem 3. Method of moments versus maximum likelihood}
+Let
+\[
+X_1,\ldots,X_n\overset{\mathrm{i.i.d.}}{\sim}
+\operatorname{Unif}([\theta_1,\theta_2]),
+\qquad n\ge2,\quad\theta_1<\theta_2,
+\]
+where both endpoints are unknown. Write
+\[
+\overline X=\frac1n\sum_{i=1}^nX_i,
+\qquad
+S^2=\frac1{n-1}\sum_{i=1}^n(X_i-\overline X)^2.
+\]
+A method-of-moments estimator is
+\[
+\widehat\theta_1
+=\overline X-\sqrt{\frac{3(n-1)}n S^2},
+\qquad
+\widehat\theta_2
+=\overline X+\sqrt{\frac{3(n-1)}n S^2}.
+\]
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item Find the maximum likelihood estimators of $\theta_1$ and $\theta_2$.
+\item Compare the mean squared errors (MSEs) of the
+method-of-moments estimator and the maximum likelihood estimator.
+Which estimator is better?
+\end{enumerate}
+
+\par\vspace{0.5em}
+\noindent\textbf{Sol.}
+To distinguish the two procedures, retain
+$(\widehat\theta_1,\widehat\theta_2)$ for the method-of-moments
+estimator and write
+$(\widetilde\theta_1,\widetilde\theta_2)$ for the MLE.
+
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item Let $X_{(1)}=\min_iX_i$ and $X_{(n)}=\max_iX_i$.
+The likelihood is
+\[
+L(\theta_1,\theta_2;x)
+=(\theta_2-\theta_1)^{-n}
+\mathbf1_{\{\theta_1\le x_{(1)},\ x_{(n)}\le\theta_2\}},
+\qquad\theta_1<\theta_2.
+\]
+For positive likelihood, the proposed interval must contain all the
+observations. Over these intervals, the likelihood is strictly decreasing
+in their length. If $x_{(1)}<x_{(n)}$, the shortest admissible interval is
+$[x_{(1)},x_{(n)}]$. Therefore
+\[
+{\widetilde\theta_1=X_{(1)},\qquad
+\widetilde\theta_2=X_{(n)}.}
+\]
+Since the distribution is continuous and $n\ge2$, the observations
+are not all equal almost surely, so this MLE exists and is unique
+almost surely. On the null event that all observations coincide,
+the likelihood is unbounded as the interval length tends to zero.
+
+\item Put $d=\theta_2-\theta_1>0$ and standardize by
+\[
+U_i=\frac{X_i-\theta_1}{d}
+\overset{\mathrm{i.i.d.}}{\sim}\operatorname{Unif}([0,1]).
+\]
+Both procedures are location--scale equivariant, so their endpoint
+MSEs are $d^2$ times the corresponding MSEs on $[0,1]$.
+We first compare each endpoint separately. Under squared Euclidean
+loss for the endpoint vector, the risk is the sum of these two MSEs.
+
+\medskip
+\noindent\textbf{Exact MSEs of the MLE.}
+For $0\le u\le1$,
+\[
+\P(U_{(1)}>u)=(1-u)^n,
+\]
+so $U_{(1)}$ has density $n(1-u)^{n-1}$ and
+\[
+\E U_{(1)}^2
+=n\int_0^1u^2(1-u)^{n-1}\,du
+=\frac{2}{(n+1)(n+2)}.
+\]
+By reflection, $1-U_{(n)}$ has the same distribution as $U_{(1)}$.
+Consequently,
+\[
+{
+\operatorname{MSE}(\widetilde\theta_1)
+=\operatorname{MSE}(\widetilde\theta_2)
+=\frac{2d^2}{(n+1)(n+2)}.}
+\]
+In particular, the total squared-error risk of the MLE is
+$4d^2/[(n+1)(n+2)]$.
+
+\medskip
+\noindent\textbf{An exact expression for the moment-estimator MSEs.}
+Write
+\[
+\overline U=\frac1n\sum_iU_i,
+\qquad V_n=\frac1n\sum_i(U_i-\overline U)^2,
+\qquad A_n=\E\sqrt{V_n}.
+\]
+The lower and upper moment estimates on $[0,1]$ are
+$\overline U-\sqrt{3V_n}$ and $\overline U+\sqrt{3V_n}$.
+The transformation $U_i\mapsto1-U_i$ preserves the joint law,
+sends $\overline U$ to $1-\overline U$, and leaves $V_n$ unchanged.
+It follows that
+\[
+\E[\overline U\sqrt{V_n}]
+=\E[(1-\overline U)\sqrt{V_n}]
+=\frac12 A_n.
+\]
+Also,
+\[
+\E\overline U^2=\frac14+\frac1{12n},
+\qquad \E V_n=\frac{n-1}{12n}.
+\]
+Thus the two endpoint MSEs are equal, and their exact expression is
+\[
+{
+\operatorname{MSE}(\widehat\theta_j)
+=d^2\left(\frac12-\frac1{6n}-\sqrt3\,A_n\right),
+\qquad j=1,2.}
+\]
+Here the expectation is entirely parameter-free; explicitly,
+\[
+A_n=\int_{[0,1]^n}
+\sqrt{\frac1n\sum_{i=1}^n(u_i-\overline u)^2}
+\,du_1\cdots du_n,
+\qquad \overline u=\frac1n\sum_i u_i.
+\]
+There is no need to replace this expectation by the square root
+of $\E V_n$, which would give an incorrect finite-sample MSE.
+For any fixed $n$, the moment estimator has smaller endpoint MSE
+exactly when
+\[
+A_n>
+\frac1{\sqrt3}\left(
+\frac12-\frac1{6n}-\frac{2}{(n+1)(n+2)}
+\right).
+\]
+
+\medskip
+\noindent\textbf{Small-sample comparison: $n=2$.}
+In this case $\sqrt{V_2}=|U_1-U_2|/2$, and
+\[
+\E|U_1-U_2|
+=2\int_0^1\int_0^v(v-u)\,du\,dv=\frac13.
+\]
+Therefore $A_2=1/6$, and
+\[
+\operatorname{MSE}(\widehat\theta_j)
+=d^2\frac{5-2\sqrt3}{12}
+<\frac{d^2}{6}
+=\operatorname{MSE}(\widetilde\theta_j).
+\]
+Thus the moment estimator is better at $n=2$.
+
+\medskip
+\noindent\textbf{Large-sample comparison.}
+Let $W_i=U_i-1/2$. For a uniform observation,
+\[
+\E W_i=0,\quad \E W_i^2=\frac1{12},\quad
+\E W_i^3=0,\quad \E W_i^4=\frac1{80}.
+\]
+Hence
+\[
+\operatorname{Var}(W_i^2)=\frac1{80}-\frac1{144}
+=\frac1{180},
+\qquad \operatorname{Cov}(W_i,W_i^2)=0.
+\]
+Define $a_n=\overline W$ and
+$b_n=n^{-1}\sum_i(W_i^2-1/12)$. Then
+\[
+V_n=\frac1{12}+b_n-a_n^2.
+\]
+The function $v\mapsto\sqrt{3v}$ has derivative $3$ at $v=1/12$.
+Its expansion gives
+\[
+\begin{aligned}
+\overline U-\sqrt{3V_n}&=a_n-3b_n+R_n,\\
+\overline U+\sqrt{3V_n}-1&=a_n+3b_n-R_n,
+\end{aligned}
+\]
+where $\E R_n^2=O(n^{-2})$.
+To justify this remainder bound, on $|V_n-1/12|\le1/24$ the
+square-root Taylor remainder is bounded by a constant times
+$(V_n-1/12)^2$, and $R_n$ also includes $3a_n^2$.
+Since the observations are bounded and centered,
+\[
+\E a_n^4=O(n^{-2}),\qquad
+\E b_n^4=O(n^{-2}),\qquad
+\E|V_n-1/12|^4=O(n^{-2}).
+\]
+The last identity follows from $V_n-1/12=b_n-a_n^2$
+and $\E a_n^8=O(n^{-4})$.
+The complementary event has probability $O(n^{-2})$ by Markov's
+inequality; the remainder there is uniformly bounded.
+Together these facts establish $\E R_n^2=O(n^{-2})$.
+
+Finally,
+\[
+\E(a_n\pm3b_n)^2
+=\frac1n\left(\frac1{12}+\frac9{180}\right)
+=\frac{2}{15n}.
+\]
+Cauchy--Schwarz controls the cross term involving $R_n$, so
+\[
+{
+\operatorname{MSE}(\widehat\theta_j)
+=\frac{2d^2}{15n}+o(n^{-1}),
+\qquad j=1,2.}
+\]
+In contrast,
+\[
+\operatorname{MSE}(\widetilde\theta_j)
+=\frac{2d^2}{n^2}+o(n^{-2}).
+\]
+Therefore the MLE has smaller MSE for all sufficiently large $n$.
+\end{enumerate}
+
+\end{document}
