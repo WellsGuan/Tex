@@ -1,0 +1,105 @@
+\section{Law of Large Number}
+
+\subsection{Independence}
+
+\begin{theorem}
+    [$\pi$-$\lambda$ Theorem] For some families of subsets $\mathcal{A},\mathcal{L}$, we say that $\mathcal{A}$ is a $\pi$-system if it is closed under intersection. We say $\mathcal{L}$ is a $\lambda$-system if
+    \begin{enumerate}
+        \item $\Omega \in \mathcal{L}$
+        \item If $A,B \in \mathcal{L}$ and $A\subset B$, then $B-A \in \mathcal{L}$.
+        \item If $A_n \in \mathcal{L}$ and $A_n \uparrow A$, then $A\in\mathcal{L}$.
+    \end{enumerate}
+    Then if $\mathcal{A}$ is a $\pi$-system and $\mathcal{L}$ is a $\lambda$-system containing $\mathcal{A}$, then $\sigma(\mathcal{A}) \subset \mathcal{L}$.
+\end{theorem}
+
+\begin{theorem}
+\label{thm: independence_of_generated_sigma}
+    Suppose $\mathcal{A}_1, \mathcal{A}_2, \cdots , \mathcal{A}_n$ are independent and each $\mathcal{A}_i$
+is a $\pi$-system. Then $\sigma(\mathcal{A}_1), \sigma(\mathcal{A}_2), \cdots , \sigma(\mathcal{A}_n)$ are independent.
+\end{theorem}
+\begin{proof}
+    Consider
+    \[
+    \mathcal{M} = \left\{A \subset \Omega| P\left(A\prod_{i\in I} A_i\right) = P(A)\prod_{i=I}P(A_i)\text{ for any }I\subset\{2,3,\cdots,n\},A_i \in \mathcal{A}_i \right\},
+    \]
+    then $A_1 \subset \mathcal{M}$ and $\Omega \in \mathcal{M}$ in an obvious way. Assume that $A,B \in \mathcal{M}$, then
+    \[
+    \begin{aligned}
+    P\left((B-A)\prod_{i\in I} A_i\right) &= P\left(B\prod_{i\in I} A_i - A\prod_{i\in I} A_i\right) \\ &= \left(P(B)-P(A)\right)\prod_{i\in I} P(A_i) \\ &= P(B-A)\prod_{i\in I} P(A_i).
+    \end{aligned}
+    \]
+    For $A_n \in \mathcal{M}$ with $A_n \uparrow A$, we know
+    \[
+    \begin{aligned}
+    P\left(A\prod_{i\in I} A_i\right) &= P\left(\bigcup_{n\geq 1} \left(A_n \prod_{i\in I} A_i\right) \right) \\ &= \limsup \left(P(A_n)\prod_{i\in I}P\left(A_i\right)\right) \\ &= P(A)\prod_{i\in I} P(A_i).
+    \end{aligned}
+    \]
+    and hence $\mathcal{M}$ is a $\lambda$-system. Therefore, $\sigma(\mathcal{A}_1)\subset \mathcal{M}$ which is equivalent with that \[\sigma(\mathcal{A}_1), \mathcal{A}_2,\cdots,\mathcal{A}_n \text{ are independent}.\]
+    For the remaining, we may prove in a similar way by replacing $\mathcal{A}_1$ by $\sigma(\mathcal{A}_1)$.
+\end{proof}
+
+\begin{theorem}
+    In order for $X_1, \cdots , X_n$ to be independent, it is sufficient that for all $x_1, \cdots , x_n \in (−\infty,\infty]$, we have
+\[P(X_1 \leq x_1, \cdots , X_n \leq x_n) = \prod_{i=1}^n P(X_i \leq x_i)\]
+\end{theorem}
+\begin{proof}
+    Let $\mathcal{A}_i = \{\{X_i \leq a\}, a\in\mathbb{R}\}$, and then we know $\mathcal{A_i}$ are independent and by the Theorem \ref{thm: independence_of_generated_sigma}, $\sigma(\mathcal{A}_i)$ are independent and since $\sigma(\mathcal{A}_i) = \sigma(X_i)$ and we are done.
+\end{proof}
+
+\begin{theorem}
+\label{thm: independent-algebras-matrix}
+    Suppose $\mathcal{F}_{i,j} , 1 \leq i \leq n, 1 \leq j \leq m(i)$ are independent $\sigma$-algebras and let $\mathcal{G}_i = \sigma\left(\bigcup_j \mathcal{F}_{i,j}\right)$. Then $\mathcal{G}_1, \cdots , \mathcal{G}_n$ are independent.
+\end{theorem}
+\begin{proof}
+    Let $\mathcal{A}_i = \{\cap_{j} A_{i,j}, A_{i,j}\in\mathcal{F}_{i,j}\}$ and then we know $\cup_j \mathcal{F}_{i,j} \subset \mathcal{A}_i$ and $\mathcal{A}_i$ is a $\pi$-system. Also, we would like to see that $\mathcal{A_i}$ are independent. Notice that $\Omega \in \mathcal{A_i}$ and
+    \[
+    \begin{aligned}
+        P\left(\prod_i A_i\right) &= P\left(\prod_i\left(\cap_{j}A_{i,j}\right)\right) \\
+        &= P\left(\prod_{i,j} A_{i,j}\right) \\
+        &= \prod_{i}\left(\prod_j P(A_{i,j})\right) \\
+        &= \prod_i P(A_i)
+    \end{aligned}
+    \]
+    where $A_{i,j}$ satisfy that $A_i = \cap_j A_{i,j}$. Therefore, we know that $\mathcal{A}_i$ are independent and we are done by noticing that $\mathcal{G}_i \subset \sigma(\mathcal{A}_i)$ and the Theorem \ref{thm: independence_of_generated_sigma}.
+\end{proof}
+
+\begin{theorem}
+\label{thm: independent-variable-matrix}
+    If for $1 \leq i \leq n, 1 \leq j \leq m(i), X_{i,j}$ are independent and $f_i: \R^{m(i)} \to \R$ are measurable then $f_i(X_{i,1}, \cdots , X_{i,m(i)})$ are
+independent.
+\end{theorem}
+\begin{proof}
+    Notice that
+    \[
+    \sigma(f_i(X_{i,1},\cdots,X_{i,m(i)})) \subset \sigma(X_{i,1},\cdots,X_{i,j})
+    \]
+    and we may use the Theorem \ref{thm: independent-algebras-matrix} with $\mathcal{F}_{i,j} = \sigma(X_{i,j})$.
+\end{proof}
+
+\subsection{Distribution and Expectation for Independent Variables}
+
+\begin{theorem}
+    Suppose $X_1, \cdots , X_n$ are independent random variables
+and $X_i$ has distribution $\mu_i$, then $(X_1, \cdots , X_n)$ has distribution $\mu_1 \times \cdots \times \mu_n$.
+\end{theorem}
+
+\begin{theorem}
+\label{thm: expectation-of-idv}
+    Suppose $X$ and $Y$ are independent and have distributions $\mu$ and $\nu$. If $h : \R^2 \to \R$ is a measurable function with $h \geq 0$ or $\mathbb{E}|h(X, Y )| < \infty$ then
+    \[\mathbb{E}h(X, Y ) = \int\int h(x, y) \mu(dx) \nu(dy).\]
+    In particular, if $h(x, y) = f(x)g(y)$ where $f, g : \R \to \R$ are measurable
+functions with $f, g \geq 0 $ or $\mathbb{E}|f(X)|$ and $\mathbb{E}|g(Y )| < \infty$ then
+\[Ef(X)g(Y ) = Ef(X) \cdot Eg(Y ).\]
+\end{theorem}
+
+\begin{theorem}
+    If $X_1, \cdots , X_n$ are independent and have (a) $X_i \geq 0$ for all $i$, or (b) $\mathbb{E}|X_i| < \infty$ for all $i$ then
+    \[\mathbb{E}\left[\prod_{i=1}^n X_i\right] = \prod_{i=1}^n \mathbb{E}X_i\]
+\end{theorem}
+\begin{proof}
+    We may use the Theorem \ref{thm: independent-variable-matrix} to see that $X:= X_1$ and $Y:= X_2\cdots X_n$ are independent. By the Theorem \ref{thm: expectation-of-idv}, we know that
+    \[
+    \mathbb{E}XY = \mathbb{E}X\mathbb{E}Y
+    \]
+    and we may prove the conclusion inductively.
+\end{proof}

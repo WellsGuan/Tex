@@ -19,11 +19,11 @@
 \begin{proposition}
     Let $\sigma \in \text{Lip}(\R, (0,\infty))$, and $\ell\in(2,4]$.There is a constant $C = C(\sigma,\ell) < \infty$ such the following holds. Let $v_t^{\rho}$ solve the following equation with $v_0^{\rho} \in \mathscr{X}_0^{\ell}$
     \[
-    v_t^{\rho}(x) = \mathcal{G}_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t\mathcal{G}_{t+\rho-r}[\sigma_{\rho}(v_r^{\rho})dW_r](x)
+    v_t^{\rho}(x) = \mathcal{G}_{t-s}v_s^{\rho}(x) + \gamma_{\rho}\int_s^t\mathcal{G}_{t+\rho-r}[\sigma_{\rho}(v_r^{\rho})dW_r](x).
     \]
-    where
+    Define
     \[
-    \sigma_{\rho}(x) := \sigma(x/\gamma_{\rho}),\quad x\in \R.
+    \sigma_{\rho}(x) := \gamma_{\rho}^{-1}\sigma(x),\quad x\in \R.
     \]
     For $T_0,T_1$ satisfying
     \[
@@ -57,8 +57,7 @@ J_{\sigma_{\rho}}\left(
 \,d\widehat{B}_r(x)
 \right|^2 \\
 \leq
-&C\left\langle \lVert v_0\rVert_{\ell}\right\rangle^2
-\frac{L\!\left(L(1/\rho)\right)}{L(1/\rho)}
+&(TBA)
 \end{aligned}
 \]
 where
@@ -74,8 +73,7 @@ V_t^{\rho,T_1}(x)
 =
 V_{T_0}^{\rho,T_1}(x)
 +
-\gamma_\rho
-\int_{T_0}^{t}
+\gamma_{\rho}\int_{T_0}^{t}
 \mathcal{G}_{T_1+\rho-r}
 \bigl[\sigma_{\rho}(v_r^{\rho})\,dW_r\bigr](x).
 \end{equation*}
@@ -136,10 +134,10 @@ space-time white noise \(d\widetilde W^{\rho}\) such that, for any
 &\qquad\le
 \dfrac{1}{L(1/\rho)^2}\int_{T_0}^t\dfrac{T_1-r}{(T_1+\rho-r)^2}\lVert|\sigma_{\rho}(v_r^{\rho})|\rVert_2^2 dr \\
 &\qquad\le
-\dfrac{\lVert \sigma\rVert_{\infty}^2}{L(1/\rho)^2}\int_{T_0}^{T_1} \dfrac{T_1-r}{(T_1+\rho-r)^2}dr \\
+\dfrac{\lVert \sigma\rVert_{\infty}^2}{L(1/\rho)}\int_{T_0}^{T_1} \dfrac{T_1-r}{(T_1+\rho-r)^2}dr \\
 &\qquad\le
-\dfrac{\lVert \sigma\rVert_{\infty}^2}{L(1/\rho)^2}\left(L((T_1-T_0)/\rho) - 1 + \rho/(T_1-T_0 +\rho)\right)
-\leq \dfrac{C(\sigma)S_{\rho}(T_1-T_0)}{L(1/\rho)}
+\dfrac{\lVert \sigma\rVert_{\infty}^2}{L(1/\rho)}\left(L((T_1-T_0)/\rho) - 1 + \rho/(T_1-T_0 +\rho)\right)
+\leq {C(\sigma)S_{\rho}(T_1-T_0)}
 \end{align*}
 
 Then, we compute
@@ -163,19 +161,9 @@ F(x,y):= \mathbb{E}\left|\left(\mathcal{S}_{\zeta_r}[\sigma_{\rho}^2\circ v_r^{\
 \subsection{First stage approximation}
 
 \begin{proposition}
-    Fix \(M,\lambda\in(0,\infty)\), \(\ell\in(2,4]\),
-\(\overline{\beta}>\eta(\ell)\), where
+    Fix \(M,\lambda\in(0,\infty)\) and $T>0$, \(\ell\in(2,4]\). There is a constant
 \[
-\eta(\ell)
-:=
-\left[
-2^{-2/\ell}(\ell-1)
-\left(\ell-{2}\right)
-\right]^{1/2}.
-\]
-There is a constant
-\[
-C=C(M,\lambda,\ell,\overline{\beta})
+C=C(M,\lambda,\ell,T)
 \in(0,\infty)
 \]
 such that the following holds.
@@ -189,18 +177,19 @@ Let \(\sigma\) satisfy
 with initial condition
 \(v_0\in\mathscr{X}_0^\ell\).
 Let
-\(\xi\in[0,(TBA)]\),
+\(\xi\in[0,\sqrt{w(\rho)\rho}]\),
 \begin{equation*}
 t\in
 \left[
  \left(
    [1+\mathrm{L}(1/\rho)]\kappa_{\ell,\rho}^{-1}
    +\kappa_{\ell,\rho}
- \right)\xi^2,\, \alpha\rho
+ \right)\xi^2,\, T
 \right],\quad \kappa_{\ell,\rho} = L(1/\rho)^{-1/(1-2/\ell)}
 \end{equation*}
-\textit{ for some $\alpha:=\alpha(\sigma)$ constant, 
-\(x,z\in\mathbb{R}^2\), and \(\iota_1,\iota_2\in[0,1]\).
+\textit{ for some $w:(0,C^{-1}) \to\R$ such that for any $M>0$,
+\[\omega(\rho)L(1/\rho)^M \to 0,\quad \rho \to 0.\]
+We let \(x,z\in\mathbb{R}^2\), and \(\iota_1,\iota_2\in[0,1]\).
 Then we have}
 \[
 \begin{aligned}
@@ -225,11 +214,7 @@ C
 \left\langle
  \lVert v_0\rVert_{\ell}
 \right\rangle^2
-\frac{
- \mathrm{L}\!\left(\mathrm{L}(1/\rho)\right)
-}{
- \mathrm{L}(1/\rho)
-}.
+ {L}\left({L}(1/\rho)\right).
 \end{aligned}
 \]
 \end{proposition}
@@ -253,8 +238,15 @@ Let $X\in\RR^d$ denote the center of $\ttR$. Note that
 \tau_2\geq\tau_1\geq\tau_0
 \geq\sfL(1/\rho)\kappa_{\ell,\rho}^{-1}\xi^2\geq0
 \end{equation*}
-by the assumption on $t$ in (5.50).
-
+by the assumption on $t$.\par
+With the assumption of the upper bound of $t$, we know the following relations:
+\[
+\dfrac{\tau_2-\tau_1}{\tau_1-\tau_0} = \kappa_{\ell,\rho}^2,\quad \dfrac{\tau_2-\tau_1}{\rho} \leq {\kappa_{\ell,\rho}}\omega(\rho),\quad \dfrac{\tau_1-\tau_0}{\rho} \leq \kappa_{\ell,\rho}^{-1}\omega(\rho).
+\]
+and
+\[
+\Xi_{2;t-s}^{\sigma,\rho}[v_s]^2 \leq \left(\lVert v_s\rVert_2^2 + \dfrac{L(1/\rho)}{4\pi}(S_{\rho}(t-s))|\sigma|_{\infty}^2\right) \vee |\sigma|_{\infty}^2
+\]
 \medskip
 \noindent\textit{Step 2: Flattening the solution.}
 By the matrix-valued reverse triangle inequality and the flattening estimate,
@@ -280,50 +272,54 @@ E_1
 -\clV_{\tau_1,\tau_2}\clZ_X\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(y)
 \right\rvert^{2}\,\dif y
 \\
-&\leq \lambda^2\left(
-|\sigma|_{\infty}^2
-\bigg[
-L\left(
+&\leq \dfrac{\lambda^2L(1/\rho)}{2\pi}\left(
+\dfrac{ML\left(
 \frac{\tau_1-\tau_0}
 {t-\tau_1+\rho}
-\right) + 
-4L\left(
-\frac{t-\tau_1}{\rho}
-\right)\right.
-\bigg] \\ &\left.\qquad +\|v_{\tau_0}\|_2^2\left(
+\right)}{4\pi - \lambda^2 L\left(\frac{\tau_2-\tau_1}{\rho}\right)}\right.
+\\ &\left.\qquad +\|v_{\tau_0}\|_2^2\left(
 \frac{
-\tau_2-\tau_1+\xi^2/4
+\tau_2-\tau_1+\frac12|X-x|^2
 }{
 \tau_1-\tau_0
 }\right)
-+
-\frac{4\|\sigma\|_\infty^2}
-{L(1/\rho)}
-L\left(
-\frac{\tau_2-\tau_1}{\rho}
-\right)
+\left(\dfrac{4\pi}{4\pi - \lambda^2 L\left(\dfrac{\tau_2-\tau_1}{\rho}\right)}\right)
 \right)
 \\
-&\leq C\left[L(1/\rho)^{-1} + L(1/\rho)^{-2/(1-2/\ell)} + L(1/\rho)^{-1/(1-2/\ell)} + L(1/\rho)^{-2}\right],
+&\leq CL(1/\rho)\left(L(\kappa_{\ell,\rho}^{-1}\omega(\rho)) + \kappa_{\ell,\rho}^2 + \kappa_{\ell,\rho}\right),
 \end{align*}
-then we know that there exists some contant $C_1(\sigma)$ such that
+for some contant $C_1(\sigma)$ and hence
 \begin{align*}
-E_1 \leq C_1(\sigma)L(1/\rho)^{-1}.
+E_1 \leq CL(1/\rho)L(\kappa_{\ell,\rho}^{-1}\omega(\rho)) .
 \end{align*}
 \medskip
 \noindent\textit{Step 3: Concentration.}
 Define
 \[
 E_2\coloneqq\EE\left\lvert
-\left(\fint_{\ttR}\sigma^2\!\left(
-\clV_{\tau_1,\tau_2}\clZ_X\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
+\left(\fint_{\ttR}\sigma_{\rho}^2\!\left(
+\clV_{\tau_1,\tau_2}\clZ_X\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(y)
 \right)\,\dif y\right)^{1/2}
--J_{\sigma,\rho}\!\left(
+-J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\tau_2-\tau_1),
-\clG_{\tau_1-\tau_0}v_{\tau_0}(X)
+\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(X)
 \right)
 \right\rvert_{\Frob}^{2}.
 \]
+
+and we have
+\[
+\begin{aligned}
+E_2 &\leq 4\Xi_{2;\tau_2-\tau_1}[\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(X)]^2(\gamma_{\rho}^{-1}\lambda)^2S_{\rho}(\tau_2-\tau_1)  \\
+& \leq 16\pi\left(\lVert v_{\tau_1}\rVert_2^2 + \dfrac{L(1/\rho)}{4\pi}(S_{\rho}(\tau_2-\tau_1))|\sigma|_{\infty}^2\right)\lambda^2 L\left(\dfrac{\tau_2-\tau_1}{\rho}\right) \\
+&\leq CL(\kappa_{\ell,\rho}\omega(\rho))^2
+\end{aligned}
+\]
+
+for some contant $C_2:= C_2(\sigma)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iffalse
 We consider two cases.
 
 If $\tau_2-\tau_1=\kappa_{\ell,\rho}\xi^2\geq\rho$, then the law-of-large-numbers estimate,
@@ -381,6 +377,10 @@ E_2\leq C\Xi_{\ell;\tau_1,\tau_2}
 \end{equation}
 for a constant $C<\infty$ depending only on $\ell$ and $\lambda$.
 
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \medskip
 \noindent\textit{Step 4: Adjusting the arguments of $J_{\sigma_{\rho},\rho}$.}
 Let $\iota_1,\iota_2\in[0,1]$. By the regularity estimate for
@@ -413,150 +413,38 @@ J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
 \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right)\right|^2 \right)^{1/2} \\
 &\quad\leq
-\left(\dfrac{1}{4\pi/(L(1/\rho)\lambda^2) - S_{\rho}(\kappa_{\ell,\rho}\xi^2)}\EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right|^2\right)^{1/2}
+\left(\dfrac{L(1/\rho)\lambda^2}{4\pi}\EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right|^2\right)^{1/2}
 \nonumber\\
 &\quad+\left(\dfrac{\lambda^2L(1/\rho)}{4\pi}\lVert\mathcal{V}_p\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X) - \mathcal{V}_{p-q,q}\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\rVert_2^2\right)^{1/2}\\
-&\quad\leq \left(\dfrac{1}{4\pi/(L(1/\rho)\lambda^2) - S_{\rho}(\kappa_{\ell,\rho}\xi^2)}C\Xi_{2,t}[v_0]^2\dfrac{L(L(1/\rho))}{L(1/\rho)}\right)^{1/2}
-\nonumber\\
-&\quad+\left(\dfrac{\lambda^2|\sigma|_{\infty}}{4\pi}\left[L\left(\dfrac{q}{p-q+\rho}\right)+4L\left(\dfrac{p-q}{\rho}\right)\right]\right)^{1/2} \\
-&\quad\leq  
+&\quad\leq \left(C\Xi_{2,t}[v_0]^2{L(L(1/\rho))}\right)^{1/2}+\left(CL(1/\rho)\dfrac{ML\left(
+\frac{q}
+{p-q+\rho}
+\right)}{4\pi - \lambda^2 L\left(\frac{p-q}{\rho}\right)}\right)^{1/2} \\
+&\quad \leq
+\left(C\left(\lVert v_s\rVert_2^2 + \dfrac{L(1/\rho)}{4\pi}(S_{\rho}(t))|\sigma|_{\infty}^2\right){L(L(1/\rho))}\right)^{1/2}+\left(CL(1/\rho)L(\kappa_{\ell,\rho}w(\rho))\right)^{1/2}
 \end{align*}
 where
 \[
 p = (\kappa_{\ell,\rho}\xi^2 \vee L(1/\rho)^{\iota_1}\xi^2),\quad q = (\kappa_{\ell,\rho}\xi^2 \wedge L(1/\rho)^{\iota_1}\xi^2)
 \]
-Recalling the definition of $\sfS_\rho$, for $\rho$ sufficiently small,
-\begin{multline}
-0\leq
-\sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2)
--\sfS_\rho(\kappa_{\ell,\rho}\xi^2)
-\leq
-\sfS_\rho(\sfL(1/\rho)\xi^2)
--\sfS_\rho(\kappa_{\ell,\rho}\xi^2)
-\\
-=\frac{1}{\sfL(1/\rho)}
-\log\frac{1+\sfL(1/\rho)\rho^{-1}\xi^2}
-{1+\kappa_{\ell,\rho}\rho^{-1}\xi^2}
-\leq
-\frac{\log[\sfL(1/\rho)\kappa_{\ell,\rho}^{-1}]}
-{\sfL(1/\rho)}
-\leq
-\frac{C\sfL(\sfL(1/\rho))}{\sfL(1/\rho)}.
-\tag{5.59}\label{eq:Srhodiff}
-\end{multline}
-Here $C$ depends only on $\ell$. The penultimate inequality holds because
-$\kappa_{\ell,\rho}<\sfL(1/\rho)$ when $\rho$ is sufficiently small.
-
-Also, using the continuity estimate and
+by using the continuity estimate and
 $\kappa_{\ell,\rho}^{-1}>\sfL(1/\rho)$, there is an absolute constant
 $C<\infty$ such that, for sufficiently small $\rho$,
-\begin{align}
-&\left(
+\begin{align*}
+&
 \EE\left\lvert
 \clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
 -\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)
 \right\rvert^2
-\right)^{1/2}
 \nonumber\\
-&\quad\leq C\Xi_{2,t}[v_0]
-\Biggl[
-\sfL_\rho\!\left(
-\frac{
-\kappa_{\ell,\rho}^{-1}-\sfL(1/\rho)^{\iota_2}
-+\kappa_{\ell,\rho}^{-1}+\kappa_{\ell,\rho}}
-{\sfL(1/\rho)^{\iota_2}}
-\right)^{1/2}
-\nonumber\\
-&\hspace{8em}
-+\left(
-\frac{
-[\kappa_{\ell,\rho}^{-1}-\sfL(1/\rho)^{\iota_2}
-+\kappa_{\ell,\rho}^{-1}+\kappa_{\ell,\rho}]\xi^2}
-{\tau_0}
-\right)^{1/2}
-+\left(
-\frac{\sfL(\sfL(1/\rho))}{\sfL(1/\rho)}
-\right)^{1/2}
-\Biggr]
-\nonumber\\
-&\quad\overset{\eqref{eq:tauestimates}}{\leq}
-C\Xi_{2,t}[v_0]
-\left[
-\sfL_\rho(2\kappa_{\ell,\rho}^{-1})^{1/2}
-+\frac{1}{\sfL(1/\rho)^{1/2}}
-+\left(
-\frac{\sfL(\sfL(1/\rho))}{\sfL(1/\rho)}
-\right)^{1/2}
-\right]
-\nonumber\\
-&\quad\leq C\Xi_{2,t}[v_0]
-\left[
-\frac{\sfL(\sfL(1/\rho))}{\sfL(1/\rho)}
-\right]^{1/2}.
-\tag{5.60}\label{eq:EGdiff}
-\end{align}
-Here $C$ has been allowed to change from expression to expression.
-
-Using \eqref{eq:Srhodiff} and \eqref{eq:EGdiff} in
-\eqref{eq:applytimeregularity}, we obtain
-\begin{align}
-&\left(\EE\left\lvert
-J_{\sigma,\rho}\!\left(
-\sfS_\rho(\kappa_{\ell,\rho}\xi^2),
-\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
-\right)
--J_{\sigma,\rho}\!\left(
-\sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_{\tau_0}(X)
-\right)
-\right\rvert_{\Frob}^2\right)^{1/2}
-\nonumber\\
-&\quad\leq C\left(
-\Xi_{2;\sfL(1/\rho)\xi^2}
-[\clG_{\tau_0-\tau_1}v_{\tau_0}(X)]
-+\Xi_{2;t}[v_0]
-\right)
-\left[
-\frac{\sfL(\sfL(1/\rho))}{\sfL(1/\rho)}
-\right]^{1/2}.
-\tag{5.61}\label{eq:Jcontbd}
-\end{align}
-The constant $C$ depends on $\ell$, $\lambda$, and $\overline q$.
-
-\medskip
-\noindent\textit{Step 5: Conclusion.}
-Recall that
-$0<\tau_0<\tau_1<t\leq\sfT_\rho(\overline\beta^{-2})$.
-Thus, by the moment bound and the hypothesis
-$\overline\beta>\eta(\beta,\ell)$,
-\begin{align}
-&\Xi_{2;\tau_0,\tau_1}[v_{\tau_0}]^2
-+\Xi_{\ell;\tau_1,\tau_2}
-[\clG_{\tau_1-\tau_0}v_{\tau_0}(X)]^2
-+\Xi_{2;\sfL(1/\rho)\xi^2}
-[\clG_{\tau_0-\tau_1}v_{\tau_0}(X)]
-+\Xi_{2;t}[v_0]
-\nonumber\\
-&\qquad\leq C\left\langle\triplenorm{v_0}_\ell\right\rangle^2,
-\tag{5.62}\label{eq:applymomentbd}
-\end{align}
-where the constant $C$ depends on $M,\beta,\overline\beta,\ell$.
-
-Combining \eqref{eq:E1OK}, \eqref{eq:E2finalbd}, and
-\eqref{eq:Jcontbd} using the triangle inequality, Cauchy--Schwarz, and
-\eqref{eq:applymomentbd}, we see that
-\begin{align*}
-\EE\left\lvert
-\left(\fint_{\ttR}\sigma^2(v_t(y))\,\dif y\right)^{1/2}
--J_{\sigma,\rho}\!\left(
-\sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_{\tau_0}(x)
-\right)
-\right\rvert_{\Frob}^{2}
-\leq
-C\left\langle\triplenorm{v_0}_\ell\right\rangle^2
-\frac{\sfL(\sfL(1/\rho))}{\sfL(1/\rho)}.
+&\quad= \EE\left\lvert\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
+-\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}\left(\clG_{t-\tau_0}v_{\tau_0} + \int_{\tau_0}^t \clG_{t+\rho-r}[\sigma(v_r)dW_r]\right)(X)\right\rvert^2 \\
+&\quad \leq \EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2 + t-\tau_0}v_{\tau_0}(X)\right|^2\\&\qquad + M\int_{\tau_0}^t \int G_{t+\sfL(1/\rho)^{\iota_2}\xi^2 +\rho -r}^2(X-y)dydr \\
+&\leq \lVert v_{\tau_0}\rVert_2^2\dfrac{|(L(1/\rho)^{\iota_2}+\kappa_{\ell,\rho})\xi^2|}{\kappa_{\ell,\rho}^{-1}\xi^2}+ \dfrac{M}{4\pi}L\left(\dfrac{t-\tau_0}{\sfL(1/\rho)^{\iota_2}\xi^2 + \rho}\right)
 \end{align*}
-The constant $C<\infty$ depends only on $q,M,\beta,\lambda,\ell$.
-Recalling the definition of the square $\ttR$, this proves (5.51).
+To sum up, we have
+\[
+E_3 \leq CL(1/\rho)L(L(1/\rho))
+\]
+
 \end{proof}

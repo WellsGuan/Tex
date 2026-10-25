@@ -53,17 +53,10 @@ and the following explicit bound holds:
 \begin{aligned}
 F(t)
 \leq
-\frac{M^2}{L(1/\rho)}
-\bigg[
-&
-L\left(
+\dfrac{ML\left(
 \frac{\tau_1-\tau_0}
 {t-\tau_1+\rho}
-\right) + 
-4L\left(
-\frac{t-\tau_1}{\rho}
-\right)
-\bigg].
+\right)}{4\pi - \lambda^2 L\left(\dfrac{t-\tau_1}{\rho}\right)}
 \end{aligned}
 \end{equation*}
 
@@ -94,6 +87,23 @@ G_{t+\rho-r}(y-x)
 -
 \sigma_\rho(\widetilde v_r^\rho(x))
 \right]
+dW_r(x)dx \\
+={}&
+\int_{\tau_0}^{\tau_1}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\sigma(v_r^\rho(x))
+\,dW_r(x)dx
+\\
+&+
+\int_{\tau_1}^{t}
+\int_{\mathbb{R}^2}
+G_{t+\rho-r}(y-x)
+\left[
+\sigma(v_r^\rho(x))
+-
+\sigma(\widetilde v_r^\rho(x))
+\right]
 dW_r(x)dx
 \end{align*}
 
@@ -107,54 +117,52 @@ in $L^2(\Omega)$. Applying the It\^o isometry gives
 \right]
 \nonumber\\
 ={}&
-\gamma_\rho^2
 \int_{\tau_0}^{\tau_1}
 \int_{\mathbb{R}^2}
 G_{t+\rho-r}^2(y-x)
 \mathbb{E}
 \left[
-|\sigma_\rho(v_r^\rho(x))|^2
+|\sigma(v_r^\rho(x))|^2
 \right]
 \,dx\,dr
 \nonumber\\
 &+
-\gamma_\rho^2
 \int_{\tau_1}^{t}
 \int_{\mathbb{R}^2}
 G_{t+\rho-r}^2(y-x)
 \mathbb{E}
 \left[
 \left|
-\sigma_\rho(v_r^\rho(x))
+\sigma(v_r^\rho(x))
 -
-\sigma_\rho(\widetilde v_r^\rho(x))
+\sigma(\widetilde v_r^\rho(x))
 \right|^2
 \right]
 \,dx\,dr.
 \end{align*}
-Using the boundedness of $\sigma_\rho$,
+Using the boundedness of $\sigma$,
 we have
 \begin{align*}
-&\gamma_\rho^2 M^2
+&M
 \int_{\tau_0}^{\tau_1}
 \int_{\mathbb{R}^2}
 G_{t+\rho-r}^2(y-x)
 \,dx\,dr
 \\
 ={}&
-\frac{\gamma_\rho^2M^2}{4\pi}
+\frac{M}{4\pi}
 \int_{\tau_0}^{\tau_1}
 \frac{1}{t+\rho-r}\,dr
 \\
 ={}&
-\frac{M^2}{L(1/\rho)}
+\frac{M}{4\pi}
 \log\left(
 \frac{t-\tau_0+\rho}
 {t-\tau_1+\rho}
 \right)
 \\
 ={}&
-\frac{M^2}{L(1/\rho)}
+\frac{M}{4\pi}
 L\left(
 \frac{\tau_1-\tau_0}
 {t-\tau_1+\rho}
@@ -162,29 +170,43 @@ L\left(
 \end{align*}
 
 For the second term,
-we may directly estimate the second term
-by
+we ma estimate the second term
+by that $\sigma$ to be Lipschitz and then
 \begin{align*}
-&4\gamma_\rho^2M^2
-\int_{\tau_1}^{t}
-\int_{\mathbb{R}^2}
-G_{t+\rho-r}^2(y-x)
-\,dx\,dr
-\\
-={}&
-\frac{4M^2}{L(1/\rho)}
-\int_{\tau_1}^{t}
-\frac{1}{t+\rho-r}\,dr
-\\
-={}&
-\frac{4M^2}{L(1/\rho)}
+&\mathbb{E}
+\left[
+|v_t^\rho(y)-\widetilde v_t^\rho(y)|^2
+\right]
+\nonumber\\
+\leq{}&
+\frac{M}{4\pi}
 L\left(
-\frac{t-\tau_1}{\rho}
-\right).
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right)
+\nonumber\\
+&+
+\dfrac{\lambda^2}{4\pi} \int_{\tau_1}^{t}
+\dfrac{1}{t+\rho-r}\mathbb{E}
+\left[
+\left|v_r^\rho(x)
+-
+\widetilde v_r^\rho(x)
+\right|^2
+\right]
+\,dx\,dr,
 \end{align*}
 
-Together with the estimate for the first
-term, this proves the required estimation.
+which is a Volterra inequality, implies that
+\[
+\sup_{r \in [0,t]}\mathbb{E}
+\left[
+|v_r^\rho(y)-\widetilde v_r^\rho(y)|^2
+\right] \leq \dfrac{ML\left(
+\frac{\tau_1-\tau_0}
+{t-\tau_1+\rho}
+\right)}{4\pi - \lambda^2 L\left(\dfrac{t-\tau_1}{\rho}\right)}
+\]
 
 \end{proof}
 
@@ -197,10 +219,10 @@ Let $0\leq \tau_0<\tau_1<\tau_2$ and $\rho\in(0,1)$. We will have the estimation
 \begin{aligned}
 &\mathbb E\left|
 \mathcal V_{\tau_1,\tau_2}
-G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 -
 \mathcal V_{\tau_1,\tau_2}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 \right|^2
 \\
 &\quad\leq
@@ -210,12 +232,7 @@ G_{\tau_1-\tau_0}v_{\tau_0}(x)
 }{
 \tau_1-\tau_0
 }\right)
-+
-\frac{4\|\sigma\|_\infty^2}
-{L(1/\rho)}
-L\left(
-\frac{\tau_2-\tau_1}{\rho}
-\right).
+\left(\dfrac{4\pi}{4\pi - \lambda^2 L\left(\dfrac{\tau_2-\tau_1}{\rho}\right)}\right)
 \end{aligned}
 }
 \end{equation*}
@@ -224,19 +241,18 @@ L\left(
 First, by the mild formulation,
 \begin{align*}
 &\mathcal V_{\tau_1,\tau_2}
-G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 \\
 ={}&
-G_{\tau_2-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_2-\tau_0}v_{\tau_0}(x)
 \\
 &+
-\gamma_\rho
 \int_{\tau_1}^{\tau_2}
 \int_{\mathbb R^2}
 G_{\tau_2+\rho-r}(x-y)
-\sigma_\rho\left(
+\sigma\left(
 \mathcal V_{\tau_1,r}
-G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 dW_r(y)dy.
 \end{align*}
@@ -244,27 +260,26 @@ dW_r(y)dy.
 Similarly,
 \begin{align*}
 &\mathcal V_{\tau_1,\tau_2}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 \\
 ={}&
-G_{\tau_2-\tau_1}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_2-\tau_1}
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 \\
 &+
-\gamma_\rho
 \int_{\tau_1}^{\tau_2}
 \int_{\mathbb R^2}
 G_{\tau_2+\rho-r}(x-y)
-\sigma_\rho\left(
+\sigma\left(
 \mathcal V_{\tau_1,r}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 dW_r(y)dy.
 \end{align*}
 
 Notice that
 \[
-G_{\tau_2-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_2-\tau_0}v_{\tau_0}(x)
 =
 \int_{\mathbb R^2}
 G_{\tau_2-\tau_0}(x-y)
@@ -275,11 +290,11 @@ On the other hand, since
 $\mathcal Z_X f=f(X)$ is regarded as
 a constant function in the spatial variable,
 \begin{align*}
-&G_{\tau_2-\tau_1}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+&\clG_{\tau_2-\tau_1}
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 \\
 ={}&
-G_{\tau_2-\tau_1}
+\clG_{\tau_2-\tau_1}
 \left(
 \int_{\mathbb R^2}
 G_{\tau_1-\tau_0}(X-y)
@@ -295,10 +310,10 @@ v_{\tau_0}(y)\,dy.
 Consequently,
 \begin{align*}
 &\mathcal V_{\tau_1,\tau_2}
-G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 -
 \mathcal V_{\tau_1,\tau_2}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(x)
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(x)
 \\
 ={}&
 \int_{\mathbb R^2}
@@ -310,22 +325,21 @@ G_{\tau_1-\tau_0}(X-y)
 v_{\tau_0}(y)\,dy
 \\
 &+
-\gamma_\rho
 \int_{\tau_1}^{\tau_2}
 \int_{\mathbb R^2}
 G_{\tau_2+\rho-r}(x-y)
 \\
 &\qquad\times
 \Big[
-\sigma_\rho\left(
+\sigma\left(
 \mathcal V_{\tau_1,r}
-G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 \\
 &\qquad\qquad-
-\sigma_\rho\left(
+\sigma\left(
 \mathcal V_{\tau_1,r}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\mathcal Z_X ]\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 \Big]
 \,W(dr,dy).
@@ -356,22 +370,21 @@ v_{\tau_0}(y)\,dy
 \right|^2
 \\
 &+
-\frac{4\pi}{L(1/\rho)}
 \int_{\tau_1}^{\tau_2}
 \int_{\mathbb R^2}
 G_{\tau_2+\rho-r}^2(x-y)
 \\
 &\qquad\times
 \mathbb E\Bigg|
-\sigma_\rho\left(
+\sigma\left(
 \mathcal V_{\tau_1,r}
-G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 \\
 &\qquad\qquad-
-\sigma_\rho\left(
+\sigma\left(
 \mathcal V_{\tau_1,r}
-\mathcal Z_X G_{\tau_1-\tau_0}v_{\tau_0}(y)
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 \Bigg|^2\,dy\,dr
 \\
@@ -429,42 +442,37 @@ I_1
 }\right).
 \end{equation*}
 
-Next, we estimate $I_2$.
-Using the boundedness of $\sigma_\rho$,
-\[
-|\sigma_\rho(a)-\sigma_\rho(b)|
-\leq 2\|\sigma_\rho\|_\infty
-\leq 2\|\sigma\|_\infty,
-\]
-we obtain
+Next, we estimate $I_2$:
 \begin{align*}
 I_2
 \leq{}&
-\frac{16\pi\|\sigma\|_\infty^2}
-{L(1/\rho)}
+\lambda^2
 \int_{\tau_1}^{\tau_2}
 \int_{\mathbb R^2}
-G_{\tau_2+\rho-r}^2(x-y)
-\,dy\,dr. \\
-&\leq
-\frac{4\|\sigma\|_\infty^2}
-{L(1/\rho)}
-\int_{\tau_1}^{\tau_2}
-\frac{1}{\tau_2+\rho-r}\,dr
-\\
-&=
-\frac{4\|\sigma\|_\infty^2}
-{L(1/\rho)}
-\log\left(
-\frac{\tau_2-\tau_1+\rho}{\rho}
+G_{\tau_2+\rho-r}^2(x-y)\mathbb E\Bigg|
+\left(
+\mathcal V_{\tau_1,r}
+\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
 \right)
 \\
-&=
-\frac{4\|\sigma\|_\infty^2}
-{L(1/\rho)}
-L\left(
-\frac{\tau_2-\tau_1}{\rho}
-\right).
+&\qquad\qquad-
+\left(
+\mathcal V_{\tau_1,r}
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+\Bigg|^2
+\,dy\,dr. \\
+&\leq
+\dfrac{\lambda^2}{4\pi}L\left(\dfrac{\tau_2-\tau_1}{\rho}\right)\sup_{r\in[0,\tau_2]}\mathbb E\Bigg|
+\left(
+\mathcal V_{\tau_1,r}
+\clG_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right) -
+\left(
+\mathcal V_{\tau_1,r}
+\mathcal Z_X \clG_{\tau_1-\tau_0}v_{\tau_0}(y)
+\right)
+\Bigg|^2
 \end{align*}
 
 Combining the estimates for $I_1$ and $I_2$
@@ -487,12 +495,7 @@ G_{\tau_1-\tau_0}v_{\tau_0}(x)
 }{
 \tau_1-\tau_0
 }\right)
-+
-\frac{4\|\sigma\|_\infty^2}
-{L(1/\rho)}
-L\left(
-\frac{\tau_2-\tau_1}{\rho}
-\right).
+\left(\dfrac{4\pi}{4\pi - \lambda^2 L\left(\dfrac{\tau_2-\tau_1}{\rho}\right)}\right)
 \end{aligned}
 }
 \end{equation*}
