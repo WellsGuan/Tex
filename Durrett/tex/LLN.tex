@@ -3,7 +3,7 @@
 \subsection{Independence}
 
 \begin{theorem}
-    [$\pi$-$\lambda$ Theorem] For some families of subsets $\mathcal{A},\mathcal{L}$, we say that $\mathcal{A}$ is a $\pi$-system if it is closed under intersection. We say $\mathcal{L}$ is a $\lambda$-system if
+    [$\pi$-$\lambda$] For some families of subsets $\mathcal{A},\mathcal{L}$, we say that $\mathcal{A}$ is a $\pi$-system if it is closed under intersection. We say $\mathcal{L}$ is a $\lambda$-system if
     \begin{enumerate}
         \item $\Omega \in \mathcal{L}$
         \item If $A,B \in \mathcal{L}$ and $A\subset B$, then $B-A \in \mathcal{L}$.
@@ -38,10 +38,10 @@ is a $\pi$-system. Then $\sigma(\mathcal{A}_1), \sigma(\mathcal{A}_2), \cdots , 
     For the remaining, we may prove in a similar way by replacing $\mathcal{A}_1$ by $\sigma(\mathcal{A}_1)$.
 \end{proof}
 
-\begin{theorem}
+\begin{proposition}
     In order for $X_1, \cdots , X_n$ to be independent, it is sufficient that for all $x_1, \cdots , x_n \in (−\infty,\infty]$, we have
 \[P(X_1 \leq x_1, \cdots , X_n \leq x_n) = \prod_{i=1}^n P(X_i \leq x_i)\]
-\end{theorem}
+\end{proposition}
 \begin{proof}
     Let $\mathcal{A}_i = \{\{X_i \leq a\}, a\in\mathbb{R}\}$, and then we know $\mathcal{A_i}$ are independent and by the Theorem \ref{thm: independence_of_generated_sigma}, $\sigma(\mathcal{A}_i)$ are independent and since $\sigma(\mathcal{A}_i) = \sigma(X_i)$ and we are done.
 \end{proof}
@@ -78,10 +78,10 @@ independent.
 
 \subsection{Distribution and Expectation for Independent Variables}
 
-\begin{theorem}
+\begin{lemma}
     Suppose $X_1, \cdots , X_n$ are independent random variables
 and $X_i$ has distribution $\mu_i$, then $(X_1, \cdots , X_n)$ has distribution $\mu_1 \times \cdots \times \mu_n$.
-\end{theorem}
+\end{lemma}
 
 \begin{theorem}
 \label{thm: expectation-of-idv}
@@ -92,10 +92,10 @@ functions with $f, g \geq 0 $ or $\mathbb{E}|f(X)|$ and $\mathbb{E}|g(Y )| < \in
 \[Ef(X)g(Y ) = Ef(X) \cdot Eg(Y ).\]
 \end{theorem}
 
-\begin{theorem}
+\begin{proposition}
     If $X_1, \cdots , X_n$ are independent and have (a) $X_i \geq 0$ for all $i$, or (b) $\mathbb{E}|X_i| < \infty$ for all $i$ then
     \[\mathbb{E}\left[\prod_{i=1}^n X_i\right] = \prod_{i=1}^n \mathbb{E}X_i\]
-\end{theorem}
+\end{proposition}
 \begin{proof}
     We may use the Theorem \ref{thm: independent-variable-matrix} to see that $X:= X_1$ and $Y:= X_2\cdots X_n$ are independent. By the Theorem \ref{thm: expectation-of-idv}, we know that
     \[
@@ -103,3 +103,66 @@ functions with $f, g \geq 0 $ or $\mathbb{E}|f(X)|$ and $\mathbb{E}|g(Y )| < \in
     \]
     and we may prove the conclusion inductively.
 \end{proof}
+
+\begin{lemma}
+    If $X$ and $Y$ are independent, $F(x) = P(X \leq x)$, and $G(y) = P(Y \leq y)$, then
+    \[P(X + Y \leq z) = \int F(z - y) dG(y)\]
+    The integral on the right-hand side is called the convolution of $F$ and $G$ and is denoted as $F*G(z)$. 
+\end{lemma}
+
+\begin{theorem}
+\label{thm: independent-density-form}
+    Suppose that $X$ with density $f$ and $Y$ with distribution function $G$ are independent. Then $X + Y$ has density \[h(x) = \int f(x - y) dG(y).\] When $Y$ has density $g$, the last formula can be written as \[h(x) = \int f(x - y) g(y) dy.\]
+\end{theorem}
+
+\begin{definition}
+    [Gamma and Normal Distribution] The gamma density with parameters $\alpha$ and $\lambda$ is given by
+    \[
+    f(x) = \begin{cases}
+        \lambda^{\alpha}x^{\alpha-1}e^{-\lambda x}/ \Gamma(\alpha), \quad &x\geq 0\\
+        0,&x<0
+    \end{cases},
+    \]
+    where $\Gamma(\alpha) = \int_0^{\infty} x^{\alpha-1}e^{-x}dx$.\par
+    The normal density with mean $\mu$ and variance $a$ is
+    \[
+    \dfrac{1}{\sqrt{2\pi a}}\exp\left({-\dfrac{(x-\mu)^2}{2a}}\right).
+    \]
+\end{definition}
+
+\begin{proposition}
+    If $X = gamma(\alpha, \lambda)$ and $Y = gamma(\beta, \lambda)$ are independent then $X + Y$ is $gamma(\alpha + \beta, \lambda)$. Consequently if $X_1,\cdots, X_n$ are independent $exponential(\lambda)$ r.v.’s, then $X_1 +\cdots+X_n$, has a $gamma(n, \lambda)$ distribution.
+\end{proposition}
+\begin{proof}
+    We know the density formula can be given by
+    \[
+    \begin{aligned}
+        h(x) &= \int^x_0 \left(\lambda^{\alpha}(x-y)^{\alpha-1}e^{-\lambda (x-y)}/ \Gamma(\alpha)\right)\left(\lambda^{\beta}y^{\beta-1}e^{-\lambda y}/ \Gamma(\beta)\right) dy \\
+        &= \lambda^{\alpha+\beta}x^{\alpha+\beta - 1}e^{-\lambda x}\int_0^xx^{1-\alpha-\beta}(x-y)^{\alpha-1}y^{\beta-1}/(\Gamma(\alpha)\Gamma(\beta)) dy \\
+        &=\lambda^{\alpha+\beta}x^{\alpha+\beta - 1}e^{-\lambda x}\int_0^1(1-u)^{\alpha-1}u^{\beta-1}du/(\Gamma(\alpha)\Gamma(\beta))
+    \end{aligned}
+    \]
+    It remains to show that
+    \[
+    \int_0^1(1-u)^{\alpha-1}u^{\beta-1}du = \Gamma(\alpha)\Gamma(\beta)/\Gamma(\alpha+\beta)
+    \]
+    which can be shown by noticing
+    \[
+    \begin{aligned}
+    \Gamma(\alpha+\beta)\int_0^1(1-u)^{\alpha-1}u^{\beta-1}du &= \int_0^{\infty}\int_0^1 v^{\alpha+\beta-1}e^{-v}(1-u)^{\alpha-1}u^{\beta-1} dvdu \\
+    &=\int_0^{\infty}\int_0^1 e^{-v}(v-vu)^{\alpha-1}(vu)^{\beta - 1}dv(vdu) \\
+    &= \int_0^{\infty}\int_{0}^{\infty}e^{-p+q}p^{\alpha-1}q^{\beta-1} (d(p+q)(p+q)d(q/(p+q)))\\
+    &=
+    \int_0^{\infty}\int_{0}^{\infty}e^{-p+q}p^{\alpha-1}q^{\beta-1}|1/(p+q)|(p+q)dpdq
+    \end{aligned}
+    \]
+    and we are done.\par
+    The remaining is obvious by notice that
+    \[
+    gamma(1,\lambda) = exponential(\lambda).
+    \]
+\end{proof}
+
+\begin{proposition}
+    If $X = normal(\mu, a)$ and $Y = normal(\nu, b)$ are independent then $X + Y = normal(\mu + \nu, a + b)$.
+\end{proposition}

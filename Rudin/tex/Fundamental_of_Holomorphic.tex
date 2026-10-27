@@ -1,0 +1,203 @@
+\section{Holomorphic Function}
+
+\subsection{Definitions}
+
+\begin{definition}
+    [Disconnection] If $E$ is disconnected, then there are $A,B$ nonempty such that
+    \[
+    E = A\cup B,\quad \overline{A} \cap B = A\cap \overline{B} = \varnothing
+    \]
+    If $E$ is closed/open and disconnected, then $E$ is a union of two disjoint closed/open set.
+\end{definition}
+\begin{proof}
+    If $E$ is closed and $E = A \cup B$, then since $\overline{A} \cap B = \varnothing$, then $\overline{A} \subset E - B \subset A$ and hence $A$ closed. Similarly, $B$ closed.\par
+    If $E$ is open with $A\cup B = E$, then $ B \subset E - \overline{A} \subset B$ and hence $B = E - \overline{A}$ open. Similarly, $A$ open and we are done.
+\end{proof}
+
+\begin{definition}
+    [Holomorphic Function] For an open subset $\Omega$ of complex plane, and $f: \Omega \to \C$, for $z_0 \in \Omega$ and the limit
+    \[
+    \lim_{z\to z_0} \dfrac{f(z)-f(z_0)}{z-z_0}
+    \]
+    exists, denoted as $f'(z_0)$. If for any $z\in\Omega$, $f'(z)$ exists, then we say $f$ is holomorphic in $\Omega$. Denote $H(\Omega)$ as all the functions holomorphic in $\Omega$.
+\end{definition}
+
+\begin{definition}
+    [Series] If for any $D(a;r) \subset \Omega$, there is a series
+    \[
+    \sum\limits_{n=0}^{\infty} c_n(z-a)^n
+    \]
+    which converges to $f(z)$ for all $z \in D(a;r)$, we say that $f$ has a series represenation in $\Omega$.
+\end{definition}
+
+\begin{theorem}
+\label{thm: convergent-radius}
+    For a series
+    \[
+    \sum\limits_{n=0}^{\infty} c_n(z-a)^n,
+    \]
+    for any $r < R$, we have the series is absolutely convergent in $\overline{D}(a;r)$ and for $z\notin \overline{D}(a;R)$, the series diverge where
+    \[
+    R = \dfrac{1}{\limsup_{n\to\infty} |c_n|^{1/n}}.
+    \]
+\end{theorem}
+\begin{proof}
+    For $r < R$, assume $r = q R, q < 1$ and then
+    \[
+    \sum\limits_{n=0}^{\infty} |c_n||z-a|^n \leq \sum\limits_{n = 0}^{\infty} q^n|c_n|(\limsup_{n\to\infty} |c_n|)^{-1} < \infty.
+    \]
+    For $|z-a| > R$, we have
+    \[
+    |c_n(z-a)^n| > |c_n|(\limsup_{n\to\infty} |c_n|)^{-1} \geq |c_n|(\sup_{m\geq N} |c_n|)^{-1}
+    \]
+    for $N < n$, which means we may always choose $n > N$ such that term above is larger than $1/2$ and we know the series can not converge absolutely since the series is not Cauchy.
+\end{proof}
+
+\begin{theorem}
+    If $f$ has a series representation in $\Omega$, then $f\in H(\Omega)$ and $f'$ also has a series representation in $\Omega$. In particular, if for $z\in D(a;r) \subset \Omega$, we have
+    \[
+    f(z) = \sum\limits_{n=0}^{\infty} c_n(z-a)^n,
+    \]
+    then
+    \[
+    f'(z) = \sum\limits_{n=1}^{\infty}nc_n(z-a)^{n-1}.
+    \]
+\end{theorem}
+\begin{proof}
+    If in $D(a;r)$ we have
+    \[\sum\limits_{n=0}^{\infty} c_n(z-a)^n\]
+    to be convergent, then
+    \[
+    g(z): = \sum\limits_{n=1}^{\infty}nc_n(z-a)^{n-1}
+    \]
+    is also convergent in $D(a;r)$ by  the Theorem \ref{thm: convergent-radius}. And we have
+    \[
+    \begin{aligned}
+        \lim_{z\to z_0} \left|\dfrac{f(z) - f(z_0)}{z-z_0} - g(z_0)\right| & = \lim_{z\to z_0}\left|\dfrac{1}{z-z_0}\left(\sum\limits_{n=0}^{\infty} c_n\left((z-a)^n-(z_0-a)^n\right)\right) -g(z)\right|\\
+        &\leq \lim_{z\to z_0}\sum\limits_{n=0}^{\infty}|c_n|\left|\dfrac{(z-a)^n - (z_0-a)^n}{z-z_0} -n(z_0-a)^{n-1}\right| \\
+        &\leq \lim_{z\to z_0}\sum\limits_{n=0}^{\infty}|c_n||z-z_0|\dfrac{n(n-1)}{2}r^{n-1} = 0
+    \end{aligned}
+    \]
+    and we are done.
+\end{proof}
+
+\begin{corollary}
+    If $f$ has a series representation in $\Omega$, then $f\in H(\Omega)$ and $f^{(k)}$ has a series representation for any integer $k$, in particular, $f^{(k)} \in H(\Omega)$ as well.
+\end{corollary}
+
+\begin{theorem}
+\label{thm: route-integral-holomorphic}
+    Assume $\mu$ is a complex finite measure on $X$, $\phi:X \to \C$ measurable and $\Omega$ is a disjoint open subset of $\C$ with $\phi(X)$, with
+    \[
+    f(z) = \int_X \dfrac{d\mu(\zeta)}{\phi(\zeta)- z}, \quad z\in \Omega
+    \]
+    then $f$ has a series represenation in $\Omega$.
+\end{theorem}
+\begin{proof}
+    Assume that if $D(a;r) \subset \Omega$, then we know
+    \[
+    \left|\dfrac{z-a}{\phi(\zeta) - a}\right| \leq \left|\dfrac{z-a}{r}\right| < 1
+    \]
+    for any fixed $z\in D(a;r)$, and hence
+    \[
+    \dfrac{1}{1-\dfrac{z-a}{\phi(\zeta) - a}} = \dfrac{\phi(\zeta) -a }{\phi(\zeta) - z} 
+    \]
+    exists, which means 
+    \[
+    \sum\limits_{n=0}^{\infty}\dfrac{(z-a)^n}{(\phi(\zeta)-a)^{n+1}} = \dfrac{1}{\phi(\zeta) - z}.
+    \]
+    We may use DCT to see that
+    \[
+    f(z) = \sum\limits_{n=0}^{\infty} c_n(z-a)^n,\quad c_n:= \int_X \dfrac{d\mu(\zeta)}{(\phi(\zeta) -a)^{n+1}}.
+    \]
+\end{proof}
+
+\subsection{Integral on Paths}
+
+\begin{definition}
+    [Path and Integral on Path] A curve in $X$ is a continuous map $\gamma:[a,b] \to X$ for some compact interval $[a,b]$.\par
+    A path id s piecewisely differentiable curve $\gamma:[a,b] \to \C$ and the integral for $f$ continuous on $\gamma^*:= \{\gamma(t), t\in [a,b]\}$ is defined by
+    \[
+    \int_{\gamma}f(z)dz = \int_a^b f(\gamma(t))\gamma'(t)dt.
+    \]
+\end{definition}
+
+\begin{lemma}
+    If $\phi:[a,b] \to [a',b']$ is a continuously differentiable bijection such that $\phi(a) = a', \phi(b) = b'$, then for a path $\gamma:[a',b'] \to \C$ and $f$ continuous on $\gamma^*$, we have
+    \[
+    \int_{\gamma} f(z)dz = \int_{\gamma'}f(z)dz
+    \]
+    where
+    \[\tilde{\gamma} := \gamma\circ \phi:[a,b] \to \C.\]
+\end{lemma}
+\begin{proof}
+    By simple computation:
+    \[
+    \begin{aligned}
+        \int_{\tilde{\gamma}}f(z)dz &= \int_a^b f(\tilde{\gamma}(t))(\tilde{\gamma})'(t)dt \\
+        &= \int_a^b f(\gamma(\phi(t)))(\gamma'(\phi(t)))\phi'(t)dt \\
+        &= \int_{a'}^{b'}f(\gamma(u))\gamma'(u)du \\
+        &= \int_{\gamma}f(z)dz.
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{theorem}
+\label{thm: cauchy-index-thm}
+    Assume $\gamma$ is a closed path and $\Omega$ is the complement of $\gamma^*$, and 
+    \[
+    \text{Ind}_{\gamma}(z):= \dfrac{1}{2\pi i}\int_{\gamma}\dfrac{d\zeta}{\zeta - z},\quad z\in \Omega
+    \]
+    then $\text{Ind}_{\gamma}$ is a integer-valued function on $\Omega$ and it is a constant in any branch of $\Omega$. In particular, $\text{Ind}_{\gamma} = 0$ in the unbounded branch of $\Omega$.
+\end{theorem}
+\begin{proof}
+    To show that
+    \[
+    \text{Ind}_{\gamma}(z) = \dfrac{1}{2\pi i}\int_a^b \dfrac{\gamma'(t)}{\gamma(t)-z}dt
+    \]
+    is integer-valued, notice that $e^{\omega}$ is $1$ iff $\omega$ is a integer multiple of $2\pi i$ and hence we consider
+    \[
+    \phi(t) = \exp\left(\int_a^t \dfrac{\gamma'(t)}{\gamma(t)-z}dt\right)
+    \]
+    where
+    \[
+    \phi'(t) = \phi(t)\left(\dfrac{\gamma'(t)}{\gamma(t)-z}\right) \implies \left(\dfrac{\phi}{\gamma-z}\right)'(t) = 0 .
+    \]
+    Therefore, we know $\phi(b)/(\gamma(b)-z) = \phi(a)/(\gamma(a) - z)$, and hence
+    \[
+    (2\pi i) \text{Ind}_{\gamma}(z) = \phi(b) = \phi(a) = 1
+    \]
+    since $\gamma(b) = \gamma(a)$, so $\text{Ind}_{\gamma}$ is always integer-valued. By the theorem \ref{thm: route-integral-holomorphic}, we know $\text{Ind}_{\gamma} \in H(\Omega)$ and hence it has to be constant on any connected branch by \ref{lem: connected-image}. For $z$ in the unbounded branch, since $|\gamma(t) - z|$ can be large enough such that $|\text{Ind}_{\gamma}(z)| < 1$, then it has to be $0$ and we are done. 
+\end{proof}
+
+\begin{proposition}
+    If $\gamma$ is a positive-directed cycle with center $a$ and radius $r$, then
+    \[
+    \text{Ind}_{\gamma}(z) = \begin{cases}
+        1,\quad |z-a| < r
+        0,\quad |z-a| > r
+    \end{cases}.
+    \]
+\end{proposition}
+\begin{proof}
+    We only need to prove the first case, that we know
+    \[
+    \text{Ind}_{\gamma}(a) = \int_0^{1} \dfrac{re^{2\pi i t}}{(re^{2\pi i t} +a) - a} dt =1 
+    \]
+    and we are done.
+\end{proof}
+
+\begin{theorem}
+    Assume $F \in H(\Omega)$ and $F'$ continuous in $\Omega$, then for any closed path $\gamma$ in $\Omega$, then
+    \[\int_{\gamma} F'(z)dz = 0.\]
+\end{theorem}
+\begin{proof}
+    We know
+    \[
+    \int_{\gamma} F'(z)dz = \int_a^b F'(\gamma(z))\gamma'(z)dz = F(\gamma(b)) - F(\gamma(a)).
+    \]
+\end{proof}
+
+\begin{corollary}
+    
+\end{corollary}

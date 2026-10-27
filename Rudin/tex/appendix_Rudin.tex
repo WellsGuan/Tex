@@ -1,0 +1,13 @@
+\appendix
+
+\section{Appendix}
+
+\subsection{Topology}
+
+\begin{lemma}
+    \label{lem: connected-image}
+    For a continuous map $\phi: X \to Y$, any image of a connected subset $G \subset X$ is connected in $Y$.
+\end{lemma}
+\begin{proof}
+    If $\phi(G)$ is not connected, then we may find that $A,B\subset Y$ open such that $\phi(G) \subset A\cup B$ with $A\cap B \cap \phi(G) = \varnothing$. THen we know that $\phi^{-1}(A) \cap \phi^{-1}(B) = \varnothing$ and open, with $\phi^{-1}(A)\cup \phi^{-1}(B) \supset G$, which is a contradiction with $G$ is connected and we are done.
+\end{proof}
