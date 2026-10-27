@@ -1,0 +1,129 @@
+%!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
+\documentclass[lang=en,11pt,a4paper,citestyle =authoryear]{elegantpaper}
+
+% 标题
+\title{HW3 - STAT 701}
+\author{Wells Guan}
+
+% 本文档命令
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\prvd}{$\hfill \qedsymbol$}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Hil}{\mathcal{H}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\nul}{\mathcal{N}}
+
+% 文档区
+\begin{document}
+\maketitle
+
+\noindent\textbf{Preface:} for all multitaper/DPSS related questions, you are welcome to use the R package \texttt{multitaper} (or python/Julia equivalents). You are also welcome to use chatbots or other external tools for hard Fourier integrals. It is not my intention for you to spend hours grinding out $\int_{-1/2}^{1/2}e^{i\omega h}e^{-\theta|\omega|}\,\mathrm d\omega$.
+
+\subsection*{Problem 1}
+Consider a sample path of length $n$ from a zero-mean, stationary time series $\{X_t\}_{t=1}^n$. Define its weighted Discrete Fourier Transform (DFT) at the Fourier frequencies $f_k=k/n$ for $k\in\{-[(n-1)/2],\ldots,[n/2]\}$, where $[\cdot]$ denotes the integer part of a number, by
+\[
+\widetilde X(f_k)=\sum_{t=1}^n w_tX_te^{-i2\pi f_kt}
+\]
+for a sequence of real-valued data taper weights $\{w_t\}_{t=1}^n$.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item Let $w_t=n^{-1/2}$ for all $t$, so that $|\widetilde X(f_k)|^2=I(f_k)$ is the standard un-tapered periodogram estimator. Pick $n=512$ and a known autocovariance function $\gamma(h)$ for your process (e.g., an ARMA(p,q)). Using simulation:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Draw $m\gg n$ independent sample paths (e.g., $m\approx10n$).
+\item Compute the vector of DFT coefficients $\widetilde{\mathbf X}^{(i)}=[\widetilde X^{(i)}(f_k)]$ for Fourier frequency $f_k$ defined above for each realization $i=1,\ldots,m$.
+\item Construct the empirical covariance matrix $\widehat\Sigma\in\mathbb C^{n\times n}=\sum_{i=1}^m\widetilde{\mathbf X}^{(i)}\widetilde{\mathbf X}^{(i)H}$ of these DFT coefficients.
+\end{enumerate}
+Inspect the matrix $\widehat\Sigma$ and comment on the resulting structure: how correlated are the estimates across different Fourier frequencies $f_k$ and $f_{k'}$? If you were interested to make a diagonal approximation of $\widehat\Sigma$, what information would you be throwing away?
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+
+\item Repeat this exercise using a normalized Slepian/discrete prolate spheroidal sequence (DPSS) taper sequence $w_t=h_t^{(0)}$ with time-bandwidth parameter $NW=10$, which you can obtain with the function \texttt{dpss(n, 1, 10)\$v} from the R multitaper package (there are also a few Julia packages that offer this, shoot me a note if the first one you try doesn't instantly work). What structural differences do you observe in the empirical covariance matrix compared to the un-tapered case?
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+
+\item[$3^*$.] Analytically derive the cross-covariance $\operatorname{Cov}(\widetilde X(f_k),\widetilde X(f_{k'}))$ for the flat weight sequence $w_t=n^{-1/2}$ in terms of the process spectral density $S(f)$ or autocovariance $\gamma(h)$. Simplify as much as possible using Dirichlet kernel properties. Based on your result, at what rate do you think these covariances go to zero?
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+\end{enumerate}
+
+\subsection*{Problem 2}
+Let's explore the local versus broadband bias tradeoffs in spectral density estimation.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item Write code that uses circulant embedding to \emph{exactly} simulate a length-$n$ sample path from a stationary time series with arbitrary covariance function $\gamma(\cdot)$. Please design its interface to accept an ACF sequence $\{\gamma(0),\ldots,\gamma(n-1)\}$ and return the length-$n$ sequence. You may use a built-in library for the FFT, but please do the other book-keeping yourself.
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+
+\item Recall the periodogram and the multitaper estimator described in class. Please design spectral densities/covariance functions to achieve the following failure modes, and demonstrate them by simulating data and computing the estimators:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item The multitaper estimator misses two distinct peaks and only reports one, but the periodogram gets them both.
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+\item The periodogram loses a faint spectral peak, but the multitaper catches it.
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+\end{enumerate}
+R functions like \texttt{spec.pgram} and \texttt{spec.mtm}, the latter being from the \texttt{multitaper} package, may be helpful. In both cases, you have multiple options for achieving this. You could design an ARMA process, but you may find it easier to design the \emph{spectrum} that makes the pathology obvious and then back out the ACF from it. \emph{You are welcome to use chatbots to solve hard integrals. But please be disciplined about restricting your use of them to just the hard integrals!}
+
+\item A \emph{harmonic} of a fundamental frequency $f_0$ is an integer multiple $kf_0$ for $k\in\{2,3,4,\ldots\}$. Sometimes simple nonlinear transformations or other irregularities can cause your SDF estimator to also have peaks at these harmonics of ``true'' peaks. Let $n=2048$ or something like that, and consider the time series
+\[
+X_t=\tanh\bigl(\alpha\cos(2\pi f_0t+\phi)\bigr)+Z_t,
+\]
+where $Z_t$ is a white noise with variance $\sigma^2$, $f_0=0.05$, and $\phi\sim\operatorname{Unif}(0,2\pi)$. Simulate such an $X_t$. Does it look like it could be a stationary process? Look at a spectral density estimator for it as if it were, and play with values of $\alpha$ to make the harmonics more or less prominent. Then find another nonlinear function besides $\tanh$ to apply to your periodic function that also induces spurious harmonics in your estimator. Try to pick something interesting that gives you stationary-looking data!
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+
+\item Pull the tide gauge data from Canvas. Pick a segment of moderate length (at least a few thousand points) with no gaps, and compute several spectral density estimators: a periodogram, a sine multitaper, a DPSS multitaper, and whatever else your heart desires. Inspect each of them and try to answer: how many of these peaks are real, and how many are harmonics? How would you model this spectral density? You might consider taking a look at a list of lunar frequencies, which you can find on, e.g., Wikipedia. You don't have to include an answer to this part of the question, but try to ponder: how might you distinguish that non-linear mean from structure in a stationary covariance function?
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+\end{enumerate}
+
+\subsection*{Problem 3}
+Write code to implement the \emph{Whittle likelihood} described in class. In particular, please write a function that takes two arguments: the (potentially weighted) DFT of your data, and SDF parameters.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item Pull up the NAO data and take the first 1024 measurements. Look at an exploratory estimator for the spectrum (perhaps a multitaper\ldots) and find a functional form you like for the spectrum. This should be something involving parameters, like $S_\theta(\omega)=\theta_0e^{-\theta_1|\omega|}$ or something. Discuss your choices.
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+
+\item By specifying your Whittle likelihood and handing that function to an optimizer (be careful about bound constraints for valid parameters!), fit that functional form to the data.
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+
+\item[$3^*$.] Using a numerical integrator or a chatbot or however you please, get from the spectral density to obtaining the corresponding ACF values $\{\gamma(0),\ldots,\gamma(n-1)\}$. Now take your fitted model SARIMA model from last week and evaluate the true likelihood, involving the covariance matrix and stuff, for each fitted model. Which of the two models has a better likelihood? Try and investigate what you think is going on and why one or the other was better.
+\par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
+\end{enumerate}
+
+\clearpage
+\appendix
+\section{Python code}
+The following files are templates to be completed. Data are stored in
+\texttt{data/}, and figures should be saved in \texttt{png/}.
+
+\subsection{Problem 1}
+\lstinputlisting[language=Python,basicstyle=\ttfamily\scriptsize]{code/problem1.py}
+\clearpage
+\subsection{Problem 2}
+\lstinputlisting[language=Python,basicstyle=\ttfamily\scriptsize]{code/problem2.py}
+\clearpage
+\subsection{Problem 3}
+\lstinputlisting[language=Python,basicstyle=\ttfamily\scriptsize]{code/problem3.py}
+
+\end{document}
