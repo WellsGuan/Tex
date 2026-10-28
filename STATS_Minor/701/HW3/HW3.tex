@@ -65,6 +65,8 @@ for a sequence of real-valued data taper weights $\{w_t\}_{t=1}^n$.
 Inspect the matrix $\widehat\Sigma$ and comment on the resulting structure: how correlated are the estimates across different Fourier frequencies $f_k$ and $f_{k'}$? If you were interested to make a diagonal approximation of $\widehat\Sigma$, what information would you be throwing away?
 \par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
 
+
+
 \item Repeat this exercise using a normalized Slepian/discrete prolate spheroidal sequence (DPSS) taper sequence $w_t=h_t^{(0)}$ with time-bandwidth parameter $NW=10$, which you can obtain with the function \texttt{dpss(n, 1, 10)\$v} from the R multitaper package (there are also a few Julia packages that offer this, shoot me a note if the first one you try doesn't instantly work). What structural differences do you observe in the empirical covariance matrix compared to the un-tapered case?
 \par\vspace{0.5em}\textbf{Sol.}\par\vspace{2em}
 
