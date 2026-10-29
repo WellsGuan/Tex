@@ -25,6 +25,7 @@
 \DeclareStringOption[numeric]{bibstyle}
 
 \DeclareStringOption[biber]{bibend}
+\DeclareBoolOption[false]{nobib}
 \DeclareVoidOption{biber}{\ekv{bibend=biber}}
 \DeclareVoidOption{bibtex}{\ekv{bibend=bibtex}}
 
@@ -193,10 +194,12 @@
 }{\relax}
 
 
+\ifELEGANT@nobib\else
 \RequirePackage[
   backend=\ELEGANT@bibend,
   citestyle=\ELEGANT@citestyle,
   bibstyle=\ELEGANT@bibstyle]{biblatex}
+\fi
 
 \RequirePackage{appendix}
 

@@ -1,0 +1,181 @@
+{
+  "resolution": {
+    "n": 4096,
+    "centers": [
+      0.16,
+      0.164
+    ],
+    "r": 0.994,
+    "NW": 24,
+    "K": 47,
+    "bandwidth": 0.01171875
+  },
+  "faint_peak": {
+    "n": 4096,
+    "components": [
+      [
+        2.0,
+        0.1,
+        0.004
+      ],
+      [
+        0.02,
+        0.27,
+        0.006
+      ]
+    ],
+    "noise_variance": 1.0,
+    "NW": 8,
+    "K": 15,
+    "true_peak": 1.664900277891289,
+    "raw_mean": 1.8438595703643152,
+    "raw_sd": 1.5298096069803022,
+    "mt_mean": 1.5616169312014583,
+    "mt_sd": 0.414551339990056,
+    "replicates": 128
+  },
+  "harmonics": {
+    "tanh, alpha=0.5": [
+      20.447663735537688,
+      0.0384773642486619,
+      0.06781667682106018,
+      0.039771127270262045,
+      0.03376800866258798
+    ],
+    "tanh, alpha=2": [
+      115.8697210199136,
+      0.04037707744088194,
+      3.9715823655620506,
+      0.04111394947318105,
+      0.2596602865231598
+    ],
+    "tanh, alpha=8": [
+      147.74632017799937,
+      0.04090811851554972,
+      15.888990416274988,
+      0.04224643800165927,
+      4.215507915645378
+    ],
+    "Half-wave rectification": [
+      23.05064799734999,
+      4.172183425855267,
+      0.034785859305167435,
+      0.18860097971166306,
+      0.033742089554297104
+    ]
+  },
+  "tide": {
+    "n": 8192,
+    "total_rows": 119266,
+    "start": "1980-10-01 13:00:00",
+    "end": "1981-09-07 20:00:00",
+    "gap_free_length": 119266,
+    "samples_per_day": 24.0,
+    "grid_spacing_cycles_per_day": 0.0029296875,
+    "multitaper_half_bandwidth_cycles_per_day": 0.01171875,
+    "peaks_cycles_per_day": [
+      1.9365234375,
+      1.0078125,
+      0.92578125,
+      2.0009765625,
+      1.8984375,
+      0.0263671875,
+      0.0498046875,
+      0.90234375,
+      1.974609375,
+      0.0908203125,
+      0.9755859375,
+      0.1611328125,
+      0.1318359375,
+      1.06640625,
+      1.869140625
+    ],
+    "peaks_density": [
+      0.30519943526703636,
+      0.2701782398077394,
+      0.06475754946748859,
+      0.03483701502063888,
+      0.012749717215710756,
+      0.007310633961181023,
+      0.0023746990553581283,
+      0.0020786498280249343,
+      0.0011923876563428029,
+      0.001063750228847547,
+      0.0009629060405975176,
+      0.0005903262825854189,
+      0.0005254326691425657,
+      0.0004394670270088262,
+      0.0003910347690606209
+    ],
+    "explained_fraction": 0.9157884524858741,
+    "residual_variance": 0.0026946025840215273,
+    "constituents": {
+      "Q1": {
+        "reference_frequency": 0.89324406,
+        "nearest_local_raw_peak": 0.8935546875,
+        "raw_peak_density": 0.0101698656373647,
+        "regression_amplitude": 0.012638643648856508
+      },
+      "O1": {
+        "reference_frequency": 0.9295357066666666,
+        "nearest_local_raw_peak": 0.9287109375,
+        "raw_peak_density": 0.36427768816714745,
+        "regression_amplitude": 0.07475818595372508
+      },
+      "P1": {
+        "reference_frequency": 0.9972620933333334,
+        "nearest_local_raw_peak": 1.001953125,
+        "raw_peak_density": 1.4842547701212883,
+        "regression_amplitude": 0.04677325268305514
+      },
+      "K1": {
+        "reference_frequency": 1.0027379066666666,
+        "nearest_local_raw_peak": 1.001953125,
+        "raw_peak_density": 1.4842547701212883,
+        "regression_amplitude": 0.13872266720197513
+      },
+      "N2": {
+        "reference_frequency": 1.8959819666666666,
+        "nearest_local_raw_peak": 1.8955078125,
+        "raw_peak_density": 0.07265327438299102,
+        "regression_amplitude": 0.03269377539989783
+      },
+      "M2": {
+        "reference_frequency": 1.9322736133333334,
+        "nearest_local_raw_peak": 1.93359375,
+        "raw_peak_density": 1.129336023920605,
+        "regression_amplitude": 0.1629462707934091
+      },
+      "S2": {
+        "reference_frequency": 2.0,
+        "nearest_local_raw_peak": 2.0009765625,
+        "raw_peak_density": 0.14404662885186367,
+        "regression_amplitude": 0.05472413194656213
+      },
+      "K2": {
+        "reference_frequency": 2.00547582,
+        "nearest_local_raw_peak": 2.0009765625,
+        "raw_peak_density": 0.14404662885186367,
+        "regression_amplitude": 0.015304745706659456
+      },
+      "M4": {
+        "reference_frequency": 3.8645472266666667,
+        "nearest_local_raw_peak": 3.861328125,
+        "raw_peak_density": 0.0003050797611183024,
+        "regression_amplitude": 0.0020410756785031172
+      },
+      "MS4": {
+        "reference_frequency": 3.9322736133333334,
+        "nearest_local_raw_peak": 3.931640625,
+        "raw_peak_density": 0.00015836033124209739,
+        "regression_amplitude": 0.0011731797960326824
+      },
+      "M6": {
+        "reference_frequency": 5.79682084,
+        "nearest_local_raw_peak": 5.7978515625,
+        "raw_peak_density": 3.061844442383894e-05,
+        "regression_amplitude": 0.0007163175953850099
+      }
+    }
+  }
+}

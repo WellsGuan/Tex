@@ -1,0 +1,20 @@
+{
+  "n": 512,
+  "m": 5120,
+  "ar": 0.6,
+  "ma": 0.3,
+  "gamma0": 2.2656250000000004,
+  "gamma1": 1.6593749999999996,
+  "flat": {
+    "relative_diagonal_approximation_error": 0.04367148602471939,
+    "mean_adjacent_correlation": 0.006063050377100029,
+    "empirical_mean_adjacent_correlation": 0.01469160400132671,
+    "relative_simulation_error": 0.19460741445328447
+  },
+  "dpss": {
+    "relative_diagonal_approximation_error": 0.8807010588526234,
+    "mean_adjacent_correlation": 0.924362476203394,
+    "empirical_mean_adjacent_correlation": 0.9243541774816066,
+    "relative_simulation_error": 0.09218990369213755
+  }
+}

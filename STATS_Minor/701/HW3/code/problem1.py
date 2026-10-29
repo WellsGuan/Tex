@@ -1,5 +1,9 @@
 from pathlib import Path
 from statsmodels.tsa.arima_process import arma_generate_sample
+from scipy.signal.windows import dpss
+
+import json
+from scipy.linalg import toeplitz
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,6 +21,13 @@ NW = 10
 def simulated_paths(times_series, alpha = 10, rng=None):
     n = times_series.shape[0]
     weights = np.ones(n)/(n ** 0.5)
+    frequencies = np.arange(-np.floor((n-1)/2),np.floor(n/2)+1)/n
+    dft = np.stack([weighted_dft(times_series, weights, frequency) for frequency in frequencies])
+    return dft
+
+def simulated_paths_2(times_series, alpha = 10, rng=None):
+    n = times_series.shape[0]
+    weights = dpss(n, NW=10, Kmax=1, norm=2)[0]
     frequencies = np.arange(-np.floor((n-1)/2),np.floor(n/2)+1)/n
     dft = np.stack([weighted_dft(times_series, weights, frequency) for frequency in frequencies])
     return dft
@@ -108,42 +119,67 @@ def empirical_dft_covariance(coefficients):
     return dft_covaiance
 
 
+def batch_dft(samples, weights):
+    n = samples.shape[1]
+    k = np.arange(-((n - 1) // 2), n // 2 + 1)
+    frequencies = k / n
+    coefficients = np.fft.fft(samples * weights, axis=1)[:, k % n]
+    return frequencies, coefficients * np.exp(-2j * np.pi * frequencies)
+
+
+def covariance_correlation(matrix):
+    standard_deviations = np.sqrt(np.diag(matrix).real)
+    return matrix / np.outer(standard_deviations, standard_deviations)
+
+
 def main():
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(SEED)
+    samples = np.stack([arma_generate_sample(ar=[1, -0.6], ma=[1, 0.3], nsample=N,
+                        burnin=500, distrvs=rng.standard_normal) for _ in range(M)])
+    ax = draw_paths(samples[:10])
+    ax.set_title("ARMA(1,1) sample paths")
+    ax.set_xlabel("Time")
+    ax.figure.savefig(FIGURE_DIR / "sample_paths.png", dpi=170, bbox_inches="tight")
+    plt.close(ax.figure)
+    weights = {"flat": np.ones(N) / np.sqrt(N), "dpss": dpss(N, NW=NW, Kmax=1, norm=2)[0]}
+    h = np.arange(N)
+    acf = np.empty(N)
+    acf[0] = (1 + 0.3 ** 2 + 2 * 0.6 * 0.3) / (1 - 0.6 ** 2)
+    acf[1:] = (0.6 + 0.3) * (1 + 0.6 * 0.3) / (1 - 0.6 ** 2) * 0.6 ** (h[1:] - 1)
+    results = {"n": N, "m": M, "ar": 0.6, "ma": 0.3, "gamma0": float(acf[0]), "gamma1": float(acf[1])}
+    fig, axes = plt.subplots(2, 2, figsize=(11, 9))
+    for row, (name, taper) in enumerate(weights.items()):
+        frequencies, coefficients = batch_dft(samples, taper)
+        direct = np.array([weighted_dft(samples[0], taper, frequency) for frequency in frequencies])
+        np.testing.assert_allclose(coefficients[0], direct, atol=1e-11)
+        covariance = empirical_dft_covariance(coefficients) / M
+        kernel = taper[None, :] * np.exp(-2j * np.pi * frequencies[:, None] * np.arange(1, N + 1))
+        expected = kernel @ toeplitz(acf) @ kernel.conj().T
+        empirical_correlation = covariance_correlation(covariance)
+        theoretical_correlation = covariance_correlation(expected)
+        ax = draw_matrix(covariance)
+        ax.set_title(f"ARMA(1,1) DFT covariance: {name}")
+        filename = "empirical_covariance_matrix.png" if name == "flat" else "empirical_covariance_matrix_dpss.png"
+        ax.figure.savefig(FIGURE_DIR / filename, dpi=170, bbox_inches="tight")
+        plt.close(ax.figure)
+        for column, (matrix, label) in enumerate(((empirical_correlation, "Empirical"), (theoretical_correlation, "Theoretical"))):
+            image = axes[row, column].imshow(np.abs(matrix), origin="upper", vmin=0, vmax=1, cmap="viridis")
+            axes[row, column].set_title(f"{name}: {label} correlation magnitude")
+            axes[row, column].set_xlabel("Frequency index")
+            axes[row, column].set_ylabel("Frequency index")
+            fig.colorbar(image, ax=axes[row, column])
+        off_diagonal = expected - np.diag(np.diag(expected))
+        results[name] = {"relative_diagonal_approximation_error": float(np.linalg.norm(off_diagonal) / np.linalg.norm(expected)),
+                         "mean_adjacent_correlation": float(np.mean(np.abs(np.diag(theoretical_correlation, 1)))),
+                         "empirical_mean_adjacent_correlation": float(np.mean(np.abs(np.diag(empirical_correlation, 1)))),
+                         "relative_simulation_error": float(np.linalg.norm(covariance - expected) / np.linalg.norm(expected))}
+    fig.tight_layout()
+    fig.savefig(FIGURE_DIR / "problem1_correlation_comparison.png", dpi=170, bbox_inches="tight")
+    plt.close(fig)
+    (ROOT / "problem1_results.json").write_text(json.dumps(results, indent=2))
+    print(json.dumps(results, indent=2))
 
-    samples = np.stack([arma_generate_sample(
-    ar=[1, -0.6],
-    ma=[1, 0.3],
-    nsample=N,
-    scale=1,
-    burnin=500,
-    distrvs=rng.standard_normal,
-    ) for i in range(M)])
-
-    #fig, ax = plt.subplots()
-
-    #ax = draw_paths(sample[:10], ax = ax)
-
-    #ax.set_title("ARMA sample paths")
-    #ax.set_xlabel("Time")
-    #ax.set_ylabel("Value")
-    #ax.figure.savefig(FIGURE_DIR / "sample_paths.png", bbox_inches="tight")
-
-    #plt.show()
-
-    dft = np.stack([simulated_paths(sample) for sample in samples])
-
-    empirical_covariance = empirical_dft_covariance(dft)
-
-    fig, ax = plt.subplots()
-
-    ax = draw_matrix(empirical_covariance, ax = ax)
-
-    ax.set_title("ARMA DFT Empirical Covaiance Matrix")
-    ax.figure.savefig(FIGURE_DIR / "empirical_covariance_matrix.png", bbox_inches="tight")
-
-    plt.show()
 
 if __name__ == "__main__":
     main()

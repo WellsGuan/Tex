@@ -1,0 +1,40 @@
+{
+  "n": 1024,
+  "column": "aao_index_cdas",
+  "sample_mean": -0.3472718327698203,
+  "parameters": [
+    13.895716734276895,
+    22.246730374834137,
+    0.006580142476498387
+  ],
+  "whittle_objective": -638.9461770739504,
+  "optimizer_success": true,
+  "variance_model": 1.2557984638488733,
+  "variance_empirical": 1.8798449451698214,
+  "exact_raw_log_likelihood": -228.49828987712237,
+  "common_difference_n": 659,
+  "stationary_difference_log_likelihood": -344.26496098461337,
+  "old_sarima_difference_log_likelihood": -366.31558359615514,
+  "spectral_inversion": {
+    "0": {
+      "analytic": 1.2557984638488733,
+      "numeric": 1.2557984638488735
+    },
+    "1": {
+      "analytic": 1.1569665833911307,
+      "numeric": 1.156966583391131
+    },
+    "10": {
+      "analytic": 0.139161145366815,
+      "numeric": 0.139161145366815
+    },
+    "100": {
+      "analytic": 0.001564108525529044,
+      "numeric": 0.001564108525529021
+    },
+    "1023": {
+      "analytic": 1.4964676896523958e-05,
+      "numeric": 1.4964676898198364e-05
+    }
+  }
+}
