@@ -157,7 +157,7 @@ functions with $f, g \geq 0 $ or $\mathbb{E}|f(X)|$ and $\mathbb{E}|g(Y )| < \in
     \end{aligned}
     \]
     and we are done.\par
-    The remaining is obvious by notice that
+    The remaining is obvious by noticing that
     \[
     gamma(1,\lambda) = exponential(\lambda).
     \]
@@ -166,3 +166,64 @@ functions with $f, g \geq 0 $ or $\mathbb{E}|f(X)|$ and $\mathbb{E}|g(Y )| < \in
 \begin{proposition}
     If $X = normal(\mu, a)$ and $Y = normal(\nu, b)$ are independent then $X + Y = normal(\mu + \nu, a + b)$.
 \end{proposition}
+
+\begin{theorem}[Kolmogorov’s extension theorem]\label{thm: Kol-extension} 
+    Suppose we are given probability measures $\mu_n$ on $(\R^n, \mathcal{R}^n)$ that are consistent, that is,
+    \[\mu_{n+1}((a_1, b_1] \times\cdots\times (a_n, b_n] \times \R) = \mu_n((a_1, b_1] \times \cdots \times (a_n, b_n])\]
+    Then there is a unique probability measure $P$ on $(\R^{\N}, \R^{\N})$ with
+    \[P(\omega : \omega_i ∈ (a_i, b_i], 1 \leq i \leq n) = \mu_n((a_1, b_1] \times \cdots \times (a_n, b_n])\]
+\end{theorem}
+
+\begin{definition}
+    [Nice space] $(S, \mathcal{S})$ is said to be nice if there is a 1-1 map $\phi$ from $S$ into $\R$ so that $\phi$ and $\phi^{-1}$ are both measurable.
+\end{definition}
+
+\begin{theorem}
+    If $S$ is a Borel subset of a complete separable metric space $M$, and $\mathcal{S}$ is the collection of Borel subsets of $S$, then $(S, \mathcal{S})$ is nice.
+\end{theorem}
+\begin{proof}
+    See page 54 of Durrett.
+\end{proof}
+
+\begin{theorem}
+    Let $X_1, \cdots , X_n$ have $\mathbb{E}(X^2_i) < \infty$ and be uncorrelated. Then
+    \[\text{var}(X_1 + \cdots + X_n) = \text{var}(X_1) + \cdots + \text{var}(X_n).\]
+\end{theorem}
+
+\begin{lemma}
+\label{lem: Lp-to-prob}
+    If $p > 0$ and $\mathbb E|Zn|^p \to 0$ then $Z_n \to 0$ in probability.
+\end{lemma}
+
+\begin{theorem}[$L^2$ weak Law]\label{thm: L2-weak-law}
+    Let $X_1, X_2, \cdots$ be uncorrelated random variables with $\mathbb EX_i = \mu$ and $\text{var} (X_i) \leq C < \infty$. If $S_n = X_1 + \cdots + X_n$ then as $n \to \infty$, $S_n/n \to \mu$ in $L^2$ and in probability.
+\end{theorem}
+\begin{proof}
+    We may compute
+    \[
+    \mathbb E\left|S_n/n - \mu\right|^2 = \dfrac{1}{n}\text{var}(X_1) \leq C/n \to 0
+    \]
+    and by \ref{lem: Lp-to-prob} the both convergence holds.
+\end{proof}
+
+\begin{corollary}[Bernstein Polynomial]
+    Let $f$ be a continuous function on $[0,1]$, and let
+    \[f_n(x) = \sum\limits^n_{m=0} C_n^m x^m(1 - x)^{n-m}f(m/n)\]
+    be the Bernstein polynomial of degree $n$ associated with $f$. Then as $n \to\infty$, we have
+    \[\sup_{x\in[0,1]} |f_n(x) - f(x)| \to 0.\]
+\end{corollary}
+\begin{proof}
+    Consider the independent random variables $X_i(x)$ with $P(X_i(x) = 1) = x$ and $P(X_i(x) = 0) = 1-x$, then we know $S_n(x) = \sum\limits_{i = 1}^n X_i(x)$ will converge to $x$ in $L^2$, with
+    \[
+    |S_n(x)/n - x| \leq \dfrac{1}{n}x(1-x) \leq 1/n,\quad\mathbb{E} f(S_n(x)/n) = f_n(x).
+    \]
+    Therefore, by $L^2$ weak law \ref{thm: L2-weak-law}, we know for any $\epsilon > 0$, we may find $\delta > 0$ such that $|f(x) - f(y)| < \epsilon$ as long as $|x-y| < \delta$, and for $n$ large sufficiently such that
+    \[P(|S_n(x)/n - x| > \delta )< \epsilon\quad\text{uniformly for }x,\]
+    then we will have
+    \[
+    \left|\mathbb{E}f(S_n/n) - f(x)\right| \leq P(\left|S_n/n - x\right| < \delta)\epsilon + 2P(|S_n/n - x|>\epsilon)\sup_{x\in[0,1]}|f(x)| < 2\epsilon
+    \]
+    for $x$ uniformly and we are done.
+\end{proof}
+
+\subsection{Triangular Arrays}
