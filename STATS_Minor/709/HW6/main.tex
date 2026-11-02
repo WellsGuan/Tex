@@ -1,0 +1,585 @@
+%!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear]{elegantpaper}
+
+\title{HW6 - STAT 709}
+\author{Wells Guan}
+
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+\maketitle
+
+\noindent All exercises are required unless marked optional.
+
+% Exercise statements below were transcribed from the supplied screenshots.
+% Exercise 5.3.33(b) incorporates the correction in the assignment PDF.
+% Write solutions after the Sol. headings.
+
+\subsection*{Problem 1. Modes of convergence}
+Jun Shao, \textit{Mathematical Statistics}, second edition, Chapter 1:
+\begin{itemize}[leftmargin=*]
+\item Required: Exercises 127, 135, and 140.
+\item Optional: Exercises 137 and 152.
+\end{itemize}
+
+\subsubsection*{Exercise 1.127}
+Let $X,X_1,X_2,\ldots$, $Y_1,Y_2,\ldots$, and $Z_1,Z_2,\ldots$
+be random variables. Prove the following statements.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item If $X_n\xrightarrow{d}X$, then $X_n=O_p(1)$.
+\item If $X_n=O_p(Z_n)$ and $\P(Y_n=0)=0$, then
+$X_nY_n=O_p(Y_nZ_n)$.
+\item If $X_n=O_p(Z_n)$ and $Y_n=O_p(Z_n)$, then
+$X_n+Y_n=O_p(Z_n)$.
+\item If $\E|X_n|=O(a_n)$, then $X_n=O_p(a_n)$, where
+$a_n\in(0,\infty)$.
+\item If $X_n\xrightarrow{\mathrm{a.s.}}X$, then
+$\sup_n|X_n|=O_p(1)$.
+\end{enumerate}
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Recall that $X_n=O_p(Z_n)$ means that, for every $\epsilon>0$,
+there are $M<\infty$ and $N$ such that
+$\P(|X_n|>M|Z_n|)<\epsilon$ for all $n\ge N$.
+This formulation avoids dividing by a possibly zero random scale.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item For any $\epsilon>0$, choose $M>0$ so that
+\[
+\P(|X|>M)<\epsilon/2,
+\qquad F\text{ is continuous at }M\text{ and }-M,
+\]
+where $F(x)=\P(X\le x)$ and $F_n(x)=\P(X_n\le x)$.
+Such an $M$ exists because $X$ is finite almost surely and a CDF
+has at most countably many discontinuities.
+Convergence in distribution gives an integer $N$ such that
+\[
+|F_n(M)-F(M)|+|F_n(-M)-F(-M)|<\epsilon/2,
+\qquad n\ge N.
+\]
+Consequently,
+\[
+\begin{aligned}
+\P(|X_n|>M)
+&\le 1-F_n(M)+F_n(-M)\\
+&\le 1-F(M)+F(-M)+\epsilon/2\\
+&=\P(|X|>M)+\epsilon/2<\epsilon.
+\end{aligned}
+\]
+The last equality uses $\P(X=-M)=0$, while the first line is an
+inequality because $F_n(-M)$ also counts a possible atom at $-M$.
+Thus $X_n=O_p(1)$.
+
+\item Since $\P(Y_n=0)=0$, multiplication by $|Y_n|$ preserves the
+relevant comparison almost surely, so for every $M>0$,
+\[
+\P(|X_nY_n|>M|Z_nY_n|)
+=\P(|X_n|>M|Z_n|).
+\]
+The right side is eventually less than any prescribed $\epsilon>0$
+for a suitable $M$, which proves $X_nY_n=O_p(Y_nZ_n)$.
+
+\item For any $\epsilon>0$, choose $M_1,M_2$ so that, for all
+sufficiently large $n$,
+\[
+\P(|X_n|>M_1|Z_n|)<\epsilon/2,
+\qquad
+\P(|Y_n|>M_2|Z_n|)<\epsilon/2.
+\]
+By the triangle inequality and a union bound,
+\[
+\begin{aligned}
+\P(|X_n+Y_n|>(M_1+M_2)|Z_n|)
+&\le\P(|X_n|>M_1|Z_n|)\\
+&\quad+\P(|Y_n|>M_2|Z_n|)<\epsilon.
+\end{aligned}
+\]
+Therefore $X_n+Y_n=O_p(Z_n)$; no independence is needed.
+
+\item By $\E|X_n|=O(a_n)$, there are $K<\infty$ and $N_0$ such that
+$\E|X_n|\le Ka_n$ for $n\ge N_0$. Markov's inequality yields
+\[
+\P(|X_n|>Ma_n)\le\frac{\E|X_n|}{Ma_n}\le\frac KM.
+\]
+Choosing $M>K/\epsilon$ proves $X_n=O_p(a_n)$.
+
+\item On the event where $X_n$ converges to the finite random variable
+$X$, the numerical sequence $(X_n)$ is bounded. Thus
+\[
+S:=\sup_{n\ge1}|X_n|<\infty\qquad\text{a.s.}
+\]
+The supremum is measurable because it is countable. Therefore
+$\P(S>M)\to0$ as $M\to\infty$, so the constant sequence with value
+$S$ is $O_p(1)$. In fact, the same estimate also shows
+$\sup_n\P(|X_n|>M)\le\P(S>M)\to0$.
+\end{enumerate}
+\vspace{2em}
+
+\subsubsection*{Exercise 1.135}
+Let $X,X_1,X_2,\ldots$ be random $k$-vectors and
+$Y,Y_1,Y_2,\ldots$ be random $l$-vectors. Suppose that
+$X_n\xrightarrow{d}X$, $Y_n\xrightarrow{d}Y$, and $X_n$ and $Y_n$
+are independent for each $n$. Show that $(X_n,Y_n)$ converges in
+distribution to a random $(k+l)$-vector.
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Let $\widetilde Y\overset d=Y$ be independent of $X$, constructed
+on a product probability space if necessary. At continuity points
+$x,y$ of the two marginal CDFs, independence gives
+\[
+F_{(X_n,Y_n)}(x,y)=F_{X_n}(x)F_{Y_n}(y)
+\longrightarrow F_X(x)F_Y(y)=F_{(X,\widetilde Y)}(x,y).
+\]
+To justify the joint convergence directly, take $s\in\R^k$ and
+$t\in\R^l$. The joint characteristic function factorizes as
+\[
+\begin{aligned}
+\E e^{i(s^\top X_n+t^\top Y_n)}
+&=\E e^{is^\top X_n}\,\E e^{it^\top Y_n}\\
+&\longrightarrow
+\E e^{is^\top X}\,\E e^{it^\top\widetilde Y}.
+\end{aligned}
+\]
+The limit is the characteristic function of $(X,\widetilde Y)$
+and is continuous at the origin. The multivariate L\'evy continuity
+theorem therefore gives
+\[
+\boxed{(X_n,Y_n)\xrightarrow d(X,\widetilde Y).}
+\]
+The original $X$ and $Y$ need not themselves be independent;
+the conclusion identifies the limit as the product of their laws.
+
+\subsubsection*{Exercise 1.140}
+Let $X_n$ be a random variable having the $N(\mu_n,\sigma_n^2)$
+distribution, $n=1,2,\ldots$, and $X$ be a random variable having
+the $N(\mu,\sigma^2)$ distribution. Show that
+$X_n\xrightarrow{d}X$ if and only if $\mu_n\to\mu$ and
+$\sigma_n\to\sigma$.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Write $\phi_n,\phi$ for the characteristic functions of $X_n,X$.
+They are
+\[
+\phi_n(t)=\exp(i\mu_nt-\sigma_n^2t^2/2),\qquad
+\phi(t)=\exp(i\mu t-\sigma^2t^2/2).
+\]
+Suppose first that $X_n\xrightarrow dX$. Then $\phi_n(t)\to\phi(t)$
+for every real $t$. Taking absolute values at $t=1$ gives
+\[
+e^{-\sigma_n^2/2}\longrightarrow e^{-\sigma^2/2}.
+\]
+Taking logarithms shows $\sigma_n^2\to\sigma^2$, hence
+$\sigma_n\to\sigma$ since standard deviations are nonnegative.
+Moreover, for every real $t$,
+\[
+e^{i\mu_nt}=\phi_n(t)e^{\sigma_n^2t^2/2}
+\longrightarrow\phi(t)e^{\sigma^2t^2/2}=e^{i\mu t}.
+\]
+These are the characteristic functions of the point masses
+$\delta_{\mu_n}$ and $\delta_\mu$. By L\'evy's continuity theorem,
+$\delta_{\mu_n}\xrightarrow w\delta_\mu$. For every $\epsilon>0$,
+the Portmanteau theorem applied to the open interval
+$(\mu-\epsilon,\mu+\epsilon)$ gives
+\[
+\liminf_n\mathbf1_{\{|\mu_n-\mu|<\epsilon\}}\ge1.
+\]
+Thus $|\mu_n-\mu|<\epsilon$ eventually, proving $\mu_n\to\mu$.
+It is important to use all real $t$ here, rather than to take a
+single-valued logarithm of a complex phase.
+
+Conversely, if $\mu_n\to\mu$ and $\sigma_n\to\sigma$, the displayed
+normal characteristic functions converge pointwise to $\phi$.
+Since $\phi$ is continuous at zero, L\'evy's continuity theorem
+implies $X_n\xrightarrow dX$.
+\vspace{2em}
+
+\subsubsection*{Exercise 1.137 (optional)}
+Let $\{X_n\}$ and $\{Y_n\}$ be two sequences of random variables.
+Suppose that $X_n\xrightarrow{d}X$ and that
+\[
+P_{Y_n\mid X_n=x_n}\xrightarrow{w}P_Y
+\]
+almost surely for every sequence of numbers $\{x_n\}$, where $X$
+and $Y$ are independent random variables. Show that
+$X_n+Y_n\xrightarrow{d}X+Y$.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Use the versions of the conditional distributions appearing in the
+hypothesis and write $K_n(x,dy)=P_{Y_n\mid X_n=x}(dy)$.
+For a fixed real $t$, let
+\[
+h_n(x)=\int_{\R}e^{ity}K_n(x,dy),\qquad
+\phi_Y(t)=\E e^{itY}.
+\]
+The hypothesis, together with weak convergence against bounded
+continuous functions, implies
+\[
+h_n(x_n)\longrightarrow\phi_Y(t)
+\quad\text{for every sequence }(x_n)
+\]
+on the sets where the stated conditional-law assumption holds.
+Consequently,
+\[
+\operatorname*{ess\,sup}_{x\ [P_{X_n}]}
+|h_n(x)-\phi_Y(t)|\longrightarrow0.
+\]
+Indeed, otherwise there would be $\epsilon>0$, a subsequence
+$n_j$, and points $x_{n_j}$ in the admissible full-measure sets
+such that $|h_{n_j}(x_{n_j})-\phi_Y(t)|>\epsilon$.
+Completing these points to a sequence contradicts the hypothesis.
+
+By conditioning on $X_n$,
+\[
+\begin{aligned}
+\E e^{it(X_n+Y_n)}
+&=\E[e^{itX_n}h_n(X_n)]\\
+&=\phi_Y(t)\E e^{itX_n}+o(1)\\
+&\longrightarrow\phi_Y(t)\phi_X(t).
+\end{aligned}
+\]
+Since $X$ and $Y$ are independent, the last expression is the
+characteristic function of $X+Y$. L\'evy's continuity theorem gives
+\[
+{X_n+Y_n\xrightarrow dX+Y.}
+\]
+Here the condition for every sequence of conditioning values is
+essential to this argument; mere pointwise convergence for each
+fixed conditioning value would not justify substituting $X_n$.
+\vspace{2em}
+
+\subsubsection*{Exercise 1.152 (optional)}
+Let $T_n=\sum_{i=1}^nX_i$, where the $X_n$'s are independent random
+variables satisfying
+\[
+\P(X_n=n^\theta)=\P(X_n=-n^\theta)=\frac12,
+\]
+and $\theta>0$ is a constant. Show that
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item when $\theta<0.5$, $T_n/n\xrightarrow{\mathrm{a.s.}}0$;
+\item when $\theta\ge1$, $T_n/n\xrightarrow{p}0$ does not hold.
+\end{enumerate}
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Write $X_i=i^\theta\varepsilon_i$, where the independent signs
+$\varepsilon_i$ take the values $1,-1$ with equal probability.
+Then $\E X_i=0$ and $\operatorname{Var}(X_i)=i^{2\theta}$.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item If $\theta<1/2$, then
+\[
+\sum_{i=1}^\infty\operatorname{Var}(X_i/i)
+=\sum_{i=1}^\infty i^{2\theta-2}<\infty.
+\]
+By Kolmogorov's convergence theorem for independent centered variables,
+$\sum_iX_i/i$ converges almost surely. Kronecker's lemma then gives
+\[
+\boxed{\frac{T_n}{n}=\frac1n\sum_{i=1}^nX_i
+\xrightarrow{\mathrm{a.s.}}0.}
+\]
+Equivalently, this is Kolmogorov's sufficient condition for the
+strong law of large numbers.
+
+\item Suppose, to the contrary, that $T_n/n\xrightarrow p0$.
+For $n\ge2$,
+\[
+\frac{X_n}{n}
+=\frac{T_n}{n}-\frac{n-1}{n}\frac{T_{n-1}}{n-1}
+\xrightarrow p0.
+\]
+But if $\theta\ge1$, then
+\[
+\left|\frac{X_n}{n}\right|=n^{\theta-1}\ge1
+\qquad\text{almost surely},
+\]
+so $\P(|X_n/n|>1/2)=1$ for every $n$, a contradiction.
+Thus $T_n/n\xrightarrow p0$ does not hold.
+\end{enumerate}
+\vspace{2em}
+
+\subsection*{Problem 2. Asymptotic distributions and estimation}
+Bickel and Doksum, \textit{Mathematical Statistics: Basic Ideas and
+Selected Topics}, Volume I, second edition, Chapter 5, Section 5.6,
+Problems for Section 5.3: Exercises 13 and 33 (required).
+
+\subsubsection*{Exercise 5.3.13}
+Let $S_n$ have a $\chi_n^2$ distribution.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Show that if $n$ is large, $\sqrt{S_n}-\sqrt n$ has
+approximately a $N\left(0,\tfrac12\right)$ distribution. This is known as
+\emph{Fisher's approximation}.
+\item From (a) deduce the approximation
+\[
+\P[S_n\le x]\approx\Phi(\sqrt{2x}-\sqrt{2n}).
+\]
+\item Compare the approximation of (b) with a central limit
+approximation
+\[
+\P[S_n\le x]\approx\Phi\!\left(\frac{x-n}{\sqrt{2n}}\right)
+\]
+and the exact values of $\P[S_n\le x]$ from the $\chi^2$ table for
+$x=x_{0.90}$, $x=x_{0.99}$, and $n=5,10,25$. Here $x_q$ denotes
+the $q$th quantile of the $\chi^2$ distribution.
+\end{enumerate}
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item We complete the characteristic-function argument using the
+density of $S_n$. For real $t$,
+\[
+\phi_{\sqrt{S_n}-\sqrt n}(t)
+=\int_0^\infty e^{it(\sqrt x-\sqrt n)}
+\frac{x^{n/2-1}e^{-x/2}}{2^{n/2}\Gamma(n/2)}\,dx.
+\]
+Under the change of variables $u=\sqrt x-\sqrt n$,
+we have $x=(u+\sqrt n)^2$ and $dx=2(u+\sqrt n)\,du$.
+Hence
+\[
+\phi_{\sqrt{S_n}-\sqrt n}(t)
+=\int_{\R}e^{itu}g_n(u)\,du,
+\]
+where
+\[
+g_n(u)=\mathbf1_{\{u>-\sqrt n\}}
+\frac{(u+\sqrt n)^{n-1}e^{-(u+\sqrt n)^2/2}}
+{2^{n/2-1}\Gamma(n/2)}.
+\]
+In particular, the power after the substitution is $n-1$.
+For a fixed $u$, eventually $u>-\sqrt n$, and
+\[
+g_n(u)=C_n\exp\left\{
+(n-1)\log(1+u/\sqrt n)-u\sqrt n-u^2/2
+\right\},
+\]
+with
+\[
+C_n=\frac{n^{(n-1)/2}e^{-n/2}}
+{2^{n/2-1}\Gamma(n/2)}.
+\]
+Stirling's formula,
+\[
+\Gamma(n/2)\sim\sqrt{2\pi}(n/2)^{n/2-1/2}e^{-n/2},
+\]
+gives $C_n\to1/\sqrt\pi$. Also, Taylor expansion at zero yields
+\[
+\begin{aligned}
+&(n-1)\log(1+u/\sqrt n)-u\sqrt n-u^2/2\\
+&\qquad=(n-1)\left(\frac u{\sqrt n}-\frac{u^2}{2n}
++O(n^{-3/2})\right)-u\sqrt n-u^2/2
+\longrightarrow -u^2.
+\end{aligned}
+\]
+Thus $g_n(u)\to g(u)=\pi^{-1/2}e^{-u^2}$ for every fixed $u$.
+Both $g_n$ and $g$ are probability densities, so Scheff\'e's lemma gives
+\[
+\int_{\R}|g_n(u)-g(u)|\,du\longrightarrow0.
+\]
+Consequently,
+\[
+\left|\int e^{itu}g_n(u)\,du-\int e^{itu}g(u)\,du\right|
+\le\int|g_n-g|\longrightarrow0.
+\]
+The density $g$ is that of $N(0,1/2)$, with characteristic function
+$e^{-t^2/4}$. Therefore
+\[
+\boxed{\sqrt{S_n}-\sqrt n\xrightarrow dN(0,1/2).}
+\]
+This justifies convergence of the integrals without an unsupported
+interchange of a pointwise limit and integration.
+
+An alternative short proof is to write $S_n$ in distribution as
+$\sum_{i=1}^nG_i^2$ for i.i.d.\ standard normal $G_i$. The CLT gives
+$(S_n-n)/\sqrt{2n}\xrightarrow dN(0,1)$, while $S_n/n\xrightarrow p1$.
+Therefore
+\[
+\sqrt{S_n}-\sqrt n
+=\frac{(S_n-n)/\sqrt n}{\sqrt{S_n/n}+1}
+\xrightarrow dN(0,1/2)
+\]
+by Slutsky's theorem.
+
+\item Standardizing the approximation in (a), for $x\ge0$,
+\[
+\begin{aligned}
+\P(S_n\le x)
+&=\P\bigl(\sqrt2(\sqrt{S_n}-\sqrt n)
+\le\sqrt{2x}-\sqrt{2n}\bigr)\\
+&\approx\Phi(\sqrt{2x}-\sqrt{2n}).
+\end{aligned}
+\]
+For $x<0$, the exact CDF is zero. The displayed approximation is
+intended for the central and relevant tail regions as $n$ becomes large.
+
+\item Let $x_q$ be the $q$th quantile of $\chi_n^2$.
+The exact CDF at this value is $q$. The following table compares
+\[
+F_{\mathrm F}(x)=\Phi(\sqrt{2x}-\sqrt{2n}),\qquad
+F_{\mathrm C}(x)=\Phi\left(\frac{x-n}{\sqrt{2n}}\right).
+\]
+Values are rounded to six decimal places; the last two columns are
+absolute errors relative to $q$.
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrrrr}
+\hline
+$n$ & $q$ & $x_q$ & $F_{\mathrm F}(x_q)$ & $F_{\mathrm C}(x_q)$
+& $|F_{\mathrm F}-q|$ & $|F_{\mathrm C}-q|$\\
+\hline
+5 & 0.90 & 9.236357 & 0.871961 & 0.909821 & 0.028039 & 0.009821\\
+5 & 0.99 & 15.086272 & 0.990115 & 0.999288 & 0.000115 & 0.009288\\
+10 & 0.90 & 15.987179 & 0.881487 & 0.909678 & 0.018513 & 0.009678\\
+10 & 0.99 & 23.209251 & 0.990383 & 0.998430 & 0.000383 & 0.008430\\
+25 & 0.90 & 34.381587 & 0.889012 & 0.907705 & 0.010988 & 0.007705\\
+25 & 0.99 & 44.314105 & 0.990440 & 0.996847 & 0.000440 & 0.006847\\
+\hline
+\end{tabular}
+\end{center}
+At the $0.90$ quantile, the central limit approximation is more
+accurate for all three sample sizes. At the $0.99$ quantile,
+Fisher's approximation is substantially more accurate.
+Thus neither approximation is uniformly better at all the
+quantiles considered.
+\end{enumerate}
+\vspace{2em}
+
+\subsubsection*{Exercise 5.3.33}
+Let $X_{ij}$, $i=1,\ldots,p$, $j=1,\ldots,k$, be independent with
+$X_{ij}\sim N(\mu_i,\sigma^2)$.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Show that the MLEs of $\mu_i$ and $\sigma^2$ are
+\[
+\widehat\mu_i=\frac1k\sum_{j=1}^kX_{ij},
+\qquad
+\widehat\sigma^2=\frac1{kp}\sum_{i=1}^p\sum_{j=1}^k
+(X_{ij}-\widehat\mu_i)^2.
+\]
+\item Show that if $k$ is fixed and $p\to\infty$, then
+\[
+\widehat\sigma^2\xrightarrow{p}\frac{k-1}{k}\sigma^2.
+\]
+That is, the MLE $\widehat\sigma^2$ is not consistent
+(Neyman and Scott, 1948).
+\item Give a consistent estimate of $\sigma^2$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Correction to part (b):}
+The inconsistent estimator in the final sentence is the variance MLE
+$\widehat{\sigma}^{\,2}$. Use $k\ge2$ observations per group, with $k$
+fixed as $p\to\infty$.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Throughout, take $k\ge2$ and $\sigma^2>0$. Write $s=\sigma^2$.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item The likelihood and log likelihood are
+\[
+\begin{aligned}
+L(\mu_1,\ldots,\mu_p,s)
+&=(2\pi s)^{-kp/2}
+\exp\left[-\frac1{2s}\sum_{i=1}^p\sum_{j=1}^k
+(X_{ij}-\mu_i)^2\right],\\
+\ell(\mu_1,\ldots,\mu_p,s)
+&=-\frac{kp}{2}\log(2\pi s)
+-\frac1{2s}\sum_{i=1}^p\sum_{j=1}^k(X_{ij}-\mu_i)^2.
+\end{aligned}
+\]
+Let $\overline X_i=k^{-1}\sum_{j=1}^kX_{ij}$.
+For every $s>0$, the identity
+\[
+\sum_{j=1}^k(X_{ij}-\mu_i)^2
+=\sum_{j=1}^k(X_{ij}-\overline X_i)^2
++k(\overline X_i-\mu_i)^2
+\]
+shows that the unique maximizing mean is
+$\widehat\mu_i=\overline X_i$.
+Set
+\[
+Q=\sum_{i=1}^p\sum_{j=1}^k(X_{ij}-\overline X_i)^2.
+\]
+After substitution, the derivative of the profile log likelihood is
+\[
+\ell_{\mathrm{prof}}'(s)
+=-\frac{kp}{2s}+\frac{Q}{2s^2}
+=\frac{Q-kps}{2s^2}.
+\]
+It is positive for $s<Q/(kp)$ and negative for $s>Q/(kp)$.
+Since $Q>0$ almost surely for $k\ge2$, this proves the global maximum:
+\[
+\boxed{\widehat\mu_i=\frac1k\sum_{j=1}^kX_{ij},\qquad
+\widehat\sigma^2=\frac Q{kp}.}
+\]
+
+\item For each group, let
+\[
+Q_i=\sum_{j=1}^k(X_{ij}-\overline X_i)^2.
+\]
+Writing $X_{ij}=\mu_i+\sigma Z_{ij}$ removes $\mu_i$, where all the
+$Z_{ij}$ are independent standard normal variables. The vector of
+centered observations within a group is the orthogonal projection
+onto the $(k-1)$-dimensional subspace perpendicular to $(1,\ldots,1)$.
+Rotational invariance of the standard normal distribution therefore gives
+\[
+\frac{Q_i}{\sigma^2}\sim\chi_{k-1}^2.
+\]
+The $Q_i$ are independent and identically distributed, even though
+the group means $\mu_i$ need not be equal. In particular,
+\[
+\E Q_i=(k-1)\sigma^2,\qquad
+\operatorname{Var}(Q_i)=2(k-1)\sigma^4.
+\]
+By the strong law of large numbers, as $p\to\infty$ with $k$ fixed,
+\[
+\widehat\sigma^2
+=\frac1k\frac1p\sum_{i=1}^pQ_i
+\xrightarrow{\mathrm{a.s.}}\frac{k-1}{k}\sigma^2.
+\]
+This implies the requested convergence in probability. Because the
+limit is not $\sigma^2$, the variance MLE is inconsistent.
+Its exact bias is $-\sigma^2/k$, which does not disappear when
+only the number of groups grows.
+
+\item Correct the degrees of freedom by defining
+\[
+{\widetilde\sigma^2
+=\frac{k}{k-1}\widehat\sigma^2
+=\frac1{p(k-1)}\sum_{i=1}^p\sum_{j=1}^k
+(X_{ij}-\overline X_i)^2.}
+\]
+Then $\E\widetilde\sigma^2=\sigma^2$, and
+\[
+\operatorname{Var}(\widetilde\sigma^2)
+=\frac{2\sigma^4}{p(k-1)}\longrightarrow0.
+\]
+Chebyshev's inequality proves
+$\widetilde\sigma^2\xrightarrow p\sigma^2$; in fact, the same
+strong-law argument proves almost sure convergence.
+\end{enumerate}
+\vspace{2em}
+
+\end{document}

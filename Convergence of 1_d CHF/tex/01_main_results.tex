@@ -247,6 +247,16 @@ and
 \[
 \Xi_{2;t-s}^{\sigma,\rho}[v_s]^2 \leq \left(\lVert v_s\rVert_2^2 + \dfrac{L(1/\rho)}{4\pi}(S_{\rho}(t-s))|\sigma|_{\infty}^2\right) \vee |\sigma|_{\infty}^2
 \]
+and for any fixed time $s$, since
+\[
+\EE |v_s(x)|^2 = \EE \left|\clG_{s}v_0(x)\right|^2 + \int_0^s G_{s+\rho-r}^2\left|\sigma(v_r(x))\right|dr \leq \lVert v_0\rVert_2^2 + \dfrac{M}{4\pi}L\left(s/\rho\right)
+\]
+and hence $\lVert v_s\rVert \lesssim L(1/\rho)$, which means we may have the estimation
+\[
+\Xi_{2;t-s}^{\sigma,\rho}[v_s]^2 \lesssim L(1/\rho)
+\]
+for fixed $t,s$.
+
 \medskip
 \noindent\textit{Step 2: Flattening the solution.}
 By the matrix-valued reverse triangle inequality and the flattening estimate,
@@ -286,7 +296,7 @@ E_1
 \left(\dfrac{4\pi}{4\pi - \lambda^2 L\left(\dfrac{\tau_2-\tau_1}{\rho}\right)}\right)
 \right)
 \\
-&\leq CL(1/\rho)\left(L(\kappa_{\ell,\rho}^{-1}\omega(\rho)) + \kappa_{\ell,\rho}^2 + \kappa_{\ell,\rho}\right),
+&\leq CL(1/\rho)\left(L(\kappa_{\ell,\rho}^{-1}\omega(\rho)) + L(\tau_0/\rho)(\kappa_{\ell,\rho}^2 + \kappa_{\ell,\rho})\right),
 \end{align*}
 for some contant $C_1(\sigma)$ and hence
 \begin{align*}
@@ -312,7 +322,7 @@ and we have
 \begin{aligned}
 E_2 &\leq 4\Xi_{2;\tau_2-\tau_1}[\clG_{\tau_1-\tau_0}v^{\rho}_{\tau_0}(X)]^2(\gamma_{\rho}^{-1}\lambda)^2S_{\rho}(\tau_2-\tau_1)  \\
 & \leq 16\pi\left(\lVert v_{\tau_1}\rVert_2^2 + \dfrac{L(1/\rho)}{4\pi}(S_{\rho}(\tau_2-\tau_1))|\sigma|_{\infty}^2\right)\lambda^2 L\left(\dfrac{\tau_2-\tau_1}{\rho}\right) \\
-&\leq CL(\kappa_{\ell,\rho}\omega(\rho))^2
+&\leq CL(1/\rho)L(\kappa_{\ell,\rho}\omega(\rho))
 \end{aligned}
 \]
 
@@ -416,12 +426,12 @@ J_{\sigma_{\rho},\rho}\!\left(
 \left(\dfrac{L(1/\rho)\lambda^2}{4\pi}\EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right|^2\right)^{1/2}
 \nonumber\\
 &\quad+\left(\dfrac{\lambda^2L(1/\rho)}{4\pi}\lVert\mathcal{V}_p\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X) - \mathcal{V}_{p-q,q}\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\rVert_2^2\right)^{1/2}\\
-&\quad\leq \left(C\Xi_{2,t}[v_0]^2{L(L(1/\rho))}\right)^{1/2}+\left(CL(1/\rho)\dfrac{ML\left(
+&\quad\leq \left(CL(1/\rho)^{1-(1/(1-2/\ell)-1-\iota_2)}\right)^{1/2}+\left(CL(1/\rho)\dfrac{ML\left(
 \frac{q}
 {p-q+\rho}
 \right)}{4\pi - \lambda^2 L\left(\frac{p-q}{\rho}\right)}\right)^{1/2} \\
 &\quad \leq
-\left(C\left(\lVert v_s\rVert_2^2 + \dfrac{L(1/\rho)}{4\pi}(S_{\rho}(t))|\sigma|_{\infty}^2\right){L(L(1/\rho))}\right)^{1/2}+\left(CL(1/\rho)L(\kappa_{\ell,\rho}w(\rho))\right)^{1/2}
+\left(CL(1/\rho)^{1-(1/(1-2/\ell)-1-\iota_2)}\right)^{1/2}+\left(CL(1/\rho)L(\kappa_{\ell,\rho}w(\rho))\right)^{1/2}
 \end{align*}
 where
 \[
@@ -440,11 +450,15 @@ $C<\infty$ such that, for sufficiently small $\rho$,
 &\quad= \EE\left\lvert\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
 -\clG_{\sfL(1/\rho)^{\iota_2}\xi^2}\left(\clG_{t-\tau_0}v_{\tau_0} + \int_{\tau_0}^t \clG_{t+\rho-r}[\sigma(v_r)dW_r]\right)(X)\right\rvert^2 \\
 &\quad \leq \EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2 + t-\tau_0}v_{\tau_0}(X)\right|^2\\&\qquad + M\int_{\tau_0}^t \int G_{t+\sfL(1/\rho)^{\iota_2}\xi^2 +\rho -r}^2(X-y)dydr \\
-&\leq \lVert v_{\tau_0}\rVert_2^2\dfrac{|(L(1/\rho)^{\iota_2}+\kappa_{\ell,\rho})\xi^2|}{\kappa_{\ell,\rho}^{-1}\xi^2}+ \dfrac{M}{4\pi}L\left(\dfrac{t-\tau_0}{\sfL(1/\rho)^{\iota_2}\xi^2 + \rho}\right)
+&\quad\leq \lVert v_{\tau_0}\rVert_2^2\dfrac{|(L(1/\rho)^{\iota_2}+\kappa_{\ell,\rho})\xi^2|}{\kappa_{\ell,\rho}^{-1}\xi^2}+ \dfrac{M}{4\pi}L\left(\dfrac{t-\tau_0}{\sfL(1/\rho)^{\iota_2}\xi^2 + \rho}\right)\\
+&\quad \leq C \left(L(1/\rho)^{1+\iota_2}\kappa_{\ell,\rho} + L(\kappa_{\ell,\rho}\omega(\rho)) \right)
 \end{align*}
 To sum up, we have
 \[
-E_3 \leq CL(1/\rho)L(L(1/\rho))
+E_1 + E_2 + E_3 \lesssim L(1/\rho)(L(\kappa_{\ell,\rho}^{-1}\omega(\rho) +  L(1/\rho)^{1+\iota_2 - 1/(1-2/\ell)}) = L(1/\rho)\Theta(\rho)
 \]
-
+where we denote
+\[
+\Theta(\rho) := (\kappa_{\ell,\rho}^{-1}\omega(\rho) +  L(1/\rho)^{1+\iota_2 - 1/(1-2/\ell)}.
+\]
 \end{proof}
