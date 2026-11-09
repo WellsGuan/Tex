@@ -1,0 +1,264 @@
+\section{The Spectral Representation of a Stationary Process (Chapter 4)}
+\label{sec:tmts-ch4}
+The frequency domain represents covariance by a finite positive measure and
+represents the process itself by a mean-square stochastic integral.
+The convention throughout is
+\[
+\gamma(h)=\int_{(-\pi,\pi]}e^{ih\lambda}\,dF(\lambda).
+\]
+Thus white noise of variance $\sigma^2$ has density $\sigma^2/(2\pi)$.
+All stochastic integrals in this chapter have deterministic integrands.
+
+\subsection{Complex Stationarity and Spectral Measures (Sections 4.1--4.3)}
+\begin{definition}[Complex-valued weak stationarity]
+A complex process is weakly stationary if $\mathbb E|X_t|^2<\infty$,
+$\mathbb EX_t=\mu$ is constant, and
+\[
+\gamma(h)=\mathbb E[(X_{t+h}-\mu)\overline{(X_t-\mu)}]
+\]
+depends only on $h$. We use $\langle U,V\rangle=\mathbb E[U\overline V]$.
+Then $\gamma(-h)=\overline{\gamma(h)}$ and the covariance matrices are
+Hermitian and nonnegative definite.
+\end{definition}
+\begin{theorem}[Herglotz; Theorem 4.3.1]
+A function $\gamma:\mathbb Z\to\mathbb C$ is an autocovariance function
+if and only if it is nonnegative definite, equivalently if and only if there
+is a finite positive measure $F$ on $(-\pi,\pi]$ such that
+\[
+\gamma(h)=\int_{(-\pi,\pi]}e^{ih\lambda}\,dF(\lambda),\qquad h\in\mathbb Z.
+\]
+Nonnegative definiteness means
+$\sum_{i,j=1}^n a_i\overline{a_j}\gamma(i-j)\ge0$ for all $n$ and
+$a_1,\ldots,a_n\in\mathbb C$.
+The spectral measure is unique. Its distribution function is normalized by
+$F(-\pi)=0$ and is bounded, nondecreasing and right-continuous, with
+$F(\pi)=\gamma(0)$.
+\end{theorem}
+\begin{definition}[Spectral density and spectral atoms]
+If $dF(\lambda)=f(\lambda)\,d\lambda$, then $f$ is a spectral density.
+It is nonnegative and integrable, and is defined up to Lebesgue-null sets.
+An atom of mass $a$ at $\lambda_0$ contributes $a e^{ih\lambda_0}$ to
+$\gamma(h)$. Spectral distributions need not have densities.
+For real-valued processes, the spectral measure is symmetric on the circle;
+when a density exists it is even almost everywhere, and
+\[
+\gamma(h)=2\int_0^\pi f(\lambda)\cos(h\lambda)\,d\lambda.
+\]
+\end{definition}
+\begin{theorem}[Absolutely summable covariances; Theorem 4.3.2]
+If $\sum_{h\in\mathbb Z}|\gamma(h)|<\infty$, then
+\[
+f(\lambda)=\frac1{2\pi}\sum_{h\in\mathbb Z}\gamma(h)e^{-ih\lambda}
+\]
+converges absolutely and uniformly to a continuous spectral density.
+Conversely, an absolutely summable sequence is an autocovariance function
+if and only if its Fourier series above is nonnegative at every frequency.
+\end{theorem}
+
+\subsection{Filtering, ARMA Spectra and Approximation (Section 4.4)}
+\begin{theorem}[Spectral effect of an absolutely summable filter]
+Let $X_t=\sum_{j\in\mathbb Z}\psi_jY_{t-j}$, where $Y$ is centered and
+stationary and $\sum_j|\psi_j|<\infty$. Define
+$\Psi(\lambda)=\sum_j\psi_je^{-ij\lambda}$.
+Then $X$ is stationary and
+\[
+dF_X(\lambda)=|\Psi(\lambda)|^2dF_Y(\lambda),\qquad
+f_X(\lambda)=|\Psi(\lambda)|^2 f_Y(\lambda)
+\]
+when $Y$ has a density. $\Psi$ is the transfer function and $|\Psi|^2$ is
+the power transfer function. For complex coefficients,
+\[
+\gamma_X(h)=\sum_{j,k\in\mathbb Z}\psi_j\overline{\psi_k}
+\gamma_Y(h-j+k).
+\]
+\end{theorem}
+\begin{theorem}[ARMA spectral density; Theorem 4.4.2]
+For $\phi(B)X_t=\theta(B)Z_t$, with
+$\{Z_t\}\sim\mathrm{WN}(0,\sigma^2)$ and $\phi(z)\ne0$ on $|z|=1$,
+\[
+f_X(\lambda)=\frac{\sigma^2}{2\pi}
+\frac{|\theta(e^{-i\lambda})|^2}{|\phi(e^{-i\lambda})|^2},
+\qquad -\pi\le\lambda\le\pi.
+\]
+This holds for the stationary solution even if its representation is
+noncausal or noninvertible. The density is rational in $e^{i\lambda}$.
+\end{theorem}
+\begin{proposition}[Recovery of the noise in a closed span]
+Assume $\phi,\theta$ are coprime and $\phi$ has no zero on the unit circle.
+Then
+\[
+Z_t\in\overline{\operatorname{span}}\{X_s:s\le t\}
+\quad\Longleftrightarrow\quad \theta(z)\ne0\text{ for }|z|<1.
+\]
+This closed-span notion permits zeroes on $|z|=1$; the absolutely summable
+inverse used earlier requires no zeroes on $|z|\le1$.
+If also $\phi$ has no zeroes on $|z|\le1$, the recovered noise is the innovation
+$Z_t=X_t-P_{\mathcal M_{t-1}}X_t$.
+\end{proposition}
+\begin{theorem}[Uniform spectral approximation; Section 4.4]
+For every real symmetric continuous spectral density $f$ and every
+$\epsilon>0$, there exist an invertible finite MA process and a causal
+finite AR process, each with density $g$ satisfying
+\[
+\sup_{\lambda\in[-\pi,\pi]}|f(\lambda)-g(\lambda)|<\epsilon.
+\]
+The orders are allowed to depend on $f$ and $\epsilon$.
+\end{theorem}
+
+\subsection{Covariance Matrices and Fourier Coordinates (Section 4.5)}
+\begin{proposition}[Circulant eigenstructure]
+Let $C_{rs}=c_{(s-r)\bmod n}$ for $0\le r,s<n$ and
+$\omega_k=2\pi k/n$. The vectors
+\[
+v_k=n^{-1/2}(1,e^{i\omega_k},\ldots,e^{i(n-1)\omega_k})^\top
+\]
+form an orthonormal eigenbasis, with eigenvalues
+$\lambda_k=\sum_{j=0}^{n-1}c_je^{ij\omega_k}$.
+If $C$ is Hermitian, all $\lambda_k$ are real.
+\end{proposition}
+\begin{proposition}[Spectral quadratic form and eigenvalue bounds]
+For $\Gamma_n=[\gamma(i-j)]_{i,j=1}^n$ and $a\in\mathbb C^n$,
+\[
+a^*\Gamma_na=\int_{-\pi}^{\pi}
+\left|\sum_{j=1}^n a_je^{-ij\lambda}\right|^2 f(\lambda)\,d\lambda.
+\]
+If $0<m\le f\le M<\infty$ almost everywhere, then
+\[
+2\pi m\|a\|^2\le a^*\Gamma_na\le2\pi M\|a\|^2.
+\]
+Every eigenvalue of $\Gamma_n$ lies in $[2\pi m,2\pi M]$.
+\end{proposition}
+\begin{proposition}[Second moments of Fourier coordinates]
+For a real centered process with absolutely summable covariances, define
+\[
+D_n(\lambda)=n^{-1/2}\sum_{t=0}^{n-1}X_te^{-it\lambda}.
+\]
+Then
+\[
+\mathbb E|D_n(\lambda)|^2
+=\sum_{|h|<n}\left(1-\frac{|h|}{n}\right)\gamma(h)e^{-ih\lambda}
+\longrightarrow 2\pi f(\lambda)
+\]
+uniformly in $\lambda$. At the Fourier frequencies $2\pi k/n$, distinct
+coordinates are asymptotically uncorrelated in the Hermitian covariance
+sense. Uncorrelatedness alone does not imply independence.
+\end{proposition}
+
+\subsection{Orthogonal Increments and Stochastic Integration (Sections 4.6--4.7)}
+\begin{definition}[Orthogonal-increment process]
+A centered complex process $Z(\lambda)$, $-\pi\le\lambda\le\pi$, has
+orthogonal increments if its increments over disjoint intervals are
+orthogonal in $L^2$. Take $Z(-\pi)=0$ and assume right-continuity in mean
+square. Its associated finite measure is specified by
+\[
+\mathbb E|Z(b)-Z(a)|^2=F(b)-F(a),\quad -\pi\le a<b\le\pi.
+\]
+More generally the covariance of two increments is the $F$-measure of the
+intersection of their intervals. Orthogonal increments need not be independent.
+\end{definition}
+\begin{definition}[Integral with respect to orthogonal increments]
+For an interval step function $g=\sum_j c_j\mathbf1_{(a_j,b_j]}$, define
+\[
+I(g)=\int g\,dZ=\sum_j c_j[Z(b_j)-Z(a_j)].
+\]
+For arbitrary $g\in L^2(F)$, choose step functions $g_n\to g$ in $L^2(F)$
+and define $I(g)=\lim_n I(g_n)$ in mean square. This definition is independent
+of the approximating sequence.
+\end{definition}
+\begin{theorem}[Isometry]
+For $g,h\in L^2(F)$ and $a,b\in\mathbb C$,
+\[
+I(ag+bh)=aI(g)+bI(h),\qquad \mathbb EI(g)=0,
+\]
+\[
+\mathbb E[I(g)\overline{I(h)}]=\int g\overline h\,dF,
+\qquad \mathbb E|I(g)|^2=\int|g|^2\,dF.
+\]
+Thus $g_n\to g$ in $L^2(F)$ if and only if $I(g_n)\to I(g)$ in mean square.
+\end{theorem}
+
+\subsection{Spectral Representation and Inversion (Sections 4.8--4.9)}
+\begin{theorem}[Spectral representation; Theorem 4.8.2]
+Every centered stationary process admits the representation
+\[
+X_t=\int_{(-\pi,\pi]}e^{it\lambda}\,dZ(\lambda),\qquad t\in\mathbb Z,
+\]
+where $Z$ has orthogonal increments and associated measure $F$, the spectral
+measure of $X$. With $Z(-\pi)=0$, $Z(\lambda)$ is unique up to almost sure
+equality for each fixed $\lambda$.
+The map $I$ is a unitary correspondence
+\[
+L^2(F)\longrightarrow
+\mathcal H_X:=\overline{\operatorname{span}}\{X_t:t\in\mathbb Z\},
+\qquad e^{it\lambda}\longmapsto X_t.
+\]
+\end{theorem}
+\begin{proposition}[A spectral atom as a random sinusoid]
+If $F$ has an atom at $\lambda_0$, put
+$\Delta Z(\lambda_0)=Z(\lambda_0)-Z(\lambda_0-)$.
+Then
+\[
+X_t=e^{it\lambda_0}\Delta Z(\lambda_0)
++\int_{(-\pi,\pi]\setminus\{\lambda_0\}}e^{it\lambda}\,dZ(\lambda),
+\]
+where the two components are orthogonal and
+$\mathbb E|\Delta Z(\lambda_0)|^2=\Delta F(\lambda_0)$.
+For real processes, conjugate frequency pairs combine into real sinusoidal
+components.
+\end{proposition}
+\begin{theorem}[Inversion at continuity points; Theorem 4.9.1]
+If $-\pi<v<w<\pi$ are continuity points of $F$, then
+\[
+\frac1{2\pi}\sum_{|j|\le n}X_j\int_v^w e^{-ij\lambda}\,d\lambda
+\xrightarrow{L^2}Z(w)-Z(v),
+\]
+\[
+\frac1{2\pi}\sum_{|j|\le n}\gamma(j)\int_v^w e^{-ij\lambda}\,d\lambda
+\longrightarrow F(w)-F(v).
+\]
+The endpoint continuity condition excludes spectral atoms at $v$ and $w$.
+\end{theorem}
+\begin{theorem}[Continuous-time analogue; Theorem 4.9.2]
+A centered stationary process indexed by $\mathbb R$, whose covariance is
+continuous at zero, has a finite spectral measure on $\mathbb R$ with
+\[
+\gamma(s)=\int_{\mathbb R}e^{is\lambda}\,dF(\lambda),\qquad
+X_t=\int_{\mathbb R}e^{it\lambda}\,dZ(\lambda).
+\]
+At continuity points $v<w$, the analogous inversion formulae are
+\[
+\frac1{2\pi}\int_{-T}^T X_t\left(\int_v^w e^{-it\lambda}\,d\lambda\right)dt
+\xrightarrow{L^2}Z(w)-Z(v),
+\]
+with $X_t$ replaced by $\gamma(t)$ for recovery of $F(w)-F(v)$.
+\end{theorem}
+
+\subsection{General Linear Filters and Fourier Approximation (Sections 4.10--4.11)}
+\begin{theorem}[Mean-square filtering; Theorem 4.10.1]
+Let $H_n(\lambda)=\sum_{j=-n}^nh_je^{-ij\lambda}$ converge to $H$ in
+$L^2(F_X)$. Then
+\[
+Y_t=\lim_{n\to\infty}\sum_{j=-n}^nh_jX_{t-j}
+=\int e^{it\lambda}H(\lambda)\,dZ_X(\lambda)
+\]
+exists in mean square, is stationary, and has spectral measure
+$dF_Y=|H|^2dF_X$. If $H\ne0$ $F_X$-almost everywhere, then
+\[
+X_t=\int e^{it\lambda}H(\lambda)^{-1}\,dZ_Y(\lambda),
+\qquad dZ_Y=H\,dZ_X.
+\]
+In particular, $X_t$ belongs to the closed span of the entire output process.
+A filter is causal when $h_j=0$ for $j<0$.
+\end{theorem}
+\begin{proposition}[Fourier approximation of an interval indicator]
+For $-\pi<v<w<\pi$, set
+\[
+a_j=\frac1{2\pi}\int_v^w e^{-ij\lambda}\,d\lambda,
+\qquad h_n(\lambda)=\sum_{|j|\le n}a_je^{ij\lambda}.
+\]
+The functions $h_n$ are uniformly bounded in $n$ and $\lambda$ and converge
+uniformly to $\mathbf1_{(v,w]}$ outside any open neighborhoods of the two
+endpoints. If $F$ has no atoms at these endpoints, then
+$h_n\to\mathbf1_{(v,w]}$ in $L^2(F)$. This is the approximation underlying
+the inversion formulae above.
+\end{proposition}

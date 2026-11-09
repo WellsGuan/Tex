@@ -1,0 +1,360 @@
+\section{Prediction of Stationary Processes (Chapter 5)}
+\label{sec:tmts-ch5}
+Unless otherwise stated, $X$ is a real, centered stationary process with
+covariance $\gamma$. Write
+\[
+\mathcal H_n=\operatorname{span}\{X_1,\ldots,X_n\},\qquad
+\mathcal M_n=\overline{\operatorname{span}}\{X_t:t\le n\}.
+\]
+$P_{\mathcal H}$ always denotes orthogonal projection in $L^2$.
+For a nonzero known mean $\mu$, apply the results to $X_t-\mu$ and add
+$\mu$ to the predicted value.
+
+\subsection{Prediction Equations and Optimality (Section 5.1)}
+\begin{definition}[Best linear predictor]
+The best linear predictor of $X_{n+h}$ from $X_1,\ldots,X_n$ is
+\[
+\widehat X_{n+h\mid n}=P_{\mathcal H_n}X_{n+h}.
+\]
+It uniquely minimizes $\mathbb E(X_{n+h}-Y)^2$ over $Y\in\mathcal H_n$
+and is characterized by
+\[
+\mathbb E[(X_{n+h}-\widehat X_{n+h\mid n})Y]=0,
+\qquad Y\in\mathcal H_n.
+\]
+\end{definition}
+\begin{theorem}[Normal equations]
+Let $\Gamma_n=[\gamma(i-j)]_{i,j=1}^n$ and
+$\boldsymbol\gamma_n^{(h)}=(\gamma(h),\ldots,\gamma(h+n-1))^\top$.
+Then
+\[
+\widehat X_{n+h\mid n}=\sum_{j=1}^n\phi_{nj}^{(h)}X_{n+1-j},\qquad
+\Gamma_n\boldsymbol\phi_n^{(h)}=\boldsymbol\gamma_n^{(h)}.
+\]
+A solution always exists. The predictor is unique even when its coefficient
+vector is not. If $\Gamma_n$ is nonsingular, then
+\[
+\boldsymbol\phi_n^{(h)}=\Gamma_n^{-1}\boldsymbol\gamma_n^{(h)},\qquad
+v_n(h)=\gamma(0)-(\boldsymbol\gamma_n^{(h)})^\top
+\Gamma_n^{-1}\boldsymbol\gamma_n^{(h)}.
+\]
+Here $v_n(h)=\mathbb E(X_{n+h}-\widehat X_{n+h\mid n})^2$.
+\end{theorem}
+\begin{proposition}[Nonsingularity; Proposition 5.1.1]
+If $\gamma(0)>0$ and $\gamma(h)\to0$ as $|h|\to\infty$, then
+$\Gamma_n$ is nonsingular for every $n$. This is sufficient, not necessary.
+\end{proposition}
+For every $Y\in\mathcal H_n$, the orthogonal decomposition gives
+\[
+\mathbb E(X_{n+h}-Y)^2=v_n(h)+
+\mathbb E(\widehat X_{n+h\mid n}-Y)^2.
+\]
+Thus the normal equations express an optimization property, rather than
+merely a procedure for finding coefficients.
+
+\subsection{Recursive Prediction and Innovations (Section 5.2)}
+\begin{theorem}[Durbin--Levinson recursion; Proposition 5.2.1]
+Suppose all $\Gamma_n$ are positive definite. For one-step prediction write
+$\phi_{nj}=\phi_{nj}^{(1)}$ and $v_n=v_n(1)$, with $v_0=\gamma(0)$.
+Then $\phi_{11}=\gamma(1)/\gamma(0)$ and, for $n\ge2$,
+\[
+\kappa_n:=\phi_{nn}=
+\frac{\gamma(n)-\sum_{j=1}^{n-1}\phi_{n-1,j}\gamma(n-j)}{v_{n-1}},
+\]
+\[
+\phi_{nj}=\phi_{n-1,j}-\kappa_n\phi_{n-1,n-j},
+\qquad 1\le j<n,
+\]
+\[
+v_n=v_{n-1}(1-\kappa_n^2),\qquad n\ge1,
+\quad \kappa_1=\phi_{11}.
+\]
+The reflection coefficient $\kappa_n$ is the partial autocorrelation
+$\alpha(n)$. Positive definiteness implies $|\kappa_n|<1$.
+\end{theorem}
+\begin{corollary}[Prediction variance and determinant]
+\[
+v_n=\gamma(0)\prod_{j=1}^n(1-\alpha(j)^2),\qquad
+\det\Gamma_n=\prod_{j=0}^{n-1}v_j.
+\]
+The decreasing sequence $v_n$ is the error remaining after increasingly
+long observation histories.
+\end{corollary}
+\begin{definition}[Finite-history innovations]
+Set $\widehat X_{1\mid0}=0$ and
+\[
+e_t=X_t-\widehat X_{t\mid t-1},\qquad
+\mathbb E e_t^2=v_{t-1}.
+\]
+The $e_t$ are pairwise orthogonal and
+$\mathcal H_n=\operatorname{span}\{e_1,\ldots,e_n\}$.
+They need not be independent or have equal variances.
+\end{definition}
+\begin{theorem}[Innovations representation and recursion]
+Assume $v_j>0$. The one-step predictor can be written
+\[
+\widehat X_{n+1\mid n}=\sum_{j=1}^n\vartheta_{nj}e_{n+1-j}.
+\]
+With $v_0=\gamma(0)$, the coefficients satisfy, for $0\le k<n$,
+\[
+\vartheta_{n,n-k}=\frac{1}{v_k}
+\left(\gamma(n-k)-\sum_{j=0}^{k-1}
+\vartheta_{k,k-j}\vartheta_{n,n-j}v_j\right),
+\]
+\[
+v_n=\gamma(0)-\sum_{j=0}^{n-1}\vartheta_{n,n-j}^2v_j.
+\]
+An empty sum is zero. Unlike Durbin--Levinson, which updates coefficients
+of observations, this recursion updates coefficients of orthogonal innovations.
+\end{theorem}
+The innovations recursion also applies to a centered nonstationary sequence.
+Writing $K(s,t)=\mathbb E(X_sX_t)$ and assuming every finite covariance
+matrix is nonsingular, its general form is
+\[
+\vartheta_{n,n-k}=v_k^{-1}\left(K(n+1,k+1)-
+\sum_{j=0}^{k-1}\vartheta_{k,k-j}\vartheta_{n,n-j}v_j\right),
+\]
+\[
+v_0=K(1,1),\qquad
+v_n=K(n+1,n+1)-\sum_{j=0}^{n-1}\vartheta_{n,n-j}^2v_j.
+\]
+Stationarity reduces $K(n+1,k+1)$ to $\gamma(n-k)$.
+\begin{proposition}[Multiple-step prediction in innovations coordinates]
+For $h\ge1$,
+\[
+\widehat X_{n+h\mid n}=\sum_{j=1}^n
+\frac{\mathbb E(X_{n+h}e_j)}{v_{j-1}}e_j,
+\qquad
+v_n(h)=\gamma(0)-\sum_{j=1}^n
+\frac{[\mathbb E(X_{n+h}e_j)]^2}{v_{j-1}}.
+\]
+Writing $\mathbf X_n=(X_1,\ldots,X_n)^\top$ and
+$X_t=\sum_{j=1}^t L_{tj}e_j$, with $L_{tt}=1$, gives the factorization
+\[
+\Gamma_n=L\operatorname{diag}(v_0,\ldots,v_{n-1})L^\top.
+\]
+\end{proposition}
+
+\subsection{Finite-History ARMA Prediction (Section 5.3)}
+Let $X$ be causal ARMA$(p,q)$, and put
+$\widehat X_{s\mid n}=X_s$ for $1\le s\le n$.
+\begin{proposition}[ARMA prediction equations]
+For $n+h>\max(p,q)$, projection of the ARMA equation gives
+\[
+\widehat X_{n+h\mid n}
+=\sum_{i=1}^p\phi_i\widehat X_{n+h-i\mid n}
++\sum_{j=h}^q\theta_jP_{\mathcal H_n}Z_{n+h-j}.
+\]
+In particular, if $h>q$, the noise term vanishes and the forecasts satisfy
+the homogeneous AR difference equation. Finite-history projections of
+$Z_s$ need not equal $Z_s$, even when the model is invertible.
+\end{proposition}
+\begin{proposition}[ARMA innovations form; Section 5.3]
+Put $m=\max(p,q)$ and introduce the triangularly transformed observations
+\[
+Y_t=\begin{cases}X_t,&1\le t\le m,\\
+\phi(B)X_t,&t>m.
+\end{cases}
+\]
+For every $n$, $\operatorname{span}\{Y_1,\ldots,Y_n\}=\mathcal H_n$,
+and the finite-history innovations of $Y$ are precisely $e_t$.
+Apply the general innovations recursion to the covariance of $Y$, writing
+its coefficients as $\eta_{nj}$. For $n\ge m$,
+\[
+\widehat X_{n+1\mid n}=\sum_{i=1}^p\phi_iX_{n+1-i}
++\sum_{j=1}^q\eta_{nj}e_{n+1-j}.
+\]
+For $n+h>m$, the multiple-step version is
+\[
+\widehat X_{n+h\mid n}=\sum_{i=1}^p\phi_i\widehat X_{n+h-i\mid n}
++\sum_{j=h}^{\min(q,n+h-1)}\eta_{n+h-1,j}e_{n+h-j}.
+\]
+Here $\widehat X_{s\mid n}=X_s$ for observed indices. The coefficients
+$\eta_{nj}$ refer to $Y$, and generally differ from the coefficients
+$\vartheta_{nj}$ obtained by applying the recursion directly to $X$.
+\end{proposition}
+For arbitrary horizons, the normal equations give the exact finite-history
+error covariance. With
+$\mathbf c_h=(\gamma(n+h-1),\ldots,\gamma(h))^\top$, it is
+\[
+\operatorname{Cov}(X_{n+h}-\widehat X_{n+h\mid n},
+X_{n+k}-\widehat X_{n+k\mid n})
+=\gamma(h-k)-\mathbf c_h^\top\Gamma_n^{-1}\mathbf c_k.
+\]
+This formula applies to all stationary processes with nonsingular
+$\Gamma_n$, including ARMA models.
+
+\subsection{Gaussian Prediction and Prediction Bounds (Section 5.4)}
+\begin{theorem}[Conditional Gaussian law]
+For a centered stationary Gaussian process with nonsingular $\Gamma_n$,
+\[
+\mathbb E[X_{n+h}\mid X_1,\ldots,X_n]=\widehat X_{n+h\mid n}.
+\]
+The prediction error is independent of $(X_1,\ldots,X_n)$ and normally
+distributed with variance $v_n(h)$. If $v_n(h)>0$, then conditionally on
+the observed history,
+\[
+X_{n+h}\sim N(\widehat X_{n+h\mid n},v_n(h)).
+\]
+Hence, for $0<\beta<1$, an exact conditional $(1-\beta)$ prediction interval is
+\[
+\widehat X_{n+h\mid n}\ \pm\ z_{1-\beta/2}\sqrt{v_n(h)}.
+\]
+These statements assume the model parameters are known.
+\end{theorem}
+For a general non-Gaussian process, the best linear predictor need not equal
+the conditional expectation, which minimizes mean squared error over all
+square-integrable functions of the observations.
+
+\subsection{Prediction from the Infinite Past (Section 5.5)}
+\begin{theorem}[Causal invertible ARMA prediction; Theorem 5.5.1]
+Suppose
+\[
+X_t=\sum_{j=0}^{\infty}\psi_jZ_{t-j},\qquad
+Z_t=\sum_{j=0}^{\infty}\pi_jX_{t-j},\qquad\psi_0=\pi_0=1,
+\]
+with both coefficient sequences absolutely summable. Then
+$\mathcal M_n=\overline{\operatorname{span}}\{Z_t:t\le n\}$, and
+\[
+\widetilde X_{n+h\mid n}:=P_{\mathcal M_n}X_{n+h}
+=\sum_{j=h}^{\infty}\psi_jZ_{n+h-j}.
+\]
+The error and its variance are
+\[
+E_{n,h}=\sum_{j=0}^{h-1}\psi_jZ_{n+h-j},\qquad
+v_\infty(h)=\sigma^2\sum_{j=0}^{h-1}\psi_j^2.
+\]
+Writing $\widetilde X_{s\mid n}=X_s$ for $s\le n$ also gives
+\[
+\widetilde X_{n+h\mid n}=-\sum_{j=1}^{\infty}\pi_j
+\widetilde X_{n+h-j\mid n}.
+\]
+\end{theorem}
+\begin{proposition}[Joint forecast errors]
+For $h,k\ge1$,
+\[
+\operatorname{Cov}(E_{n,h},E_{n,k})
+=\sigma^2\sum_{\ell=1}^{\min(h,k)}\psi_{h-\ell}\psi_{k-\ell}.
+\]
+Thus forecast errors at different horizons generally are correlated.
+Moreover $v_\infty(h)\uparrow\gamma(0)$ as $h\to\infty$.
+\end{proposition}
+Increasing finite histories ending at a fixed time yield projections that
+converge in $L^2$ to $P_{\mathcal M_n}X_{n+h}$.
+By stationarity, $v_n(h)\downarrow v_\infty(h)$ as the number of observed
+past values tends to infinity, for each fixed $h$.
+
+\subsection{Prediction in the Frequency Domain (Section 5.6)}
+\begin{theorem}[Projection under the spectral isometry]
+Let $I(g)=\int g\,dZ$ be the spectral isometry and set
+\[
+\mathcal K_n=\overline{\operatorname{span}}^{L^2(F)}
+\{e^{it\lambda}:t\le n\}.
+\]
+Then
+\[
+P_{\mathcal M_n}X_{n+h}=I(P_{\mathcal K_n}e^{i(n+h)\lambda}),
+\]
+\[
+\mathbb E|X_{n+h}-P_{\mathcal M_n}X_{n+h}|^2
+=\inf_{g\in\mathcal K_n}\int|e^{i(n+h)\lambda}-g(\lambda)|^2\,dF(\lambda).
+\]
+Time-domain prediction is therefore equivalent to weighted $L^2$
+approximation of exponentials by past-frequency functions.
+\end{theorem}
+For a causal invertible ARMA process, another expression for the predictor is
+\[
+P_{\mathcal M_n}X_{n+h}=\sum_{j=0}^{\infty}a_jX_{n-j},\qquad
+\sum_{j=0}^{\infty}a_jz^j=
+\frac{\phi(z)}{\theta(z)}\sum_{j=0}^{\infty}\psi_{j+h}z^j.
+\]
+
+\subsection{The Wold Decomposition (Section 5.7)}
+\begin{definition}[Determinism and pure nondeterminism]
+Let $\mathcal M=\overline{\operatorname{span}}\{X_t:t\in\mathbb Z\}$ and
+$\mathcal M_{-\infty}=\bigcap_{n\in\mathbb Z}\mathcal M_n$.
+The process is deterministic if
+\[
+\sigma_\varepsilon^2:=\mathbb E(X_t-P_{\mathcal M_{t-1}}X_t)^2=0,
+\]
+equivalently $X_t\in\mathcal M_{-\infty}$ for every $t$.
+It is purely nondeterministic if $\mathcal M_{-\infty}=\{0\}$.
+These are statements about linear predictability, not about sample paths
+being nonrandom.
+\end{definition}
+\begin{theorem}[Wold; Theorem 5.7.1]
+If $\sigma_\varepsilon^2>0$, there is a unique decomposition
+\[
+X_t=U_t+V_t,\qquad U_t=\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},
+\]
+where the series converges in mean square and
+\[
+\psi_0=1,\quad\sum_{j=0}^{\infty}\psi_j^2<\infty,\qquad
+\varepsilon_t=X_t-P_{\mathcal M_{t-1}}X_t
+\sim\mathrm{WN}(0,\sigma_\varepsilon^2).
+\]
+The coefficients and deterministic component are
+\[
+\psi_j=\sigma_\varepsilon^{-2}\mathbb E(X_t\varepsilon_{t-j}),
+\qquad V_t=P_{\mathcal M_{-\infty}}X_t.
+\]
+$\{V_t\}$ is stationary and deterministic, and
+$\mathbb E(V_s\varepsilon_t)=0$ for all $s,t$.
+Furthermore,
+\[
+\mathcal M_t=
+\overline{\operatorname{span}}\{\varepsilon_s:s\le t\}
+\mathbin{\oplus}\mathcal M_{-\infty},\qquad
+\overline{\operatorname{span}}\{V_s:s\le t\}=\mathcal M_{-\infty}.
+\]
+\end{theorem}
+Wold coefficients need only be square summable. The representation is
+therefore more general than the absolutely summable $\mathrm{MA}(\infty)$
+definition in Chapter 3.
+\begin{corollary}[Prediction from the Wold representation]
+\[
+P_{\mathcal M_t}X_{t+h}
+=V_{t+h}+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j},
+\qquad v_\infty(h)=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.
+\]
+The deterministic part contributes no prediction error.
+As $h\to\infty$, the error variance tends to $\operatorname{Var}(U_t)$.
+\end{corollary}
+\begin{theorem}[Spectral decomposition; Theorem 5.7.2]
+Under $\sigma_\varepsilon^2>0$, the spectral measure decomposes as
+$F_X=F_U+F_V$, where $F_U$ is absolutely continuous and $F_V$ is singular.
+The density of $U$ is
+\[
+f_U(\lambda)=\frac{\sigma_\varepsilon^2}{2\pi}
+\left|\sum_{j=0}^{\infty}\psi_je^{-ij\lambda}\right|^2.
+\]
+The Fourier series is interpreted as an $L^2$ boundary function.
+The assumption $\sigma_\varepsilon^2>0$ is essential: a deterministic
+process may have an absolutely continuous spectral measure.
+\end{theorem}
+
+\subsection{Kolmogorov's Formula (Section 5.8)}
+\begin{theorem}[Kolmogorov; Theorem 5.8.1]
+Let $f$ be the density of the absolutely continuous part of the spectral
+measure of a real centered stationary process. Its infinite-past one-step
+prediction error variance is
+\[
+\boxed{\displaystyle
+\sigma_\varepsilon^2=2\pi\exp\left\{
+\frac1{2\pi}\int_{-\pi}^{\pi}\log f(\lambda)\,d\lambda\right\}.}
+\]
+The convention is $\exp(-\infty)=0$. Consequently,
+\[
+\sigma_\varepsilon^2>0
+\quad\Longleftrightarrow\quad
+\int_{-\pi}^{\pi}\log f(\lambda)\,d\lambda>-\infty.
+\]
+The singular part of the spectral measure does not enter this formula.
+\end{theorem}
+\begin{corollary}[Pure nondeterminism in spectral terms]
+A nonzero stationary process is purely nondeterministic precisely when
+its spectral measure is absolutely continuous and its density satisfies
+$\int_{-\pi}^{\pi}\log f(\lambda)\,d\lambda>-\infty$.
+Positivity of $f$ almost everywhere alone is insufficient; logarithmic
+integrability is also required.
+\end{corollary}
