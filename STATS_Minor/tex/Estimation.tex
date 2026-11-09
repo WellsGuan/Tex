@@ -1,0 +1,1624 @@
+\section{Mathematical Framework}
+
+\subsection{Statistical models, parameters, and estimators}
+
+\begin{definition}[Model]
+A statistical model is a family of probability measures
+\[
+\mathcal P=\{P_\theta:\theta\in\Theta\}
+\]
+on a measurable sample space $(\mathcal X,\mathcal A)$.
+Unless stated otherwise, $X_1,\ldots,X_n$ are independent and
+identically distributed with common law $P_{\theta_0}$, where
+$\theta_0$ is the true parameter.
+\end{definition}
+
+\begin{definition}[Identifiable Parametrization]
+The parametrization is \emph{identifiable} if
+\[
+P_\theta=P_{\theta'}
+\quad\Longrightarrow\quad
+\theta=\theta'.
+\]
+Identifiability concerns the entire distribution. It does not imply
+that a particular collection of moments identifies the parameter.
+\end{definition}
+
+\begin{definition}[Estimator and Statistical Functional]
+An estimator of a target $q(\theta)\in\mathbb R^k$ is a measurable
+function
+\[
+\widehat q_n:\mathcal X^n\longrightarrow\mathbb R^k.
+\]
+Before observing the data, $\widehat q_n$ is a random variable.
+After observing $x_1,\ldots,x_n$, its value is a numerical estimate.
+
+A statistical functional is a map
+\[
+\nu:\mathcal P\longrightarrow\mathbb R^k.
+\]
+A target $q(\theta)$ defines such a functional through
+$\nu(P_\theta)=q(\theta)$ whenever this value is well defined:
+\[
+P_\theta=P_{\theta'}
+\quad\Longrightarrow\quad
+q(\theta)=q(\theta').
+\]
+\end{definition}
+\begin{definition}[Empirical Measure]
+The empirical measure is
+\[
+P_n=\frac1n\sum_{i=1}^n\delta_{X_i}.
+\]
+For an integrable function $g$, write
+\[
+Pg=\int g\,dP,
+\qquad
+P_ng=\frac1n\sum_{i=1}^ng(X_i).
+\]
+\end{definition}
+
+\subsection{Basic probabilistic notation}
+
+For deterministic $a_n>0$,
+\[
+Z_n=o_P(a_n)
+\quad\Longleftrightarrow\quad
+\frac{\|Z_n\|}{a_n}\xrightarrow{P}0.
+\]
+Also,
+\[
+Z_n=O_P(a_n)
+\]
+means that $Z_n/a_n$ is bounded in probability: for every
+$\varepsilon>0$, there exist $M<\infty$ and $N$ such that
+\[
+P(\|Z_n\|>Ma_n)<\varepsilon,
+\qquad n\geq N.
+\]
+In particular, convergence in distribution to a finite random
+vector implies $O_P(1)$.
+
+The main tools used below are:
+\begin{enumerate}
+\item The law of large numbers:
+if $E\|Y_1\|<\infty$, then
+\[
+\overline Y_n\xrightarrow{P}EY_1.
+\]
+
+\item The multivariate central limit theorem:
+if $E\|Y_1\|^2<\infty$, then
+\[
+\sqrt n(\overline Y_n-\mu)
+\xrightarrow{d}N_d(0,\Sigma),
+\qquad
+\mu=EY_1,\quad \Sigma=\operatorname{Cov}(Y_1).
+\]
+
+\item The continuous mapping theorem:
+if $Z_n\xrightarrow{d}Z$ and $g$ is continuous at $Z$ almost surely,
+then
+\[
+g(Z_n)\xrightarrow{d}g(Z).
+\]
+
+\item Slutsky's theorem:
+if $Z_n\xrightarrow{d}Z$ and $U_n\xrightarrow{P}c$, where $c$ is
+constant, then
+\[
+(Z_n,U_n)\xrightarrow{d}(Z,c).
+\]
+Continuous transformations, sums, products, and ratios with a
+nonzero limiting denominator may then be applied.
+\end{enumerate}
+
+\section{Construction of Estimators}
+
+\subsection{Minimum contrast estimation}
+
+Let $\rho:\mathcal X\times\Theta\to\mathbb R$ be a measurable
+contrast function. Define the population and empirical objectives by
+\[
+M_{\theta_0}(\theta)=E_{\theta_0}\rho(X_1,\theta),
+\qquad
+M_n(\theta)=P_n\rho(\cdot,\theta).
+\]
+The population objective should identify the truth:
+\[
+M_{\theta_0}(\theta)>M_{\theta_0}(\theta_0),
+\qquad \theta\neq\theta_0.
+\]
+A minimum contrast estimator is a measurable choice
+\[
+\widehat\theta_n\in
+\operatorname*{arg\,min}_{\theta\in\Theta}M_n(\theta).
+\]
+
+This definition involves separate questions:
+\begin{enumerate}
+\item Does a minimizer exist?
+\item Is it unique?
+\item Can a minimizer be selected measurably?
+\item Does it converge to $\theta_0$?
+\end{enumerate}
+None of these follows merely from writing an $\operatorname{arg\,min}$.
+
+A continuous objective attains its minimum on a compact parameter
+space. On a noncompact space, a useful sufficient condition is
+compactness of suitable sublevel sets. Strict convexity on a convex
+parameter space gives uniqueness whenever a minimizer exists.
+
+If $\Theta$ is open and $M_n$ is differentiable, every interior
+minimizer satisfies
+\[
+\nabla_\theta M_n(\widehat\theta_n)=0.
+\]
+The converse requires additional conditions. A stationary point may
+be a local maximum or a saddle point, and boundary minimizers need
+not satisfy this equation.
+
+\subsection{Estimating equations}
+
+An estimating function is a measurable map
+\[
+\psi:\mathcal X\times\Theta\longrightarrow\mathbb R^d.
+\]
+An estimating-equation estimator is a measurable solution of
+\[
+P_n\psi(\cdot,\widehat\theta_n)=0.
+\]
+The corresponding population equation is
+\[
+E_{\theta_0}\psi(X_1,\theta)=0.
+\]
+For identification by this equation, its unique solution should be
+$\theta_0$.
+
+Minimum contrast estimation is a special case when
+\[
+\psi(x,\theta)=\nabla_\theta\rho(x,\theta).
+\]
+Conversely, an estimating equation need not arise from a scalar
+contrast function.
+
+Terminology varies: estimators defined by minimizing empirical
+objectives are commonly called \emph{M-estimators}, while roots of
+empirical estimating equations are often called \emph{Z-estimators}.
+The asymptotic theory of a smooth interior M-estimator usually
+proceeds through its estimating equation.
+
+\subsection{Method of moments}
+
+Let $\theta\in\Theta\subseteq\mathbb R^d$, and suppose
+$g_1,\ldots,g_d$ are measurable functions with finite expectations.
+Define the moment map
+\[
+m(\theta)=
+\begin{pmatrix}
+E_\theta g_1(X_1)\\
+\vdots\\
+E_\theta g_d(X_1)
+\end{pmatrix},
+\qquad
+\widehat m_n=
+\begin{pmatrix}
+P_ng_1\\
+\vdots\\
+P_ng_d
+\end{pmatrix}.
+\]
+The method of moments solves
+\[
+m(\widehat\theta_n)=\widehat m_n.
+\]
+If $m$ is injective and $\widehat m_n\in m(\Theta)$, then
+\[
+\widehat\theta_n=m^{-1}(\widehat m_n).
+\]
+
+The classical choice is $g_j(x)=x^j$, giving
+\[
+m_j(\theta)=E_\theta X_1^j,
+\qquad
+\widehat m_{n,j}=\frac1n\sum_{i=1}^nX_i^j.
+\]
+These are raw moments, not centered moments.
+
+Several conditions must be distinguished:
+\begin{enumerate}
+\item The chosen expectations must exist.
+\item The chosen moment map must identify the parameter.
+\item The observed moment vector must lie in the range of that map.
+\item The inverse, or selected solution, must be measurable.
+\item Continuity of the inverse is needed for the usual consistency
+argument.
+\end{enumerate}
+
+If the target is only $q(\theta)$ and
+\[
+q(\theta)=h(m(\theta)),
+\]
+one may estimate it by
+\[
+\widehat q_n=h(\widehat m_n)
+\]
+without recovering the entire parameter.
+
+\paragraph{Example: Bernoulli model.}
+For $X_i\sim\operatorname{Bernoulli}(\theta)$,
+\[
+P_\theta(X_i=1)=\theta,
+\qquad
+P_\theta(X_i=0)=1-\theta.
+\]
+Since $E_\theta X_i=\theta$,
+\[
+\widehat\theta_n=\overline X_n.
+\]
+
+\paragraph{Example: Gamma model.}
+Use the shape--rate parametrization
+\[
+f_{\alpha,\lambda}(x)
+=
+\frac{\lambda^\alpha}{\Gamma(\alpha)}
+x^{\alpha-1}e^{-\lambda x},
+\qquad x>0,\quad \alpha,\lambda>0.
+\]
+Then
+\[
+EX=\frac{\alpha}{\lambda},
+\qquad
+\operatorname{Var}(X)=\frac{\alpha}{\lambda^2}.
+\]
+Writing
+\[
+\widehat v_n=P_nX^2-\overline X_n^2,
+\]
+moment matching gives, when $\widehat v_n>0$,
+\[
+\widehat\alpha_n=\frac{\overline X_n^2}{\widehat v_n},
+\qquad
+\widehat\lambda_n=\frac{\overline X_n}{\widehat v_n}.
+\]
+The denominator is $n$, rather than $n-1$, because empirical
+moments are being matched directly.
+
+\subsection{Plug-in and extension principles}
+
+If a target is a functional $\nu(P)$ defined at the empirical
+measure, its empirical plug-in estimator is
+\[
+\widehat\nu_n=\nu(P_n).
+\]
+Examples include
+\[
+\nu(P)=PX,
+\qquad
+\nu(P_n)=\overline X_n,
+\]
+and
+\[
+\nu(P)=PX^2-(PX)^2,
+\qquad
+\nu(P_n)=P_nX^2-\overline X_n^2.
+\]
+
+For a distribution function $F$, define the lower quantile by
+\[
+F^{-1}(u)=\inf\{x:F(x)\geq u\},
+\qquad 0<u<1.
+\]
+An empirical quantile is obtained by replacing $F$ with $F_n$.
+Quantile conventions can differ at flat portions or jumps; the
+chosen convention should be stated.
+
+A parameter may initially be defined only on a model
+$\mathcal P_0$, while $P_n\notin\mathcal P_0$. To apply the plug-in
+principle, extend it to a larger class:
+\[
+\overline\nu:\mathcal P_1\to\mathbb R^k,
+\qquad
+\overline\nu|_{\mathcal P_0}=\nu.
+\]
+Then use $\overline\nu(P_n)$.
+
+Such extensions need not be unique. Two functionals can agree
+throughout the model and disagree away from it, producing different
+finite-sample estimators.
+
+For a finite sample space $\{x_1,\ldots,x_k\}$, write
+\[
+p_j=P(X=x_j),
+\qquad
+\widehat p_j=\frac1n\sum_{i=1}^n1_{\{X_i=x_j\}}.
+\]
+A frequency plug-in estimator of $h(p_1,\ldots,p_k)$ is
+\[
+h(\widehat p_1,\ldots,\widehat p_k).
+\]
+
+\subsection{Least squares}
+
+Consider fixed design points $z_1,\ldots,z_n$ and observations
+\[
+Y_i=g(\beta_0,z_i)+\varepsilon_i,
+\qquad E\varepsilon_i=0.
+\]
+Least squares minimizes
+\[
+Q_n(\beta)=\sum_{i=1}^n
+\{Y_i-g(\beta,z_i)\}^2.
+\]
+If $\operatorname{Var}(\varepsilon_i)=\sigma_i^2<\infty$, then
+\[
+EQ_n(\beta)
+=
+\sum_{i=1}^n\sigma_i^2
++
+\sum_{i=1}^n
+\{g(\beta_0,z_i)-g(\beta,z_i)\}^2.
+\]
+Thus $\beta_0$ minimizes the population objective. It is the unique
+minimizer precisely when the design-specific mean map
+\[
+\beta\longmapsto
+\bigl(g(\beta,z_1),\ldots,g(\beta,z_n)\bigr)
+\]
+is injective.
+
+Normal errors are not required for this population argument.
+
+If $g$ is differentiable, an interior least-squares solution satisfies
+\[
+\sum_{i=1}^n
+\nabla_\beta g(\widehat\beta,z_i)
+\{Y_i-g(\widehat\beta,z_i)\}=0.
+\]
+
+\subsection{Linear least squares and generalized least squares}
+
+In the linear model
+\[
+Y=Z\beta_0+\varepsilon,
+\qquad
+Z\in\mathbb R^{n\times d},
+\]
+the normal equations are
+\[
+Z^\top Z\widehat\beta=Z^\top Y.
+\]
+If $\operatorname{rank}(Z)=d$, the solution is unique:
+\[
+\widehat\beta_{\mathrm{OLS}}
+=
+(Z^\top Z)^{-1}Z^\top Y.
+\]
+If $Z$ is rank deficient, minimizers still exist, but the coefficient
+vector is not unique. The fitted vector $Z\widehat\beta$ is unique.
+
+Under
+\[
+E\varepsilon=0,
+\qquad
+\operatorname{Cov}(\varepsilon)=\sigma^2I_n,
+\]
+\[
+E\widehat\beta_{\mathrm{OLS}}=\beta_0,
+\qquad
+\operatorname{Cov}(\widehat\beta_{\mathrm{OLS}})
+=
+\sigma^2(Z^\top Z)^{-1}.
+\]
+The Gauss--Markov theorem states that OLS has minimum covariance,
+in the positive-semidefinite order, among linear unbiased
+estimators.
+
+More generally, suppose
+\[
+\operatorname{Cov}(\varepsilon)=\sigma^2W,
+\]
+where $W$ is known and positive definite. Generalized least squares
+minimizes
+\[
+(Y-Z\beta)^\top W^{-1}(Y-Z\beta).
+\]
+For full column rank $Z$,
+\[
+\widehat\beta_{\mathrm{GLS}}
+=
+(Z^\top W^{-1}Z)^{-1}Z^\top W^{-1}Y,
+\]
+and
+\[
+\operatorname{Cov}(\widehat\beta_{\mathrm{GLS}})
+=
+\sigma^2(Z^\top W^{-1}Z)^{-1}.
+\]
+This is OLS applied to the whitened model
+\[
+W^{-1/2}Y=W^{-1/2}Z\beta_0+W^{-1/2}\varepsilon.
+\]
+For independent heteroscedastic errors, $W$ is diagonal, and the
+weights are inversely proportional to the error variances.
+
+\subsection{Likelihood and maximum likelihood estimation}
+
+Suppose $P_\theta$ has density $p_\theta$ relative to a fixed
+dominating measure. For observed data $x_1,\ldots,x_n$, define
+\[
+L_n(\theta)=\prod_{i=1}^np_\theta(x_i),
+\qquad
+\ell_n(\theta)=\sum_{i=1}^n\log p_\theta(x_i),
+\]
+with $\log0=-\infty$.
+
+The likelihood is a function of $\theta$ with the data fixed.
+It is not a probability density over $\Theta$.
+
+An MLE is a measurable selection
+\[
+\widehat\theta_n\in
+\operatorname*{arg\,max}_{\theta\in\Theta}L_n(\theta).
+\]
+The maximizing set can be empty or contain multiple points.
+
+For an interior differentiable maximizer,
+\[
+\nabla_\theta\ell_n(\widehat\theta_n)=0.
+\]
+Solving this equation alone does not establish global maximality.
+
+If $\eta=q(\theta)$ is a one-to-one reparametrization, then
+$q(\widehat\theta_n)$ is an MLE of $\eta$. For a general map $q$,
+the induced likelihood is
+\[
+L_n^q(\eta)=
+\sup_{\theta:q(\theta)=\eta}L_n(\theta).
+\]
+A global MLE $\widehat\theta_n$ yields a maximizer
+$q(\widehat\theta_n)$ of this profile likelihood.
+
+If
+\[
+p_\theta(x)=a_\theta(T(x))b(x),
+\]
+with $b(x)$ independent of $\theta$, likelihood maximization depends
+on the data only through $T(x)$.
+
+\paragraph{KL interpretation.}
+For probability measures $P\ll Q$, define
+\[
+D_{\mathrm{KL}}(P\|Q)
+=
+\int\log\left(\frac{dP}{dQ}\right)dP.
+\]
+It is nonnegative, with equality exactly when $P=Q$.
+Whenever the relevant log expectations are finite,
+\[
+E_{\theta_0}[-\log p_\theta(X)]
+-
+E_{\theta_0}[-\log p_{\theta_0}(X)]
+=
+D_{\mathrm{KL}}(P_{\theta_0}\|P_\theta).
+\]
+Thus identifiability makes the true parameter the unique population
+minimizer of negative log-likelihood.
+
+\paragraph{Boundary effects.}
+For Bernoulli observations, the MLE is $\overline X_n$ if
+$\Theta=[0,1]$. If $\Theta=(0,1)$, no MLE exists when all observations
+are zero or all are one: the likelihood supremum is approached at
+an excluded boundary point.
+
+\subsection{Exponential families}
+
+A canonical exponential family has densities
+\[
+p_\eta(x)
+=
+h(x)\exp\{\eta^\top T(x)-A(\eta)\},
+\]
+where
+\[
+A(\eta)=
+\log\int e^{\eta^\top T(x)}h(x)\,d\nu(x).
+\]
+The natural parameter space consists of the $\eta$ for which this
+integral is positive and finite.
+
+On its interior,
+\[
+\nabla A(\eta)=E_\eta T(X),
+\qquad
+\nabla^2A(\eta)=\operatorname{Cov}_\eta(T(X)).
+\]
+In a minimal representation, no nonzero linear combination of
+$T(X)$ is almost surely constant. Consequently,
+$\nabla^2A(\eta)$ is positive definite.
+
+For an i.i.d.\ sample,
+\[
+\ell_n(\eta)
+=
+n\{\eta^\top\overline T_n-A(\eta)\}+C,
+\qquad
+\overline T_n=\frac1n\sum_{i=1}^nT(X_i).
+\]
+The score equation is
+\[
+\nabla A(\widehat\eta_n)=\overline T_n.
+\]
+The Hessian is
+\[
+\nabla^2\ell_n(\eta)=-n\nabla^2A(\eta),
+\]
+so the log-likelihood is strictly concave in a minimal family.
+Hence any solution of the score equation is the unique MLE.
+
+\paragraph{Existence and convex support.}
+Let $C$ be the closed convex hull of the support of $T(X)$.
+For a full minimal exponential family whose full natural parameter
+space is open, a finite MLE exists exactly when
+\[
+\overline T_n\in\operatorname{int}(C).
+\]
+For a nonminimal representation, the appropriate geometric object
+is the relative interior in the affine hull, and the natural
+parameter itself is not uniquely identified.
+
+The requirement that the full natural parameter space be open is
+important; the geometric criterion must not be applied without
+checking the family assumptions.
+
+For a multinomial model, interior empirical frequencies mean that
+every category has a positive count. Zero counts prevent a finite
+canonical-parameter MLE, even though an MLE exists in the closed
+probability simplex.
+
+\subsection{Curved exponential families}
+
+A curved exponential family restricts the natural parameter to
+\[
+\eta=c(\theta),
+\qquad
+\theta\in\Theta\subseteq\mathbb R^d,
+\quad d<k.
+\]
+Its log-likelihood is
+\[
+\ell_n(\theta)
+=
+n\{c(\theta)^\top\overline T_n-A(c(\theta))\}+C.
+\]
+An interior maximizer satisfies
+\[
+Dc(\theta)^\top
+\{\overline T_n-\nabla A(c(\theta))\}=0.
+\]
+Strict concavity in $\eta$ does not generally imply concavity in
+$\theta$, or uniqueness of the maximizer over a curved constraint
+set.
+
+\section{Consistency}
+
+\subsection{Pointwise and uniform consistency}
+
+An estimator $\widehat q_n$ is consistent for $q(\theta)$ if
+\[
+P_\theta\bigl(\|\widehat q_n-q(\theta)\|>\varepsilon\bigr)
+\longrightarrow0
+\]
+for every fixed $\theta$ and every $\varepsilon>0$.
+
+It is uniformly consistent on $K\subseteq\Theta$ if
+\[
+\sup_{\theta\in K}
+P_\theta\bigl(\|\widehat q_n-q(\theta)\|>\varepsilon\bigr)
+\longrightarrow0.
+\]
+Uniform consistency is stronger: the parameter at which the error
+is largest may change with $n$.
+
+\paragraph{Example.}
+The sample mean is consistent at every distribution with a finite
+first absolute moment. If a class of distributions satisfies
+\[
+\sup_{P\in\mathcal P}\operatorname{Var}_P(X)\leq C<\infty,
+\]
+then Chebyshev's inequality gives
+\[
+\sup_{P\in\mathcal P}
+P\bigl(|\overline X_n-EX|>\varepsilon\bigr)
+\leq\frac{C}{n\varepsilon^2}.
+\]
+Thus the consistency is uniform on that class.
+
+\subsection{Consistency of moment and plug-in estimators}
+
+Suppose
+\[
+\widehat m_n\xrightarrow{P}m(\theta_0),
+\qquad
+q(\theta)=h(m(\theta)),
+\]
+and $h$ is continuous at $m(\theta_0)$. Then
+\[
+h(\widehat m_n)\xrightarrow{P}q(\theta_0).
+\]
+The estimator must be defined on an event whose probability tends
+to one; it may be assigned an arbitrary fixed value elsewhere.
+
+For method-of-moments estimation, this gives consistency when the
+moment functions are integrable and the inverse moment map is
+continuous at the true moment vector.
+
+For a finite sample space, the empirical probability vector is
+uniformly consistent over the probability simplex. Therefore every
+continuous functional on that simplex has a uniformly consistent
+frequency plug-in estimator, by compactness and uniform continuity.
+
+\subsection{An argmin consistency theorem}
+
+Let $M_n:\Theta\to\mathbb R$ be random objectives and
+$M:\Theta\to\mathbb R$ deterministic. Suppose:
+\begin{enumerate}
+\item Uniform convergence:
+\[
+\sup_{\theta\in\Theta}|M_n(\theta)-M(\theta)|
+\xrightarrow{P}0.
+\]
+
+\item Separation of the minimizer: for every $\varepsilon>0$,
+\[
+\inf_{\|\theta-\theta_0\|\geq\varepsilon}M(\theta)
+>
+M(\theta_0).
+\]
+
+\item Approximate minimization:
+\[
+M_n(\widehat\theta_n)
+\leq \inf_{\theta\in\Theta}M_n(\theta)+r_n,
+\qquad r_n=o_P(1).
+\]
+\end{enumerate}
+Then
+\[
+\widehat\theta_n\xrightarrow{P}\theta_0.
+\]
+
+Indeed, if the separation gap is $\delta_\varepsilon>0$, then
+outside a small-probability event the uniform approximation error
+and $r_n$ are too small for an approximate minimizer to lie outside
+the $\varepsilon$-ball.
+
+If $\Theta$ is compact and $M$ is continuous with a unique
+minimizer, separation follows automatically. On a noncompact space,
+uniqueness alone does not imply separation.
+
+This theorem supplies a framework, not an automatic proof:
+uniform convergence and control of parameters escaping to infinity
+must still be established.
+
+\subsection{Consistency in exponential families}
+
+In a full minimal exponential family with open natural parameter
+space,
+\[
+\overline T_n\xrightarrow{P}\nabla A(\eta_0).
+\]
+The true mean lies in the interior of the convex support.
+Locally, $\nabla A$ has a continuous inverse because
+$\nabla^2A(\eta_0)$ is positive definite. Consequently,
+\[
+P_{\eta_0}(\text{a finite MLE exists})\longrightarrow1,
+\qquad
+\widehat\eta_n\xrightarrow{P}\eta_0.
+\]
+An arbitrary definition on the event of nonexistence does not
+affect these asymptotic conclusions.
+
+\section{Delta Methods and Distributional Approximations}
+
+\subsection{First-order Delta method}
+
+Suppose
+\[
+a_n(U_n-u)\xrightarrow{d}Z,
+\qquad a_n\to\infty,
+\]
+and $g:\mathbb R^d\to\mathbb R^k$ is differentiable at $u$.
+Then
+\[
+a_n\{g(U_n)-g(u)\}\xrightarrow{d}Dg(u)Z.
+\]
+
+The underlying expansion is
+\[
+g(U_n)-g(u)
+=
+Dg(u)(U_n-u)+o_P(a_n^{-1}).
+\]
+In particular, if
+\[
+\sqrt n(U_n-u)\xrightarrow{d}N_d(0,\Sigma),
+\]
+then
+\[
+\sqrt n\{g(U_n)-g(u)\}
+\xrightarrow{d}
+N_k\bigl(0,Dg(u)\Sigma Dg(u)^\top\bigr).
+\]
+
+\subsection{Degenerate first derivatives}
+
+If $g'(u)=0$, the first-order Delta method yields only a degenerate
+limit. Suppose, in one dimension,
+\[
+a_n(U_n-u)\xrightarrow{d}Z,
+\qquad
+g'(u)=0,
+\qquad
+g''(u)\neq0.
+\]
+A second-order Taylor expansion gives
+\[
+a_n^2\{g(U_n)-g(u)\}
+\xrightarrow{d}\frac12g''(u)Z^2.
+\]
+Thus the correct rate and limiting distribution can change.
+
+More generally, if the first nonzero derivative is of order $r$,
+then, under the corresponding Taylor remainder condition,
+\[
+a_n^r\{g(U_n)-g(u)\}
+\xrightarrow{d}
+\frac{g^{(r)}(u)}{r!}Z^r.
+\]
+
+\subsection{Moment approximations require additional conditions}
+
+Weak convergence does not imply convergence of moments.
+Therefore an asymptotic normal distribution alone does not justify
+approximations to the bias, variance, or mean squared error.
+
+Let $\overline Y_n$ be the mean of i.i.d.\ scalar observations with
+mean $\mu$ and variance $\sigma^2$. If
+\[
+E|Y_1|^3<\infty
+\]
+and $h$ has a bounded third derivative, Taylor expansion and moment
+bounds give
+\[
+Eh(\overline Y_n)
+=
+h(\mu)+\frac{\sigma^2h''(\mu)}{2n}
++O(n^{-3/2}).
+\]
+Thus the leading bias is
+\[
+\operatorname{Bias}\{h(\overline Y_n)\}
+=
+\frac{\sigma^2h''(\mu)}{2n}+O(n^{-3/2}).
+\]
+
+If $E|Y_1|^4<\infty$ and $h''$ is bounded, then
+\[
+\operatorname{Var}\{h(\overline Y_n)\}
+=
+\frac{\sigma^2h'(\mu)^2}{n}
++O(n^{-3/2}).
+\]
+These are sufficient conditions, not minimal ones.
+
+For i.i.d.\ vectors $Y_i$ with mean $\mu$ and covariance $\Sigma$,
+appropriate third-moment and bounded third-derivative conditions
+give
+\[
+Eh(\overline Y_n)
+=
+h(\mu)+
+\frac1{2n}\operatorname{tr}\{D^2h(\mu)\Sigma\}
++O(n^{-3/2}).
+\]
+Under suitable fourth-moment and second-derivative bounds,
+\[
+\operatorname{Var}\{h(\overline Y_n)\}
+=
+\frac1n\nabla h(\mu)^\top\Sigma\nabla h(\mu)
++O(n^{-3/2}).
+\]
+
+\subsection{Studentization}
+
+Suppose
+\[
+\sqrt n(\widehat q_n-q_0)\xrightarrow{d}N(0,V),
+\qquad V>0,
+\]
+and $\widehat V_n\xrightarrow{P}V$. Then
+\[
+\frac{\sqrt n(\widehat q_n-q_0)}{\sqrt{\widehat V_n}}
+\xrightarrow{d}N(0,1).
+\]
+Replacing an unknown scale by a consistent estimator is called
+studentization.
+
+For example, if $EX_1^2<\infty$ and $\sigma^2>0$, then
+\[
+\frac{\sqrt n(\overline X_n-\mu)}{S_n}
+\xrightarrow{d}N(0,1).
+\]
+This asymptotic result does not require normal observations.
+Exact Student $t$ distributions do require stronger assumptions.
+
+\subsection{Variance-stabilizing transformations}
+
+Suppose
+\[
+\sqrt n(\widehat\theta_n-\theta)
+\xrightarrow{d}N(0,V(\theta)),
+\qquad V(\theta)>0.
+\]
+A differentiable transformation $h$ stabilizes the first-order
+variance if
+\[
+h'(\theta)^2V(\theta)=c
+\]
+for a constant $c>0$. An increasing choice satisfies
+\[
+h'(\theta)=\sqrt{\frac{c}{V(\theta)}}.
+\]
+Then
+\[
+\sqrt n\{h(\widehat\theta_n)-h(\theta)\}
+\xrightarrow{d}N(0,c).
+\]
+
+Examples include:
+\begin{enumerate}
+\item Poisson mean:
+$V(\lambda)=\lambda$, so $h(\lambda)=2\sqrt\lambda$ gives $c=1$.
+
+\item Bernoulli probability:
+$V(p)=p(1-p)$, so $h(p)=2\arcsin\sqrt p$ gives $c=1$ for $0<p<1$.
+
+\item Correlation in a bivariate normal model:
+$V(\rho)=(1-\rho^2)^2$, so
+\[
+h(\rho)=\operatorname{arctanh}(\rho)
+=\frac12\log\frac{1+\rho}{1-\rho}
+\]
+gives $c=1$ for $|\rho|<1$.
+\end{enumerate}
+Variance stabilization and improvement of the shape of a
+finite-sample distribution are distinct objectives.
+
+\subsection{Edgeworth expansions}
+
+Let
+\[
+Z_n=\frac{\sqrt n(\overline X_n-\mu)}{\sigma},
+\]
+and define standardized cumulants
+\[
+\gamma_1=\frac{E(X-\mu)^3}{\sigma^3},
+\qquad
+\gamma_2=\frac{E(X-\mu)^4}{\sigma^4}-3.
+\]
+Under sufficiently strong moment and regularity conditions,
+for example a suitable higher-moment assumption together with
+Cramer's condition on the characteristic function,
+\[
+\begin{aligned}
+P(Z_n\leq x)
+={}&\Phi(x)-\phi(x)
+\biggl[
+\frac{\gamma_1}{6\sqrt n}H_2(x)\\
+&\qquad
++\frac1n\left\{
+\frac{\gamma_2}{24}H_3(x)
++\frac{\gamma_1^2}{72}H_5(x)
+\right\}
+\biggr]+o(n^{-1}),
+\end{aligned}
+\]
+uniformly in $x$, where
+\[
+H_2(x)=x^2-1,\qquad
+H_3(x)=x^3-3x,\qquad
+H_5(x)=x^5-10x^3+15x.
+\]
+The correction incorporates skewness and excess kurtosis.
+Finite moments alone do not guarantee this displayed expansion;
+lattice distributions generally require additional correction terms.
+
+\section{Asymptotic Normality of Estimators}
+
+\subsection{Estimating equations and asymptotic linearity}
+
+Suppose $\widehat\theta_n$ satisfies
+\[
+P_n\psi(\cdot,\widehat\theta_n)=0,
+\qquad
+\widehat\theta_n\xrightarrow{P}\theta_*,
+\]
+where
+\[
+P\psi(\cdot,\theta_*)=0.
+\]
+Define
+\[
+A=P[D_\theta\psi(\cdot,\theta_*)],
+\qquad
+B=P[\psi(\cdot,\theta_*)\psi(\cdot,\theta_*)^\top].
+\]
+Assume:
+\begin{enumerate}
+\item $\theta_*$ is an interior point.
+\item $B$ is finite and $A$ is nonsingular.
+\item $\psi(x,\theta)$ is continuously differentiable near $\theta_*$
+for almost every $x$.
+\item For some $\delta>0$,
+\[
+P\left[
+\sup_{\|\theta-\theta_*\|\leq\delta}
+\|D_\theta\psi(X,\theta)\|
+\right]<\infty.
+\]
+\end{enumerate}
+These local smoothness and domination conditions give the required
+local law of large numbers for the derivative.
+
+Expanding along the segment from $\theta_*$ to
+$\widehat\theta_n$ yields
+\[
+\widehat\theta_n-\theta_*
+=
+-A^{-1}P_n\psi(\cdot,\theta_*)+o_P(n^{-1/2}).
+\]
+Consequently,
+\[
+\sqrt n(\widehat\theta_n-\theta_*)
+\xrightarrow{d}
+N_d(0,A^{-1}BA^{-\top}).
+\]
+The matrix $A^{-1}BA^{-\top}$ is the sandwich covariance.
+
+The function
+\[
+\operatorname{IF}(x;P)
+=
+-A^{-1}\psi(x,\theta_*)
+\]
+is the asymptotic influence function in this expansion:
+\[
+\widehat\theta_n-\theta_*
+=
+\frac1n\sum_{i=1}^n\operatorname{IF}(X_i;P)
++o_P(n^{-1/2}).
+\]
+
+The multidimensional formula is a useful extension of the
+one-dimensional theory:
+\[
+V=
+\frac{E\psi(X,\theta_*)^2}
+{\{E\partial_\theta\psi(X,\theta_*)\}^2}.
+\]
+
+\subsection{Misspecified models}
+
+The true law $P$ need not belong to the working model
+$\{P_\theta\}$. A minimum contrast estimator can instead converge to
+\[
+\theta_*=\operatorname*{arg\,min}_\theta
+E_P\rho(X,\theta),
+\]
+provided the minimizer is identified and consistency conditions
+hold.
+
+For maximum likelihood, the target is a KL projection when that
+interpretation is well defined:
+\[
+\theta_*\in
+\operatorname*{arg\,min}_\theta D_{\mathrm{KL}}(P\|P_\theta).
+\]
+The sandwich covariance remains relevant. Under misspecification,
+the information identity generally fails, so it is usually
+incorrect to replace the sandwich covariance by inverse Fisher
+information.
+
+\subsection{Score and Fisher information}
+
+For one observation, let
+\[
+s_\theta(x)=\nabla_\theta\log p_\theta(x).
+\]
+Under conditions permitting differentiation under the integral,
+\[
+E_\theta s_\theta(X)=0.
+\]
+The Fisher information per observation is
+\[
+I(\theta)
+=
+E_\theta[s_\theta(X)s_\theta(X)^\top].
+\]
+Under the corresponding second-order regularity conditions,
+\[
+I(\theta)
+=
+-E_\theta[\nabla_\theta^2\log p_\theta(X)].
+\]
+For $n$ independent observations, information is $nI(\theta)$.
+
+Common support and integrable derivative bounds are standard
+sufficient ingredients. Parameter-dependent support can invalidate
+these identities and the usual $\sqrt n$ theory.
+
+\subsection{Regular maximum likelihood estimators}
+
+Suppose a consistent interior MLE exists with probability tending
+to one, and the preceding estimating-equation conditions hold for
+the score. Then
+\[
+\widehat\theta_n-\theta_0
+=
+I(\theta_0)^{-1}
+\frac1n\sum_{i=1}^ns_{\theta_0}(X_i)
++o_{P_{\theta_0}}(n^{-1/2}),
+\]
+and
+\[
+\sqrt n(\widehat\theta_n-\theta_0)
+\xrightarrow{d}
+N_d(0,I(\theta_0)^{-1}).
+\]
+This is a conditional theorem: consistency, interiority,
+nonsingular information, and local smoothness must be verified.
+
+For a canonical exponential family,
+\[
+s_\eta(X)=T(X)-\nabla A(\eta),
+\qquad
+I(\eta)=\nabla^2A(\eta).
+\]
+Thus
+\[
+\widehat\eta_n-\eta_0
+=
+I(\eta_0)^{-1}
+\{\overline T_n-\nabla A(\eta_0)\}
++o_P(n^{-1/2}).
+\]
+This also follows from the Delta method applied to
+$(\nabla A)^{-1}$.
+
+\paragraph{Example: normal mean and variance.}
+For $X_i\sim N(\mu,\sigma^2)$,
+\[
+\widehat\mu_n=\overline X_n,
+\qquad
+\widehat\sigma_n^2
+=
+\frac1n\sum_{i=1}^n(X_i-\overline X_n)^2.
+\]
+For $\sigma^2>0$,
+\[
+\sqrt n
+\begin{pmatrix}
+\widehat\mu_n-\mu\\
+\widehat\sigma_n^2-\sigma^2
+\end{pmatrix}
+\xrightarrow{d}
+N_2\left(
+0,
+\begin{pmatrix}
+\sigma^2&0\\
+0&2\sigma^4
+\end{pmatrix}
+\right).
+\]
+
+\section{Asymptotic Efficiency and Its Limits}
+
+\subsection{An information bound for regular estimating equations}
+
+Consider a scalar parameter and an estimating function satisfying
+\[
+E_\theta\psi(X,\theta)=0
+\]
+for all $\theta$ near the truth. Differentiating this identity under
+the integral gives
+\[
+E_\theta\partial_\theta\psi(X,\theta)
+=
+-E_\theta[\psi(X,\theta)s_\theta(X)].
+\]
+Therefore its asymptotic variance is
+\[
+V_\psi(\theta)
+=
+\frac{E_\theta\psi(X,\theta)^2}
+{\{E_\theta[\psi(X,\theta)s_\theta(X)]\}^2}.
+\]
+Cauchy--Schwarz implies
+\[
+V_\psi(\theta)\geq\frac1{I(\theta)}.
+\]
+Equality holds precisely when
+\[
+\psi(X,\theta)=a(\theta)s_\theta(X)
+\quad P_\theta\text{-almost surely}
+\]
+for a nonzero scalar $a(\theta)$.
+
+Thus regular score-based estimators achieve the information bound
+within this class. This is not an unrestricted comparison with
+every measurable estimator.
+
+\subsection{Hodges's estimator and superefficiency}
+
+Let $X_i\sim N(\theta,1)$ and define
+\[
+\widetilde\theta_n=
+\begin{cases}
+0,&|\overline X_n|\leq n^{-1/4},\\
+\overline X_n,&|\overline X_n|>n^{-1/4}.
+\end{cases}
+\]
+For every fixed $\theta\neq0$,
+\[
+P_\theta(\widetilde\theta_n=\overline X_n)\to1,
+\]
+so
+\[
+\sqrt n(\widetilde\theta_n-\theta)
+\xrightarrow{d}N(0,1).
+\]
+At $\theta=0$,
+\[
+P_0(\widetilde\theta_n=0)\to1,
+\qquad
+\sqrt n\widetilde\theta_n\xrightarrow{P}0.
+\]
+The estimator is superefficient at zero.
+
+This does not contradict the preceding information bound because
+the estimator is not regular in the required local sense.
+Indeed, along $\theta_n=cn^{-1/4}$ with $0<|c|<1$,
+\[
+P_{\theta_n}(\widetilde\theta_n=0)\to1,
+\]
+and
+\[
+nE_{\theta_n}(\widetilde\theta_n-\theta_n)^2
+\geq
+c^2\sqrt n\,
+P_{\theta_n}(\widetilde\theta_n=0)
+\longrightarrow\infty.
+\]
+Pointwise improvement can therefore conceal poor nearby behavior.
+
+\subsection{Growing parameter dimension: an incidental-parameter example}
+
+Suppose
+\[
+X_{ij}\sim N(\mu_i,\sigma^2),
+\qquad
+i=1,\ldots,p,\quad j=1,\ldots,k,
+\]
+independently, with fixed $k\geq2$ and $p\to\infty$.
+The MLEs are
+\[
+\widehat\mu_i=\overline X_i,
+\qquad
+\widehat\sigma^2
+=
+\frac1{pk}\sum_{i=1}^p\sum_{j=1}^k
+(X_{ij}-\overline X_i)^2.
+\]
+Since each group residual sum has mean $(k-1)\sigma^2$,
+\[
+\widehat\sigma^2\xrightarrow{P}
+\frac{k-1}{k}\sigma^2.
+\]
+Thus the MLE is inconsistent, while
+\[
+\frac1{p(k-1)}
+\sum_{i=1}^p\sum_{j=1}^k
+(X_{ij}-\overline X_i)^2
+\]
+is consistent.
+
+Fixed-dimensional MLE theory does not apply when the number of
+nuisance parameters grows with the sample size.
+
+\section{One-Dimensional Asymptotic Testing}
+
+\subsection{Level, power, and consistency}
+
+A possibly randomized test is a measurable function
+\[
+\varphi_n:\mathcal X^n\to[0,1].
+\]
+Its power at $\theta$ is $E_\theta\varphi_n$.
+
+For testing
+\[
+H_0:\theta\leq\theta_0
+\qquad\text{against}\qquad
+H_1:\theta>\theta_0,
+\]
+uniform asymptotic level at most $\alpha$ means
+\[
+\limsup_{n\to\infty}
+\sup_{\theta\leq\theta_0}E_\theta\varphi_n
+\leq\alpha.
+\]
+This is stronger than merely checking
+$E_{\theta_0}\varphi_n\to\alpha$.
+
+Consistency against a fixed alternative $\theta>\theta_0$ means
+\[
+E_\theta\varphi_n\to1.
+\]
+
+\subsection{Wald and score statistics}
+
+Let
+\[
+\sqrt n(\widehat\theta_n-\theta)
+\xrightarrow{d}N(0,I(\theta)^{-1}).
+\]
+Two common Wald standardizations are
+\[
+W_n^{(0)}
+=
+\sqrt{nI(\theta_0)}(\widehat\theta_n-\theta_0),
+\]
+and
+\[
+W_n=
+\sqrt{nI(\widehat\theta_n)}
+(\widehat\theta_n-\theta_0).
+\]
+Under the null boundary and continuity of $I$, both converge to
+$N(0,1)$.
+
+The standardized score statistic is
+\[
+S_n=
+\frac{\sum_{i=1}^ns_{\theta_0}(X_i)}
+{\sqrt{nI(\theta_0)}}.
+\]
+It also converges to $N(0,1)$ under $\theta_0$.
+
+A one-sided test rejects for a statistic exceeding
+$z_{1-\alpha}$, where $z_u=\Phi^{-1}(u)$.
+
+\subsection{Likelihood ratio statistics}
+
+For testing the point null $\theta=\theta_0$ against a two-sided
+alternative, define
+\[
+\Lambda_n=
+2\{\ell_n(\widehat\theta_n)-\ell_n(\theta_0)\}.
+\]
+Under regularity and an interior null parameter,
+\[
+\Lambda_n\xrightarrow{d}\chi_1^2.
+\]
+Moreover,
+\[
+\Lambda_n=W_n^2+o_P(1)=S_n^2+o_P(1).
+\]
+
+For directional testing, use the signed likelihood root
+\[
+R_n=
+\operatorname{sign}(\widehat\theta_n-\theta_0)
+\sqrt{\Lambda_n}.
+\]
+Under suitable regularity,
+\[
+R_n=W_n+o_P(1)=S_n+o_P(1).
+\]
+A one-sided test rejects for $R_n>z_{1-\alpha}$.
+
+The nonnegative likelihood-ratio statistic for a genuinely
+inequality-constrained null has a boundary limit and should not be
+confused with the ordinary two-sided $\chi_1^2$ statistic.
+
+\subsection{Local alternatives and asymptotic power}
+
+Fixed alternatives often give limiting power one, which does not
+distinguish good tests. Consider instead
+\[
+\theta_n=\theta_0+\frac{h}{\sqrt n}.
+\]
+Under local uniform regularity,
+\[
+W_n\xrightarrow{d}
+N\bigl(h\sqrt{I(\theta_0)},1\bigr)
+\quad\text{under }P_{\theta_n}.
+\]
+Hence the limiting one-sided power is
+\[
+1-\Phi\bigl(z_{1-\alpha}-h\sqrt{I(\theta_0)}\bigr).
+\]
+Pointwise asymptotic normality at every fixed $\theta$ is not,
+by itself, enough to justify this triangular-array statement.
+
+The local likelihood expansion has the form
+\[
+\ell_n\left(\theta_0+\frac h{\sqrt n}\right)
+-\ell_n(\theta_0)
+=
+h\Delta_n-\frac12h^2I(\theta_0)+o_P(1),
+\]
+where
+\[
+\Delta_n=\frac1{\sqrt n}\sum_{i=1}^ns_{\theta_0}(X_i)
+\xrightarrow{d}N(0,I(\theta_0)).
+\]
+This local normal approximation explains both the common
+first-order behavior of Wald, score, and likelihood-ratio tests
+and the corresponding local power bound in regular models.
+
+\section{Asymptotic Confidence Sets}
+
+\subsection{Coverage and Wald intervals}
+
+An asymptotic $(1-\alpha)$ confidence interval $C_n$ satisfies
+\[
+P_\theta(\theta\in C_n)\to1-\alpha
+\]
+for every fixed $\theta$. Uniform asymptotic coverage is a stronger
+requirement.
+
+If
+\[
+\frac{\sqrt n(\widehat\theta_n-\theta)}
+{\sqrt{\widehat V_n}}
+\xrightarrow{d}N(0,1),
+\]
+then a Wald interval is
+\[
+\left[
+\widehat\theta_n-z_{1-\alpha/2}
+\sqrt{\frac{\widehat V_n}{n}},
+\quad
+\widehat\theta_n+z_{1-\alpha/2}
+\sqrt{\frac{\widehat V_n}{n}}
+\right].
+\]
+For a regular efficient MLE,
+$\widehat V_n=I(\widehat\theta_n)^{-1}$ is a standard choice.
+
+\subsection{Inversion of tests}
+
+If $\varphi_{n,\theta}$ tests the point null indexed by $\theta$,
+its acceptance set defines
+\[
+C_n=\{\theta:\varphi_{n,\theta}=0\}.
+\]
+Thus
+\[
+P_\theta(\theta\in C_n)
+=
+1-P_\theta(\varphi_{n,\theta}=1).
+\]
+Score and likelihood-ratio confidence sets arise by this inversion.
+
+Different constructions may be first-order equivalent while
+behaving differently in finite samples. Inversion need not produce
+an interval without additional shape or monotonicity conditions.
+Boundary parameters and small samples can make naive Wald
+intervals particularly unreliable.
+
+\section{Posterior Asymptotics}
+
+\subsection{Posterior distributions and two probability viewpoints}
+
+Given a prior $\Pi$ and likelihood $L_n$, the posterior is
+\[
+\Pi(B\mid X_1,\ldots,X_n)
+=
+\frac{\int_B L_n(\theta)\,\Pi(d\theta)}
+{\int_\Theta L_n(\theta)\,\Pi(d\theta)},
+\]
+when the denominator is positive and finite.
+
+Conditional on the data, this is a probability distribution over
+$\theta$. From a frequentist viewpoint, $\theta_0$ is fixed and the
+posterior is a random probability measure because it depends on
+the sample.
+
+\subsection{Posterior consistency}
+
+The posterior is consistent at $\theta_0$ if, for every
+$\varepsilon>0$,
+\[
+\Pi\bigl(\|\theta-\theta_0\|>\varepsilon\mid X_1,\ldots,X_n\bigr)
+\xrightarrow{P_{\theta_0}}0.
+\]
+Almost-sure posterior consistency replaces convergence in
+probability by almost-sure convergence.
+
+For a finite identifiable parameter space, positive prior mass at
+every parameter value gives posterior consistency. Likelihood
+ratios favor the true distribution, while the positive prior
+weights do not decay with $n$.
+
+In a continuous parameter space, $\Pi(\{\theta_0\})=0$ is normal
+and does not prevent consistency. What matters is sufficient prior
+support in neighborhoods of the truth, together with appropriate
+model and separation conditions.
+
+\subsection{Bernstein--von Mises principle}
+
+In a regular finite-dimensional model, the posterior is
+asymptotically normal around an efficient estimator. In one
+dimension, the characteristic conclusion is
+\[
+\Pi\bigl(\sqrt n(\theta-\widehat\theta_n)\in\cdot
+\mid X_1,\ldots,X_n\bigr)
+\approx N(0,I(\theta_0)^{-1}).
+\]
+
+One sufficient abstract formulation uses:
+\begin{enumerate}
+\item Local quadratic likelihood expansion around
+$\widehat\theta_n$, uniformly for bounded $t$:
+\[
+\ell_n\left(\widehat\theta_n+\frac t{\sqrt n}\right)
+-\ell_n(\widehat\theta_n)
+=
+-\frac12I(\theta_0)t^2+o_P(1).
+\]
+
+\item A prior density continuous and positive at $\theta_0$,
+and $\widehat\theta_n\xrightarrow{P}\theta_0$.
+
+\item Tightness of the rescaled posterior:
+for every $\varepsilon>0$,
+\[
+\lim_{M\to\infty}\limsup_{n\to\infty}
+P_{\theta_0}\left(
+\Pi\bigl(\sqrt n|\theta-\widehat\theta_n|>M\mid X\bigr)
+>\varepsilon
+\right)=0.
+\]
+\end{enumerate}
+These conditions yield convergence to the normal law in total
+variation, in $P_{\theta_0}$-probability.
+
+The local expansion alone does not control posterior mass far
+from the MLE; posterior tail control is an essential separate
+ingredient. Ordinary posterior consistency alone does not
+automatically supply the required $\sqrt n$-scale tightness.
+
+\subsection{Sampling normality versus posterior normality}
+
+The statements
+\[
+\sqrt n(\widehat\theta_n-\theta_0)
+\xrightarrow{d}N(0,I(\theta_0)^{-1})
+\]
+and
+\[
+\Pi\bigl(\sqrt n(\theta-\widehat\theta_n)\in\cdot\mid X\bigr)
+\approx N(0,I(\theta_0)^{-1})
+\]
+describe different objects.
+
+The first concerns the distribution of an estimator under repeated
+sampling with $\theta_0$ fixed. The second concerns a conditional
+distribution over the parameter after the data have been observed.
+Their matching first-order scales explain the agreement between
+many Bayesian and frequentist procedures.
+
+\subsection{Bayes estimators}
+
+Let $\widetilde\theta_n$ be a posterior median. Posterior normality
+and uniqueness of the limiting median imply
+\[
+\sqrt n(\widetilde\theta_n-\widehat\theta_n)
+\xrightarrow{P}0.
+\]
+Thus a posterior median has the same first-order sampling
+distribution as an efficient MLE.
+
+A corresponding conclusion for the posterior mean requires
+additional moment control. Weak or total-variation convergence of
+posterior distributions alone does not imply convergence of their
+means. A suitable condition is uniform integrability of the
+rescaled posterior first moments.
+
+Similarly, asymptotic statements about Bayes risks require control
+of the relevant posterior loss moments, not merely convergence in
+distribution.
+
+\subsection{Credible intervals and confidence intervals}
+
+A $(1-\alpha)$ credible set satisfies
+\[
+\Pi(C_n\mid X)=1-\alpha.
+\]
+This is a conditional posterior probability statement, not a
+frequentist coverage statement.
+
+Under Bernstein--von Mises conditions, equal-tailed posterior
+intervals have endpoints
+\[
+\widehat\theta_n
+\pm
+\frac{z_{1-\alpha/2}}{\sqrt{nI(\theta_0)}}
++o_P(n^{-1/2}).
+\]
+If the centering estimator has the regular efficient sampling
+distribution, these intervals have asymptotic frequentist coverage
+$1-\alpha$.
+
+First-order agreement does not imply exact finite-sample agreement.
+Highest-posterior-density sets require additional density-level
+regularity for analogous set-shape conclusions.
+
+\subsection{Point-null testing}
+
+A frequentist $p$-value and a posterior probability of a null
+hypothesis are different quantities.
+
+Under a purely continuous prior,
+\[
+\Pi(\{\theta_0\}\mid X)=0.
+\]
+A Bayesian test assigning positive probability to the point null
+therefore requires an atom at $\theta_0$, for example a
+spike-and-slab prior.
+
+Even with such a prior, a small $p$-value need not imply a small
+posterior null probability. This distinction is central to
+Lindley-type phenomena.
+
+\section{Logical Dependencies and Main Cautions}
+
+The central logical chain is
+\[
+\begin{gathered}
+\text{population identification}
++\text{uniform approximation}
+\Longrightarrow\text{consistency},\\
+\text{consistency}
++\text{local smoothness}
++\text{CLT}
+\Longrightarrow\text{asymptotic linearity and normality},\\
+\text{normality}
++\text{consistent scale estimation}
+\Longrightarrow\text{asymptotic tests and intervals},\\
+\text{additional regularity}
+\Longrightarrow\text{information bounds and local optimality}.
+\end{gathered}
+\]
+
+The following implications are generally false without additional
+assumptions:
+\begin{enumerate}
+\item Identifiability of the model implies injectivity of a chosen
+moment map.
+\item A solution of the score equation is automatically a global MLE.
+\item A unique population minimizer automatically gives consistency.
+\item Convergence in distribution implies convergence of moments.
+\item Pointwise asymptotic normality implies uniform validity or
+validity under local alternatives.
+\item The MLE is asymptotically optimal among all measurable estimators.
+\item Posterior consistency alone implies Bernstein--von Mises.
+\item Posterior normality alone implies convergence of posterior means
+or risks.
+\item A credible probability is the same as a confidence coverage
+probability.
+\end{enumerate}

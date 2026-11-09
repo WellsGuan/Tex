@@ -49,7 +49,7 @@ Let $X,X_1,X_2,\ldots$ be random variables. Find an example for each of
 the following cases:
 \begin{enumerate}[label=(\alph*),leftmargin=*]
 \item $X_n\xrightarrow{p}X$, but $\{X_n\}$ does not converge to $X$ a.s.
-\item $X_n\xrightarrow{p}X$, but $\{X_n\}$ does not converge to $X$ in $L_p$
+\item $X_n\xrightarrow{p}X$, but $\{X_n\}$ does not converge to $X$ in $L^p$
 for any $p>0$.
 \item $X_n\xrightarrow{d}X$, but $\{X_n\}$ does not converge to $X$ in
 probability (do not use Example 1.26).
@@ -58,11 +58,24 @@ probability for some function $g$.
 \end{enumerate}
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
+For all the $X,X_i$, we assume them to be the measurable function from $([0,1],\mathcal{B}([0,1])) \to (\R,\mathcal{B})$.
 \begin{enumerate}[label=(\alph*),leftmargin=*]
-\item\mbox{}\par\vspace{2em}
-\item\mbox{}\par\vspace{2em}
-\item\mbox{}\par\vspace{2em}
-\item\mbox{}\par\vspace{2em}
+\item Consider \[X_n = \chi\left(\left(\dfrac{n-2^{k(n)}}{2^{k(n)}},\dfrac{n+1-2^{k(n)}}{2^{k(n)}}\right]\right)\] where $k(n) = \left[\log_2 n\right]$ with $X = 0$.
+\item Consider
+\[
+X_n = n\chi((0,1/(\ln n)])
+\]
+with $X = 0$.
+\item Consider
+\[
+X_n = (1-x)
+\]
+with $X = x$.
+\item Consider
+\[
+X_n = 1/n
+\]
+and $X = 0$ with $g(x) = \chi((0,\infty))$.
 \end{enumerate}
 
 \subsubsection*{Exercise 1.141}
@@ -71,7 +84,18 @@ $Bi(p_n,n)$. Show that if $np_n\to\theta>0$, then $X_n\xrightarrow{d}X$,
 where $X$ has the Poisson distribution $P(\theta)$.
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par\vspace{3em}
-
+Compute the distribution function of $X_n$, which is
+\[
+\begin{aligned}
+F_{X_n}(x) &= \sum\limits_{m=0}^{[x]} C_n^mp_n^{m}(1-p_n)^{n-m} \\
+&= \sum\limits_{m=0}^{[x]} \dfrac{(np_n)^m}{m!}(1-p_n)^{n}(n!/(n-m)!n^m)(1-p_n)^{-m} \\
+&\to \sum\limits_{m=0}^{[x]} \dfrac{\theta^me^{-\theta}}{m!} = F_x(x),\quad n\to\infty
+\end{aligned}
+\]
+for any $x \in \R$ for $X \sim P(\theta)$ since
+\[
+n\ln(1-p_n) \sim -np_n \to -\theta.
+\]
 \newpage
 \subsection*{Problem 2. Asymptotic distributions and estimation}
 Bickel and Doksum, \textit{Mathematical Statistics: Basic Ideas and Selected
@@ -96,9 +120,28 @@ $n(\bar X-\mu)^2$.
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
 \begin{enumerate}[label=(\alph*),leftmargin=*]
-\item\mbox{}\par\vspace{3em}
-\item\mbox{}\par\vspace{3em}
-\item\mbox{}\par\vspace{3em}
+\item By the CLT, we know
+\[
+\sqrt{n}(\overline{X} - \mu) \Rightarrow \mathcal{N}(0,\sigma^2)
+\]
+and hence by Delta method, we have
+\[
+\sqrt{n}(T - \mu^2) \Rightarrow \mathcal{N}(0,4\mu^2\sigma^2).
+\]
+\item We know that
+\[
+P(\sqrt{n}T \leq t) = P(nT \leq \sqrt{n}t) = P(-\sqrt{\sqrt{n}t} \leq \sqrt{n}\overline{X} \leq \sqrt{\sqrt{n}t}) \to 1
+\]
+with $n \to \infty$ and hence $\sqrt{n}T \Rightarrow 0$ since $T$ is non-negative, which is coinciding the conclusion in (a) by setting $\mu = 0$.
+\item Assume $Y_i = X_i - \mu$ and then we know $\overline{X} - \mu = \overline{Y}$. We may use (a) for $T' = \overline{Y}$ and obtain that
+\[
+\sqrt{n}(\overline{X} - \mu)^2 \Rightarrow 0.
+\]
+Then we use the continuous mapping and hence
+\[
+{n}(\overline{X} - \mu)^2 \Rightarrow \sigma^2\chi_1
+\]
+where $\chi_1$ has the standard Chi-square distribution.
 \end{enumerate}
 
 \subsubsection*{Exercise 5.3.26}
@@ -112,5 +155,68 @@ where $\Sigma_0=\operatorname{diag}(\sigma^2,2\sigma^4)$.
 \noindent\textit{Hint:} Use (5.3.33) and Theorem 5.3.4.
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par\vspace{3em}
+Notice that
+\[
+\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (X_i-\bar X)^2.
+\]
+Expanding around $\mu$ gives
+\[
+\hat{\sigma}^2
+= \frac{1}{n}\sum_{i=1}^n (X_i-\mu)^2 - (\bar X-\mu)^2.
+\]
+Thus,
+\[
+\sqrt n
+\begin{pmatrix}
+\bar X-\mu\\
+\hat{\sigma}^2-\sigma^2
+\end{pmatrix}
+=
+\frac{1}{\sqrt n}\sum_{i=1}^n
+\begin{pmatrix}
+X_i-\mu\\
+(X_i-\mu)^2-\sigma^2
+\end{pmatrix}
+-
+\begin{pmatrix}
+0\\
+\sqrt n(\bar X-\mu)^2
+\end{pmatrix}.
+\]
+By the CLT, $\sqrt n(\bar X-\mu)=O_p(1)$, so
+\[
+\sqrt n(\bar X-\mu)^2
+= \frac{\bigl(\sqrt n(\bar X-\mu)\bigr)^2}{\sqrt n}
+\xrightarrow{p} 0.
+\]
 
+The summands are i.i.d.\ random vectors with mean zero.
+To compute their covariance matrix, let $Y\sim\mathcal N(0,\sigma^2)$.
+Since $\mathbb E[Y^3]=0$ and $\mathbb E[Y^4]=3\sigma^4$, we have
+\[
+\begin{aligned}
+\operatorname{Var}(Y) &= \sigma^2,\\
+\operatorname{Cov}(Y,Y^2-\sigma^2) &= \mathbb E[Y^3] = 0,\\
+\operatorname{Var}(Y^2-\sigma^2)
+&= \mathbb E[Y^4] - \bigl(\mathbb E[Y^2]\bigr)^2
+= 2\sigma^4.
+\end{aligned}
+\]
+Therefore, by the CLT and Slutsky's theorem,
+\[
+\sqrt n
+\begin{pmatrix}
+\bar X-\mu\\
+\hat{\sigma}^2-\sigma^2
+\end{pmatrix}
+\xrightarrow{\mathcal L}
+\mathcal N_2\!\left(
+\begin{pmatrix}0\\0\end{pmatrix},
+\begin{pmatrix}
+\sigma^2 & 0\\
+0 & 2\sigma^4
+\end{pmatrix}
+\right)
+\]
+we are done.
 \end{document}

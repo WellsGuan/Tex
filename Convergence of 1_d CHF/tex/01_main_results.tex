@@ -151,10 +151,35 @@ Then, we compute
 \right\rvert^2 \\
 \leq& \dfrac{4\pi}{L(1/\rho)}\int_{T_0}^t\int G_{T_1+\rho-r}(x-y)^2F(x,y)dydr
 \end{aligned}
+\tag{1}
 \]
 where
 \[
 F(x,y):= \mathbb{E}\left|\left(\mathcal{S}_{\zeta_r}[\sigma_{\rho}^2\circ v_r^{\rho}]^{1/2}\right)(y) - J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(x))\right|^2
+\]
+Assume
+\[
+G(x):=\mathbb{E}\left|\left(\mathcal{S}_{\zeta_r}[\sigma_{\rho}^2\circ v_r^{\rho}]^{1/2}\right)(x) - J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(x))\right|^2
+\]
+and
+\[
+J(x,y) :=\mathbb{E}\left|J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(x)) - J_{\sigma_{\rho}}(S_{\rho}(T_1-r),V_r^{\rho,T_1}(y))\right|^2
+\]
+then we have $F^{1/2} \leq G^{1/2} + J^{1/2}$ and then we know for (1), the bound can be given by
+\[
+I_1 + I_2:= \dfrac{G(x)}{L(1/\rho)}\int_{T_0}^t \dfrac{1}{T_1+\rho-r}dr + \dfrac{4\pi}{L(1/\rho)}\int_{T_0}^t\int G_{T_1+\rho-r}^{2}(x-y)J(x,y)dydr.
+\]
+Since we know
+\[
+J_{\sigma_{\rho}}(S_{\rho}(T_1-r),a) = \gamma_{\rho}^{-1}J_{\sigma}\left(L\left(\dfrac{T_1-r}{\rho}\right)/4\pi,a\right)
+\]
+and by the parabolic estimation, we have
+\[
+J(x,y) \leq L(1/\rho)/L\left(\dfrac{T_1-r}{\rho}\right)\EE\left|V_r^{\rho,T_1}(x)-V_r^{\rho,T_1}(y)\right|^2.
+\]
+Therefore, we obtain
+\[
+I_2 \leq 4\pi\int_{T_0}^t\int G_{T_1+\rho-r}^2(x-y)\EE\left|V_r^{\rho,T_1}(x)-V_r^{\rho,T_1}(y)\right|^2/L((T_1-r)/\rho) dydr
 \]
 \end{proof}
 
@@ -187,8 +212,8 @@ t\in
  \right)\xi^2,\, T
 \right],\quad \kappa_{\ell,\rho} = L(1/\rho)^{-1/(1-2/\ell)}
 \end{equation*}
-\textit{ for some $w:(0,C^{-1}) \to\R$ such that for any $M>0$,
-\[\omega(\rho)L(1/\rho)^M \to 0,\quad \rho \to 0.\]
+\textit{ for some $w:(0,C^{-1}) \to\R$ such that
+\[\omega(\rho)\kappa_{\ell,\rho}^{-1} \to 0,\quad \rho \to 0.\]
 We let \(x,z\in\mathbb{R}^2\), and \(\iota_1,\iota_2\in[0,1]\).
 Then we have}
 \[
@@ -203,18 +228,18 @@ Then we have}
  J_{\sigma_{\rho},\rho}
  \left(
    S_{\rho}\!\left(
-     \mathrm{L}(1/\rho)^{l_1}\xi^2
+     \alpha(\lambda)\rho
    \right),
    \mathcal{G}_{\mathrm{L}(1/\rho)^{l_2}\xi^2}
    v_t^{\rho}(x)
  \right)
-\right|^{l_2} \\
+\right|^{2} \\
 &\quad\leq
 C
 \left\langle
  \lVert v_0\rVert_{\ell}
 \right\rangle^2
- {L}\left({L}(1/\rho)\right).
+ {L}(1/\rho)\left(L(1/\rho)^{1+\iota_2-1/(1-2/\ell)}+\omega(\rho)\kappa_{\ell,\rho}^{-1}\right).
 \end{aligned}
 \]
 \end{proposition}
@@ -403,7 +428,7 @@ J_{\sigma_{\rho},\rho}\!\left(
 \clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X)
 \right)
 -J_{\sigma_{\rho},\rho}\!\left(
-\sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
+\sfS_\rho(\alpha(\lambda)\rho),
 \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)
 \right)
 \right\rvert^2\right)^{1/2}
@@ -420,7 +445,7 @@ J_{\sigma_{\rho},\rho}\!\left(
 \sfS_\rho(\kappa_{\ell,\rho}\xi^2),
 \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)
 \right)-J_{\sigma_{\rho},\rho}\!\left(
-\sfS_\rho(\sfL(1/\rho)^{\iota_1}\xi^2),
+\sfS_\rho(\alpha(\lambda)\rho),
 \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right)\right|^2 \right)^{1/2} \\
 &\quad\leq
 \left(\dfrac{L(1/\rho)\lambda^2}{4\pi}\EE\left|\clG_{\kappa_{\ell,\rho}^{-1}\xi^2}v_{\tau_0}(X) - \clG_{\sfL(1/\rho)^{\iota_2}\xi^2}v_t(X)\right|^2\right)^{1/2}
@@ -435,9 +460,9 @@ J_{\sigma_{\rho},\rho}\!\left(
 \end{align*}
 where
 \[
-p = (\kappa_{\ell,\rho}\xi^2 \vee L(1/\rho)^{\iota_1}\xi^2),\quad q = (\kappa_{\ell,\rho}\xi^2 \wedge L(1/\rho)^{\iota_1}\xi^2)
+p = (\kappa_{\ell,\rho}\xi^2 \vee \alpha(\lambda)\rho),\quad q = (\kappa_{\ell,\rho}\xi^2 \wedge \alpha(\lambda)\rho)
 \]
-by using the continuity estimate and
+since $L(\alpha(\lambda)) <2\pi/\lambda^2 $ by using the continuity estimate and
 $\kappa_{\ell,\rho}^{-1}>\sfL(1/\rho)$, there is an absolute constant
 $C<\infty$ such that, for sufficiently small $\rho$,
 \begin{align*}
@@ -453,12 +478,5 @@ $C<\infty$ such that, for sufficiently small $\rho$,
 &\quad\leq \lVert v_{\tau_0}\rVert_2^2\dfrac{|(L(1/\rho)^{\iota_2}+\kappa_{\ell,\rho})\xi^2|}{\kappa_{\ell,\rho}^{-1}\xi^2}+ \dfrac{M}{4\pi}L\left(\dfrac{t-\tau_0}{\sfL(1/\rho)^{\iota_2}\xi^2 + \rho}\right)\\
 &\quad \leq C \left(L(1/\rho)^{1+\iota_2}\kappa_{\ell,\rho} + L(\kappa_{\ell,\rho}\omega(\rho)) \right)
 \end{align*}
-To sum up, we have
-\[
-E_1 + E_2 + E_3 \lesssim L(1/\rho)(L(\kappa_{\ell,\rho}^{-1}\omega(\rho) +  L(1/\rho)^{1+\iota_2 - 1/(1-2/\ell)}) = L(1/\rho)\Theta(\rho)
-\]
-where we denote
-\[
-\Theta(\rho) := (\kappa_{\ell,\rho}^{-1}\omega(\rho) +  L(1/\rho)^{1+\iota_2 - 1/(1-2/\ell)}.
-\]
+To sum up, we have the required order of bound.
 \end{proof}
