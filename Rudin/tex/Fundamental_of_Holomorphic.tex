@@ -174,7 +174,7 @@
     If $\gamma$ is a positive-directed cycle with center $a$ and radius $r$, then
     \[
     \text{Ind}_{\gamma}(z) = \begin{cases}
-        1,\quad |z-a| < r
+        1,\quad |z-a| < r \\
         0,\quad |z-a| > r
     \end{cases}.
     \]
@@ -199,5 +199,92 @@
 \end{proof}
 
 \begin{corollary}
-    
+    For any $n \neq -1$, if $n\geq 0$, we let $\gamma$ to be any closed path; if $n\leq -2$, we let $0\notin\gamma^*$, then we have
+    \[\int_{\gamma} z^n dz = 0.\]
 \end{corollary}
+
+\begin{lemma}
+    [Cauchy Theorem for Triangle]\label{lem: tri-cauchy} Assume $\Delta$ is a closed triangle in open set $\Omega$, $p\in \Omega$, $f$ continuous on $\Omega$, and $f\in H(\Omega - \{p\})$, then
+    \[
+    \int_{\partial \Delta} f(z)dz = 0
+    \]
+\end{lemma}
+\begin{proof}
+    Assume $p\notin \Delta$ at first. We let $a',b',c'$ to be the middle points of $\overline{bc},\overline{ca},\overline{ab}$ and then denote the small triangles as $\Delta^i$ and we know
+    \[
+    J:=\int_{\partial \Delta} f(z)dz = \sum\limits_{i=1}^4 \int_{\partial \Delta^i} f(z)dz = 0
+    \]
+    with proper direction. There has to be an $i$ such that the corresponding integral with an absolute value greater than $|J/4|$. Then we do the splitting for $\Delta^i$ inductively and we will obtain a series of triangle $\Delta^{(0)} \supset \Delta^{(1)} \supset \cdots$ with $\cap \Delta^{(i)} = z_0$ for some point $z_0$. Assume the circuit of $\Delta$ is $L$ and since $f$ is differetiable at $z_0$, we have for any $\epsilon > 0$,
+    \[
+    |f(z) -f(z_0)  -f'(z_0)(z-z_0)| \leq \epsilon|z-z_0| \leq \epsilon (2^{-n}L)
+    \]
+    for $n$ sufficiently large. Then we may know
+    \[
+    \left|\int_{\Delta^{(m)}} f(z) dz\right| = \left|\int_{\Delta^{(m)}} [f(z) - f(z_0) - f'(z_0)(z-z_0)]dz\right| \leq \epsilon(2^{-n}L)^2
+    \]
+    and hence
+    \[
+    |J| \leq \epsilon L^2
+    \]
+    for any $\epsilon > 0$, so we know $J=0$.\par
+    If $p$ is one of the end points, we may just choose some point on the edge close to $p$ enough and the spliiting will show that the integral will equal to the integral on the small triangle formed by $p$ and the chosen points, which can be arbitrarily small and we are done by that. For the $p$ is in the interior of $\Delta$ case, we may split the triangle by $p$ and everthing is going.
+\end{proof}
+
+\begin{theorem}
+    [Cauchy Theorem in Convex Set]\label{thm: convex-cauchy}
+    Assume $\Omega$ is a convex open subset, $p \in \Omega$ and $f$ is continuous on $\Omega$ with $f\in H(\Omega - \{p\})$. Then for some $F\in H(\Omega)$, $f = F'$ and hence for any closed $\gamma$ in $\Omega$,
+    \[\int_{\gamma}f(z)dz = 0.\]
+\end{theorem}
+\begin{proof}
+    Fix some point $a \in \Omega$ and then we may define
+    \[F(z) = \int_{[a,z]} f(\xi)d\xi.\]
+    Then for any $z_0,z\in \Omega$, we know
+    \[\int_{[z_0,z]}f(\xi)d\xi = F(z) - F(z_0)\]
+    by \ref{lem: tri-cauchy} and then
+    \[
+    \dfrac{F(z)-F(z_0)}{z-z_0} - f(z_0) = \dfrac{1}{z-z_0}\int_{[z_0,z]}[f(\xi)-f(z_0)]d\xi  \to 0,\quad |z-z_0| \to 0
+    \]
+    and hence $f = F'$ with $F \in H(\Omega)$.
+\end{proof}
+
+\begin{theorem}
+    [Cauchy Formula in a Convex Set] Assume $\gamma$ is a closed path in a convex open set $\Omega$ and $f\in H(\Omega)$. If $z\in \Omega$ and $z\notin \gamma^*$, then
+    \[f(z)\cdot \text{Ind}_{\gamma}(z) = \dfrac{1}{2\pi i}\int_{\gamma}\dfrac{f(\xi)}{\xi - z}d\xi.\]
+\end{theorem}
+\begin{proof}
+    We would like to prove that
+    \[
+    \int_{\gamma} \dfrac{f(\xi)-f(z)}{\xi-z}d\xi = 0
+    \]
+    for $z\in \Omega$ and $z\notin \gamma^*$. Define $g$ to be the factor in the integral for $\xi \neq z$ and make it equal to $f'(z)$ at $z$, then by \ref{thm: convex-cauchy}, we are done.
+\end{proof}
+
+\begin{theorem}
+    For any open set $\Omega$, any $f\in H(\Omega)$ has a series representation.
+\end{theorem}
+\begin{proof}
+    Assume $f\in H(\Omega)$ and $D(a;R) \subset \Omega$. We may consider positive-directed $\gamma = \partial D(a;r)$ with $r<R$ and then
+    \[
+    f(z) = \dfrac{1}{2\pi i}\int_{\gamma}\dfrac{f(\xi)}{\xi - z}d\xi
+    \]
+    and we may use \ref{thm: route-integral-holomorphic} by $X = [0,2\pi]$ and $\phi = \gamma$ and
+    \[d\mu(t) = f(\gamma(t))\gamma'(t)dt\]
+    and obtain that
+    \[
+    f(z) =  \sum\limits_{n=0}^{\infty}\left(\dfrac{1}{2\pi i}\int_\gamma\dfrac{f(\xi)d\xi}{(\xi - a)^{n+1}}\right)(z-a)^n
+    \]
+    for $z\in D(a;r)$.
+\end{proof}
+
+\begin{theorem}[Morera's Theorem]\label{thm: morera-thm}
+    Assume $f$ is a continuous complex function on an open set $\Omega$ and for any closed triangle $\Delta\subset \Omega$, we have
+    \[
+    \int_{\partial \Delta} f(z) dz = 0
+    \]
+    then $f\in H(\Omega)$.
+\end{theorem}
+\begin{proof}
+    Similar to the proof for \ref{thm: convex-cauchy}.
+\end{proof}
+
+\begin
