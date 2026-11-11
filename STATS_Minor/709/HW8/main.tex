@@ -72,6 +72,31 @@ and for any bounded borel $\phi$, we know
     &= \int \phi(T(x))\dfrac{\partial}{\partial\theta}f_{\theta}(x)d\nu
 \end{aligned}
 \]
+Applying the differentiation-under-the-integral condition to the bounded
+test statistic \(\phi(T)\), we obtain
+\[
+\E_\theta[\phi(T)S_X(X)]
+=\nabla_\theta\E_\theta[\phi(T)]
+=\nabla_\theta\int \phi(t)g_\theta(t)\,d\nu_T(t)
+=\E_\theta[\phi(T)S_T(T)],
+\]
+where \(\nu_T\) is the fixed dominating measure for \(T\).
+Since this holds for every bounded Borel \(\phi\), it follows componentwise
+that \(\E_\theta[S_X(X)\mid T]=S_T(T)\) almost surely. Put
+\(D=S_X(X)-S_T(T)\). Then \(\E_\theta[D\mid T]=0\), so
+\(\E_\theta[DS_T(T)^\top]=0\) and its transpose is also zero. Thus
+\[
+I_X(\theta)-I_T(\theta)=\E_\theta[DD^\top].
+\]
+For every \(a\in\R^k\), the quadratic form of this matrix is
+\(\E_\theta[(a^\top D)^2]\ge 0\), which proves (a).
+
+\noindent (b) If \(T\) is sufficient, the Fisher--Neyman factorization
+gives \(f_\theta(x)=h(x)q_\theta(T(x))\) with \(h\) independent of
+\(\theta\). Taking the gradient of the log density where it is positive
+shows that \(S_X(X)=\nabla_\theta\log q_\theta(T)\) is a function of \(T\).
+Hence \(S_X(X)=\E_\theta[S_X(X)\mid T]=S_T(T)\) almost surely, and
+\(I_X(\theta)=I_T(\theta)\).
 \vspace{3em}
 
 \subsection*{Problem 2. Bias--variance tradeoff and the Cram\'er--Rao bound}
@@ -327,6 +352,24 @@ I_\theta(X)^{-1}
 \end{pmatrix}.
 }
 \]
+For a normal sample, \(\overline X\) and \(S_n^2\) are independent,
+and \((n-1)S_n^2/\sigma^2\sim\chi^2_{n-1}\). Thus
+\[
+\operatorname{Cov}_\theta(\widehat\theta)
+=
+\begin{pmatrix}
+\dfrac{\sigma^2}{n} & 0\\[6pt]
+0 & \dfrac{2\sigma^4}{n-1}
+\end{pmatrix}.
+\]
+The estimator is unbiased for \(\theta\), so the matrix Cram\'er--Rao
+lower bound is \(I_\theta(X)^{-1}\). The difference is
+\[
+\operatorname{Cov}_\theta(\widehat\theta)-I_\theta(X)^{-1}
+=\operatorname{diag}\left(0,\frac{2\sigma^4}{n(n-1)}\right).
+\]
+Therefore \(\overline X\) attains the bound for \(\mu\), while \(S_n^2\)
+does not attain the bound for \(\sigma^2\), even though it is the UMVUE.
 \vspace{3em}
 
 \end{document}
