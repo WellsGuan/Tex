@@ -63,7 +63,15 @@ where $I_X(\theta)$ is the Fisher information about $\theta$ contained in $X$.
 \end{enumerate}
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
-% Write your solution to Problem 1 here.
+(a) Denote
+\[S_X(X) = \dfrac{\partial}{\partial \theta}\log f_{\theta}(X),\quad S_T(T) = \dfrac{\partial}{\partial \theta}\log g_{\theta}(T)\]
+and for any bounded borel $\phi$, we know
+\[
+\begin{aligned}
+    \mathbb{E}_{\theta}\left(\phi(T)S_X(X)\right) &= \int \phi(T(x))S_X(x)f_{\theta}(x)d\nu \\
+    &= \int \phi(T(x))\dfrac{\partial}{\partial\theta}f_{\theta}(x)d\nu
+\end{aligned}
+\]
 \vspace{3em}
 
 \subsection*{Problem 2. Bias--variance tradeoff and the Cram\'er--Rao bound}
@@ -89,7 +97,19 @@ $\E_\theta T^2<\infty$. Prove that
 and lead to a smaller mean squared error. The next exercise gives an example.
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
-% Write your solution to Problem 2 here.
+Assume $X$ has density respect to $\nu$, and then
+\[
+\mathbb E_{\theta}[(T-\theta)^2] = \text{Var}_{\theta}(T) + b_T(\theta)^2
+\]
+and it remains to show that
+\[
+\text{Var}_{\theta}(T) \geq \frac{[1+b'_T(\theta)]^2}{I(\theta)}
+\]
+where notice that
+\[
+1+b_T'(\theta) = (\mathbb E_{\theta}T)'
+\]
+and we are done by using the Cramer-Rao lower bound directly.
 \vspace{3em}
 
 \subsection*{Problem 3. Variance estimation}
@@ -115,7 +135,198 @@ Cram\'er--Rao bound. State whether each component attains its bound.
 \end{enumerate}
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
-% Write your solution to Problem 3 here.
+(i) We have
+\[
+b_{V_n}(\sigma) = \mathbb E_{\sigma}\dfrac{n-1}{n}S_n^2 - \sigma^2 = -\sigma^2/n
+\]
+and
+\[
+\text{Var}(V_n) = \dfrac{(n-1)^2}{n^2}\left(\mathbb{E}(S_n^4) - \sigma^4\right) = \dfrac{2(n-1)\sigma^4}{n^2}
+\]
+and hence
+\[
+\text{MSE}(V_n) = \text{Var}(V_n)+b_{V_n}(\sigma)^2 = \dfrac{2n-1}{n^2}\sigma^4 \leq \dfrac{2}{n-1}\sigma^4 = \text{MSE}(S_n^2).
+\]
+(ii) We know
+\[b_{c_nS_n^2}(\sigma) = (c_n-1)\sigma^2\]
+and
+\[\text{Var}(c_nS_n^2) = c_n^2(\mathbb{E}(S_n^4) - \sigma^4) = \dfrac{2c_n^2\sigma^4}{n-1}.\]
+Then we have
+\[
+\text{MSE}(c_nS_n^2) = \text{Var}(c_nS_n^2) + b_{c_nS_n^2}(\sigma)^2 = \left((c_n-1)^2 + \dfrac{2c_n^2}{n-1}\right)\sigma^4 \geq (1- (n-1)^2/(n+1)^2)\sigma^4
+\]
+where we may obtain the minium when
+\[
+c_n = (n-1)^2/(n+1)^2.
+\]
+(iii) Assume $f_{\theta}$ is the density function for $X = (X_1,\cdots,X_n)$ and then
+\[
+f_{\theta}(x_1,\ldots,x_n)
+=
+\prod_{i=1}^n
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(-\frac{(x_i-\mu)^2}{2\sigma^2}\right)
+=
+\frac{1}{(2\pi\sigma^2)^{n/2}}
+\exp\left(
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^n(x_i-\mu)^2
+\right).
+\]
+with
+\[
+\ell(\mu,\sigma^2)
+=
+\log f_{\mu,\sigma^2}(x_1,\ldots,x_n)
+=
+-\frac{n}{2}\log(2\pi\sigma^2)
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^n(x_i-\mu)^2.
+\]
+
+\begin{align*}
+\frac{\partial \ell}{\partial \mu}
+&=
+\frac{1}{\sigma^2}
+\sum_{i=1}^n(x_i-\mu),
+\\[6pt]
+\frac{\partial \ell}{\partial (\sigma^2)}
+&=
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+\sum_{i=1}^n(x_i-\mu)^2.
+\end{align*}
+
+The Fisher information matrix is
+\[
+I_\theta(X)
+=
+\mathbb E_\theta
+\left[
+\nabla_\theta\ell(\theta)
+\nabla_\theta\ell(\theta)^\top
+\right].
+\]
+
+Since $X_1,\ldots,X_n$ are i.i.d.
+$N(\mu,\sigma^2)$, we have
+\[
+\mathbb E_\theta[(X_i-\mu)^2]=\sigma^2,
+\qquad
+\mathbb E_\theta[(X_i-\mu)^3]=0,
+\]
+and
+\[
+\mathbb E_\theta[(X_i-\mu)^4]=3\sigma^4.
+\]
+
+For the $(1,1)$ entry,
+\begin{align*}
+I_{11}
+&=
+\frac{1}{\sigma^4}
+\mathbb E_\theta
+\left[
+\left(\sum_{i=1}^n(X_i-\mu)\right)^2
+\right]
+\\
+&=
+\frac{1}{\sigma^4}
+\sum_{i=1}^n
+\mathbb E_\theta[(X_i-\mu)^2]
+\\
+&=
+\frac{n}{\sigma^2}.
+\end{align*}
+
+For the off-diagonal entry,
+\begin{align*}
+I_{12}
+&=
+\mathbb E_\theta
+\left[
+\frac{1}{\sigma^2}
+\sum_{i=1}^n(X_i-\mu)
+\left(
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+\sum_{j=1}^n(X_j-\mu)^2
+\right)
+\right]
+\\
+&=
+\frac{1}{2\sigma^6}
+\sum_{i,j=1}^n
+\mathbb E_\theta
+\left[
+(X_i-\mu)(X_j-\mu)^2
+\right]
+\\
+&=0.
+\end{align*}
+
+For the $(2,2)$ entry,
+\begin{align*}
+I_{22}
+&=
+\mathbb E_\theta
+\left[
+\left(
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+\sum_{i=1}^n(X_i-\mu)^2
+\right)^2
+\right]
+\\
+&=
+\frac{1}{4\sigma^8}
+\operatorname{Var}_\theta
+\left(
+\sum_{i=1}^n(X_i-\mu)^2
+\right)
+\\
+&=
+\frac{n}{4\sigma^8}
+\left(
+\mathbb E_\theta[(X_1-\mu)^4]
+-
+\left(\mathbb E_\theta[(X_1-\mu)^2]\right)^2
+\right)
+\\
+&=
+\frac{n}{4\sigma^8}
+(3\sigma^4-\sigma^4)
+\\
+&=
+\frac{n}{2\sigma^4}.
+\end{align*}
+
+Therefore,
+\[
+I_\theta(X)
+=
+\begin{pmatrix}
+\dfrac{n}{\sigma^2} & 0
+\\[10pt]
+0 & \dfrac{n}{2\sigma^4}
+\end{pmatrix}.
+\]
+
+Consequently,
+\[
+{
+I_\theta(X)^{-1}
+=
+\begin{pmatrix}
+\dfrac{\sigma^2}{n} & 0
+\\[10pt]
+0 & \dfrac{2\sigma^4}{n}
+\end{pmatrix}.
+}
+\]
 \vspace{3em}
 
 \end{document}
