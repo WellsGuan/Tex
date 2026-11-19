@@ -1,0 +1,725 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{microtype,booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\clG}{\mathcal G}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\Lip}{\operatorname{Lip}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Law}{\operatorname{Law}}
+\newcommand{\Geo}{D_{\mathrm{geo}}}
+\newcommand{\Arith}{D_{\mathrm{arith}}}
+\newcommand{\TV}{\mathrm{TV}}
+\newcommand{\Ein}{\operatorname{Ein}}
+\newcommand{\osc}{\operatorname{osc}}
+\newcommand{\indic}{\mathbf 1}
+\allowdisplaybreaks[2]
+\title{Long-Time Statistics of the Two-Dimensional Stochastic Heat Equation\\with a Periodic Nonlinearity}
+\author{Research notes}
+\date{November 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We investigate a scalar two-dimensional stochastic heat equation with a positive periodic noise coefficient and a logarithmically varying coupling strength. Parabolic scaling reduces the unattenuated problem to the long-time behavior of a fixed, spatially regularized SPDE. We derive a characterization of its effective variance in terms of the phase and spatial increments, stationary energy identities, and an exact Fourier--Duhamel equation. For a sinusoidal perturbation of a constant squared coefficient, this equation admits a contraction expansion. It yields limiting phase/increment statistics, a spatial clustering estimate, and a Gaussian limit at fixed microscopic coupling. The second-order correction to the effective variance is an explicit integral of the covariance of an additive Gaussian stochastic convolution. Its small- and large-coupling limits agree with the expansions of the geometric and arithmetic means, respectively. The expansion has an error uniform in the coupling and time, which also gives second-order information on diagonal logarithmic limits of the variance. The general periodic problem, the full endpoint identifications, and Gaussian convergence along varying-coupling diagonals remain open in these notes.
+\end{abstract}
+\tableofcontents
+
+\section{Setup and the proposed regimes}
+\subsection{The equation and normalization}
+Let
+\[
+ G_t(x)=\frac{1}{2\pi t}\exp\left(-\frac{|x|^2}{2t}\right),\qquad
+ \clG_t f=G_t*f,\qquad L(a)=\log(1+a),\quad
+ \gamma_\rho^2=\frac{4\pi}{L(1/\rho)}.
+\]
+We work on $\R^2$ with a scalar space--time white noise $W$. For $c\in\R$, consider the post-smoothed equation
+\begin{equation}\label{eq:original}
+ v_t^{\rho,c}(x)=\clG_t v_0(x)+\gamma_\rho^c
+ \int_0^t\clG_{t+\rho-r}[\sigma(v_r^{\rho,c})\dd W_r](x).
+\end{equation}
+The noise smoothing is performed \emph{after} multiplication by $\sigma$, as in the post-smoothed model of \cite{DG}; see Appendix~\ref{app:DG}. All stochastic integrals below are It\^o--Walsh integrals. The equation is not identified with the pre-smoothed model at strong coupling.
+
+\begin{assumption}\label{ass:main}
+Unless otherwise stated, $v_0\equiv a\in\R$ and $h=\sigma^2$ is a smooth $p$-periodic function with
+\[
+ 0<m^2\le h(z)\le M^2<\infty,\qquad \sigma(z)=\sqrt{h(z)}.
+\]
+The period $p>0$ and the function $h$ are fixed. Smoothness can be relaxed in many of the arguments; positivity is essential for the stated nondegenerate conjectures.
+\end{assumption}
+The symbol $\kappa$ below denotes the microscopic coupling (not a rescaled time). Define
+\begin{equation}\label{eq:norm}
+ Z_t^{\rho,c}(x)=\gamma_\rho^{1-c}(v_t^{\rho,c}(x)-a),\qquad
+ \kappa_\rho=\gamma_\rho^c,
+ \qquad Q_\rho=\frac{\kappa_\rho^2}{\gamma_\rho^2}.
+\end{equation}
+The It\^o isometry and $\|G_s\|_2^2=(4\pi s)^{-1}$ give
+\begin{equation}\label{eq:variance_rho}
+ m^2\frac{L(t/\rho)}{L(1/\rho)}\le \E|Z_t^{\rho,c}(x)|^2
+ \le M^2\frac{L(t/\rho)}{L(1/\rho)}.
+\end{equation}
+Thus the normalization is nondegenerate for fixed $t>0$ even when the unnormalized height diverges. The relevant averages of $h$ are
+\[
+ \Geo=\exp\!\left(\frac1p\int_0^p\log h(z)\dd z\right),\qquad
+ \Arith=\frac1p\int_0^p h(z)\dd z.
+\]
+These are \emph{variances}; the corresponding effective noise amplitudes are their square roots.
+
+\begin{conjecture}[The periodic homogenization picture]\label{conj:main}
+For the normalized pointwise statistics in \eqref{eq:norm}, the proposed limiting variances and laws are as follows (for fixed $t>0$ and constant initial data):
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Range of $c$ & Microscopic coupling & Candidate limit of $Z_t^{\rho,c}(x)$\\
+\midrule
+$c>1$ & $\kappa_\rho\to0,\ Q_\rho\to0$ & $N(0,h(a))$\\
+$c=1$ & $\kappa_\rho\to0,\ Q_\rho=1$ & FBSDE terminal value minus $a$\\
+$0<c<1$ & $\kappa_\rho\to0,\ Q_\rho\to\infty$ & $N(0,\Geo)$\\
+$c=0$ & $\kappa_\rho=1,\ Q_\rho\to\infty$ & $N(0,D(1))$\\
+$c<0$ & $\kappa_\rho\to\infty,\ Q_\rho\to\infty$ & $N(0,\Arith)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here $D(1)$ is expected to retain information about the microscopic noise covariance and its interaction with $h$. The rows $0<c<1$ and $c<0$ are conjectural in general. The row $c=0$ is proved below for a sinusoidal perturbation with $|\delta|<b$, for the post-smoothed Gaussian kernel and constant initial data. The $c>1$ row follows directly from linearization, and $c=1$ is the regime covered by \cite{DG} under its hypotheses.
+\end{conjecture}
+\begin{remark}
+One must distinguish pointwise normalization from the normalization used for distribution-valued fluctuations. For example, at distinct fixed space--time points, the pointwise Gaussian limit proved below has independent coordinates. This does not assert convergence to a continuous Gaussian random field, or to a macroscopic stochastic heat equation in a spatial distribution topology.
+\end{remark}
+
+\subsection{Why $c=1$ and $c>1$ are separate}
+For $c>1$, \eqref{eq:variance_rho} before normalization implies $\sup_{r\le t,x}\E|v_r^{\rho,c}(x)-a|^2\lesssim \gamma_\rho^{2c-2}$, with a constant for fixed $t$. Replacing $\sigma(v)$ by $\sigma(a)$ in the normalized stochastic integral introduces a mean-square error bounded by
+\[
+ \frac{\Lip(\sigma)^2}{L(1/\rho)}\int_0^t
+ \frac{\sup_x\E|v_r^{\rho,c}(x)-a|^2}{t+\rho-r}\dd r
+ \lesssim \gamma_\rho^{2c-2}\longrightarrow0.
+\]
+The resulting integral is Gaussian with variance tending to $h(a)$. At $c=1$ the original weak-coupling FBSDE is generally nonlinear and non-Gaussian. Thus the statement ``$c>0$ gives the geometric mean'' must be restricted to $0<c<1$ for the present choice of powers.
+
+\section{Exact microscopic scaling}
+\begin{proposition}[Parabolic scaling]\label{prop:scaling}
+Let
+\[
+ U_s^{\rho,c}(y)=v_{\rho s}^{\rho,c}(\sqrt\rho\,y).
+\]
+There is a standard white noise $\widetilde W^\rho$ such that
+\begin{equation}\label{eq:micro}
+ U_s^{\rho,c}(y)=a+\kappa_\rho\int_0^s
+ \clG_{s+1-u}[\sigma(U_u^{\rho,c})\dd\widetilde W^\rho_u](y).
+\end{equation}
+In particular, at $c=0$ the law of the rescaled field does not depend on $\rho$. More generally, let $U^\kappa$ denote the unique solution of
+\begin{equation}\label{eq:U}
+ \dd U_t^\kappa=\tfrac12\Delta U_t^\kappa\dd t+
+ \kappa\clG_1[\sigma(U_t^\kappa)\dd W_t],\qquad U_0^\kappa\equiv a.
+\end{equation}
+Then, as fields in law, $v_t^{\rho,c}(x)=_{\rm law}U_{t/\rho}^{\kappa_\rho}(x/\sqrt\rho)$.
+\end{proposition}
+\begin{proof}
+Put $S_\rho(u,z)=(\rho u,\sqrt\rho\,z)$ and define $\widetilde W^\rho(A)=\rho^{-1}W(S_\rho A)$ for finite-volume Borel sets. In dimension two $|S_\rho A|=\rho^2|A|$, so the rescaled centered Gaussian measure has covariance $|A\cap B|$ and is again white noise. It is white in time relative to the rescaled filtration. The stochastic change of variables is first checked for simple predictable integrands and then extended by the It\^o isometry. Using
+\[
+ G_{\rho s}(\sqrt\rho\,z)=\rho^{-1}G_s(z),
+ \qquad W(\dd(\rho u),\dd(\sqrt\rho\,z))=\rho\,\widetilde W^\rho(\dd u,\dd z),
+\]
+in \eqref{eq:original} yields
+\begin{align*}
+ v_{\rho s}^{\rho,c}(\sqrt\rho\,y)
+ &=a+\rho\gamma_\rho^c\int_0^s\int_{\R^2}
+ G_{\rho(s+1-u)}(\sqrt\rho(y-z))\sigma(v_{\rho u}^{\rho,c}(\sqrt\rho\,z))
+ \,\widetilde W^\rho(\dd u,\dd z)\\
+ &=a+\kappa_\rho\int_0^s\int_{\R^2}G_{s+1-u}(y-z)
+ \sigma(U_u^{\rho,c}(z))\,\widetilde W^\rho(\dd u,\dd z).
+\end{align*}
+Uniqueness in law for the fixed-cutoff Lipschitz equation now gives the claim.
+\end{proof}
+\begin{remark}
+The cancellation of powers of $\rho$ is specific to dimension two: in dimension $d$ the net factor is $\rho^{(2-d)/4}$. Periodicity is not needed for scaling. Nonconstant initial data become $v_0(\sqrt\rho\,\cdot)$ and are not automatically independent of $\rho$. The scaling statement does not itself construct an invariant distribution.
+\end{remark}
+
+\section{A candidate effective diffusivity and exact martingale identities}
+For fixed $\kappa>0$ we suppress the superscript when convenient. Spatial stationarity follows from the constant initial data and translation invariance of the noise. Set
+\begin{equation}\label{eq:Dtime}
+ D_\kappa(t)=\E h(U_t^\kappa(0)),\qquad m^2\le D_\kappa(t)\le M^2.
+\end{equation}
+\subsection{The backward heat martingale}
+\begin{proposition}\label{prop:bracket}
+Fix $R>0$ and define $V_s^R=\clG_{R-s}U_s(0)-a$, $0\le s\le R$. Then $V^R$ is a continuous martingale and
+\begin{align}
+ V_s^R&=\kappa\int_0^s\clG_{R+1-r}[\sigma(U_r)\dd W_r](0),\\
+ \langle V^R\rangle_s&=\frac{\kappa^2}{4\pi}\int_0^s
+ \frac{\clG_{(R+1-r)/2}h(U_r)(0)}{R+1-r}\dd r.\label{eq:bracket}
+\end{align}
+In particular, for $Y_R^\kappa=\sqrt{4\pi/(\kappa^2\log(1+R))}(U_R(0)-a)$ its underlying normalized martingale has terminal bracket
+\begin{equation}\label{eq:bracket_B}
+ B_R^\kappa=\frac1{\log(1+R)}\int_0^R\frac{\clG_{(1+r)/2}h(U_{R-r})(0)}{1+r}\dd r.
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:meanbracket}
+ \E|Y_R^\kappa|^2=\E B_R^\kappa=\frac1{\log(1+R)}\int_0^R\frac{D_\kappa(R-r)}{1+r}\dd r.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Apply the semigroup property to the mild equation; stochastic Fubini is justified by the bounded coefficient and positive cutoff. The kernel identity $G_s^2=(4\pi s)^{-1}G_{s/2}$ yields the bracket. Stationarity in space gives \eqref{eq:meanbracket}.
+\end{proof}
+\begin{corollary}[A reduction to concentration]\label{cor:CLT}
+Suppose $B_R^\kappa\to D$ in probability for a deterministic $D\ge0$. Then $Y_R^\kappa\Rightarrow N(0,D)$. If $D_\kappa(t)\to D(\kappa)$ and
+\begin{equation}\label{eq:spatial_concentration}
+ \lim_{r,t\to\infty}\E\left|\clG_{(1+r)/2}h(U_t)(0)-D_\kappa(t)\right|=0,
+\end{equation}
+where the limit is joint, then $B_R^\kappa\to D(\kappa)$ in $L^1$.
+\end{corollary}
+\begin{proof}
+The martingale implication is proved in Appendix~\ref{app:mart}. For the second assertion, fix $K>0$. In \eqref{eq:bracket_B} the contribution from $r<K$ is bounded by $M^2\log(1+K)/\log(1+R)$, and that from $r>R-K$ tends to zero for fixed $K$. On the remaining interval both $r$ and $R-r$ are at least $K$. Use \eqref{eq:spatial_concentration} and $D_\kappa(t)\to D(\kappa)$ there, and send $K\to\infty$ after $R\to\infty$.
+\end{proof}
+For original physical time $T$, $R=T/\rho$ and the normalization in \eqref{eq:norm} differs from the one in $Y_R^{\kappa_\rho}$ only by a deterministic factor tending to one. In particular, the exact original variance is
+\begin{equation}\label{eq:diagonalvar}
+ \E|Z_T^{\rho,c}(x)|^2=\frac{1}{L(1/\rho)}\int_0^{T/\rho}
+ \frac{D_{\kappa_\rho}(T/\rho-r)}{1+r}\dd r.
+\end{equation}
+\subsection{The logarithmic time layer}
+Write $L_\rho=L(1/\rho)$. In physical coordinates the bracket integrates time lags $u=T-s$ against $\dd u/[L_\rho(u+\rho)]$. For fixed $T>0$,
+\begin{align*}
+ \frac1{L_\rho}\int_\rho^{1/L_\rho}\frac{\dd u}{u+\rho}
+ &=1-\frac{\log L_\rho+O(1)}{L_\rho},\\
+ \frac1{L_\rho}\int_{1/L_\rho}^T\frac{\dd u}{u+\rho}
+ &=O\left(\frac{\log L_\rho}{L_\rho}\right),\qquad
+ \frac1{L_\rho}\int_0^\rho\frac{\dd u}{u+\rho}=O(L_\rho^{-1}).
+\end{align*}
+Thus the main physical time layer is $\rho\lesssim u\lesssim L_\rho^{-1}$. Microscopically this means $1\lesssim r\lesssim (\rho L_\rho)^{-1}$, and a spatial averaging radius of order $\sqrt r$. A local limit theorem for a fixed finite number of points alone would not guarantee concentration throughout this growing range. This is why spatial clustering or a uniform substitute matters, even though the original observable is a single height.
+
+\section{Periodic phases, tightness and stationary identities}
+\subsection{A state space modulo vertical translations}
+The map $u\mapsto u+kp$ commutes with the dynamics when they are driven by the same noise, by periodicity and pathwise uniqueness. The appropriate quotient state is
+\begin{equation}\label{eq:quotient}
+ \eta_t=(U_t(0)\bmod p,\ U_t(\cdot)-U_t(0)).
+\end{equation}
+The second coordinate is anchored at zero. Taking the phase pointwise without retaining increments would lose the information needed to compute the Laplacian. In particular, the phase alone need not be a Markov process.
+\begin{proposition}[Time-uniform increment and derivative estimates]\label{prop:increments}
+For every $q\ge2$ and multi-index $\alpha$ with $|\alpha|\ge1$,
+\begin{align}
+ \sup_{t\ge0}\E|U_t(x)-U_t(y)|^q
+ &\le C_q(\kappa M)^q[\log(1+|x-y|^2)]^{q/2},\label{eq:increment}\\
+ \sup_{t,x}\E|\partial^\alpha U_t(x)|^q
+ &\le C_{q,\alpha}(\kappa M)^q.\label{eq:deriv}
+\end{align}
+Consequently, for each fixed $\kappa$, the family $\{\Law(\eta_t):t\ge0\}$ is tight in $\R/p\mathbb Z\times C_{\rm loc}(\R^2)$ (indeed in local $C^j$ topologies for finite $j$).
+\end{proposition}
+\begin{proof}
+For $q=2$ the It\^o isometry yields
+\begin{align*}
+ \E|U_t(x)-U_t(y)|^2
+ &\le \kappa^2M^2\int_1^{1+t}
+ \|G_s(x-\cdot)-G_s(y-\cdot)\|_2^2\dd s\\
+ &=\frac{\kappa^2M^2}{2\pi}\int_1^{1+t}\frac{1-e^{-|x-y|^2/(4s)}}s\dd s.
+\end{align*}
+The integral is bounded by $C\log(1+|x-y|^2)$: use $1-e^{-u}\le \min(1,u)$ and split at $s=1\vee |x-y|^2$. For higher moments apply BDG to the same terminal stochastic integral with a deterministic bracket bound. Differentiating the deterministic kernel in the stochastic convolution is justified in $L^2$; $\|\partial^\alpha G_s\|_2^2=C_\alpha s^{-1-|\alpha|}$, integrable over $[1,\infty)$. BDG again yields \eqref{eq:deriv}. Applying the same difference bound to derivative kernels, or integrating the next derivative along a segment, gives local increment bounds of order $|x-y|^q$. Kolmogorov's continuity and tightness criterion for $q>2$, applied on each compact box, gives tightness of the anchored field and its derivatives. The phase lives on a compact circle.
+\end{proof}
+\begin{remark}
+For arbitrary positive periodic $h$, tightness suggests constructing invariant measures of the quotient dynamics through time averages. To make the Krylov--Bogoliubov step rigorous one needs a suitable state space with growth control and a Feller or equivalent weak-continuity argument. Tightness alone neither proves uniqueness nor convergence from a fixed initial phase. For the sinusoidal model, Section~\ref{sec:contraction} instead constructs limiting quotient statistics directly. No abstract invariant-measure theorem is needed there.
+\end{remark}
+\subsection{Exact phase and energy balances}
+\begin{proposition}[Phase identity]\label{prop:phase}
+Let $f\in C^2(\R)$ be $p$-periodic. Then
+\begin{equation}\label{eq:phase}
+ 2\frac{\dd}{\dd t}\E f(U_t(0))=
+ \E\left[f''(U_t(0))\left(\frac{\kappa^2}{4\pi}\clG_{1/2}h(U_t)(0)-|\nabla U_t(0)|^2\right)\right].
+\end{equation}
+The equality may equivalently be read in integrated form over a finite time interval.
+\end{proposition}
+\begin{proof}
+At a fixed $x$ the post-smoothed solution is a semimartingale with drift $\Delta U_t(x)/2$ and local bracket density $\kappa^2\clG_{1/2}h(U_t)(x)/(4\pi)$. Apply It\^o's formula. By spatial stationarity and the derivative bounds,
+\[
+ 0=\E\Delta f(U_t(x))=\E[f'(U_t(x))\Delta U_t(x)+f''(U_t(x))|\nabla U_t(x)|^2].
+\]
+Substitute this into the expected It\^o formula.
+\end{proof}
+If a stationary quotient law $\mu_\kappa$ with the requisite moments exists, \eqref{eq:phase} implies the signed-measure identity on the circle
+\begin{equation}\label{eq:stationaryphase}
+ \int f''(z)\,\nu_\kappa(\dd z)=0,
+ \quad \nu_\kappa(\dd z)=\E_{\mu_\kappa}\left[\indic_{\{U(0)\bmod p\in\dd z\}}
+ \left(\frac{\kappa^2}{4\pi}\clG_{1/2}h(U)(0)-|\nabla U(0)|^2\right)\right].
+\end{equation}
+Consequently $\nu_\kappa$ is a constant multiple of Lebesgue measure on the circle (test against all nonzero Fourier modes). This is a statement about weighted phase laws, not uniformity of the phase distribution itself.
+\begin{proposition}[Gradient energy identity]\label{prop:energy}
+For all $t\ge0$,
+\begin{equation}\label{eq:energy}
+ \E|\nabla U_t(0)|^2=\frac{\kappa^2}{4\pi}\int_0^t\frac{D_\kappa(t-s)}{(1+s)^2}\dd s.
+\end{equation}
+If $D_\kappa(t)\to D(\kappa)$ then $\E|\nabla U_t(0)|^2\to\kappa^2D(\kappa)/(4\pi)$.
+\end{proposition}
+\begin{proof}
+Differentiate the mild expression and apply It\^o isometry. The identity $\|\nabla G_s\|_2^2=1/(4\pi s^2)$ follows from the heat equation or a direct Gaussian calculation. The conclusion follows by dominated convergence since $(1+s)^{-2}$ is integrable with integral one.
+\end{proof}
+In particular $D(1)=4\pi\lim_{t\to\infty}\E|\nabla U_t(0)|^2$ whenever the time limit exists. In a limiting stationary phase/increment law obtained from a constant initial condition with this convergence, uniform integrability from \eqref{eq:deriv} implies $\nu_\kappa(\R/p\mathbb Z)=0$ in \eqref{eq:stationaryphase}, hence $\nu_\kappa=0$. This identifies a conditional balance between variance injection and gradient dissipation. It does not close the evolution for $D_\kappa(t)$ by itself.
+
+\subsection{Why the derivative cancellation is not enough}
+For two solutions driven by the same noise, with $w=U-\widetilde U$, the exact linearization is
+\[
+ \sigma(U)-\sigma(\widetilde U)=aw,\qquad
+ a=\int_0^1\sigma'(\widetilde U+\theta w)\dd\theta.
+\]
+In a mean-square estimate the stochastic term contains $\E[a^2w^2]$, which does not vanish even if $\int_0^p\sigma'=0$ or $\E\sigma'(U)\to0$. For constant initial phase $a_0$, differentiating the solution with respect to $a_0$ under smoothness gives $J=1+\kappa\int\clG[\sigma'(U)J\dd W]$. Shift equivariance yields $\int_0^p J(a_0)\dd a_0=p$ and $\int_0^p\sigma'(U(a_0))J(a_0)\dd a_0=0$ (identities in a differentiable version or in the appropriate weak derivative sense). They concern averaging over initial phases rather than fixed-phase quadratic variation. For this reason the following analysis uses Fourier observables, in which signed cancellation is retained before taking absolute values.
+
+\section{The geometric mean and the decoupling flow}\label{sec:flow}
+The scalar decoupling PDE of \cite{DG} is
+\begin{equation}\label{eq:flow}
+ \partial_q H=\tfrac12 H\partial_{zz}H,\qquad H(0,z)=h(z).
+\end{equation}
+\begin{proposition}[Long-time periodic decoupling flow]\label{prop:geo}
+Under Assumption~\ref{ass:main}, the periodic solution of \eqref{eq:flow} exists globally and converges uniformly and exponentially fast to $\Geo$.
+\end{proposition}
+\begin{proof}
+The maximum principle keeps $m^2\le H\le M^2$, so the scalar quasilinear equation is uniformly parabolic. Standard periodic parabolic regularity and continuation give a global smooth solution (see Appendix~\ref{app:DG}). Periodic integration by parts shows
+\[
+ \frac{\dd}{\dd q}\int_0^p\log H(q,z)\dd z=\frac12\int_0^pH_{zz}\dd z=0.
+\]
+Differentiating the gradient energy gives
+\begin{align*}
+ \frac{\dd}{\dd q}\int_0^p|H_z|^2\dd z
+ &=-2\int_0^p H_{zz}H_q\dd z=-\int_0^p H|H_{zz}|^2\dd z\\
+ &\le-m^2(2\pi/p)^2\int_0^p|H_z|^2\dd z.
+\end{align*}
+Thus $\osc H(q,\cdot)\le\sqrt p\|H_z\|_2$ decays exponentially. The conserved logarithmic average places $\Geo$ between $\min H$ and $\max H$ at every time, proving the claim.
+\end{proof}
+The scaling identity for the PDE is $H_{\lambda^2h}(q,z)=\lambda^2 H_h(\lambda^2 q,z)$. Formally, writing \eqref{eq:original} as the weak-coupling model with coefficient $\gamma_\rho^{c-1}\sigma$ corresponds to a decoupling horizon $Q_\rho=\gamma_\rho^{2(c-1)}$. If $0<c<1$, this horizon diverges while $\kappa_\rho\to0$. The long-time PDE therefore explains the candidate $\Geo$. This is not by itself an approximation theorem for the $\rho$-dependent coefficients: the constants in \cite{DG} cannot be assumed uniform in $\gamma_\rho^{c-1}$. In contrast, the fixed-cutoff problem at $c=0$ admits the following exact alternative analysis.
+
+\section{An exact Fourier--Duhamel identity}\label{sec:fourier}
+\subsection{The sinusoidal perturbation and the Gaussian reference}
+Fix $b>0$, $k=2\pi/p$ and
+\begin{equation}\label{eq:cosmodel}
+ h_\delta(z)=b+\delta\cos(kz),\qquad |\delta|<b.
+\end{equation}
+Use $U^{\kappa,\delta}$ for the solution of \eqref{eq:U} with $\sigma=\sqrt{h_\delta}$. The reference $\delta=0$ is an additive Gaussian SPDE. It is important that the generator depends on $h_\delta$ (the squared coefficient), which is affine in $\delta$, even though $\sigma$ itself is not affine.
+
+Let $\mathcal M$ denote the real finite signed Borel measures on $\R^2$ with finite first absolute moment. Denote the total mass by $m(\nu)=\nu(\R^2)$ and define
+\begin{align*}
+ \langle\nu,u\rangle&=\int u(x)\nu(\dd x),\qquad F_\nu(u)=e^{i\langle\nu,u\rangle},\\
+ K_s^\nu(y)&=(G_{s+1}*\nu)(y),\qquad
+ P_s\nu=G_s*\nu\quad (s=0:\ P_0\nu=\nu),\\
+ E_s^\nu&=\int_0^s\|K_r^\nu\|_2^2\dd r,\qquad
+ e_s^\nu=\exp(-\kappa^2 b E_s^\nu/2),\\
+ \Psi_t^\delta(\nu)&=\E F_\nu(U_t^{\kappa,\delta}).
+\end{align*}
+The integrals are well-defined for finite time by bounded coefficients and the uniform second moment in space. The observables invariant under $u\mapsto u+p$ correspond to $m(\nu)\in k\mathbb Z$. We prove the identity for the larger class $\mathcal M$.
+
+The additive semigroup is explicit:
+\begin{equation}\label{eq:additive_semigroup}
+ (\mathcal P_s^0 F_\nu)(u)=e_s^\nu F_{P_s\nu}(u),\qquad
+ \Psi_t^0(\nu)=e^{ia m(\nu)}e_t^\nu.
+\end{equation}
+For $\nu=k\delta_0$ (where $\delta_0$ here is Dirac mass),
+\begin{equation}\label{eq:alpha}
+ e_s^{k\delta_0}=(1+s)^{-\alpha},\qquad \alpha=\frac{\kappa^2 b k^2}{8\pi}.
+\end{equation}
+Thus the Gaussian reference already provides polynomial phase damping, which is exactly the extra integrable power missing in the crude $L^2$ Volterra estimate.
+
+\begin{proposition}[Exact Fourier equation]\label{prop:Duhamel}
+For $\nu\in\mathcal M$, $t\ge0$, the following identity holds:
+\begin{align}
+ \Psi_t^\delta(\nu)=\Psi_t^0(\nu)
+ -\frac{\kappa^2\delta}{4}\int_0^t e_s^\nu\int_{\R^2}(K_s^\nu(y))^2
+ \big[&\Psi_{t-s}^\delta(P_s\nu+k\delta_y)\notag\\
+ &+\Psi_{t-s}^\delta(P_s\nu-k\delta_y)\big]\dd y\dd s.\label{eq:duhamel}
+\end{align}
+In particular,
+\begin{equation}\label{eq:chardiff}
+ \sup_{t\ge0,\,\nu\in\mathcal M,\,\kappa>0}
+ |\Psi_t^\delta(\nu)-\Psi_t^0(\nu)|\le\frac{|\delta|}{b}.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Fix $t$ and set $X_r=\langle P_{t-r}\nu,U_r\rangle$, $0\le r\le t$. The semigroup cancels the heat drift, so
+\[
+ X_r=a m(\nu)+\kappa\int_0^r\int_{\R^2}K_{t-u}^\nu(y)\sigma(U_u(y))W(\dd u,\dd y).
+\]
+The stochastic Fubini step follows from boundedness of $h$ and $\|G_s*\nu\|_2\le\|G_s\|_2\|\nu\|_{\TV}$. Set $J_r=e_{t-r}^\nu e^{iX_r}$. Since
+\[
+ \frac{\dd}{\dd r}e_{t-r}^\nu=\frac{\kappa^2b}{2}\|K_{t-r}^\nu\|_2^2 e_{t-r}^\nu,
+\]
+It\^o's formula cancels precisely the constant part of the bracket. Taking expectations gives
+\begin{align*}
+ \E J_t-J_0=-\frac{\kappa^2\delta}{2}\int_0^t e_{t-r}^\nu\int (K_{t-r}^\nu(y))^2
+ \E[e^{iX_r}\cos(kU_r(y))]\dd y\dd r.
+\end{align*}
+Expand the cosine, put $s=t-r$, and use the definition of $\Psi$ to get \eqref{eq:duhamel}. Finally
+\begin{equation}\label{eq:kernelmass}
+ \frac{\kappa^2}{2}\int_0^t e_s^\nu\|K_s^\nu\|_2^2\dd s
+ =\frac1b(1-e_t^\nu)\le\frac1b.
+\end{equation}
+Both characteristic functions have modulus at most one. This proves \eqref{eq:chardiff}. Notice that the argument also works with any bounded perturbation $h-b$: the right side becomes $\|h-b\|_\infty/b$ without requiring its Fourier expansion.
+\end{proof}
+\begin{remark}
+This is an exact finite-time identity, not a formal differentiation of a stationary distribution. In particular, neither stationarity, phase uniformity, nor an independence hypothesis for the nonlinear solution is needed. Formula \eqref{eq:kernelmass} is the source of uniformity in $\kappa$ and $t$.
+\end{remark}
+
+\section{Long-time Fourier statistics via a contraction}\label{sec:contraction}
+\subsection{The additive limit}
+\begin{lemma}\label{lem:additive}
+For each $\nu\in\mathcal M$,
+\[
+ \Psi_\infty^0(\nu):=\lim_{t\to\infty}\Psi_t^0(\nu)
+ =\begin{cases}
+ \exp(-\kappa^2 b E_\infty^\nu/2),&m(\nu)=0,\\
+ 0,&m(\nu)\ne0.
+ \end{cases}
+\]
+If $m(\nu)=0$ then $E_\infty^\nu<\infty$.
+\end{lemma}
+\begin{proof}
+Write $G_s*\nu=m(\nu)G_s+\int [G_s(\cdot-y)-G_s]\nu(\dd y)$. By translation and the gradient bound, the error has $L^2$ norm at most $\|\nabla G_s\|_2\int|y||\nu|(\dd y)=O(s^{-1})$. If $m(\nu)=0$, integrate the squared bound over $s\ge1$. If the mass is nonzero, $\|G_s*\nu\|_2\ge |m(\nu)|(4\pi s)^{-1/2}-O(s^{-1})$, so the energy diverges logarithmically. Now apply \eqref{eq:additive_semigroup}.
+\end{proof}
+On the quotient, this law can be realized using a uniform independent phase $\Theta$ on $[0,p)$ and the anchored Gaussian field
+\begin{equation}\label{eq:gauss_anchor}
+ X(x)=\kappa\sqrt b\int_0^\infty\int_{\R^2}
+ [G_{r+1}(x-y)-G_{r+1}(-y)]\,\mathcal W(\dd r,\dd y).
+\end{equation}
+The integral converges in $L^2$ by Proposition~\ref{prop:increments}. Its characteristic functions for invariant observables agree with Lemma~\ref{lem:additive}: the uniform phase kills nonzero integer multiples of $k$ and the anchored Gaussian field gives the neutral characteristic function. This explicitly describes the additive limiting quotient law.
+\subsection{Contraction expansion}
+Define the linear operator on bounded functions of $(t,\nu)$ by
+\[
+ (\mathcal T_t f)(t,\nu)=-\frac{\kappa^2}{4}\int_0^t e_s^\nu\int(K_s^\nu(y))^2
+ [f(t-s,P_s\nu+k\delta_y)+f(t-s,P_s\nu-k\delta_y)]\dd y\dd s.
+\]
+Use $\mathcal T_\infty$ for the operator with integral over $[0,\infty)$ acting on functions of $\nu$ alone. The notation $\mathcal T_t$ denotes the time-dependent operator on the whole time-indexed family, not evaluation at one fixed time. Both operator norms on bounded functions (with measurable integrands) are at most $b^{-1}$ by \eqref{eq:kernelmass}.
+\begin{theorem}[Convergent Fourier expansion]\label{thm:contraction}
+For fixed $\kappa>0$, $|\delta|<b$ and all $\nu\in\mathcal M$,
+\begin{equation}\label{eq:series}
+ \Psi_t^\delta=\sum_{j=0}^\infty \delta^j\mathcal T_t^j\Psi^0,
+ \qquad
+ \Psi_\infty^\delta=\sum_{j=0}^\infty\delta^j\mathcal T_\infty^j\Psi_\infty^0,
+ \qquad \Psi_t^\delta(\nu)\longrightarrow\Psi_\infty^\delta(\nu).
+\end{equation}
+The series converge absolutely and uniformly in the arguments, with tails bounded by $(|\delta|/b)^{N+1}/(1-|\delta|/b)$ after order $N$. In particular
+\begin{equation}\label{eq:D_exists}
+ D_{\kappa,\delta}(t):=\E h_\delta(U_t(0))\longrightarrow
+ D_\delta(\kappa)=b+\delta\Re\Psi_\infty^\delta(k\delta_0).
+\end{equation}
+The limiting Fourier statistics are independent of the constant initial phase $a$. The quotient law in \eqref{eq:quotient} converges weakly in the local continuous topology to a law $\mu_{\kappa,\delta}$ determined by \eqref{eq:series}.
+\end{theorem}
+\begin{proof}
+Equation \eqref{eq:duhamel} is $\Psi^\delta=\Psi^0+\delta\mathcal T_t\Psi^\delta$. Repeated substitution and the bound $\|\mathcal T_t\|\le b^{-1}$ yield the finite-time series and its tail estimate. The same norm estimate applies to the infinite-horizon operator. For each fixed order $j$, induction using Lemma~\ref{lem:additive} and dominated convergence shows pointwise convergence of $\mathcal T_t^j\Psi^0$ to $\mathcal T_\infty^j\Psi_\infty^0$ as $t\to\infty$. The dominating measure for each fixed $\nu$ is $\kappa^2 e_s^\nu(K_s^\nu(y))^2\dd s\dd y$, of total mass at most $2/b$. The cutoffs $s\le t$ tend to one. Uniform convergence of the series gives the limit. Its zeroth-order term does not depend on $a$, and neither do the operators. This proves \eqref{eq:D_exists}.
+
+For the last assertion, tightness follows from Proposition~\ref{prop:increments}. For finitely many spatial points $x_j$, the joint characteristic functions of the circle coordinate and the real increments are $\Psi_t^\delta(\nu)$ for measures
+\[
+ \nu=n k\delta_0+\sum_j \theta_j(\delta_{x_j}-\delta_0),\qquad n\in\mathbb Z,\quad \theta_j\in\R.
+\]
+These observables are continuous and determine the finite-dimensional quotient law by uniqueness of Fourier transforms on a product of a circle and Euclidean space. Taking a countable dense set of spatial points determines the law in $C_{\rm loc}$. Consequently all subsequential limits coincide.
+\end{proof}
+\begin{remark}
+The result gives a limiting quotient law and its explicit characterization. To assert invariance for a specified Markov semigroup on a global function space one additionally needs continuity of the dynamics under the topology used for convergence. We do not require that assertion for the results below. The construction works more generally if $h=b+\sum_{j\ne0}a_j e^{ijkz}$ with $\sum_{j\ne0}|a_j|<b$: use the corresponding shifted terms in \eqref{eq:duhamel} and the same contraction argument. The sinusoidal case is treated in detail to obtain explicit coefficients.
+\end{remark}
+
+\subsection{Spatial clustering and a fixed-coupling limit theorem}
+The following result gives the growing-scale concentration missing from a one-point stationary argument. It is specific to the contraction regime, and the proof does not supply uniform rates as $\kappa\to0$ or $\kappa\to\infty$.
+\begin{proposition}[Joint large-time and large-distance clustering]\label{prop:cluster}
+Fix $\kappa>0$ and $|\delta|<b$. For any $\nu,\mu\in\mathcal M$, let $\tau_x\mu$ denote translation of the measure by $x$. Then
+\begin{equation}\label{eq:cluster}
+ \Psi_t^\delta(\nu+\tau_x\mu)-\Psi_t^\delta(\nu)\Psi_t^\delta(\mu)\longrightarrow0
+ \qquad (t\to\infty,\ |x|\to\infty),
+\end{equation}
+where the two limits are joint and independent of their relative speeds.
+\end{proposition}
+\begin{proof}
+Write $C_t^x(\nu,\mu)$ for the difference in \eqref{eq:cluster}. We give the details of the separation of the kernels because this is needed when the spatial averaging radius grows with time.
+
+\emph{Step 1: Gaussian kernels.} For brevity write $K_s=K_s^\nu$, $J_s=K_s^\mu$ and $J_s^x(y)=J_s(y-x)$. For fixed $s$, the inner product of $K_s$ and $J_s^x$ tends to zero as $|x|\to\infty$ (translations of an $L^2$ function converge weakly to zero). In fact $\int|K_sJ_s^x|\dd y\to0$ by approximation with compactly supported functions. Hence for each fixed $s$,
+\[
+ e_s^{\nu+\tau_x\mu}\longrightarrow e_s^\nu e_s^\mu,
+ \qquad \|(K_s+J_s^x)^2-K_s^2-(J_s^x)^2\|_1\longrightarrow0.
+\]
+The convergence can be integrated over any bounded interval $[0,S]$ by dominated convergence since all kernel norms are bounded there.
+
+We also need a tail estimate. If either mass is nonzero, $e_S^\nu e_S^\mu\to0$ as $S\to\infty$. By \eqref{eq:kernelmass},
+\[
+ \frac{\kappa^2}{2}\int_S^\infty e_s^{\nu+\tau_x\mu}\|K_s+J_s^x\|_2^2\dd s
+ \le b^{-1} e_S^{\nu+\tau_x\mu}.
+\]
+Taking $|x|\to\infty$ first and then $S\to\infty$ makes this tail vanish. If both masses are zero, then Lemma~\ref{lem:additive} gives the uniform bound
+\[
+ \int_S^\infty\|K_s+J_s^x\|_2^2\dd s
+ \le 2\int_S^\infty(\|K_s\|_2^2+\|J_s\|_2^2)\dd s\longrightarrow0.
+\]
+The analogous product-kernel tails with $e_s^\nu e_s^\mu(\|K_s\|_2^2+\|J_s\|_2^2)$ vanish by the same reasoning, or by differentiating $e_s^\nu e_s^\mu$. These estimates also show that $C_t^x$ for the additive model tends to zero jointly in $t,|x|$: in the neutral--neutral case the cross energy converges to zero by the tail estimate, while if at least one mass is nonzero the combined damping tends to zero by its monotonicity in $t$ and its limit at any fixed $S$.
+
+\emph{Step 2: an independent-copy identity.} Apply the It\^o argument of Proposition~\ref{prop:Duhamel} to the sum of the two linear martingales built from independent copies of the nonlinear SPDE, with measures $\nu$ and $\mu$. The left side is $\Psi_t^\delta(\nu)\Psi_t^\delta(\mu)$. The Gaussian factors are $e_s^\nu e_s^\mu$, and the two perturbation terms are
+\begin{align*}
+ -\frac{\kappa^2\delta}{4}\int_0^t e_s^\nu e_s^\mu\int K_s(y)^2
+ \sum_{\pm}\Psi_{t-s}^\delta(P_s\nu\pm k\delta_y)\Psi_{t-s}^\delta(P_s\mu)\dd y\dd s,\\
+ -\frac{\kappa^2\delta}{4}\int_0^t e_s^\nu e_s^\mu\int J_s(y)^2
+ \sum_{\pm}\Psi_{t-s}^\delta(P_s\nu)\Psi_{t-s}^\delta(P_s\mu\pm k\delta_y)\dd y\dd s.
+\end{align*}
+There is no cross bracket for independent noises. The initial term is $\Psi_t^0(\nu)\Psi_t^0(\mu)$.
+
+\emph{Step 3: contraction of the clustering error.} Subtract the independent-copy identity from \eqref{eq:duhamel} for $\nu+\tau_x\mu$. On a fixed bounded time interval one may replace the combined damping and squared kernel by the separated ones from Step~1 with error tending to zero, uniformly in $t\ge S$ because all characteristic functions have modulus at most one. On the second cluster make the change of variable $y\mapsto y+x$. Spatial stationarity of the single-copy law is used here. The tail estimates from Step~1 permit sending $S\to\infty$ after the joint limit. Thus the remaining terms, up to an error tending to zero in that sense, have exactly the kernels of Step~2 but with the products replaced by the corresponding errors
+\[
+ C_{t-s}^x(P_s\nu\pm k\delta_y,P_s\mu),\qquad
+ C_{t-s}^x(P_s\nu,P_s\mu\pm k\delta_y).
+\]
+Set
+\[
+ B=\sup_{\nu,\mu\in\mathcal M}\limsup_{t,|x|\to\infty}|C_t^x(\nu,\mu)|\le2.
+\]
+For fixed $s,y$ the updated measures still belong to $\mathcal M$. Along any sequence $t,|x|\to\infty$, the limsup of each updated error is at most $B$. Apply the bounded reverse Fatou inequality under the finite positive separated-kernel measure (first on bounded intervals, then using the tails). Its mass is controlled by
+\[
+ \frac{\kappa^2}{2}\int_0^\infty e_s^\nu e_s^\mu
+ (\|K_s\|_2^2+\|J_s\|_2^2)\dd s\le b^{-1}.
+\]
+This yields $\limsup|C_t^x(\nu,\mu)|\le (|\delta|/b)B$. Taking the supremum shows $B=0$ since $|\delta|<b$.
+\end{proof}
+\begin{theorem}[Fixed microscopic coupling CLT]\label{thm:fixedCLT}
+Under \eqref{eq:cosmodel}, for every fixed $\kappa>0$ and $|\delta|<b$,
+\begin{equation}\label{eq:fixedCLT}
+ \sqrt{\frac{4\pi}{\kappa^2\log(1+R)}}(U_R^{\kappa,\delta}(0)-a)
+ \ \Rightarrow\ N(0,D_\delta(\kappa)).
+\end{equation}
+The variance is given by the convergent Fourier expansion in Theorem~\ref{thm:contraction}. In particular, the original equation at $c=0$ has a Gaussian pointwise limit with variance $D_\delta(1)$.
+\end{theorem}
+\begin{proof}
+Let $f_t(x)=h_\delta(U_t(x))$. By expressing products of cosines as sums of exponentials and using Proposition~\ref{prop:cluster},
+\[
+ C_t(x):=\Cov(f_t(0),f_t(x))\to0\quad(t,|x|\to\infty).
+\]
+Moreover, $|C_t(x)|$ is uniformly bounded. Translation invariance and the heat semigroup show
+\begin{align*}
+ \Var(\clG_{(1+r)/2}f_t(0))
+ &=\iint G_{(1+r)/2}(y)G_{(1+r)/2}(z)C_t(y-z)\dd y\dd z\\
+ &=\int G_{1+r}(z)C_t(z)\dd z\longrightarrow0\qquad(r,t\to\infty).
+\end{align*}
+Indeed, for a fixed radius $K$, the Gaussian mass of $|z|\le K$ is $O(K^2/(1+r))$; the integrand on its complement is uniformly small once $K$ and $t$ are large. Thus \eqref{eq:spatial_concentration} holds by Cauchy--Schwarz. Combine \eqref{eq:D_exists} with Corollary~\ref{cor:CLT}.
+\end{proof}
+\begin{corollary}[Distinct fixed space--time points at $c=0$]\label{cor:joint}
+For finitely many distinct $(T_j,x_j)\in(0,\infty)\times\R^2$, the vector $(Z_{T_j}^{\rho,0}(x_j))_j$ converges in law to independent centered Gaussian variables of variance $D_\delta(1)$.
+\end{corollary}
+\begin{proof}
+The individual normalized terminal martingales have bracket limits by Theorem~\ref{thm:fixedCLT} and scaling. Run all martingales on the same physical time axis, stopping each at its own terminal time. For $i\ne j$ the normalized mutual bracket is bounded in absolute value by
+\[
+ \gamma_\rho^2 M^2\int_0^{T_i\wedge T_j}
+ G_{T_i+T_j+2\rho-2s}(x_i-x_j)\dd s.
+\]
+The integral is uniformly bounded when the terminal times differ, since the kernel time is bounded below by $|T_i-T_j|$. If the times coincide, the distinct locations give the integrable exponential cutoff $e^{-|x_i-x_j|^2/(2u)}$ as $u\downarrow0$. Hence the mutual brackets tend to zero. Apply the scalar continuous martingale CLT to any linear combination and use Cram\'er--Wold.
+\end{proof}
+
+\section{Explicit second-order effective variance}\label{sec:response}
+\subsection{Uniform finite-time perturbation formula}
+Write $D_{\kappa,\delta}(t)=\E h_\delta(U_t^{\kappa,\delta}(0))$. In \eqref{eq:duhamel} take $\nu=k\delta_0$ and take real parts. One obtains
+\begin{align}
+ D_{\kappa,\delta}(t)&=b+\delta(1+t)^{-\alpha}\cos(ka)-\delta^2 A_{\kappa,t}(a)+\mathcal R_{\kappa,\delta,t},\label{eq:expansion}\\
+ A_{\kappa,t}(a)&=\frac{k^2\kappa^2}{2}\int_0^t(1+s)^{-\alpha}\int G_{s+1}(y)^2\notag\\
+ &\hspace{25mm}\times\E[\cos(k\clG_sU_{t-s}^{\kappa,0}(0))\cos(kU_{t-s}^{\kappa,0}(y))]\dd y\dd s,\label{eq:At}\\
+ |\mathcal R_{\kappa,\delta,t}|&\le |\delta|^3/b^2.\label{eq:uniformR}
+\end{align}
+To verify the remainder, use \eqref{eq:chardiff} for the two signed measures $kP_s\delta_0\pm k\delta_y$ and the product-to-sum identity. The expectation in the integrand differs from the Gaussian reference expectation by at most $|\delta|/b$. Then \eqref{eq:kernelmass} bounds the integral of the prefactor by $1/b$. This proves the uniform bound, including when $\kappa$ or $t$ depend on $\delta$. The formula is derived at finite time and requires no assumption of differentiability of a stationary law.
+
+\subsection{The long-time limit of the second-order coefficient}
+Define
+\begin{equation}\label{eq:V_def}
+ V_\kappa(s,y)=\kappa^2b\int_0^\infty\int_{\R^2}
+ [G_{r+1}(y-z)-G_{r+s+1}(z)]^2\dd z\dd r.
+\end{equation}
+It is the variance of the difference between a height at $y$ and the heat average of the height at the origin under the additive limiting quotient law. The difference is neutral in the sense of Lemma~\ref{lem:additive}.
+\begin{theorem}[Second-order response]\label{thm:response}
+For $\kappa>0$ let
+\begin{equation}\label{eq:A}
+ A(\kappa)=\frac{k^2\kappa^2}{4}\int_0^\infty(1+s)^{-\alpha}
+ \int_{\R^2}G_{s+1}(y)^2 e^{-k^2 V_\kappa(s,y)/2}\dd y\dd s.
+\end{equation}
+Then $0<A(\kappa)\le (2b)^{-1}$ and
+\begin{equation}\label{eq:Dexp}
+ \boxed{D_\delta(\kappa)=b-\delta^2 A(\kappa)+\mathcal R_{\kappa,\delta},\qquad
+ |\mathcal R_{\kappa,\delta}|\le |\delta|^3/b^2.}
+\end{equation}
+In particular this is a uniform second-order expansion in $\kappa>0$.
+\end{theorem}
+\begin{proof}
+The Gaussian product in \eqref{eq:At} is one half the sum of the real characteristic functions of the difference and the sum of the two linear observables. As $t-s\to\infty$ for fixed $s,y$, the sum has total mass $2k$ and its characteristic function vanishes by Lemma~\ref{lem:additive}. The difference has total mass zero, and its characteristic function converges to $e^{-k^2 V_\kappa(s,y)/2}$. The limiting expectation is therefore one half this exponential. The finite-time integral has an integrable bound, because its prefactor has integral at most $1/b$. Dominated convergence gives $A_{\kappa,t}(a)\to A(\kappa)$. Taking $t\to\infty$ in \eqref{eq:expansion}, using Theorem~\ref{thm:contraction} and \eqref{eq:uniformR}, yields \eqref{eq:Dexp}. Positivity follows from the strictly positive integrand, and the upper bound follows by dropping the exponential and integrating $(1+s)^{-1-\alpha}$.
+\end{proof}
+\begin{remark}
+There is also an evenness improvement for the sinusoidal example. Changing $\delta$ to $-\delta$ is equivalent to a global height shift by $p/2$. The limiting law of $h$ is independent of the initial phase. Thus $D_{-\delta}(\kappa)=D_\delta(\kappa)$. The uniformly convergent series in Theorem~\ref{thm:contraction} makes $D_\delta(\kappa)$ a real analytic function of $\delta$ for $|\delta|<b$; its odd powers vanish. Consequently the remainder in \eqref{eq:Dexp} can be improved to $|\delta|^4/[b^3(1-|\delta|/b)]$. We retain the cubic bound when discussing finite-time diagonal limits, where initial-phase transients may break evenness.
+\end{remark}
+
+\subsection{Evaluating the covariance integral}
+Define $\Ein(u)=\int_0^u(1-e^{-v})\dd v/v$ for $u\ge0$. By the product identity for two Gaussian kernels,
+\begin{align}
+ V_\kappa(s,y)&=\frac{\kappa^2 b}{4\pi}\int_0^\infty
+ \left[\frac1{r+1}+\frac1{r+s+1}
+ -\frac{2e^{-|y|^2/(4(r+1+s/2))}}{r+1+s/2}\right]\dd r\notag\\
+ &=\frac{\kappa^2b}{4\pi}\left[
+ 2\log(1+s/2)-\log(1+s)
+ +2\Ein\!\left(\frac{|y|^2}{4(1+s/2)}\right)\right].\label{eq:V_explicit}
+\end{align}
+Indeed, for the part with the exponential replaced by one, evaluate the three logarithms at a finite upper cutoff and then let it tend to infinity. In the remaining part use the substitution $v=|y|^2/[4(r+1+s/2)]$. In particular, both terms in brackets are nonnegative. This formula gives a direct numerical characterization of $D_\delta(1)$ to second order using only an ordinary integral.
+
+Since $G_{s+1}^2=(4\pi(s+1))^{-1}G_{(s+1)/2}$, write $y=\sqrt{1+s}\,z$, where $z$ has density $\pi^{-1}e^{-|z|^2}$. Define
+\[
+ \Phi(s,z)=2\log(1+s/2)-\log(1+s)+2\Ein\!\left(\frac{(1+s)|z|^2}{4(1+s/2)}\right).
+\]
+Then \eqref{eq:A} simplifies to
+\begin{equation}\label{eq:A_reduced}
+ \boxed{ A(\kappa)=\frac1{2b}\int_0^\infty e^{-q}
+ \int_{\R^2}\frac{e^{-|z|^2}}{\pi}
+ \exp[-\alpha\Phi(e^{q/\alpha}-1,z)]\dd z\dd q. }
+\end{equation}
+Here $q=\alpha\log(1+s)$, so the apparent logarithmic divergence has become an exponentially weighted integral on a fixed half-line. Radial symmetry yields the equivalent two-dimensional scalar integral
+\begin{equation}\label{eq:A_radial}
+ A(\kappa)=\frac1{2b}\int_0^\infty\int_0^\infty e^{-q-u}
+ \exp\left[-\alpha\left\{2\log\cosh\frac{q}{2\alpha}
+ +2\Ein\!\left(\frac{u}{2(1+e^{-q/\alpha})}\right)\right\}\right]\dd u\dd q.
+\end{equation}
+The change of variable is $u=|z|^2$, whose distribution is exponential of mean one. The logarithm identity follows from $(1+s/2)^2/(1+s)=\cosh^2(\log(1+s)/2)$. Formula \eqref{eq:A_radial} exhibits the dependence on the microscopic coupling through $\alpha=\kappa^2 b k^2/(8\pi)$; it does not imply monotonicity.
+
+\section{Weak- and strong-coupling endpoints}\label{sec:endpoints}
+\begin{theorem}[Endpoints of the second-order coefficient]\label{thm:endpoints}
+The coefficient in \eqref{eq:A} satisfies
+\[
+ \boxed{\lim_{\kappa\downarrow0}A(\kappa)=\frac1{4b},\qquad
+ \lim_{\kappa\uparrow\infty}A(\kappa)=0.}
+\]
+\end{theorem}
+\begin{proof}
+Use \eqref{eq:A_radial}, whose integrand is dominated by $e^{-q-u}$ since $\Ein\ge0$ and $\log\cosh\ge0$. When $\alpha\downarrow0$, for every $q>0$,
+\[
+ 2\alpha\log\cosh(q/(2\alpha))\to q,
+ \qquad 2\alpha\Ein\!\left(\frac{u}{2(1+e^{-q/\alpha})}\right)\to0.
+\]
+Dominated convergence gives $(2b)^{-1}\int_0^\infty e^{-2q}\dd q=1/(4b)$. When $\alpha\uparrow\infty$, the argument of $\Ein$ tends to $u/4$, which is strictly positive for $u>0$. Its contribution to the exponent tends to $-\infty$, so the integral tends to zero by the same domination. The set $u=0$ has measure zero.
+\end{proof}
+For $h=b+\delta\cos(kz)$,
+\begin{equation}\label{eq:geoexplicit}
+ \Geo=\frac{b+\sqrt{b^2-\delta^2}}2=b-\frac{\delta^2}{4b}+O(\delta^4/b^3),\qquad \Arith=b.
+\end{equation}
+A proof of the exact geometric-mean formula is given in Appendix~\ref{app:gaussian}. Therefore the endpoints of $A(\kappa)$ precisely match the two proposed effective variances at second order. The conclusion concerns coefficients of an expansion in $\delta$, not equality of the full endpoint limits for fixed nonzero $\delta$. The uniform remainder in Theorem~\ref{thm:response} gives the corresponding uniform small-amplitude discrepancy (of order $|\delta|^4/b^3$ if the evenness improvement is used).
+
+\subsection{A diagonal second-order statement without interchanging limits}
+The preceding theorem alone does not justify applying a fixed-$\kappa$ limit to $\kappa=\gamma_\rho^c$. However, \eqref{eq:expansion} is uniform at finite time, and one can analyze its coefficient directly.
+\begin{proposition}[Diagonal response coefficient]\label{prop:diagonal}
+Let $t_n\to\infty$, $\kappa_n>0$, and $\alpha_n=\kappa_n^2bk^2/(8\pi)$ satisfy $\alpha_n\log(1+t_n)\to\infty$. If $\kappa_n\to0$, then $A_{\kappa_n,t_n}(a)\to 1/(4b)$. If $\kappa_n\to\infty$, then $A_{\kappa_n,t_n}(a)\to0$.
+\end{proposition}
+\begin{proof}
+Use $q=\alpha\log(1+s)$ and $y=\sqrt{1+s}z$ in \eqref{eq:At}. The measure becomes $(1/b)e^{-q}\dd q\,\pi^{-1}e^{-|z|^2}\dd z$ over $0\le q\le\alpha\log(1+t)$. The product of cosines is bounded by one. For each fixed $q>0,z$, $s=e^{q/\alpha}-1$ and the assumption implies $s/t\to0$: in the weak limit $q/\alpha=o(\log(1+t))$, and in the strong limit $s\to0$. Let $T=t-s$. The nonneutral characteristic function of the sum in the Gaussian product vanishes, since its exponent includes at least $\alpha\log(1+T)$ (the measure is the sum of two positive measures, one a point mass of size $k$). For the neutral characteristic function use the variance in \eqref{eq:V_def} truncated at $r=T$.
+
+If $\kappa\to0$, rescaling and the gradient bound give the tail estimate
+\begin{equation}\label{eq:tailV}
+ 0\le V_\kappa(s,y)-V_{\kappa,T}(s,y)
+ \le C\kappa^2 b\left(\frac{|y|^2}{1+T}+\frac{s^2}{(1+T)^2}\right).
+\end{equation}
+To see this, split the kernel difference at $G_{r+1}(z)$, use $\|\nabla G_{r+1}\|_2\lesssim(r+1)^{-1}$ for the translation, and $\|\partial_vG_v\|_2\lesssim v^{-3/2}$ for the time shift. Integrate the squared estimates over $r\ge T$. With $|y|^2=(1+s)|z|^2$ the bound vanishes. Thus the same pointwise weak-limit calculation as in Theorem~\ref{thm:endpoints} applies. If $\kappa\to\infty$, use only the variance contribution from $0\le r\le1$: for each $z\ne0$ the squared-kernel integral there tends to a strictly positive constant as $s\to0$ and $y\to z$. After multiplication by $\kappa^2b$ it diverges. In both cases dominated convergence applies to the fixed $q,z$ measure and yields the desired conclusions, remembering the factor one half in the product-to-sum formula.
+\end{proof}
+\begin{corollary}[Second-order information on the original diagonal variances]\label{cor:diagonal}
+For $0<c<1$ and each fixed physical $T>0$,
+\[
+ \limsup_{\rho\downarrow0}\left|\E|Z_T^{\rho,c}(x)|^2-\left(b-\frac{\delta^2}{4b}\right)\right|\le\frac{|\delta|^3}{b^2}.
+\]
+For $c<0$ the same estimate holds with $b$ in place of $b-\delta^2/(4b)$.
+\end{corollary}
+\begin{proof}
+Set $R=T/\rho$. On the part $0\le r\le R/2$ in \eqref{eq:diagonalvar}, the time argument $t=R-r$ satisfies $\alpha_\rho\log(1+t)\to\infty$ uniformly, since $\alpha_\rho\asymp L(1/\rho)^{-c}$. Proposition~\ref{prop:diagonal}, applied to arbitrary sequences of these time arguments, gives uniform convergence of the response coefficient on this range. The initial Gaussian transient in \eqref{eq:expansion} tends to zero uniformly there. The remaining range $r>R/2$ has logarithmic mass $O(1/L(1/\rho))$ and the coefficient is bounded. Integrating the uniform remainder \eqref{eq:uniformR} gives the claim.
+\end{proof}
+These are variance estimates only. Gaussian convergence along a varying-coupling diagonal requires a bracket concentration result uniform in $\kappa_\rho$. Proposition~\ref{prop:cluster} was proved for fixed coupling and does not supply that uniformity. Nor do the second-order estimates alone identify the exact limiting variance for a fixed nonzero $\delta$.
+
+\section{Noise dependence and the remaining research program}
+\subsection{The role of the microscopic regularizer}
+For a real, even, smooth mollifier $g$ of mass one, replace $G_1$ by $g$ in the fixed-scale post-smoothed equation. The additive kernel in the Fourier calculation becomes $K_s^\nu=(G_s*g)*\nu$. The same It\^o cancellation and the same kernel-mass bound \eqref{eq:kernelmass} remain valid; they follow from differentiating the exact additive damping, not from the special Gaussian form. Under sufficient decay and square integrability of $g$, the neutral kernel energy stays finite and the nonneutral energy diverges logarithmically. The response formula is then
+\begin{align*}
+ A_g(\kappa)&=\frac{k^2\kappa^2}{4}\int_0^\infty e^{-\frac12 k^2\kappa^2b\int_0^s\|G_r*g\|_2^2\dd r}
+ \int (G_s*g)(y)^2\,e^{-k^2 V_{\kappa,g}(s,y)/2}\dd y\dd s,\\
+ V_{\kappa,g}(s,y)&=\kappa^2b\int_0^\infty\int
+ [(G_r*g)(y-z)-(G_{r+s}*g)(-z)]^2\dd z\dd r.
+\end{align*}
+This explicitly identifies where the shape of the noise covariance enters the finite-coupling effective variance. It is not a proof that two given mollifiers yield distinct coefficients: in particular, a pure dilation of a mollifier leaves the long-time effective law unchanged by the same parabolic scaling as Proposition~\ref{prop:scaling}. To prove genuine nonuniversality one should compare shapes not related by this dilation, or other genuinely different noise models. The pre-smoothed multiplicative equation has a different generator and is not covered by this formula. The current model always uses Gaussian white noise; dependence on the law of non-Gaussian driving noise has not been addressed.
+
+\subsection{A proposed unified characterization}
+The structural candidate is
+\[
+ D(\kappa)=\lim_{t\to\infty}\E\sigma^2(U_t^\kappa(0))
+ =4\pi\kappa^{-2}\lim_{t\to\infty}\E|\nabla U_t^\kappa(0)|^2.
+\]
+For the sinusoidal model both equalities hold by Theorem~\ref{thm:contraction} and Proposition~\ref{prop:energy}. More generally one expects a limiting phase/increment law $\mu_\kappa$ and $D(\kappa)=\int h(u(0))\mu_\kappa(\dd u)$. The proposed endpoint equalities are
+\[
+ D(0^+)=\Geo,\qquad D(+\infty)=\Arith.
+\]
+They have been checked here at second order around an additive coefficient. A direct identification for arbitrary positive periodic $h$ remains the main analytic problem.
+
+\subsection{Possible next steps}
+\begin{enumerate}
+ \item General periodic nonlinearity: the Fourier contraction extends to absolutely summable perturbations of a constant with Fourier $\ell^1$ norm smaller than the mean. This provides a route to several harmonics. Removing the smallness assumption needs a different estimate or continuation method.
+ \item Endpoint analysis at all orders: investigate the higher iterates of the exact Fourier equation under $\kappa\downarrow0$ or $\kappa\uparrow\infty$. Uniform convergence of the perturbation series permits termwise endpoint limits if these can be identified. The weak endpoint should be compared with the conserved logarithmic average of \eqref{eq:flow}.
+ \item Diagonal Gaussian convergence: establish joint time--space clustering estimates with quantitative dependence on $\kappa$. The precise target is the bracket in \eqref{eq:bracket_B}; it suffices to control the log-weighted average, rather than every time and space scale separately.
+ \item General initial data, multipoint scaling regimes, and the phase of the limiting law: determine the extent to which the initial phase is forgotten beyond constant data, and whether points that approach each other on logarithmic scales admit a correlated limit.
+ \item Analyze noise-shape dependence via $A_g$ and higher coefficients. Distinct regularizers should be compared only after accounting for exact scaling equivalences.
+\end{enumerate}
+
+\subsection{Status of the results}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{0.53\linewidth}p{0.40\linewidth}@{}}
+\toprule
+Statement & Status in these notes\\\midrule
+Microscopic scaling; moment, phase and gradient identities & Proved for smooth positive periodic coefficients.\\
+Geometric mean of the periodic decoupling PDE & Proved using its conserved logarithmic integral.\\
+Fourier contraction and limiting quotient statistics & Proved for $h=b+\delta\cos(kz)$, $|\delta|<b$.\\
+Fixed-$\kappa$ clustering and Gaussian CLT, including $c=0$ & Proved in the same Fourier contraction regime.\\
+Explicit response coefficient, weak/strong endpoints & Proved at second order in $\delta$.\\
+Original diagonal variance comparison & Proved up to the stated uniform perturbation remainder.\\
+Exact diagonal endpoint laws, general nonlinearity, genuine noise-shape dependence & Conjectural or open in these notes.\\\bottomrule
+\end{tabular}
+\end{center}
+No claim of monotonicity of $D(\kappa)$ is made. The transition between the geometric and arithmetic averages is a conjecture for the full nonlinear equation, not a consequence of the diagram of the second-order coefficient.
+
+\appendix
+\section{Background: Dunlap--Graham and the decoupling flow}\label{app:DG}
+The source \cite{DG} studies the weakly coupled post-smoothed equation with parameter $\gamma_\rho$ as in \eqref{eq:original} at $c=1$, and also treats the corresponding pre-smoothed problem. Their equations (1.7)--(1.9) define the scalar forward--backward SDE by
+\begin{align*}
+ \dd\Gamma_{a,Q}(q)&=J_\sigma(Q-q,\Gamma_{a,Q}(q))\dd B_q,\qquad\Gamma_{a,Q}(0)=a,\\
+ J_\sigma(q,z)^2&=\E\sigma^2(\Gamma_{z,q}(q)).
+\end{align*}
+Their equation (1.21) gives the decoupling PDE \eqref{eq:flow} when the target dimension is one. For positive periodic $h$, the maximum principle makes this a uniformly parabolic scalar equation. The standard global continuation used in Proposition~\ref{prop:geo} follows from scalar quasilinear parabolic regularity on the circle; one can also bound $H_z$ directly by differentiating, since $w=H_z$ solves $w_q=(H/2)w_{zz}+(w/2)w_z$, so the maximum principle controls $\|H_z\|_\infty$. Uniform parabolic estimates then give continuation on each finite time interval. This avoids the degeneracy issues of the general matrix-valued problem.
+
+Theorem 1.4 of \cite{DG} states, in its notation, that for $L^2$-subcritical $\sigma$, bounded deterministic initial data and $t$ in a fixed compact subset of $(0,\infty)$, the one-point distribution of the weakly coupled solution is within $C\langle\|v_0\|_\infty\rangle\sqrt{\log|\log\rho|/|\log\rho|}$ in Wasserstein--2 distance of $\Gamma_{a,1}(1)$ with $a=\clG_tv_0(x)$. Their Definition 1.2 requires $Q_{\mathrm{FBSDE}}(\sigma)>1$ and a subcritical quadratic growth bound. A bounded positive scalar periodic coefficient satisfies a growth bound with arbitrarily small linear-growth slope; the global uniformly parabolic decoupling flow and its uniform-in-finite-time Lipschitz control yield the FBSDE continuation in their framework. The source's discussion of the martingale, equations (1.26)--(1.30), motivates Proposition~\ref{prop:bracket}. The weak-coupling theorem is not invoked as a uniform theorem for coefficients growing with $\rho$.
+
+\section{Gaussian kernel and averaging calculations}\label{app:gaussian}
+For $s,t>0$,
+\begin{align*}
+ \int G_s(x-y)G_t(z-y)\dd y&=G_{s+t}(x-z),\\
+ G_s^2(x)&=\frac{1}{4\pi s}G_{s/2}(x),\\
+ \|G_s\|_2^2&=\frac1{4\pi s},\qquad
+ \|\nabla G_s\|_2^2=\frac1{4\pi s^2}.
+\end{align*}
+The last identity follows from $\nabla G_s(x)=-(x/s)G_s(x)$ and the fact that the Gaussian of density $G_{s/2}$ has $\E|x|^2=s$ in dimension two. Derivative scaling gives $\|\partial^\alpha G_s\|_2^2=s^{-1-|\alpha|}\|\partial^\alpha G_1\|_2^2$. The time derivative is $\frac12\Delta G_s$ and hence has norm $O(s^{-3/2})$.
+
+For \eqref{eq:geoexplicit}, let $r=\delta/(b+\sqrt{b^2-\delta^2})$ and $d=(b+\sqrt{b^2-\delta^2})/2$. Then $|r|<1$ and $b+\delta\cos\theta=d|1+re^{i\theta}|^2$. The average of $\Re\log(1+re^{i\theta})$ is zero, by the absolutely convergent logarithmic power series. Thus the average of $\log(b+\delta\cos\theta)$ is $\log d$; exponentiation and Taylor expansion give \eqref{eq:geoexplicit}.
+
+\section{Stochastic integral facts and the bracket CLT}\label{app:mart}
+We use the It\^o isometry for predictable white-noise integrands (see \cite{Walsh}):
+\[
+ \E\left|\int f(s,x)W(\dd s,\dd x)\right|^2=\E\int |f(s,x)|^2\dd s\dd x.
+\]
+The bracket of the corresponding continuous martingale is the integral of $f^2$, and the mutual bracket for two integrands is the integral of their product. The Burkholder--Davis--Gundy inequality bounds the $q$-th absolute moment of such a martingale by $C_q\E\langle M\rangle^{q/2}$ for $q\ge2$. The positive smoothing cutoff and boundedness of all coefficients give the integrability conditions used throughout. For fixed positive cutoff, existence and uniqueness of the mild Lipschitz equation follow from the usual Picard iteration on bounded time intervals with the It\^o isometry; the bounded kernel norm near time zero gives a contraction on sufficiently small intervals, which can be concatenated.
+
+For completeness, the particular continuous martingale CLT needed here follows directly from the exponential martingale identity. Suppose $M_n$ is a sequence of real continuous martingales starting at zero with terminal bracket $B_n\to D$ in probability and $0\le B_n\le C$ deterministically. For every $\theta\in\R$,
+\[
+ \E\exp(i\theta M_n+\tfrac12\theta^2B_n)=1.
+\]
+Indeed, this stochastic exponential is a bounded-in-modulus local martingale at all intermediate times and is therefore a true martingale. Since $B_n$ is bounded and converges in probability to $D$, the difference between the displayed expectation and $e^{\theta^2 D/2}\E e^{i\theta M_n}$ tends to zero. Thus the terminal characteristic functions converge to $e^{-\theta^2D/2}$ and L\'evy's continuity theorem gives $N(0,D)$. In this report the terminal brackets of every normalized martingale and fixed linear combination have deterministic upper bounds from $h\le M^2$ and the heat kernel identities, so no extra localization is needed. This argument does not assert that a martingale with a random bracket is conditionally Gaussian.
+
+The other standard facts used above are Kolmogorov's continuity/tightness criterion (moment estimates with exponent strictly greater than the parameter dimension), the uniqueness of characteristic functions, and dominated convergence. The use of a compact phase together with locally tight increments is not by itself a proof of uniqueness of a stationary measure on an infinite-dimensional state space.
+
+\begin{thebibliography}{9}
+\bibitem{DG} A. Dunlap and C. Graham, \emph{Renormalization flow for the 2D nonlinear stochastic heat equation: pointwise statistics and universality}, arXiv:2308.11850v3 (February 2026), especially Sections 1.1--1.5 and Theorem 1.4. \url{https://arxiv.org/abs/2308.11850v3}.
+\bibitem{Walsh} J. B. Walsh, \emph{An introduction to stochastic partial differential equations}, in \emph{\'Ecole d'\'Et\'e de Probabilit\'es de Saint-Flour XIV --- 1984}, Lecture Notes in Mathematics 1180, Springer, 1986, pp. 265--439.
+\end{thebibliography}
+\end{document}

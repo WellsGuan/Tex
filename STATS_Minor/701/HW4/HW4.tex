@@ -56,162 +56,84 @@ difficulties, anything like that. I would also appreciate the demonstration
 that you've started doing something for it.
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
-I chose Option 1, Ensemble Kalman Filtering for nonlinear data assimilation
-and rolling forecasting. For the application I am starting with the
-three-dimensional Lorenz system rather than the financial example.
+I have chosen Option 1, Ensemble Kalman Filtering (EnKF), and I
+would like to pursue the financial application rather than the
+Lorenz example. My work
+so far has focused on specifying a manageable model and identifying
+how the observations should enter the filter; I do not yet have
+empirical forecasting results.
 
-I have set up the basic simulation and observation pipeline. The state
-transition uses a fourth-order Runge--Kutta step with
-$(\sigma,\rho,\beta)=(10,28,8/3)$. I use step size $0.01$ and take an
-observation every five steps. The current observation model is
+My proposed application is daily volatility forecasting for a
+single financial asset. I plan to use daily log returns
 \[
-y_t=Hx_t+v_t,\qquad H=(1,0,0),\quad v_t\sim N(0,1),
+r_t=\log P_t-\log P_{t-1},
 \]
-so that only one of the three coordinates is observed. I also included
-small process noise with $Q=0.01I_3$ per observation interval. These are
-initial experimental settings, not parameters estimated from real data.
-
-The code currently generates a synthetic latent trajectory and noisy
-observations, initializes an ensemble of size 40, propagates it through
-the nonlinear dynamics, constructs the sample covariance, and checks one
-stochastic EnKF update. For forecast ensemble members $x_t^{f,(i)}$,
-the basic update I implemented is
+where $P_t$ is an appropriately adjusted price series. I am starting
+with the stochastic volatility model
 \[
-K_t=P_{xy,t}(P_{yy,t}+R)^{-1},\qquad
-x_t^{a,(i)}=x_t^{f,(i)}+K_t\{y_t+v_t^{(i)}-Hx_t^{f,(i)}\}.
+h_t=\mu+\phi(h_{t-1}-\mu)+\sigma_\eta\eta_t,
+\qquad
+r_t=m+\exp(h_t/2)\varepsilon_t,
 \]
-I checked the array dimensions, finite values, and the symmetry and
-nonnegative definiteness of the sample covariance. The preliminary
-simulation below is only a check of the data-generation setup; it is not
-a claim about filtering or forecasting performance.
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.85\linewidth]{png/project_setup.png}
-\caption{Initial Lorenz simulation with noisy observations of the first
-coordinate. The other two state coordinates are unobserved.}
-\end{figure}
+where $|\phi|<1$ and the innovations $\eta_t$ and $\varepsilon_t$
+are mutually independent standard normal variables. Here $h_t$ is
+the unobserved log variance. The goal is to sequentially estimate
+this state and generate out-of-sample volatility and return
+distribution forecasts, rather than predict the direction of
+price movements.
 
-My next step is to run the full sequential filter and compare rolling
-forecasts with a persistence baseline, without using future observations
-in the updates. I plan to compare ensemble sizes $20,40,80,160$, summarize
-RMSE and ensemble CRPS, and then examine whether covariance inflation
-reduces divergence. I have not completed those experiments yet.
-I would like to ask whether observing only the first coordinate is a
-reasonable starting point, and what forecast horizons would give a useful
-comparison before all methods lose skill because of the chaotic dynamics.
-
-\vspace{1em}
-
-\subsection*{Problem 2}
-Fast forward in time: you are a professional time series specialist (which
-I know you all will be), and somebody hands you a dataset that you don't
-know the structure of (on canvas as \texttt{mystery\_data.csv}, and please
-assume unit daily timesteps). They want two things: predictions for the
-next year (365 future points), and confidence intervals for those predictions.
-You notice a strong oscillatory component in the data, and you choose to
-try and compare two models:
+One issue I have identified is that applying a standard EnKF update
+directly to raw returns may not work well for this model. Under the
+independent, centered return innovations above,
 \[
-\begin{aligned}
-X_t&=\mu+\sum_{k=1}^{K}A_k\cos(\omega_k t)+B_k\sin(\omega_k t)+Y_t,
-\qquad\text{and}\\
-X_t&=\mu+Y_t,
-\end{aligned}
+\operatorname{Cov}(h_t,r_t\mid r_1,\ldots,r_{t-1})=0.
 \]
-where $Y_t$ is a mean-zero stationary time series in both settings (but
-maybe not the same one for each!).
-\begin{enumerate}[label=\arabic*.,leftmargin=*]
-\item Pick a stationary time series model for each $Y_t$, and fit the data
-(including picking $K$ and frequencies $\{\omega_k\}_{k=1}^{K}$!) using any
-of the tools we've discussed in class thus far. Look at as many diagonistics
-as you can think of. For example (but you don't necessarily have to do all
-of these things): negative log-likelihoods at the MLE, parameter values,
-simulations from the fitted model, conditional simulations (which I claim
-you know how to do if you're a little clever!), and whatever else seems
-appropriate and useful to you. Based on those summaries, which model do
-you prefer?
+Although large absolute returns contain information about volatility,
+this information is not captured by the state--return linear
+covariance used in the usual EnKF update.
 
-\par\vspace{0.5em}\noindent\textbf{Sol.}\par
-I use Gaussian AR models for the stationary part in both settings. Write
+A possible starting point is therefore the transformed observation
 \[
-Y_t=\sum_{j=1}^{p}\phi_jY_{t-j}+Z_t,\qquad
-Z_t\overset{\mathrm{i.i.d.}}{\sim}N(0,\sigma_Z^2),
+z_t=\log\bigl((r_t-m)^2\bigr)
+    =h_t+\log(\varepsilon_t^2).
 \]
-where $\phi(z)=1-\sum_{j=1}^{p}\phi_jz^j$ has no zeroes in $|z|\le1$.
-For the first model I use
-\[
-m_H(t)=\mu+\sum_{k=1}^{K}\{A_k\cos(2\pi f_kt)+B_k\sin(2\pi f_kt)\},
-\]
-and for the second one $m_S(t)=\mu$. Here $f_k$ is in cycles per day and
-$\omega_k=2\pi f_k$. The AR orders and innovation variances can differ
-between the two models. In particular an AR(2) with conjugate roots can
-represent stochastic oscillation without putting a sinusoid in the mean.
+The observation error is non-Gaussian. Approximating it by a Gaussian
+error would give a simple initial filtering model, but it would also
+make the transformed system linear-Gaussian. I would like to confirm
+whether this is an acceptable starting point for the project, and
+whether I should retain the non-Gaussian observation noise or use
+another observation formulation to better address the intended
+nonlinear filtering problem. For real data, I will also need to
+specify how zero or nearly zero centered returns are handled before
+taking logarithms.
 
-The supplied CSV has no header and contains $n=10000$ finite observations.
-I read all 10000 values without treating the first observation as a column name.
+My next step is a synthetic-data experiment with known parameters
+and a known latent volatility path. I will implement the ensemble
+propagation, covariance calculation, and measurement update from
+scratch, then check whether the filter can recover changes in the
+latent state. Only after this validation will I apply the method to
+real returns. Model parameters will initially be estimated using
+the training period and held fixed during the test period; parameter
+estimation and sequential state estimation will be treated as
+separate tasks.
 
-For a given frequency set, I fit the regression coefficients, AR coefficients,
-and innovation variance by the exact stationary Gaussian likelihood. If
-$r=\mathbf X-\mathbf m$ and $\Gamma$ is the AR covariance matrix, the
-negative log-likelihood is
-\[
--\ell=\frac12\{n\log(2\pi)+\log\det\Gamma+r^\top\Gamma^{-1}r\}.
-\]
-I evaluate this likelihood by whitening the first $p$ observations with
-their stationary covariance and the remaining observations with the AR
-innovation filter. For each AR parameter vector, the mean coefficients
-and innovation variance are profiled out. I use stationary parameterizations
-and both Yule--Walker and nested lower-order starting values. I check the
-resulting likelihood against the stationary state-space likelihood.
-The models therefore use all observations on the same scale.
+For the forecasting study, I plan to compare ensemble sizes
+$N_e\in\{20,50,100,200\}$ and examine the effect of covariance
+inflation. I will begin with one-day forecasts and then consider
+five-day forecasts, using a rolling evaluation in which predictions
+are saved before the future observations are revealed. A simple
+rolling-variance or EWMA forecast will serve as a baseline. I plan
+to assess return predictive distributions using CRPS and to examine
+filter accuracy on simulated data using latent-state RMSE. Since
+true volatility is not observed in the financial data, I will not
+interpret squared returns as an exact volatility measurement.
 
-I search $p=0,\ldots,12$ for each model. For the harmonic mean I take up to
-three separated periodogram peaks, consider $K=1,2,3$ when available,
-and refine their frequencies by profile least squares within $0.49/n$ of
-the selected Fourier frequencies. The likelihood fit is conditional on
-these selected frequencies; I do not claim a joint global MLE over
-frequencies. I select the converged candidate with the smallest
-\[
-\mathrm{BIC}=-2\ell+(p+3K+2)\log n.
-\]
-There are $2K+1$ mean coefficients, $K$ frequencies, $p$ AR coefficients,
-and one innovation variance. For the stationary-mean model, $K=0$.
-This is a finite candidate comparison, not a proof that the selected
-order or frequencies are the true ones.
-
-I inspect the standardized one-step innovations, their ACF, normal Q--Q
-plots, and Ljung--Box tests. The tests are descriptive because orders and
-frequencies were selected from the data. I also draw from each fitted
-model using a stationary Gaussian initial state for its AR component.
-The simulations show whether the apparent oscillation looks like a
-fixed phase or a random phase that slowly loses coherence. Failed
-likelihood fits are excluded, and the selected fits must converge.
-
-\IfFileExists{results/full_summary.tex}{\input{results/full_summary.tex}}{
-\par\noindent\textit{The Canvas data have not been supplied. The fitted
-parameters, likelihood comparison, and numerical model preference cannot
-yet be evaluated.}}
-For these candidates, I prefer the harmonic model in sample. It uses one
-period of about $188.51$ days and an AR(2) residual. Its innovation tests
-at lags 10, 20 and 40 give $p$-values about $0.059$, $0.161$ and $0.095$.
-The constant-mean AR fit still has significant innovation correlations,
-and its selected order is at the upper search limit of 12. Thus I do not
-regard that fit as fully adequate. A larger AR search or an ARMA model
-could improve the stationary alternative, and this comparison does not
-prove that the oscillation is truly deterministic. Negative values of
-$-\ell$ are possible here because these are continuous densities and the
-innovation variance is small.
-
-\IfFileExists{png/data_overview.png}{
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.92\linewidth]{png/data_overview.png}
-\caption{The observed series and its periodogram.}\end{figure}}{}
-\IfFileExists{png/full_diagnostics.png}{
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.98\linewidth]{png/full_diagnostics.png}
-\caption{Full-data innovation diagnostics for the two fitted models.}\end{figure}}{}
-\IfFileExists{png/full_simulations.png}{
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.95\linewidth]{png/full_simulations.png}
-\caption{Observed data and independent draws from the fitted models.}\end{figure}}{}
+At this stage, the main questions on which I would appreciate
+feedback are whether the transformed-observation approach is
+appropriate for the EnKF requirement and whether one asset with
+one-day and five-day forecast horizons provides a reasonable scope.
+I have not yet completed parameter estimation, the full sequential
+filter, or the out-of-sample comparisons.
 
 \vspace{1em}
 
