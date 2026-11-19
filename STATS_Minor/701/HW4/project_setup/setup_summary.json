@@ -1,0 +1,60 @@
+{
+  "seed": 70141,
+  "sigma": 10.0,
+  "rho": 28.0,
+  "beta": 2.6666666666666665,
+  "rk4_step": 0.01,
+  "observation_interval": 0.05,
+  "observations": 400,
+  "observed_coordinate": "x",
+  "H": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "Q": [
+    [
+      0.01,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.01,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.01
+    ]
+  ],
+  "R": [
+    [
+      1.0
+    ]
+  ],
+  "setup_ensemble_size": 40,
+  "planned_ensemble_sizes": [
+    20,
+    40,
+    80,
+    160
+  ],
+  "completed": [
+    "Lorenz simulator",
+    "noisy partial observations",
+    "ensemble propagation",
+    "sample covariance",
+    "one stochastic update"
+  ],
+  "pending": [
+    "full assimilation experiment",
+    "rolling forecast evaluation",
+    "RMSE and CRPS",
+    "ensemble size comparison",
+    "inflation experiments"
+  ]
+}
