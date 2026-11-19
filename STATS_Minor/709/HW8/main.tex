@@ -63,6 +63,8 @@ where $I_X(\theta)$ is the Fisher information about $\theta$ contained in $X$.
 \end{enumerate}
 
 \par\vspace{0.5em}\noindent\textbf{Sol.}\par
+Remark. Here in general the assumption of the exchanging of derivative and integral can be satisfied, but the assumption in Theorem 3.3 is much weaker. I am not sure about what does the author mean by $g_{\theta}$ satisfies Theorem 3.3 and may be the author allow $h$ to be some arbitrary Borel bounded function.\par
+
 (a) Denote
 \[S_X(X) = \dfrac{\partial}{\partial \theta}\log f_{\theta}(X),\quad S_T(T) = \dfrac{\partial}{\partial \theta}\log g_{\theta}(T)\]
 and for any bounded borel $\phi$, we know
@@ -178,11 +180,11 @@ and
 \[\text{Var}(c_nS_n^2) = c_n^2(\mathbb{E}(S_n^4) - \sigma^4) = \dfrac{2c_n^2\sigma^4}{n-1}.\]
 Then we have
 \[
-\text{MSE}(c_nS_n^2) = \text{Var}(c_nS_n^2) + b_{c_nS_n^2}(\sigma)^2 = \left((c_n-1)^2 + \dfrac{2c_n^2}{n-1}\right)\sigma^4 \geq (1- (n-1)^2/(n+1)^2)\sigma^4
+\text{MSE}(c_nS_n^2) = \text{Var}(c_nS_n^2) + b_{c_nS_n^2}(\sigma)^2 = \left((c_n-1)^2 + \dfrac{2c_n^2}{n-1}\right)\sigma^4 \geq 2\sigma^4/（n+1）
 \]
 where we may obtain the minium when
 \[
-c_n = (n-1)^2/(n+1)^2.
+c_n = (n-1)/(n+1).
 \]
 (iii) Assume $f_{\theta}$ is the density function for $X = (X_1,\cdots,X_n)$ and then
 \[

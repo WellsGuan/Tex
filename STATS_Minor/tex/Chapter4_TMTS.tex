@@ -1,15 +1,6 @@
-\section{The Spectral Representation of a Stationary Process (Chapter 4)}
-\label{sec:tmts-ch4}
-The frequency domain represents covariance by a finite positive measure and
-represents the process itself by a mean-square stochastic integral.
-The convention throughout is
-\[
-\gamma(h)=\int_{(-\pi,\pi]}e^{ih\lambda}\,dF(\lambda).
-\]
-Thus white noise of variance $\sigma^2$ has density $\sigma^2/(2\pi)$.
-All stochastic integrals in this chapter have deterministic integrands.
+\section{The Spectral Representation of a Stationary Process}
 
-\subsection{Complex Stationarity and Spectral Measures (Sections 4.1--4.3)}
+\subsection{Complex Stationarity and Spectral Measures}
 \begin{definition}[Complex-valued weak stationarity]
 A complex process is weakly stationary if $\mathbb E|X_t|^2<\infty$,
 $\mathbb EX_t=\mu$ is constant, and
@@ -20,7 +11,8 @@ depends only on $h$. We use $\langle U,V\rangle=\mathbb E[U\overline V]$.
 Then $\gamma(-h)=\overline{\gamma(h)}$ and the covariance matrices are
 Hermitian and nonnegative definite.
 \end{definition}
-\begin{theorem}[Herglotz; Theorem 4.3.1]
+\begin{theorem}[Herglotz Theorem]
+\label{thm: herglotz}
 A function $\gamma:\mathbb Z\to\mathbb C$ is an autocovariance function
 if and only if it is nonnegative definite, equivalently if and only if there
 is a finite positive measure $F$ on $(-\pi,\pi]$ such that
@@ -34,6 +26,58 @@ The spectral measure is unique. Its distribution function is normalized by
 $F(-\pi)=0$ and is bounded, nondecreasing and right-continuous, with
 $F(\pi)=\gamma(0)$.
 \end{theorem}
+\begin{proof}
+    If there is representation of $\gamma(h)$ as
+    \[
+    \gamma(h) = \int_{(-\pi,\pi]} e^{ih\lambda}dF(\lambda)
+    \]
+    then for any $\mathbf{a} \in \mathbb C^n$, we know
+    \[
+    \begin{aligned}
+        \sum\limits_{p,q=1}^n a_p\overline{a_q}\gamma(p-q) &= \sum\limits_{p,q=1}^n a_p\overline{a_q}\int_{(-\pi,\pi]} e^{i(p-q)\lambda}dF(\lambda) \\
+        &= \int_{(-\pi,\pi]} \sum\limits_{k=1}^n\left|a_ke^{ik\lambda}\right|^2dF(\lambda) \\
+        &\geq 0.
+    \end{aligned}
+    \]
+    For the other direction, we consider 
+    \[
+    f_N(\lambda) = \dfrac{1}{2\pi N}\sum\limits_{p,q=1}^{N} e^{-ip\lambda}\gamma(p-q)e^{iq\lambda} = \dfrac{1}{2\pi N}\sum\limits_{|m|\leq N-1} (N-|m|)e^{-im\lambda}\gamma(m)
+    \]
+    and define
+    \[
+    F_N(\lambda) = \int_{(-\pi,\lambda]} f_N(\lambda)d\lambda
+    \]
+    and we define
+    \[
+    \gamma_{N}(h) = \int_{(-\pi,\pi]} e^{ih\lambda}dF_N(\lambda)
+    \]
+    we will have
+    \[
+    \begin{aligned}
+    \gamma_N(h) &= \sum\limits_{|m|\leq N-1}\int_{(-\pi,\pi]}(N-|m|)e^{i(h-m)\lambda}\gamma(m)d\lambda \\
+    &= \sum\limits_{|m|\leq N-1}(1-|m|/N)\gamma(m)\left(\dfrac{1}{2\pi}\int_{(-\pi,\pi]}e^{i(h-m)}d\lambda\right) \\
+    &= \begin{cases}
+        (1-|h|/N)\gamma(h),\quad &m=h \\
+        0,&m\neq h
+    \end{cases}
+    \end{aligned}
+    \]
+    For $F_N$, we may find a subsequence such that
+    \[
+    F_{n_k} \Rightarrow F
+    \]
+    where $F$ will be automatically a distribution on $(-\pi,\pi]$ and hence
+    \[
+    \int_{(-\pi,\pi]}e^{i\lambda h}dF_N(\lambda) \to \int_{(-\pi,\pi]} e^{-\lambda h}dF(\lambda) := \gamma'(h)
+    \]
+    where $\gamma'(h) = \lim_{k\to\infty} \gamma_{n_k}(h) = \gamma(h)$ and we are done.\par
+    Now we only need to check that the representation will induce $\gamma$ to be an autocovariance function, we may consider that
+    \[
+    X_t = e^{itX},\quad P_X = F
+    \]
+    and we are done.
+\end{proof}
+
 \begin{definition}[Spectral density and spectral atoms]
 If $dF(\lambda)=f(\lambda)\,d\lambda$, then $f$ is a spectral density.
 It is nonnegative and integrable, and is defined up to Lebesgue-null sets.

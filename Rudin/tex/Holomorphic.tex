@@ -260,6 +260,7 @@
 \end{proof}
 
 \begin{theorem}
+\label{thm: cauchy-formula}
     For any open set $\Omega$, any $f\in H(\Omega)$ has a series representation.
 \end{theorem}
 \begin{proof}
@@ -287,4 +288,72 @@
     Similar to the proof for \ref{thm: convex-cauchy}.
 \end{proof}
 
-\begin
+\subsection{Series Representation}
+
+\begin{theorem}
+    Assume $\Omega$ is a region (i.e. open connected subset) on $\C$, $f\in H(\Omega)$ and let $Z(f)$ denote the zeroes of $f$ in $\Omega$, then $Z(f) = \Omega$ or $Z(f)$ has no accumulation in $\Omega$, in this case, for any $a\in Z(f)$ there exists unique $m(a) \in \mathbb N$ such that
+    \[f(z) = (z-a)^{m}g(z)\]
+    for $z\in \Omega$ where $g\in H(\Omega)$. In particular, $Z(f)$ is at most countable. The integer $m(a)$ is called as the zero order of $f$ at $a$.
+\end{theorem}
+\begin{proof}
+    Assume $a \in Z(f)$ and let $D(a;r) \subset \Omega$, then we may have
+    \[
+    f(z) = \sum\limits_{n=0}^{\infty}
+    c_n(z-a)^n
+    \]
+    for $z\in D(a;r)$ where $c_n$ is given by the Theorem \ref{thm: cauchy-formula}. Then we know $D(a;r) \subset Z(f)$ or there is some $c_n$ none zero. We may choose the least $N$ such that $c_N \neq 0$ and we know that
+    \[
+    g(z) = f(z)/(z-a)^N
+    \]
+    is nonzero at $a$ and $g(z) \in H(\Omega)$. By this, we know that $a$ has to be an isolated zero if $D(a;r)$ is not a subset of $Z(f)$ since we may choose a neighbourhood of $a$ such that $g(z)$ is nonzero there, then $f$ is also nonzero there. There we know that $Z(f)$ is consisted by some open sets and some isolated points. Now we may consider all the nonisolated points of $Z(f)$ denoted by $Z(f)'$ which is open, however, which should be closed because removing all the isolated points from a closed set is still making it closed. Then here is a contradiction since $Z(f)', \Omega - Z(f)'$ are both open if none of them is empty. To sum up, $Z(f) = \Omega$ or $Z(f)'$ is empty and we are done.
+\end{proof}
+
+\begin{corollary}
+    If $f,g \in H(\Omega)$ for a region $\Omega$, and there is a subset $A$ of $\Omega$ non consisted of isolated points such that $f = z$ on $A$, then $f = z$ on $\Omega$.
+\end{corollary}
+
+\begin{definition}
+    [Removable Singularity] If $a\in \Omega$ and $f\in H(\Omega - \{a\})$, then we call $f$ has an isolated singularity at $a$. If we may define $g$ at $a$ such that $g=f$ on $\Omega - \{a\}$ and $g\in H(\Omega)$, we call $a$ as removable.
+\end{definition}
+
+\begin{theorem}
+\label{thm: removable-singular}
+    Assume $f\in H(\Omega-\{a\})$ and for some $r > 0$, $f$ is bounded in $D'(a;r):=D(a;r) - \{a\}$, then $f$ has a removable singularity at $a$.
+\end{theorem}
+\begin{proof}
+    Define $h(a) = 0$ and $h(z) = (z-a)^2f(z)$ in $\Omega-\{a\}$, then $h'(a) = 0$ and hence $h \in H(\Omega)$, then we have a series representation of $h$ with the first two terms are $0$, so that $h/(z-a)^2$ can also be a holomorphic function in $D(a;r)$ with $h/(z-a)^2 = f$ in $D'(a;r)$ and we are done.
+\end{proof}
+
+\begin{theorem}
+    If $a \in \Omega$ with $f\in H(\Omega-\{a\})$, then it has to be one of the following:
+    \begin{enumerate}
+        \item $f$ has a removable singularity at $a$,
+        \item there are $c_1,\cdots,c_m$ for some integer $m$ with $c_m \neq 0$ such  that
+        \[
+        f(z) - \sum\limits_{k=1}^m \dfrac{c_k}{(z-a)^k}
+        \]
+        has a removable singularity at $a$,
+        \item if $r>0$, $D(a;r) \subset \Omega$, then $f(D'(a;r))$ is dense in $\C$,
+    \end{enumerate}
+    where we call $f$ has an $m$-order pole at $a$ in case $(2)$ and
+    \[
+    \sum\limits_{k=1}^m c_k(z-a)^{-k}
+    \]
+    is called the principle part of $f$. For case $(3)$, we say $f$ has an essential singularity at $a$.
+\end{theorem}
+\begin{proof}
+    We assume that $f(D'(a;r))$ is dense in $\C$, where we obtain an essential singularity. Assume $f(D'(a;r))$ is not dense, then we may find some $b \in \C$ such that $|f(z) - b| > \delta$ for some $\delta > 0$ for any $z\in D'(a;r)$, then we may define $h(z): = 1/(f(z)-b)$, which is bounded on $D'(a;r)$ and holomophic in $D'(a;r)$, so we know $h$ has an removable singularity at $a$ and consider the series representation of $h$ at $a$ as
+    \[
+    h(z) = \sum\limits_{k=0}^{\infty} c_k(z-a)^k
+    \]
+    if $h(a) \neq 0$, then we may know that $f$ will be bounded in $D'(a;\rho)$ for some $\rho > 0$ and hence it is in the case $(1)$. If it has a $m$-order zero at $a$, then assume
+    \[
+    h(z) = (z-a)^mg(z)
+    \]
+    with $g(z) \neq 0$ at $a$ and hence $1/g$ has no zeros and singularity in $D(a;\rho')$ for some $\rho' > 0$ with
+    \[
+    f(z) - b = (z-a)^{-m}(1/g)(z)
+    \]
+    in $D'(a;\rho')$ and we are done for $(2)$.
+\end{proof}
+
