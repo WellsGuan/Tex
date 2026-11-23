@@ -1,0 +1,77 @@
+\section{Mathematical Background and Project Proposal}
+
+\subsection{Definitions and Modelling}
+
+\begin{definition}
+    [Stochastic Volatility Model]
+Let $\{P_t\}_{t\geq 0}$ be a positive price time series, and define
+the \emph{log return} by
+\[
+r_t=\log P_t-\log P_{t-1}, \qquad t\geq 1.
+\]
+We model the returns as
+\[
+r_t=\mu_r+\sigma_t Z_{2,t},
+\]
+where $\sigma_t>0$ is a latent random scale. Define the latent
+log-variance, often called the \emph{latent log-volatility}, by
+\[
+h_t=\log(\sigma_t^2).
+\]
+The basic Gaussian stochastic volatility model is
+\[
+\begin{aligned}
+h_t
+&=\mu_h+\phi(h_{t-1}-\mu_h)+qZ_{1,t},\\
+r_t
+&=\mu_r+\exp(h_t/2)Z_{2,t},
+\qquad t\geq 1,
+\end{aligned}
+\]
+where $\mu_h,\mu_r\in\mathbb R$, $|\phi|<1$, and $q>0$.
+The random variables
+\[
+\{Z_{i,t}:i\in\{1,2\},\ t\geq 1\}
+\]
+are mutually independent standard normal random variables and
+are independent of $h_0$.\par
+In particular,
+\[
+r_t\mid h_t
+\sim\mathcal N(\mu_r,e^{h_t}),
+\]
+so $\sigma_t^2=e^{h_t}$ is the conditional variance of $r_t$
+given $h_t$, rather than its unconditional variance.
+\end{definition}
+\vspace{1em}
+\begin{proposition}
+    Assume
+\[
+h_0\sim
+\mathcal N\left(\mu_h,\frac{q^2}{1-\phi^2}\right),
+\]
+then $h_t$ will be a stationary process.
+\end{proposition}
+\begin{proof}
+    To see that $h_t$ is stationary, we denote
+    \(
+    p_t := h_t - \mu_h
+    \)
+    and then
+    \[
+    p_t = \phi^tp_0 +\sum\limits_{k=1}^t q\phi^{t-k}Z_{1,k}.
+    \]
+    We have
+    \[
+    \begin{aligned}
+    \text{Cov}(p_s,p_t) &= \phi^{t+s}\mathbb Ep_0^2 + \sum\limits_{k=1}^{t\wedge s} q^2\phi^{t+s-2k} \\
+    &= \phi^{t+s}\left(\mathbb Ep_0^2 +q^2\dfrac{\phi^{2(t\wedge s)}-1}{1-\phi^2}\right) \\
+    &=q^2\phi^{|t-s|}/(1-\phi^2)
+    \end{aligned}
+    \]
+    if $p_0$ has the required distribution.
+\end{proof}
+
+\begin{definition}
+    [Ensemble Kalman Filtering for SV Model]
+\end{definition}

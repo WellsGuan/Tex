@@ -1,0 +1,51 @@
+\section{Invariant Factor}
+
+\subsection{Definition}
+
+    We begin to consider a more general SPDE:
+    \[
+    du_t^{\rho} = \dfrac{1}{2}\Delta u_t^{\rho} + \gamma_{\rho}^{1-c}\mathcal{G}_{\rho}[\sigma(u_t^{\rho})dW_{t}]
+    \]
+    with the mild solution
+    \[
+    u_t^{\rho} = \mathcal{G}_{t-s}u_s^{\rho} + \gamma_{\rho}^{1-c}\int_s^{t}\mathcal{G}_{t+\rho-r}[\sigma(u_r^{\rho})dW_r]
+    \]
+\begin{proposition}
+    Define
+    \[
+    U_s^{\rho}(x) := u_{\rho s}^{\rho}(\sqrt{\rho}x)
+    \]
+    and then we have for $c=1$,
+    \[
+    U_t^{\rho} = \mathcal{G}_{t-s}U^{\rho}_s + \int_s^t \mathcal{G}_{t+1-r}[\sigma(U_r^{\rho})d\widetilde{W}_r]
+    \]
+    for another space-time white noise $\widetilde{W}$.
+\end{proposition}
+\begin{proof}
+    By rough computation, we have
+    \[
+    \begin{aligned}
+    dU_t &= \dfrac{1}{2}\Delta U_t + \rho\mathcal{G}_{\rho}[\sigma(U_t)dW_t] \\
+    &= \dfrac{1}{2}\Delta U_t + \mathcal{G}_1[\sigma(U_t)d\widetilde{W}_t]
+    \end{aligned}
+    \]
+    which can also be interpreted by the mild solution:
+    \[
+    \begin{aligned}
+        U_t^{\rho}(x) &= u^{\rho}_{\rho t}(\sqrt{\rho}x) = \mathcal{G}_{\rho (t-s)}u^{\rho}_{\rho s}(\sqrt{\rho}x)+\int_{\rho s}^{\rho t}\mathcal{G}_{\rho t+\rho-r}[\sigma(u^{\rho}_r) dW_r](\sqrt{\rho}x) \\
+        &= \int G_{\rho(t-s)}(\sqrt{\rho} x - y)u^{\rho}_{\rho s}(y)dy + \int_{\rho s}^{\rho t} \int G_{\rho t +\rho-r}(\sqrt{\rho}x-y)\sigma(u_r^{\rho}(y))W(dr,dy)\\
+        &= \int G_{t-s}(x-y)U_s^{\rho}(y)dy + \int_s^t \int G_{t+1-r}(x-y)\sigma(U_r^{\rho}(y))\rho^{-1} W(\rho dr,\sqrt{\rho}dy)
+    \end{aligned}
+    \]
+\end{proof}
+
+\subsection{Analysis for the normalized equation}
+
+Now we mainly consider the equation:
+\[
+U_t^{\rho} = \mathcal{G}_{t-s}U^{\rho}_s+\int_s^t \mathcal{G}_{t+1-r}[\sigma(U_r^{\rho})dW_r]
+\]
+we may consider the spatial average approach, that
+\[
+\int_s^t
+\]
