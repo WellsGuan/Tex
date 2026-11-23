@@ -3,7 +3,7 @@
 \subsection{Definitions and Modelling}
 
 \begin{definition}
-    [Stochastic Volatility Model]
+    [Stochastic Volatility Model]\label{def: sv-model}
 Let $\{P_t\}_{t\geq 0}$ be a positive price time series, and define
 the \emph{log return} by
 \[
@@ -72,6 +72,111 @@ then $h_t$ will be a stationary process.
     if $p_0$ has the required distribution.
 \end{proof}
 
+\begin{theorem}
+    [s]\label{thm: optimal-linear-estimation}
+\end{theorem}
+
+\subsection{EnKF Algorithm and Pseudocode}
+
 \begin{definition}
     [Ensemble Kalman Filtering for SV Model]
+    Assume for the SV model, the parameters $(\mu_r,\mu_h,\phi,q)$ are given, then for the model:
+    \[
+    \begin{aligned}
+        H_t &= \mu_h + \phi(H_{t-1}-\mu_h) + qZ_{1,t}, \\
+        R_t &= \mu_r + \exp\left({H_t/2}\right)Z_{2,t}
+    \end{aligned}
+    \]
+    where $Z_{i,t}$ are white noises defined as \ref{def: sv-model} and we use the captical $H,R$ for the time series in case it mess up with the observations involved later. Let $N$ denotes the ensemble size.\par
+    We state the algorithm inductively, assume the current ensemble without updating \[h_{t-1}^{(1)},h_{t-1}^{(2)}\cdots,h_{t-1}^{(N)},\]
+    then we may obtain a first-step prediction of $H_t$ obtained by \[\{\tilde{h}_{t}^{(i)}\}_{i\in\{1,\cdots,N\}}, \quad \tilde{h}_t^{(i)} = \mu_h + \phi(h_{t-1}^{(i)}-\mu_h)+qz_{1,t}^{(i)}\]
+    where $z_{1,t}^{(i)}$ are new standard normal realizations.\par
+    After we obtained the latest observation $r_t$ pf $R_t$, we would like to use the \ref{thm: optimal-linear-estimation} to adjust the ensemble set by
+    \[
+    h_t^{(i)} := \tilde{h}_t^{(i)}+\dfrac{\widehat{\text{Cov}}(H,S)(t)}{\widehat{\text{Cov}}(S,S)(t)}(s_t-s_t^{(i)})
+    \]
+    where
+    \[
+    s_t:= (r_t-\mu_r)^2,\quad s_t^{(i)} :=\exp(\tilde{h}_t^{(i)})(z_{2,t}^{(i)})^2
+    \]
+    and
+    \[
+    \begin{aligned}
+        \widehat{\text{Cov}}(H,S)(t)&:= \dfrac{1}{N-1}\sum\limits_{i=1}^N(\tilde{h}_t^{(i)}-\bar{h}_t)(s_t^{(i)}-\overline{s}_t),\\
+        \widehat{\text{Cov}}(S,S)(t)&:= \dfrac{1}{N-1}\sum\limits_{i=1}^N(s_t^{(i)}-\overline{s}_t)(s_t^{(i)}-\overline{s}_t),
+    \end{aligned}
+    \]
+    with
+    \[\bar{h}_t:= \dfrac{1}{N}\sum\limits_{i=1}^N \tilde{h}_t^{(i)}, \quad
+        \bar{s}_t:= \dfrac{1}{N}\sum\limits_{i=1}^N {s}_t^{(i)},\]
+    then an approximation of filtering distribution for $h_t$ will be given as
+    \[
+    \widehat{\pi}_t^N: = \dfrac{1}{N}\sum\limits_{i=1}^N \delta_{h_t^{(i)}}.
+    \]
 \end{definition}
+
+\begin{algorithm}[htbp]
+\caption{EnKF-Type Filtering for the SV Model Using Squared Returns}
+\label{alg:sv-enkf}
+\begin{algorithmic}[1]
+\Require Observed returns $r_{1:T}$; parameters
+$(\mu_r,\mu_h,\phi,q)$ with $|\phi|<1$, $q>0$;
+ensemble size $N\geq 2$.
+\Ensure Approximate filtering distributions
+$\widehat{\pi}_t^N$, $t=1,\ldots,T$.
+
+\State Independently sample
+$h_0^{(i)}\sim
+\mathcal{N}\!\left(\mu_h,q^2/(1-\phi^2)\right)$,
+$i=1,\ldots,N$.
+
+\For{$t=1,\ldots,T$}
+    \State $s_t\gets(r_t-\mu_r)^2$
+
+    \For{$i=1,\ldots,N$}
+        \State Draw independent standard normal realizations
+        $z_{1,t}^{(i)}$ and $z_{2,t}^{(i)}$,
+        independently of the existing ensemble.
+        \State $\widetilde{h}_t^{(i)}
+        \gets \mu_h+\phi(h_{t-1}^{(i)}-\mu_h)
+        +qz_{1,t}^{(i)}$
+        \State $s_t^{(i)}
+        \gets \exp(\widetilde{h}_t^{(i)})
+        \bigl(z_{2,t}^{(i)}\bigr)^2$
+    \EndFor
+
+    \State $\overline{h}_t
+    \gets N^{-1}\sum_{i=1}^N\widetilde{h}_t^{(i)}$
+    \State $\overline{s}_t
+    \gets N^{-1}\sum_{i=1}^N s_t^{(i)}$
+
+    \State $C_t^{hs}\gets
+    \dfrac{1}{N-1}\sum_{i=1}^N
+    \bigl(\widetilde{h}_t^{(i)}-\overline{h}_t\bigr)
+    \bigl(s_t^{(i)}-\overline{s}_t\bigr)$
+
+    \State $C_t^{ss}\gets
+    \dfrac{1}{N-1}\sum_{i=1}^N
+    \bigl(s_t^{(i)}-\overline{s}_t\bigr)^2$
+
+    \If{$C_t^{ss}>0$}
+        \State $K_t\gets C_t^{hs}/C_t^{ss}$
+    \Else
+        \State $K_t\gets 0$
+        \Comment{Skip the update if the sample variance is zero}
+    \EndIf
+
+    \For{$i=1,\ldots,N$}
+        \State $h_t^{(i)}
+        \gets \widetilde{h}_t^{(i)}
+        +K_t\bigl(s_t-s_t^{(i)}\bigr)$
+    \EndFor
+
+    \State $\widehat{\pi}_t^N
+    \gets N^{-1}\sum_{i=1}^N\delta_{h_t^{(i)}}$
+\EndFor
+
+\State \Return $\{\widehat{\pi}_t^N\}_{t=1}^T$
+\end{algorithmic}
+\end{algorithm}
+
