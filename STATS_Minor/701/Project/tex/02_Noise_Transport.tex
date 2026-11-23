@@ -1,0 +1,328 @@
+\section{A Noise-Transport Update for the SV Model}
+
+The previous section uses the squared return as the observation in an
+EnKF-type update. We now consider a logarithmic transformation of that
+observation. This gives additive noise with a known distribution and
+allows us to describe a nonlinear update at the distributional level.
+The original squared-return update is kept as the starting point.
+
+\noindent
+The idea is to use the known observation-noise distribution to construct
+a nonlinear update of a forecast pair $(H^f,Y^f)$. The construction below
+gives an exact posterior draw if the conditional noise CDF is known.
+For an empirical predictive distribution, it reduces to inverse-CDF
+resampling. For a continuous predictive distribution, computing the
+conditional noise CDF remains a numerical step.
+
+\subsection{The one-step filtering problem}
+
+Consider the SV model
+\begin{align*}
+H_t&=\mu_h+\phi(H_{t-1}-\mu_h)+qZ_{1,t},\\
+R_t&=\mu_r+\exp(H_t/2)Z_{2,t},
+\end{align*}
+where $|\phi|<1$, $q>0$, and the noises are mutually independent
+standard normal variables, independent of the initial state.
+The parameters are treated as known.
+
+Fix the past observations $r_{1:t-1}$ and denote the predictive law by
+\[
+\mu(dh)=\mathbb P(H_t\in dh\mid R_{1:t-1}=r_{1:t-1}).
+\]
+In the following, the past is fixed and the time index is omitted.
+We allow $\mu$ to be any probability measure on $\mathbb R$.
+
+For an observed return $r\ne\mu_r$, set $y=\log(r-\mu_r)^2$. The
+transformed observation model is
+\[
+Y=H+\eta,\qquad \eta=\log Z^2,\qquad Z\sim N(0,1),\quad \eta\perp H.
+\]
+Its noise CDF and density are
+\begin{equation}
+F_\eta(u)=2\Phi(e^{u/2})-1,\qquad
+g(u)=\frac{1}{\sqrt{2\pi}}
+\exp\left(\frac u2-\frac{e^u}{2}\right).
+\label{eq:noise-transport:noise}
+\end{equation}
+The CDF follows from $\mathbb P(\log Z^2\le u)=\mathbb P(|Z|\le e^{u/2})$;
+differentiating gives the density.
+
+In this model, the conditional density of $R$ given $H=h$ depends on
+$r$ only through $(r-\mu_r)^2$. Thus the transformed observation retains
+the information about $H$ in a nonzero centered return. Indeed,
+\[
+g\bigl(\log(r-\mu_r)^2-h\bigr)
+=|r-\mu_r|\,p_R(r\mid h),
+\]
+and the factor on the right does not depend on $h$.
+An exactly zero centered return is a null event in the continuous model.
+Rounded or censored observations would need their own observation model.
+
+We would like to construct a function $f_y$ such that
+\begin{equation}
+(H^f,Y^f)\sim\mathcal L(H,Y)
+\quad\Longrightarrow\quad
+\mathcal L\bigl(f_y(H^f,Y^f)\bigr)=\mathcal L(H\mid Y=y).
+\label{eq:noise-transport:target}
+\end{equation}
+Here $(H^f,Y^f)$ is an auxiliary simulated pair. Its noise
+$\eta^f=Y^f-H^f$ is independent of the actual observation, conditional
+on the fixed past. This is different from the noise $\eta$ that
+generated the actual $Y$: $\eta$ and $Y=H+\eta$ are not independent.
+
+\subsection{Why an affine update is only a starting point}
+
+Assume finite second moments and denote
+\[
+m=\mathbb E H,\quad P=\operatorname{Var}(H),\qquad
+b=\mathbb E\eta,\quad V=\operatorname{Var}(\eta)=\frac{\pi^2}{2}.
+\]
+The usual population EnKF-type update is
+\[
+H^a_{\mathrm{lin}}=H^f+K(y-Y^f),\qquad K=\frac{P}{P+V}.
+\]
+Its mean is the best affine estimate
+\[
+L(y)=m+K(y-m-b).
+\]
+If
+\[
+U=H^f-m-K(Y^f-m-b),
+\]
+then $H^a_{\mathrm{lin}}=L(y)+U$. But the actual conditional law satisfies
+\[
+\mathcal L(H\mid Y=y)=L(y)+\mathcal L(U\mid Y^f=y),
+\]
+where addition of a constant denotes a translation of a distribution.
+The affine update instead uses $L(y)+\mathcal L(U)$. Orthogonality of
+$U$ and $Y^f$ alone does not identify these two laws.
+
+For a jointly Gaussian pair, the residual is independent of the
+observation and this update is exact. For the transformed SV model,
+the log-$\chi_1^2$ observation noise is non-Gaussian, so this independence
+does not generally hold. We therefore look for a nonlinear update
+using the observation-noise distribution.
+
+\subsection{The conditional noise law}
+
+The identity $H=Y-\eta$ suggests first finding $\mathcal L(\eta\mid Y=y)$.
+Define the normalizing factor
+\[
+c_\mu(y)=\int_\mathbb R g(y-h)\,\mu(dh).
+\]
+The density $g$ is strictly positive and bounded:
+$0<g(u)\le (2\pi e)^{-1/2}$. Thus
+$0<c_\mu(y)<\infty$ for every $y\in\mathbb R$ and every probability measure $\mu$.
+
+\begin{proposition}
+A version of the posterior law of $H$ is
+\[
+\pi_y(A)=\frac{\int_A g(y-h)\,\mu(dh)}{c_\mu(y)}.
+\]
+The corresponding conditional noise law is
+\begin{equation}
+\nu_y(B)
+=\frac{\int_\mathbb R
+\mathbf 1_{\{y-h\in B\}}g(y-h)\,\mu(dh)}{c_\mu(y)}.
+\label{eq:noise-transport:conditional-noise}
+\end{equation}
+In particular, $\nu_y$ is the image of $\pi_y$ under $h\mapsto y-h$.
+\end{proposition}
+
+\begin{proof}
+The joint law of $(H,Y)$ is $\mu(dh)g(y-h)\,dy$, which gives the
+formula for $\pi_y$. To check the formula for $\nu_y$ directly, let
+$B,C$ be Borel subsets of $\mathbb R$. By Fubini's theorem,
+\begin{align*}
+\int_C \nu_y(B)c_\mu(y)\,dy
+&=\int_\mathbb R\int_C
+\mathbf 1_{\{y-h\in B\}}g(y-h)\,dy\,\mu(dh)\\
+&=\int_\mathbb R\int_\mathbb R
+\mathbf 1_{\{u\in B,\ h+u\in C\}}g(u)\,du\,\mu(dh)\\
+&=\mathbb P(\eta\in B,Y\in C).
+\end{align*}
+This verifies the conditional distribution identity. The relation
+$H=y-\eta$ after conditioning gives the final statement.
+\end{proof}
+
+Denote the conditional noise CDF by
+\begin{equation}
+G_y(u)=\nu_y((-\infty,u])
+=\frac{\int_\mathbb R
+\mathbf 1_{\{y-h\le u\}}g(y-h)\,\mu(dh)}{c_\mu(y)}.
+\label{eq:noise-transport:conditional-cdf}
+\end{equation}
+This formula is valid even when the predictive law has atoms.
+
+If $\mu$ has a density $p_f$, we may instead write
+\[
+G_y(u)=
+\frac{\int_{-\infty}^u g(v)p_f(y-v)\,dv}
+{\int_\mathbb R g(v)p_f(y-v)\,dv}.
+\]
+For example, if $H^f\sim N(m,P)$ with $P>0$, then
+\[
+p_{\eta\mid Y=y}(u)
+\propto
+\exp\left\{-\frac{(y-u-m)^2}{2P}
++\frac u2-\frac{e^u}{2}\right\}.
+\]
+Its log density has second derivative $-1/P-e^u/2<0$.
+Thus it is strictly log-concave, although it is generally not Gaussian.
+Knowing $g$ does not make $G_y$ equal to $F_\eta$; the predictive law
+still enters through $p_f(y-u)$.
+
+\subsection{An exact nonlinear update}
+
+For $v\in(0,1)$, let
+\[
+G_y^{-1}(v)=\inf\{u\in\mathbb R:G_y(u)\ge v\}.
+\]
+This generalized inverse also applies when $G_y$ has jumps. Define
+\begin{equation}
+T_y(u)=G_y^{-1}(F_\eta(u)).
+\label{eq:noise-transport:noise-map}
+\end{equation}
+
+\begin{theorem}[Noise-transport representation]
+Let $H^f\sim\mu$ and let $\eta^f$ be independent of $H^f$ with density $g$.
+Set $Y^f=H^f+\eta^f$. For every fixed $y\in\mathbb R$, define
+\begin{equation}
+H^a=f_y(H^f,Y^f),\qquad
+f_y(h,z)=y-T_y(z-h).
+\label{eq:noise-transport:update}
+\end{equation}
+Then $\mathcal L(H^a)=\pi_y$, the posterior version specified above.
+No Gaussian assumption on $\mu$, and no moment assumption on $\mu$,
+is needed for this distributional statement.
+\end{theorem}
+
+\begin{proof}
+By construction, $Y^f-H^f=\eta^f$. Since $F_\eta$ is continuous,
+\[
+V^f=F_\eta(Y^f-H^f)=F_\eta(\eta^f)\sim U(0,1).
+\]
+The inverse-CDF construction gives
+\[
+T_y(\eta^f)=G_y^{-1}(V^f)\sim\nu_y.
+\]
+For any Borel set $A$, formula \eqref{eq:noise-transport:conditional-noise} now gives
+\begin{align*}
+\mathbb P(H^a\in A)
+&=\int_\mathbb R\mathbf 1_{\{y-u\in A\}}\,\nu_y(du)\\
+&=\frac{\int_\mathbb R
+\mathbf 1_{\{h\in A\}}g(y-h)\,\mu(dh)}{c_\mu(y)}
+=\pi_y(A),
+\end{align*}
+and we are done.
+\end{proof}
+
+For the SV observation noise, the map is explicitly
+\[
+f_y(h,z)
+=y-G_y^{-1}\left(2\Phi(e^{(z-h)/2})-1\right).
+\]
+It can also be expressed as a correction of the forecast state:
+\[
+H^a
+=H^f+(y-Y^f)
++\left\{\eta^f-T_y(\eta^f)\right\}.
+\]
+The last term adjusts the original noise into the noise distribution
+compatible with the actual observation.
+
+Notice that this particular construction depends on the forecast pair
+only through its noise $\eta^f$. Conditional on the supplied $\mu$ and
+the fixed $y$, the resulting $H^a$ is independent of $H^f$, since $\eta^f$
+is independent of $H^f$. Thus this is a way to sample the posterior;
+it does not preserve the location or rank of an individual forecast member.
+The conditional CDF $G_y$ carries the predictive information. Even in
+the Gaussian case, this coupling need not agree member by member with
+the usual EnKF correction, although both have the same posterior law.
+
+\subsection{What happens for a finite ensemble?}
+
+Suppose the predictive approximation is
+\[
+\mu^N=\frac1N\sum_{i=1}^N\delta_{h_i}.
+\]
+Its exact update is
+\[
+\pi_y^N=\sum_{i=1}^N w_i\delta_{h_i},\qquad
+w_i=\frac{g(y-h_i)}{\sum_{j=1}^N g(y-h_j)}.
+\]
+The conditional noise law and CDF are
+\[
+\nu_y^N=\sum_{i=1}^N w_i\delta_{y-h_i},\qquad
+G_y^N(u)=\sum_{i=1}^N w_i\mathbf 1_{\{y-h_i\le u\}}.
+\]
+Generating independent noises $\eta_i^f$ and applying the map gives
+\[
+h_i^a=y-(G_y^N)^{-1}(F_\eta(\eta_i^f)).
+\]
+Conditional on the fixed forecast ensemble, each output has distribution
+$\pi_y^N$. The outputs are independent if fresh independent noises are used.
+
+To see the computation, order the noise locations as
+$a_1\le\cdots\le a_N$, where $a_j=y-h_{\sigma(j)}$, and form
+$W_j=\sum_{k=1}^j w_{\sigma(k)}$. For $V\sim U(0,1)$, choose
+the smallest $j$ with $V\le W_j$. Then $T_y(\eta^f)=a_j$ and the
+updated state is $h_{\sigma(j)}$. Tied locations can be combined.
+This is inverse-CDF resampling from the weighted posterior.
+
+There are two separate approximations here. First, $\pi_y^N$ updates
+the empirical predictive law, which may differ from the true predictive
+law. Second, the equal-weight output measure
+$N^{-1}\sum_i\delta_{h_i^a}$ has resampling error relative to $\pi_y^N$.
+Exact distribution for each draw does not mean exact equality of
+these two finite measures. In general, arbitrary posterior weights
+cannot be represented by the same number of equal-weight atoms exactly.
+
+\subsection{A continuous predictive approximation for the SV model}
+
+The Gaussian state transition provides an alternative to replacing the
+predictive distribution by Dirac masses. If the previous filtering
+approximation is $N^{-1}\sum_i\delta_{h_{t-1}^{a,(i)}}$, then its exact
+one-step propagation is the mixture
+\[
+p_f^N(h)=\frac1N\sum_{i=1}^N
+\varphi_q(h-m_i),\qquad
+m_i=\mu_h+\phi(h_{t-1}^{a,(i)}-\mu_h),
+\]
+where $\varphi_q$ is the $N(0,q^2)$ density.
+
+Because $q>0$, this is a continuous positive density. We can use it in
+the integral formula for $G_y$ and compute its generalized inverse
+numerically. This gives continuous updated particles rather than
+resampling only the finitely many forecast locations. It is exact for
+the mixture predictive model if the integrals and inverses are exact.
+The previous filtering approximation and numerical errors still remain.
+
+\begin{algorithm}[htbp]
+\caption{One-step noise-transport update}
+\begin{algorithmic}[1]
+\Require Predictive law $\mu$; observed centered return $r-\mu_r\ne0$;
+ensemble size $N$.
+\State $y\gets\log(r-\mu_r)^2$.
+\State Construct $G_y$ from \eqref{eq:noise-transport:conditional-cdf}, or its
+density form if available.
+\For{$i=1,\ldots,N$}
+    \State Draw $\eta_i^f\sim g$ independently.
+    \State $v_i\gets F_\eta(\eta_i^f)$.
+    \State $\eta_i^a\gets G_y^{-1}(v_i)$.
+    \State $h_i^a\gets y-\eta_i^a$.
+\EndFor
+\State \Return $N^{-1}\sum_{i=1}^N\delta_{h_i^a}$.
+\end{algorithmic}
+\end{algorithm}
+
+At the population level, the theorem specifies an exact posterior
+representation. Its practical use still depends on computing $G_y$.
+Since $F_\eta(\eta_i^f)$ is uniform, one may equivalently generate
+$v_i$ directly from $U(0,1)$. The paired forecast representation is useful
+for expressing the update, but it is not required for inverse-CDF sampling.
+The construction does not remove the Bayesian conditioning step; it
+expresses that step as a nonlinear transformation of known noise.
+For this one-dimensional SV model, quadrature and inverse-CDF evaluation
+are possible directions to implement and check. No numerical performance
+or finite-ensemble convergence rate is claimed in this draft.

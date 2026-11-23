@@ -72,9 +72,120 @@ then $h_t$ will be a stationary process.
     if $p_0$ has the required distribution.
 \end{proof}
 
-\begin{theorem}
-    [s]\label{thm: optimal-linear-estimation}
+\begin{theorem}[Optimal Affine Prediction]
+\label{thm: optimal-linear-estimation}
+Let $X\in\mathbb R^d$ and $Y\in\mathbb R^m$ have finite second
+moments. Denote
+\[
+\begin{aligned}
+    m_X&=\mathbb EX, & m_Y&=\mathbb EY,\\
+    C_{XX}&=\mathbb E[(X-m_X)(X-m_X)^\top], &
+    C_{YY}&=\mathbb E[(Y-m_Y)(Y-m_Y)^\top],\\
+    C_{XY}&=\mathbb E[(X-m_X)(Y-m_Y)^\top], &
+    C_{YX}&=C_{XY}^\top.
+\end{aligned}
+\]
+Assume that $C_{YY}$ is positive definite, and set
+\[
+    K=C_{XY}C_{YY}^{-1},\qquad
+    \ell(y)=m_X+K(y-m_Y).
+\]
+Then $\ell(Y)$ is the unique affine predictor minimizing
+\[
+    \mathbb E\|X-a-BY\|^2,
+    \qquad a\in\mathbb R^d,\quad B\in\mathbb R^{d\times m}.
+\]
+The residual $U=X-\ell(Y)$ satisfies
+\[
+    \mathbb EU=0,\qquad
+    \mathbb E[U(Y-m_Y)^\top]=0,
+\]
+and its covariance is
+\[
+    C_U=C_{XX}-C_{XY}C_{YY}^{-1}C_{YX}.
+\]
+In particular, the minimum mean squared error is
+$\operatorname{tr}(C_U)$.
 \end{theorem}
+
+\begin{proof}
+By the definition of $K$, we know
+\[
+    \mathbb EU=0,\qquad
+    \mathbb E[U(Y-m_Y)^\top]=C_{XY}-KC_{YY}=0.
+\]
+For any $a$ and $B$, write
+\[
+    X-a-BY
+    =U+(m_X-a-Bm_Y)+(K-B)(Y-m_Y).
+\]
+The three terms on the right have zero cross terms in the expected
+squared norm, and hence
+\[
+\begin{aligned}
+    \mathbb E\|X-a-BY\|^2
+    &=\mathbb E\|U\|^2+\|m_X-a-Bm_Y\|^2\\
+    &\quad+\operatorname{tr}\bigl((K-B)C_{YY}(K-B)^\top\bigr).
+\end{aligned}
+\]
+Since $C_{YY}$ is positive definite, equality with the minimum holds
+exactly when $B=K$ and $a=m_X-Km_Y$. Expanding
+$\mathbb E[UU^\top]$ gives the stated covariance, and we are done.
+\end{proof}
+
+\begin{proposition}[Exact Posterior Update in the Gaussian Case]
+\label{prop: gaussian-posterior-update}
+Under the assumptions and notation of
+Theorem~\ref{thm: optimal-linear-estimation}, assume further that
+$(X,Y)$ is jointly Gaussian. Then a version of the conditional law is
+\[
+    \mathcal L(X\mid Y=y)
+    =\mathcal N\bigl(\ell(y),C_U\bigr),
+    \qquad y\in\mathbb R^m.
+\]
+Let $(X^f,Y^f)$ be an auxiliary pair with the same joint law as $(X,Y)$,
+independent of the actual observation. For a fixed observed value $y$,
+define
+\[
+    X^a=X^f+K(y-Y^f).
+\]
+Then
+\[
+    \mathcal L(X^a)=\mathcal L(X\mid Y=y).
+\]
+Thus the update gives both the conditional mean and the conditional
+covariance, and in this case it gives the full posterior law.
+\end{proposition}
+
+\begin{proof}
+The residual $U=X-m_X-K(Y-m_Y)$ and $Y$ are jointly Gaussian.
+The previous theorem gives $\operatorname{Cov}(U,Y)=0$, so they are
+independent. We also know that
+\[
+    X=\ell(Y)+U,\qquad U\sim\mathcal N(0,C_U).
+\]
+Conditioning on $Y=y$ therefore gives the stated Gaussian conditional
+law. For the auxiliary pair, put
+\[
+    U^f=X^f-m_X-K(Y^f-m_Y).
+\]
+Then $U^f$ has the same law as $U$, and
+\[
+    X^a=m_X+K(y-m_Y)+U^f=\ell(y)+U^f.
+\]
+This has distribution $\mathcal N(\ell(y),C_U)$, and hence it is a draw
+from the posterior law.
+\end{proof}
+
+The positive definiteness assumption above makes $C_{YY}^{-1}$
+well defined; the residual covariance $C_U$ may still be singular.
+Without joint Gaussianity, the first theorem still gives the best
+affine predictor, but the residual need not be independent of $Y$.
+The distributional conclusion in the proposition then need not hold.
+Also, the proposition uses the population covariance matrices and an
+exact joint forecast pair. Replacing these covariances by estimates
+from a finite ensemble introduces an approximation.
+
 
 \subsection{EnKF Algorithm and Pseudocode}
 
