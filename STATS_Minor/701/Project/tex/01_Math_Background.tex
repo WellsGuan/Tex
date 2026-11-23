@@ -78,6 +78,25 @@ then $h_t$ will be a stationary process.
 
 \subsection{EnKF Algorithm and Pseudocode}
 
+\begin{definition}[Abstraction of Ensemble Kalman Filtering]
+    Consider the state-space equations
+\[
+\begin{aligned}
+X_t &= \Phi(X_{t-1}) + W_t,
+& W_t &\sim \mathcal N(0,Q_t),\\
+Y_t &= H(X_t) + V_t,
+& V_t &\sim \mathcal N(0,R_t),
+\end{aligned}
+\]
+where $X_t\in\mathbb R^d$ is the latent state and
+$Y_t\in\mathbb R^m$ is the observation. Assume that the noises are
+mutually independent over time and independent of the initial state.
+Denote the observed values by $y_{1},y_2,\cdots,y_t$ and we like to obtain the filtering distribution denoted as
+\[
+\pi_t=P(X_t\mid Y_1=y_1,\cdots,Y_t = y_t).
+\]
+\end{definition}
+
 \begin{definition}
     [Ensemble Kalman Filtering for SV Model]
     Assume for the SV model, the parameters $(\mu_r,\mu_h,\phi,q)$ are given, then for the model:
@@ -89,8 +108,16 @@ then $h_t$ will be a stationary process.
     \]
     where $Z_{i,t}$ are white noises defined as \ref{def: sv-model} and we use the captical $H,R$ for the time series in case it mess up with the observations involved later. Let $N$ denotes the ensemble size.\par
     We state the algorithm inductively, assume the current ensemble without updating \[h_{t-1}^{(1)},h_{t-1}^{(2)}\cdots,h_{t-1}^{(N)},\]
-    then we may obtain a first-step prediction of $H_t$ obtained by \[\{\tilde{h}_{t}^{(i)}\}_{i\in\{1,\cdots,N\}}, \quad \tilde{h}_t^{(i)} = \mu_h + \phi(h_{t-1}^{(i)}-\mu_h)+qz_{1,t}^{(i)}\]
-    where $z_{1,t}^{(i)}$ are new standard normal realizations.\par
+    which provide an approximation:
+    \[
+    \widehat{P}(H_{t-1}|R_1=r_1,\cdots,R_{t-1}=r_{t-1}) = \widehat{\pi}_{t-1}^N:= \dfrac{1}{N}\sum\limits_{i=1}^N \delta_{h_{t-1}^{(i)}}.
+    \]
+    Then we may use the evolution equation to obtain
+    \[
+    \widehat{P}(H_t|R_1 = r_1,\cdots,R_{t-1}=r_{t-1}) = \widetilde{\pi}_{t}^N:=\dfrac{1}{N}\sum\limits_{i=1}^N\delta_{\tilde{h}_t^{(i)}},
+    \]
+    where \[\tilde{h}_t^{(i)} = \mu_h + \phi(h_{t-1}^{(i)}-\mu_h)+qz_{1,t}^{(i)}\]
+    for $z_{1,t}^{(i)}$ new standard normal realizations.\par
     After we obtained the latest observation $r_t$ pf $R_t$, we would like to use the \ref{thm: optimal-linear-estimation} to adjust the ensemble set by
     \[
     h_t^{(i)} := \tilde{h}_t^{(i)}+\dfrac{\widehat{\text{Cov}}(H,S)(t)}{\widehat{\text{Cov}}(S,S)(t)}(s_t-s_t^{(i)})
@@ -99,7 +126,7 @@ then $h_t$ will be a stationary process.
     \[
     s_t:= (r_t-\mu_r)^2,\quad s_t^{(i)} :=\exp(\tilde{h}_t^{(i)})(z_{2,t}^{(i)})^2
     \]
-    and
+    for $z_{2,t}^{(i)}$ new standard normal realizations, and
     \[
     \begin{aligned}
         \widehat{\text{Cov}}(H,S)(t)&:= \dfrac{1}{N-1}\sum\limits_{i=1}^N(\tilde{h}_t^{(i)}-\bar{h}_t)(s_t^{(i)}-\overline{s}_t),\\
@@ -179,4 +206,6 @@ $i=1,\ldots,N$.
 \State \Return $\{\widehat{\pi}_t^N\}_{t=1}^T$
 \end{algorithmic}
 \end{algorithm}
+
+
 
