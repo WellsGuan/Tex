@@ -1,0 +1,402 @@
+%!TEX program = xelatex
+\PassOptionsToPackage{full}{textcomp}
+\documentclass[lang=en,11pt,a4paper,citestyle=authoryear,nobib=true]{elegantpaper}
+
+\title{HW9 - STAT 709}
+\author{Wells Guan}
+
+\usepackage{array,url,stix}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{subfigure}
+
+\lstset{
+    frame=single,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=6pt
+}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+
+
+\maketitle
+
+\noindent Complete the required reading and all required exercises below.
+Only Exercise 2.38 is optional.
+
+\subsection*{Problem 1. Required reading}
+Vershynin, \textit{High-Dimensional Probability}, second edition
+(online PDF dated October 23, 2026): Sections 2.3 and 2.6--2.9.
+All exercise numbers below refer to this edition.
+
+\par\vspace{0.5em}\noindent\textbf{Reading notes.}\par
+For independent Bernoulli random variables $X_i$, denote
+$S_N=\sum_{i=1}^N X_i$ and $\mu=\E S_N$. We know the Chernoff bound
+\[
+\P(S_N\ge t)\le e^{-\mu}\left(\frac{e\mu}{t}\right)^t,
+\qquad t\ge\mu>0.
+\]
+The same expression bounds $\P(S_N\le t)$ when $0<t\le\mu$.
+
+For a real-valued random variable $Z$, write
+\[
+\norm{Z}_{\psi_2}
+=\inf\{s>0:\E e^{Z^2/s^2}\le2\}.
+\]
+A finite $\psi_2$ norm is equivalent, up to absolute constants, to a
+Gaussian tail bound and to $\norm{Z}_q\le C\norm{Z}_{\psi_2}\sqrt q$
+for every $q\ge1$. If $\E Z=0$, it also gives
+\[
+\E e^{\lambda Z}\le
+\exp\bigl(C\lambda^2\norm{Z}_{\psi_2}^2\bigr),
+\qquad \lambda\in\R.
+\]
+In particular, if $Z_1,\ldots,Z_N$ are independent, mean-zero and
+subgaussian, then
+\[
+\P\left(\left|\sum_{i=1}^N a_iZ_i\right|\ge t\right)
+\le2\exp\left(-\frac{ct^2}
+{\sum_{i=1}^N a_i^2\norm{Z_i}_{\psi_2}^2}\right).
+\]
+
+For subexponential random variables, the corresponding norm is
+\[
+\norm{Z}_{\psi_1}=\inf\{s>0:\E e^{|Z|/s}\le2\}.
+\]
+Notice that $\norm{Z^2}_{\psi_1}=\norm{Z}_{\psi_2}^2$.
+For independent, mean-zero subexponential $Z_i$, Bernstein inequality gives
+\[
+\P\left(\left|\sum_{i=1}^N Z_i\right|\ge t\right)
+\le2\exp\left[
+-c\min\left\{\frac{t^2}{\sum_{i=1}^N\norm{Z_i}_{\psi_1}^2},
+\frac{t}{\max_i\norm{Z_i}_{\psi_1}}\right\}\right].
+\]
+Here $c,C>0$ are absolute constants. In the two tail bounds above,
+the case of a zero denominator is treated separately: the corresponding
+sum is zero almost surely.
+
+\subsection*{Problem 2. Concentration inequalities and Gaussian maxima}
+
+\subsubsection*{Exercise 2.21. Boosting randomized algorithms (required)}
+Imagine we have an algorithm for solving some decision problem, like
+checking if $p$ is prime. Suppose the algorithm makes decisions randomly,
+giving the correct result with probability $\frac12+\epsilon$ for some
+$\epsilon>0$, only slightly better than pure guessing. To improve the
+performance, run the algorithm $N$ times and take the majority vote.
+Show that, for any $\delta\in(0,1)$, the answer is correct with probability
+at least $1-\delta$, as long as
+\[
+N\ge\frac{1}{2\epsilon^2}\ln\left(\frac1\delta\right).
+\]
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+For a fixed input, run the algorithm with independent randomness and
+denote by $X_i$ the indicator that the $i$th answer is correct. We know
+that $X_i$ are independent Bernoulli random variables with mean
+$\frac12+\epsilon$. Denote $S_N=\sum_{i=1}^N X_i$, then
+\[
+\E S_N=N\left(\frac12+\epsilon\right).
+\]
+If $S_N>N/2$, the majority answer is correct. Counting a tie as an error,
+we have by the one-sided Hoeffding inequality
+\[
+\begin{aligned}
+\P(\text{the majority answer is incorrect})
+&\le\P(S_N\le N/2)\\
+&=\P(S_N-\E S_N\le-N\epsilon)\\
+&\le\exp(-2N\epsilon^2).
+\end{aligned}
+\]
+For $N\ge(2\epsilon^2)^{-1}\ln(1/\delta)$, the last expression is at most
+$\delta$, and hence the answer is correct with probability at least
+$1-\delta$.
+\vspace{1em}
+
+\subsubsection*{Exercise 2.14. Chernoff inequality: small deviations (required)}
+Let $X_i$ be independent Bernoulli random variables with parameters $p_i$.
+Consider their sum $S_N=\sum_{i=1}^N X_i$ and denote its mean by
+$\mu=\E S_N$. Show that
+\[
+\P(|S_N-\mu|\ge\delta\mu)
+\le2\exp\left(-\frac{\delta^2\mu}{2+\delta}\right)
+\qquad\text{for every }\delta\ge0.
+\]
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+If $\mu=0$ or $\delta=0$, the right side is $2$ and the result is
+immediate. Assume $\mu>0$ and $\delta>0$. By independence,
+\[
+\begin{aligned}
+\E e^{\lambda S_N}
+&=\prod_{i=1}^N\bigl(1+p_i(e^\lambda-1)\bigr)\\
+&\le\exp\bigl(\mu(e^\lambda-1)\bigr),
+\qquad\lambda\in\R.
+\end{aligned}
+\]
+Taking $\lambda=\ln(1+\delta)>0$ in Markov's inequality gives
+\[
+\P(S_N\ge(1+\delta)\mu)
+\le\exp\left(-\mu\{(1+\delta)\ln(1+\delta)-\delta\}\right).
+\]
+Notice that for $s\ge0$,
+\[
+\frac{d}{ds}\left(\ln(1+s)-\frac{2s}{2+s}\right)
+=\frac{s^2}{(1+s)(2+s)^2}\ge0.
+\]
+The expression in parentheses is zero at $s=0$, and hence
+\[
+(1+\delta)\ln(1+\delta)-\delta
+\ge(1+\delta)\frac{2\delta}{2+\delta}-\delta
+=\frac{\delta^2}{2+\delta}.
+\]
+It follows that
+\[
+\P(S_N-\mu\ge\delta\mu)
+\le\exp\left(-\frac{\delta^2\mu}{2+\delta}\right).
+\]
+
+For $0<\delta<1$, use the same MGF bound with
+$\lambda=\ln(1-\delta)<0$. Since $x\mapsto e^{\lambda x}$ is decreasing,
+Markov's inequality gives
+\[
+\P(S_N\le(1-\delta)\mu)
+\le\exp\left(-\mu\{\delta+(1-\delta)\ln(1-\delta)\}\right).
+\]
+Also,
+\[
+\delta+(1-\delta)\ln(1-\delta)
+=\int_0^\delta-\ln(1-s)\,ds
+\ge\int_0^\delta s\,ds=\frac{\delta^2}{2}.
+\]
+and hence
+\[
+\P(S_N-\mu\le-\delta\mu)
+\le e^{-\delta^2\mu/2}
+\le\exp\left(-\frac{\delta^2\mu}{2+\delta}\right).
+\]
+If $\delta=1$, then
+\[
+\P(S_N\le0)=\prod_{i=1}^N(1-p_i)\le e^{-\mu}\le e^{-\mu/3}.
+\]
+If $\delta>1$, the lower-tail event is empty since $S_N\ge0$.
+Combining the two tails by the union bound, we obtain
+\[
+\P(|S_N-\mu|\ge\delta\mu)
+\le2\exp\left(-\frac{\delta^2\mu}{2+\delta}\right)
+\]
+for every $\delta\ge0$, and we are done.
+\vspace{1em}
+
+\subsubsection*{Exercise 2.38. Maximum of Gaussians (optional)}
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Let $g_1,\ldots,g_N$ be $N(0,1)$ random variables for some $N\ge2$,
+that are not necessarily independent. Prove that
+\[
+\E\max_{i\le N}g_i\le\sqrt{2\ln N},
+\qquad
+\E\max_{i\le N}|g_i|\le\sqrt{2\ln(2N)}.
+\]
+\item Prove that if $g_1,g_2,\ldots$ are independent $N(0,1)$, then
+as $N\to\infty$,
+\[
+\E\max_{i\le N}g_i=\sqrt{2\ln N}\,(1+o(1)),
+\qquad
+\E\max_{i\le N}|g_i|=\sqrt{2\ln N}\,(1+o(1)).
+\]
+\end{enumerate}
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+(a) Denote $M_N=\max_{i\le N}g_i$. For any $\lambda>0$, Jensen's
+inequality gives
+\[
+\begin{aligned}
+e^{\lambda\E M_N}
+&\le\E e^{\lambda M_N}\\
+&\le\sum_{i=1}^N\E e^{\lambda g_i}
+=Ne^{\lambda^2/2},
+\end{aligned}
+\]
+and hence
+\[
+\E M_N\le\frac{\ln N}{\lambda}+\frac{\lambda}{2}.
+\]
+Taking $\lambda=\sqrt{2\ln N}$, we obtain
+$\E M_N\le\sqrt{2\ln N}$.
+
+For $A_N=\max_{i\le N}|g_i|$, notice that
+\[
+e^{\lambda A_N}
+\le\sum_{i=1}^N\bigl(e^{\lambda g_i}+e^{-\lambda g_i}\bigr),
+\]
+and the same argument gives
+\[
+\E A_N\le\frac{\ln(2N)}{\lambda}+\frac{\lambda}{2}
+\le\sqrt{2\ln(2N)}
+\]
+when $\lambda=\sqrt{2\ln(2N)}$. Neither argument uses independence.
+
+\noindent (b) It remains to obtain a lower bound. For $g\sim N(0,1)$ and
+$t\ge1$, we have
+\[
+\begin{aligned}
+\P(g>t)
+&=\frac1{\sqrt{2\pi}}\int_t^\infty e^{-x^2/2}\,dx\\
+&\ge\frac1{t\sqrt{2\pi}}
+\exp\left(-\frac{(t+1/t)^2}{2}\right)\\
+&\ge\frac{c}{t}e^{-t^2/2},
+\end{aligned}
+\]
+where $c=e^{-3/2}/\sqrt{2\pi}>0$. The second line follows by integrating
+only over $[t,t+1/t]$.
+
+For any fixed $\epsilon\in(0,1)$, denote
+$t_N=(1-\epsilon)\sqrt{2\ln N}$. For $N$ sufficiently large, $t_N\ge1$,
+and hence
+\[
+N\P(g>t_N)
+\ge\frac{c}{(1-\epsilon)\sqrt{2\ln N}}\,
+N^{1-(1-\epsilon)^2}\longrightarrow\infty.
+\]
+By independence, we know
+\[
+\P(M_N\le t_N)
+=\bigl(1-\P(g>t_N)\bigr)^N
+\le\exp\bigl(-N\P(g>t_N)\bigr)\longrightarrow0.
+\]
+To pass to expectations, notice that $M_N\ge g_1$ and hence
+$M_N^-\le g_1^-$, where $x^-=\max\{-x,0\}$. It follows that
+\[
+\begin{aligned}
+\E M_N
+&\ge t_N\P(M_N>t_N)-\E M_N^-\\
+&\ge t_N\P(M_N>t_N)-\E g_1^-.
+\end{aligned}
+\]
+Since $\E g_1^-<\infty$, we obtain
+\[
+\liminf_{N\to\infty}\frac{\E M_N}{\sqrt{2\ln N}}\ge1-\epsilon.
+\]
+Letting $\epsilon\downarrow0$ and using (a), we know
+$\E M_N/\sqrt{2\ln N}\to1$. Finally,
+\[
+\E M_N\le\E A_N\le\sqrt{2\ln(2N)},
+\]
+and hence $\E A_N/\sqrt{2\ln N}\to1$ as well.
+
+\newpage
+\subsection*{Problem 3. Subgaussian norms and covariance (required)}
+In this problem, show that a subgaussian norm bound controls the second
+moment, whereas a second-moment bound alone does not imply subgaussianity.
+Use the convention
+\[
+\norm{Z}_{\psi_2}
+=\inf\{t>0:\E\exp(Z^2/t^2)\le2\},
+\qquad\inf\varnothing=\infty.
+\]
+This is equivalent, up to absolute constants, to the moment-based
+convention used in the lecture notes. Here $\norm{\cdot}_{\mathrm{op}}$
+denotes the Euclidean operator norm.
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Let $X$ be a real-valued random variable with $\E X=0$.
+Prove that $\norm{X}_{\psi_2}\le1$ implies that $\operatorname{Var}(X)$
+is bounded by an absolute constant. Give a mean-zero example with
+$\operatorname{Var}(X)\le1$ that is not subgaussian.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+For every $t>1$, the definition of the norm and monotonicity in $t$ give
+$\E e^{X^2/t^2}\le2$. Notice that this also implies $\E X^2<\infty$.
+By Jensen's inequality,
+\[
+\exp\left(\frac{\E X^2}{t^2}\right)
+\le\E e^{X^2/t^2}\le2,
+\]
+and hence $\E X^2\le t^2\ln2$. Letting $t\downarrow1$, we obtain
+\[
+\operatorname{Var}(X)=\E X^2\le\ln2.
+\]
+This argument does not require the infimum in the definition to be attained.
+
+For the converse, consider $Z$ with density
+\[
+f_Z(z)=\frac1{\sqrt2}e^{-\sqrt2|z|},\qquad z\in\R.
+\]
+By symmetry, $\E Z=0$, and
+\[
+\operatorname{Var}(Z)=\E Z^2
+=\sqrt2\int_0^\infty z^2e^{-\sqrt2z}\,dz=1.
+\]
+However, for every $t>0$,
+\[
+\E e^{Z^2/t^2}
+=\sqrt2\int_0^\infty
+\exp\left(\frac{z^2}{t^2}-\sqrt2z\right)\,dz=\infty.
+\]
+For $z\ge2\sqrt2t^2$ the exponent is at least $z^2/(2t^2)$,
+and hence $\norm{Z}_{\psi_2}=\infty$, which gives the required example.
+\vspace{1em}
+
+\newpage
+\item Let $X\in\R^p$ have $\E X=0$, and let
+$S^{p-1}=\{u\in\R^p:\norm{u}_2=1\}$. A random vector is called
+subgaussian when $\sup_{u\in S^{p-1}}\norm{\langle X,u\rangle}_{\psi_2}<\infty$.
+Prove that
+\[
+\sup_{u\in S^{p-1}}\norm{\langle X,u\rangle}_{\psi_2}\le1
+\]
+implies an absolute bound on $\norm{\operatorname{Cov}(X)}_{\mathrm{op}}$,
+independent of $p$. Give a mean-zero example that is not a subgaussian
+random vector but satisfies $\norm{\operatorname{Cov}(X)}_{\mathrm{op}}\le1$.
+
+\par\vspace{0.5em}\noindent\textbf{Sol.}\par
+For every $u\in S^{p-1}$, we know
+$\E\langle X,u\rangle=0$ and
+$\norm{\langle X,u\rangle}_{\psi_2}\le1$. By (1),
+\[
+\E\langle X,u\rangle^2\le\ln2.
+\]
+In particular, taking $u=e_j$ shows that every coordinate has finite
+second moment, so the covariance matrix $\Sigma=\E XX^\top$ is defined.
+It is symmetric and nonnegative definite, and hence
+\[
+\norm{\Sigma}_{\mathrm{op}}
+=\sup_{u\in S^{p-1}}u^\top\Sigma u
+=\sup_{u\in S^{p-1}}\E\langle X,u\rangle^2
+\le\ln2.
+\]
+The constant does not depend on $p$.
+
+For the example, let $Z_1,\ldots,Z_p$ be independent copies of the
+variable $Z$ in (1), and denote $X=(Z_1,\ldots,Z_p)^\top$. Then
+\[
+\E X=0,\qquad\operatorname{Cov}(X)=I_p,
+\qquad\norm{\operatorname{Cov}(X)}_{\mathrm{op}}=1.
+\]
+But $\langle X,e_1\rangle=Z_1$ is not subgaussian, and hence
+\[
+\sup_{u\in S^{p-1}}\norm{\langle X,u\rangle}_{\psi_2}
+\ge\norm{Z_1}_{\psi_2}=\infty.
+\]
+This gives the required vector example.
+\end{enumerate}
+
+\end{document}
